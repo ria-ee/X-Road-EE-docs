@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="github-markdown.css">
+    <style>
+      .markdown-body {
+        box-sizing: border-box;
+        min-width: 200px;
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 45px;
+      }
+    </style>
+    <title>X-Road: Operational Monitoring System Parameters</title>
+  </head>
+  <body>
+    <article class="markdown-body">
+<p><a href="img/eu_regional_development_fund_horizontal_div_15.png" target="_blank"><img src="img/eu_regional_development_fund_horizontal_div_15.png" alt="" title="European Union | European Regional Development Fund | Investing in your future" style="max-width:100%;"></a></p>
+<h1>
+<a id="x-road-operational-monitoring-system-parameters" class="anchor" href="#x-road-operational-monitoring-system-parameters" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>X-Road: Operational Monitoring System Parameters</h1>
+<h1>
+<a id="user-guide" class="anchor" href="#user-guide" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>User Guide</h1>
+<p>Version: 0.4<br>
+Doc ID: UG-OPMONSYSPAR</p>
+<table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Version</th>
+<th>Description</th>
+<th>Author</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>0.2</td>
+<td>Initial version</td>
+<td></td>
+</tr>
+<tr>
+<td>23.01.2017</td>
+<td>0.3</td>
+<td>Added license text, table of contents and version history</td>
+<td>Sami Kallio</td>
+</tr>
+<tr>
+<td>17.03.2017</td>
+<td>0.4</td>
+<td>Added new parameters <em>op-monitor-buffer.connection-timeout-seconds</em> and <em>op-monitor-service.connection-timeout-seconds</em>
+</td>
+<td>Kristo Heero</td>
+</tr>
+</tbody>
+</table>
+<h2>
+<a id="table-of-contents" class="anchor" href="#table-of-contents" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Table of Contents</h2>
+
+<ul>
+<li><a href="#license">License</a></li>
+<li>
+<a href="#1-introduction">1 Introduction</a>
+<ul>
+<li><a href="#11-references">1.1 References</a></li>
+</ul>
+</li>
+<li><a href="#2-operational-monitoring-system-parameters">2 Operational Monitoring System Parameters</a></li>
+</ul>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
+<p>This document is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit <a href="http://creativecommons.org/licenses/by-sa/3.0/">http://creativecommons.org/licenses/by-sa/3.0/</a>.</p>
+<h2>
+<a id="1-introduction" class="anchor" href="#1-introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1 Introduction</h2>
+<p>This document describes the system parameters of the X-Road operational monitoring system components – the operational monitoring daemon, the operational monitoring buffer and the operational monitoring service. Changing the default values of the system parameters is explained in (<a href="#UG-SYSPAR">[UG-SYSPAR]</a>).</p>
+<h3>
+<a id="11-references" class="anchor" href="#11-references" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.1 References</h3>
+<p><a name="UG-SYSPAR"></a><strong>UG-SYSPAR</strong> -- Cybernetica AS. X-Road: System Parameters. Document ID: <a href="../../Manuals/ug-syspar_x-road_v6_system_parameters.md">UG-SYSPAR</a>.<br>
+<a name="UG-SS"></a><strong>UG-SS</strong> -- Cybernetica AS. X-Road: Security Server User Guide. Document ID: <a href="../../Manuals/ug-ss_x-road_6_security_server_user_guide_2.14_Y-883-32.docx">UG-SS</a>.<br>
+<a name="CRON"></a><strong>CRON</strong> -- Quartz Scheduler Cron Trigger Tutorial,  <a href="http://www.quartz-scheduler.org/documentation/quartz-2.2.x/tutorials/crontrigger.html">http://www.quartz-scheduler.org/documentation/quartz-2.2.x/tutorials/crontrigger.html</a></p>
+<h2>
+<a id="2-operational-monitoring-system-parameters" class="anchor" href="#2-operational-monitoring-system-parameters" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2 Operational Monitoring System Parameters</h2>
+<p>This chapter describes the system parameters used by the X-Road operational monitoring system. Changing the parameter values in the configuration file requires restarting of the system services. Managing the system services is explained in (<a href="#UG-SS">[UG-SS]</a>).</p>
+<ul>
+<li>To change the parameter values for the server component <em>op-monitor</em>, the service <em>xroad-opmonitor</em> must be restarted after changing all parameters except <em>op-monitor.tls-certificate</em>.</li>
+<li>The service <em>xroad-proxy</em> must be restarted after changing the parameters:
+<ul>
+<li><em>op-monitor.host</em></li>
+<li><em>op-monitor.port</em></li>
+<li><em>op-monitor.scheme</em></li>
+<li>
+<em>op-monitor.tls-certificate</em>.</li>
+</ul>
+</li>
+</ul>
+<p>When changing the previous parameter values of an external monitoring daemon server, only the service <em>xroad-opmonitor</em> must be restarted.</p>
+<ul>
+<li>To change the parameter values for the server components <em>op-monitor-buffer</em> and <em>op-monitor-service</em>, the service <em>xroad-proxy</em> must be restarted.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Server Component</th>
+<th>Parameter</th>
+<th>Default Value</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>op-monitor</td>
+<td>clean-interval</td>
+<td>0 0 0/12 1/1 * ? *</td>
+<td>CRON expression (<a href="#CRON">[CRON]</a>) defining the interval of deleting any operational data records that are older than <em>op-monitor.keep-records-for-days</em> from the operational monitoring database.</td>
+</tr>
+<tr>
+<td>op-monitor</td>
+<td>client-tls-certificate</td>
+<td>/etc/xroad/ssl/internal.crt</td>
+<td>Absolute filename of the TLS certificate (security server internal certificate) used by the HTTP client sending requests to the operational monitoring daemon. Configured in monitoring daemon server in case an external monitoring daemon is used.</td>
+</tr>
+<tr>
+<td>op-monitor</td>
+<td>health-statistics-period-seconds</td>
+<td>600</td>
+<td>The period for gathering health statistics about services in seconds.</td>
+</tr>
+<tr>
+<td>op-monitor</td>
+<td>host</td>
+<td>localhost</td>
+<td>The host address on which the operational monitoring daemon listens.</td>
+</tr>
+<tr>
+<td>op-monitor</td>
+<td>keep-records-for-days</td>
+<td>7</td>
+<td>Number of days to keep operational data records in the operational monitoring database. If a record is older than this value, the record is deleted from the database.</td>
+</tr>
+<tr>
+<td>op-monitor</td>
+<td>max-records-in-payload</td>
+<td>10000</td>
+<td>Maximum number of operational data records in the operational data response payload.</td>
+</tr>
+<tr>
+<td>op-monitor</td>
+<td>port</td>
+<td>2080</td>
+<td>TCP port on which the operational monitoring daemon listens.</td>
+</tr>
+<tr>
+<td>op-monitor</td>
+<td>records-available-timestamp-offset-seconds</td>
+<td>60</td>
+<td>The offset used to calculate the timestamp to which the operational data records are available in seconds. Only records with earlier timestamp than <em>'currentSeconds - offset'</em> are available.</td>
+</tr>
+<tr>
+<td>op-monitor</td>
+<td>scheme</td>
+<td>http</td>
+<td>The URI scheme name of the operational monitoring daemon. Possible values are <em>http</em> and <em>https</em>.</td>
+</tr>
+<tr>
+<td>op-monitor</td>
+<td>tls-certificate</td>
+<td>/etc/xroad/ssl/opmonitor.crt</td>
+<td>Absolute filename of the operational monitoring daemon TLS certificate. Configured in security server in case an external monitoring daemon is used.</td>
+</tr>
+<tr>
+<td>op-monitor-buffer</td>
+<td>connection-timeout-seconds</td>
+<td>30</td>
+<td>HTTP client connection timeout in seconds.</td>
+</tr>
+<tr>
+<td>op-monitor-buffer</td>
+<td>max-records-in-message</td>
+<td>100</td>
+<td>Maximum number of operational data records in a message sent by the operational monitoring buffer to the operational monitoring daemon.</td>
+</tr>
+<tr>
+<td>op-monitor-buffer</td>
+<td>sending-interval-seconds</td>
+<td>5</td>
+<td>The interval in seconds at which the operational monitoring buffer tries to send records to the operational monitoring daemon.</td>
+</tr>
+<tr>
+<td>op-monitor-buffer</td>
+<td>socket-timeout-seconds</td>
+<td>60</td>
+<td>The socket timeout (<em>SO_TIMEOUT</em>) of sending operational monitoring records from the operational monitoring buffer to the operational monitoring daemon in seconds.</td>
+</tr>
+<tr>
+<td>op-monitor-buffer</td>
+<td>size</td>
+<td>20000</td>
+<td>Maximum size of operational monitoring buffer. In case buffer size &lt; 1, operational monitoring data is not stored and sent to the operational monitoring daemon.</td>
+</tr>
+<tr>
+<td>op-monitor-service</td>
+<td>connection-timeout-seconds</td>
+<td>30</td>
+<td>HTTP client connection timeout in seconds.</td>
+</tr>
+<tr>
+<td>op-monitor-service</td>
+<td>socket-timeout-seconds</td>
+<td>60</td>
+<td>The socket timeout (<em>SO_TIMEOUT</em>) of sending the operational data request to the operational monitoring daemon in seconds.</td>
+</tr>
+</tbody>
+</table>
+    </article>
+  </body>
+</html>
