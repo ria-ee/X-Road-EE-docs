@@ -1,6 +1,6 @@
 ![](img/eu_regional_development_fund_horizontal_div_15.png "European Union | European Regional Development Fund | Investing in your future")
 
-# Security Server Installation Guide
+# X-Road: Security Server Installation Guide
 
 **X-ROAD 6**
 

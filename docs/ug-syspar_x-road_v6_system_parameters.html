@@ -19,7 +19,7 @@
 <p><a href="img/eu_regional_development_fund_horizontal_div_15.png" target="_blank"><img src="img/eu_regional_development_fund_horizontal_div_15.png" alt="" title="European Union | European Regional Development Fund | Investing in your future" style="max-width:100%;"></a></p>
 <h1>
 <a id="x-road-system-parameters-user-guide" class="anchor" href="#x-road-system-parameters-user-guide" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>X-Road: System Parameters User Guide</h1>
-<p>Version: 2.14<br>
+<p>Version: 2.20<br>
 Doc. ID: UG-SYSPAR</p>
 <table>
 <thead>
@@ -92,13 +92,13 @@ Doc. ID: UG-SYSPAR</p>
 <td>Kristo Heero</td>
 </tr>
 <tr>
-<td>8.12.2015</td>
+<td>08.12.2015</td>
 <td>2.6</td>
 <td>New parameters for configuring signature algorithms and key length, proxy client-side TLS protocols, and software token pin policy</td>
 <td>Jarkko Hyöty</td>
 </tr>
 <tr>
-<td>8.12.2015</td>
+<td>08.12.2015</td>
 <td>2.7</td>
 <td>Added parameters for toggling SOAP body logging on/off</td>
 <td>Janne Mattila</td>
@@ -130,7 +130,7 @@ Doc. ID: UG-SYSPAR</p>
 <tr>
 <td>02.11.2016</td>
 <td>2.12</td>
-<td>Fix ocspFreshnessSeconds description in system parameters document.</td>
+<td>Fix ocspFreshnessSeconds description in system parameters document</td>
 <td>Ilkka Seppälä</td>
 </tr>
 <tr>
@@ -144,6 +144,44 @@ Doc. ID: UG-SYSPAR</p>
 <td>2.14</td>
 <td>Added license text and version history</td>
 <td>Sami Kallio</td>
+</tr>
+<tr>
+<td>08.02.2017</td>
+<td>2.15</td>
+<td>Updated documentation with new environmental monitoring parameters describing sensor intervals</td>
+<td>Sami Kallio</td>
+</tr>
+<tr>
+<td>23.02.2017</td>
+<td>2.16</td>
+<td>Added documentation for OCSP-response retrieval deactivation parameter</td>
+<td>Tatu Repo</td>
+</tr>
+<tr>
+<td>03.03.2017</td>
+<td>2.17</td>
+<td>Added new parameter <em>jetty-ocsp-responder-configuration-file</em>
+</td>
+<td>Kristo Heero</td>
+</tr>
+<tr>
+<td>07.03.2017</td>
+<td>2.18</td>
+<td>Added new parameters <em>ocsp-responder-client-connect-timeout</em> and <em>ocsp-responder-client-read-timeout</em>
+</td>
+<td>Kristo Heero</td>
+</tr>
+<tr>
+<td>11.04.2017</td>
+<td>2.19</td>
+<td>Changed default values of the proxy parameter <em>client-timeout</em> to <em>30000</em>, <em>client-use-fastest-connecting-ssl-socket-autoclose</em> and <em>client-use-idle-connection-monitor</em> to <em>true</em>. Added new messagelog parameters <em>timestamper-client-connect-timeout</em> and <em>timestamper-client-read-timeout</em>. Changed default value of the proxy parameter <em>pool-validate-connections-after-inactivity-of-millis</em> to <em>2000</em>.</td>
+<td>Kristo Heero</td>
+</tr>
+<tr>
+<td>06.06.2017</td>
+<td>2.20</td>
+<td>Removed parameter <em>default-signature-algorithm</em>, replaced parameters <em>csr-signature-algorithm</em> with <em>csr-signature-digest-algorithm</em>, <em>signature-algorithm-id</em> with <em>signature-digest-algorithm-id</em>, and <em>confSignAlgoId</em> with <em>confSignDigestAlgoId</em>. Added new proxy-ui parameter <em>auth-cert-reg-signature-digest-algorithm-id</em>.</td>
+<td>Kristo Heero</td>
 </tr>
 </tbody>
 </table>
@@ -277,12 +315,6 @@ server-listen-port=20000
 <td>Absolute path to the directory where temporary files are stored.</td>
 </tr>
 <tr>
-<td>common</td>
-<td>default-signature-algorithm</td>
-<td>SHA1withRSA</td>
-<td>Global default digital signature algorithm. Possible values: <br>-   SHA1withRSA<br>-   SHA256withRSA <br>-   SHA384withRSA <br>-   SHA512withRSA <br> (since version 6.7)</td>
-</tr>
-<tr>
 <td>proxy</td>
 <td>client-http-port</td>
 <td>80 <br> 8080 (RHEL)</td>
@@ -297,8 +329,8 @@ server-listen-port=20000
 <tr>
 <td>proxy</td>
 <td>client-timeout</td>
-<td>300000</td>
-<td>Defines the time period (in milliseconds), for which the service client's security server tries to connect to the service provider's security server. When the timeout is reached, the service client's security server informs the service client's information system that a service timeout has occurred.<br>Finnish default is 30s (30000) instead of 5 minutes.</td>
+<td>30000</td>
+<td>Defines the time period (in milliseconds), for which the service client's security server tries to connect to the service provider's security server. When the timeout is reached, the service client's security server informs the service client's information system that a service timeout has occurred.</td>
 </tr>
 <tr>
 <td>proxy</td>
@@ -322,7 +354,7 @@ server-listen-port=20000
 <td>proxy</td>
 <td>enforce-token-pin-policy</td>
 <td>false</td>
-<td>Controls enforcing the token pin policy. When set to true, software token pin is required to be at least 10 ASCII characters from at least tree character classes (lowercase letters, uppercase letters, digits, special characters).                                                                                                                  (since version 6.7.7)</td>
+<td>Controls enforcing the token pin policy. When set to true, software token pin is required to be at least 10 ASCII characters from at least tree character classes (lowercase letters, uppercase letters, digits, special characters). (since version 6.7.7)</td>
 </tr>
 <tr>
 <td>proxy</td>
@@ -341,6 +373,18 @@ server-listen-port=20000
 <td>ocsp-responder-port</td>
 <td>5577</td>
 <td>TCP port on which the service provider's security server listens for requests for OCSP responses from the service client's security server. The service client's security server downloads OCSP responses from the service provider's security server while establishing a secure connection between the security servers.</td>
+</tr>
+<tr>
+<td>proxy</td>
+<td>ocsp-responder-client-connect-timeout</td>
+<td>20000</td>
+<td>Connect timeout (in milliseconds) of the OCSP responder client. The service client's security server downloads OCSP responses from the service provider's security server while establishing a secure connection between the security servers.</td>
+</tr>
+<tr>
+<td>proxy</td>
+<td>ocsp-responder-client-read-timeout</td>
+<td>30000</td>
+<td>Read timeout (in milliseconds) of the OCSP responder client. The service client's security server downloads OCSP responses from the service provider's security server while establishing a secure connection between the security servers.</td>
 </tr>
 <tr>
 <td>proxy</td>
@@ -374,6 +418,12 @@ server-listen-port=20000
 </tr>
 <tr>
 <td>proxy</td>
+<td>jetty-ocsp-responder-configuration-file</td>
+<td>/etc/xroad/jetty/ocsp-responder.xml</td>
+<td>Absolute filename of the Jetty configuration file for the OCSP responder of the service provider's security server. For more information about configuring Jetty server, see <a href="https://wiki.eclipse.org/Jetty/Reference/jetty.xml%5C_usage">https://wiki.eclipse.org/Jetty/Reference/jetty.xml\_usage</a>.</td>
+</tr>
+<tr>
+<td>proxy</td>
 <td>ssl-enabled</td>
 <td>true</td>
 <td>If true, TLS is used for connections between the service client's and service provider's security servers.</td>
@@ -393,7 +443,7 @@ server-listen-port=20000
 <tr>
 <td>proxy</td>
 <td>server-connector-max-idle-time</td>
-<td>0</td>
+<td>0 (overridden to 120000 in Finnish installation)</td>
 <td>The maximum time (in milliseconds) that connections from a service consuming security server to a service providing security server are allowed to be idle before the provider security server starts closing them. Value of 0 means that an infinite idle time is allowed. A non-zero value should allow some time for a pooled connection to be idle, if  pooled connections are to be supported.</td>
 </tr>
 <tr>
@@ -401,6 +451,12 @@ server-listen-port=20000
 <td>server-connector-so-linger</td>
 <td>0</td>
 <td>The SO_LINGER time (in seconds) at the service providing security server end for connections between security servers.<br>A value larger than 0 means that upon closing a connection, the system will allow SO_LINGER seconds for the transmission and acknowledgement of all data written to the peer, at which point the socket is closed gracefully. Upon reaching the linger timeout, the socket is closed forcefully, with a TCP RST. Enabling the option with a timeout of zero does a forceful close immediately.<br>Value of -1 disables the forceful close.</td>
+</tr>
+<tr>
+<td>proxy</td>
+<td>server-support-clients-pooled-connections</td>
+<td>false  (overridden to true in Finnish installation)</td>
+<td>Whether this service providing security server supports pooled connections from the service consumer side. If set to <em>false</em>, connections are to be closed immediately after each message. This may be a wanted approached for security servers behind load balancers.</td>
 </tr>
 <tr>
 <td>proxy</td>
@@ -417,7 +473,7 @@ server-listen-port=20000
 <tr>
 <td>proxy</td>
 <td>client-httpclient-timeout</td>
-<td>300000</td>
+<td>0</td>
 <td>The maximum time (SO_TIMEOUT, in milliseconds) that connections from a service consuming security server to a service providing security server are allowed to wait for a response before the consumer end httpclient gives up. Value of 0 means that an infinite wait time is allowed. This does not affect idle connections.</td>
 </tr>
 <tr>
@@ -429,7 +485,7 @@ server-listen-port=20000
 <tr>
 <td>proxy</td>
 <td>client-use-idle-connection-monitor</td>
-<td>false</td>
+<td>true</td>
 <td>Should the idle connection monitor be used to clean up idle and expired connections from the connection pool.</td>
 </tr>
 <tr>
@@ -459,19 +515,19 @@ server-listen-port=20000
 <tr>
 <td>proxy</td>
 <td>pool-validate-connections-after-inactivity-of-millis</td>
-<td>-1</td>
+<td>2000</td>
 <td>When reusing a pooled connection to a service providing security server, check that the connection (the socket) is not half-closed if it has been idle for at least this many milliseconds. This method cannot detect half-open connections. Value of -1 disables the check.</td>
 </tr>
 <tr>
 <td>proxy</td>
 <td>pool-enable-connection-reuse</td>
-<td>false</td>
-<td>Allow pooled connections between security servers to be used more than once. This setting needs to be enabled on both ends for connection pooling to work on the service consuming security server.</td>
+<td>false  (overridden to true in Finnish installation)</td>
+<td>Allow pooled connections between security servers to be used more than once on the client side. The service provider end of the connections has to have the setting <code>server-support-clients-pooled-connections=true</code> for the pooling to work between a provider and consumer security servers.</td>
 </tr>
 <tr>
 <td>proxy</td>
 <td>client-use-fastest-connecting-ssl-socket-autoclose</td>
-<td>false</td>
+<td>true</td>
 <td>On TLS connections between security servers, should the underlying TCP-layer connection (socket) be closed on the service consumer end when the TLS layer connection is terminated.</td>
 </tr>
 <tr>
@@ -481,10 +537,34 @@ server-listen-port=20000
 <td>When a service consumer's security server finds the fastest responding service providing security server, should the result be saved in the TLS session cache?</td>
 </tr>
 <tr>
+<td>proxy</td>
+<td>health-check-port</td>
+<td>0 (disabled)</td>
+<td>The TCP port where the health check service listens to requests. Setting the port to 0 disables the health check service completely.</td>
+</tr>
+<tr>
+<td>proxy</td>
+<td>health-check-interface</td>
+<td>0.0.0.0</td>
+<td>The network interface where the health check service listens to requests. Default is all available interfaces.</td>
+</tr>
+<tr>
+<td>proxy</td>
+<td>actorsystem-port</td>
+<td>5567</td>
+<td>The (localhost) port where the proxy actorsystem binds to. Used for communicating with xroad-signer and xroad-monitor.</td>
+</tr>
+<tr>
 <td>proxy-ui</td>
-<td><em>wsdl-validator-command</em></td>
+<td>wsdl-validator-command</td>
 <td></td>
 <td>The command to validate the given X-Road service WSDL. The command script must:<br>a) read the WSDL from the standard input (<em>stdin</em>),<br>b) return exit code 0 on success,<br>c) return exit code 0 and write warnings to the standard error (<em>stderr</em>), if warnings occurs,<br>d) return exit code other then 0 and write error messages to the standard error (<em>stderr</em>), if errors occurs.<br>Defaults to no operation.</td>
+</tr>
+<tr>
+<td>proxy-ui</td>
+<td>auth-cert-reg-signature-digest-algorithm-id</td>
+<td>SHA-512</td>
+<td>Signature digest algorithm used for generating authentication certificate registration request.<br>Possible values are<br>-   SHA-256,<br>-   SHA-384,<br>-   SHA-512.</td>
 </tr>
 <tr>
 <td>signer</td>
@@ -518,9 +598,9 @@ server-listen-port=20000
 </tr>
 <tr>
 <td>signer</td>
-<td>csr-signature-algorithm</td>
-<td>(see common.default-signature-algorithm)</td>
-<td>Certificate Signing Request signature algorithm. If not specified, same as common default. (since version 6.7)</td>
+<td>csr-signature-digest-algorithm</td>
+<td>SHA-256</td>
+<td>Certificate Signing Request signature digest algorithm.<br>Possible values are<br>-   SHA-256,<br>-   SHA-384,<br>-   SHA-512.</td>
 </tr>
 <tr>
 <td>anti-dos</td>
@@ -655,10 +735,46 @@ server-listen-port=20000
 <td>Maximum number of message records to time-stamp in one batch.</td>
 </tr>
 <tr>
-<td>monitor</td>
+<td>message-log</td>
+<td>timestamper-client-connect-timeout</td>
+<td>20000</td>
+<td>The timestamper client connect timeout in milliseconds. A timeout of zero is interpreted as an infinite timeout.</td>
+</tr>
+<tr>
+<td>message-log</td>
+<td>timestamper-client-read-timeout</td>
+<td>60000</td>
+<td>The timestamper client read timeout in milliseconds. A timeout of zero is interpreted as an infinite timeout.</td>
+</tr>
+<tr>
+<td>message-log</td>
+<td>archive-transaction-batch</td>
+<td>10000</td>
+<td>Size of transaction batch for archiving messagelog. This size is not exact because it will always make sure that last archived batch includes timestamp also (this might mean that it will go over transaction size).</td>
+</tr>
+<tr>
+<td>env-monitor</td>
 <td>port</td>
 <td>2552</td>
 <td>TCP port number used in communications with xroad-proxy and xroad-monitor components.</td>
+</tr>
+<tr>
+<td>env-monitor</td>
+<td>system-metrics-sensor-interval</td>
+<td>5</td>
+<td>Interval of systems metrics sensor in seconds. How often system metrics data is collected.</td>
+</tr>
+<tr>
+<td>env-monitor</td>
+<td>disk-space-sensor-interval</td>
+<td>60</td>
+<td>Interval of disk space sensor in seconds. How often disk space data is collected.</td>
+</tr>
+<tr>
+<td>env-monitor</td>
+<td>exec-listing-sensor-interval</td>
+<td>60</td>
+<td>Interval of exec listing sensor in seconds. How often sensor data using external command are collected.</td>
 </tr>
 </tbody>
 </table>
@@ -672,19 +788,13 @@ server-listen-port=20000
 <table>
 <thead>
 <tr>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
+<th><strong>Server component</strong></th>
+<th><strong>Name</strong></th>
+<th><strong>Default value</strong></th>
+<th><strong>Description</strong></th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td><strong>Server component</strong></td>
-<td><strong>Name</strong></td>
-<td><strong>Default value</strong></td>
-<td><strong>Description</strong></td>
-</tr>
 <tr>
 <td>common</td>
 <td>temp-files-path</td>
@@ -733,6 +843,13 @@ server-listen-port=20000
 <td>2</td>
 <td>Minimum supported global configuration version on central server. Change this if old global configuration versions need to be supported.</td>
 </tr>
+<tr>
+<td>signer</td>
+<td>ocsp-response-retrieval-active</td>
+<td>false <br> <em>(see Description for more information)</em>
+</td>
+<td>This property is used as an override to deactivate periodic OCSP-response retrieval for components that don't need that functionality, but still use signer. <br><br> Values: <br> <code>false</code> - OCSP-response retrieval jobs are never scheduled <br> <code>true</code> - periodic OCSP-response retrieval is active based on ocspFetchInterval. <strong>Note that if the entire property is missing, it is interpreted as true.</strong> <br><br>  This property is delivered as an override and only for the components where the OCSP-response retrieval jobs need to be deactivated. The property is missing for components that require OCSP-response retrieval to be activated.</td>
+</tr>
 </tbody>
 </table>
 <h2>
@@ -741,19 +858,13 @@ server-listen-port=20000
 <table>
 <thead>
 <tr>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
+<th><strong>Name</strong></th>
+<th><strong>Value type</strong></th>
+<th><strong>Default value</strong></th>
+<th><strong>Description</strong></th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td><strong>Name</strong></td>
-<td><strong>Value type</strong></td>
-<td><strong>Default value</strong></td>
-<td><strong>Description</strong></td>
-</tr>
 <tr>
 <td>confExpireIntervalSeconds</td>
 <td>integer</td>
@@ -767,10 +878,10 @@ server-listen-port=20000
 <td>URI of the algorithm used for calculating the hash values of the global configuration files.<br>Possible values are<br><a href="http://www.w3.org/2001/04/xmlenc#sha256">http://www.w3.org/2001/04/xmlenc#sha256</a>,<br><a href="http://www.w3.org/2001/04/xmlenc#sha512">http://www.w3.org/2001/04/xmlenc#sha512</a>.</td>
 </tr>
 <tr>
-<td>confSignAlgoId</td>
+<td>confSignDigestAlgoId</td>
 <td>string</td>
-<td>SHA512withRSA</td>
-<td>Identifier of the algorithm used for signing the global configuration.<br>Possible values are<br>-   SHA256withRSA,<br>-   SHA384withRSA,<br>-   SHA512withRSA.</td>
+<td>SHA-512</td>
+<td>Identifier of the digest algorithm used for signing the global configuration.<br>Possible values are<br>-   SHA-256,<br>-   SHA-384,<br>-   SHA-512.</td>
 </tr>
 <tr>
 <td>confSignCertHashAlgoUri</td>
@@ -809,19 +920,13 @@ server-listen-port=20000
 <table>
 <thead>
 <tr>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
+<th><strong>Server component</strong></th>
+<th><strong>Name</strong></th>
+<th><strong>Default value</strong></th>
+<th><strong>Description</strong></th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td><strong>Server component</strong></td>
-<td><strong>Name</strong></td>
-<td><strong>Default value</strong></td>
-<td><strong>Description</strong></td>
-</tr>
 <tr>
 <td>configuration-proxy</td>
 <td>address</td>
@@ -842,9 +947,9 @@ server-listen-port=20000
 </tr>
 <tr>
 <td>configuration-proxy</td>
-<td>signature-algorithm-id</td>
-<td>SHA512withRSA</td>
-<td>ID of the algorithm the configuration proxy uses when computing global configuration signatures.<br><br>The possible values are<br>-   SHA256withRSA,<br>-   SHA384withRSA,<br>-   SHA512withRSA.</td>
+<td>signature-digest-algorithm-id</td>
+<td>SHA-512</td>
+<td>ID of the digest algorithm the configuration proxy uses when computing global configuration signatures.<br>The possible values are<br>-   SHA-256,<br>-   SHA-384,<br>-   SHA-512.</td>
 </tr>
 <tr>
 <td>configuration-proxy</td>
@@ -864,6 +969,13 @@ server-listen-port=20000
 <td>minimum-global-configuration-version</td>
 <td>2</td>
 <td>Minimum supported global configuration version on configuration proxy. Change this if old global configuration versions need to be supported.</td>
+</tr>
+<tr>
+<td>signer</td>
+<td>ocsp-response-retrieval-active</td>
+<td>false <br> <em>(see Description for more information)</em>
+</td>
+<td>This property is used as an override to deactivate periodic OCSP-response retrieval for components that don't need that functionality, but still use signer. <br><br> Values: <br> <code>false</code> - OCSP-response retrieval jobs are never scheduled <br> <code>true</code> - periodic OCSP-response retrieval is active based on ocspFetchInterval. <strong>Note that if the entire property is missing, it is interpreted as true.</strong> <br><br>  This property is delivered as an override and only for the components where the OCSP-response retrieval jobs need to be deactivated. The property is missing for components that require OCSP-response retrieval to be activated.</td>
 </tr>
 </tbody>
 </table>

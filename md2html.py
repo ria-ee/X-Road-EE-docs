@@ -50,6 +50,6 @@ def md2html(htmltitle, infile, outfile):
 md2html("X-Road: Security Server Installation Guide", "md/ig-ss_x-road_v6_security_server_installation_guide.md", "docs/ig-ss_x-road_v6_security_server_installation_guide.html")
 md2html("X-Road: Protocol for Downloading Configuration", "md/pr-gconf_x-road_protocol_for_downloading_configuration.md", "docs/pr-gconf_x-road_protocol_for_downloading_configuration.html")
 md2html("X-Road: Message Protocol v4.0", "md/pr-mess_x-road_message_protocol.md", "docs/pr-mess_x-road_message_protocol.html")
-# Not converted yet in that version
-#md2html("X-Road: Security Server User Guide", "md/ug-ss_x-road_6_security_server_user_guide.md", "docs/ug-ss_x-road_6_security_server_user_guide.html")
+md2html("X-Road: Security Server Targeting Extension for the X-Road Message Protocol", "md/pr-targetss_security_server_targeting_extension_for_the_x-road_protocol.md", "docs/pr-targetss_security_server_targeting_extension_for_the_x-road_protocol.html")
+md2html("X-Road: Security Server User Guide", "md/ug-ss_x-road_6_security_server_user_guide.md", "docs/ug-ss_x-road_6_security_server_user_guide.html")
 md2html("X-Road: System Parameters User Guide", "md/ug-syspar_x-road_v6_system_parameters.md", "docs/ug-syspar_x-road_v6_system_parameters.html")
