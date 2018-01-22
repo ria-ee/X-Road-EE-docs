@@ -304,10 +304,11 @@ If the configuration is successfully downloaded, the system asks for the followi
         **"NTRCONTRYCODE-ORGANISAZIONREGISTRYCODE"** - without whitespaces
 
         Where:
-        1. "NTR" - Prefix of the legal entity identifier according to ETSI EN 319 412-1 clause 5.1.4.
-        2. COUNTRY CODE - Country code according to ISO 3166 (Alpha 2)
-        3. `-` hyphen
-        4.  REGISTRY CODE - Organizational registry code in the organization's country.
+        * "NTR" - Prefix of the legal entity identifier according to ETSI EN 319 412-1 clause 5.1.4.
+        * COUNTRY CODE - Country code according to ISO 3166 (Alpha 2)
+        * `-` hyphen
+        * REGISTRY CODE - Organizational registry code in the organization's country.
+
         Example:
         * Lexbyte Digital Limited, a registered organization in Malta
         * Member Name: **Lexbyte Digital Limited**
