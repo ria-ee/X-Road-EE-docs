@@ -298,8 +298,11 @@ If the configuration is successfully downloaded, the system asks for the followi
 -   The security server owner’s member code (**reference data: 2.3**).
     If the member class and member code are correctly entered, the system displays the security server owner’s name as registered in the X-Road center.
     - **NB! If the security server owner  or hosted client is a foreign organization (not Estonian), then the "NEE" Member Class must be selected in the security server.**
+
     The Member Code must be formed as follows:
+
     **"NTRCONTRYCODE-ORGANISAZIONREGISTRYCODE"** - without whitespaces
+
     Where:
         1. "NTR" - Prefix of the legal entity identifier according to ETSI EN 319 412-1 clause 5.1.4.
         2. COUNTRY CODE - Country code according to ISO 3166 (Alpha 2)
