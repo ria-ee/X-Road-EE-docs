@@ -299,21 +299,20 @@ If the configuration is successfully downloaded, the system asks for the followi
     If the member class and member code are correctly entered, the system displays the security server owner’s name as registered in the X-Road center.
     - **NB! If the security server owner  or hosted client is a foreign organization (not Estonian), then the "NEE" Member Class must be selected in the security server.**
 
-    The Member Code must be formed as follows:
+        The Member Code must be formed as follows:
 
-    **"NTRCONTRYCODE-ORGANISAZIONREGISTRYCODE"** - without whitespaces
+        **"NTRCONTRYCODE-ORGANISAZIONREGISTRYCODE"** - without whitespaces
 
-    Where:
-        1. "NTR" - Prefix of the legal entity identifier according to ETSI EN 319 412-1 clause 5.1.4.
-        2. COUNTRY CODE - Country code according to ISO 3166 (Alpha 2)
-        3. `-` hyphen
-        4.  REGISTRY CODE - Organizational registry code in the organization's country
-
+        Where:
+            1. "NTR" - Prefix of the legal entity identifier according to ETSI EN 319 412-1 clause 5.1.4.
+            2. COUNTRY CODE - Country code according to ISO 3166 (Alpha 2)
+            3. `-` hyphen
+            4.  REGISTRY CODE - Organizational registry code in the organization's country.
         Example:
-        Lexbyte Digital Limited, a registered organization in Malta
-        Member Name: **Lexbyte Digital Limited**
-        Member Class: **NEE**
-        Member Code: **NTRMT-C56249**
+        * Lexbyte Digital Limited, a registered organization in Malta
+        * Member Name: **Lexbyte Digital Limited**
+        * Member Class: **NEE**
+        * Member Code: **NTRMT-C56249**
 
         Such requirements to the NEE Member Code are necessary to ensure the uniqueness of the Member Code of foreign organizations on X-Road (X-tee). In addition, the Member Code of X-Road members must correspond to the Organization Identifier (2.5.4.97) field in the SK ID Solutions AS e-Seal certificate profile.
 
