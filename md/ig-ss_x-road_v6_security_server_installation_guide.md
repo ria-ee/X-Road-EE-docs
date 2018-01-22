@@ -29,6 +29,7 @@ Doc. ID: IG-SS
  07.12.2016 | 2.6     | Added operational data monitoring packages. 2 GB RAM -&gt; 3 GB RAM |
  23.02.2017 | 2.7     | Converted to Github flavoured Markdown, added license text, adjusted tables for better output in PDF | Toomas Mölder
  13.04.2017 | 2.8     | Added token ID formatting                                       | Cybernetica AS
+ 22.01.2018 | 2.8.1   | Added NEE and NGO member classes                                | Jürgen Šuvalov
 
 ## Table of Contents
 
@@ -270,7 +271,7 @@ The security server code and the software token’s PIN will be determined durin
  Ref  |                                                   | Explanation
  ---- | ------------------------------------------------- | --------------------------------------------------
  2.1  | <http://x-road.eu/packages/>&lt;anchor file&gt;<br> ee-dev - development environment<br> ee-test - test environment<br> EE - production environment | Global configuration anchor file
- 2.2  | GOV - government<br> COM - commercial             | Member class of the security server's owner
+ 2.2  | GOV - government<br> COM - commercial<br> NGO - non-profit<br> NEE - not Estonian | Member class of the security server's owner
  2.3  | &lt;security server owner register code&gt;       | Member code of the security server's owner
  2.4  | &lt;choose security server identificator name&gt; | Security server's code
  2.5  | &lt;choose PIN for software token&gt;             | Software token’s PIN
@@ -296,6 +297,27 @@ If the configuration is successfully downloaded, the system asks for the followi
 
 -   The security server owner’s member code (**reference data: 2.3**).
     If the member class and member code are correctly entered, the system displays the security server owner’s name as registered in the X-Road center.
+    - **NB! If the security server owner  or hosted client is a foreign organization (not Estonian), then the "NEE" Member Class must be selected in the security server.**
+    The Member Code must be formed as follows:
+    **"NTRCONTRYCODE-ORGANISAZIONREGISTRYCODE"** - without whitespaces
+    Where:
+        1. "NTR" - Prefix of the legal entity identifier according to ETSI EN 319 412-1 clause 5.1.4.
+        2. COUNTRY CODE - Country code according to ISO 3166 (Alpha 2)
+        3. `-` hyphen
+        4.  REGISTRY CODE - Organizational registry code in the organization's country
+
+        Example:
+        Lexbyte Digital Limited, a registered organization in Malta
+        Member Name: **Lexbyte Digital Limited**
+        Member Class: **NEE**
+        Member Code: **NTRMT-C56249**
+
+        Such requirements to the NEE Member Code are necessary to ensure the uniqueness of the Member Code of foreign organizations on X-Road (X-tee). In addition, the Member Code of X-Road members must correspond to the Organization Identifier (2.5.4.97) field in the SK ID Solutions AS e-Seal certificate profile.
+
+        References:
+        * SK ID Solutions AS certificate profile: https://sk.ee/upload/files/SK-CPR-KLASS3-EN-v8_0-20171130.pdf
+        * ETSI EN 319 412-1: http://www.etsi.org/deliver/etsi_en/319400_319499/31941201/01.01.00_30/en_31941201v010100v.pdf  
+        * Alpha 2 country code: https://www.iso.org/obp/ui/#search  
 
 -   Security server code (**reference data: 2.4**), which is chosen by the security server administrator and which has to be unique across all the security servers belonging to the same X-Road member.
 
@@ -397,4 +419,3 @@ Sometimes, after using `sudo apt-get upgrade` command, some of the packages are 
 To be sure that packages are installed correctly please use `sudo apt upgrade` or `sudo apt-get dist-upgrade` commands.
 
 Please note that `xroad-jetty9 package` version can be different from other packages’ versions.
-
