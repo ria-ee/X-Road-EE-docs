@@ -45,6 +45,7 @@ Doc. ID: UG-SS
  04.01.2016 | 2.14    | Corrections in Chapter [15.2.5](#1525-configuring-an-external-operational-monitoring-daemon-and-the-corresponding-security-server)
  20.02.2017 | 2.15    | Converted to Github flavoured Markdown, added license text, adjusted tables for better output in PDF | Toomas Mölder
  16.03.2017 | 2.16    | Added observer role to Chapters [2.1](#21-user-roles) and [2.2](#22-managing-the-users) | Tatu Repo
+ 22.01.2018 | 2.16.1  | Added NEE member class info [4.2](#42-adding-a-security-server-client)| Jürgen Šuvalov
 
 ## Table of Contents
 
@@ -557,6 +558,31 @@ Follow these steps.
 3.  Click **OK** once the client’s information has been entered.
 
 The new client is added to the list of security server clients in the "Saved" state.
+
+**NB! If the security server owner  or hosted client is a foreign organization (not Estonian), then the "NEE" Member Class must be selected in the security server.**
+
+The Member Code must be formed as follows:
+
+**"NTRCONTRYCODE-ORGANISAZIONREGISTRYCODE"** - without whitespaces
+
+Where:
+* "NTR" - Prefix of the legal entity identifier according to ETSI EN 319 412-1 clause 5.1.4.
+* COUNTRY CODE - Country code according to ISO 3166 (Alpha 2)
+* `-` hyphen
+* REGISTRY CODE - Organizational registry code in the organization's country.
+
+Example:
+* Lexbyte Digital Limited, a registered organization in Malta
+* Member Name: **Lexbyte Digital Limited**
+* Member Class: **NEE**
+* Member Code: **NTRMT-C56249**
+
+Such requirements to the NEE Member Code are necessary to ensure the uniqueness of the Member Code of foreign organizations on X-Road (X-tee). In addition, the Member Code of X-Road members must correspond to the Organization Identifier (2.5.4.97) field in the SK ID Solutions AS e-Seal certificate profile.
+
+References:
+* SK ID Solutions AS certificate profile: https://sk.ee/upload/files/SK-CPR-KLASS3-EN-v8_0-20171130.pdf
+* ETSI EN 319 412-1: http://www.etsi.org/deliver/etsi_en/319400_319499/31941201/01.01.00_30/en_31941201v010100v.pdf  
+* Alpha 2 country code: https://www.iso.org/obp/ui/#search  
 
 
 ### 4.3 Configuring a Signing Key and Certificate for a Security Server Client
@@ -1507,7 +1533,7 @@ On this page you can examine the statuses of the following services:
  Global configuration | Green/yellow/red | Status message | The time of the global configuration client’s last run | The estimated time of the global configuration client’s next run
  Timestamping         | Green/yellow/red | Status message | The time of the last timestamping operation            | Not used                                   
  OCSP-responders      | Green/yellow/red | Status message | The time of the last contact with the OCSP-responder   | The latest possible time for the next OCSP-refresh
- 
+
 To refresh the service statuses click the **Diagnostics** item on the **Management** menu.
 
 The status colors indicate the following:
@@ -1726,4 +1752,3 @@ Default settings for logging are the following:
 ### 16.3 Fault Detail UUID
 
 In case a security server encounters an error condition during the message exchange, the security server returns a SOAP Fault message \[[PR-MESS](#Ref_PR-MESS)\] containing a UUID (a universally unique identifier, e.g. `1328e974-4fe5-412c-a4c4-f1ac36f20b14`) as the fault detail to the service client's information system. The UUID can be used to find the details of the occurred error from the `xroad-proxy` log.
-
