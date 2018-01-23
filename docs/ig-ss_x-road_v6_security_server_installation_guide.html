@@ -137,6 +137,12 @@ Doc. ID: IG-SS</p>
 <td>Added token ID formatting</td>
 <td>Cybernetica AS</td>
 </tr>
+<tr>
+<td>22.01.2018</td>
+<td>2.8.1</td>
+<td>Added NEE and NGO member classes</td>
+<td>Jürgen Šuvalov</td>
+</tr>
 </tbody>
 </table>
 <h2>
@@ -186,7 +192,7 @@ Doc. ID: IG-SS</p>
 
 <h2>
 <a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
-<p>This document is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit <a href="http://creativecommons.org/licenses/by-sa/3.0/">http://creativecommons.org/licenses/by-sa/3.0/</a></p>
+<p>This document is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="nofollow">http://creativecommons.org/licenses/by-sa/3.0/</a></p>
 <h2>
 <a id="1-introduction" class="anchor" href="#1-introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1 Introduction</h2>
 <h3>
@@ -203,7 +209,7 @@ Doc. ID: IG-SS</p>
 <a id="2-installation" class="anchor" href="#2-installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2 Installation</h2>
 <h3>
 <a id="21-supported-platforms" class="anchor" href="#21-supported-platforms" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.1 Supported Platforms</h3>
-<p>The security server runs on the <em>Ubuntu Server 14.04 Long-Term Support (LTS)</em> operating system on a 64-bit platform. The security server software is distributed as .deb packages through the official X-Road repository at <a href="http://x-road.eu/packages/">http://x-road.eu/packages/</a></p>
+<p>The security server runs on the <em>Ubuntu Server 14.04 Long-Term Support (LTS)</em> operating system on a 64-bit platform. The security server software is distributed as .deb packages through the official X-Road repository at <a href="http://x-road.eu/packages/" rel="nofollow">http://x-road.eu/packages/</a></p>
 <p>The software can be installed both on physical and virtualized hardware (of the latter, Xen and Oracle VirtualBox have been tested).</p>
 <h3>
 <a id="22-reference-data" class="anchor" href="#22-reference-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.2 Reference Data</h3>
@@ -225,12 +231,12 @@ Doc. ID: IG-SS</p>
 </tr>
 <tr>
 <td>1.1</td>
-<td><a href="http://x-road.eu/packages">http://x-road.eu/packages</a></td>
+<td><a href="http://x-road.eu/packages" rel="nofollow">http://x-road.eu/packages</a></td>
 <td>X-Road package repository</td>
 </tr>
 <tr>
 <td>1.2</td>
-<td><a href="http://x-road.eu/packages/xroad_repo.gpg">http://x-road.eu/packages/xroad_repo.gpg</a></td>
+<td><a href="http://x-road.eu/packages/xroad_repo.gpg" rel="nofollow">http://x-road.eu/packages/xroad_repo.gpg</a></td>
 <td>The repository key</td>
 </tr>
 <tr>
@@ -452,7 +458,7 @@ xroad-proxy start/running, process 19580
 </code></pre>
 </li>
 <li>
-<p>Ensure that the security server user interface at <a href="https://SECURITYSERVER:4000/">https://SECURITYSERVER:4000/</a> (<strong>reference data: 1.8; 1.6</strong>) can be opened in a Web browser. To log in, use the account name chosen during the installation (<strong>reference data: 1.3</strong>). While the user interface is still starting up, the Web browser may display the “502 Bad Gateway” error.</p>
+<p>Ensure that the security server user interface at <a href="https://SECURITYSERVER:4000/" rel="nofollow">https://SECURITYSERVER:4000/</a> (<strong>reference data: 1.8; 1.6</strong>) can be opened in a Web browser. To log in, use the account name chosen during the installation (<strong>reference data: 1.3</strong>). While the user interface is still starting up, the Web browser may display the “502 Bad Gateway” error.</p>
 </li>
 </ul>
 <h3>
@@ -504,12 +510,12 @@ xroad-proxy start/running, process 19580
 <tr>
 <td>2.1</td>
 <td>
-<a href="http://x-road.eu/packages/">http://x-road.eu/packages/</a>&lt;anchor file&gt;<br> ee-dev - development environment<br> ee-test - test environment<br> EE - production environment</td>
+<a href="http://x-road.eu/packages/" rel="nofollow">http://x-road.eu/packages/</a>&lt;anchor file&gt;<br> ee-dev - development environment<br> ee-test - test environment<br> EE - production environment</td>
 <td>Global configuration anchor file</td>
 </tr>
 <tr>
 <td>2.2</td>
-<td>GOV - government<br> COM - commercial</td>
+<td>GOV - government<br> COM - commercial<br> NGO - non-profit<br> NEE - not Estonian</td>
 <td>Member class of the security server's owner</td>
 </tr>
 <tr>
@@ -550,6 +556,41 @@ xroad-proxy start/running, process 19580
 <li>
 <p>The security server owner’s member code (<strong>reference data: 2.3</strong>).
 If the member class and member code are correctly entered, the system displays the security server owner’s name as registered in the X-Road center.</p>
+<ul>
+<li>
+<p><strong>NB! If the security server owner  or hosted client is a foreign organization (not Estonian), then the "NEE" Member Class must be selected in the security server.</strong></p>
+<p>The Member Code must be formed as follows:</p>
+<p><strong>"NTRCONTRYCODE-ORGANISAZIONREGISTRYCODE"</strong> - without whitespaces</p>
+<p>Where:</p>
+<ul>
+<li>"NTR" - Prefix of the legal entity identifier according to ETSI EN 319 412-1 clause 5.1.4.</li>
+<li>COUNTRY CODE - Country code according to ISO 3166 (Alpha 2)</li>
+<li>
+<code>-</code> hyphen</li>
+<li>REGISTRY CODE - Organizational registry code in the organization's country.</li>
+</ul>
+<p>Example:</p>
+<ul>
+<li>Lexbyte Digital Limited, a registered organization in Malta</li>
+<li>Member Name: <strong>Lexbyte Digital Limited</strong>
+</li>
+<li>Member Class: <strong>NEE</strong>
+</li>
+<li>Member Code: <strong>NTRMT-C56249</strong>
+</li>
+</ul>
+<p>Such requirements to the NEE Member Code are necessary to ensure the uniqueness of the Member Code of foreign organizations on X-Road (X-tee). In addition, the Member Code of X-Road members must correspond to the Organization Identifier (2.5.4.97) field in the SK ID Solutions AS e-Seal certificate profile.</p>
+<p>References:</p>
+<ul>
+<li>SK ID Solutions AS certificate profile: <a href="https://sk.ee/upload/files/SK-CPR-KLASS3-EN-v8_0-20171130.pdf" rel="nofollow">https://sk.ee/upload/files/SK-CPR-KLASS3-EN-v8_0-20171130.pdf</a>
+</li>
+<li>ETSI EN 319 412-1: <a href="http://www.etsi.org/deliver/etsi_en/319400_319499/31941201/01.01.00_30/en_31941201v010100v.pdf" rel="nofollow">http://www.etsi.org/deliver/etsi_en/319400_319499/31941201/01.01.00_30/en_31941201v010100v.pdf</a>
+</li>
+<li>Alpha 2 country code: <a href="https://www.iso.org/obp/ui/#search" rel="nofollow">https://www.iso.org/obp/ui/#search</a>
+</li>
+</ul>
+</li>
+</ul>
 </li>
 <li>
 <p>Security server code (<strong>reference data: 2.4</strong>), which is chosen by the security server administrator and which has to be unique across all the security servers belonging to the same X-Road member.</p>

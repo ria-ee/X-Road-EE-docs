@@ -72,9 +72,9 @@ functioning principles.
 
 | Document Id    |  Document                                                                                |
 |:--------------:|:-----------------------------------------------------------------------------------------|
-| \[SS-CLUSTER\] | [Readme: Security server cluster setup with Ansible](../../../ansible/ss_cluster/README.md) |
-| \[IG-SS\] | [X-Road: Security Server Installation Guide](../ig-ss_x-road_v6_security_server_installation_guide.md) |
-| \[UG-SS\] | [X-Road 6 Security Server User Guide](../) |
+| \[SS-CLUSTER\] | [Readme: Security server cluster setup with Ansible](https://github.com/ria-ee/X-Road/blob/develop/ansible/ss_cluster) |
+| \[IG-SS\] | [X-Road: Security Server Installation Guide](ig-ss_x-road_v6_security_server_installation_guide.md) |
+| \[UG-SS\] | [X-Road 6 Security Server User Guide](ug-ss_x-road_6_security_server_user_guide.md) |
 
 
 ## 2. Overview

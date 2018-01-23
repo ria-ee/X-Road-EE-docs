@@ -35,6 +35,7 @@ HTML_END = """    </article>
 def md2html(htmltitle, infile, outfile):
     inf = open(infile, 'r')
     payload = {'text': inf.read(), 'mode': 'markdown'}
+    payload['text'] = payload['text'].replace(".md)", ".html)")
     result = requests.post('https://api.github.com/markdown', data=json.dumps(payload))
     inf.close()
 

@@ -78,7 +78,7 @@ Doc. ID: PR-OPMON</p>
 
 <h2>
 <a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
-<p>This document is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit <a href="http://creativecommons.org/licenses/by-sa/3.0/">http://creativecommons.org/licenses/by-sa/3.0/</a>.</p>
+<p>This document is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="nofollow">http://creativecommons.org/licenses/by-sa/3.0/</a>.</p>
 <h1>
 <a id="1-introduction" class="anchor" href="#1-introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1 Introduction</h1>
 <p>This specification describes services that can be used by X-Road participants to gather operational monitoring information of the security servers. The operational monitoring information contains data about request exchange (such as which services have been called, how many times, what was the size of the response, etc.) of the security servers. The X-Road operational monitoring protocol is intended to support external monitoring systems and other software that can monitor service level agreements, make service statistics, etc.</p>
@@ -97,11 +97,11 @@ Doc. ID: PR-OPMON</p>
 <p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document (in uppercase, as shown) are to be interpreted as described in <a href="#RFC2119">[RFC2119]</a>.</p>
 <h3>
 <a id="11-references" class="anchor" href="#11-references" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.1 References</h3>
-<p><a name="PR-MESS"></a><strong>PR-MESS</strong> -- Cybernetica AS. X-Road: Message Transport Protocol v4.0. Document ID: <a href="../../Protocols/pr-mess_x-road_message_protocol_v4.0_4.0.17.md">PR-MESS</a>.<br>
-<a name="WSDL"></a><strong>WSDL</strong> -- Web Services Description Language (WSDL) 1.1. World Wide Web Consortium. 15 March 2001, <a href="https://www.w3.org/TR/2001/NOTE-wsdl-20010315">https://www.w3.org/TR/2001/NOTE-wsdl-20010315</a><br>
-<a name="SWAREF"></a><strong>SWAREF</strong> -- Attachments Profile Version 1.0, <a href="http://www.ws-i.org/Profiles/AttachmentsProfile-1.0-2004-08-24.html">http://www.ws-i.org/Profiles/AttachmentsProfile-1.0-2004-08-24.html</a><br>
-<a name="RFC1952"></a><strong>RFC1952</strong> -- GZIP file format specification version 4.3, <a href="https://tools.ietf.org/html/rfc1952">https://tools.ietf.org/html/rfc1952</a><br>
-<a name="RFC2119"></a><strong>RFC2119</strong> -- Key words for use in RFCs to Indicate Requirement Levels. Request for Comments 2119, Internet Engineering Task Force, March 1997, <a href="https://www.ietf.org/rfc/rfc2119.txt">https://www.ietf.org/rfc/rfc2119.txt</a></p>
+<p><a name="PR-MESS"></a><strong>PR-MESS</strong> -- Cybernetica AS. X-Road: Message Transport Protocol v4.0. Document ID: <a href="pr-mess_x-road_message_protocol.html">PR-MESS</a>.<br>
+<a name="WSDL"></a><strong>WSDL</strong> -- Web Services Description Language (WSDL) 1.1. World Wide Web Consortium. 15 March 2001, <a href="https://www.w3.org/TR/2001/NOTE-wsdl-20010315" rel="nofollow">https://www.w3.org/TR/2001/NOTE-wsdl-20010315</a><br>
+<a name="SWAREF"></a><strong>SWAREF</strong> -- Attachments Profile Version 1.0, <a href="http://www.ws-i.org/Profiles/AttachmentsProfile-1.0-2004-08-24.html" rel="nofollow">http://www.ws-i.org/Profiles/AttachmentsProfile-1.0-2004-08-24.html</a><br>
+<a name="RFC1952"></a><strong>RFC1952</strong> -- GZIP file format specification version 4.3, <a href="https://tools.ietf.org/html/rfc1952" rel="nofollow">https://tools.ietf.org/html/rfc1952</a><br>
+<a name="RFC2119"></a><strong>RFC2119</strong> -- Key words for use in RFCs to Indicate Requirement Levels. Request for Comments 2119, Internet Engineering Task Force, March 1997, <a href="https://www.ietf.org/rfc/rfc2119.txt" rel="nofollow">https://www.ietf.org/rfc/rfc2119.txt</a></p>
 <h1>
 <a id="2-retrieving-operational-data-of-security-server" class="anchor" href="#2-retrieving-operational-data-of-security-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2 Retrieving Operational Data of Security Server</h1>
 <p>Security server clients can retrieve operational data of the specified time period of the security server. Method is invoked as regular X-Road service.</p>

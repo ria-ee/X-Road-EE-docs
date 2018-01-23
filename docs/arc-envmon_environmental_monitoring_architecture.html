@@ -87,7 +87,7 @@ Doc. ID: ARC-ENVMON</p>
 
 <h2>
 <a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
-<p>This document is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit <a href="http://creativecommons.org/licenses/by-sa/3.0/">http://creativecommons.org/licenses/by-sa/3.0/</a>.</p>
+<p>This document is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="nofollow">http://creativecommons.org/licenses/by-sa/3.0/</a>.</p>
 <h2>
 <a id="overview" class="anchor" href="#overview" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Overview</h2>
 <p>X-Road monitoring is conceptually split into two parts: <em>environmental</em> and <em>operational</em> monitoring:</p>
@@ -132,7 +132,7 @@ Doc. ID: ARC-ENVMON</p>
 <p><a href="img/monitoring.png" target="_blank"><img src="img/monitoring.png" alt="monitoring architecture" style="max-width:100%;"></a></p>
 <h2>
 <a id="monitoring-metaservice-proxymonitor-add-on" class="anchor" href="#monitoring-metaservice-proxymonitor-add-on" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Monitoring metaservice (proxymonitor add-on)</h2>
-<p>Monitoring metaservice responds to queries for monitoring data from security server's serverproxy interface. This metaservice requests the current monitoring data from local monitoring service, using <a href="http://akka.io/">Akka</a>. Monitoring metaservice translates the monitoring data to a SOAP XML response.</p>
+<p>Monitoring metaservice responds to queries for monitoring data from security server's serverproxy interface. This metaservice requests the current monitoring data from local monitoring service, using <a href="http://akka.io/" rel="nofollow">Akka</a>. Monitoring metaservice translates the monitoring data to a SOAP XML response.</p>
 <p>Monitoring service handles authorization of the requests, see <a href="#acanchor">Access control</a>. It reads monitoring configuration from distributed global monitoring configuration (see <a href="#refsanchor">UC-GCONF, PR-GCONF</a>).</p>
 <p>Monitoring metaservice is installed as a proxy add-on, with name <code>xroad-addon-proxymonitor</code>.</p>
 <h2>
@@ -156,7 +156,7 @@ Doc. ID: ARC-ENVMON</p>
 <li>committed virtual memory</li>
 </ul>
 </li>
-<li>metrics are collected from <a href="https://docs.oracle.com/javase/8/docs/jre/api/management/extension/com/sun/management/UnixOperatingSystemMXBean.html">UnixOperatingSystemMXBean</a>
+<li>metrics are collected from <a href="https://docs.oracle.com/javase/8/docs/jre/api/management/extension/com/sun/management/UnixOperatingSystemMXBean.html" rel="nofollow">UnixOperatingSystemMXBean</a>
 </li>
 <li>data is refreshed every 5 seconds and analyzed in a 60s sliding window (for min/max/average/etc values)</li>
 </ul>
