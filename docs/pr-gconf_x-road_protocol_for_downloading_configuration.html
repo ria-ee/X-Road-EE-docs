@@ -16,11 +16,17 @@
   </head>
   <body>
     <article class="markdown-body">
-<p><a href="img/eu_regional_development_fund_horizontal_div_15.png" target="_blank"><img src="img/eu_regional_development_fund_horizontal_div_15.png" alt="" title="European Union | European Regional Development Fund | Investing in your future" style="max-width:100%;"></a></p>
+<table>
+<thead>
+<tr>
+<th align="right"><a href="img/eu_regional_development_fund_horizontal_div_15.png" target="_blank"><img src="img/eu_regional_development_fund_horizontal_div_15.png" alt="European Union / European Regional Development Fund / Investing in your future" title="Documents that are tagged with EU/SF logos must keep the logos until 1.1.2022, if it has not stated otherwise in the documentation. If new documentation is created  using EU/SF resources the logos must be tagged appropriately so that the deadline for logos could be found." style="max-width:100%;"></a></th>
+</tr>
+</thead>
+</table>
 <h1>
 <a id="x-road-protocol-for-downloading-configuration" class="anchor" href="#x-road-protocol-for-downloading-configuration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>X-Road: Protocol for Downloading Configuration</h1>
 <p><strong>Technical Specification</strong></p>
-<p>Version: 2.7<br>
+<p>Version: 2.8<br>
 Doc. ID: PR-GCONF</p>
 <table>
 <thead>
@@ -85,6 +91,12 @@ Doc. ID: PR-GCONF</p>
 <td>2.7</td>
 <td>Added version history</td>
 <td>Sami Kallio</td>
+</tr>
+<tr>
+<td>06.03.2018</td>
+<td>2.8</td>
+<td>Moved terms to term doc, added doc reference and link</td>
+<td>Tatu Repo</td>
 </tr>
 </tbody>
 </table>
@@ -162,37 +174,7 @@ Doc. ID: PR-GCONF</p>
 <a id="11-terms-and-abbreviations" class="anchor" href="#11-terms-and-abbreviations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.1 Terms and Abbreviations</h3>
 <p>The following figure contains a class diagram that illustrates important concepts used in this specification.</p>
 <p><a href="img/pr-gconf-concepts.png" target="_blank"><img src="img/pr-gconf-concepts.png" alt="" style="max-width:100%;"></a></p>
-<ul>
-<li>
-<strong>Configuration Provider</strong> – Entity that maintains a configuration.
-Configuration provider maintains one or more configuration sources that are used to distribute the configuration.</li>
-<li>
-<strong>Configuration Source</strong> – Component that distributes configuration to configuration clients.
-Configuration source can be either governing authority of an X-Road instance or a configuration proxy.</li>
-<li>
-<strong>Configuration Anchor</strong> – Set of information that can be used to download and verify information from a configuration provider.
-For each source the configuration anchor contains URL and a public key certificate that is used to verify integrity of the downloaded configuration. Configuration anchors are distributed by configuration providers as XML files.</li>
-<li>
-<strong>Configuration Client</strong> – Entity that uses configuration anchors for downloading configuration from configuration sources.
-Configuration clients can be either security servers or configuration proxies.</li>
-<li>
-<strong>Configuration Proxy</strong> – Entity that downloads configuration from a configuration source and redistributes them (thus the configuration proxy acts as a configuration source).
-Typically, the configuration proxy simply caches the configuration. When required, the proxy can also transform the configuration, e.g. by filtering out some data items.</li>
-<li>
-<strong>Configuration</strong> – Set of parameters that are distributed by a configuration source.
-Configuration consists of one or more configuration parts that contain groups of related parameters.</li>
-<li>
-<strong>Private Parameters</strong> – Set of parameters that are used only by members of this X-Road instance.</li>
-<li>
-<strong>Shared Parameters</strong> – Set of parameters that are used by members of this X-Road instance and other federated instances.</li>
-<li>
-<strong>Monitoring Parameters</strong> – (not pictured) Set of parameters that control monitoring of security servers</li>
-<li>
-<strong>X-Road Instance</strong> – Installation of the X-Road system. X-Road instances can interact with each other.
-X-Road instance is run by a governing authority that is responsible for managing members of the X-Road instance and distributing the configuration.</li>
-<li>
-<strong>Governing Authority</strong> – Authority that maintains the X-Road instance, registers X-Road members and security servers, and distributes this information to the X-Road members.</li>
-</ul>
+<p>See X-Road terms and abbreviations documentation [<a href="#Ref_TERMS">TA-TERMS</a>].</p>
 <h3>
 <a id="12-references" class="anchor" href="#12-references" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.2 References</h3>
 <ul>
@@ -203,6 +185,8 @@ X-Road instance is run by a governing authority that is responsible for managing
 <li>[MPREL] The MIME Multipart/Related Content-type, Internet Engineering Task Force, 1998.</li>
 <li>[XMLDSIG] XML Signature Syntax and Processing Version 2.0, 2013.</li>
 <li>[ISO8601] Data Elements and Interchange Formats – Information Interchange – Representation of Dates and Times, International Organization for Standardization, 2004.</li>
+<li>
+<a id="Ref_TERMS"></a>[TA-TERMS] X-Road Terms and Abbreviations. Document ID: <a href="terms_x-road_docs.html">TA-TERMS</a>.</li>
 </ul>
 <h2>
 <a id="2-protocol-for-downloading-configuration" class="anchor" href="#2-protocol-for-downloading-configuration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2 Protocol for Downloading Configuration</h2>

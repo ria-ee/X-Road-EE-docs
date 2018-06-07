@@ -16,13 +16,20 @@
   </head>
   <body>
     <article class="markdown-body">
-<p><a href="img/eu_regional_development_fund_horizontal_div_15.png" target="_blank"><img src="img/eu_regional_development_fund_horizontal_div_15.png" alt="" title="European Union | European Regional Development Fund | Investing in your future" style="max-width:100%;"></a></p>
+<table>
+<thead>
+<tr>
+<th align="right"><a href="img/eu_regional_development_fund_horizontal_div_15.png" target="_blank"><img src="img/eu_regional_development_fund_horizontal_div_15.png" alt="European Union / European Regional Development Fund / Investing in your future" title="Documents that are tagged with EU/SF logos must keep the logos until 1.1.2022, if it has not stated otherwise in the documentation. If new documentation is created  using EU/SF resources the logos must be tagged appropriately so that the deadline for logos could be found." style="max-width:100%;"></a></th>
+</tr>
+</thead>
+</table>
 <h1>
-<a id="x-road-security-server-user-guide" class="anchor" href="#x-road-security-server-user-guide" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>X-Road: Security Server User Guide</h1>
+<a id="security-server-user-guide" class="anchor" href="#security-server-user-guide" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SECURITY SERVER USER GUIDE</h1>
 <p><strong>X-ROAD 6</strong></p>
-<p>Version: 2.16<br>
-20.03.2017<br>
+<p>Version: 2.20<br>
+05.03.2018<br>
 Doc. ID: UG-SS</p>
+<hr>
 <h2>
 <a id="version-history" class="anchor" href="#version-history" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version history</h2>
 <table>
@@ -68,7 +75,7 @@ Doc. ID: UG-SS</p>
 <tr>
 <td>12.11.2014</td>
 <td>0.6</td>
-<td>Asynchronous messages section removed. Global Configuration distributors section replaced with Configuration Anchor section (<a href="#101-managing-the-configuration-anchor">10.1</a>). Added Logback information (Chapter <a href="#16-logs-and-system-services">16</a>). A note added about the order of timestamping services (Section <a href="#102-managing-the-timestamping-services">10.2</a>).</td>
+<td>Asynchronous messages section removed. Global Configuration distributors section replaced with Configuration Anchor section (<a href="#101-managing-the-configuration-anchor">10.1</a>). Added Logback information (Chapter <a href="#17-logs-and-system-services">16</a>). A note added about the order of timestamping services (Section <a href="#102-managing-the-timestamping-services">10.2</a>).</td>
 <td></td>
 </tr>
 <tr>
@@ -176,13 +183,13 @@ Doc. ID: UG-SS</p>
 <tr>
 <td>14.01.2016</td>
 <td>2.7</td>
-<td>Logs updated (Chapter <a href="#16-logs-and-system-services">16</a>)</td>
+<td>Logs updated (Chapter <a href="#17-logs-and-system-services">16</a>)</td>
 <td></td>
 </tr>
 <tr>
 <td>08.02.2016</td>
 <td>2.8</td>
-<td>Corrections in chapter <a href="#16-logs-and-system-services">16</a>
+<td>Corrections in chapter <a href="#17-logs-and-system-services">16</a>
 </td>
 <td></td>
 </tr>
@@ -245,6 +252,32 @@ Doc. ID: UG-SS</p>
 </td>
 <td>Jürgen Šuvalov</td>
 </tr>
+<tr>
+<td>15.06.2017</td>
+<td>2.17</td>
+<td>Added <a href="#18-federation">Chapter 17</a> on federation</td>
+<td>Olli Lindgren</td>
+</tr>
+<tr>
+<td>25.09.2017</td>
+<td>2.18</td>
+<td>Added chapter <a href="#16-environmental-monitoring">16 Environmental Monitoring</a>
+</td>
+<td>Tomi Tolvanen</td>
+</tr>
+<tr>
+<td>17.10.2017</td>
+<td>2.19</td>
+<td>Added section <a href="#163-limiting-environmental-monitoring-remote-data-set">16.3 Limiting environmental monitoring remote data set</a>
+</td>
+<td>Joni Laurila</td>
+</tr>
+<tr>
+<td>05.03.2018</td>
+<td>2.20</td>
+<td>Added terms and abbreviations reference, document links, moved concepts to terms and abbreviations.</td>
+<td>Tatu Repo </td>
+</tr>
 </tbody>
 </table>
 <h2>
@@ -256,7 +289,7 @@ Doc. ID: UG-SS</p>
 <a href="#1-introduction">1 Introduction</a>
 <ul>
 <li><a href="#11-the-x-road-security-server">1.1 The X-Road Security Server</a></li>
-<li><a href="#12-x-road-concepts">1.2 X-Road Concepts</a></li>
+<li><a href="#12-terms-and-abbreviations">1.2 Terms and abbreviations</a></li>
 <li><a href="#13-references">1.3 References</a></li>
 </ul>
 </li>
@@ -435,13 +468,22 @@ Doc. ID: UG-SS</p>
 </ul>
 </li>
 <li>
-<a href="#16-logs-and-system-services">16 Logs and System Services</a>
+<a href="#16-environmental-monitoring">16 Environmental Monitoring</a>
 <ul>
-<li><a href="#161-system-services">16.1 System Services</a></li>
-<li><a href="#162-logging-configuration">16.2 Logging configuration</a></li>
-<li><a href="#163-fault-detail-uuid">16.3 Fault Detail UUID</a></li>
+<li><a href="#161-usage-via-soap-api">16.1 Usage via SOAP API</a></li>
+<li><a href="#162-usage-via-jmxapi">16.2 Usage via JMX API</a></li>
+<li><a href="#163-limiting-environmental-monitoring-remote-data-set">16.3 Limiting environmental monitoring remote data set</a></li>
 </ul>
 </li>
+<li>
+<a href="#17-logs-and-system-services">17 Logs and System Services</a>
+<ul>
+<li><a href="#171-system-services">17.1 System Services</a></li>
+<li><a href="#172-logging-configuration">17.2 Logging configuration</a></li>
+<li><a href="#173-fault-detail-uuid">17.3 Fault Detail UUID</a></li>
+</ul>
+</li>
+<li><a href="#18-federation">18 Federation</a></li>
 </ul>
 
 <h2>
@@ -477,86 +519,8 @@ Doc. ID: UG-SS</p>
 </ul>
 <p>The security server also depends on a central server, which provides the global configuration.</p>
 <h3>
-<a id="12-x-road-concepts" class="anchor" href="#12-x-road-concepts" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.2 X-Road Concepts</h3>
-<ul>
-<li>
-<p><strong>Global configuration</strong> consists of XML files, which are regularly downloaded by security servers from the X-Road central server. The global configuration includes, among other data, the following:</p>
-<ul>
-<li>
-<p>the addresses and public keys of trust anchors (certification service CAs and timestamping services);</p>
-</li>
-<li>
-<p>the public keys of intermediate CAs;</p>
-</li>
-<li>
-<p>the addresses and public keys of OCSP services (if not already available through the certificates' <em>Authority Information Access</em> extension*);*</p>
-</li>
-<li>
-<p>information about X-Road members and their subsystems;</p>
-</li>
-<li>
-<p>the addresses of the members' security servers registered in X-Road;</p>
-</li>
-<li>
-<p>information about the security servers' authentication certificates registered in X-Road;</p>
-</li>
-<li>
-<p>information about the security servers' clients registered in X-Road;</p>
-</li>
-<li>
-<p>information about global access rights groups;</p>
-</li>
-<li>
-<p>X-Road system parameters.</p>
-</li>
-</ul>
-</li>
-<li>
-<p><strong>Member class</strong> groups X-Road members with similar properties under a common unit. E.g., state agencies are grouped under the member class “GOV”, private organizations are grouped under the member class “COM”, etc.</p>
-</li>
-<li>
-<p><strong>Member code</strong>, associated uniquely with a certain X-Road member, is a unique character combination within its particular member class. The member code remains unchanged during the entire lifetime of the member. For example, the member code for organizations and state agencies in Estonia is the Business Registry code.</p>
-</li>
-<li>
-<p><strong>Security server client</strong> is a subsystem of an X-Road member, whose association with a security server is registered in the X-Road governing authority and that uses the security server for using and/or providing X-Road services.</p>
-</li>
-<li>
-<p><strong>Security server owner</strong> is an X-Road member legally responsible for a particular security server. The security server owner is displayed in the list of security server clients ("Configuration" -&gt; "Security Server Clients") in bold font style.</p>
-</li>
-<li>
-<p><strong>Subsystem</strong> represents a part of an X-Road member's information system. X-Road members must declare parts of its information system as subsystems to use or provide X-Road services.</p>
-<p>Subsystems are autonomous in terms of providing and using X-Road services.</p>
-<ul>
-<li>
-<p>The access rights of an X-Road members’ subsystems are independent – access rights given to one subsystem do not affect the access rights of the members’ other subsystems.</p>
-</li>
-<li>
-<p>Services provided by a subsystem are independent of the services provided by the members’ other subsystems.</p>
-</li>
-</ul>
-<p>To sign the messages sent by a subsystem when using or providing X-Road services, the signing certificate of the member that manages the subsystem is used. An X-Road member can associate several different subsystems with one security server, and one subsystem can be associated with several security servers.</p>
-</li>
-<li>
-<p><strong>X-Road certificate</strong> is issued by a certification service provider that has been approved in the X-Road governing authority. An X-Road certificate is either:</p>
-<ul>
-<li>
-<p>a <strong>signing certificate</strong>, which is issued to X-Road members and which the security servers use to digitally sign the mediated data or</p>
-</li>
-<li>
-<p>an <strong>authentication certificate</strong>, which is issued to security servers and which is used to establish the secure communications channel between security servers.</p>
-</li>
-</ul>
-</li>
-<li>
-<p><strong>X-Road instance</strong> identifier helps to distinguish between different X-Road instances. Each instance is assigned an identifying code. E.g. the code for the Estonian development instance is “ee-dev” and the code for production instance is “EE”.</p>
-</li>
-<li>
-<p><strong>X-Road member</strong> is a legal (or physical) person who has joined the X-Road and uses the functionality provided by the X-Road in the capability of service provider and/or user.</p>
-</li>
-<li>
-<p><strong>X-Road messages</strong> are service requests and responses described according to the X-Road Message Protocol (see [<a href="#Ref_PR-MESS">PR-MESS</a>]), that are exchanged between the information systems using or providing services and the security servers.</p>
-</li>
-</ul>
+<a id="12-terms-and-abbreviations" class="anchor" href="#12-terms-and-abbreviations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.2 Terms and abbreviations</h3>
+<p>See X-Road terms and abbreviations documentation [<a href="#Ref_TERMS">TA-TERMS</a>].</p>
 <h3>
 <a id="13-references" class="anchor" href="#13-references" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.3 References</h3>
 <ol>
@@ -564,47 +528,66 @@ Doc. ID: UG-SS</p>
 <p><a id="Ref_ASiC"></a>[ASiC] ETSI TS 102 918, Electronic Signatures and Infrastructures (ESI); Associated Signature Containers (ASiC)</p>
 </li>
 <li>
-<p><a id="Ref_CRON"></a>[CRON] Quartz Scheduler CRON expression,
+<p><a id="Ref_CRON"></a>[CRON] Quartz Scheduler CRON expression,<br>
 <a href="http://www.quartz-scheduler.org/generated/2.2.1/html/qs-all/#page/Quartz_Scheduler_Documentation_Set%2Fco-trg_crontriggers.html" rel="nofollow">http://www.quartz-scheduler.org/generated/2.2.1/html/qs-all/#page/Quartz_Scheduler_Documentation_Set%2Fco-trg_crontriggers.html</a></p>
 </li>
 <li>
-<p><a id="Ref_INI"></a>[INI] INI file, <a href="http://en.wikipedia.org/wiki/INI_file" rel="nofollow">http://en.wikipedia.org/wiki/INI_file</a></p>
+<p><a id="Ref_INI"></a>[INI] INI file,<br>
+<a href="http://en.wikipedia.org/wiki/INI_file" rel="nofollow">http://en.wikipedia.org/wiki/INI_file</a></p>
 </li>
 <li>
-<p><a id="Ref_JDBC"></a>[JDBC] Connecting to the Database, <a href="https://jdbc.postgresql.org/documentation/93/connect.html" rel="nofollow">https://jdbc.postgresql.org/documentation/93/connect.html</a></p>
+<p><a id="Ref_JDBC"></a>[JDBC] Connecting to the Database,<br>
+<a href="https://jdbc.postgresql.org/documentation/93/connect.html" rel="nofollow">https://jdbc.postgresql.org/documentation/93/connect.html</a></p>
 </li>
 <li>
-<p><a id="Ref_JSON"></a>[JSON] Introducing JSON, <a href="http://json.org/" rel="nofollow">http://json.org/</a></p>
+<p><a id="Ref_JSON"></a>[JSON] Introducing JSON,<br>
+<a href="http://json.org/" rel="nofollow">http://json.org/</a></p>
 </li>
 <li>
-<p><a id="Ref_PR-MESS"></a>[PR-MESS] Cybernetica AS. X-Road: Message Protocol v4.0. Document ID: PR-MESS</p>
+<p><a id="Ref_PR-MESS"></a>[PR-MESS] Cybernetica AS. X-Road: Message Protocol v4.0. Document ID: <a href="pr-mess_x-road_message_protocol.html">PR-MESS</a></p>
 </li>
 <li>
 <p><a id="Ref_SPEC-AL"></a>[SPEC-AL] Cybernetica AS. X-Road: Audit log events. Document ID: SPEC-AL</p>
 </li>
 <li>
-<p><a id="Ref_PR-OPMON"></a>[PR-OPMON] Cybernetica AS. X-Road: Operational Monitoring Protocol. Document ID: PR-OPMON</p>
+<p><a id="Ref_PR-OPMON"></a>[PR-OPMON] Cybernetica AS. X-Road: Operational Monitoring Protocol. Document ID: <a href="pr-opmon_x-road_operational_monitoring_protocol.html">PR-OPMON</a></p>
 </li>
 <li>
-<p><a id="Ref_PR-OPMONJMX"></a>[PR-OPMONJMX] Cybernetica AS. X-Road: Operational Monitoring JMX Protocol. Document ID: PR-OPMONJMX</p>
+<p><a id="Ref_PR-OPMONJMX"></a>[PR-OPMONJMX] Cybernetica AS. X-Road: Operational Monitoring JMX Protocol. Document ID: <a href="pr-opmonjmx_x-road_operational_monitoring_jmx_protocol.html">PR-OPMONJMX</a></p>
 </li>
 <li>
-<p><a id="Ref_UG-OPMONSYSPAR"></a>[UG-OPMONSYSPAR] Cybernetica AS. X-Road: Operational Monitoring System Parameters. Document ID: PR-OPMONSYSPAR</p>
+<p><a id="Ref_UG-OPMONSYSPAR"></a>[UG-OPMONSYSPAR] Cybernetica AS. X-Road: Operational Monitoring System Parameters. Document ID: <a href="ug-opmonsyspar_x-road_operational_monitoring_system_parameters.html">PR-OPMONSYSPAR</a></p>
 </li>
 <li>
-<p><a id="Ref_IG-SS"></a>[IG-SS] Cybernetica AS. X-Road: Security Server Installation Guide. Document ID: IG-SS</p>
+<p><a id="Ref_IG-SS"></a>[IG-SS] Cybernetica AS. X-Road: Security Server Installation Guide. Document ID: <a href="ig-ss_x-road_v6_security_server_installation_guide.html">IG-SS</a></p>
 </li>
 <li>
-<p><a id="Ref_JMX"></a>[JMX] Monitoring and Management Using JMX Technology, <a href="http://docs.oracle.com/javase/8/docs/technotes/guides/management/agent.html" rel="nofollow">http://docs.oracle.com/javase/8/docs/technotes/guides/management/agent.html</a></p>
+<p><a id="Ref_JMX"></a>[JMX] Monitoring and Management Using JMX Technology,<br>
+<a href="http://docs.oracle.com/javase/8/docs/technotes/guides/management/agent.html" rel="nofollow">http://docs.oracle.com/javase/8/docs/technotes/guides/management/agent.html</a></p>
 </li>
 <li>
-<p><a id="Ref_ZABBIX-GATEWAY"></a>[ZABBIX-GATEWAY] Zabbix Java Gateway, <a href="https://www.zabbix.com/documentation/3.0/manual/concepts/java" rel="nofollow">https://www.zabbix.com/documentation/3.0/manual/concepts/java</a></p>
+<p><a id="Ref_ZABBIX-GATEWAY"></a>[ZABBIX-GATEWAY] Zabbix Java Gateway,<br>
+<a href="https://www.zabbix.com/documentation/3.0/manual/concepts/java" rel="nofollow">https://www.zabbix.com/documentation/3.0/manual/concepts/java</a></p>
 </li>
 <li>
-<p><a id="Ref_ZABBIX-JMX"></a>[ZABBIX-JMX] Zabbix JMX Monitoring, <a href="https://www.zabbix.com/documentation/3.0/manual/config/items/itemtypes/jmx_monitoring" rel="nofollow">https://www.zabbix.com/documentation/3.0/manual/config/items/itemtypes/jmx_monitoring</a></p>
+<p><a id="Ref_ZABBIX-JMX"></a>[ZABBIX-JMX] Zabbix JMX Monitoring,<br>
+<a href="https://www.zabbix.com/documentation/3.0/manual/config/items/itemtypes/jmx_monitoring" rel="nofollow">https://www.zabbix.com/documentation/3.0/manual/config/items/itemtypes/jmx_monitoring</a></p>
 </li>
 <li>
-<p><a id="Ref_ZABBIX-API"></a>[ZABBIX-API] Zabbix API, <a href="https://www.zabbix.com/documentation/3.0/manual/api" rel="nofollow">https://www.zabbix.com/documentation/3.0/manual/api</a></p>
+<p><a id="Ref_ZABBIX-API"></a>[ZABBIX-API] Zabbix API,<br>
+<a href="https://www.zabbix.com/documentation/3.0/manual/api" rel="nofollow">https://www.zabbix.com/documentation/3.0/manual/api</a></p>
+</li>
+<li>
+<p><a id="Ref_ARC-ENVMON"></a>[ARC-ENVMON] X-Road: Environmental Monitoring Architecture. Document ID: <a href="arc-envmon_environmental_monitoring_architecture.html">ARC-ENVMON</a>.</p>
+</li>
+<li>
+<p><a id="Ref_PR-ENVMONMES"></a>[PR-ENVMONMES] X-Road: Environmental Monitoring Messages. Document ID: <a href="pr-envmonmes_environmental_monitoring_messages.html">PR-ENVMONMES</a>.</p>
+</li>
+<li>
+<p><a id="Ref_MONITORING_XSD"></a>[MONITORING_XSD] X-Road XML schema for monitoring extension. <a href="monitoring.xsd">monitoring.xsd</a>.</p>
+</li>
+<li>
+<p><a id="Ref_TERMS"></a>[TA-TERMS] X-Road Terms and Abbreviations. Document ID: <a href="terms_x-road_docs.html">TA-TERMS</a>.</p>
 </li>
 </ol>
 <h2>
@@ -649,7 +632,7 @@ adduser username xroad-securityserver-observer
 <p>To remove a user permission, remove the user from the corresponding system group, for example:</p>
 <pre><code>deluser username xroad-security-officer
 </code></pre>
-<p>User permissions are applied only after restart of the xroad-jetty service (see Section <a href="#161-system-services">16.1</a>).</p>
+<p>User permissions are applied only after restart of the xroad-jetty service (see Section <a href="#171-system-services">16.1</a>).</p>
 <p>To remove a user, enter:</p>
 <pre><code>deluser username
 </code></pre>
@@ -2155,10 +2138,24 @@ tls-certificate = &lt;path/to/external/daemon/tls/cert&gt;
 <p>Please refer to [<a href="#Ref_PR-OPMONJMX">PR-OPMONJMX</a>] for a specification of the names and attributes of the JMX objects exposed by the operational monitoring daemon.</p>
 <p>The xroad-opmonitor package comes with sample host data that can be imported to Zabbix, containing a JMX interface, applications related to sample services and health data items under these services. Also, a script is provided for importing health data related applications and items to several hosts using the Zabbix API. Please find the example files in the directory <code>/usr/share/doc/xroad-opmonitor/examples/zabbix/</code>. Please refer to [<a href="#Ref_ZABBIX-API">ZABBIX-API</a>] for information on the Zabbix API.</p>
 <h2>
-<a id="16-logs-and-system-services" class="anchor" href="#16-logs-and-system-services" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>16 Logs and System Services</h2>
+<a id="16-environmental-monitoring" class="anchor" href="#16-environmental-monitoring" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>16 Environmental Monitoring</h2>
+<p>Environmental monitoring provides details of the security servers such as operating system, memory, disk space, CPU load, running processes and installed packages, etc.</p>
+<h3>
+<a id="161-usage-via-soap-api" class="anchor" href="#161-usage-via-soap-api" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>16.1 Usage via SOAP API</h3>
+<p>Environmental monitoring provides SOAP API via X-Road message protocol extension. SOAP messages are described in [<a href="#Ref_PR-ENVMONMES">PR-ENVMONMES</a>].</p>
+<p>Monitoring extension schema is defined in [<a href="#Ref_MONITORING_XSD">MONITORING_XSD</a>].</p>
+<h3>
+<a id="162-usage-via-jmx-api" class="anchor" href="#162-usage-via-jmx-api" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>16.2 Usage via JMX API</h3>
+<p>Environmental monitoring provides also a standard JMX endpoint which can be accessed with any JMX client (for example Java's jconsole application). See [<a href="#Ref_ARC-ENVMON">ARC-ENVMON</a>] for details.</p>
+<p>JMX is disabled on default. JMX is enabled by adding standard JMX-related options to the executable java process as in example by [<a href="#Ref_ZABBIX-JMX">ZABBIX-JMX</a>]. Monitor process options are defined in security server's path <code>/etc/xroad/services/monitor.conf</code>.</p>
+<h3>
+<a id="163-limiting-environmental-monitoring-remote-data-set" class="anchor" href="#163-limiting-environmental-monitoring-remote-data-set" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>16.3 Limiting environmental monitoring remote data set</h3>
+<p>It is possibility to limit what allowed non-owners can request via environmental monotiring data request by changing monitor-env limit-remote-data-set parameter. By changing flag to be true non-owners who are allowed to query environmental monitoring data will get only certificate, operating system and xroad version information. This parameters is set by default false. Security server owner will always get full data set as requested.</p>
+<h2>
+<a id="17-logs-and-system-services" class="anchor" href="#17-logs-and-system-services" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>17 Logs and System Services</h2>
 <p><strong>To read logs</strong>, a user must have root user's rights or belong to the <code>xroad</code> and/or <code>adm</code> system group.</p>
 <h3>
-<a id="161-system-services" class="anchor" href="#161-system-services" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>16.1 System Services</h3>
+<a id="171-system-services" class="anchor" href="#171-system-services" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>17.1 System Services</h3>
 <p>The most important system services of a security server are as follows.</p>
 <table>
 <thead>
@@ -2204,7 +2201,7 @@ tls-certificate = &lt;path/to/external/daemon/tls/cert&gt;
 <pre><code>service &lt;service&gt; stop
 </code></pre>
 <h3>
-<a id="162-logging-configuration" class="anchor" href="#162-logging-configuration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>16.2 Logging configuration</h3>
+<a id="172-logging-configuration" class="anchor" href="#172-logging-configuration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>17.2 Logging configuration</h3>
 <p>For logging, the <strong>Logback</strong> system is used. Logback configuration files are stored in the directory <code>/etc/xroad/conf.d/</code>.</p>
 <p>Default settings for logging are the following:</p>
 <ul>
@@ -2216,8 +2213,42 @@ tls-certificate = &lt;path/to/external/daemon/tls/cert&gt;
 </li>
 </ul>
 <h3>
-<a id="163-fault-detail-uuid" class="anchor" href="#163-fault-detail-uuid" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>16.3 Fault Detail UUID</h3>
+<a id="173-fault-detail-uuid" class="anchor" href="#173-fault-detail-uuid" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>17.3 Fault Detail UUID</h3>
 <p>In case a security server encounters an error condition during the message exchange, the security server returns a SOAP Fault message [<a href="#Ref_PR-MESS">PR-MESS</a>] containing a UUID (a universally unique identifier, e.g. <code>1328e974-4fe5-412c-a4c4-f1ac36f20b14</code>) as the fault detail to the service client's information system. The UUID can be used to find the details of the occurred error from the <code>xroad-proxy</code> log.</p>
+<h2>
+<a id="18-federation" class="anchor" href="#18-federation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>18 Federation</h2>
+<p>Federation allows security servers of two different X-Road instances to exchange messages with each other. The instances
+are federated at the central server level. After this, security servers can be configured to opt-in to the federation.
+By default, federation is disabled and configuration data for other X-Road instances will not be downloaded.</p>
+<p>The federation can be allowed for all X-Road instances that the central server offers, or a list of specific
+(comma-separated) instances. The default is to allow none. The values are case-insensitive.</p>
+<p>To override the default value, edit the file <code>/etc/xroad/conf.d/local.ini</code> and add or change the value of the system
+parameter <code>allowed-federations</code> for the server component <code>configuration-client</code>. To restore the default, either remove
+the system parameter entirely or set the value to <code>none</code>. X-Road services <code>xroad-confclient</code> and <code>xroad-proxy</code> need to
+be restarted (in that order) for any setting changes to take effect.</p>
+<p>Below are some examples for <code>/etc/xroad/conf.d/local.ini</code>.</p>
+<p>To allow federation with all offered X-Road instances:</p>
+<pre><code>[configuration-client]
+allowed-federations=all
+</code></pre>
+<p>To allow federation with specific instances <code>xe-test</code> and <code>ee-test</code>:</p>
+<pre><code>[configuration-client]
+allowed-federations=xe-test,ee-test
+</code></pre>
+<p>To disable federation, just remove the <code>allowed-federations</code> system parameter entirely or use:</p>
+<pre><code>[configuration-client]
+allowed-federations=none
+</code></pre>
+<p>Please note that if the keyword <code>all</code> is present in the comma-separated list, it will override the single allowed
+instances. The keyword <code>none</code> will override all other values. This means that the following setting will allow all
+federations:</p>
+<pre><code>[configuration-client]
+allowed-federations=xe-test, all, ee-test
+</code></pre>
+<p>And the following will allow none:</p>
+<pre><code>[configuration-client]
+allowed-federations=xe-test, all, none, ee-test
+</code></pre>
     </article>
   </body>
 </html>

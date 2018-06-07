@@ -16,12 +16,18 @@
   </head>
   <body>
     <article class="markdown-body">
-<p><a href="img/eu_regional_development_fund_horizontal_div_15.png" target="_blank"><img src="img/eu_regional_development_fund_horizontal_div_15.png" alt="" title="European Union | European Regional Development Fund | Investing in your future" style="max-width:100%;"></a></p>
+<table>
+<thead>
+<tr>
+<th align="right"><a href="img/eu_regional_development_fund_horizontal_div_15.png" target="_blank"><img src="img/eu_regional_development_fund_horizontal_div_15.png" alt="European Union / European Regional Development Fund / Investing in your future" title="Documents that are tagged with EU/SF logos must keep the logos until 1.1.2022, if it has not stated otherwise in the documentation. If new documentation is created  using EU/SF resources the logos must be tagged appropriately so that the deadline for logos could be found." style="max-width:100%;"></a></th>
+</tr>
+</thead>
+</table>
 <h1>
 <a id="x-road-operational-monitoring-system-parameters" class="anchor" href="#x-road-operational-monitoring-system-parameters" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>X-Road: Operational Monitoring System Parameters</h1>
 <h1>
 <a id="user-guide" class="anchor" href="#user-guide" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>User Guide</h1>
-<p>Version: 0.4<br>
+<p>Version: 0.5<br>
 Doc ID: UG-OPMONSYSPAR</p>
 <table>
 <thead>
@@ -52,6 +58,12 @@ Doc ID: UG-OPMONSYSPAR</p>
 </td>
 <td>Kristo Heero</td>
 </tr>
+<tr>
+<td>05.03.2018</td>
+<td>0.5</td>
+<td>Added reference to terms and abbreviations doc</td>
+<td>Tatu Repo</td>
+</tr>
 </tbody>
 </table>
 <h2>
@@ -62,7 +74,8 @@ Doc ID: UG-OPMONSYSPAR</p>
 <li>
 <a href="#1-introduction">1 Introduction</a>
 <ul>
-<li><a href="#11-references">1.1 References</a></li>
+<li><a href="#11-terms-and-abbreviations">1.1 Terms and abbreviations</a></li>
+<li><a href="#12-references">1.2 References</a></li>
 </ul>
 </li>
 <li><a href="#2-operational-monitoring-system-parameters">2 Operational Monitoring System Parameters</a></li>
@@ -73,15 +86,19 @@ Doc ID: UG-OPMONSYSPAR</p>
 <p>This document is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="nofollow">http://creativecommons.org/licenses/by-sa/3.0/</a>.</p>
 <h2>
 <a id="1-introduction" class="anchor" href="#1-introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1 Introduction</h2>
-<p>This document describes the system parameters of the X-Road operational monitoring system components – the operational monitoring daemon, the operational monitoring buffer and the operational monitoring service. Changing the default values of the system parameters is explained in (<a href="#UG-SYSPAR">[UG-SYSPAR]</a>).</p>
+<p>This document describes the system parameters of the X-Road operational monitoring system components – the operational monitoring daemon, the operational monitoring buffer and the operational monitoring service. Changing the default values of the system parameters is explained in [<a href="#UG-SYSPAR">UG-SYSPAR</a>].</p>
 <h3>
-<a id="11-references" class="anchor" href="#11-references" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.1 References</h3>
+<a id="11-terms-and-abbreviations" class="anchor" href="#11-terms-and-abbreviations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.1 Terms and abbreviations</h3>
+<p>See X-Road terms and abbreviations documentation [<a href="#Ref_TERMS">TA-TERMS</a>].</p>
+<h3>
+<a id="12-references" class="anchor" href="#12-references" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.2 References</h3>
 <p><a name="UG-SYSPAR"></a><strong>UG-SYSPAR</strong> -- Cybernetica AS. X-Road: System Parameters. Document ID: <a href="ug-syspar_x-road_v6_system_parameters.html">UG-SYSPAR</a>.<br>
 <a name="UG-SS"></a><strong>UG-SS</strong> -- Cybernetica AS. X-Road: Security Server User Guide. Document ID: <a href="ug-ss_x-road_6_security_server_user_guide.html">UG-SS</a>.<br>
-<a name="CRON"></a><strong>CRON</strong> -- Quartz Scheduler Cron Trigger Tutorial,  <a href="http://www.quartz-scheduler.org/documentation/quartz-2.2.x/tutorials/crontrigger.html" rel="nofollow">http://www.quartz-scheduler.org/documentation/quartz-2.2.x/tutorials/crontrigger.html</a></p>
+<a name="CRON"></a><strong>CRON</strong> -- Quartz Scheduler Cron Trigger Tutorial,  <a href="http://www.quartz-scheduler.org/documentation/quartz-2.2.x/tutorials/crontrigger.html" rel="nofollow">http://www.quartz-scheduler.org/documentation/quartz-2.2.x/tutorials/crontrigger.html</a><br>
+<a name="Ref_TERMS"></a><strong>TA-TERMS</strong> -- X-Road Terms and Abbreviations. Document ID: <a href="terms_x-road_docs.html">TA-TERMS</a>.</p>
 <h2>
 <a id="2-operational-monitoring-system-parameters" class="anchor" href="#2-operational-monitoring-system-parameters" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2 Operational Monitoring System Parameters</h2>
-<p>This chapter describes the system parameters used by the X-Road operational monitoring system. Changing the parameter values in the configuration file requires restarting of the system services. Managing the system services is explained in (<a href="#UG-SS">[UG-SS]</a>).</p>
+<p>This chapter describes the system parameters used by the X-Road operational monitoring system. Changing the parameter values in the configuration file requires restarting of the system services. Managing the system services is explained in [<a href="#UG-SS">UG-SS</a>].</p>
 <ul>
 <li>To change the parameter values for the server component <em>op-monitor</em>, the service <em>xroad-opmonitor</em> must be restarted after changing all parameters except <em>op-monitor.tls-certificate</em>.</li>
 <li>The service <em>xroad-proxy</em> must be restarted after changing the parameters:
@@ -112,7 +129,7 @@ Doc ID: UG-OPMONSYSPAR</p>
 <td>op-monitor</td>
 <td>clean-interval</td>
 <td>0 0 0/12 1/1 * ? *</td>
-<td>CRON expression (<a href="#CRON">[CRON]</a>) defining the interval of deleting any operational data records that are older than <em>op-monitor.keep-records-for-days</em> from the operational monitoring database.</td>
+<td>CRON expression [<a href="#CRON">CRON</a>] defining the interval of deleting any operational data records that are older than <em>op-monitor.keep-records-for-days</em> from the operational monitoring database.</td>
 </tr>
 <tr>
 <td>op-monitor</td>
@@ -184,7 +201,7 @@ Doc ID: UG-OPMONSYSPAR</p>
 <td>op-monitor-buffer</td>
 <td>sending-interval-seconds</td>
 <td>5</td>
-<td>The interval in seconds at which the operational monitoring buffer tries to send records to the operational monitoring daemon.</td>
+<td>The interval in seconds at which the operational monitoring buffer (re)tries to send records to the operational monitoring daemon. Normally, the buffer triggers the sending mechanism immediately when it receives a new record. In case of heavy load or sending failures the records are accumulating in the buffer and need periodical attention.</td>
 </tr>
 <tr>
 <td>op-monitor-buffer</td>

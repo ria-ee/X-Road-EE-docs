@@ -1,8 +1,9 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
-# NB! Do not forget to copy all the neccessary images!
-
-import sys,requests,json;
+# NB! Do not forget to copy all the necessary images!
+import json
+import re
+import requests
 
 
 HTML_START = """<!DOCTYPE html>
@@ -33,15 +34,17 @@ HTML_END = """    </article>
 
 # Function that converts input MD file to output HTML file.
 def md2html(htmltitle, infile, outfile):
-    inf = open(infile, 'r')
+    inf = open(infile, 'r', encoding='utf-8')
     payload = {'text': inf.read(), 'mode': 'markdown'}
-    payload['text'] = payload['text'].replace(".md)", ".html)")
+    # payload['text'] = payload['text'].replace(".md)", ".html)")
+    # payload['text'] = payload['text'].replace(".md#", ".html#")
+    payload['text'] = re.sub('(\((?!https).+)\.md([#|)])', '\g<1>.html\g<2>', payload['text'])
     result = requests.post('https://api.github.com/markdown', data=json.dumps(payload))
     inf.close()
 
-    html = result.text.encode('utf-8')
+    html = result.text
     html = html.replace("user-content-", "")
-    outf = open(outfile, 'w')
+    outf = open(outfile, 'w', encoding='utf-8')
     outf.write(HTML_START.format(title=htmltitle))
     outf.write(html)
     outf.write(HTML_END)
@@ -60,3 +63,6 @@ md2html("X-Road: Environmental Monitoring Messages", "md/pr-envmonmes_environmen
 md2html("X-Road: Operational Monitoring Protocol", "md/pr-opmon_x-road_operational_monitoring_protocol.md", "docs/pr-opmon_x-road_operational_monitoring_protocol.html")
 md2html("X-Road: Operational Monitoring JMX Protocol", "md/pr-opmonjmx_x-road_operational_monitoring_jmx_protocol.md", "docs/pr-opmonjmx_x-road_operational_monitoring_jmx_protocol.html")
 md2html("X-Road: Operational Monitoring System Parameters", "md/ug-opmonsyspar_x-road_operational_monitoring_system_parameters.md", "docs/ug-opmonsyspar_x-road_operational_monitoring_system_parameters.html")
+md2html("X-Road: Service Metadata Protocol", "md/pr-meta_x-road_service_metadata_protocol.md", "docs/pr-meta_x-road_service_metadata_protocol.html")
+md2html("X-Road: Protocol for Management Services", "md/pr-mserv_x-road_protocol_for_management_services.md", "docs/pr-mserv_x-road_protocol_for_management_services.html")
+md2html("X-Road: Terms and Abbreviations", "md/terms_x-road_docs.md", "docs/terms_x-road_docs.html")

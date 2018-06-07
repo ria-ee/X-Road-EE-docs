@@ -1,23 +1,26 @@
-![](img/eu_regional_development_fund_horizontal_div_15.png "European Union | European Regional Development Fund | Investing in your future")
+| ![European Union / European Regional Development Fund / Investing in your future](img/eu_regional_development_fund_horizontal_div_15.png "Documents that are tagged with EU/SF logos must keep the logos until 1.1.2022, if it has not stated otherwise in the documentation. If new documentation is created  using EU/SF resources the logos must be tagged appropriately so that the deadline for logos could be found.") |
+| -------------------------: |
 
 # X-Road: Operational Monitoring Protocol
 
 **Technical Specification**
 
-Version: 0.3  
+Version: 0.4  
 Doc. ID: PR-OPMON
 
 | Date       | Version     | Description                                                                  | Author             |
 |------------|-------------|------------------------------------------------------------------------------|--------------------|
 |  | 0.2       | Initial version               |          |
 | 23.01.2017 | 0.3       | Added license text, table of contents and version history | Sami Kallio |
+| 05.03.2018 | 0.4       | Added terms and abbreviations reference | Tatu Repo
 
 ## Table of Contents
 
 <!-- toc -->
 
 - [1 Introduction](#1-introduction)
-    + [1.1 References](#11-references)
+    + [1.1 Terms and abbreviations](#11-terms-and-abbreviations)
+    + [1.2 References](#12-references)
 - [2 Retrieving Operational Data of Security Server](#2-retrieving-operational-data-of-security-server)
 - [3 Retrieving Health Data of Security Server](#3-retrieving-health-data-of-security-server)
 - [Annex A WSDL for Operational Monitoring Messages](#annex-a-wsdl-for-operational-monitoring-messages)
@@ -43,25 +46,30 @@ The operational monitoring services are the following:
 * *getSecurityServerOperationalData* - downloading operational data of the specified time period of the security server.
 * *getSecurityServerHealthData* - downloading health data of the security server.
 
-The operational monitoring services are implemented as standard X-Road services (see [[PR-MESS]](#PR-MESS) for detailed description of the protocol) that are offered by the owner of the security servers.
+The operational monitoring services are implemented as standard X-Road services (see \[[PR-MESS](#PR-MESS)\] for detailed description of the protocol) that are offered by the owner of the security servers.
 
 This protocol builds on existing transport and message encoding mechanisms. Therefore, this specification does not cover the technical details and error conditions related to making HTTP(S) requests together with processing MIME-encoded messages. These concerns are discussed in detail in their respective standards.
 
-The low-level technical details of the operational monitoring services are specified using the WSDL [[WSDL]](#WSDL) syntax. See [[Annex A]](#AnnexA) for operational monitoring services WSDL file.
+The low-level technical details of the operational monitoring services are specified using the WSDL \[[WSDL](#WSDL)\] syntax. See \[[Annex A](#AnnexA)\] for operational monitoring services WSDL file.
 
-Chapters 2 and 3 together with annexes [[Annex A]](#AnnexA) and [[Annex B]](AnnexB) contain normative information. All the other sections are informative in nature. All the references are normative.
+Chapters 2 and 3 together with annexes \[[Annex A](#AnnexA)\] and \[[Annex B](AnnexB)\] contain normative information. All the other sections are informative in nature. All the references are normative.
 
 This specification does not include option for partially implementing the protocol – the conformant implementation must implement the entire specification.
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document (in uppercase, as shown) are to be interpreted as described in [[RFC2119]](#RFC2119).
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document (in uppercase, as shown) are to be interpreted as described in \[[RFC2119](#RFC2119)\].
 
-### 1.1 References
+### 1.1 Terms and abbreviations
+
+See X-Road terms and abbreviations documentation \[[TA-TERMS](#Ref_TERMS)\].
+
+### 1.2 References
 
 <a name="PR-MESS"></a>**PR-MESS** -- Cybernetica AS. X-Road: Message Transport Protocol v4.0. Document ID: [PR-MESS](pr-mess_x-road_message_protocol.md).  
 <a name="WSDL"></a>**WSDL** -- Web Services Description Language (WSDL) 1.1. World Wide Web Consortium. 15 March 2001, https://www.w3.org/TR/2001/NOTE-wsdl-20010315  
 <a name="SWAREF"></a>**SWAREF** -- Attachments Profile Version 1.0, http://www.ws-i.org/Profiles/AttachmentsProfile-1.0-2004-08-24.html  
 <a name="RFC1952"></a>**RFC1952** -- GZIP file format specification version 4.3, https://tools.ietf.org/html/rfc1952  
-<a name="RFC2119"></a>**RFC2119** -- Key words for use in RFCs to Indicate Requirement Levels. Request for Comments 2119, Internet Engineering Task Force, March 1997, https://www.ietf.org/rfc/rfc2119.txt
+<a name="RFC2119"></a>**RFC2119** -- Key words for use in RFCs to Indicate Requirement Levels. Request for Comments 2119, Internet Engineering Task Force, March 1997, https://www.ietf.org/rfc/rfc2119.txt  
+<a name="Ref_TERMS" class="anchor"></a>**TA-TERMS** -- X-Road Terms and Abbreviations. Document ID: [TA-TERMS](terms_x-road_docs.md).
 
 # 2 Retrieving Operational Data of Security Server
 
@@ -111,7 +119,7 @@ The body of the request MUST contain an XML element *getSecurityServerOperationa
  * *soapFaultCode*
  * *soapFaultString*
 
-The fields are described in the JSON-schema of the response payload [[Annex B]](#AnnexB).
+The fields are described in the JSON-schema of the response payload \[[Annex B](#AnnexB)\].
 
 The XML schema fragment of the operational data request body is shown below. For clarity, documentation in the schema fragment is omitted.
 
@@ -137,9 +145,9 @@ The XML schema fragment of the operational data request body is shown below. For
 </xs:complexType>
 ```
 
-The example request message is presented in [[Annex C.1]](#AnnexC.1).
+The example request message is presented in \[[Annex C.1](#AnnexC.1)\].
 
-The response MUST be MIME multipart message with attachment using swaRef [[SWAREF]](#SWAREF). The response MUST contain the following MIME parts.
+The response MUST be MIME multipart message with attachment using swaRef \[[SWAREF](#SWAREF)\]. The response MUST contain the following MIME parts.
 
 1. X-Road SOAP response message. The message MUST contain the regular X-Road headers and the body MUST contain the following elements.
  * *recordsCount* (mandatory) -- Number of records in the payload.
@@ -148,7 +156,7 @@ The response MUST be MIME multipart message with attachment using swaRef [[SWARE
 
  The content type of this part MUST be *text/xml*.
 
-2. Operational data (payload). This MIME part MUST contain queried operational data records in JSON format and compressed (GZIP [[RFC1952]](#RFC1952)) . The content type of this part MUST be *application/gzip*. The JSON-Schema for payload is described in [[Annex B]](#AnnexB).
+2. Operational data (payload). This MIME part MUST contain queried operational data records in JSON format and compressed (GZIP \[[RFC1952](#RFC1952)\]) . The content type of this part MUST be *application/gzip*. The JSON-Schema for payload is described in \[[Annex B](#AnnexB)\].
 
 The XML schema fragment of the operational data response body is shown below. For clarity, documentation in the schema fragment is omitted.
 
@@ -162,7 +170,7 @@ The XML schema fragment of the operational data response body is shown below. Fo
 </xs:complexType>
 ```
 
-The example response message is presented in [[Annex C.2]](#AnnexC.2).
+The example response message is presented in \[[Annex C.2](#AnnexC.2)\].
 
 # 3 Retrieving Health Data of Security Server
 
@@ -188,7 +196,7 @@ The XML schema fragment of the health data request body is shown below. For clar
 </xs:complexType>    
 ```
 
-The example request message is presented in [[Annex C.3]](#AnnexC.3).
+The example request message is presented in \[[Annex C.3](#AnnexC.3)\].
 
 The response message MUST contain health data of the queried security server:
  * *monitoringStartupTimestamp* -- The Unix timestamp in milliseconds when the monitoring system was started.
@@ -261,7 +269,7 @@ The XML schema fragment of the health data response body is shown below. For cla
 </xs:complexType>
 ```
 
-The example response message is presented in [[Annex C.4]](#AnnexC.4).
+The example response message is presented in \[[Annex C.4](#AnnexC.4)\].
 
 <a name="AnnexA"/></a>
 # Annex A WSDL for Operational Monitoring Messages

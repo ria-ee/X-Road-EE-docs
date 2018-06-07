@@ -16,11 +16,17 @@
   </head>
   <body>
     <article class="markdown-body">
-<p><a href="img/eu_regional_development_fund_horizontal_div_15.png" target="_blank"><img src="img/eu_regional_development_fund_horizontal_div_15.png" alt="" title="European Union | European Regional Development Fund | Investing in your future" style="max-width:100%;"></a></p>
+<table>
+<thead>
+<tr>
+<th align="right"><a href="img/eu_regional_development_fund_horizontal_div_15.png" target="_blank"><img src="img/eu_regional_development_fund_horizontal_div_15.png" alt="European Union / European Regional Development Fund / Investing in your future" title="Documents that are tagged with EU/SF logos must keep the logos until 1.1.2022, if it has not stated otherwise in the documentation. If new documentation is created  using EU/SF resources the logos must be tagged appropriately so that the deadline for logos could be found." style="max-width:100%;"></a></th>
+</tr>
+</thead>
+</table>
 <h1>
 <a id="x-road-operational-monitoring-protocol" class="anchor" href="#x-road-operational-monitoring-protocol" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>X-Road: Operational Monitoring Protocol</h1>
 <p><strong>Technical Specification</strong></p>
-<p>Version: 0.3<br>
+<p>Version: 0.4<br>
 Doc. ID: PR-OPMON</p>
 <table>
 <thead>
@@ -44,6 +50,12 @@ Doc. ID: PR-OPMON</p>
 <td>Added license text, table of contents and version history</td>
 <td>Sami Kallio</td>
 </tr>
+<tr>
+<td>05.03.2018</td>
+<td>0.4</td>
+<td>Added terms and abbreviations reference</td>
+<td>Tatu Repo</td>
+</tr>
 </tbody>
 </table>
 <h2>
@@ -53,7 +65,8 @@ Doc. ID: PR-OPMON</p>
 <li>
 <a href="#1-introduction">1 Introduction</a>
 <ul>
-<li><a href="#11-references">1.1 References</a></li>
+<li><a href="#11-terms-and-abbreviations">1.1 Terms and abbreviations</a></li>
+<li><a href="#12-references">1.2 References</a></li>
 </ul>
 </li>
 <li><a href="#2-retrieving-operational-data-of-security-server">2 Retrieving Operational Data of Security Server</a></li>
@@ -89,19 +102,23 @@ Doc. ID: PR-OPMON</p>
 <li>
 <em>getSecurityServerHealthData</em> - downloading health data of the security server.</li>
 </ul>
-<p>The operational monitoring services are implemented as standard X-Road services (see <a href="#PR-MESS">[PR-MESS]</a> for detailed description of the protocol) that are offered by the owner of the security servers.</p>
+<p>The operational monitoring services are implemented as standard X-Road services (see [<a href="#PR-MESS">PR-MESS</a>] for detailed description of the protocol) that are offered by the owner of the security servers.</p>
 <p>This protocol builds on existing transport and message encoding mechanisms. Therefore, this specification does not cover the technical details and error conditions related to making HTTP(S) requests together with processing MIME-encoded messages. These concerns are discussed in detail in their respective standards.</p>
-<p>The low-level technical details of the operational monitoring services are specified using the WSDL <a href="#WSDL">[WSDL]</a> syntax. See <a href="#AnnexA">[Annex A]</a> for operational monitoring services WSDL file.</p>
-<p>Chapters 2 and 3 together with annexes <a href="#AnnexA">[Annex A]</a> and <a href="AnnexB">[Annex B]</a> contain normative information. All the other sections are informative in nature. All the references are normative.</p>
+<p>The low-level technical details of the operational monitoring services are specified using the WSDL [<a href="#WSDL">WSDL</a>] syntax. See [<a href="#AnnexA">Annex A</a>] for operational monitoring services WSDL file.</p>
+<p>Chapters 2 and 3 together with annexes [<a href="#AnnexA">Annex A</a>] and [<a href="AnnexB">Annex B</a>] contain normative information. All the other sections are informative in nature. All the references are normative.</p>
 <p>This specification does not include option for partially implementing the protocol – the conformant implementation must implement the entire specification.</p>
-<p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document (in uppercase, as shown) are to be interpreted as described in <a href="#RFC2119">[RFC2119]</a>.</p>
+<p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document (in uppercase, as shown) are to be interpreted as described in [<a href="#RFC2119">RFC2119</a>].</p>
 <h3>
-<a id="11-references" class="anchor" href="#11-references" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.1 References</h3>
+<a id="11-terms-and-abbreviations" class="anchor" href="#11-terms-and-abbreviations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.1 Terms and abbreviations</h3>
+<p>See X-Road terms and abbreviations documentation [<a href="#Ref_TERMS">TA-TERMS</a>].</p>
+<h3>
+<a id="12-references" class="anchor" href="#12-references" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.2 References</h3>
 <p><a name="PR-MESS"></a><strong>PR-MESS</strong> -- Cybernetica AS. X-Road: Message Transport Protocol v4.0. Document ID: <a href="pr-mess_x-road_message_protocol.html">PR-MESS</a>.<br>
 <a name="WSDL"></a><strong>WSDL</strong> -- Web Services Description Language (WSDL) 1.1. World Wide Web Consortium. 15 March 2001, <a href="https://www.w3.org/TR/2001/NOTE-wsdl-20010315" rel="nofollow">https://www.w3.org/TR/2001/NOTE-wsdl-20010315</a><br>
 <a name="SWAREF"></a><strong>SWAREF</strong> -- Attachments Profile Version 1.0, <a href="http://www.ws-i.org/Profiles/AttachmentsProfile-1.0-2004-08-24.html" rel="nofollow">http://www.ws-i.org/Profiles/AttachmentsProfile-1.0-2004-08-24.html</a><br>
 <a name="RFC1952"></a><strong>RFC1952</strong> -- GZIP file format specification version 4.3, <a href="https://tools.ietf.org/html/rfc1952" rel="nofollow">https://tools.ietf.org/html/rfc1952</a><br>
-<a name="RFC2119"></a><strong>RFC2119</strong> -- Key words for use in RFCs to Indicate Requirement Levels. Request for Comments 2119, Internet Engineering Task Force, March 1997, <a href="https://www.ietf.org/rfc/rfc2119.txt" rel="nofollow">https://www.ietf.org/rfc/rfc2119.txt</a></p>
+<a name="RFC2119"></a><strong>RFC2119</strong> -- Key words for use in RFCs to Indicate Requirement Levels. Request for Comments 2119, Internet Engineering Task Force, March 1997, <a href="https://www.ietf.org/rfc/rfc2119.txt" rel="nofollow">https://www.ietf.org/rfc/rfc2119.txt</a><br>
+<a name="Ref_TERMS"></a><strong>TA-TERMS</strong> -- X-Road Terms and Abbreviations. Document ID: <a href="terms_x-road_docs.html">TA-TERMS</a>.</p>
 <h1>
 <a id="2-retrieving-operational-data-of-security-server" class="anchor" href="#2-retrieving-operational-data-of-security-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2 Retrieving Operational Data of Security Server</h1>
 <p>Security server clients can retrieve operational data of the specified time period of the security server. Method is invoked as regular X-Road service.</p>
@@ -226,7 +243,7 @@ Doc. ID: PR-OPMON</p>
 <p><em>soapFaultString</em></p>
 </li>
 </ul>
-<p>The fields are described in the JSON-schema of the response payload <a href="#AnnexB">[Annex B]</a>.</p>
+<p>The fields are described in the JSON-schema of the response payload [<a href="#AnnexB">Annex B</a>].</p>
 <p>The XML schema fragment of the operational data request body is shown below. For clarity, documentation in the schema fragment is omitted.</p>
 <div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>GetSecurityServerOperationalDataType<span class="pl-pds">"</span></span>&gt;
   &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
@@ -247,8 +264,8 @@ Doc. ID: PR-OPMON</p>
         <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">maxOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>unbounded<span class="pl-pds">"</span></span> /&gt;
   &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
 &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;</pre></div>
-<p>The example request message is presented in <a href="#AnnexC.1">[Annex C.1]</a>.</p>
-<p>The response MUST be MIME multipart message with attachment using swaRef <a href="#SWAREF">[SWAREF]</a>. The response MUST contain the following MIME parts.</p>
+<p>The example request message is presented in [<a href="#AnnexC.1">Annex C.1</a>].</p>
+<p>The response MUST be MIME multipart message with attachment using swaRef [<a href="#SWAREF">SWAREF</a>]. The response MUST contain the following MIME parts.</p>
 <ol>
 <li>X-Road SOAP response message. The message MUST contain the regular X-Road headers and the body MUST contain the following elements.</li>
 </ol>
@@ -262,7 +279,7 @@ Doc. ID: PR-OPMON</p>
 </ul>
 <p>The content type of this part MUST be <em>text/xml</em>.</p>
 <ol start="2">
-<li>Operational data (payload). This MIME part MUST contain queried operational data records in JSON format and compressed (GZIP <a href="#RFC1952">[RFC1952]</a>) . The content type of this part MUST be <em>application/gzip</em>. The JSON-Schema for payload is described in <a href="#AnnexB">[Annex B]</a>.</li>
+<li>Operational data (payload). This MIME part MUST contain queried operational data records in JSON format and compressed (GZIP [<a href="#RFC1952">RFC1952</a>]) . The content type of this part MUST be <em>application/gzip</em>. The JSON-Schema for payload is described in [<a href="#AnnexB">Annex B</a>].</li>
 </ol>
 <p>The XML schema fragment of the operational data response body is shown below. For clarity, documentation in the schema fragment is omitted.</p>
 <div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>GetSecurityServerOperationalDataResponseType<span class="pl-pds">"</span></span>&gt;
@@ -272,7 +289,7 @@ Doc. ID: PR-OPMON</p>
     &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>nextRecordsFrom<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>xs:long<span class="pl-pds">"</span></span> <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> /&gt;
   &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
 &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;</pre></div>
-<p>The example response message is presented in <a href="#AnnexC.2">[Annex C.2]</a>.</p>
+<p>The example response message is presented in [<a href="#AnnexC.2">Annex C.2</a>].</p>
 <h1>
 <a id="3-retrieving-health-data-of-security-server" class="anchor" href="#3-retrieving-health-data-of-security-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3 Retrieving Health Data of Security Server</h1>
 <p>Security server clients can retrieve health data of the specified security server. Method is invoked as regular X-Road service.</p>
@@ -290,7 +307,7 @@ This element MAY contain XML element <em>filterCriteria</em> to determine a clie
   &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>client<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>id:XRoadClientIdentifierType<span class="pl-pds">"</span></span> <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> /&gt;
   &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
 &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;    </pre></div>
-<p>The example request message is presented in <a href="#AnnexC.3">[Annex C.3]</a>.</p>
+<p>The example request message is presented in [<a href="#AnnexC.3">Annex C.3</a>].</p>
 <p>The response message MUST contain health data of the queried security server:</p>
 <ul>
 <li>
@@ -384,7 +401,7 @@ This element MAY contain XML element <em>filterCriteria</em> to determine a clie
     &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>responseSoapSizeStdDev<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>xs:double<span class="pl-pds">"</span></span> <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> /&gt;
   &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
 &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;</pre></div>
-<p>The example response message is presented in <a href="#AnnexC.4">[Annex C.4]</a>.</p>
+<p>The example response message is presented in [<a href="#AnnexC.4">Annex C.4</a>].</p>
 <p><a name="AnnexA"></a></p>
 <h1>
 <a id="annex-a-wsdl-for-operational-monitoring-messages" class="anchor" href="#annex-a-wsdl-for-operational-monitoring-messages" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Annex A WSDL for Operational Monitoring Messages</h1>
