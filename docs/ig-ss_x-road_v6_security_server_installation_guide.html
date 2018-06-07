@@ -173,6 +173,12 @@ Doc. ID: IG-SS</p>
 <td>Updated chapter "<a href="#27-installing-the-support-for-hardware-tokens">Installing the Support for Hardware Tokens</a>" with configurable parameters described in the configuration file 'devices.ini'</td>
 <td>Cybernetica AS</td>
 </tr>
+<tr>
+<td>07.06.2018</td>
+<td>2.12.1</td>
+<td>Updated repository information with x-tee.ee domain</td>
+<td>Jürgen Šuvalov</td>
+</tr>
 </tbody>
 </table>
 <h2>
@@ -247,7 +253,7 @@ Doc. ID: IG-SS</p>
 <a id="2-installation" class="anchor" href="#2-installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2 Installation</h2>
 <h3>
 <a id="21-supported-platforms" class="anchor" href="#21-supported-platforms" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.1 Supported Platforms</h3>
-<p>The security server runs on the <em>Ubuntu Server 14.04 Long-Term Support (LTS)</em> operating system on a 64-bit platform. The security server software is distributed as .deb packages through the official X-Road repository at <a href="http://x-road.eu/packages/" rel="nofollow">http://x-road.eu/packages/</a></p>
+<p>The security server runs on the <em>Ubuntu Server 14.04 Long-Term Support (LTS)</em> operating system on a 64-bit platform. The Estonian version of the security server software is distributed as .deb packages through the official X-tee repository at <a href="http://x-tee.ee/packages/" rel="nofollow">http://x-tee.ee/packages/</a>.</p>
 <p>The software can be installed both on physical and virtualized hardware (of the latter, Xen and Oracle VirtualBox have been tested).</p>
 <h3>
 <a id="22-reference-data" class="anchor" href="#22-reference-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.2 Reference Data</h3>
@@ -269,12 +275,17 @@ Doc. ID: IG-SS</p>
 </tr>
 <tr>
 <td>1.1</td>
-<td><a href="http://x-road.eu/packages" rel="nofollow">http://x-road.eu/packages</a></td>
-<td>X-Road package repository</td>
+<td><a href="http://x-tee.ee/packages/live/xroad" rel="nofollow">http://x-tee.ee/packages/live/xroad</a></td>
+<td>X-Road stable package repository</td>
+</tr>
+<tr>
+<td> </td>
+<td><a href="http://x-tee.ee/packages/test/xroad" rel="nofollow">http://x-tee.ee/packages/test/xroad</a></td>
+<td>X-Road test package repository</td>
 </tr>
 <tr>
 <td>1.2</td>
-<td><a href="http://x-road.eu/packages/xroad_repo.gpg" rel="nofollow">http://x-road.eu/packages/xroad_repo.gpg</a></td>
+<td><a href="https://x-tee.ee/packages/xroad_repo.gpg" rel="nofollow">https://x-tee.ee/packages/xroad_repo.gpg</a></td>
 <td>The repository key</td>
 </tr>
 <tr>
@@ -422,14 +433,14 @@ Doc. ID: IG-SS</p>
 <ol>
 <li>
 <p>Add to <code>/etc/apt/sources.list.d/xroad.list</code> the address of X-Road package repository (<strong>reference data: 1.1</strong>) and the nginx repository:</p>
-<pre><code>deb http://x-road.eu/packages trusty main
+<pre><code>deb http://x-tee.ee/packages/live/xroad trusty main
 deb http://ppa.launchpad.net/nginx/stable/ubuntu trusty main
 deb http://ppa.launchpad.net/openjdk-r/ppa/ubuntu trusty main
 </code></pre>
 </li>
 <li>
 <p>Add the X-Road repository’s signing key to the list of trusted keys (<strong>reference data: 1.2</strong>):</p>
-<pre><code>curl http://x-road.eu/packages/xroad_repo.gpg | sudo apt-key add -
+<pre><code>curl http://x-tee.ee/packages/xroad_repo.gpg | sudo apt-key add -
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 00A6F0A3C300EE8C
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EB9B1D8886F44E2A
 </code></pre>
@@ -656,7 +667,7 @@ xroad-proxy start/running, process 19580
 <tr>
 <td>2.1</td>
 <td>
-<a href="http://x-road.eu/packages/" rel="nofollow">http://x-road.eu/packages/</a>&lt;anchor file&gt;<br> ee-dev - development environment<br> ee-test - test environment<br> EE - production environment</td>
+<a href="https://x-tee.ee/anchors/" rel="nofollow">https://x-tee.ee/anchors/</a>&lt;anchor file&gt;<br> ee-dev - development environment<br> ee-test - test environment<br> EE - production environment</td>
 <td>Global configuration anchor file</td>
 </tr>
 <tr>
