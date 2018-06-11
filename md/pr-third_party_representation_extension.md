@@ -2,7 +2,7 @@
 
 **Technical Specification**
 
-Version: 1.0.2
+Version: 1.0.2  
 Doc. ID: PR-THIRDPARTY
 
 ## Version history
