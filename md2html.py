@@ -66,3 +66,4 @@ md2html("X-Road: Operational Monitoring System Parameters", "md/ug-opmonsyspar_x
 md2html("X-Road: Service Metadata Protocol", "md/pr-meta_x-road_service_metadata_protocol.md", "docs/pr-meta_x-road_service_metadata_protocol.html")
 md2html("X-Road: Protocol for Management Services", "md/pr-mserv_x-road_protocol_for_management_services.md", "docs/pr-mserv_x-road_protocol_for_management_services.html")
 md2html("X-Road: Terms and Abbreviations", "md/terms_x-road_docs.md", "docs/terms_x-road_docs.html")
+md2html("X-Road: Third Party Representation Extension", "md/pr-third_party_representation_extension.md", "docs/pr-third_party_representation_extension.html")
