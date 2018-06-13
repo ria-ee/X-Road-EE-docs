@@ -55,19 +55,19 @@ This section describes XML-based data formats for expressing the represented par
 The following listing shows the header of the schema definition.
 
 ```xml
-<?xml version= "1.0" encoding= "UTF-8"?>
-<xs:schema xmlns:xs= "http://www.w3.org/2001/XMLSchema"
-elementFormDefault= "qualified"
-targetNamespace= "http://x-road.eu/xsd/representation.xsd"
-xmlns= "http://x-road.eu/xsd/representation.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+elementFormDefault="qualified"
+targetNamespace="http://x-road.eu/xsd/representation.xsd"
+xmlns="http://x-road.eu/xsd/representation.xsd">
 ```
 The `XRoadRepresentedPartyType` complex type is used to describe represented parties. It consists of two elements – `partyClass` and `partyCode` from which only `partyCode` is mandatory and other can be used for additional information.
 
 ```xml
-<xs:complexType name= "XRoadRepresentedPartyType">
+<xs:complexType name="XRoadRepresentedPartyType">
 <xs:sequence>
-<xs:element minOccurs= "0" ref= "partyClass"/>
-<xs:element minOccurs= "1" ref= "partyCode"/>
+<xs:element minOccurs="0" ref="partyClass"/>
+<xs:element minOccurs="1" ref="partyCode"/>
 </xs:sequence>
 </xs:complexType>
 ```
@@ -77,14 +77,14 @@ Next, we define the elements used in the `XRoadRepresentedPartyType`. Element `p
 Element `partyCode` is used to uniquely identify represented parties.
 
 ```xml
-<xs:element name= "partyClass" type= "xs:string"/>
-<xs:element name= "partyCode" type= "xs:string"/>
+<xs:element name="partyClass" type="xs:string"/>
+<xs:element name="partyCode" type="xs:string"/>
 ```
 
 Finally we define the `representedParty` element.
 
 ```xml
-<xs:element name= "representedParty" type= "XRoadRepresentedPartyType"/>
+<xs:element name="representedParty" type="XRoadRepresentedPartyType"/>
 ```
 
 ### 2.2 Message Headers
