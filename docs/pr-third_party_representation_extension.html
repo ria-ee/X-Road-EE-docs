@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="github-markdown.css">
+    <style>
+      .markdown-body {
+        box-sizing: border-box;
+        min-width: 200px;
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 45px;
+      }
+    </style>
+    <title>X-Road: Third Party Representation Extension</title>
+  </head>
+  <body>
+    <article class="markdown-body">
+<h1>
+<a id="x-road-third-party-representation-extension" class="anchor" href="#x-road-third-party-representation-extension" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>X-Road: Third Party Representation Extension</h1>
+<p><strong>Technical Specification</strong></p>
+<p>Version: 1.0.2<br>
+Doc. ID: PR-THIRDPARTY</p>
+<h2>
+<a id="version-history" class="anchor" href="#version-history" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version history</h2>
+<table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Version</th>
+<th>Description</th>
+<th>Author</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>1.0.1</td>
+<td>Initial version</td>
+<td></td>
+</tr>
+<tr>
+<td>11.06.2018</td>
+<td>1.0.2</td>
+<td>Converted to MD and updated references</td>
+<td>Jürgen Šuvalov</td>
+</tr>
+</tbody>
+</table>
+<h2>
+<a id="table-of-contents" class="anchor" href="#table-of-contents" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Table of Contents</h2>
+
+<ul>
+<li>
+<a href="#x-road--third-party-representation-extension">X-Road: Third Party Representation Extension</a>
+<ul>
+<li><a href="#version-history">Version history</a></li>
+<li><a href="#table-of-contents">Table of Contents</a></li>
+<li><a href="#license">License</a></li>
+<li><a href="#1-introduction">1 Introduction</a></li>
+<li>
+<a href="#2-format-of-messages">2 Format of Messages</a>
+<ul>
+<li><a href="#21-represented-parties">2.1 Represented Parties</a></li>
+<li><a href="#22-message-headers">2.2 Message Headers</a></li>
+</ul>
+</li>
+<li><a href="#annex-a-xml-schema-for-representation">Annex A XML Schema for Representation</a></li>
+<li><a href="#annex-b-example-wsdl">Annex B Example WSDL</a></li>
+<li>
+<a href="#annex-c-example-messages">Annex C Example Messages</a>
+<ul>
+<li><a href="#c1-example-request">C.1 Example Request</a></li>
+<li><a href="#c1-example-response">C.1 Example Response</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
+<p>This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="nofollow">http://creativecommons.org/licenses/by-sa/3.0/</a>.</p>
+<h2>
+<a id="1-introduction" class="anchor" href="#1-introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1 Introduction</h2>
+<p>This specification describes an extension of X-Road protocol for adapter server messaging v4
+(<a href="https://github.com/nordic-institute/X-Road/blob/master/doc/Protocols/pr-mess_x-road_message_protocol.md">https://github.com/nordic-institute/X-Road/blob/master/doc/Protocols/pr-mess_x-road_message_protocol.md</a>).</p>
+<p>The purpose of that extension is to allow sending of additional information to the X-Road service providers in case when service client represents third party while issuing a query. The query is initiated by a third party and the results are also forwarded to that third party, but the request itself is signed by service client.</p>
+<p>The described scenario can be used by MISP and other portals that offer X-Road services to various types of institutions. These institutions may not be X-Road members and even may not be eligible for becoming ones, but the service agreements between service providers and service clients may allow service clients to forward data received from X-Road services to these institutions.</p>
+<p>This specification describes third party representation extension version 1.0.</p>
+<h2>
+<a id="2-format-of-messages" class="anchor" href="#2-format-of-messages" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2 Format of Messages</h2>
+<h3>
+<a id="21-represented-parties" class="anchor" href="#21-represented-parties" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.1 Represented Parties</h3>
+<p>This section describes XML-based data formats for expressing the represented parties. The data structures and elements defined in this section will be located under namespace <a href="http://x-road.eu/xsd/representation.xsd" rel="nofollow">http://x-road.eu/xsd/representation.xsd</a>. The complete XML Schema is shown in <a href="#annex-a-xml-schema-for-representation">Annex A XML Schema for Representation</a>.</p>
+<p>The following listing shows the header of the schema definition.</p>
+<div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
+&lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">schema</span> <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">xs</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.w3.org/2001/XMLSchema<span class="pl-pds">"</span></span>
+elementFormDefault=<span class="pl-s"><span class="pl-pds">"</span>qualified<span class="pl-pds">"</span></span>
+targetNamespace=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/representation.xsd<span class="pl-pds">"</span></span>
+xmlns=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/representation.xsd<span class="pl-pds">"</span></span>&gt;</pre></div>
+<p>The <code>XRoadRepresentedPartyType</code> complex type is used to describe represented parties. It consists of two elements – <code>partyClass</code> and <code>partyCode</code> from which only <code>partyCode</code> is mandatory and other can be used for additional information.</p>
+<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>XRoadRepresentedPartyType<span class="pl-pds">"</span></span>&gt;
+&lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+&lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">ref</span>=<span class="pl-s"><span class="pl-pds">"</span>partyClass<span class="pl-pds">"</span></span>/&gt;
+&lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span> <span class="pl-e">ref</span>=<span class="pl-s"><span class="pl-pds">"</span>partyCode<span class="pl-pds">"</span></span>/&gt;
+&lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+&lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;</pre></div>
+<p>Next, we define the elements used in the <code>XRoadRepresentedPartyType</code>. Element <code>partyClass</code> is similar to the element <code>memberClass</code> described in the X-Road protocol for adapter server messaging, but can additionally identify institutions that can not become members of X-Road.</p>
+<p>Element <code>partyCode</code> is used to uniquely identify represented parties.</p>
+<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>partyClass<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>xs:string<span class="pl-pds">"</span></span>/&gt;
+&lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>partyCode<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>xs:string<span class="pl-pds">"</span></span>/&gt;</pre></div>
+<p>Finally we define the <code>representedParty</code> element.</p>
+<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>representedParty<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>XRoadRepresentedPartyType<span class="pl-pds">"</span></span>/&gt;</pre></div>
+<h3>
+<a id="22-message-headers" class="anchor" href="#22-message-headers" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.2 Message Headers</h3>
+<p>This section describes additional SOAP headers that are used by the X-Road system. The header fields are described in <a href="#Ref_Supported_header_fields">Table 1</a>.</p>
+<p><a name="Ref_Supported_header_fields"></a>
+Table 1. Supported header fields</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Mandatory /Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>representedParty</td>
+<td>XRoadRepresentedPartyType</td>
+<td>O</td>
+<td>Identifies a party that is being represented in a service request</td>
+</tr>
+</tbody>
+</table>
+<h2>
+<a id="annex-a-xml-schema-for-representation" class="anchor" href="#annex-a-xml-schema-for-representation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Annex A XML Schema for Representation</h2>
+<div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
+&lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">schema</span> <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">xs</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.w3.org/2001/XMLSchema<span class="pl-pds">"</span></span> <span class="pl-e">elementFormDefault</span>=<span class="pl-s"><span class="pl-pds">"</span>qualified<span class="pl-pds">"</span></span> <span class="pl-e">targetNamespace</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/representation.xsd<span class="pl-pds">"</span></span> 
+    <span class="pl-e">xmlns</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/representation.xsd<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>partyClass<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>xs:string<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">annotation</span>&gt;
+            &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">documentation</span>&gt;Class of the represented party.&lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">documentation</span>&gt;
+        &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">annotation</span>&gt;
+    &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span>&gt;
+    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>partyCode<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>xs:string<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">annotation</span>&gt;
+            &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">documentation</span>&gt;Code of the represented party.&lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">documentation</span>&gt;
+        &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">annotation</span>&gt;
+    &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span>&gt;
+    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>XRoadRepresentedPartyType<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+            &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">ref</span>=<span class="pl-s"><span class="pl-pds">"</span>partyClass<span class="pl-pds">"</span></span>/&gt;
+            &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span> <span class="pl-e">ref</span>=<span class="pl-s"><span class="pl-pds">"</span>partyCode<span class="pl-pds">"</span></span>/&gt;
+        &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+    &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
+    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>representedParty<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>XRoadRepresentedPartyType<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">annotation</span>&gt;
+            &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">documentation</span>&gt;Identifies a party that is being
+represented in a service request.&lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">documentation</span>&gt;
+        &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">annotation</span>&gt;
+    &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span>&gt;
+&lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">schema</span>&gt;</pre></div>
+<h2>
+<a id="annex-b-example-wsdl" class="anchor" href="#annex-b-example-wsdl" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Annex B Example WSDL</h2>
+<div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
+&lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">definitions</span> <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">soap</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.xmlsoap.org/wsdl/soap/<span class="pl-pds">"</span></span> 
+    <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">xrd</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span> 
+    <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">tns</span>=<span class="pl-s"><span class="pl-pds">"</span>http://v6Example.x-road.eu/producer<span class="pl-pds">"</span></span> 
+    <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">wsdl</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.xmlsoap.org/wsdl/<span class="pl-pds">"</span></span> 
+    <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">xsd</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.w3.org/2001/XMLSchema<span class="pl-pds">"</span></span> 
+    <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">repr</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/representation.xsd<span class="pl-pds">"</span></span> <span class="pl-e">targetNamespace</span>=<span class="pl-s"><span class="pl-pds">"</span>http://v6Example.x-road.eu/producer<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">types</span>&gt;
+        &lt;<span class="pl-ent">schema</span> <span class="pl-e">xmlns</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.w3.org/2001/XMLSchema<span class="pl-pds">"</span></span> <span class="pl-e">targetNamespace</span>=<span class="pl-s"><span class="pl-pds">"</span>http://v6Example.x-road.eu/producer<span class="pl-pds">"</span></span> <span class="pl-e">elementFormDefault</span>=<span class="pl-s"><span class="pl-pds">"</span>qualified<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">import</span> <span class="pl-e">namespace</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span> <span class="pl-e">schemaLocation</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>/&gt;
+            &lt;<span class="pl-ent">import</span> <span class="pl-e">namespace</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/representation.xsd<span class="pl-pds">"</span></span> <span class="pl-e">schemaLocation</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/representation.xsd<span class="pl-pds">"</span></span>/&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>getRandom<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">complexType</span>&gt;
+                    &lt;<span class="pl-ent">sequence</span>&gt;
+                        &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>amount<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>positiveInteger<span class="pl-pds">"</span></span>&gt;
+                            &lt;<span class="pl-ent">annotation</span>&gt;
+                                &lt;<span class="pl-ent">appinfo</span>&gt;
+                                    &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">title</span> <span class="pl-e">xml</span><span class="pl-e">:</span><span class="pl-e">lang</span>=<span class="pl-s"><span class="pl-pds">"</span>en<span class="pl-pds">"</span></span>&gt;Amount of numbers to generate&lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">title</span>&gt;
+                                &lt;/<span class="pl-ent">appinfo</span>&gt;
+                            &lt;/<span class="pl-ent">annotation</span>&gt;
+                        &lt;/<span class="pl-ent">element</span>&gt;
+                    &lt;/<span class="pl-ent">sequence</span>&gt;
+                &lt;/<span class="pl-ent">complexType</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>getRandomResponse<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">complexType</span>&gt;
+                    &lt;<span class="pl-ent">sequence</span>&gt;
+                        &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>randomValues<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:randomValues<span class="pl-pds">"</span></span>&gt;
+                            &lt;<span class="pl-ent">annotation</span>&gt;
+                                &lt;<span class="pl-ent">appinfo</span>&gt;
+                                    &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">title</span> <span class="pl-e">xml</span><span class="pl-e">:</span><span class="pl-e">lang</span>=<span class="pl-s"><span class="pl-pds">"</span>en<span class="pl-pds">"</span></span>&gt;Array
+of random values&lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">title</span>&gt;
+                                &lt;/<span class="pl-ent">appinfo</span>&gt;
+                            &lt;/<span class="pl-ent">annotation</span>&gt;
+                        &lt;/<span class="pl-ent">element</span>&gt;
+                    &lt;/<span class="pl-ent">sequence</span>&gt;
+                &lt;/<span class="pl-ent">complexType</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">complexType</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>randomValues<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">sequence</span>&gt;
+                    &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>randomValue<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>xsd:decimal<span class="pl-pds">"</span></span> <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span> <span class="pl-e">maxOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>1000<span class="pl-pds">"</span></span>&gt;
+                        &lt;<span class="pl-ent">annotation</span>&gt;
+                            &lt;<span class="pl-ent">appinfo</span>&gt;
+                                &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">title</span> <span class="pl-e">xml</span><span class="pl-e">:</span><span class="pl-e">lang</span>=<span class="pl-s"><span class="pl-pds">"</span>en<span class="pl-pds">"</span></span>&gt;Random
+value&lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">title</span>&gt;
+                            &lt;/<span class="pl-ent">appinfo</span>&gt;
+                        &lt;/<span class="pl-ent">annotation</span>&gt;
+                    &lt;/<span class="pl-ent">element</span>&gt;
+                &lt;/<span class="pl-ent">sequence</span>&gt;
+            &lt;/<span class="pl-ent">complexType</span>&gt;
+        &lt;/<span class="pl-ent">schema</span>&gt;
+    &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">types</span>&gt;
+    &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">message</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>requestHeader<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>client<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:client<span class="pl-pds">"</span></span>/&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>service<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:service<span class="pl-pds">"</span></span>/&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>representedParty<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>repr:representedParty<span class="pl-pds">"</span></span>/&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:id<span class="pl-pds">"</span></span>/&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>userId<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:userId<span class="pl-pds">"</span></span>/&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>requestHash<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:requestHash<span class="pl-pds">"</span></span>/&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>issue<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:issue<span class="pl-pds">"</span></span>/&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>protocolVersion<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:protocolVersion<span class="pl-pds">"</span></span>/&gt;
+&lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">message</span>&gt;
+    &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">message</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>getRandom<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>body<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:getRandom<span class="pl-pds">"</span></span>/&gt;
+    &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">message</span>&gt;
+    &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">message</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>getRandomResponse<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>body<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:getRandomResponse<span class="pl-pds">"</span></span>/&gt;
+&lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">message</span>&gt;
+    &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">portType</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>v6ExamplePortType<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">operation</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>getRandom<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">documentation</span>&gt;
+                &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">title</span>&gt;Random number generator&lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">title</span>&gt;
+                &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">notes</span>&gt;Operation is generating random numbers.&lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">notes</span>&gt;
+                &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">techNotes</span>&gt;Operation internally uses /dev/urandom
+for random number generation. Operation returns
+only up to 1000 random numbers.&lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">techNotes</span>&gt;
+            &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">documentation</span>&gt;
+            &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">input</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:getRandom<span class="pl-pds">"</span></span>/&gt;
+            &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">output</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:getRandomResponse<span class="pl-pds">"</span></span>/&gt;
+        &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">operation</span>&gt;
+    &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">portType</span>&gt;
+    &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">binding</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>v6ExampleBinding<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:v6ExamplePortType<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">binding</span> <span class="pl-e">style</span>=<span class="pl-s"><span class="pl-pds">"</span>document<span class="pl-pds">"</span></span> <span class="pl-e">transport</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.xmlsoap.org/soap/http<span class="pl-pds">"</span></span>/&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">operation</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>getRandom<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">operation</span> <span class="pl-e">soapAction</span>=<span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span> <span class="pl-e">style</span>=<span class="pl-s"><span class="pl-pds">"</span>document<span class="pl-pds">"</span></span>/&gt;
+            &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">version</span>&gt;v1&lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">version</span>&gt;
+            &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">input</span>&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">body</span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestHeader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>client<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestHeader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>service<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestHeader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>representedParty<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestHeader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestHeader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>userId<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestHeader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>issue<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestHeader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>protocolVersion<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+            &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">input</span>&gt;
+            &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">output</span>&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">body</span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestHeader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>client<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestHeader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>service<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestHeader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>representedParty<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestHeader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestHeader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>userId<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestHeader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>requestHash<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestHeader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>issue<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestHeader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>protocolVersion<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+&lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">output</span>&gt;
+        &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">operation</span>&gt;
+    &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">binding</span>&gt;
+    &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">service</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>v6ExampleService<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">port</span> <span class="pl-e">binding</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:v6ExampleBinding<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>v6ExampleServicePort<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">address</span> <span class="pl-e">location</span>=<span class="pl-s"><span class="pl-pds">"</span>http://INSERT_CORRECT_SERVICE_URL<span class="pl-pds">"</span></span>/&gt;
+&lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">port</span>&gt;
+    &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">service</span>&gt;
+&lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">definitions</span>&gt;</pre></div>
+<h2>
+<a id="annex-c-example-messages" class="anchor" href="#annex-c-example-messages" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Annex C Example Messages</h2>
+<h3>
+<a id="c1-example-request" class="anchor" href="#c1-example-request" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>C.1 Example Request</h3>
+<div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
+&lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span> <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">SOAP-ENV</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.xmlsoap.org/soap/envelope/<span class="pl-pds">"</span></span> 
+    <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">xrd</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span> 
+    <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/identifiers<span class="pl-pds">"</span></span> 
+    <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">repr</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/representation.xsd<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Header</span>&gt;
+        &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">client</span> <span class="pl-e">id</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>SUBSYSTEM<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;EE&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;GOV&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;MEMBER1&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">subsystemCode</span>&gt;SUBSYSTEM1&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">subsystemCode</span>&gt;
+        &lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">client</span>&gt;
+        &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">service</span> <span class="pl-e">id</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>SERVICE<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;EE&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;GOV&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;MEMBER2&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">subsystemCode</span>&gt;SUBSYSTEM2&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">subsystemCode</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serviceCode</span>&gt;getRandom&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serviceCode</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serviceVersion</span>&gt;v1&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serviceVersion</span>&gt;
+        &lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">service</span>&gt;
+        &lt;<span class="pl-ent">repr</span><span class="pl-ent">:</span><span class="pl-ent">representedParty</span>&gt;
+            &lt;<span class="pl-ent">repr</span><span class="pl-ent">:</span><span class="pl-ent">partyClass</span>&gt;COM&lt;/<span class="pl-ent">repr</span><span class="pl-ent">:</span><span class="pl-ent">partyClass</span>&gt;
+            &lt;<span class="pl-ent">repr</span><span class="pl-ent">:</span><span class="pl-ent">partyCode</span>&gt;MEMBER3&lt;/<span class="pl-ent">repr</span><span class="pl-ent">:</span><span class="pl-ent">partyCode</span>&gt;
+        &lt;/<span class="pl-ent">repr</span><span class="pl-ent">:</span><span class="pl-ent">representedParty</span>&gt;
+        &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">userId</span>&gt;EE1234567890&lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">userId</span>&gt;
+        &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">id</span>&gt;4894e35d-bf0f-44a6-867a-8e51f1daa7e0&lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">id</span>&gt;
+        &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">protocolVersion</span>&gt;4.0&lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">protocolVersion</span>&gt;
+    &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Header</span>&gt;
+    &lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
+        &lt;<span class="pl-ent">ns1</span><span class="pl-ent">:</span><span class="pl-ent">getRandom</span> <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">ns1</span>=<span class="pl-s"><span class="pl-pds">"</span>http://v6Example.x-road.eu/producer<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">amount</span>&gt;2&lt;/<span class="pl-ent">amount</span>&gt;
+        &lt;/<span class="pl-ent">ns1</span><span class="pl-ent">:</span><span class="pl-ent">getRandom</span>&gt;
+    &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
+&lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>&gt;</pre></div>
+<h3>
+<a id="c1-example-response" class="anchor" href="#c1-example-response" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>C.1 Example Response</h3>
+<div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
+&lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span> <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">SOAP-ENV</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.xmlsoap.org/soap/envelope/<span class="pl-pds">"</span></span> 
+    <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">xrd</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span> 
+    <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/identifiers<span class="pl-pds">"</span></span> 
+    <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">repr</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/representation.xsd<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Header</span>&gt;
+        &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">client</span> <span class="pl-e">id</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>SUBSYSTEM<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;EE&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;GOV&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;MEMBER1&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">subsystemCode</span>&gt;SUBSYSTEM1&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">subsystemCode</span>&gt;
+        &lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">client</span>&gt;
+        &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">service</span> <span class="pl-e">id</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>SERVICE<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;EE&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;GOV&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;MEMBER2&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">subsystemCode</span>&gt;SUBSYSTEM2&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">subsystemCode</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serviceCode</span>&gt;getRandom&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serviceCode</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serviceVersion</span>&gt;v1&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serviceVersion</span>&gt;
+        &lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">service</span>&gt;
+        &lt;<span class="pl-ent">repr</span><span class="pl-ent">:</span><span class="pl-ent">representedParty</span>&gt;
+            &lt;<span class="pl-ent">repr</span><span class="pl-ent">:</span><span class="pl-ent">partyClass</span>&gt;COM&lt;/<span class="pl-ent">repr</span><span class="pl-ent">:</span><span class="pl-ent">partyClass</span>&gt;
+            &lt;<span class="pl-ent">repr</span><span class="pl-ent">:</span><span class="pl-ent">partyCode</span>&gt;MEMBER3&lt;/<span class="pl-ent">repr</span><span class="pl-ent">:</span><span class="pl-ent">partyCode</span>&gt;
+        &lt;/<span class="pl-ent">repr</span><span class="pl-ent">:</span><span class="pl-ent">representedParty</span>&gt;
+        &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">userId</span>&gt;EE1234567890&lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">userId</span>&gt;
+        &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">id</span>&gt;4894e35d-bf0f-44a6-867a-8e51f1daa7e0&lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">id</span>&gt;
+        &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">protocolVersion</span>&gt;4.0&lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">protocolVersion</span>&gt;
+        &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">requestHash</span> <span class="pl-e">algorithmId</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.w3.org/2001/04/xmlenc#sha512<span class="pl-pds">"</span></span>&gt;WJGPAGv7 AebB+yhYgYjkqzsSOjCMf+kvDmMVvq0RiLOyjm8IVxxI1aB31OJG+SoYyv AngBYqP34Pt1CjJ4nTJQ==&lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">requestHash</span>&gt;
+    &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Header</span>&gt;
+    &lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
+        &lt;<span class="pl-ent">xxprod</span><span class="pl-ent">:</span><span class="pl-ent">getRandomResponse</span> <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">xxprod</span>=<span class="pl-s"><span class="pl-pds">"</span>http://v6Example.x-road.eu/producer<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">randomValues</span>&gt;
+                &lt;<span class="pl-ent">randomValue</span>&gt;0.123456789&lt;/<span class="pl-ent">randomValue</span>&gt;
+                &lt;<span class="pl-ent">randomValue</span>&gt;0.987654321&lt;/<span class="pl-ent">randomValue</span>&gt;
+            &lt;/<span class="pl-ent">randomValues</span>&gt;
+        &lt;/<span class="pl-ent">xxprod</span><span class="pl-ent">:</span><span class="pl-ent">getRandomResponse</span>&gt;
+    &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
+&lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>&gt;</pre></div>
+    </article>
+  </body>
+</html>
