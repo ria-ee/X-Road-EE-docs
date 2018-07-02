@@ -113,8 +113,9 @@ The software can be installed both on physical and virtualized hardware (of the 
  **Ref** |                                        | **Explanation**
  ------ | --------------------------------------- | ----------------------------------------------------------
  1.0    | Ubuntu 14.04, 64-bit<br>3 GB RAM, 3 GB free disk space | Minimum requirements
- 1.1    | http://x-road.eu/packages               | X-Road package repository
- 1.2    | http://x-road.eu/packages/xroad_repo.gpg | The repository key
+ 1.1    | http://x-tee.ee/packages/live/xroad     | X-Road stable package repository
+ &nbsp; | http://x-tee.ee/packages/test/xroad     | X-Road test package repository
+ 1.2    | https://x-tee.ee/packages/xroad_repo.gpg | The repository key
  1.3    |                                         | Account name in the user interface
  1.4	| INBOUND								  | Ports for inbound connections (from the external network to the security server)
  &nbsp; | TCP 5500                                | Message exchange between security servers. Recommended to use IP filtering (**whitelisting only RIA IP's and partners**).
