@@ -117,23 +117,33 @@ The software can be installed both on physical and virtualized hardware (of the 
  &nbsp; | http://x-tee.ee/packages/test/xroad     | X-Road test package repository
  1.2    | https://x-tee.ee/packages/xroad_repo.gpg | The repository key
  1.3    |                                         | Account name in the user interface
- 1.4    | TCP 5500                                | Port for inbound connections (from the external network to the security server)<br> Message exchange between security servers
- &nbsp; | TCP 5577                                | Port for inbound connections (from the external network to the security server)<br> Querying of OCSP responses between security servers
- &nbsp; | TCP 2080                                | Port for inbound connections (from the external network to the security server)<br> Message exchange between security server and operational data monitoring daemon (by default on localhost)
- &nbsp; | TCP 9011                                | Port for inbound connections (from the external network to the security server)<br> Operational data monitoring daemon JMX listening port
- 1.5  | TCP 5500                                  | Ports for outbound connections (from the security server to the external network)<br> Message exchange between security servers
- &nbsp; | TCP 5577                                | Ports for outbound connections (from the security server to the external network)<br> Querying of OCSP responses between security servers
- &nbsp; | TCP 4001                                | Ports for outbound connections (from the security server to the external network)<br> Communication with the central server
- &nbsp; | TCP 80                                  | Ports for outbound connections (from the security server to the external network)<br> Downloading global configuration
- &nbsp; | TCP 80,443                              | Ports for outbound connections (from the security server to the external network)<br> Most common OCSP and time-stamping services
- 1.6  | TCP 4000                                  | User interface (local network)
- 1.7  | TCP 80                                    | Information system access points (in the local network)<br> Connections from information systems
- &nbsp; | TCP 443                                 | Information system access points (in the local network)<br> Connections from information systems
+ 1.4	| INBOUND								  | Ports for inbound connections (from the external network to the security server)
+ &nbsp; | TCP 5500                                | Message exchange between security servers. Recommended to use IP filtering (**whitelisting only RIA IP's and partners**).
+ &nbsp; | TCP 5577                                | Querying of OCSP responses between security servers. Recommended to use IP filtering (**whitelisting only RIA IP's and partners**)
+ 1.5	| OUTBOUND 								  | Ports for outbound connections (from the security server to the external network)
+ &nbsp; | TCP 5500                                | Message exchange between security servers
+ &nbsp; | TCP 5577                                | Querying of OCSP responses between security servers
+ &nbsp; | TCP 4001                                | Communication with the central server
+ &nbsp; | TCP 80                                  | Downloading global configuration from central server. 
+ &nbsp; | TCP 80,443                              | Most common OCSP and time-stamping services. 
+ 1.6  | TCP 4000                                  | User interface (local network). **Must not be accessible from the Internet!**
+ 1.7  | TCP 80, 443                               | Information system access points (in the local network)<br> **Must not be accessible from the Internet!**
+ &nbsp; | TCP 2080                                | Message exchange between security server and operational data monitoring daemon (by default on localhost)
+ &nbsp; | TCP 9011                                | Operational data monitoring daemon JMX listening port
  1.8  |                                           | Security server internal IP address(es) and hostname(s)
  1.9  |                                           | Security server public IP address, NAT address
  1.10 | &lt;by default, the server’s IP addresses and names are added to the certificate’s Distinguished Name (DN) field&gt; | Information about the user interface TLS certificate
  1.11 | &lt;by default, the server’s IP addresses and names are added to the certificate’s Distinguished Name (DN) field&gt; | Information about the services TLS certificate
  1.12 | TCP 2552                                  | Port for communications between `xroad-proxy` and `xroad-monitoring` processes
+
+#### Security server ports and RIA IP's for whitelisting in your network firewall
+
+![](img/security_server_ports.png "Security server ports")
+
+ RIA IP's for whitelisting | **EE - production** | **ee-test**	| **ee-dev**
+-------------------------- | --------------------| -------------- | -------------
+ Central Server 			| 213.184.41.178 <br> 213.184.41.186 <br> 213.184.41.190 | 195.80.127.40 <br> 195.80.127.43 | 195.80.109.140
+ Central Monitoring Server 	| 195.80.123.159 | 195.80.123.164 | 195.80.123.169
 
 
 ### 2.3 Requirements for the Security Server
