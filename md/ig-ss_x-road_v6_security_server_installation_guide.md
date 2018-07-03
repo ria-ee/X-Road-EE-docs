@@ -38,35 +38,40 @@ Doc. ID: IG-SS
  05.03.2018 | 2.11    | Added terms and abbreviations reference and document links | Tatu Repo
  10.04.2018 | 2.12    | Updated chapter "[Installing the Support for Hardware Tokens](#27-installing-the-support-for-hardware-tokens)" with configurable parameters described in the configuration file 'devices.ini' | Cybernetica AS
  07.06.2018 | 2.12.1  | Updated repository information with x-tee.ee domain             | Jürgen Šuvalov
+ 03.07.2018 | 2.12.2  | Added network diagram and reference data for monitoring servers | Jürgen Šuvalov
 
 ## Table of Contents
 
 <!-- toc -->
 
-- [License](#license)
-- [1 Introduction](#1-introduction)
-  * [1.1 Target Audience](#11-target-audience)
-  * [1.2 Terms and abbreviations](#12-terms-and-abbreviations)
-  * [1.3 References](#13-references)
-- [2 Installation](#2-installation)
-  * [2.1 Supported Platforms](#21-supported-platforms)
-  * [2.2 Reference Data](#22-reference-data)
-  * [2.3 Requirements for the Security Server](#23-requirements-for-the-security-server)
-  * [2.4 Preparing OS](#24-preparing-os)
-  * [2.5 Installation](#25-installation)
-  * [2.6 Post-Installation Checks](#26-post-installation-checks)
-  * [2.7 Installing the Support for Hardware Tokens](#27-installing-the-support-for-hardware-tokens)
-  * [2.8 Installing the Support for Environmental Monitoring](#28-installing-the-support-for-environmental-monitoring)
-- [3 Security Server Initial Configuration](#3-security-server-initial-configuration)
-  * [3.1 Prerequisites](#31-prerequisites)
-  * [3.2 Reference Data](#32-reference-data)
-  * [3.3 Configuration](#33-configuration)
-- [4 Installation Error handling](#4-installation-error-handling)
-  * [4.1 Cannot Set LC\_ALL to Default Locale](#41-cannot-set-lc_all-to-default-locale)
-  * [4.2 PostgreSQL Is Not UTF8 Compatible](#42-postgresql-is-not-utf8-compatible)
-  * [4.3 Could Not Create Default Cluster](#43-could-not-create-default-cluster)
-  * [4.4 Is Postgres Running On Port 5432?](#44-is-postgres-running-on-port-5432)
-  * [4.5 Different versions of xroad-\* packages after successful upgrade](#45-different-versions-of-xroad--packages-after-successful-upgrade)
+- [Security Server Installation Guide](#security-server-installation-guide)
+    - [Version history](#version-history)
+    - [Table of Contents](#table-of-contents)
+    - [License](#license)
+    - [1 Introduction](#1-introduction)
+        - [1.1 Target Audience](#11-target-audience)
+        - [1.2 Terms and abbreviations](#12-terms-and-abbreviations)
+        - [1.3 References](#13-references)
+    - [2 Installation](#2-installation)
+        - [2.1 Supported Platforms](#21-supported-platforms)
+        - [2.2 Reference Data](#22-reference-data)
+        - [2.3 Network Diagram](#23-network-diagram)
+        - [2.4 Requirements for the Security Server](#24-requirements-for-the-security-server)
+        - [2.5 Preparing OS](#25-preparing-os)
+        - [2.6 Installation](#26-installation)
+        - [2.7 Post-Installation Checks](#27-post-installation-checks)
+        - [2.8 Installing the Support for Hardware Tokens](#28-installing-the-support-for-hardware-tokens)
+        - [2.9 Installing the Support for Environmental Monitoring](#29-installing-the-support-for-environmental-monitoring)
+    - [3 Security Server Initial Configuration](#3-security-server-initial-configuration)
+        - [3.1 Prerequisites](#31-prerequisites)
+        - [3.2 Reference Data](#32-reference-data)
+        - [3.3 Configuration](#33-configuration)
+    - [4 Installation Error handling](#4-installation-error-handling)
+        - [4.1 Cannot Set LC\_ALL to Default Locale](#41-cannot-set-lc-all-to-default-locale)
+        - [4.2 PostgreSQL Is Not UTF8 Compatible](#42-postgresql-is-not-utf8-compatible)
+        - [4.3 Could Not Create Default Cluster](#43-could-not-create-default-cluster)
+        - [4.4 Is Postgres Running On Port 5432?](#44-is-postgres-running-on-port-5432)
+        - [4.5 Different versions of xroad-\* packages after successful upgrade](#45-different-versions-of-xroad--packages-after-successful-upgrade)
 
 <!-- tocstop -->
 
@@ -119,8 +124,8 @@ The software can be installed both on physical and virtualized hardware (of the 
  1.3    |                                         | Account name in the user interface
  1.4    | TCP 5500                                | Port for inbound connections (from the external network to the security server)<br> Message exchange between security servers
  &nbsp; | TCP 5577                                | Port for inbound connections (from the external network to the security server)<br> Querying of OCSP responses between security servers
- &nbsp; | TCP 2080                                | Port for inbound connections (from the external network to the security server)<br> Message exchange between security server and operational data monitoring daemon (by default on localhost)
- &nbsp; | TCP 9011                                | Port for inbound connections (from the external network to the security server)<br> Operational data monitoring daemon JMX listening port
+ &nbsp; | TCP 2080                                | Port for inbound connections (in the local network)<br> Message exchange between security server and operational data monitoring daemon (by default on localhost)
+ &nbsp; | TCP 9011                                | Port for inbound connections (in the local network)<br> Operational data monitoring daemon JMX listening port
  1.5  | TCP 5500                                  | Ports for outbound connections (from the security server to the external network)<br> Message exchange between security servers
  &nbsp; | TCP 5577                                | Ports for outbound connections (from the security server to the external network)<br> Querying of OCSP responses between security servers
  &nbsp; | TCP 4001                                | Ports for outbound connections (from the security server to the external network)<br> Communication with the central server
@@ -134,9 +139,22 @@ The software can be installed both on physical and virtualized hardware (of the 
  1.10 | &lt;by default, the server’s IP addresses and names are added to the certificate’s Distinguished Name (DN) field&gt; | Information about the user interface TLS certificate
  1.11 | &lt;by default, the server’s IP addresses and names are added to the certificate’s Distinguished Name (DN) field&gt; | Information about the services TLS certificate
  1.12 | TCP 2552                                  | Port for communications between `xroad-proxy` and `xroad-monitoring` processes
+ 1.13 | 195.80.123.159                            | Monitoring security server IP in EE instance
+ &nbsp; | 195.80.123.164	                      | Monitoring security server IP in ee-test instance
+ &nbsp; | 195.80.123.169	                      | Monitoring security server IP in ee-dev instance
+
+ ### 2.3 Network Diagram
+
+ The following network diagram is an example of a simple stand-alone Security Server setup. Attention should be paid when configuring the firewall of your Security Server, as misconfigurations (e.g. exposing port 80/tcp to the public internet) can leave your server vulnerable.
+ 
+ Allowing incoming connections from the Monitoring Security Server on ports 5500/tcp and 5577/tcp (**reference data: 1.13**) is necessary for the X-Road Center to be able to monitor the ecosystem and provide statistics and support for Members.
+
+ **Caution**: The enabling of auxiliary services which are necessary for the functioning and management of the operating system (such as DNS, NTP, and SSH) stay outside the scope of this guide.
+
+ ![network diagram](img/ig-ss_network_diagram.png)
 
 
-### 2.3 Requirements for the Security Server
+### 2.4 Requirements for the Security Server
 
 Minimum recommended hardware parameters:
 
@@ -154,12 +172,12 @@ Requirements to software and settings:
 
 -   an installed and configured Ubuntu 14.04 LTS x86-64 operating system;
 
--   if the security server is separated from other networks by a firewall and/or NAT, the necessary connections to and from the security server are allowed (**reference data: 1.4; 1.5; 1.6; 1.7**). The enabling of auxiliary services which are necessary for the functioning and management of the operating system (such as DNS, NTP, and SSH) stay outside the scope of this guide;
+-   if the security server is separated from other networks by a firewall and/or NAT, the necessary connections to and from the security server are allowed (**reference data: 1.4; 1.5; 1.6; 1.7; 1.13**). The enabling of auxiliary services which are necessary for the functioning and management of the operating system (such as DNS, NTP, and SSH) stay outside the scope of this guide;
 
 -   if the security server has a private IP address, a corresponding NAT record must be created in the firewall (**reference data: 1.9**).
 
 
-### 2.4 Preparing OS
+### 2.5 Preparing OS
 
 -   Add system user (**reference data: 1.3**) whom all roles in the user interface are granted to. Add a new user with the command
 
@@ -172,7 +190,7 @@ Requirements to software and settings:
         LC_ALL=en_US.UTF-8
 
 
-### 2.5 Installation
+### 2.6 Installation
 
 To install the X-Road security server software, follow these steps.
 
@@ -222,7 +240,7 @@ Upon the first installation of the packages, the system asks for the following i
 The meta-package `xroad-securityserver-ee` also installs metaservices module `xroad-addon-metaservices`, messagelog module `xroad-addon-messagelog`, operational data monitoring modules `xroad-addon-opmonitoring`, `xroad-opmonitor` and WSDL validator module `xroad-addon-wsdlvalidator`.
 
 
-### 2.6 Post-Installation Checks
+### 2.7 Post-Installation Checks
 
 The installation is successful if system services are started and the user interface is responding.
 
@@ -239,7 +257,7 @@ The installation is successful if system services are started and the user inter
 -   Ensure that the security server user interface at https://SECURITYSERVER:4000/ (**reference data: 1.8; 1.6**) can be opened in a Web browser. To log in, use the account name chosen during the installation (**reference data: 1.3**). While the user interface is still starting up, the Web browser may display the “502 Bad Gateway” error.
 
 
-### 2.7 Installing the Support for Hardware Tokens
+### 2.8 Installing the Support for Hardware Tokens
 
 To configure support for hardware security tokens (smartcard, USB token, Hardware Security Module), act as follows.
 
@@ -282,7 +300,7 @@ Parameter   | Type    | Default Value | Explanation
 **Note 2:** The item separator of the type STRING LIST is ",".
 
 
-### 2.8 Installing the Support for Environmental Monitoring
+### 2.9 Installing the Support for Environmental Monitoring
 
 The support for environmental monitoring functionality on a security server is provided by package xroad-monitor that is installed by default. The package installs and starts the `xroad-monitor` process that will gather and make available the monitoring information.
 

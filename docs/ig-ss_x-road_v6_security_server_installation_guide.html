@@ -179,12 +179,23 @@ Doc. ID: IG-SS</p>
 <td>Updated repository information with x-tee.ee domain</td>
 <td>Jürgen Šuvalov</td>
 </tr>
+<tr>
+<td>03.07.2018</td>
+<td>2.12.2</td>
+<td>Added network diagram and reference data for monitoring servers</td>
+<td>Jürgen Šuvalov</td>
+</tr>
 </tbody>
 </table>
 <h2>
 <a id="table-of-contents" class="anchor" href="#table-of-contents" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Table of Contents</h2>
 
 <ul>
+<li>
+<a href="#security-server-installation-guide">Security Server Installation Guide</a>
+<ul>
+<li><a href="#version-history">Version history</a></li>
+<li><a href="#table-of-contents">Table of Contents</a></li>
 <li><a href="#license">License</a></li>
 <li>
 <a href="#1-introduction">1 Introduction</a>
@@ -199,12 +210,13 @@ Doc. ID: IG-SS</p>
 <ul>
 <li><a href="#21-supported-platforms">2.1 Supported Platforms</a></li>
 <li><a href="#22-reference-data">2.2 Reference Data</a></li>
-<li><a href="#23-requirements-for-the-security-server">2.3 Requirements for the Security Server</a></li>
-<li><a href="#24-preparing-os">2.4 Preparing OS</a></li>
-<li><a href="#25-installation">2.5 Installation</a></li>
-<li><a href="#26-post-installation-checks">2.6 Post-Installation Checks</a></li>
-<li><a href="#27-installing-the-support-for-hardware-tokens">2.7 Installing the Support for Hardware Tokens</a></li>
-<li><a href="#28-installing-the-support-for-environmental-monitoring">2.8 Installing the Support for Environmental Monitoring</a></li>
+<li><a href="#23-network-diagram">2.3 Network Diagram</a></li>
+<li><a href="#24-requirements-for-the-security-server">2.4 Requirements for the Security Server</a></li>
+<li><a href="#25-preparing-os">2.5 Preparing OS</a></li>
+<li><a href="#26-installation">2.6 Installation</a></li>
+<li><a href="#27-post-installation-checks">2.7 Post-Installation Checks</a></li>
+<li><a href="#28-installing-the-support-for-hardware-tokens">2.8 Installing the Support for Hardware Tokens</a></li>
+<li><a href="#29-installing-the-support-for-environmental-monitoring">2.9 Installing the Support for Environmental Monitoring</a></li>
 </ul>
 </li>
 <li>
@@ -218,11 +230,13 @@ Doc. ID: IG-SS</p>
 <li>
 <a href="#4-installation-error-handling">4 Installation Error handling</a>
 <ul>
-<li><a href="#41-cannot-set-lc_all-to-default-locale">4.1 Cannot Set LC_ALL to Default Locale</a></li>
+<li><a href="#41-cannot-set-lc-all-to-default-locale">4.1 Cannot Set LC_ALL to Default Locale</a></li>
 <li><a href="#42-postgresql-is-not-utf8-compatible">4.2 PostgreSQL Is Not UTF8 Compatible</a></li>
 <li><a href="#43-could-not-create-default-cluster">4.3 Could Not Create Default Cluster</a></li>
 <li><a href="#44-is-postgres-running-on-port-5432">4.4 Is Postgres Running On Port 5432?</a></li>
 <li><a href="#45-different-versions-of-xroad--packages-after-successful-upgrade">4.5 Different versions of xroad-* packages after successful upgrade</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -306,12 +320,12 @@ Doc. ID: IG-SS</p>
 <tr>
 <td> </td>
 <td>TCP 2080</td>
-<td>Port for inbound connections (from the external network to the security server)<br> Message exchange between security server and operational data monitoring daemon (by default on localhost)</td>
+<td>Port for inbound connections (in the local network)<br> Message exchange between security server and operational data monitoring daemon (by default on localhost)</td>
 </tr>
 <tr>
 <td> </td>
 <td>TCP 9011</td>
-<td>Port for inbound connections (from the external network to the security server)<br> Operational data monitoring daemon JMX listening port</td>
+<td>Port for inbound connections (in the local network)<br> Operational data monitoring daemon JMX listening port</td>
 </tr>
 <tr>
 <td>1.5</td>
@@ -378,10 +392,31 @@ Doc. ID: IG-SS</p>
 <td>TCP 2552</td>
 <td>Port for communications between <code>xroad-proxy</code> and <code>xroad-monitoring</code> processes</td>
 </tr>
+<tr>
+<td>1.13</td>
+<td>195.80.123.159</td>
+<td>Monitoring security server IP in EE instance</td>
+</tr>
+<tr>
+<td> </td>
+<td>195.80.123.164</td>
+<td>Monitoring security server IP in ee-test instance</td>
+</tr>
+<tr>
+<td> </td>
+<td>195.80.123.169</td>
+<td>Monitoring security server IP in ee-dev instance</td>
+</tr>
 </tbody>
 </table>
 <h3>
-<a id="23-requirements-for-the-security-server" class="anchor" href="#23-requirements-for-the-security-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3 Requirements for the Security Server</h3>
+<a id="23-network-diagram" class="anchor" href="#23-network-diagram" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3 Network Diagram</h3>
+<p>The following network diagram is an example of a simple stand-alone Security Server setup. Attention should be paid when configuring the firewall of your Security Server, as misconfigurations (e.g. exposing port 80/tcp to the public internet) can leave your server vulnerable.</p>
+<p>Allowing incoming connections from the Monitoring Security Server on ports 5500/tcp and 5577/tcp (<strong>reference data: 1.13</strong>) is necessary for the X-Road Center to be able to monitor the ecosystem and provide statistics and support for Members.</p>
+<p><strong>Caution</strong>: The enabling of auxiliary services which are necessary for the functioning and management of the operating system (such as DNS, NTP, and SSH) stay outside the scope of this guide.</p>
+<p><a href="img/ig-ss_network_diagram.png" target="_blank"><img src="img/ig-ss_network_diagram.png" alt="network diagram" style="max-width:100%;"></a></p>
+<h3>
+<a id="24-requirements-for-the-security-server" class="anchor" href="#24-requirements-for-the-security-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.4 Requirements for the Security Server</h3>
 <p>Minimum recommended hardware parameters:</p>
 <ul>
 <li>
@@ -406,14 +441,14 @@ Doc. ID: IG-SS</p>
 <p>an installed and configured Ubuntu 14.04 LTS x86-64 operating system;</p>
 </li>
 <li>
-<p>if the security server is separated from other networks by a firewall and/or NAT, the necessary connections to and from the security server are allowed (<strong>reference data: 1.4; 1.5; 1.6; 1.7</strong>). The enabling of auxiliary services which are necessary for the functioning and management of the operating system (such as DNS, NTP, and SSH) stay outside the scope of this guide;</p>
+<p>if the security server is separated from other networks by a firewall and/or NAT, the necessary connections to and from the security server are allowed (<strong>reference data: 1.4; 1.5; 1.6; 1.7; 1.13</strong>). The enabling of auxiliary services which are necessary for the functioning and management of the operating system (such as DNS, NTP, and SSH) stay outside the scope of this guide;</p>
 </li>
 <li>
 <p>if the security server has a private IP address, a corresponding NAT record must be created in the firewall (<strong>reference data: 1.9</strong>).</p>
 </li>
 </ul>
 <h3>
-<a id="24-preparing-os" class="anchor" href="#24-preparing-os" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.4 Preparing OS</h3>
+<a id="25-preparing-os" class="anchor" href="#25-preparing-os" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.5 Preparing OS</h3>
 <ul>
 <li>
 <p>Add system user (<strong>reference data: 1.3</strong>) whom all roles in the user interface are granted to. Add a new user with the command</p>
@@ -428,7 +463,7 @@ Doc. ID: IG-SS</p>
 </li>
 </ul>
 <h3>
-<a id="25-installation" class="anchor" href="#25-installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.5 Installation</h3>
+<a id="26-installation" class="anchor" href="#26-installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.6 Installation</h3>
 <p>To install the X-Road security server software, follow these steps.</p>
 <ol>
 <li>
@@ -492,7 +527,7 @@ The name and IP addresses detected from the system are suggested as default valu
 </ul>
 <p>The meta-package <code>xroad-securityserver-ee</code> also installs metaservices module <code>xroad-addon-metaservices</code>, messagelog module <code>xroad-addon-messagelog</code>, operational data monitoring modules <code>xroad-addon-opmonitoring</code>, <code>xroad-opmonitor</code> and WSDL validator module <code>xroad-addon-wsdlvalidator</code>.</p>
 <h3>
-<a id="26-post-installation-checks" class="anchor" href="#26-post-installation-checks" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.6 Post-Installation Checks</h3>
+<a id="27-post-installation-checks" class="anchor" href="#27-post-installation-checks" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.7 Post-Installation Checks</h3>
 <p>The installation is successful if system services are started and the user interface is responding.</p>
 <ul>
 <li>
@@ -511,7 +546,7 @@ xroad-proxy start/running, process 19580
 </li>
 </ul>
 <h3>
-<a id="27-installing-the-support-for-hardware-tokens" class="anchor" href="#27-installing-the-support-for-hardware-tokens" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.7 Installing the Support for Hardware Tokens</h3>
+<a id="28-installing-the-support-for-hardware-tokens" class="anchor" href="#28-installing-the-support-for-hardware-tokens" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.8 Installing the Support for Hardware Tokens</h3>
 <p>To configure support for hardware security tokens (smartcard, USB token, Hardware Security Module), act as follows.</p>
 <ol>
 <li>
@@ -643,7 +678,7 @@ xroad-proxy start/running, process 19580
 <p><strong>Note 1:</strong> Only parameter <em>library</em> is mandatory, all the others are optional.<br>
 <strong>Note 2:</strong> The item separator of the type STRING LIST is ",".</p>
 <h3>
-<a id="28-installing-the-support-for-environmental-monitoring" class="anchor" href="#28-installing-the-support-for-environmental-monitoring" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.8 Installing the Support for Environmental Monitoring</h3>
+<a id="29-installing-the-support-for-environmental-monitoring" class="anchor" href="#29-installing-the-support-for-environmental-monitoring" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.9 Installing the Support for Environmental Monitoring</h3>
 <p>The support for environmental monitoring functionality on a security server is provided by package xroad-monitor that is installed by default. The package installs and starts the <code>xroad-monitor</code> process that will gather and make available the monitoring information.</p>
 <h2>
 <a id="3-security-server-initial-configuration" class="anchor" href="#3-security-server-initial-configuration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3 Security Server Initial Configuration</h2>
