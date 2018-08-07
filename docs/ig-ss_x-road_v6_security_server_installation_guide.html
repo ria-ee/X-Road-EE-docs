@@ -143,6 +143,12 @@ Doc. ID: IG-SS</p>
 <td>Added NEE and NGO member classes</td>
 <td>Jürgen Šuvalov</td>
 </tr>
+<tr>
+<td>07.08.2018</td>
+<td>2.8.2</td>
+<td>Added requirement to install Java 8 jre first</td>
+<td>Jan Raik</td>
+</tr>
 </tbody>
 </table>
 <h2>
@@ -399,6 +405,7 @@ sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EB9B1D8886F44E2A
 <li>
 <p>Issue the following commands to install the security server packages:</p>
 <pre><code>sudo apt-get update
+sudo apt-get install openjdk-8-jre-headless
 sudo apt-get install xroad-securityserver
 </code></pre>
 </li>
