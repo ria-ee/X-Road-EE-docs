@@ -30,7 +30,8 @@ Doc. ID: IG-SS
  23.02.2017 | 2.7     | Converted to Github flavoured Markdown, added license text, adjusted tables for better output in PDF | Toomas Mölder
  13.04.2017 | 2.8     | Added token ID formatting                                       | Cybernetica AS
  22.01.2018 | 2.8.1   | Added NEE and NGO member classes                                | Jürgen Šuvalov
-
+ 07.08.2018 | 2.8.2   | Added requirement to install Java 8 jre first                   | Jan Raik
+ 
 ## Table of Contents
 
 <!-- toc -->
@@ -177,6 +178,7 @@ To install the X-Road security server software, follow these steps.
 3.  Issue the following commands to install the security server packages:
 
         sudo apt-get update
+        sudo apt-get install openjdk-8-jre-headless
         sudo apt-get install xroad-securityserver
 
 Upon the first installation of the packages, the system asks for the following information.
