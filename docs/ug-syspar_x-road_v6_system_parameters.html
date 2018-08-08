@@ -16,10 +16,16 @@
   </head>
   <body>
     <article class="markdown-body">
-<p><a href="img/eu_regional_development_fund_horizontal_div_15.png" target="_blank"><img src="img/eu_regional_development_fund_horizontal_div_15.png" alt="" title="European Union | European Regional Development Fund | Investing in your future" style="max-width:100%;"></a></p>
+<table>
+<thead>
+<tr>
+<th align="right"><a href="img/eu_regional_development_fund_horizontal_div_15.png" target="_blank"><img src="img/eu_regional_development_fund_horizontal_div_15.png" alt="European Union / European Regional Development Fund / Investing in your future" title="Documents that are tagged with EU/SF logos must keep the logos until 1.1.2022, if it has not stated otherwise in the documentation. If new documentation is created  using EU/SF resources the logos must be tagged appropriately so that the deadline for logos could be found." style="max-width:100%;"></a></th>
+</tr>
+</thead>
+</table>
 <h1>
 <a id="x-road-system-parameters-user-guide" class="anchor" href="#x-road-system-parameters-user-guide" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>X-Road: System Parameters User Guide</h1>
-<p>Version: 2.20<br>
+<p>Version: 2.31<br>
 Doc. ID: UG-SYSPAR</p>
 <table>
 <thead>
@@ -92,13 +98,13 @@ Doc. ID: UG-SYSPAR</p>
 <td>Kristo Heero</td>
 </tr>
 <tr>
-<td>08.12.2015</td>
+<td>8.12.2015</td>
 <td>2.6</td>
 <td>New parameters for configuring signature algorithms and key length, proxy client-side TLS protocols, and software token pin policy</td>
 <td>Jarkko Hyöty</td>
 </tr>
 <tr>
-<td>08.12.2015</td>
+<td>8.12.2015</td>
 <td>2.7</td>
 <td>Added parameters for toggling SOAP body logging on/off</td>
 <td>Janne Mattila</td>
@@ -130,7 +136,7 @@ Doc. ID: UG-SYSPAR</p>
 <tr>
 <td>02.11.2016</td>
 <td>2.12</td>
-<td>Fix ocspFreshnessSeconds description in system parameters document</td>
+<td>Fix ocspFreshnessSeconds description in system parameters document.</td>
 <td>Ilkka Seppälä</td>
 </tr>
 <tr>
@@ -183,6 +189,72 @@ Doc. ID: UG-SYSPAR</p>
 <td>Removed parameter <em>default-signature-algorithm</em>, replaced parameters <em>csr-signature-algorithm</em> with <em>csr-signature-digest-algorithm</em>, <em>signature-algorithm-id</em> with <em>signature-digest-algorithm-id</em>, and <em>confSignAlgoId</em> with <em>confSignDigestAlgoId</em>. Added new proxy-ui parameter <em>auth-cert-reg-signature-digest-algorithm-id</em>.</td>
 <td>Kristo Heero</td>
 </tr>
+<tr>
+<td>14.06.2017</td>
+<td>2.21</td>
+<td>Added new parameter <em>allowed-federations</em> for enabling federation in a security server.</td>
+<td>Olli Lindgren</td>
+</tr>
+<tr>
+<td>11.07.2017</td>
+<td>2.22</td>
+<td>Changed connector SO-linger values to -1 as per code changes</td>
+<td>Tatu Repo</td>
+</tr>
+<tr>
+<td>18.08.2017</td>
+<td>2.23</td>
+<td>Update wsdl-validator-command description</td>
+<td>Jarkko Hyöty</td>
+</tr>
+<tr>
+<td>31.08.2017</td>
+<td>2.24</td>
+<td>Moved ocsp-cache-path and enforce-token-pin-policy from under proxy to under signer and added them to central server and configuration proxy lists</td>
+<td> Tatu Repo</td>
+</tr>
+<tr>
+<td>17.10.2017</td>
+<td>2.25</td>
+<td>Added new security server env-monitor parameter (limit-remote-data-set).</td>
+<td>Joni Laurila</td>
+</tr>
+<tr>
+<td>20.10.2017</td>
+<td>2.26</td>
+<td>Clarified the effects of disabling SOAP body logging on the SOAP Headers. Split the system parameters to different tables for readability</td>
+<td> Olli Lindgren</td>
+</tr>
+<tr>
+<td>22.11.2017</td>
+<td>2.27</td>
+<td> Default changed to vanilla. New colums added for FI and EE values.</td>
+<td>Antti Luoma</td>
+</tr>
+<tr>
+<td>02.01.2018</td>
+<td>2.28</td>
+<td> Added proxy parameter allow-get-wsdl-request.</td>
+<td>Ilkka Seppälä</td>
+</tr>
+<tr>
+<td>29.01.2018</td>
+<td>2.29</td>
+<td> Removed proxy parameter client-fastest-connecting-ssl-use-uri-cache. Added proxy parameter client-fastest-connecting-ssl-uri-cache-period.</td>
+<td>Ilkka Seppälä</td>
+</tr>
+<tr>
+<td>05.03.2018</td>
+<td>2.30</td>
+<td>Added reference to terms and abbreviations, modified reference handling, added numbering.</td>
+<td>Tatu Repo</td>
+</tr>
+<tr>
+<td>06.04.2018</td>
+<td>2.31</td>
+<td> Removed TLSv1.1 support (client-side interfaces for incoming request) and TLS SHA-1 ciphers from default ciphers list.</td>
+<td>Kristo Heero</td>
+</tr>
 </tbody>
 </table>
 <h2>
@@ -193,56 +265,100 @@ Doc. ID: UG-SYSPAR</p>
 </ul>
 <ul>
 <li>
-<a href="#introduction">Introduction</a>
+<a href="#1-introduction">1 Introduction</a>
 <ul>
-<li><a href="#references">References</a></li>
+<li><a href="#11-terms-and-abbreviations">1.1 Terms and abbreviations</a></li>
+<li><a href="#12-references">1.2 References</a></li>
 </ul>
 </li>
 <li>
-<a href="#changing-the-system-parameter-values">Changing the System Parameter Values</a>
+<a href="#2-changing-the-system-parameter-values">2 Changing the System Parameter Values</a>
 <ul>
-<li><a href="#changing-the-system-parameter-values-in-configuration-files">Changing the System Parameter Values in Configuration Files</a></li>
-<li><a href="#changing-the-system-parameter-values-in-the-central-server-database">Changing the System Parameter Values in the Central Server Database</a></li>
-<li><a href="#changing-the-global-configuration-generation-interval-in-the-central-server">Changing the Global Configuration Generation Interval in the Central Server</a></li>
+<li><a href="#21-changing-the-system-parameter-values-in-configuration-files">2.1 Changing the System Parameter Values in Configuration Files</a></li>
+<li><a href="#22-changing-the-system-parameter-values-in-the-central-server-database">2.2 Changing the System Parameter Values in the Central Server Database</a></li>
+<li><a href="#23-changing-the-global-configuration-generation-interval-in-the-central-server">2.3 Changing the Global Configuration Generation Interval in the Central Server</a></li>
 </ul>
 </li>
-<li><a href="#security-server-system-parameters">Security Server System Parameters</a></li>
 <li>
-<a href="#central-server-system-parameters">Central Server System Parameters</a>
+<a href="#3-security-server-system-parameters">3 Security Server System Parameters</a>
 <ul>
-<li><a href="#system-parameters-in-the-configuration-file">System Parameters in the Configuration File</a></li>
-<li><a href="#system-parameters-in-the-database">System Parameters in the Database</a></li>
-<li><a href="#global-configuration-generation-interval-parameter">Global Configuration Generation Interval Parameter</a></li>
+<li><a href="#31-common-parameters--common">3.1 Common parameters : <code>[common]</code></a></li>
+<li><a href="#32-proxy-parameters-proxy">3.2 Proxy parameters: <code>[proxy]</code></a></li>
+<li><a href="#33-proxy-user-interface-parameters-proxy-ui">3.3 Proxy User Interface parameters: <code>[proxy-ui]</code></a></li>
+<li><a href="#34-signer-parameters-signer">3.4 Signer parameters: <code>[signer]</code></a></li>
+<li><a href="#35-anti-dos-parameters-anti-dos">3.5 Anti-DOS parameters: <code>[anti-dos]</code></a></li>
+<li><a href="#36-configuration-client-parameters-configuration-client">3.6 Configuration Client parameters: <code>[configuration-client]</code></a></li>
+<li>
+<a href="#37-message-log-add-on-parameters-message-log">3.7 Message log add-on parameters: <code>[message-log]</code></a>
+<ul>
+<li><a href="#371-note-on-logged-x-road-message-headers">3.7.1 Note on logged X-Road message headers</a></li>
 </ul>
 </li>
-<li><a href="#configuration-proxy-system-parameters">Configuration Proxy System Parameters</a></li>
+<li><a href="#38-environmental-monitoring-add-on-configuration-parameters-env-monitor">3.8 Environmental monitoring add-on configuration parameters: <code>[env-monitor]</code></a></li>
+</ul>
+</li>
+<li>
+<a href="#4-central-server-system-parameters">4 Central Server System Parameters</a>
+<ul>
+<li>
+<a href="#41-system-parameters-in-the-configuration-file">4.1 System Parameters in the Configuration File</a>
+<ul>
+<li><a href="#411-common-parameters-common">4.1.1 Common parameters: <code>[common]</code></a></li>
+<li><a href="#412-center-parameters-center">4.1.2 Center parameters: <code>[center]</code></a></li>
+<li><a href="#413-signer-parameters-signer">4.1.3 Signer parameters: <code>[signer]</code></a></li>
+</ul>
+</li>
+<li><a href="#42-system-parameters-in-the-database">4.2 System Parameters in the Database</a></li>
+<li><a href="#43-global-configuration-generation-interval-parameter">4.3 Global Configuration Generation Interval Parameter</a></li>
+</ul>
+</li>
+<li>
+<a href="#5-configuration-proxy-system-parameters">5 Configuration Proxy System Parameters</a>
+<ul>
+<li><a href="#51-configuration-proxy-module-parameters-configuration-proxy">5.1 Configuration proxy module parameters: <code>[configuration-proxy]</code></a></li>
+<li><a href="#52-signer-parameters-signer">5.2 Signer parameters: <code>[signer]</code></a></li>
+</ul>
+</li>
 </ul>
 
 <h2>
 <a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
 <p>This document is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="nofollow">http://creativecommons.org/licenses/by-sa/3.0/</a>.</p>
-<h1>
-<a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Introduction</h1>
-<p>This document describes the system parameters of the X-Road components – of the security server, the central server and the configuration proxy. Additionally, changing the default values of the system parameters are explained.</p>
 <h2>
-<a id="references" class="anchor" href="#references" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>References</h2>
+<a id="1-introduction" class="anchor" href="#1-introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1 Introduction</h2>
+<p>This document describes the system parameters of the X-Road components – of the security server, the central server and the configuration proxy. Additionally, changing the default values of the system parameters are explained.
+Please note the term 'vanilla' in the documentation. In X-Road context vanilla means the X-Road without any of the country specific customizations, settings etc. The vanilla version of X-Road security server is installed with xroad-securityserver package. The country specific versions are installed with xroad-securityserver-XX where XX is the country code f.ex. FI or EE.</p>
+<h3>
+<a id="11-terms-and-abbreviations" class="anchor" href="#11-terms-and-abbreviations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.1 Terms and abbreviations</h3>
+<p>See X-Road terms and abbreviations documentation [<a href="#Ref_TERMS">TA-TERMS</a>].</p>
+<h3>
+<a id="12-references" class="anchor" href="#12-references" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.2 References</h3>
 <ol>
 <li>
-<p>[INI] INI file, <a href="http://en.wikipedia.org/wiki/INI_file" rel="nofollow"><em>http://en.wikipedia.org/wiki/INI_file</em></a></p>
-</li>
+<a id="Ref_INI"></a>[INI] INI file, <a href="http://en.wikipedia.org/wiki/INI_file" rel="nofollow">http://en.wikipedia.org/wiki/INI_file</a>.</li>
 <li>
-<p>[CRON] Quartz Scheduler
-CRON expression,
-<em><a href="http://www.quartz-scheduler.org/documentation/quartz-2.1.x/tutorials/crontrigger.html" rel="nofollow">http://www.quartz-scheduler.org/documentation/quartz-2.1.x/tutorials/crontrigger.html</a></em></p>
-</li>
+<a id="Ref_CRON"></a>[CRON] Quartz Scheduler
+CRON expression, <a href="http://www.quartz-scheduler.org/documentation/quartz-2.1.x/tutorials/crontrigger.html" rel="nofollow">http://www.quartz-scheduler.org/documentation/quartz-2.1.x/tutorials/crontrigger.html</a>.</li>
+<li>
+<a id="Ref_PR-MESS"></a>[PR-MESS] <a href="pr-mess_x-road_message_protocol.html">X-Road Message Protocol v. 4.0</a>.</li>
+<li>
+<a id="Ref_PR-TARGETSS"></a>[PR-TARGETSS] <a href="pr-targetss_security_server_targeting_extension_for_the_x-road_protocol.html">Security Server Targeting Extension for the X-Road Message Protocol</a>.</li>
+<li>
+<a id="Ref_PR-SECTOKEN"></a>[PR-SECTOKEN] <a href="https://github.com/nordic-institute/X-Road/blob/develop/doc/Protocols/SecurityTokenExtension/pr-sectoken_security_token_extension_for_the_x-road_protocol.md">Security Token Extension for the X-Road Message Protocol</a>.</li>
+<li>
+<a id="Ref_TERMS"></a>[TA-TERMS] <a href="terms_x-road_docs.html">X-Road Terms and Abbreviations</a>.</li>
+<li>
+<a id="Ref_CRONMAN"></a>[CRONMAN] <a href="http://linux.die.net/man/8/cron" rel="nofollow">http://linux.die.net/man/8/cron</a>.</li>
+<li>
+<a id="Ref_CRONHOW"></a>[CRONHOW] Cron format specifications <a href="https://help.ubuntu.com/community/CronHowto" rel="nofollow">https://help.ubuntu.com/community/CronHowto</a>.</li>
 </ol>
-<h1>
-<a id="changing-the-system-parameter-values" class="anchor" href="#changing-the-system-parameter-values" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Changing the System Parameter Values</h1>
+<h2>
+<a id="2-changing-the-system-parameter-values" class="anchor" href="#2-changing-the-system-parameter-values" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2 Changing the System Parameter Values</h2>
 <p>The system parameters specify various characteristics of the system, such as port numbers, timeouts and paths to files on disk. The system parameters of the X-Road components are mainly stored in configuration files. Additionally, X-Road central server stores some system parameters in the database.</p>
 <p><strong>Changing the values of the system parameters is strongly discouraged, since it may cause unexpected system behaviour.</strong></p>
-<h2>
-<a id="changing-the-system-parameter-values-in-configuration-files" class="anchor" href="#changing-the-system-parameter-values-in-configuration-files" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Changing the System Parameter Values in Configuration Files</h2>
-<p>The configuration files are INI files [INI], where each section contains parameters for a particular server component.</p>
+<h3>
+<a id="21-changing-the-system-parameter-values-in-configuration-files" class="anchor" href="#21-changing-the-system-parameter-values-in-configuration-files" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.1 Changing the System Parameter Values in Configuration Files</h3>
+<p>The configuration files are INI files [<a href="#Ref_INI">INI</a>], where each section contains parameters for a particular server component.</p>
 <p>In order to override the default values of system parameters, create or edit the file</p>
 <pre><code>/etc/xroad/conf.d/local.ini
 </code></pre>
@@ -263,8 +379,8 @@ server-listen-port=20000
 </code></pre>
 <p><strong>NB! Changing the parameter values in the configuration files requires restarting of the server.</strong></p>
 <p><strong>WARNING! The value of the parameter is not validated, thus care must be taken when changing the value. For example, setting the port number to a non-numeric value in the configuration will cause the system to crash.</strong></p>
-<h2>
-<a id="changing-the-system-parameter-values-in-the-central-server-database" class="anchor" href="#changing-the-system-parameter-values-in-the-central-server-database" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Changing the System Parameter Values in the Central Server Database</h2>
+<h3>
+<a id="22-changing-the-system-parameter-values-in-the-central-server-database" class="anchor" href="#22-changing-the-system-parameter-values-in-the-central-server-database" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.2 Changing the System Parameter Values in the Central Server Database</h3>
 <p>The central server database can be accessed with the psql utility using the following command (password: <em>centerui</em>):</p>
 <pre><code>psql -U centerui -h localhost centerui_production
 </code></pre>
@@ -278,9 +394,9 @@ server-listen-port=20000
 <pre><code>DELETE FROM system_parameters WHERE key = 'parameter_name';
 </code></pre>
 <p><strong>NB! Modifying or deleting system parameters other than the ones listed in section</strong> <a href="#system-parameters-in-the-database">System Parameters in the Database</a> <strong>will cause the system to crash.</strong></p>
-<h2>
-<a id="changing-the-global-configuration-generation-interval-in-the-central-server" class="anchor" href="#changing-the-global-configuration-generation-interval-in-the-central-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Changing the Global Configuration Generation Interval in the Central Server</h2>
-<p>In order to override the default value of the global configuration generation interval, edit the cron expression[1] in the file</p>
+<h3>
+<a id="23-changing-the-global-configuration-generation-interval-in-the-central-server" class="anchor" href="#23-changing-the-global-configuration-generation-interval-in-the-central-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3 Changing the Global Configuration Generation Interval in the Central Server</h3>
+<p>In order to override the default value of the global configuration generation interval, edit the cron expression [<a href="#Ref_CRON">CRON</a>] in the file</p>
 <pre><code>/etc/cron.d/xroad-center
 </code></pre>
 <p>The default contents of the file are the following:</p>
@@ -289,508 +405,698 @@ server-listen-port=20000
 </code></pre>
 <p><strong>NB!</strong> Global configuration generation interval must be modified with extreme care. Misuse of the global configuration generation interval may hinder the operation of the whole X-Road instance.</p>
 <p>The configuration generation interval must be shorter than the value of global configuration expiration interval (<em>confExpireIntervalSeconds</em>, see section 4.2 ), or else the configuration downloaded by the configuration clients (security servers or configuration proxies) will always expire before valid configuration becomes available. It is highly recommended that the global configuration generation interval is multiple times smaller than the global configuration expiration interval.</p>
-<h1>
-<a id="security-server-system-parameters" class="anchor" href="#security-server-system-parameters" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Security Server System Parameters</h1>
+<h2>
+<a id="3-security-server-system-parameters" class="anchor" href="#3-security-server-system-parameters" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3 Security Server System Parameters</h2>
 <p>This chapter describes the system parameters used by the components of the X-Road security server. For instructions on how to change the parameter values, see section <a href="#changing-the-system-parameter-values-in-configuration-files">Changing the System Parameter Values in Configuration Files</a>.</p>
+<h3>
+<a id="31-common-parameters--common" class="anchor" href="#31-common-parameters--common" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.1 Common parameters : <code>[common]</code>
+</h3>
 <table>
 <thead>
 <tr>
-<th><strong>Server component</strong></th>
 <th><strong>Parameter</strong></th>
-<th><strong>Default value</strong></th>
-<th><strong>Explanation</strong></th>
+<th><strong>Vanilla value</strong></th>
+<th><strong>Description</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>common</td>
 <td>configuration-path</td>
 <td>/etc/xroad/globalconf/</td>
 <td>Absolute path to the directory where global configuration is stored.</td>
 </tr>
 <tr>
-<td>common</td>
 <td>temp-files-path</td>
 <td>/var/tmp/xroad/</td>
 <td>Absolute path to the directory where temporary files are stored.</td>
 </tr>
+</tbody>
+</table>
+<h3>
+<a id="32-proxy-parameters-proxy" class="anchor" href="#32-proxy-parameters-proxy" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.2 Proxy parameters: <code>[proxy]</code>
+</h3>
+<table>
+<thead>
 <tr>
-<td>proxy</td>
+<th><strong>Parameter</strong></th>
+<th><strong>Vanilla value</strong></th>
+<th><strong>FI-package value</strong></th>
+<th> <strong>EE-package value</strong>
+</th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
 <td>client-http-port</td>
 <td>80 <br> 8080 (RHEL)</td>
+<td></td>
+<td></td>
 <td>TCP port on which the service client's security server listens for HTTP requests from client applications.</td>
 </tr>
 <tr>
-<td>proxy</td>
 <td>client-https-port</td>
-<td>443 <br>       8443 (RHEL)</td>
+<td>443 <br> 8443 (RHEL)</td>
+<td></td>
+<td></td>
 <td>TCP port on which the service client's security server listens for HTTPS requests from client applications.</td>
 </tr>
 <tr>
-<td>proxy</td>
 <td>client-timeout</td>
 <td>30000</td>
+<td></td>
+<td></td>
 <td>Defines the time period (in milliseconds), for which the service client's security server tries to connect to the service provider's security server. When the timeout is reached, the service client's security server informs the service client's information system that a service timeout has occurred.</td>
 </tr>
 <tr>
-<td>proxy</td>
 <td>configuration-anchor-file</td>
 <td>/etc/xroad/configuration-anchor.xml</td>
+<td></td>
+<td></td>
 <td>Absolute file name of the configuration anchor that is used to download global configuration.</td>
 </tr>
 <tr>
-<td>proxy</td>
 <td>connector-host</td>
 <td>0.0.0.0</td>
+<td></td>
+<td></td>
 <td>IP address on which the service client's security server listens for connections from client applications. The value 0.0.0.0 allows listening on all IPv4 interfaces.</td>
 </tr>
 <tr>
-<td>proxy</td>
 <td>database-properties</td>
 <td>/etc/xroad/db.properties</td>
+<td></td>
+<td></td>
 <td>Absolute file name of the properties file for the configuration of the security server database.</td>
 </tr>
 <tr>
-<td>proxy</td>
-<td>enforce-token-pin-policy</td>
-<td>false</td>
-<td>Controls enforcing the token pin policy. When set to true, software token pin is required to be at least 10 ASCII characters from at least tree character classes (lowercase letters, uppercase letters, digits, special characters). (since version 6.7.7)</td>
-</tr>
-<tr>
-<td>proxy</td>
-<td>ocsp-cache-path</td>
-<td>/var/cache/xroad</td>
-<td>Absolute path to the directory where the cached OCSP responses are stored.</td>
-</tr>
-<tr>
-<td>proxy</td>
 <td>ocsp-responder-listen-address</td>
 <td>0.0.0.0</td>
+<td></td>
+<td></td>
 <td>IP address on which the service provider's security server listens for requests for OCSP responses from the service client's security server. The service client's security server downloads OCSP responses from the service provider's security server while establishing a secure connection between the security servers. The value 0.0.0.0 allows listening on all IPv4 interfaces. Must match the value of proxy.server-listen-address.</td>
 </tr>
 <tr>
-<td>proxy</td>
 <td>ocsp-responder-port</td>
 <td>5577</td>
+<td></td>
+<td></td>
 <td>TCP port on which the service provider's security server listens for requests for OCSP responses from the service client's security server. The service client's security server downloads OCSP responses from the service provider's security server while establishing a secure connection between the security servers.</td>
 </tr>
 <tr>
-<td>proxy</td>
 <td>ocsp-responder-client-connect-timeout</td>
 <td>20000</td>
+<td></td>
+<td></td>
 <td>Connect timeout (in milliseconds) of the OCSP responder client. The service client's security server downloads OCSP responses from the service provider's security server while establishing a secure connection between the security servers.</td>
 </tr>
 <tr>
-<td>proxy</td>
 <td>ocsp-responder-client-read-timeout</td>
 <td>30000</td>
+<td></td>
+<td></td>
 <td>Read timeout (in milliseconds) of the OCSP responder client. The service client's security server downloads OCSP responses from the service provider's security server while establishing a secure connection between the security servers.</td>
 </tr>
 <tr>
-<td>proxy</td>
 <td>server-listen-address</td>
 <td>0.0.0.0</td>
+<td></td>
+<td></td>
 <td>IP address on which the service provider's security server listens for connections from the service client's security servers. The value 0.0.0.0 allows listening on all IPv4 interfaces.</td>
 </tr>
 <tr>
-<td>proxy</td>
 <td>server-listen-port</td>
 <td>5500</td>
+<td></td>
+<td></td>
 <td>TCP port on which the service provider's security server listens for connections from the service client's security server.</td>
 </tr>
 <tr>
-<td>proxy</td>
 <td>server-port</td>
 <td>5500</td>
+<td></td>
+<td></td>
 <td>Destination TCP port for outgoing queries in the service client's security server.</td>
 </tr>
 <tr>
-<td>proxy</td>
 <td>jetty-clientproxy-configuration-file</td>
 <td>/etc/xroad/jetty/clientproxy.xml</td>
+<td></td>
+<td></td>
 <td>Absolute filename of the Jetty configuration file for the service client's security server. For more information about configuring Jetty server, see <a href="https://wiki.eclipse.org/Jetty/Reference/jetty.xml%5C_usage" rel="nofollow">https://wiki.eclipse.org/Jetty/Reference/jetty.xml\_usage</a>.</td>
 </tr>
 <tr>
-<td>proxy</td>
 <td>jetty-serverproxy-configuration-file</td>
 <td>/etc/xroad/jetty/serverproxy.xml</td>
+<td></td>
+<td></td>
 <td>Absolute filename of the Jetty configuration file for the service provider's security server. For more information about configuring Jetty server, see <a href="https://wiki.eclipse.org/Jetty/Reference/jetty.xml%5C_usage" rel="nofollow">https://wiki.eclipse.org/Jetty/Reference/jetty.xml\_usage</a>.</td>
 </tr>
 <tr>
-<td>proxy</td>
 <td>jetty-ocsp-responder-configuration-file</td>
 <td>/etc/xroad/jetty/ocsp-responder.xml</td>
+<td></td>
+<td></td>
 <td>Absolute filename of the Jetty configuration file for the OCSP responder of the service provider's security server. For more information about configuring Jetty server, see <a href="https://wiki.eclipse.org/Jetty/Reference/jetty.xml%5C_usage" rel="nofollow">https://wiki.eclipse.org/Jetty/Reference/jetty.xml\_usage</a>.</td>
 </tr>
 <tr>
-<td>proxy</td>
 <td>ssl-enabled</td>
 <td>true</td>
+<td></td>
+<td></td>
 <td>If true, TLS is used for connections between the service client's and service provider's security servers.</td>
 </tr>
 <tr>
-<td>proxy</td>
 <td>client-tls-ciphers</td>
-<td>See [2]</td>
-<td>TLS ciphers enabled on the client-side interfaces (for both incoming and outgoing requests). (since version 6.7)</td>
+<td>See <a href="#Ref_note1">1</a>
+</td>
+<td></td>
+<td></td>
+<td>TLS ciphers (comma-separated list) enabled on the client-side interfaces (for both incoming and outgoing requests). (since version 6.7)</td>
 </tr>
 <tr>
-<td>proxy</td>
 <td>client-tls-protocols</td>
-<td>TLSv1.2,TLSv1.1</td>
-<td>TLS protocols enabled on the client-side interfaces (for both incoming and outgoing requests) (since version 6.7)</td>
+<td>TLSv1.2</td>
+<td></td>
+<td></td>
+<td>TLS protocols (comma-separated list) enabled on the client-side interfaces (for both incoming and outgoing requests). For backward compatibility TLSv1.1 is still supported on the client-side interfaces for outgoing requests (since version 6.7)</td>
 </tr>
 <tr>
-<td>proxy</td>
 <td>server-connector-max-idle-time</td>
-<td>0 (overridden to 120000 in Finnish installation)</td>
+<td>0</td>
+<td>120000</td>
+<td></td>
 <td>The maximum time (in milliseconds) that connections from a service consuming security server to a service providing security server are allowed to be idle before the provider security server starts closing them. Value of 0 means that an infinite idle time is allowed. A non-zero value should allow some time for a pooled connection to be idle, if  pooled connections are to be supported.</td>
 </tr>
 <tr>
-<td>proxy</td>
 <td>server-connector-so-linger</td>
-<td>0</td>
+<td>-1</td>
+<td></td>
+<td></td>
 <td>The SO_LINGER time (in seconds) at the service providing security server end for connections between security servers.<br>A value larger than 0 means that upon closing a connection, the system will allow SO_LINGER seconds for the transmission and acknowledgement of all data written to the peer, at which point the socket is closed gracefully. Upon reaching the linger timeout, the socket is closed forcefully, with a TCP RST. Enabling the option with a timeout of zero does a forceful close immediately.<br>Value of -1 disables the forceful close.</td>
 </tr>
 <tr>
-<td>proxy</td>
 <td>server-support-clients-pooled-connections</td>
-<td>false  (overridden to true in Finnish installation)</td>
+<td>false</td>
+<td>true</td>
+<td></td>
 <td>Whether this service providing security server supports pooled connections from the service consumer side. If set to <em>false</em>, connections are to be closed immediately after each message. This may be a wanted approached for security servers behind load balancers.</td>
 </tr>
 <tr>
-<td>proxy</td>
 <td>client-connector-max-idle-time</td>
 <td>0</td>
+<td></td>
+<td></td>
 <td>The maximum time (in milliseconds) that connections from a service consumer to the service consumer's security server are allowed to be idle before the security server starts closing them. Value of 0 means that an infinite idle time is allowed.</td>
 </tr>
 <tr>
-<td>proxy</td>
 <td>client-connector-so-linger</td>
-<td>0</td>
+<td>-1</td>
+<td></td>
+<td></td>
 <td>The SO_LINGER time (in seconds) at the service consuming security server end for connections between a consumer and a security server.<br>A value larger than 0 means that upon closing a connection, the system will allow SO_LINGER seconds for the transmission and acknowledgement of all data written to the peer, at which point the socket is closed gracefully. Upon reaching the linger timeout, the socket is closed forcefully, with a TCP RST. Enabling the option with a timeout of zero does a forceful close immediately.<br>Value of -1 disables the forceful close.</td>
 </tr>
 <tr>
-<td>proxy</td>
 <td>client-httpclient-timeout</td>
 <td>0</td>
+<td></td>
+<td></td>
 <td>The maximum time (SO_TIMEOUT, in milliseconds) that connections from a service consuming security server to a service providing security server are allowed to wait for a response before the consumer end httpclient gives up. Value of 0 means that an infinite wait time is allowed. This does not affect idle connections.</td>
 </tr>
 <tr>
-<td>proxy</td>
 <td>client-httpclient-so-linger</td>
 <td>-1</td>
+<td></td>
+<td></td>
 <td>The SO_LINGER time (in seconds) at the service consuming security server end for connections between security servers.<br>A value larger than 0 means that upon closing a connection, the system will allow SO_LINGER seconds for the transmission and acknowledgement of all data written to the peer, at which point the socket is closed gracefully. Upon reaching the linger timeout, the socket is closed forcefully, with a TCP RST. Enabling the option with a timeout of zero does a forceful close immediately.<br>Value of -1 disables the forceful close.</td>
 </tr>
 <tr>
-<td>proxy</td>
 <td>client-use-idle-connection-monitor</td>
 <td>true</td>
+<td></td>
+<td></td>
 <td>Should the idle connection monitor be used to clean up idle and expired connections from the connection pool.</td>
 </tr>
 <tr>
-<td>proxy</td>
 <td>client-idle-connection-monitor-interval</td>
 <td>30000</td>
+<td></td>
+<td></td>
 <td>How often (in milliseconds) should the connection monitor go through the pooled connections to see if it can clean up any idle or expired connections. This option requires the connection monitor to be enabled to have any effect.</td>
 </tr>
 <tr>
-<td>proxy</td>
 <td>client-idle-connection-monitor-timeout</td>
 <td>60000</td>
+<td></td>
+<td></td>
 <td>The minimum time (in milliseconds) that a pooled connection must be unused (idle) before it can be removed from the pool. Note that removal from the pool also depends on how often the connection monitor runs. This option requires the connection monitor to be enabled to have any effect.</td>
 </tr>
 <tr>
-<td>proxy</td>
 <td>pool-total-max-connections</td>
 <td>10000</td>
+<td></td>
+<td></td>
 <td>The total maximum number of connections that are allowed in the pool.</td>
 </tr>
 <tr>
-<td>proxy</td>
 <td>pool-total-default-max-connections-per-route</td>
 <td>2500</td>
+<td></td>
+<td></td>
 <td>The default route specific connection maximum that is set unless a route specific connection limit is set. Due to the current implementation, this is actually the total maximum limit of connections, indepedent of what the above setting is.</td>
 </tr>
 <tr>
-<td>proxy</td>
 <td>pool-validate-connections-after-inactivity-of-millis</td>
 <td>2000</td>
+<td></td>
+<td></td>
 <td>When reusing a pooled connection to a service providing security server, check that the connection (the socket) is not half-closed if it has been idle for at least this many milliseconds. This method cannot detect half-open connections. Value of -1 disables the check.</td>
 </tr>
 <tr>
-<td>proxy</td>
 <td>pool-enable-connection-reuse</td>
-<td>false  (overridden to true in Finnish installation)</td>
+<td>false</td>
+<td>true</td>
+<td></td>
 <td>Allow pooled connections between security servers to be used more than once on the client side. The service provider end of the connections has to have the setting <code>server-support-clients-pooled-connections=true</code> for the pooling to work between a provider and consumer security servers.</td>
 </tr>
 <tr>
-<td>proxy</td>
 <td>client-use-fastest-connecting-ssl-socket-autoclose</td>
 <td>true</td>
+<td></td>
+<td></td>
 <td>On TLS connections between security servers, should the underlying TCP-layer connection (socket) be closed on the service consumer end when the TLS layer connection is terminated.</td>
 </tr>
 <tr>
-<td>proxy</td>
-<td>client-fastest-connecting-ssl-use-uri-cache</td>
-<td>true</td>
-<td>When a service consumer's security server finds the fastest responding service providing security server, should the result be saved in the TLS session cache?</td>
+<td>client-fastest-connecting-ssl-uri-cache-period</td>
+<td>3600</td>
+<td></td>
+<td></td>
+<td>When a service consumer's security server finds the fastest responding service providing security server, how long the result should be kept in the TLS session cache? 0 to disable.</td>
 </tr>
 <tr>
-<td>proxy</td>
 <td>health-check-port</td>
 <td>0 (disabled)</td>
+<td></td>
+<td></td>
 <td>The TCP port where the health check service listens to requests. Setting the port to 0 disables the health check service completely.</td>
 </tr>
 <tr>
-<td>proxy</td>
 <td>health-check-interface</td>
 <td>0.0.0.0</td>
+<td></td>
+<td></td>
 <td>The network interface where the health check service listens to requests. Default is all available interfaces.</td>
 </tr>
 <tr>
-<td>proxy</td>
 <td>actorsystem-port</td>
 <td>5567</td>
+<td></td>
+<td> </td>
 <td>The (localhost) port where the proxy actorsystem binds to. Used for communicating with xroad-signer and xroad-monitor.</td>
 </tr>
 <tr>
-<td>proxy-ui</td>
+<td>allow-get-wsdl-request</td>
+<td>false</td>
+<td></td>
+<td> </td>
+<td>Whether to allow getWsdl metaservice to be called with HTTP/HTTPS GET method.</td>
+</tr>
+</tbody>
+</table>
+<h3>
+<a id="33-proxy-user-interface-parameters-proxy-ui" class="anchor" href="#33-proxy-user-interface-parameters-proxy-ui" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.3 Proxy User Interface parameters: <code>[proxy-ui]</code>
+</h3>
+<table>
+<thead>
+<tr>
+<th><strong>Parameter</strong></th>
+<th><strong>Vanilla value</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
 <td>wsdl-validator-command</td>
 <td></td>
-<td>The command to validate the given X-Road service WSDL. The command script must:<br>a) read the WSDL from the standard input (<em>stdin</em>),<br>b) return exit code 0 on success,<br>c) return exit code 0 and write warnings to the standard error (<em>stderr</em>), if warnings occurs,<br>d) return exit code other then 0 and write error messages to the standard error (<em>stderr</em>), if errors occurs.<br>Defaults to no operation.</td>
+<td>The command to validate the given X-Road service WSDL. The command script must:<br>a) read the WSDL from the URI given as an argument or from standard input (<em>stdin</em>) if no arguments are given,<br>b) return exit code 0 on success,<br>c) return exit code 0 and write warnings to the standard error (<em>stderr</em>), if warnings occurs,<br>d) return exit code other then 0 and write error messages to the standard error (<em>stderr</em>), if errors occurs.<br>Defaults to no operation.</td>
 </tr>
 <tr>
-<td>proxy-ui</td>
 <td>auth-cert-reg-signature-digest-algorithm-id</td>
 <td>SHA-512</td>
 <td>Signature digest algorithm used for generating authentication certificate registration request.<br>Possible values are<br>-   SHA-256,<br>-   SHA-384,<br>-   SHA-512.</td>
 </tr>
+</tbody>
+</table>
+<h3>
+<a id="34-signer-parameters-signer" class="anchor" href="#34-signer-parameters-signer" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.4 Signer parameters: <code>[signer]</code>
+</h3>
+<table>
+<thead>
 <tr>
-<td>signer</td>
+<th><strong>Parameter</strong></th>
+<th><strong>Vanilla value</strong></th>
+<th><strong>FI-package value</strong></th>
+<th> <strong>EE-package value</strong>
+</th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ocsp-cache-path</td>
+<td>/var/cache/xroad</td>
+<td></td>
+<td></td>
+<td>Absolute path to the directory where the cached OCSP responses are stored.</td>
+</tr>
+<tr>
+<td>enforce-token-pin-policy</td>
+<td>false</td>
+<td>true</td>
+<td></td>
+<td>Controls enforcing the token pin policy. When set to true, software token pin is required to be at least 10 ASCII characters from at least tree character classes (lowercase letters, uppercase letters, digits, special characters). (since version 6.7.7)</td>
+</tr>
+<tr>
 <td>client-timeout</td>
 <td>15000</td>
+<td></td>
+<td></td>
 <td>Signing timeout in milliseconds.</td>
 </tr>
 <tr>
-<td>signer</td>
 <td>device-configuration-file</td>
 <td>/etc/xroad/signer/devices.ini</td>
+<td></td>
+<td></td>
 <td>Absolute filename of the configuration file of the signature creation devices.</td>
 </tr>
 <tr>
-<td>signer</td>
 <td>key-configuration-file</td>
 <td>/etc/xroad/signer/keyconf.xml</td>
+<td></td>
+<td></td>
 <td>Absolute filename of the configuration file containing signature and authentication keys and certificates.</td>
 </tr>
 <tr>
-<td>signer</td>
 <td>port</td>
 <td>5556</td>
+<td></td>
+<td></td>
 <td>TCP port on which the signer process listens.</td>
 </tr>
 <tr>
-<td>signer</td>
 <td>key-length</td>
 <td>2048</td>
+<td></td>
+<td></td>
 <td>Key length for generating authentication and signing keys (since version 6.7)</td>
 </tr>
 <tr>
-<td>signer</td>
 <td>csr-signature-digest-algorithm</td>
 <td>SHA-256</td>
+<td></td>
+<td></td>
 <td>Certificate Signing Request signature digest algorithm.<br>Possible values are<br>-   SHA-256,<br>-   SHA-384,<br>-   SHA-512.</td>
 </tr>
+</tbody>
+</table>
+<h3>
+<a id="35-anti-dos-parameters-anti-dos" class="anchor" href="#35-anti-dos-parameters-anti-dos" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.5 Anti-DOS parameters: <code>[anti-dos]</code>
+</h3>
+<table>
+<thead>
 <tr>
-<td>anti-dos</td>
+<th><strong>Parameter</strong></th>
+<th><strong>Vanilla value</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
 <td>enabled</td>
 <td>true</td>
 <td>Flag for enabling or disabling the AntiDOS system.</td>
 </tr>
 <tr>
-<td>anti-dos</td>
 <td>max-cpu-load</td>
 <td>1.1</td>
 <td>Maximum allowed CPU load for accepting new connections. If set to &gt; 1.0, then CPU load is not checked.</td>
 </tr>
 <tr>
-<td>anti-dos</td>
 <td>max-heap-usage</td>
 <td>1.1</td>
 <td>Specifies the maximum allowed Java heap usage when accepting new connections. If set to &gt; 1.0, then heap usage is not checked.</td>
 </tr>
 <tr>
-<td>anti-dos</td>
 <td>max-parallel-connections</td>
 <td>5000</td>
 <td>Maximum number of parallel connections for AntiDOS.</td>
 </tr>
 <tr>
-<td>anti-dos</td>
 <td>min-free-file-handles</td>
 <td>100</td>
 <td>Minimum amount of free file handles in the system for accepting new connections. At least one free file handle must be available to accept a new connection.</td>
 </tr>
+</tbody>
+</table>
+<h3>
+<a id="36-configuration-client-parameters-configuration-client" class="anchor" href="#36-configuration-client-parameters-configuration-client" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.6 Configuration Client parameters: <code>[configuration-client]</code>
+</h3>
+<table>
+<thead>
 <tr>
-<td>configuration-client</td>
+<th><strong>Parameter</strong></th>
+<th><strong>Vanilla value</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
 <td>port</td>
 <td>5665</td>
 <td>TCP port on which the configuration client process listens.</td>
 </tr>
 <tr>
-<td>configuration-client</td>
 <td>update-interval</td>
 <td>60</td>
 <td>Global configuration download interval in seconds.</td>
 </tr>
 <tr>
-<td>configuration-client</td>
 <td>admin-port</td>
 <td>5675</td>
 <td>TCP port on which the configuration client process listens for admin commands.</td>
 </tr>
 <tr>
-<td>message-log</td>
+<td>allowed-federations</td>
+<td>none</td>
+<td>A comma-separated list of case-insensitive X-Road instances that fetching configuration anchors is allowed for. This enables federation with the listed instances if the X-Road instance is already federated at the central server level . Special value <em>none</em>, if present, disables all federation (the default value), while <em>all</em> allows all federations if <em>none</em> is not present. Example: <em>allowed-federations=ee,sv</em> allows federation with example instances <em>EE</em> and <em>Sv</em> while <em>allowed-federations=all,none</em> disables federation. X-Road services <code>xroad-confclient</code> and <code>xroad-proxy</code> need to be restarted (in that order) for the setting change to take effect.</td>
+</tr>
+</tbody>
+</table>
+<h3>
+<a id="37-message-log-add-on-parameters-message-log" class="anchor" href="#37-message-log-add-on-parameters-message-log" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.7 Message log add-on parameters: <code>[message-log]</code>
+</h3>
+<table>
+<thead>
+<tr>
+<th><strong>Parameter</strong></th>
+<th><strong>Vanilla value</strong></th>
+<th><strong>FI-package value</strong></th>
+<th> <strong>EE-package value</strong>
+</th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
 <td>soap-body-logging</td>
-<td>true (overridden to false in Finnish installation)</td>
-<td>Whether SOAP body of the messages should be logged or not.<br><br>If true, SOAP messages are logged in original form. If false, SOAP body is cleared of its contents and only has an empty child element inside it. As a side effect, details such as formatting and namespace labels of the xml message can be changed and new elements may be introduced for default values in SOAP header.<br><br>Removal of SOAP body is usually done for confidentiality reasons (body contains data that we do not want to have in the logs).<br><br>Note that changing the message this way prevents verifying its signature with the asicverifier tool.</td>
+<td>true</td>
+<td>false</td>
+<td></td>
+<td> Whether SOAP body of the messages should be logged or not.<br><br>If <em>true</em>, the SOAP messages are logged in their original form. If <em>false</em>, the SOAP body is cleared of its contents and only has an empty child element inside it. In addition, the SOAP header will only have specific set of elements logged, see <a href="#note-on-logged-x-road-message-headers">Note on logged X-Road message headers</a> . As a side effect, details such as formatting and namespace labels of the xml message can be changed and new elements may be introduced for default values in SOAP header.<br><br>Removal of SOAP body is usually done for confidentiality reasons (body contains data that we do not want to have in the logs).<br><br>Note that changing the message this way prevents verifying its signature with the asicverifier tool.</td>
 </tr>
 <tr>
-<td>message-log</td>
 <td>enabled-body-logging-local-producer-subsystems</td>
 <td></td>
-<td>Subsystem-specific overrides for SOAP body logging when soap-body-logging = false.<br><br>This parameter defines logging for <strong>local producer</strong> subsystems, that is, our subsystems that produce some service which external clients use.<br><br>Comma-separated list of client identifiers for which SOAP body logging is enabled. For example FI/ORG/1710128-9/SUBSYSTEM_A1, FI/ORG/1710128-9/SUBSYSTEM_A2 where<br>-   FI = x-road instance<br>-   ORG = member class<br>-   1710128-9 = member code<br>-   SUBSYSTEM_A1 = subsystem code<br><br>This parameter can only be used on subsystem-level, it is not possible to configure SOAP body logging per member.<br><br>If a subsystem has forward slashes “/” in for example subsystem code, those subsystems can’t be configured with this parameter.</td>
+<td></td>
+<td></td>
+<td> Subsystem-specific overrides for SOAP body logging when soap-body-logging = false.<br><br>This parameter defines logging for <strong>local producer</strong> subsystems, that is, our subsystems that produce some service which external clients use.<br><br>Comma-separated list of client identifiers for which SOAP body logging is enabled. For example FI/ORG/1710128-9/SUBSYSTEM_A1, FI/ORG/1710128-9/SUBSYSTEM_A2 where<br>-   FI = x-road instance<br>-   ORG = member class<br>-   1710128-9 = member code<br>-   SUBSYSTEM_A1 = subsystem code<br><br>This parameter can only be used on subsystem-level, it is not possible to configure SOAP body logging per member.<br><br>If a subsystem has forward slashes “/” in for example subsystem code, those subsystems can’t be configured with this parameter.</td>
 </tr>
 <tr>
-<td>message-log</td>
 <td>enabled-body-logging-remote-producer-subsystems</td>
 <td></td>
-<td>Subsystem-specific overrides for <strong>remote producer</strong> subsystems, that is, remote subsystems that produce services which we use.<br><br>Parameter is used when soap-body-logging = false.</td>
+<td></td>
+<td></td>
+<td> Subsystem-specific overrides for <strong>remote producer</strong> subsystems, that is, remote subsystems that produce services which we use.<br><br>Parameter is used when soap-body-logging = false.</td>
 </tr>
 <tr>
-<td>message-log</td>
 <td>disabled-body-logging-local-producer-subsystems</td>
 <td></td>
-<td>Same as enabled-body-logging-local-producer-subsystems, but this parameter is used when soap-body-logging = true.</td>
+<td></td>
+<td></td>
+<td> Same as enabled-body-logging-local-producer-subsystems, but this parameter is used when soap-body-logging = true.</td>
 </tr>
 <tr>
-<td>message-log</td>
 <td>disabled-body-logging-remote-producer-subsystems</td>
 <td></td>
-<td>Same as enabled-body-logging-remote-producer-subsystems, but this parameter is used when soap-body-logging = true.</td>
+<td></td>
+<td></td>
+<td> Same as enabled-body-logging-remote-producer-subsystems, but this parameter is used when soap-body-logging = true.</td>
 </tr>
 <tr>
-<td>message-log</td>
 <td>acceptable-timestamp-failure-period</td>
 <td>14400</td>
-<td>Defines the time period (in seconds) for how long is time-stamping allowed to fail (for whatever reasons) before the message log stops accepting any more messages (and consequently the security server stops accepting requests). Set to 0 to disable this check. The value of this parameter should not be lower than the value of the central server system parameter <em>timeStampingIntervalSeconds.</em>     <br><br>Default for Finnish installation is 18 000 seconds</td>
+<td>18000</td>
+<td></td>
+<td> Defines the time period (in seconds) for how long is time-stamping allowed to fail (for whatever reasons) before the message log stops accepting any more messages (and consequently the security server stops accepting requests). Set to 0 to disable this check. The value of this parameter should not be lower than the value of the central server system parameter <em>timeStampingIntervalSeconds.</em>
+</td>
 </tr>
 <tr>
-<td>message-log</td>
 <td>archive-interval</td>
 <td>0 0 0/6 1/1 * ? *</td>
-<td>CRON expression [CRON] defining the interval of archiving the time-stamped messages.</td>
+<td></td>
+<td></td>
+<td> CRON expression [<a href="#Ref_CRON">CRON</a>] defining the interval of archiving the time-stamped messages.</td>
 </tr>
 <tr>
-<td>message-log</td>
 <td>archive-max-filesize</td>
 <td>33554432</td>
-<td>Maximum size for archived files in bytes. Reaching the maximum value triggers file rotation.</td>
+<td></td>
+<td></td>
+<td> Maximum size for archived files in bytes. Reaching the maximum value triggers file rotation.</td>
 </tr>
 <tr>
-<td>message-log</td>
 <td>archive-path</td>
 <td>/var/lib/xroad</td>
-<td>Absolute path to the directory where time-stamped log records are archived.</td>
+<td></td>
+<td></td>
+<td> Absolute path to the directory where time-stamped log records are archived.</td>
 </tr>
 <tr>
-<td>message-log</td>
 <td>clean-interval</td>
 <td>0 0 0/12 1/1 * ? *</td>
-<td>CRON expression [CRON] for deleting any time-stamped and archived records that are older than <em>message-log.keep-records-for</em> from the database.</td>
+<td></td>
+<td></td>
+<td> CRON expression [<a href="#Ref_CRON">CRON</a>] for deleting any time-stamped and archived records that are older than <em>message-log.keep-records-for</em> from the database.</td>
 </tr>
 <tr>
-<td>message-log</td>
 <td>hash-algo-id</td>
 <td>SHA-512</td>
-<td>The algorithm identifier used for hashing in the message log.<br>Possible values are<br>-   SHA-224,<br>-   SHA-256,<br>-   SHA-384,<br>-   SHA-512.</td>
+<td></td>
+<td></td>
+<td> The algorithm identifier used for hashing in the message log.<br>Possible values are<br>-   SHA-224,<br>-   SHA-256,<br>-   SHA-384,<br>-   SHA-512.</td>
 </tr>
 <tr>
-<td>message-log</td>
 <td>keep-records-for</td>
 <td>30</td>
-<td>Number of days to keep time-stamped and archived records in the database of the security server. If a time-stamped and archived message record is older than this value, the record is deleted from the database.</td>
+<td></td>
+<td></td>
+<td> Number of days to keep time-stamped and archived records in the database of the security server. If a time-stamped and archived message record is older than this value, the record is deleted from the database.</td>
 </tr>
 <tr>
-<td>message-log</td>
 <td>timestamp-immediately</td>
 <td>false</td>
-<td>If true, the time-stamp is created synchronously for each request message. This is a security policy requirement to guarantee the time-stamp at the time of logging the message.</td>
+<td></td>
+<td></td>
+<td> If true, the time-stamp is created synchronously for each request message. This is a security policy requirement to guarantee the time-stamp at the time of logging the message.</td>
 </tr>
 <tr>
-<td>message-log</td>
 <td>timestamp-records-limit</td>
 <td>10000</td>
+<td></td>
+<td> </td>
 <td>Maximum number of message records to time-stamp in one batch.</td>
 </tr>
 <tr>
-<td>message-log</td>
 <td>timestamper-client-connect-timeout</td>
 <td>20000</td>
-<td>The timestamper client connect timeout in milliseconds. A timeout of zero is interpreted as an infinite timeout.</td>
+<td></td>
+<td></td>
+<td> The timestamper client connect timeout in milliseconds. A timeout of zero is interpreted as an infinite timeout.</td>
 </tr>
 <tr>
-<td>message-log</td>
 <td>timestamper-client-read-timeout</td>
 <td>60000</td>
-<td>The timestamper client read timeout in milliseconds. A timeout of zero is interpreted as an infinite timeout.</td>
+<td></td>
+<td></td>
+<td> The timestamper client read timeout in milliseconds. A timeout of zero is interpreted as an infinite timeout.</td>
 </tr>
 <tr>
-<td>message-log</td>
 <td>archive-transaction-batch</td>
 <td>10000</td>
-<td>Size of transaction batch for archiving messagelog. This size is not exact because it will always make sure that last archived batch includes timestamp also (this might mean that it will go over transaction size).</td>
+<td></td>
+<td></td>
+<td> Size of transaction batch for archiving messagelog. This size is not exact because it will always make sure that last archived batch includes timestamp also (this might mean that it will go over transaction size).</td>
 </tr>
+</tbody>
+</table>
+<h4>
+<a id="371-note-on-logged-x-road-message-headers" class="anchor" href="#371-note-on-logged-x-road-message-headers" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.7.1 Note on logged X-Road message headers</h4>
+<p>If the messagelog add-on has the SOAP body logging disabled, only a preconfigured set of the SOAP headers will be included in the message log.</p>
+<p>The logged SOAP headers are the X-Road message headers listed in <a href="pr-mess_x-road_message_protocol.html#22-message-headers">Chapter 2.2</a> of
+the X-Road Message Protocol document [<a href="#Ref_PR-MESS">PR-MESS</a>], as well as the <code>representedParty</code> extension of the X-Road protocol described in the
+extension's <a href="http://x-road.eu/xsd/representation.xsd" rel="nofollow">XML schema</a>. The security server targeting extension for the X-Road message protocol
+[<a href="#Ref_PR-TARGETSS">PR-TARGETSS</a>] or the Security Token Extension [<a href="#Ref_PR-SECTOKEN">PR-SECTOKEN</a>] will not be included in the message log.</p>
+<h3>
+<a id="38-environmental-monitoring-add-on-configuration-parameters-env-monitor" class="anchor" href="#38-environmental-monitoring-add-on-configuration-parameters-env-monitor" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.8 Environmental monitoring add-on configuration parameters: <code>[env-monitor]</code>
+</h3>
+<table>
+<thead>
 <tr>
-<td>env-monitor</td>
+<th><strong>Parameter</strong></th>
+<th><strong>Vanilla value</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
 <td>port</td>
 <td>2552</td>
 <td>TCP port number used in communications with xroad-proxy and xroad-monitor components.</td>
 </tr>
 <tr>
-<td>env-monitor</td>
 <td>system-metrics-sensor-interval</td>
 <td>5</td>
 <td>Interval of systems metrics sensor in seconds. How often system metrics data is collected.</td>
 </tr>
 <tr>
-<td>env-monitor</td>
 <td>disk-space-sensor-interval</td>
 <td>60</td>
 <td>Interval of disk space sensor in seconds. How often disk space data is collected.</td>
 </tr>
 <tr>
-<td>env-monitor</td>
 <td>exec-listing-sensor-interval</td>
 <td>60</td>
 <td>Interval of exec listing sensor in seconds. How often sensor data using external command are collected.</td>
 </tr>
+<tr>
+<td>certificate-info-sensor-interval</td>
+<td>86400</td>
+<td>Interval of certificate information sensor in seconds. How often certificate data is collected. The first collection is always done after a delay of 10 seconds.</td>
+</tr>
+<tr>
+<td>limit-remote-data-set</td>
+<td>false</td>
+<td>On/Off switch for filtering out optional monitoring data. With flag set to true, only security server owner can request and get full data set.</td>
+</tr>
 </tbody>
 </table>
-<h1>
-<a id="central-server-system-parameters" class="anchor" href="#central-server-system-parameters" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Central Server System Parameters</h1>
+<h2>
+<a id="4-central-server-system-parameters" class="anchor" href="#4-central-server-system-parameters" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4 Central Server System Parameters</h2>
 <p>The system parameters described in this chapter are used by the X-Road central server, except for the parameters <em>ocspFreshnessSeconds</em> and <em>timeStampingIntervalSeconds.</em></p>
 <p>The values of <em>ocspFreshnessSeconds</em> and <em>timeStampingIntervalSeconds</em> are distributed to the security servers via the global configuration. These parameters determine the interval of calling OCSP responder services and time-stamping services (respectively) by the security servers.</p>
-<h2>
-<a id="system-parameters-in-the-configuration-file" class="anchor" href="#system-parameters-in-the-configuration-file" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>System Parameters in the Configuration File</h2>
+<h3>
+<a id="41-system-parameters-in-the-configuration-file" class="anchor" href="#41-system-parameters-in-the-configuration-file" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.1 System Parameters in the Configuration File</h3>
 <p>For instructions on how to change the parameter values, see section <a href="#changing-the-system-parameter-values-in-configuration-files">Changing the System Parameter Values in Configuration Files</a>.</p>
+<h4>
+<a id="411-common-parameters-common" class="anchor" href="#411-common-parameters-common" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.1.1 Common parameters: <code>[common]</code>
+</h4>
 <table>
 <thead>
 <tr>
 <th><strong>Server component</strong></th>
 <th><strong>Name</strong></th>
-<th><strong>Default value</strong></th>
+<th><strong>Vanilla value</strong></th>
 <th><strong>Description</strong></th>
 </tr>
 </thead>
@@ -799,68 +1105,98 @@ server-listen-port=20000
 <td>common</td>
 <td>temp-files-path</td>
 <td>/var/tmp/xroad/</td>
-<td>Absolute path to the directory where temporary files are stored.</td>
+<td> Absolute path to the directory where temporary files are stored.</td>
 </tr>
+</tbody>
+</table>
+<h4>
+<a id="412-center-parameters-center" class="anchor" href="#412-center-parameters-center" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.1.2 Center parameters: <code>[center]</code>
+</h4>
+<table>
+<thead>
 <tr>
-<td>center</td>
+<th><strong>Name</strong></th>
+<th><strong>Vanilla value</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
 <td>conf-backup-path</td>
 <td>/var/lib/xroad/backup/</td>
 <td>Absolute path to the directory where configuration backups are stored.</td>
 </tr>
 <tr>
-<td>center</td>
 <td>database-properties</td>
 <td>/etc/xroad/db.properties</td>
 <td>Absolute path to file where the properties of the database of the central server are stored.</td>
 </tr>
 <tr>
-<td>center</td>
 <td>external-directory</td>
 <td>externalconf</td>
 <td>Name of the signed external configuration directory that is distributed to the configuration clients (security servers and/or configuration proxies) of this and federated X-Road instances.</td>
 </tr>
 <tr>
-<td>center</td>
 <td>generated-conf-dir</td>
 <td>/var/lib/xroad/public</td>
 <td>Absolute path to the directory where both the private and shared parameter files are created for distribution.</td>
 </tr>
 <tr>
-<td>center</td>
 <td>internal-directory</td>
 <td>internalconf</td>
 <td>Name of the signed internal configuration directory that is distributed to the configuration clients (security servers and/or configuration proxies) of this X-Road instance.</td>
 </tr>
 <tr>
-<td>center</td>
 <td>trusted-anchors-allowed</td>
 <td>false</td>
 <td>True if federation is allowed for this X-Road instance.</td>
 </tr>
 <tr>
-<td>center</td>
 <td>minimum-global-configuration-version</td>
 <td>2</td>
 <td>Minimum supported global configuration version on central server. Change this if old global configuration versions need to be supported.</td>
 </tr>
+</tbody>
+</table>
+<h4>
+<a id="413-signer-parameters-signer" class="anchor" href="#413-signer-parameters-signer" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.1.3 Signer parameters: <code>[signer]</code>
+</h4>
+<table>
+<thead>
 <tr>
-<td>signer</td>
+<th><strong>Name</strong></th>
+<th><strong>Vanilla value</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
 <td>ocsp-response-retrieval-active</td>
 <td>false <br> <em>(see Description for more information)</em>
 </td>
 <td>This property is used as an override to deactivate periodic OCSP-response retrieval for components that don't need that functionality, but still use signer. <br><br> Values: <br> <code>false</code> - OCSP-response retrieval jobs are never scheduled <br> <code>true</code> - periodic OCSP-response retrieval is active based on ocspFetchInterval. <strong>Note that if the entire property is missing, it is interpreted as true.</strong> <br><br>  This property is delivered as an override and only for the components where the OCSP-response retrieval jobs need to be deactivated. The property is missing for components that require OCSP-response retrieval to be activated.</td>
 </tr>
+<tr>
+<td>ocsp-cache-path</td>
+<td>/var/cache/xroad</td>
+<td>Absolute path to the directory where the cached OCSP responses are stored.</td>
+</tr>
+<tr>
+<td>enforce-token-pin-policy</td>
+<td>false</td>
+<td>Controls enforcing the token pin policy. When set to true, software token pin is required to be at least 10 ASCII characters from at least tree character classes (lowercase letters, uppercase letters, digits, special characters). (since version 6.7.7)</td>
+</tr>
 </tbody>
 </table>
-<h2>
-<a id="system-parameters-in-the-database" class="anchor" href="#system-parameters-in-the-database" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>System Parameters in the Database</h2>
+<h3>
+<a id="42-system-parameters-in-the-database" class="anchor" href="#42-system-parameters-in-the-database" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.2 System Parameters in the Database</h3>
 <p>This section describes the system parameters used by the X-Road central server. For instructions on how to change the parameter values, see section <a href="#changing-the-system-parameter-values-in-the-central-server-database">Changing the System Parameter Values in the Central Server Database</a>.</p>
 <table>
 <thead>
 <tr>
 <th><strong>Name</strong></th>
 <th><strong>Value type</strong></th>
-<th><strong>Default value</strong></th>
+<th><strong>Vanilla value</strong></th>
 <th><strong>Description</strong></th>
 </tr>
 </thead>
@@ -904,90 +1240,114 @@ server-listen-port=20000
 </tr>
 </tbody>
 </table>
-<h2>
-<a id="global-configuration-generation-interval-parameter" class="anchor" href="#global-configuration-generation-interval-parameter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Global Configuration Generation Interval Parameter</h2>
-<p>The global configuration generation interval parameter regulates the timing for global configuration generation. Global configuration generation is invoked by the Cron daemon[3]. The parameter is located at following file:</p>
+<h3>
+<a id="43-global-configuration-generation-interval-parameter" class="anchor" href="#43-global-configuration-generation-interval-parameter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.3 Global Configuration Generation Interval Parameter</h3>
+<p>The global configuration generation interval parameter regulates the timing for global configuration generation. Global configuration generation is invoked by the Cron daemon [<a href="#Ref_CRONMAN">CRONMAN</a>]. The parameter is located at following file:</p>
 <pre><code>/etc/cron.d/xroad-center
 </code></pre>
-<p>The file is deployed during X-Road installation and by default has following content[4]:</p>
+<p>The file is deployed during X-Road installation and by default has following content (see exact cron specifications) [<a href="#Ref_CRONHOW">CRONHOW</a>]:</p>
 <pre><code>#!/bin/sh
 * * * * * xroad curl http://127.0.0.1:8084/managementservice/gen_conf 2&gt;1 &gt;/dev/null;
 </code></pre>
 <p>The parameter regulating the timing of global configuration generation is the cron expression at the start of the last line (* * * * *), which means that global configuration generation is invoked every minute by default.</p>
-<h1>
-<a id="configuration-proxy-system-parameters" class="anchor" href="#configuration-proxy-system-parameters" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Configuration Proxy System Parameters</h1>
+<h2>
+<a id="5-configuration-proxy-system-parameters" class="anchor" href="#5-configuration-proxy-system-parameters" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5 Configuration Proxy System Parameters</h2>
 <p>This chapter describes the system parameters used by the X-Road configuration proxy.</p>
+<h3>
+<a id="51-configuration-proxy-module-parameters-configuration-proxy" class="anchor" href="#51-configuration-proxy-module-parameters-configuration-proxy" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.1 Configuration proxy module parameters: <code>[configuration-proxy]</code>
+</h3>
 <table>
 <thead>
 <tr>
-<th><strong>Server component</strong></th>
 <th><strong>Name</strong></th>
-<th><strong>Default value</strong></th>
+<th><strong>Vanilla value</strong></th>
 <th><strong>Description</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>configuration-proxy</td>
 <td>address</td>
 <td>0.0.0.0</td>
 <td>The public IP or NAT address which is accessed for downloading the distributed global configuration.</td>
 </tr>
 <tr>
-<td>configuration-proxy</td>
 <td>configuration-path</td>
 <td>/etc/xroad/configurationproxy/</td>
 <td>Absolute path to the directory containing the configuration files of the configuration proxy instance.</td>
 </tr>
 <tr>
-<td>configuration-proxy</td>
 <td>generated-conf-path</td>
 <td>/var/lib/xroad/public</td>
 <td>Absolute path to the public web server directory where the global configuration files that this configuration proxy generates are be placed for distribution.</td>
 </tr>
 <tr>
-<td>configuration-proxy</td>
 <td>signature-digest-algorithm-id</td>
 <td>SHA-512</td>
 <td>ID of the digest algorithm the configuration proxy uses when computing global configuration signatures.<br>The possible values are<br>-   SHA-256,<br>-   SHA-384,<br>-   SHA-512.</td>
 </tr>
 <tr>
-<td>configuration-proxy</td>
 <td>hash-algorithm-uri</td>
 <td><a href="http://www.w3.org/2001/04/xmlenc#sha512" rel="nofollow">http://www.w3.org/2001/04/xmlenc#sha512</a></td>
 <td>URI that identifies the algorithm the configuration proxy uses when calculating hash values for the global configuration files.<br>The possible values are<br><a href="http://www.w3.org/2001/04/xmlenc#sha256" rel="nofollow">http://www.w3.org/2001/04/xmlenc#sha256</a>,<br><a href="http://www.w3.org/2001/04/xmlenc#sha512" rel="nofollow">http://www.w3.org/2001/04/xmlenc#sha512</a>
 </td>
 </tr>
 <tr>
-<td>configuration-proxy</td>
 <td>download-script</td>
 <td>/usr/share/xroad/scripts/download_instance_configuration.sh</td>
 <td>Absolute path to the location of the script that initializes the global configuration download procedure.</td>
 </tr>
 <tr>
-<td>configuration-proxy</td>
 <td>minimum-global-configuration-version</td>
 <td>2</td>
 <td>Minimum supported global configuration version on configuration proxy. Change this if old global configuration versions need to be supported.</td>
 </tr>
+</tbody>
+</table>
+<h3>
+<a id="52-signer-parameters-signer" class="anchor" href="#52-signer-parameters-signer" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.2 Signer parameters: <code>[signer]</code>
+</h3>
+<table>
+<thead>
 <tr>
-<td>signer</td>
+<th><strong>Name</strong></th>
+<th><strong>Vanilla value</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
 <td>ocsp-response-retrieval-active</td>
 <td>false <br> <em>(see Description for more information)</em>
 </td>
 <td>This property is used as an override to deactivate periodic OCSP-response retrieval for components that don't need that functionality, but still use signer. <br><br> Values: <br> <code>false</code> - OCSP-response retrieval jobs are never scheduled <br> <code>true</code> - periodic OCSP-response retrieval is active based on ocspFetchInterval. <strong>Note that if the entire property is missing, it is interpreted as true.</strong> <br><br>  This property is delivered as an override and only for the components where the OCSP-response retrieval jobs need to be deactivated. The property is missing for components that require OCSP-response retrieval to be activated.</td>
 </tr>
+<tr>
+<td>ocsp-cache-path</td>
+<td>/var/cache/xroad</td>
+<td>Absolute path to the directory where the cached OCSP responses are stored.</td>
+</tr>
+<tr>
+<td>enforce-token-pin-policy</td>
+<td>false</td>
+<td>Controls enforcing the token pin policy. When set to true, software token pin is required to be at least 10 ASCII characters from at least tree character classes (lowercase letters, uppercase letters, digits, special characters). (since version 6.7.7)</td>
+</tr>
 </tbody>
 </table>
-<p>[1] See also <a href="http://www.quartz-scheduler.org/documentation/quartz-1.x/tutorials/crontrigger" rel="nofollow"><em>http://www.quartz-scheduler.org/documentation/quartz-1.x/tutorials/crontrigger</em></a>.</p>
-<p>[2] Default value for proxy.client-tls-ciphers.</p>
+<p><a id="Ref_note1"></a>[1] Default value for proxy.client-tls-ciphers.</p>
 <blockquote>
-<p>TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384, TLS_DHE_RSA_WITH_AES_128_GCM_SHA256, TLS_DHE_RSA_WITH_AES_128_CBC_SHA256, TLS_DHE_RSA_WITH_AES_256_CBC_SHA256, TLS_DHE_RSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA, TLS_DHE_RSA_WITH_AES_128_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA, TLS_DHE_RSA_WITH_AES_256_CBC_SHA</p>
+<p>TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,
+TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256,
+TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,
+TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384,
+TLS_DHE_RSA_WITH_AES_128_GCM_SHA256,
+TLS_DHE_RSA_WITH_AES_128_CBC_SHA256,
+TLS_DHE_RSA_WITH_AES_256_CBC_SHA256,
+TLS_DHE_RSA_WITH_AES_256_GCM_SHA384</p>
+</blockquote>
+<blockquote>
 <p>(see <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/security/SunProviders.html#SunJSSEProvider" rel="nofollow"><em>https://docs.oracle.com/javase/8/docs/technotes/guides/security/SunProviders.html#SunJSSEProvider</em></a> for possible values)</p>
 <p>Note. OpenJDK 8 on RHEL 7 does not support ECDHE key agreement protocol, only DHE cipher suites are supported.</p>
 </blockquote>
-<p>[3] See also <a href="http://linux.die.net/man/8/cron" rel="nofollow"><em>http://linux.die.net/man/8/cron</em></a>.</p>
-<p>[4] For exact format specification see also <a href="https://help.ubuntu.com/community/CronHowto" rel="nofollow"><em>https://help.ubuntu.com/community/CronHowto</em></a>.</p>
     </article>
   </body>
 </html>

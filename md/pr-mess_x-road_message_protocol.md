@@ -1,35 +1,41 @@
-![](img/eu_regional_development_fund_horizontal_div_15.png "European Union | European Regional Development Fund | Investing in your future")
+| ![European Union / European Regional Development Fund / Investing in your future](img/eu_regional_development_fund_horizontal_div_15.png "Documents that are tagged with EU/SF logos must keep the logos until 1.1.2022, if it has not stated otherwise in the documentation. If new documentation is created  using EU/SF resources the logos must be tagged appropriately so that the deadline for logos could be found.") |
+| -------------------------: |
 
 # X-Road: Message Protocol v4.0
-
 **Technical Specification**
 
-Version: 4.0.18  
-20.02.2017  
+Version: 4.0.21  
+06.03.2018  
 Doc. ID: PR-MESS
+
+---
+
 
 ## Version history
 
- Date       | Version | Description                                                     | Author
- ---------- | ------- | --------------------------------------------------------------- | --------------------
- 04.09.2015 | 4.0.2   | Converted to ODT                                                | Siim Annuk
- 08.09.2015 | 4.0.3   | Minor fixes                                                     | Siim Annuk
- 10.09.2015 | 4.0.4   | Fixed some typos                                                | Siim Annuk
- 16.09.2015 | 4.0.5   | Editorial changes made                                          | Imbi Nõgisto
- 30.09.2015 | 4.0.6   | Additional information added about requestHash header field and HTTP headers | Siim Annuk
- 14.10.2015 | 4.0.7   | Note added about supported attachment encodings. Updated examples | Siim Annuk, Ilja Kromonov
- 17.10.2015 | 4.0.8   | Clarified must/MUST language                                    | Margus Freudenthal
- 28.10.2015 | 4.0.9   | Better example messages added                                   | Siim Annuk
- 28.10.2015 | 4.0.10  | Complete X-Road identifiers schema added                        | Siim Annuk
- 20.11.2015 | 4.0.11  | Minor enhancements, example messages fixed                      | Siim Annuk
- 02.12.2015 | 4.0.12  | Minor fixes added                                               | Siim Annuk
- 08.12.2015 | 4.0.13  | Typo fixed                                                      | Siim Annuk
- 25.01.2016 | 4.0.14  | Minor fixes                                                     | Kristo Heero
- 10.05.2016 | 4.0.15  | Added section about character encoding                          | Kristo Heero
- 16.05.2016 | 4.0.16  | Editorial changes made                                          | Margus Freudenthal
- 10.11.2016 | 4.0.17  | Converted to Markdown                                           | Vitali Stupin
- 20.02.2016 | 4.0.18  | Adjusted tables and internal links for better output in PDF     | Toomas Mölder
-
+ Date       | Version | Description                                                                                     | Author
+ ---------- | ------- | ------------------------------------------------------------------------------------------------|--------------------
+ 04.09.2015 | 4.0.2   | Converted to ODT                                                                                | Siim Annuk
+ 08.09.2015 | 4.0.3   | Minor fixes                                                                                     | Siim Annuk
+ 10.09.2015 | 4.0.4   | Fixed some typos                                                                                | Siim Annuk
+ 16.09.2015 | 4.0.5   | Editorial changes made                                                                          | Imbi Nõgisto
+ 30.09.2015 | 4.0.6   | Additional information added about requestHash header field and HTTP headers                    | Siim Annuk
+ 14.10.2015 | 4.0.7   | Note added about supported attachment encodings. Updated examples                               | Siim Annuk, Ilja Kromonov
+ 17.10.2015 | 4.0.8   | Clarified must/MUST language                                                                    | Margus Freudenthal
+ 28.10.2015 | 4.0.9   | Better example messages added                                                                   | Siim Annuk
+ 28.10.2015 | 4.0.10  | Complete X-Road identifiers schema added                                                        | Siim Annuk
+ 20.11.2015 | 4.0.11  | Minor enhancements, example messages fixed                                                      | Siim Annuk
+ 02.12.2015 | 4.0.12  | Minor fixes added                                                                               | Siim Annuk
+ 08.12.2015 | 4.0.13  | Typo fixed                                                                                      | Siim Annuk
+ 25.01.2016 | 4.0.14  | Minor fixes                                                                                     | Kristo Heero
+ 10.05.2016 | 4.0.15  | Added section about character encoding                                                          | Kristo Heero
+ 16.05.2016 | 4.0.16  | Editorial changes made                                                                          | Margus Freudenthal
+ 10.11.2016 | 4.0.17  | Converted to Markdown                                                                           | Vitali Stupin
+ 20.02.2016 | 4.0.18  | Adjusted tables and internal links for better output in PDF                                     | Toomas Mölder
+ 20.06.2017 | 4.0.19  | SOAPAction HTTP header is preserved                                                             | Jarkko Hyöty
+ 26.10.2017 | 4.0.20  | Added [Annex H](#annex-h-known-x-road-message-protocol-extensions) on known protocol extensions | Olli Lindgren
+ 06.03.2018 | 4.0.21  | Moved terms to term doc, added terms reference and doc link                                     | Tatu Repo
+ 
 ## Table of Contents
 
 <!-- toc -->
@@ -60,6 +66,7 @@ Doc. ID: PR-MESS
   * [E.2 Response](#e2-response)
 - [Annex F Example Request with Attachment](#annex-f-example-request-with-attachment)
 - [Annex G Example Request with MTOM Attachment](#annex-g-example-request-with-mtom-attachment)
+- [Annex H Known X-Road Message Protocol Extensions](#annex-h-known-x-road-message-protocol-extensions)
 
 <!-- tocstop -->
 
@@ -80,20 +87,14 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 ### 1.1 Terms and Abbreviations
 
--   **X-Road member** – natural or legal person who uses functionality offered by X-Road
-
--   **Subsystem** – represents part of an information system belonging to an X-Road member. X-Road member can divide its information system to subsystems, although this is not mandatory
-
--   **Central service** – centrally defined alias to a concrete service implemented by an X-Road member or a subsystem.
-
--   **X-Road service** – SOAP-based web service that is offered by an X-Road member or by a subsystem and that can be used by other X-Road members or subsystems.
-
+See X-Road terms and abbreviations documentation \[[TA-TERMS](#Ref_TERMS)\].
 
 ### 1.2 References
 
 1. <a name="Ref_SOAP" class="anchor"></a>\[SOAP\] Simple Object Access Protocol (SOAP) 1.1, 2000.
 
-2. <a name="Ref_RFC2119" class="anchor"></a>\[RFC2119\] Key words for use in RFCs to Indicate Requirement Levels, Internet Engineering Task Force, 1997.
+2. <a name="Ref_RFC2119" class="anchor"></a>\[RFC2119\] Key words for use in RFCs to Indicate Requirement Levels,
+Internet Engineering Task Force, 1997.
 
 3. <a name="Ref_DSIG" class="anchor"></a>\[DSIG\] XML Signature Syntax and Processing Version 2.0, 2013.
 
@@ -109,8 +110,16 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 9. <a name="Ref_SWAREF" class="anchor"></a>\[SWAREF\] Attachments Profile Version 1.0, 2004.
 
-10. <a name="Ref_WRAPPED" class="anchor"></a>\[WRAPPED\] Usage of document/literal wrapped pattern in WSDL design, [http://www.ibm.com/developerworks/library/ws-usagewsdl/](http://www.ibm.com/developerworks/library/ws-usagewsdl/).
+10. <a name="Ref_WRAPPED" class="anchor"></a>\[WRAPPED\] Usage of document/literal wrapped pattern in WSDL design,
+[http://www.ibm.com/developerworks/library/ws-usagewsdl/](http://www.ibm.com/developerworks/library/ws-usagewsdl/).
 
+11. <a name="Ref_PR-TARGETSS" class="anchor"></a>\[PR-TARGETSS\] Security server targeting extension for the X-Road message protocol. Document ID:
+[PR-TARGETSS](pr-targetss_security_server_targeting_extension_for_the_x-road_protocol.md)\.
+
+12. <a name="Ref_PR-SECTOKEN" class="anchor"></a>\[PR-SECTOKEN\] Security token extension for the X-Road message protocol. Document ID:
+[PR-SECTOKEN](https://github.com/nordic-institute/X-Road/blob/develop/doc/Protocols/SecurityTokenExtension/pr-sectoken_security_token_extension_for_the_x-road_protocol.md)\.
+
+13. <a id="Ref_TERMS" class="anchor"></a>\[TA-TERMS\] X-Road Terms and Abbreviations. Document ID: [TA-TERMS](terms_x-road_docs.md).
 
 ### 1.3 Identifying Entities
 
@@ -288,7 +297,7 @@ The request message SHOULD NOT contain the `requestHash` field. The response mes
 
 The `requestHash` field SHOULD NOT be described in the service WSDL.
 
-Content-type HTTP header of the client request message is preserved in the security servers and is forwarded to the service. All other HTTP headers of the client request message are not preserved by the security servers and are not forwarded to the service.
+Content-type and SOAPAction HTTP headers of the client request message are preserved in the security servers and forwarded to the service. All other HTTP headers of the client request message are not preserved by the security servers and are not forwarded to the service.
 
 Content-type HTTP header of the service response message is preserved in the security servers and is forwarded to the client. All other HTTP headers of the service response are not preserved by security servers and are not forwarded to the client.
 
@@ -1329,3 +1338,11 @@ VGhpcyBpcyBhdHRhY2htZW50Lg0K
 --MIME_boundary--
 ```
 
+## Annex H Known X-Road Message Protocol Extensions
+
+The Security server targeting extension for the X-Road message protocol \[[PR-TARGETSS](#Ref_PR-TARGETSS)\]
+allows the message to be targeted to a specific security server in a clustered environment where one service can be served
+from multiple security servers.
+
+The Security token extension for the X-Road message protocol \[[PR-SECTOKEN](#Ref_PR-SECTOKEN)\] defines a common set
+of rules to deliver security tokens, such as JSON Web Tokens with the X-Road protocol.

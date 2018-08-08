@@ -16,13 +16,20 @@
   </head>
   <body>
     <article class="markdown-body">
-<p><a href="img/eu_regional_development_fund_horizontal_div_15.png" target="_blank"><img src="img/eu_regional_development_fund_horizontal_div_15.png" alt="" title="European Union | European Regional Development Fund | Investing in your future" style="max-width:100%;"></a></p>
+<table>
+<thead>
+<tr>
+<th align="right"><a href="img/eu_regional_development_fund_horizontal_div_15.png" target="_blank"><img src="img/eu_regional_development_fund_horizontal_div_15.png" alt="European Union / European Regional Development Fund / Investing in your future" title="Documents that are tagged with EU/SF logos must keep the logos until 1.1.2022, if it has not stated otherwise in the documentation. If new documentation is created  using EU/SF resources the logos must be tagged appropriately so that the deadline for logos could be found." style="max-width:100%;"></a></th>
+</tr>
+</thead>
+</table>
 <h1>
 <a id="x-road-message-protocol-v40" class="anchor" href="#x-road-message-protocol-v40" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>X-Road: Message Protocol v4.0</h1>
 <p><strong>Technical Specification</strong></p>
-<p>Version: 4.0.18<br>
-20.02.2017<br>
+<p>Version: 4.0.21<br>
+06.03.2018<br>
 Doc. ID: PR-MESS</p>
+<hr>
 <h2>
 <a id="version-history" class="anchor" href="#version-history" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version history</h2>
 <table>
@@ -137,6 +144,24 @@ Doc. ID: PR-MESS</p>
 <td>Adjusted tables and internal links for better output in PDF</td>
 <td>Toomas Mölder</td>
 </tr>
+<tr>
+<td>20.06.2017</td>
+<td>4.0.19</td>
+<td>SOAPAction HTTP header is preserved</td>
+<td>Jarkko Hyöty</td>
+</tr>
+<tr>
+<td>26.10.2017</td>
+<td>4.0.20</td>
+<td>Added <a href="#annex-h-known-x-road-message-protocol-extensions">Annex H</a> on known protocol extensions</td>
+<td>Olli Lindgren</td>
+</tr>
+<tr>
+<td>06.03.2018</td>
+<td>4.0.21</td>
+<td>Moved terms to term doc, added terms reference and doc link</td>
+<td>Tatu Repo</td>
+</tr>
 </tbody>
 </table>
 <h2>
@@ -189,6 +214,7 @@ Doc. ID: PR-MESS</p>
 </li>
 <li><a href="#annex-f-example-request-with-attachment">Annex F Example Request with Attachment</a></li>
 <li><a href="#annex-g-example-request-with-mtom-attachment">Annex G Example Request with MTOM Attachment</a></li>
+<li><a href="#annex-h-known-x-road-message-protocol-extensions">Annex H Known X-Road Message Protocol Extensions</a></li>
 </ul>
 
 <h2>
@@ -202,20 +228,7 @@ Doc. ID: PR-MESS</p>
 <p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document (in uppercase, as shown) are to be interpreted as described in [<a href="#Ref_RFC2119">RFC2119</a>].</p>
 <h3>
 <a id="11-terms-and-abbreviations" class="anchor" href="#11-terms-and-abbreviations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.1 Terms and Abbreviations</h3>
-<ul>
-<li>
-<p><strong>X-Road member</strong> – natural or legal person who uses functionality offered by X-Road</p>
-</li>
-<li>
-<p><strong>Subsystem</strong> – represents part of an information system belonging to an X-Road member. X-Road member can divide its information system to subsystems, although this is not mandatory</p>
-</li>
-<li>
-<p><strong>Central service</strong> – centrally defined alias to a concrete service implemented by an X-Road member or a subsystem.</p>
-</li>
-<li>
-<p><strong>X-Road service</strong> – SOAP-based web service that is offered by an X-Road member or by a subsystem and that can be used by other X-Road members or subsystems.</p>
-</li>
-</ul>
+<p>See X-Road terms and abbreviations documentation [<a href="#Ref_TERMS">TA-TERMS</a>].</p>
 <h3>
 <a id="12-references" class="anchor" href="#12-references" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.2 References</h3>
 <ol>
@@ -223,7 +236,8 @@ Doc. ID: PR-MESS</p>
 <p><a name="Ref_SOAP"></a>[SOAP] Simple Object Access Protocol (SOAP) 1.1, 2000.</p>
 </li>
 <li>
-<p><a name="Ref_RFC2119"></a>[RFC2119] Key words for use in RFCs to Indicate Requirement Levels, Internet Engineering Task Force, 1997.</p>
+<p><a name="Ref_RFC2119"></a>[RFC2119] Key words for use in RFCs to Indicate Requirement Levels,
+Internet Engineering Task Force, 1997.</p>
 </li>
 <li>
 <p><a name="Ref_DSIG"></a>[DSIG] XML Signature Syntax and Processing Version 2.0, 2013.</p>
@@ -247,7 +261,19 @@ Doc. ID: PR-MESS</p>
 <p><a name="Ref_SWAREF"></a>[SWAREF] Attachments Profile Version 1.0, 2004.</p>
 </li>
 <li>
-<p><a name="Ref_WRAPPED"></a>[WRAPPED] Usage of document/literal wrapped pattern in WSDL design, <a href="http://www.ibm.com/developerworks/library/ws-usagewsdl/" rel="nofollow">http://www.ibm.com/developerworks/library/ws-usagewsdl/</a>.</p>
+<p><a name="Ref_WRAPPED"></a>[WRAPPED] Usage of document/literal wrapped pattern in WSDL design,
+<a href="http://www.ibm.com/developerworks/library/ws-usagewsdl/" rel="nofollow">http://www.ibm.com/developerworks/library/ws-usagewsdl/</a>.</p>
+</li>
+<li>
+<p><a name="Ref_PR-TARGETSS"></a>[PR-TARGETSS] Security server targeting extension for the X-Road message protocol. Document ID:
+<a href="pr-targetss_security_server_targeting_extension_for_the_x-road_protocol.html">PR-TARGETSS</a>.</p>
+</li>
+<li>
+<p><a name="Ref_PR-SECTOKEN"></a>[PR-SECTOKEN] Security token extension for the X-Road message protocol. Document ID:
+<a href="https://github.com/nordic-institute/X-Road/blob/develop/doc/Protocols/SecurityTokenExtension/pr-sectoken_security_token_extension_for_the_x-road_protocol.md">PR-SECTOKEN</a>.</p>
+</li>
+<li>
+<p><a id="Ref_TERMS"></a>[TA-TERMS] X-Road Terms and Abbreviations. Document ID: <a href="terms_x-road_docs.html">TA-TERMS</a>.</p>
 </li>
 </ol>
 <h3>
@@ -441,7 +467,7 @@ Table 1. Supported header fields</p>
 <p>The <code>requestHash</code> field MUST be automatically created by the service provider's security server when receiving the service response message and MUST be verified by the service client's security server.</p>
 <p>The request message SHOULD NOT contain the <code>requestHash</code> field. The response message sent by service to the service provider's security server SHOULD NOT contain the <code>requestHash</code> field. If the response message contains the requestHash field, the service provider's security server MUST ignore the field and replace it with the created field.</p>
 <p>The <code>requestHash</code> field SHOULD NOT be described in the service WSDL.</p>
-<p>Content-type HTTP header of the client request message is preserved in the security servers and is forwarded to the service. All other HTTP headers of the client request message are not preserved by the security servers and are not forwarded to the service.</p>
+<p>Content-type and SOAPAction HTTP headers of the client request message are preserved in the security servers and forwarded to the service. All other HTTP headers of the client request message are not preserved by the security servers and are not forwarded to the service.</p>
 <p>Content-type HTTP header of the service response message is preserved in the security servers and is forwarded to the client. All other HTTP headers of the service response are not preserved by security servers and are not forwarded to the client.</p>
 <p>Starting with X-Road message protocol version 4.0 any protocols with the same major version number are compatible. Minor versions are used to describe backwards compatible changes, such as addition of optional headers.</p>
 <h3>
@@ -1444,6 +1470,13 @@ Content-Disposition: attachment; name="data.bin"; filename="data.bin"
 
 VGhpcyBpcyBhdHRhY2htZW50Lg0K
 --MIME_boundary--</pre></div>
+<h2>
+<a id="annex-h-known-x-road-message-protocol-extensions" class="anchor" href="#annex-h-known-x-road-message-protocol-extensions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Annex H Known X-Road Message Protocol Extensions</h2>
+<p>The Security server targeting extension for the X-Road message protocol [<a href="#Ref_PR-TARGETSS">PR-TARGETSS</a>]
+allows the message to be targeted to a specific security server in a clustered environment where one service can be served
+from multiple security servers.</p>
+<p>The Security token extension for the X-Road message protocol [<a href="#Ref_PR-SECTOKEN">PR-SECTOKEN</a>] defines a common set
+of rules to deliver security tokens, such as JSON Web Tokens with the X-Road protocol.</p>
     </article>
   </body>
 </html>

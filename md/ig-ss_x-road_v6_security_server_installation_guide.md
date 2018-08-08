@@ -1,12 +1,15 @@
-![](img/eu_regional_development_fund_horizontal_div_15.png "European Union | European Regional Development Fund | Investing in your future")
+| ![European Union / European Regional Development Fund / Investing in your future](img/eu_regional_development_fund_horizontal_div_15.png "Documents that are tagged with EU/SF logos must keep the logos until 1.1.2022, if it has not stated otherwise in the documentation. If new documentation is created  using EU/SF resources the logos must be tagged appropriately so that the deadline for logos could be found.") |
+| -------------------------: |
 
-# X-Road: Security Server Installation Guide
+# Security Server Installation Guide
 
 **X-ROAD 6**
 
-Version: 2.8.3  
-13.03.2017  
+Version: 2.12.3  
 Doc. ID: IG-SS
+
+---
+
 
 ## Version history
 
@@ -30,35 +33,47 @@ Doc. ID: IG-SS
  23.02.2017 | 2.7     | Converted to Github flavoured Markdown, added license text, adjusted tables for better output in PDF | Toomas Mölder
  13.04.2017 | 2.8     | Added token ID formatting                                       | Cybernetica AS
  22.01.2018 | 2.8.1   | Added NEE and NGO member classes                                | Jürgen Šuvalov
- 07.08.2018 | 2.8.2   | Added requirement to install Java 8 jre first                   | Jan Raik
- 08.08.2018 | 2.8.3	  | Added I/O ports diagram; Edited table about network ports		| Jan Raik
+ 25.08.2017 | 2.9     | Update environmental monitoring installation information | Ilkka Seppälä
+ 15.09.2017 | 2.10    | Added package with configuration specific to Estonia xroad-securityserver-ee | Cybernetica AS
+ 05.03.2018 | 2.11    | Added terms and abbreviations reference and document links | Tatu Repo
+ 10.04.2018 | 2.12    | Updated chapter "[Installing the Support for Hardware Tokens](#27-installing-the-support-for-hardware-tokens)" with configurable parameters described in the configuration file 'devices.ini' | Cybernetica AS
+ 07.06.2018 | 2.12.1  | Updated repository information with x-tee.ee domain             | Jürgen Šuvalov
+ 03.07.2018 | 2.12.2  | Added network diagram and reference data for monitoring servers | Jürgen Šuvalov
+ 08.08.2018 | 2.12.3  | Editorial changes												| Jan Raik
+
+
 ## Table of Contents
 
 <!-- toc -->
 
-- [License](#license)
-- [1 Introduction](#1-introduction)
-  * [1.1 Target Audience](#11-target-audience)
-  * [1.2 References](#12-references)
-- [2 Installation](#2-installation)
-  * [2.1 Supported Platforms](#21-supported-platforms)
-  * [2.2 Reference Data](#22-reference-data)
-  * [2.3 Requirements for the Security Server](#23-requirements-for-the-security-server)
-  * [2.4 Preparing OS](#24-preparing-os)
-  * [2.5 Installation](#25-installation)
-  * [2.6 Post-Installation Checks](#26-post-installation-checks)
-  * [2.7 Installing the Support for Hardware Tokens](#27-installing-the-support-for-hardware-tokens)
-  * [2.8 Installing Support for Monitoring](#28-installing-support-for-monitoring)
-- [3 Security Server Initial Configuration](#3-security-server-initial-configuration)
-  * [3.1 Prerequisites](#31-prerequisites)
-  * [3.2 Reference Data](#32-reference-data)
-  * [3.3 Configuration](#33-configuration)
-- [4 Installation Error handling](#4-installation-error-handling)
-  * [4.1 Cannot Set LC\_ALL to Default Locale](#41-cannot-set-lc_all-to-default-locale)
-  * [4.2 PostgreSQL Is Not UTF8 Compatible](#42-postgresql-is-not-utf8-compatible)
-  * [4.3 Could Not Create Default Cluster](#43-could-not-create-default-cluster)
-  * [4.4 Is Postgres Running On Port 5432?](#44-is-postgres-running-on-port-5432)
-  * [4.5 Different versions of xroad-\* packages after successful upgrade](#45-different-versions-of-xroad--packages-after-successful-upgrade)
+- [Security Server Installation Guide](#security-server-installation-guide)
+    - [Version history](#version-history)
+    - [Table of Contents](#table-of-contents)
+    - [License](#license)
+    - [1 Introduction](#1-introduction)
+        - [1.1 Target Audience](#11-target-audience)
+        - [1.2 Terms and abbreviations](#12-terms-and-abbreviations)
+        - [1.3 References](#13-references)
+    - [2 Installation](#2-installation)
+        - [2.1 Supported Platforms](#21-supported-platforms)
+        - [2.2 Reference Data](#22-reference-data)
+        - [2.3 Network Diagram](#23-network-diagram)
+        - [2.4 Requirements for the Security Server](#24-requirements-for-the-security-server)
+        - [2.5 Preparing OS](#25-preparing-os)
+        - [2.6 Installation](#26-installation)
+        - [2.7 Post-Installation Checks](#27-post-installation-checks)
+        - [2.8 Installing the Support for Hardware Tokens](#28-installing-the-support-for-hardware-tokens)
+        - [2.9 Installing the Support for Environmental Monitoring](#29-installing-the-support-for-environmental-monitoring)
+    - [3 Security Server Initial Configuration](#3-security-server-initial-configuration)
+        - [3.1 Prerequisites](#31-prerequisites)
+        - [3.2 Reference Data](#32-reference-data)
+        - [3.3 Configuration](#33-configuration)
+    - [4 Installation Error handling](#4-installation-error-handling)
+        - [4.1 Cannot Set LC\_ALL to Default Locale](#41-cannot-set-lc-all-to-default-locale)
+        - [4.2 PostgreSQL Is Not UTF8 Compatible](#42-postgresql-is-not-utf8-compatible)
+        - [4.3 Could Not Create Default Cluster](#43-could-not-create-default-cluster)
+        - [4.4 Is Postgres Running On Port 5432?](#44-is-postgres-running-on-port-5432)
+        - [4.5 Different versions of xroad-\* packages after successful upgrade](#45-different-versions-of-xroad--packages-after-successful-upgrade)
 
 <!-- tocstop -->
 
@@ -75,18 +90,22 @@ The intended audience of this Installation Guide are X-Road Security server syst
 
 The document is intended for readers with a moderate knowledge of Linux server management, computer networks, and the X-Road working principles.
 
+### 1.2 Terms and abbreviations
 
-### 1.2 References
+See X-Road terms and abbreviations documentation \[[TA-TERMS](#Ref_TERMS)\].
 
-1.  <a id="Ref_UG-SS" class="anchor"></a>\[UG-SS\] Cybernetica AS. X-Road 6. Security Server User Guide. Document ID UG-SS
+### 1.3 References
 
+1.  <a id="Ref_UG-SS" class="anchor"></a>\[UG-SS\] Cybernetica AS. X-Road 6. Security Server User Guide. Document ID: [UG-SS](ug-ss_x-road_6_security_server_user_guide.md)
+
+2.  <a id="Ref_TERMS" class="anchor"></a>\[TA-TERMS\] X-Road Terms and Abbreviations. Document ID: [TA-TERMS](terms_x-road_docs.md).
 
 ## 2 Installation
 
 
 ### 2.1 Supported Platforms
 
-The security server runs on the *Ubuntu Server 14.04 Long-Term Support (LTS)* operating system on a 64-bit platform. The security server software is distributed as .deb packages through the official X-Road repository at http://x-road.eu/packages/
+The security server runs on the *Ubuntu Server 14.04 Long-Term Support (LTS)* operating system on a 64-bit platform. The Estonian version of the security server software is distributed as .deb packages through the official X-tee repository at http://x-tee.ee/packages/.
 
 The software can be installed both on physical and virtualized hardware (of the latter, Xen and Oracle VirtualBox have been tested).
 
@@ -101,13 +120,14 @@ The software can be installed both on physical and virtualized hardware (of the 
  **Ref** |                                        | **Explanation**
  ------ | --------------------------------------- | ----------------------------------------------------------
  1.0    | Ubuntu 14.04, 64-bit<br>3 GB RAM, 3 GB free disk space | Minimum requirements
- 1.1    | http://x-road.eu/packages               | X-Road package repository
- 1.2    | http://x-road.eu/packages/xroad_repo.gpg | The repository key
+ 1.1    | http://x-tee.ee/packages/live/xroad     | X-Road stable package repository
+ &nbsp; | http://x-tee.ee/packages/test/xroad     | X-Road test package repository
+ 1.2    | https://x-tee.ee/packages/xroad_repo.gpg | The repository key
  1.3    |                                         | Account name in the user interface
- 1.4	| INBOUND								  | Ports for inbound connections (from the external network to the security server)
+ 1.4	| **INBOUND**							  | Ports for inbound connections (from the external network to the security server)
  &nbsp; | TCP 5500                                | Message exchange between security servers. Recommended to use IP filtering (**whitelisting only RIA IP's and partners**).
  &nbsp; | TCP 5577                                | Querying of OCSP responses between security servers. Recommended to use IP filtering (**whitelisting only RIA IP's and partners**)
- 1.5	| OUTBOUND 								  | Ports for outbound connections (from the security server to the external network)
+ 1.5	| **OUTBOUND **							  | Ports for outbound connections (from the security server to the external network)
  &nbsp; | TCP 5500                                | Message exchange between security servers
  &nbsp; | TCP 5577                                | Querying of OCSP responses between security servers
  &nbsp; | TCP 4001                                | Communication with the central server
@@ -122,18 +142,28 @@ The software can be installed both on physical and virtualized hardware (of the 
  1.10 | &lt;by default, the server’s IP addresses and names are added to the certificate’s Distinguished Name (DN) field&gt; | Information about the user interface TLS certificate
  1.11 | &lt;by default, the server’s IP addresses and names are added to the certificate’s Distinguished Name (DN) field&gt; | Information about the services TLS certificate
  1.12 | TCP 2552                                  | Port for communications between `xroad-proxy` and `xroad-monitoring` processes
+ 1.13 | 195.80.123.159                            | Monitoring security server IP in EE instance
+ &nbsp; | 195.80.123.164	                      | Monitoring security server IP in ee-test instance
+ &nbsp; | 195.80.123.169	                      | Monitoring security server IP in ee-dev instance
 
-#### Security server ports and RIA IP's for whitelisting in your network firewall
+ ### 2.3 Network Diagram
 
-![](img/security_server_ports.png "Security server ports")
+ The following network diagram is an example of a simple stand-alone Security Server setup. Attention should be paid when configuring the firewall of your Security Server, as misconfigurations (e.g. exposing port 80/tcp to the public internet) can leave your server vulnerable.
+ 
+ Allowing incoming connections from the Monitoring Security Server on ports 5500/tcp and 5577/tcp (**reference data: 1.13**) is necessary for the X-Road Center to be able to monitor the ecosystem and provide statistics and support for Members.
 
+ **Caution**: The enabling of auxiliary services which are necessary for the functioning and management of the operating system (such as DNS, NTP, and SSH) stay outside the scope of this guide.
+
+ ![network diagram](img/ig-ss_network_diagram.png)
+
+ 
  RIA IP's for whitelisting | **EE - production** | **ee-test**	| **ee-dev**
 -------------------------- | --------------------| -------------- | -------------
  Central Server 			| 213.184.41.178 <br> 213.184.41.186 <br> 213.184.41.190 | 195.80.127.40 <br> 195.80.127.43 | 195.80.109.140
  Central Monitoring Server 	| 195.80.123.159 | 195.80.123.164 | 195.80.123.169
 
- 
-### 2.3 Requirements for the Security Server
+
+### 2.4 Requirements for the Security Server
 
 Minimum recommended hardware parameters:
 
@@ -151,12 +181,12 @@ Requirements to software and settings:
 
 -   an installed and configured Ubuntu 14.04 LTS x86-64 operating system;
 
--   if the security server is separated from other networks by a firewall and/or NAT, the necessary connections to and from the security server are allowed (**reference data: 1.4; 1.5; 1.6; 1.7**). The enabling of auxiliary services which are necessary for the functioning and management of the operating system (such as DNS, NTP, and SSH) stay outside the scope of this guide;
+-   if the security server is separated from other networks by a firewall and/or NAT, the necessary connections to and from the security server are allowed (**reference data: 1.4; 1.5; 1.6; 1.7; 1.13**). The enabling of auxiliary services which are necessary for the functioning and management of the operating system (such as DNS, NTP, and SSH) stay outside the scope of this guide;
 
 -   if the security server has a private IP address, a corresponding NAT record must be created in the firewall (**reference data: 1.9**).
 
 
-### 2.4 Preparing OS
+### 2.5 Preparing OS
 
 -   Add system user (**reference data: 1.3**) whom all roles in the user interface are granted to. Add a new user with the command
 
@@ -169,19 +199,19 @@ Requirements to software and settings:
         LC_ALL=en_US.UTF-8
 
 
-### 2.5 Installation
+### 2.6 Installation
 
 To install the X-Road security server software, follow these steps.
 
 1.  Add to `/etc/apt/sources.list.d/xroad.list` the address of X-Road package repository (**reference data: 1.1**) and the nginx repository:
 
-        deb http://x-road.eu/packages trusty main
+        deb http://x-tee.ee/packages/live/xroad trusty main
         deb http://ppa.launchpad.net/nginx/stable/ubuntu trusty main
         deb http://ppa.launchpad.net/openjdk-r/ppa/ubuntu trusty main
 
 2.  Add the X-Road repository’s signing key to the list of trusted keys (**reference data: 1.2**):
 
-        curl http://x-road.eu/packages/xroad_repo.gpg | sudo apt-key add -
+        curl http://x-tee.ee/packages/xroad_repo.gpg | sudo apt-key add -
         sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 00A6F0A3C300EE8C
         sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EB9B1D8886F44E2A
 
@@ -217,10 +247,10 @@ Upon the first installation of the packages, the system asks for the following i
 
             IP:1.2.3.4,IP:4.3.2.1,DNS:servername,DNS:servername2.domain.tld
 
-The meta-package `xroad-securityserver` also installs metaservices module `xroad-addon-metaservices`, messagelog module `xroad-addon-messagelog`, operational data monitoring module `xroad-addon-opmonitoring` and WSDL validator module `xroad-addon-wsdlvalidator`.
+The meta-package `xroad-securityserver-ee` also installs metaservices module `xroad-addon-metaservices`, messagelog module `xroad-addon-messagelog`, operational data monitoring modules `xroad-addon-opmonitoring`, `xroad-opmonitor` and WSDL validator module `xroad-addon-wsdlvalidator`.
 
 
-### 2.6 Post-Installation Checks
+### 2.7 Post-Installation Checks
 
 The installation is successful if system services are started and the user interface is responding.
 
@@ -237,7 +267,7 @@ The installation is successful if system services are started and the user inter
 -   Ensure that the security server user interface at https://SECURITYSERVER:4000/ (**reference data: 1.8; 1.6**) can be opened in a Web browser. To log in, use the account name chosen during the installation (**reference data: 1.3**). While the user interface is still starting up, the Web browser may display the “502 Bad Gateway” error.
 
 
-### 2.7 Installing the Support for Hardware Tokens
+### 2.8 Installing the Support for Hardware Tokens
 
 To configure support for hardware security tokens (smartcard, USB token, Hardware Security Module), act as follows.
 
@@ -253,15 +283,36 @@ To configure support for hardware security tokens (smartcard, USB token, Hardwar
 
         sudo service xroad-signer restart
 
-If you are running a high availability (HA) hardware token setup (such as a cluster with replicated tokens) then you may need to constrain the token identifier format such that the token replicas can be seen as the same token. The token identifier format can be changed in /etc/xroad/devices.ini via the `token_id_format` property (default value: `{moduleType}{slotIndex}{serialNumber}{label}`). Removing certain parts of the identifier will allow the HA setup to work correctly when one of the tokens goes down and is replaced by a replica. For example, if the token replicas are reported to be on different slots the `{slotIndex}` part should be removed from the identifier format.
+If you are running a high availability (HA) hardware token setup (such as a cluster with replicated tokens) then you may need to constrain the token identifier format such that the token replicas can be seen as the same token. The token identifier format can be changed in `/etc/xroad/devices.ini` via the `token_id_format` property (default value: `{moduleType}{slotIndex}{serialNumber}{label}`). Removing certain parts of the identifier will allow the HA setup to work correctly when one of the tokens goes down and is replaced by a replica. For example, if the token replicas are reported to be on different slots the `{slotIndex}` part should be removed from the identifier format.
 
-### 2.8 Installing Support for Monitoring
+Depending on the hardware token there may be a need for more additional configuration. All possible configurable parameters in the `/etc/xroad/devices.ini` are described in the next table.
 
-Enabling the monitoring functionality on a security server requires installation of one additional package:
+Parameter   | Type    | Default Value | Explanation
+----------- | ------- |-------------- | ---------------------------------------
+*enabled*     | BOOLEAN | *true* | Indicates whether this device is enabled.
+*library*     | STRING  |      | The path to the pkcs#11 library of the device driver.
+*library_cant_create_os_threads* | BOOLEAN | *false* | Indicates whether application threads, which are executing calls to the pkcs#11 library, may not use native operating system calls to spawn new threads (in other words, the library’s code may not create its own threads). 
+*os_locking_ok* | BOOLEAN | *false* | Indicates whether the pkcs#11 library may use the native operation system threading model for locking.
+*sign_verify_pin* | BOOLEAN | *false* | Indicates whether the PIN should be entered per signing operation.
+*token_id_format* | STRING | *{moduleType}{slotIndex}{serialNumber}{label}* | Specifies the identifier format used to uniquely identify a token. In certain high availability setups may need be constrained to support replicated tokens (eg. by removing the slot index part which may be diffirent for the token replicas).
+*sign_mechanism*  | STRING | *CKM_RSA_PKCS* | Specifies the signing mechanism. Supported values: *CKM_RSA_PKCS*, *CKM_RSA_PKCS_PSS*.
+*pub_key_attribute_encrypt*  | BOOLEAN | *true* | Indicates whether public key can be used for encryption.
+*pub_key_attribute_verify* | BOOLEAN | *true* | Indicates whether public key can be used for verification.
+*pub_key_attribute_wrap* | BOOLEAN | | Indicates whether public key can be used for wrapping other keys.
+*pub_key_attribute_allowed_mechanisms* | STRING LIST | | Specifies public key allowed mechanisms. Supported values: *CKM_RSA_PKCS*, *CKM_SHA256_RSA_PKCS*, *CKM_SHA384_RSA_PKCS*, *CKM_SHA512_RSA_PKCS*, and *CKM_RSA_PKCS_PSS*, *CKM_SHA256_RSA_PKCS_PSS*, *CKM_SHA384_RSA_PKCS_PSS*, *CKM_SHA512_RSA_PKCS_PSS*.
+*priv_key_attribute_sensitive* | BOOLEAN | *true* | Indicates whether private key is sensitive.
+*priv_key_attribute_decrypt* | BOOLEAN | *true* | Indicates whether private key can be used for encryption.
+*priv_key_attribute_sign* | BOOLEAN | *true* | Indicates whether private key can be used for signing.
+*priv_key_attribute_unwrap* | BOOLEAN | | Indicates whether private key can be used for unwrapping wrapped keys.
+*priv_key_attribute_allowed_mechanisms* | STRING LIST | | Specifies private key allowed mechanisms. Supported values: *CKM_RSA_PKCS*, *CKM_SHA256_RSA_PKCS*, *CKM_SHA384_RSA_PKCS*, *CKM_SHA512_RSA_PKCS*, and *CKM_RSA_PKCS_PSS*, *CKM_SHA256_RSA_PKCS_PSS*, *CKM_SHA384_RSA_PKCS_PSS*, *CKM_SHA512_RSA_PKCS_PSS*.
 
-    sudo apt-get install xroad-monitor
+**Note 1:** Only parameter *library* is mandatory, all the others are optional.  
+**Note 2:** The item separator of the type STRING LIST is ",".
 
-This installs and starts the `xroad-monitor` process that will gather and make available the monitoring information.
+
+### 2.9 Installing the Support for Environmental Monitoring
+
+The support for environmental monitoring functionality on a security server is provided by package xroad-monitor that is installed by default. The package installs and starts the `xroad-monitor` process that will gather and make available the monitoring information.
 
 
 ## 3 Security Server Initial Configuration
@@ -282,7 +333,7 @@ The security server code and the software token’s PIN will be determined durin
 
  Ref  |                                                   | Explanation
  ---- | ------------------------------------------------- | --------------------------------------------------
- 2.1  | <http://x-road.eu/packages/>&lt;anchor file&gt;<br> ee-dev - development environment<br> ee-test - test environment<br> EE - production environment | Global configuration anchor file
+ 2.1  | <https://x-tee.ee/anchors/>&lt;anchor file&gt;<br> ee-dev - development environment<br> ee-test - test environment<br> EE - production environment | Global configuration anchor file
  2.2  | GOV - government<br> COM - commercial<br> NGO - non-profit<br> NEE - not Estonian | Member class of the security server's owner
  2.3  | &lt;security server owner register code&gt;       | Member code of the security server's owner
  2.4  | &lt;choose security server identificator name&gt; | Security server's code

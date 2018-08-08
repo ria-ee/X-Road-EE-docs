@@ -2,7 +2,7 @@
 
 This repository contains end user documentation for latest X-Road version of Estonian production environment.
 
-Current Estonian production version is: **6.16.0-0.20171128**
+Current Estonian production version is: **6.18.0-1**
 
 Directory [md](md) contains documentation source in Markdown format. These documents may be updated with Estonia specific parameters and therefore may differ from the original documents in
 [X-Road](https://github.com/ria-ee/X-Road/tree/develop/doc) repository.

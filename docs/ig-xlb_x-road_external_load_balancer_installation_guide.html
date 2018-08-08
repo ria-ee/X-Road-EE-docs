@@ -18,7 +18,7 @@
     <article class="markdown-body">
 <h1>
 <a id="x-road-external-load-balancer-installation-guide" class="anchor" href="#x-road-external-load-balancer-installation-guide" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>X-Road: External Load Balancer Installation Guide</h1>
-<p>Version: 1.0<br>
+<p>Version: 1.4<br>
 Doc. ID: IG-XLB</p>
 <table>
 <thead>
@@ -42,6 +42,25 @@ Doc. ID: IG-XLB</p>
 <td>Added slave node user group instructions</td>
 <td>Tatu Repo</td>
 </tr>
+<tr>
+<td>15.6.2017</td>
+<td>1.2</td>
+<td>Added health check interface maintenance mode</td>
+<td>Tatu Repo</td>
+</tr>
+<tr>
+<td>21.6.2017</td>
+<td>1.3</td>
+<td>Added chapter 7 on <a href="#7-upgrading-a-clustered-x-road-security-server-installation">upgrading the security server cluster</a>
+</td>
+<td>Olli Lindgren</td>
+</tr>
+<tr>
+<td>02.03.2018</td>
+<td>1.4</td>
+<td>Added uniform terms and conditions reference</td>
+<td>Tatu Repo</td>
+</tr>
 </tbody>
 </table>
 <h2>
@@ -53,7 +72,8 @@ Doc. ID: IG-XLB</p>
 <a href="#1-introduction">1. Introduction</a>
 <ul>
 <li><a href="#11-target-audience">1.1 Target Audience</a></li>
-<li><a href="#12-references">1.2 References</a></li>
+<li><a href="#12-terms-and-abbreviations">1.2 Terms and abbreviations</a></li>
+<li><a href="#13-references">1.3 References</a></li>
 </ul>
 </li>
 <li>
@@ -135,6 +155,20 @@ Doc. ID: IG-XLB</p>
 <li><a href="#63-verifying-replication-from-the-admin-user-interface">6.3 Verifying replication from the admin user interface</a></li>
 </ul>
 </li>
+<li>
+<a href="#7-upgrading-a-clustered-x-road-security-server-installation">7. Upgrading a clustered X-Road security server installation</a>
+<ul>
+<li><a href="#71-offline-upgrade">7.1 Offline upgrade</a></li>
+<li>
+<a href="#72-online-rolling-upgrade">7.2 Online rolling upgrade</a>
+<ul>
+<li><a href="#721-pausing-the-database-and-configuration-synchronization">7.2.1 Pausing the database and configuration synchronization</a></li>
+<li><a href="#722-upgrading-the-master">7.2.2 Upgrading the master</a></li>
+<li><a href="#723-upgrade-a-single-slave-node">7.2.3 Upgrade a single slave node</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
 <h2>
@@ -150,7 +184,10 @@ and configuring X-Road security servers to use external load balancing. The docu
 knowledge of Linux server management, computer networks, database administration, clustered environments and the X-Road
 functioning principles.</p>
 <h3>
-<a id="12-references" class="anchor" href="#12-references" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.2 References</h3>
+<a id="12-terms-and-abbreviations" class="anchor" href="#12-terms-and-abbreviations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.2 Terms and abbreviations</h3>
+<p>See X-Road terms and abbreviations documentation [<a href="#Ref_TERMS">TA-TERMS</a>].</p>
+<h3>
+<a id="13-references" class="anchor" href="#13-references" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.3 References</h3>
 <table>
 <thead>
 <tr>
@@ -161,7 +198,7 @@ functioning principles.</p>
 <tbody>
 <tr>
 <td align="center">[SS-CLUSTER]</td>
-<td align="left"><a href="https://github.com/ria-ee/X-Road/blob/develop/ansible/ss_cluster">Readme: Security server cluster setup with Ansible</a></td>
+<td align="left"><a href="https://github.com/nordic-institute/X-Road/tree/develop/ansible/ss_cluster">Readme: Security server cluster setup with Ansible</a></td>
 </tr>
 <tr>
 <td align="center">[IG-SS]</td>
@@ -170,6 +207,11 @@ functioning principles.</p>
 <tr>
 <td align="center">[UG-SS]</td>
 <td align="left"><a href="ug-ss_x-road_6_security_server_user_guide.html">X-Road 6 Security Server User Guide</a></td>
+</tr>
+<tr>
+<td align="center">
+<a name="Ref_TERMS"></a>[TA-TERMS]</td>
+<td align="left"><a href="terms_x-road_docs.html">X-Road Terms and Abbreviations</a></td>
 </tr>
 </tbody>
 </table>
@@ -340,7 +382,7 @@ replication cannot simultaneously create a single point of failure. A distribute
 <h2>
 <a id="3-x-road-installation-and-configuration" class="anchor" href="#3-x-road-installation-and-configuration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3. X-Road Installation and configuration</h2>
 <p>This chapter details the complete installation on a high level, with links to other chapters that go into the details.</p>
-<p>You can set up the cluster manually, or use the provided Ansible playbook [<a href="#12-references">SS-CLUSTER</a>] if it suits
+<p>You can set up the cluster manually, or use the provided Ansible playbook [<a href="#13-references">SS-CLUSTER</a>] if it suits
 your purposes.</p>
 <h3>
 <a id="31-prerequisites" class="anchor" href="#31-prerequisites" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.1 Prerequisites</h3>
@@ -372,7 +414,7 @@ your purposes.</p>
 <li>
 <p>If you are using an already configured server as the master, the existing configuration was replicated to the slaves
 in step 3. Otherwise, proceed to configure the master server: install the configuration anchor, set up basic information,
-create authentication and signing keys and so on. See the security server installation guide [<a href="#12-references">IG-SS</a>]
+create authentication and signing keys and so on. See the security server installation guide [<a href="#13-references">IG-SS</a>]
 for help with the basic setup.</p>
 </li>
 <li>
@@ -463,7 +505,7 @@ type=slave</pre></div>
 <li><code>xroad-system-administrator</code></li>
 </ul>
 <p>After removing these groups, the super user created during the security server installation is a member of only one UI privilege group: <code>xroad-securityserver-observer</code>. This group allows read-only access to the admin user interface and provides a safe way to use the UI for checking the configuration status of the slave security server. Since admin UI users are UNIX users that are members of specific privilege groups, more users can be added to the read-only group as necessary. Security server installation scripts detect the node type of existing installations and modify user group creation accordingly so as to not overwrite this configuration step during security server updates.</p>
-<p>For more information on user groups and their effect on admin user interface privileges in the security server, see the  Security Server User Guide [<a href="#12-references">UG-SS</a>].</p>
+<p>For more information on user groups and their effect on admin user interface privileges in the security server, see the  Security Server User Guide [<a href="#13-references">UG-SS</a>].</p>
 </li>
 </ol>
 <p>The configuration is now complete. If you do not want to set up the health check service, continue to <a href="#6-verifying-the-setup">chapter 6</a>
@@ -520,6 +562,34 @@ check result will be cached for 2 seconds before a new verification is triggered
 as fresh as possible while avoiding per-request verification. In contrast, verification failures will be cached for 30
 seconds before a new verification is triggered. This should allow for the security server to get up and running after a
 failure or possible reboot before the status is queried again.</p>
+<p>Security server's health check interface can also be manually switched to a maintenance mode in order to inform the load
+balancing solution that the security server will be undergoing maintenance and should be removed from active use.</p>
+<p>When in maintenance mode the health check interface will only respond with <code>HTTP 503 Service unavailable</code> and the message
+<code>Health check interface is in maintenance mode</code> and no actual health check diagnostics will be run. Maintenance mode is disabled
+by default and will automatically reset to its default when the proxy service is restarted.</p>
+<p>Maintenance mode can be enabled or disabled by sending <code>HTTP GET</code>-request from the target security server to its proxy admin port <code>5566</code>.
+The intended new state can be defined using the <code>targetState</code> HTTP-parameter:</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>URI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Enable maintenance mode</td>
+<td><code>http://localhost:5566/maintenance?targetState=true</code></td>
+</tr>
+<tr>
+<td>Disable maintenance mode</td>
+<td><code>http://localhost:5566/maintenance?targetState=false</code></td>
+</tr>
+</tbody>
+</table>
+<p>Proxy admin port will respond with <code>200 OK</code> and a message detailing the actualized maintenance mode state change,
+e.g. <code>Maintenance mode set: false =&gt; true</code>. In case the maintenance mode state could not be changed, the returned
+message will detail the reason.</p>
 <h4>
 <a id="341-known-check-result-inconsistencies-vs-actual-state" class="anchor" href="#341-known-check-result-inconsistencies-vs-actual-state" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.4.1 Known check result inconsistencies vs. actual state</h4>
 <p>There is a known but rarely and not naturally occurring issue where the health check will report an OK condition for a
@@ -944,12 +1014,147 @@ server cluster behind a load balancer.</p>
 <p>To test the configuration file replication from the admin user interface, a key can be created in the admin interface of the
 master node. In addition, a certificate signing request can be created for the key in the UI, downloaded, signed by an
 external CA and then uploaded back to the admin UI. For help on these tasks, see the  Security Server User Guide
-[<a href="#12-references">UG-SS</a>].</p>
+[<a href="#13-references">UG-SS</a>].</p>
 <p>The keys and certificate changes should be propagated to the slave nodes in a few minutes.</p>
 <p>The <code>serverconf</code> database replication can also be tested on the admin UI once the basic configuration, as mentioned in
 <a href="#3-x-road-installation-and-configuration">3. X-Road Installation and configuration</a> is done. A new subsystem can be added
 to the master node. A registration request can be sent to the central server, but it is not required. The added subsystem
 should appear on the slave nodes immediately.</p>
+<h2>
+<a id="7-upgrading-a-clustered-x-road-security-server-installation" class="anchor" href="#7-upgrading-a-clustered-x-road-security-server-installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>7. Upgrading a clustered X-Road security server installation</h2>
+<p>This chapter briefly discusses ways of upgrading the X-Road software in a clustered environment. The offline option will
+disrupt message delivery while the online option should allow upgrades with minimal disruption.</p>
+<h3>
+<a id="71-offline-upgrade" class="anchor" href="#71-offline-upgrade" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>7.1 Offline upgrade</h3>
+<p>If the X-Road security server cluster can be shut down for an offline upgrade, the procedure remains fairly simple:</p>
+<ol>
+<li>Stop the X-Road services (<code>xroad-proxy</code>, <code>xroad-signer</code>, <code>xroad-confclient</code>, <code>xroad-jetty</code> and <code>xroad-monitor</code>) on all
+the nodes. You can read more about the services in the Security Server User Guide
+[<a href="#13-references">UG-SS</a>] chapter on <a href="ug-ss_x-road_6_security_server_user_guide.html#161-system-services">System services</a>.</li>
+<li>Upgrade the packages on the master node to the new software version.</li>
+<li>Let any database and configuration changes propagate to the cluster members.</li>
+<li>Upgrade the packages on the slave nodes.</li>
+<li>Start the X-Road services.</li>
+</ol>
+<h3>
+<a id="72-online-rolling-upgrade" class="anchor" href="#72-online-rolling-upgrade" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>7.2 Online rolling upgrade</h3>
+<p>It is possible to upgrade the software in a cluster to a new version with minimal service disruption.</p>
+<p>The steps are in more detail below, but in short, the procedure is:</p>
+<ol>
+<li>Pause the database and configuration synchronization on the slave nodes. Pausing the synchronization ensures that
+potentially incompatible changes are not propagated to slaves before they are upgraded.</li>
+<li>Set the master node to maintenance mode or manually disable it from the external load balancer, upgrade the software,
+then resume operation.</li>
+<li>One by one, set a slave node to maintenance mode or manually disable it from the external load balancer, re-enable
+synchronization, upgrade it, then resume operation.</li>
+</ol>
+<h4>
+<a id="721-pausing-the-database-and-configuration-synchronization" class="anchor" href="#721-pausing-the-database-and-configuration-synchronization" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>7.2.1 Pausing the database and configuration synchronization</h4>
+<ol>
+<li>
+<p>Pause the database synchronization. Assuming that the <code>serverconf</code> database is running in port <code>5433</code>, issue the
+following command:</p>
+<div class="highlight highlight-source-shell"><pre>sudo -u postgres psql -p 5433 -c <span class="pl-s"><span class="pl-pds">'</span>select pg_xlog_replay_pause();<span class="pl-pds">'</span></span></pre></div>
+</li>
+<li>
+<p>Disable the configuration synchronization on the slave nodes:</p>
+<pre><code>sudo -u xroad touch /var/tmp/xroad/sync-disabled
+</code></pre>
+<p><strong>Note:</strong> Check that the synchronization service is configured to honor the <code>sync-disabled</code> flag. See the chapter on
+<a href="#52-set-up-periodic-configuration-synchronization-on-the-slave-nodes">Setting up periodic configuration synchronization on the slave nodes</a>
+for more details.</p>
+</li>
+</ol>
+<h4>
+<a id="722-upgrading-the-master" class="anchor" href="#722-upgrading-the-master" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>7.2.2 Upgrading the master</h4>
+<ol>
+<li>
+<p><a name="master-upgrade-step-1">Either</a> use the health check maintenance mode or manually disable the master node from your external load balancer.
+A disabled node on the load balancer should be handled gracefully so that in-flight requests are allowed to finish while
+new requests are routed to other nodes (<em>connection draining</em>).</p>
+<p>You can read more about the health check maintenance mode in the chapter about the
+<a href="#34-health-check-service-configuration">health check service configuration</a>.</p>
+<p>In short, to enable the maintenance mode, on the master node, call the proxy admin port (default port <code>5566</code>) with:</p>
+<div class="highlight highlight-source-shell"><pre>curl http://localhost:5566/maintenance<span class="pl-k">?</span>targetState=true</pre></div>
+<p>The admin port should respond with:</p>
+<pre><code>Maintenance mode set: false =&gt; true
+</code></pre>
+</li>
+<li>
+<p><a name="master-upgrade-step-2">Check</a> that the master is no longer processing requests and stop the X-Road services
+(<code>xroad-proxy</code>, <code>xroad-signer</code>, <code>xroad-confclient</code>, <code>xroad-jetty</code>, <code>xroad-monitor</code>) on the master node. You can read
+more about the services in the Security Server User Guide
+[<a href="#13-references">UG-SS</a>] chapter on <a href="ug-ss_x-road_6_security_server_user_guide.html#161-system-services">System services</a>.</p>
+<p>To ensure that the node is no longer processing requests, you can monitor <code>/var/log/xroad/proxy.log</code> to verify that
+no more requests are arriving or check that there are no connections to the port 5500 with:</p>
+<pre><code>watch -n1 ss -tn state established sport = :5500 or dport = :5500
+</code></pre>
+</li>
+<li>
+<p>Upgrade the packages on the master node to the new software version.</p>
+</li>
+<li>
+<p>Start the X-Road services and wait until the master node is healthy.</p>
+</li>
+<li>
+<p><a name="master-upgrade-step-5">a)</a> If the maintenance mode was enabled, the maintenance status from the health check
+port was cleared on startup of the <code>xroad-proxy</code> service. The health check should start returning a <code>200 OK</code> status
+as soon as security server can process messages.</p>
+<p>b) If the master node was disabled manually from the external load balancer, verify that the master node is working
+and enable it from the load balancer. To check if a node is healthy, you can use the health check service:</p>
+<pre><code>curl -i http://localhost:&lt;health-check-port&gt;
+</code></pre>
+<p>See <a href="#34-health-check-service-configuration">3.4 Health check service configuration</a> for more details.</p>
+</li>
+</ol>
+<h4>
+<a id="723-upgrade-a-single-slave-node" class="anchor" href="#723-upgrade-a-single-slave-node" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>7.2.3 Upgrade a single slave node</h4>
+<p>Repeat this process for each slave node, one by one.</p>
+<ol>
+<li>
+<p>Gracefully disable the slave node from the load balancer, either manually or using the health check maintenance mode.
+See <a href="#master-upgrade-step-1">step 1 from the master update instructions</a> for more details.</p>
+</li>
+<li>
+<p>Stop the X-Road services once the slave has stopped processing requests. See <a href="#master-upgrade-step-2">step 2 from the master update instructions</a>
+for more details.</p>
+</li>
+<li>
+<p>Enable database synchronization on the slave:</p>
+<pre><code>sudo -u postgres psql -p 5433 -c 'select pg_xlog_replay_resume()'
+</code></pre>
+<p>Note that the above command assumes that the <code>serverconf</code> database is running in port <code>5433</code>.</p>
+</li>
+<li>
+<p>Enable the shared configuration synchronization on the slave node:</p>
+<pre><code>sudo rm /var/tmp/xroad/sync-disabled
+</code></pre>
+</li>
+<li>
+<p>Wait for the master node changes to propagate to the slave node.</p>
+<p>The configuration synchronization can be forced, if necessary.</p>
+<p><strong>Ubuntu:</strong></p>
+<pre><code>sudo start xroad-sync
+</code></pre>
+<p><strong>RHEL:</strong></p>
+<pre><code>sudo systemctl start xroad-sync
+</code></pre>
+<p><strong>Note:</strong> Before proceeding, make sure that the database is up to date. The following should return <code>t</code>:</p>
+<pre><code>sudo -u postgres psql -p 5433 -c 'select pg_last_xlog_replay_location() = pg_last_xlog_receive_location()'
+</code></pre>
+</li>
+<li>
+<p>Upgrade the packages on the slave node to the new software version.</p>
+</li>
+<li>
+<p>Start the X-Road services and wait until the slave node is healthy.</p>
+</li>
+<li>
+<p>After the node is healthy, enable the slave node in the load balancer if you manually disabled it. If using the
+maintenance mode, it was cleared on <code>xroad-proxy</code> service restart. See
+<a href="#master-upgrade-step-5">step 5 from the master update instructions</a> for more details.</p>
+</li>
+</ol>
     </article>
   </body>
 </html>
