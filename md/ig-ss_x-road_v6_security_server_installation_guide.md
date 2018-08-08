@@ -127,7 +127,7 @@ The software can be installed both on physical and virtualized hardware (of the 
  1.4	| **INBOUND**							  | Ports for inbound connections (from the external network to the security server)
  &nbsp; | TCP 5500                                | Message exchange between security servers. Recommended to use IP filtering (**whitelisting only RIA IP's and partners**).
  &nbsp; | TCP 5577                                | Querying of OCSP responses between security servers. Recommended to use IP filtering (**whitelisting only RIA IP's and partners**)
- 1.5	| **OUTBOUND **							  | Ports for outbound connections (from the security server to the external network)
+ 1.5	| **OUTBOUND**							  | Ports for outbound connections (from the security server to the external network)
  &nbsp; | TCP 5500                                | Message exchange between security servers
  &nbsp; | TCP 5577                                | Querying of OCSP responses between security servers
  &nbsp; | TCP 4001                                | Communication with the central server
