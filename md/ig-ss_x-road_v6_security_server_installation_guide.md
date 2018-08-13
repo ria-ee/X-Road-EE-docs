@@ -40,6 +40,7 @@ Doc. ID: IG-SS
  07.06.2018 | 2.12.1  | Updated repository information with x-tee.ee domain             | Jürgen Šuvalov
  03.07.2018 | 2.12.2  | Added network diagram and reference data for monitoring servers | Jürgen Šuvalov
  08.08.2018 | 2.12.3  | Editorial changes												| Jan Raik
+ 13.08.2018 | 2.12.4  | Package name fix											    | Taavi Meinberg
 
 
 ## Table of Contents
@@ -219,7 +220,7 @@ To install the X-Road security server software, follow these steps.
 
         sudo apt-get update
         sudo apt-get install openjdk-8-jre-headless
-        sudo apt-get install xroad-securityserver
+        sudo apt-get install xroad-securityserver-ee
 
 Upon the first installation of the packages, the system asks for the following information.
 
