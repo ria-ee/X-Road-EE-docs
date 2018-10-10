@@ -36,14 +36,15 @@ Doc. ID: UG-SYSPAR
 | 14.06.2017 | 2.21     | Added new parameter *allowed-federations* for enabling federation in a security server. | Olli Lindgren |
 | 11.07.2017 | 2.22     | Changed connector SO-linger values to -1 as per code changes | Tatu Repo |
 | 18.08.2017 | 2.23     | Update wsdl-validator-command description | Jarkko Hyöty |
-| 31.08.2017 | 2.24     | Moved ocsp-cache-path and enforce-token-pin-policy from under proxy to under signer and added them to central server and configuration proxy lists | Tatu Repo |
+| 31.08.2017 | 2.24     | Moved ocsp-cache-path and enforce-token-pin-policy from under proxy to under signer and added them to central server and configuration proxy lists | Tatu Repo |
 | 17.10.2017 | 2.25     | Added new security server env-monitor parameter (limit-remote-data-set). | Joni Laurila |
-| 20.10.2017 | 2.26     | Clarified the effects of disabling SOAP body logging on the SOAP Headers. Split the system parameters to different tables for readability| Olli Lindgren |
-| 22.11.2017 | 2.27     | Default changed to vanilla. New colums added for FI and EE values. | Antti Luoma |
-| 02.01.2018 | 2.28     | Added proxy parameter allow-get-wsdl-request. | Ilkka Seppälä |
-| 29.01.2018 | 2.29     | Removed proxy parameter client-fastest-connecting-ssl-use-uri-cache. Added proxy parameter client-fastest-connecting-ssl-uri-cache-period. | Ilkka Seppälä |
+| 20.10.2017 | 2.26     | Clarified the effects of disabling SOAP body logging on the SOAP Headers. Split the system parameters to different tables for readability| Olli Lindgren |
+| 22.11.2017 | 2.27     | Default changed to vanilla. New colums added for FI and EE values. | Antti Luoma |
+| 02.01.2018 | 2.28     | Added proxy parameter allow-get-wsdl-request. | Ilkka Seppälä |
+| 29.01.2018 | 2.29     | Removed proxy parameter client-fastest-connecting-ssl-use-uri-cache. Added proxy parameter client-fastest-connecting-ssl-uri-cache-period. | Ilkka Seppälä |
 | 05.03.2018 | 2.30     | Added reference to terms and abbreviations, modified reference handling, added numbering. | Tatu Repo |
-| 06.04.2018 | 2.31     | Removed TLSv1.1 support (client-side interfaces for incoming request) and TLS SHA-1 ciphers from default ciphers list. | Kristo Heero |
+| 06.04.2018 | 2.31     | Removed TLSv1.1 support (client-side interfaces for incoming request) and TLS SHA-1 ciphers from default ciphers list. | Kristo Heero |
+| 18.08.2018 | 2.32     | Added new parameter *ocsp-retry-delay* | Petteri Kivimäki |
 
 ## Table of Contents
 
@@ -100,7 +101,7 @@ See X-Road terms and abbreviations documentation \[[TA-TERMS](#Ref_TERMS)\].
     CRON expression, [http://www.quartz-scheduler.org/documentation/quartz-2.1.x/tutorials/crontrigger.html](http://www.quartz-scheduler.org/documentation/quartz-2.1.x/tutorials/crontrigger.html).
 3.  <a id="Ref_PR-MESS"></a>\[PR-MESS\] [X-Road Message Protocol v. 4.0](pr-mess_x-road_message_protocol.md).
 4.  <a id="Ref_PR-TARGETSS"></a>\[PR-TARGETSS\] [Security Server Targeting Extension for the X-Road Message Protocol](pr-targetss_security_server_targeting_extension_for_the_x-road_protocol.md).
-5.  <a id="Ref_PR-SECTOKEN"></a>\[PR-SECTOKEN\] [Security Token Extension for the X-Road Message Protocol](https://github.com/nordic-institute/X-Road/blob/develop/doc/Protocols/SecurityTokenExtension/pr-sectoken_security_token_extension_for_the_x-road_protocol.md).
+5.  <a id="Ref_PR-SECTOKEN"></a>\[PR-SECTOKEN\] [Security Token Extension for the X-Road Message Protocol](https://github.com/nordic-institute/X-Road/blob/6.19.0/doc/Protocols/SecurityTokenExtension/pr-sectoken_security_token_extension_for_the_x-road_protocol.md).
 6.  <a id="Ref_TERMS" class="anchor"></a>\[TA-TERMS\] [X-Road Terms and Abbreviations](terms_x-road_docs.md).
 7.  <a id="Ref_CRONMAN"></a>\[CRONMAN\] [http://linux.die.net/man/8/cron](http://linux.die.net/man/8/cron).
 8.  <a id="Ref_CRONHOW"></a>\[CRONHOW\] Cron format specifications [https://help.ubuntu.com/community/CronHowto](https://help.ubuntu.com/community/CronHowto).
@@ -191,7 +192,7 @@ This chapter describes the system parameters used by the components of the X-Roa
 
 ### 3.2 Proxy parameters: `[proxy]`
 
-| **Parameter**                                    | **Vanilla value**                          | **FI-package value** | **EE-package value** | **Description** |
+| **Parameter**                                    | **Vanilla value**                          | **FI-package value** | **EE-package value** | **Description** |
 |--------------------------------------------------|--------------------------------------------|----------------------|----------------------|-----------------|
 | client-http-port                                 | 80 <br/> 8080 (RHEL)                       |   |   | TCP port on which the service client's security server listens for HTTP requests from client applications. |
 | client-https-port                                | 443 <br/> 8443 (RHEL)                      |   |   | TCP port on which the service client's security server listens for HTTPS requests from client applications. |
@@ -230,8 +231,8 @@ This chapter describes the system parameters used by the components of the X-Roa
 | client-fastest-connecting-ssl-uri-cache-period      | 3600                                       |   |   | When a service consumer's security server finds the fastest responding service providing security server, how long the result should be kept in the TLS session cache? 0 to disable. |
 | health-check-port                                | 0 (disabled)                               |   |   | The TCP port where the health check service listens to requests. Setting the port to 0 disables the health check service completely.|
 | health-check-interface                           | 0.0.0.0                                    |   |   | The network interface where the health check service listens to requests. Default is all available interfaces.|
-| actorsystem-port                                 | 5567                                       |   |   | The (localhost) port where the proxy actorsystem binds to. Used for communicating with xroad-signer and xroad-monitor. |
-| allow-get-wsdl-request                           | false                                      |   |   | Whether to allow getWsdl metaservice to be called with HTTP/HTTPS GET method. |
+| actorsystem-port                                 | 5567                                       |   |   | The (localhost) port where the proxy actorsystem binds to. Used for communicating with xroad-signer and xroad-monitor. |
+| allow-get-wsdl-request                           | false                                      |   |   | Whether to allow getWsdl metaservice to be called with HTTP/HTTPS GET method. |
 
 ### 3.3 Proxy User Interface parameters: `[proxy-ui]`
 
@@ -242,7 +243,7 @@ This chapter describes the system parameters used by the components of the X-Roa
 
 ### 3.4 Signer parameters: `[signer]`
 
-| **Parameter**                                    | **Vanilla value**                          | **FI-package value** | **EE-package value** | **Description** |
+| **Parameter**                                    | **Vanilla value**                          | **FI-package value** | **EE-package value** | **Description** |
 |--------------------------------------------------|--------------------------------------------|----------------------|----------------------|-----------------|
 | ocsp-cache-path                                  | /var/cache/xroad                           |   |   | Absolute path to the directory where the cached OCSP responses are stored. |
 | enforce-token-pin-policy                         | false                                      | true |   | Controls enforcing the token pin policy. When set to true, software token pin is required to be at least 10 ASCII characters from at least tree character classes (lowercase letters, uppercase letters, digits, special characters). (since version 6.7.7) |
@@ -252,6 +253,7 @@ This chapter describes the system parameters used by the components of the X-Roa
 | port                                             | 5556                                       |   |   | TCP port on which the signer process listens. |
 | key-length                                       | 2048                                       |   |   | Key length for generating authentication and signing keys (since version 6.7) |
 | csr-signature-digest-algorithm                   | SHA-256                                    |   |   | Certificate Signing Request signature digest algorithm.<br/>Possible values are<br/>-   SHA-256,<br/>-   SHA-384,<br/>-   SHA-512. |
+| ocsp-retry-delay                                 | 60                                         |   |   | OCSP retry delay for signer when fetching OCSP responses fail. After failing to fetch OCSP responses signer waits for the time period defined by "ocsp-retry-delay" before trying again. This is repeated until fetching OCSP responses succeeds. After successfully fetching OCSP responses signer returns to normal OCSP refresh schedule defined by "ocspFetchInterval". If the value of "ocsp-retry-delay" is higher than "ocspFetchInterval", the value of "ocspFetchInterval" is used as OCSP retry delay. |
 
 ### 3.5 Anti-DOS parameters: `[anti-dos]`
 
@@ -274,25 +276,25 @@ This chapter describes the system parameters used by the components of the X-Roa
 
 ### 3.7 Message log add-on parameters: `[message-log]`
 
-| **Parameter**                                    | **Vanilla value**                          | **FI-package value** | **EE-package value** | **Description** |
+| **Parameter**                                    | **Vanilla value**                          | **FI-package value** | **EE-package value** | **Description** |
 |--------------------------------------------------|--------------------------------------------|----------------------|----------------------|-----------------|
-| soap-body-logging                                | true                                       | false  |   | Whether SOAP body of the messages should be logged or not.<br/><br/>If *true*, the SOAP messages are logged in their original form. If *false*, the SOAP body is cleared of its contents and only has an empty child element inside it. In addition, the SOAP header will only have specific set of elements logged, see [Note on logged X-Road message headers](#note-on-logged-x-road-message-headers) . As a side effect, details such as formatting and namespace labels of the xml message can be changed and new elements may be introduced for default values in SOAP header.<br/><br/>Removal of SOAP body is usually done for confidentiality reasons (body contains data that we do not want to have in the logs).<br/><br/>Note that changing the message this way prevents verifying its signature with the asicverifier tool. |
-| enabled-body-logging-local-producer-subsystems   |                                            |   |   | Subsystem-specific overrides for SOAP body logging when soap-body-logging = false.<br/><br/>This parameter defines logging for **local producer** subsystems, that is, our subsystems that produce some service which external clients use.<br/><br/>Comma-separated list of client identifiers for which SOAP body logging is enabled. For example FI/ORG/1710128-9/SUBSYSTEM\_A1, FI/ORG/1710128-9/SUBSYSTEM\_A2 where<br/>-   FI = x-road instance<br/>-   ORG = member class<br/>-   1710128-9 = member code<br/>-   SUBSYSTEM\_A1 = subsystem code<br/><br/>This parameter can only be used on subsystem-level, it is not possible to configure SOAP body logging per member.<br/><br/>If a subsystem has forward slashes “/” in for example subsystem code, those subsystems can’t be configured with this parameter. |
-| enabled-body-logging-remote-producer-subsystems  |                                            |   |   | Subsystem-specific overrides for **remote producer** subsystems, that is, remote subsystems that produce services which we use.<br/><br/>Parameter is used when soap-body-logging = false. |
-| disabled-body-logging-local-producer-subsystems  |                                            |   |   | Same as enabled-body-logging-local-producer-subsystems, but this parameter is used when soap-body-logging = true. |
-| disabled-body-logging-remote-producer-subsystems |                                            |   |   | Same as enabled-body-logging-remote-producer-subsystems, but this parameter is used when soap-body-logging = true. |
-| acceptable-timestamp-failure-period              | 14400                                      | 18000   |   | Defines the time period (in seconds) for how long is time-stamping allowed to fail (for whatever reasons) before the message log stops accepting any more messages (and consequently the security server stops accepting requests). Set to 0 to disable this check. The value of this parameter should not be lower than the value of the central server system parameter *timeStampingIntervalSeconds.* |
-| archive-interval                                 | 0 0 0/6 1/1 \* ? \*                        |   |   | CRON expression \[[CRON](#Ref_CRON)\] defining the interval of archiving the time-stamped messages. |
-| archive-max-filesize                             | 33554432                                   |   |   | Maximum size for archived files in bytes. Reaching the maximum value triggers file rotation. |
-| archive-path                                     | /var/lib/xroad                             |   |   | Absolute path to the directory where time-stamped log records are archived. |
-| clean-interval                                   | 0 0 0/12 1/1 \* ? \*                       |   |   | CRON expression \[[CRON](#Ref_CRON)\] for deleting any time-stamped and archived records that are older than *message-log.keep-records-for* from the database. |
-| hash-algo-id                                     | SHA-512                                    |   |   | The algorithm identifier used for hashing in the message log.<br/>Possible values are<br/>-   SHA-224,<br/>-   SHA-256,<br/>-   SHA-384,<br/>-   SHA-512. |
-| keep-records-for                                 | 30                                         |   |   | Number of days to keep time-stamped and archived records in the database of the security server. If a time-stamped and archived message record is older than this value, the record is deleted from the database. |
-| timestamp-immediately                            | false                                      |   |   | If true, the time-stamp is created synchronously for each request message. This is a security policy requirement to guarantee the time-stamp at the time of logging the message. |
-| timestamp-records-limit                          | 10000                                      |   |   |Maximum number of message records to time-stamp in one batch. |
-| timestamper-client-connect-timeout               | 20000                                      |   |   | The timestamper client connect timeout in milliseconds. A timeout of zero is interpreted as an infinite timeout. |
-| timestamper-client-read-timeout                  | 60000                                      |   |   | The timestamper client read timeout in milliseconds. A timeout of zero is interpreted as an infinite timeout. |
-| archive-transaction-batch                        | 10000                                      |   |   | Size of transaction batch for archiving messagelog. This size is not exact because it will always make sure that last archived batch includes timestamp also (this might mean that it will go over transaction size).
+| soap-body-logging                                | true                                       | false  |   | Whether SOAP body of the messages should be logged or not.<br/><br/>If *true*, the SOAP messages are logged in their original form. If *false*, the SOAP body is cleared of its contents and only has an empty child element inside it. In addition, the SOAP header will only have specific set of elements logged, see [Note on logged X-Road message headers](#note-on-logged-x-road-message-headers) . As a side effect, details such as formatting and namespace labels of the xml message can be changed and new elements may be introduced for default values in SOAP header.<br/><br/>Removal of SOAP body is usually done for confidentiality reasons (body contains data that we do not want to have in the logs).<br/><br/>Note that changing the message this way prevents verifying its signature with the asicverifier tool. |
+| enabled-body-logging-local-producer-subsystems   |                                            |   |   | Subsystem-specific overrides for SOAP body logging when soap-body-logging = false.<br/><br/>This parameter defines logging for **local producer** subsystems, that is, our subsystems that produce some service which external clients use.<br/><br/>Comma-separated list of client identifiers for which SOAP body logging is enabled. For example FI/ORG/1710128-9/SUBSYSTEM\_A1, FI/ORG/1710128-9/SUBSYSTEM\_A2 where<br/>-   FI = x-road instance<br/>-   ORG = member class<br/>-   1710128-9 = member code<br/>-   SUBSYSTEM\_A1 = subsystem code<br/><br/>This parameter can only be used on subsystem-level, it is not possible to configure SOAP body logging per member.<br/><br/>If a subsystem has forward slashes “/” in for example subsystem code, those subsystems can’t be configured with this parameter. |
+| enabled-body-logging-remote-producer-subsystems  |                                            |   |   | Subsystem-specific overrides for **remote producer** subsystems, that is, remote subsystems that produce services which we use.<br/><br/>Parameter is used when soap-body-logging = false. |
+| disabled-body-logging-local-producer-subsystems  |                                            |   |   | Same as enabled-body-logging-local-producer-subsystems, but this parameter is used when soap-body-logging = true. |
+| disabled-body-logging-remote-producer-subsystems |                                            |   |   | Same as enabled-body-logging-remote-producer-subsystems, but this parameter is used when soap-body-logging = true. |
+| acceptable-timestamp-failure-period              | 14400                                      | 18000   |   | Defines the time period (in seconds) for how long is time-stamping allowed to fail (for whatever reasons) before the message log stops accepting any more messages (and consequently the security server stops accepting requests). Set to 0 to disable this check. The value of this parameter should not be lower than the value of the central server system parameter *timeStampingIntervalSeconds.* |
+| archive-interval                                 | 0 0 0/6 1/1 \* ? \*                        |   |   | CRON expression \[[CRON](#Ref_CRON)\] defining the interval of archiving the time-stamped messages. |
+| archive-max-filesize                             | 33554432                                   |   |   | Maximum size for archived files in bytes. Reaching the maximum value triggers file rotation. |
+| archive-path                                     | /var/lib/xroad                             |   |   | Absolute path to the directory where time-stamped log records are archived. |
+| clean-interval                                   | 0 0 0/12 1/1 \* ? \*                       |   |   | CRON expression \[[CRON](#Ref_CRON)\] for deleting any time-stamped and archived records that are older than *message-log.keep-records-for* from the database. |
+| hash-algo-id                                     | SHA-512                                    |   |   | The algorithm identifier used for hashing in the message log.<br/>Possible values are<br/>-   SHA-224,<br/>-   SHA-256,<br/>-   SHA-384,<br/>-   SHA-512. |
+| keep-records-for                                 | 30                                         |   |   | Number of days to keep time-stamped and archived records in the database of the security server. If a time-stamped and archived message record is older than this value, the record is deleted from the database. |
+| timestamp-immediately                            | false                                      |   |   | If true, the time-stamp is created synchronously for each request message. This is a security policy requirement to guarantee the time-stamp at the time of logging the message. |
+| timestamp-records-limit                          | 10000                                      |   |   |Maximum number of message records to time-stamp in one batch. |
+| timestamper-client-connect-timeout               | 20000                                      |   |   | The timestamper client connect timeout in milliseconds. A timeout of zero is interpreted as an infinite timeout. |
+| timestamper-client-read-timeout                  | 60000                                      |   |   | The timestamper client read timeout in milliseconds. A timeout of zero is interpreted as an infinite timeout. |
+| archive-transaction-batch                        | 10000                                      |   |   | Size of transaction batch for archiving messagelog. This size is not exact because it will always make sure that last archived batch includes timestamp also (this might mean that it will go over transaction size).
 
 #### 3.7.1 Note on logged X-Road message headers
 If the messagelog add-on has the SOAP body logging disabled, only a preconfigured set of the SOAP headers will be included in the message log.
@@ -327,7 +329,7 @@ For instructions on how to change the parameter values, see section [Changing th
 
 | **Server component** | **Name**                | **Vanilla value**    | **Description**   |
 |----------------------|-------------------------|----------------------|-------------------|
-| common               | temp-files-path         | /var/tmp/xroad/      | Absolute path to the directory where temporary files are stored. |
+| common               | temp-files-path         | /var/tmp/xroad/      | Absolute path to the directory where temporary files are stored. |
 
 #### 4.1.2 Center parameters: `[center]`
 

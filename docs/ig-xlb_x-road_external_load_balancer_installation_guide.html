@@ -198,7 +198,7 @@ functioning principles.</p>
 <tbody>
 <tr>
 <td align="center">[SS-CLUSTER]</td>
-<td align="left"><a href="https://github.com/nordic-institute/X-Road/tree/develop/ansible/ss_cluster">Readme: Security server cluster setup with Ansible</a></td>
+<td align="left"><a href="https://github.com/nordic-institute/X-Road/tree/6.19.0/ansible/ss_cluster">Readme: Security server cluster setup with Ansible</a></td>
 </tr>
 <tr>
 <td align="center">[IG-SS]</td>
@@ -271,16 +271,16 @@ have received all the changes).</li>
 <p>When external security servers communicate with the cluster, they see only the public IP address of the cluster which is
 registered to the global configuration as the security server address. From the caller point of view, this case is analogous
 to making a request to a single security server.</p>
-<p><a href="img/load_balancing_traffic.png" target="_blank"><img src="img/load_balancing_traffic.png" alt="inbound traffic" style="max-width:100%;"></a></p>
+<p><a href="img/load_balancing_traffic.png" target="_blank" rel="noopener noreferrer"><img src="img/load_balancing_traffic.png" alt="inbound traffic" style="max-width:100%;"></a></p>
 <p>When a security server makes a request to an external server (security server, OCSP, TSA or a central server), the
 external server sees only the public IP address. Note that depending on the configuration, the public IP address
 might be different from the one used in the previous scenario. It should also be noted that the security servers will
 independently make requests to OCSP and TSA services as well as to the central server to fetch the global configuration
 as needed.</p>
-<p><a href="img/load_balancing_traffic-2.png" target="_blank"><img src="img/load_balancing_traffic-2.png" alt="outbound traffic" style="max-width:100%;"></a></p>
+<p><a href="img/load_balancing_traffic-2.png" target="_blank" rel="noopener noreferrer"><img src="img/load_balancing_traffic-2.png" alt="outbound traffic" style="max-width:100%;"></a></p>
 <h3>
 <a id="23-state-replication-from-the-master-to-the-slaves" class="anchor" href="#23-state-replication-from-the-master-to-the-slaves" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3 State replication from the master to the slaves</h3>
-<p><a href="img/load_balancing_state_replication.png" target="_blank"><img src="img/load_balancing_state_replication.png" alt="state replication" style="max-width:100%;"></a></p>
+<p><a href="img/load_balancing_state_replication.png" target="_blank" rel="noopener noreferrer"><img src="img/load_balancing_state_replication.png" alt="state replication" style="max-width:100%;"></a></p>
 <h4>
 <a id="231-replicated-state" class="anchor" href="#231-replicated-state" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3.1 Replicated state</h4>
 <h6>

@@ -19,15 +19,15 @@
 <table>
 <thead>
 <tr>
-<th align="right"><a href="img/eu_regional_development_fund_horizontal_div_15.png" target="_blank"><img src="img/eu_regional_development_fund_horizontal_div_15.png" alt="European Union / European Regional Development Fund / Investing in your future" title="Documents that are tagged with EU/SF logos must keep the logos until 1.1.2022, if it has not stated otherwise in the documentation. If new documentation is created  using EU/SF resources the logos must be tagged appropriately so that the deadline for logos could be found." style="max-width:100%;"></a></th>
+<th align="right"><a href="img/eu_regional_development_fund_horizontal_div_15.png" target="_blank" rel="noopener noreferrer"><img src="img/eu_regional_development_fund_horizontal_div_15.png" alt="European Union / European Regional Development Fund / Investing in your future" title="Documents that are tagged with EU/SF logos must keep the logos until 1.1.2022, if it has not stated otherwise in the documentation. If new documentation is created  using EU/SF resources the logos must be tagged appropriately so that the deadline for logos could be found." style="max-width:100%;"></a></th>
 </tr>
 </thead>
 </table>
 <h1>
 <a id="security-server-user-guide" class="anchor" href="#security-server-user-guide" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SECURITY SERVER USER GUIDE</h1>
 <p><strong>X-ROAD 6</strong></p>
-<p>Version: 2.20<br>
-05.03.2018<br>
+<p>Version: 2.22<br>
+25.05.2018<br>
 Doc. ID: UG-SS</p>
 <hr>
 <h2>
@@ -276,7 +276,19 @@ Doc. ID: UG-SS</p>
 <td>05.03.2018</td>
 <td>2.20</td>
 <td>Added terms and abbreviations reference, document links, moved concepts to terms and abbreviations.</td>
-<td>Tatu Repo </td>
+<td>Tatu Repo</td>
+</tr>
+<tr>
+<td>10.04.2018</td>
+<td>2.21</td>
+<td>Update internal server certificate documentation.</td>
+<td>Jarkko Hyöty</td>
+</tr>
+<tr>
+<td>25.05.2018</td>
+<td>2.22</td>
+<td>Update system parameters documentation.</td>
+<td>Jarkko Hyöty</td>
 </tr>
 </tbody>
 </table>
@@ -836,7 +848,7 @@ adduser username xroad-securityserver-observer
 <h3>
 <a id="41-security-server-client-states" class="anchor" href="#41-security-server-client-states" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.1 Security Server Client States</h3>
 <p>The security server distinguishes between the following client states.</p>
-<p><a href="img/ug-ss_saved.png" target="_blank"><img src="img/ug-ss_saved.png" alt="" style="max-width:100%;"></a> <strong>Saved</strong> – the client's information has been entered and saved into the security server's configuration (see <a href="#42-adding-a-security-server-client">4.2</a>), but the association between the client and the security server is not registered in the X-Road governing authority. (If the association is registered in the central server prior to the entry of data, the client will move to the "Registered" state upon data entry.) From this state, the client can move to the following states:</p>
+<p><a href="img/ug-ss_saved.png" target="_blank" rel="noopener noreferrer"><img src="img/ug-ss_saved.png" alt="" style="max-width:100%;"></a> <strong>Saved</strong> – the client's information has been entered and saved into the security server's configuration (see <a href="#42-adding-a-security-server-client">4.2</a>), but the association between the client and the security server is not registered in the X-Road governing authority. (If the association is registered in the central server prior to the entry of data, the client will move to the "Registered" state upon data entry.) From this state, the client can move to the following states:</p>
 <ul>
 <li>
 <p>“Registration in progress”, if a registration request for the client is submitted from the security server (see <a href="#441-registering-a-security-server-client">4.4.1</a>);</p>
@@ -845,7 +857,7 @@ adduser username xroad-securityserver-observer
 <p>“Deleted”, if the client's information is deleted from the security server configuration (see <a href="#452-deleting-a-client">4.5.2</a>).</p>
 </li>
 </ul>
-<p><a href="img/ug-ss_registration_in_progress.png" target="_blank"><img src="img/ug-ss_registration_in_progress.png" alt="" style="max-width:100%;"></a> <strong>Registration in progress</strong> – a registration request for the client is submitted from the security server to the central server, but the association between the client and the security server is not yet approved by the X-Road governing authority. From this state, the client can move to the following states:</p>
+<p><a href="img/ug-ss_registration_in_progress.png" target="_blank" rel="noopener noreferrer"><img src="img/ug-ss_registration_in_progress.png" alt="" style="max-width:100%;"></a> <strong>Registration in progress</strong> – a registration request for the client is submitted from the security server to the central server, but the association between the client and the security server is not yet approved by the X-Road governing authority. From this state, the client can move to the following states:</p>
 <ul>
 <li>
 <p>"Registered", if the association between the client and the security server is approved by the X-Road governing authority (see <a href="#441-registering-a-security-server-client">4.4.1</a>);</p>
@@ -854,7 +866,7 @@ adduser username xroad-securityserver-observer
 <p>"Deletion in progress", if a client deletion request is submitted from the security server (see <a href="#451-unregistering-a-client">4.5.1</a>).</p>
 </li>
 </ul>
-<p><a href="img/ug-ss_registered.png" target="_blank"><img src="img/ug-ss_registered.png" alt="" style="max-width:100%;"></a> <strong>Registered</strong> – the association between the client and the security server has been approved in the X-Road governing authority. In this state, the client can provide and use X-Road services (assuming all other prerequisites are fulfilled). From this state, the client can move to the following states:</p>
+<p><a href="img/ug-ss_registered.png" target="_blank" rel="noopener noreferrer"><img src="img/ug-ss_registered.png" alt="" style="max-width:100%;"></a> <strong>Registered</strong> – the association between the client and the security server has been approved in the X-Road governing authority. In this state, the client can provide and use X-Road services (assuming all other prerequisites are fulfilled). From this state, the client can move to the following states:</p>
 <ul>
 <li>
 <p>"Global error", if the association between the client and the security server has been revoked by the X-Road governing authority;</p>
@@ -863,7 +875,7 @@ adduser username xroad-securityserver-observer
 <p>"Deletion in progress", if a client deletion request is submitted from the security server (see <a href="#451-unregistering-a-client">4.5.1</a>).</p>
 </li>
 </ul>
-<p><a href="img/ug-ss_global_error.png" target="_blank"><img src="img/ug-ss_global_error.png" alt="" style="max-width:100%;"></a> <strong>Global error</strong> – the association between the client and the security server has been revoked in the central server. From this state, the client can move to the following states:</p>
+<p><a href="img/ug-ss_global_error.png" target="_blank" rel="noopener noreferrer"><img src="img/ug-ss_global_error.png" alt="" style="max-width:100%;"></a> <strong>Global error</strong> – the association between the client and the security server has been revoked in the central server. From this state, the client can move to the following states:</p>
 <ul>
 <li>
 <p>"Registered", if the association between the client and the security server has been restored in the central server (e.g., the association between the client and the security server was lost due to an error);</p>
@@ -872,7 +884,7 @@ adduser username xroad-securityserver-observer
 <p>"Deleted", if the client's information is deleted from the security server's configuration (see <a href="#452-deleting-a-client">4.5.2</a>).</p>
 </li>
 </ul>
-<p><a href="img/ug-ss_deletion_in_progress.png" target="_blank"><img src="img/ug-ss_deletion_in_progress.png" alt="" style="max-width:100%;"></a> <strong>Deletion in progress</strong> – a client deletion request has been submitted from the security server. From this state, the client can move to the following state:</p>
+<p><a href="img/ug-ss_deletion_in_progress.png" target="_blank" rel="noopener noreferrer"><img src="img/ug-ss_deletion_in_progress.png" alt="" style="max-width:100%;"></a> <strong>Deletion in progress</strong> – a client deletion request has been submitted from the security server. From this state, the client can move to the following state:</p>
 <ul>
 <li>"Deleted", if the client's information is deleted from the security server's configuration (see <a href="#452-deleting-a-client">4.5.2</a>).</li>
 </ul>
@@ -1614,6 +1626,9 @@ If the HTTPS protocol was selected, select the <strong>Verify TLS certificate</s
 <p><strong>Timestamping service information.</strong> Timestamping is used to preserve the evidential value of messages exchanged over X-Road.</p>
 </li>
 <li>
+<p><strong>Approved Certificate Authorities.</strong> A read-only list of approved certificate authorities (defined in the global configuration). The security server trusts authentication and signing certificates signed by the listed authorities.</p>
+</li>
+<li>
 <p><strong>The internal TLS key and certificate.</strong> The internal TLS certificate is used to establish a TLS connection with the security server client's information system if the "HTTPS" connection method is chosen for the client's servers.</p>
 </li>
 </ul>
@@ -1680,54 +1695,65 @@ If the HTTPS protocol was selected, select the <strong>Verify TLS certificate</s
 <h3>
 <a id="103-changing-the-internal-tls-key-and-certificate" class="anchor" href="#103-changing-the-internal-tls-key-and-certificate" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>10.3 Changing the Internal TLS Key and Certificate</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-security-officer">Security Officer</a>, <a href="#xroad-system-administrator">System Administrator</a></p>
-<p>To change the security server’s internal TLS key and certificate, follow these steps.</p>
+<p><em>To change the security server’s internal TLS key and certificate</em>, follow these steps.</p>
 <ol>
 <li>
 <p>On the <strong>Configuration</strong> menu, select <strong>System Parameters</strong>. The system parameters view is opened.</p>
 </li>
 <li>
 <p>In the <strong>Internal TLS Certificate</strong> section, click <strong>Generate New TLS Key</strong> and in the window that opens, click <strong>Confirm</strong>.</p>
+<p>The security server generates a key used for communication with the client information systems, and the corresponding self-signed certificate. The security server's certificate fingerprint will also change. The security server's domain name is saved to the certificate's <em>Common Name</em> field, and the internal IP address to the <em>subjectAltName</em> extension field.</p>
 </li>
 </ol>
-<p>The security server generates a key used for communication with the client information systems, and the corresponding self-signed certificate. The security server's certificate fingerprint will also change. The security server's domain name is saved to the certificate's <em>Common Name</em> field, and the internal IP address to the <em>subjectAltName</em> extension field.</p>
-<p>To generate a new certificate request, follow these steps.</p>
+<p><em>To generate a new certificate request</em>, follow these steps.</p>
 <ol>
 <li>
 <p>On the <strong>Configuration</strong> menu, select <strong>System Parameters</strong>. The system parameters view is opened.</p>
 </li>
 <li>
 <p>In the “Internal TLS Certificate” section, click <strong>Generate Certificate Request</strong>, input the <strong>Distinguished Name</strong> and save the certificate request file to the local file system.</p>
+<p>The security server generates a certificate request using the current key and the provided <strong>Distinguished Name</strong>.</p>
 </li>
 </ol>
-<p>The security server generates a certificate request using the current key and the provided <strong>Distinguished Name</strong>.</p>
-<p>To import a new TLS certificate, follow these steps.</p>
+<p><em>To import a new TLS certificate</em>, follow these steps.</p>
 <ol>
 <li>
 <p>On the <strong>Configuration</strong> menu, select <strong>System Parameters</strong>. The system parameters view is opened.</p>
 </li>
 <li>
 <p>In the “Internal TLS Certificate” section, click <strong>Import Certificate</strong> and point to the file to be imported.</p>
+<p>The imported certificate must be in PEM-format to be accepted. Certificate chains are supported; concatenate possible intermediate certificate(s) to the server certificate before importing the file.</p>
+<p>Note that importing a new TLS certificate will restart the xroad-proxy and thus affects providing services from the security server.</p>
 </li>
 </ol>
-<p>The imported certificate must be in PEM-format to be accepted. Note that importing a new TLS certificate will restart the xroad-proxy and thus affects providing services from the security server.</p>
-<p>To export the security server’s internal TLS certificate, follow these steps.</p>
+<p><em>To export the security server’s internal TLS certificate</em>, follow these steps.</p>
 <ol>
 <li>
 <p>On the <strong>Configuration</strong> menu, select <strong>System Parameters</strong>. The system parameters view is opened.</p>
 </li>
 <li>
 <p>In the <strong>Internal TLS Certificate</strong> section, click <strong>Export</strong> and save the prompted file to the local file system.</p>
+<p>Note that only the internal server certificate is exported, not the possible intermediate certificates.</p>
 </li>
 </ol>
-<p>To view the detailed information of the security server’s internal TLS certificate, follow these steps.</p>
+<p><em>To view the detailed information of the security server’s internal TLS certificate</em>, follow these steps.</p>
 <ol>
-<li>
-<p>On the <strong>Configuration</strong> menu, select <strong>System Parameters</strong>. The system parameters view is opened.</p>
-</li>
-<li>
-<p>In the <strong>Internal TLS Certificate</strong> section, click <strong>Certificate Details</strong>.</p>
-</li>
+<li>On the <strong>Configuration</strong> menu, select <strong>System Parameters</strong>. The system parameters view is opened.</li>
+<li>In the <strong>Internal TLS Certificate</strong> section, click <strong>Certificate Details</strong>.</li>
 </ol>
+<h3>
+<a id="104-approved-certificate-authorities" class="anchor" href="#104-approved-certificate-authorities" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>10.4 Approved Certificate Authorities</h3>
+<p>Lists approved certificate authorities. The listing contains the following information:</p>
+<ul>
+<li>CA certificate subject distinguished name. Top-level CAs are <strong>emphasized</strong>.</li>
+<li>OCSP response status (not applicable to top-level CAs, shown as N/A). See <a href="#53-validity-states-of-certificates">5.3 Validity States of Certificates</a> for explanation, with the following exceptions:
+<ul>
+<li>Disabled status is not used</li>
+<li>Additional status "not available" if the OCSP response is not available at all, e.g. due to an error.</li>
+</ul>
+</li>
+<li>Certificate expiration date.</li>
+</ul>
 <h2>
 <a id="11-message-log" class="anchor" href="#11-message-log" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>11 Message Log</h2>
 <p>The purpose of the message log is to provide means to prove the reception of a regular request or response message to a third party. Messages exchanged between security servers are signed and encrypted. For every regular request and response, the security server produces a complete signed and timestamped document (Associated Signature Container [<a href="#Ref_ASiC">ASiC</a>]).</p>
