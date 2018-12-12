@@ -5,7 +5,7 @@
 
 **X-ROAD 6**
 
-Version: 2.12.3  
+Version: 2.12.5  
 Doc. ID: IG-SS
 
 ---
@@ -41,6 +41,7 @@ Doc. ID: IG-SS
  03.07.2018 | 2.12.2  | Added network diagram and reference data for monitoring servers | Jürgen Šuvalov
  08.08.2018 | 2.12.3  | Editorial changes												| Jan Raik
  13.08.2018 | 2.12.4  | Package name fix											    | Taavi Meinberg
+ 12.12.2018 | 2.12.5  | Added managment security servers' IPs | Jan Raik
 
 
 ## Table of Contents
@@ -162,6 +163,7 @@ The software can be installed both on physical and virtualized hardware (of the 
 -------------------------- | --------------------| -------------- | -------------
  Central Server 			| 213.184.41.178 <br> 213.184.41.186 <br> 213.184.41.190 | 195.80.127.40 <br> 195.80.127.43 | 195.80.109.140
  Central Monitoring Server 	| 195.80.123.159 | 195.80.123.164 | 195.80.123.169
+ Management Security Server 			| 213.184.41.177 <br> 213.184.41.185 <br> 213.184.41.189 |195.80.127.37 | 195.80.109.139
 
 
 ### 2.4 Requirements for the Security Server
