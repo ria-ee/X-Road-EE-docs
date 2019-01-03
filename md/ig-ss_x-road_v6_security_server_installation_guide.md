@@ -5,7 +5,7 @@
 
 **X-ROAD 6**
 
-Version: 2.12.5  
+Version: 2.12.6  
 Doc. ID: IG-SS
 
 ---
@@ -42,6 +42,7 @@ Doc. ID: IG-SS
  08.08.2018 | 2.12.3  | Editorial changes												| Jan Raik
  13.08.2018 | 2.12.4  | Package name fix											    | Taavi Meinberg
  12.12.2018 | 2.12.5  | Added managment security servers' IPs | Jan Raik
+ 03.01.2019 | 2.12.6  | Updated repository key | Jan Raik
 
 
 ## Table of Contents
@@ -214,7 +215,7 @@ To install the X-Road security server software, follow these steps.
 
 2.  Add the X-Road repository’s signing key to the list of trusted keys (**reference data: 1.2**):
 
-        curl http://x-tee.ee/packages/xroad_repo.gpg | sudo apt-key add -
+        curl http://x-tee.ee/packages/test/xroad/repo.gpg | sudo apt-key add -
         sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 00A6F0A3C300EE8C
         sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EB9B1D8886F44E2A
 
