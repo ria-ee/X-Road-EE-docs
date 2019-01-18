@@ -1931,7 +1931,7 @@ messagelog.hibernate.connection.password = messagelog_password
 </li>
 </ul>
 <p>For example, registering a new client in the security server produces the following log record:</p>
-<p><code>2015-07-03T10:21:59+03:00 my-security-server-host INFO [X-Road Proxy UI] 2015-07-03 10:21:59+0300 - {"event":"Register client", "user":"admin1", "data":{"clientIdentifier":{"xRoadInstance":"EE", "memberClass":"COM", "memberCode":"member1"}, "clientStatus":"registration in progress"}}</code></p>
+<p><code>2015-07-03T10:21:59+03:00 my-security-server-host INFO [X-Road Proxy UI] 2015-07-03 10:21:59+0300 - {"event":"Register client", "user":"admin1", "data":{"clientIdentifier":{"xRoadInstance":"EE", "memberClass":"COM",  "memberCode":"member1"}, "clientStatus":"registration in progress"}}</code></p>
 <p>The event is present in JSON [<a href="#Ref_JSON">JSON</a>] format, in order to ensure machine processability. The field event represents the description of the event, the field user represents the user name of the performer, and the field data represents data related with the event. The failed action event record contains an additional field reason for the error message. For example:</p>
 <p><code>2015-07-03T11:55:39+03:00 my-security-server-host INFO [X-Road Proxy UI] 2015-07-03 11:55:39+0300 - {"event":"Log in to token failed", "user":"admin1", "reason":"PIN incorrect", "data":{"tokenId":"0", "tokenSerialNumber":null, "tokenFriendlyName":"softToken-0"}}</code></p>
 <p>By default, audit log is located in the file</p>
@@ -2198,7 +2198,7 @@ tls-certificate = &lt;path/to/external/daemon/tls/cert&gt;
 <td><code>/var/log/xroad/configuration_client.log</code></td>
 </tr>
 <tr>
-<td><code>xroad-jetty</code></td>
+<td><code>xroad-jetty </code></td>
 <td>Application server running the user interface</td>
 <td><code>/var/log/xroad/jetty/</code></td>
 </tr>

@@ -26,7 +26,7 @@
 <h1>
 <a id="security-server-installation-guide" class="anchor" href="#security-server-installation-guide" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Security Server Installation Guide</h1>
 <p><strong>X-ROAD 6</strong></p>
-<p>Version: 2.12.3<br>
+<p>Version: 2.12.6<br>
 Doc. ID: IG-SS</p>
 <hr>
 <h2>
@@ -196,6 +196,18 @@ Doc. ID: IG-SS</p>
 <td>2.12.4</td>
 <td>Package name fix</td>
 <td>Taavi Meinberg</td>
+</tr>
+<tr>
+<td>12.12.2018</td>
+<td>2.12.5</td>
+<td>Added managment security servers' IPs</td>
+<td>Jan Raik</td>
+</tr>
+<tr>
+<td>03.01.2019</td>
+<td>2.12.6</td>
+<td>Updated repository key</td>
+<td>Jan Raik</td>
 </tr>
 </tbody>
 </table>
@@ -456,6 +468,12 @@ Doc. ID: IG-SS</p>
 <td>195.80.123.164</td>
 <td>195.80.123.169</td>
 </tr>
+<tr>
+<td>Management Security Server</td>
+<td>213.184.41.177 <br> 213.184.41.185 <br> 213.184.41.189</td>
+<td>195.80.127.37</td>
+<td>195.80.109.139</td>
+</tr>
 </tbody>
 </table>
 <h3>
@@ -518,7 +536,7 @@ deb http://ppa.launchpad.net/openjdk-r/ppa/ubuntu trusty main
 </li>
 <li>
 <p>Add the X-Road repository’s signing key to the list of trusted keys (<strong>reference data: 1.2</strong>):</p>
-<pre><code>curl http://x-tee.ee/packages/xroad_repo.gpg | sudo apt-key add -
+<pre><code>curl http://x-tee.ee/packages/live/xroad/repo.gpg | sudo apt-key add -
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 00A6F0A3C300EE8C
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EB9B1D8886F44E2A
 </code></pre>
