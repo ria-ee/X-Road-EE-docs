@@ -19,7 +19,7 @@
 <table>
 <thead>
 <tr>
-<th align="right"><a href="img/eu_regional_development_fund_horizontal_div_15.png" target="_blank"><img src="img/eu_regional_development_fund_horizontal_div_15.png" alt="European Union / European Regional Development Fund / Investing in your future" title="Documents that are tagged with EU/SF logos must keep the logos until 1.1.2022, if it has not stated otherwise in the documentation. If new documentation is created  using EU/SF resources the logos must be tagged appropriately so that the deadline for logos could be found." style="max-width:100%;"></a></th>
+<th align="right"><a href="img/eu_regional_development_fund_horizontal_div_15.png" target="_blank" rel="noopener noreferrer"><img src="img/eu_regional_development_fund_horizontal_div_15.png" alt="European Union / European Regional Development Fund / Investing in your future" title="Documents that are tagged with EU/SF logos must keep the logos until 1.1.2022, if it has not stated otherwise in the documentation. If new documentation is created  using EU/SF resources the logos must be tagged appropriately so that the deadline for logos could be found." style="max-width:100%;"></a></th>
 </tr>
 </thead>
 </table>
@@ -173,7 +173,7 @@ Doc. ID: PR-GCONF</p>
 <h3>
 <a id="11-terms-and-abbreviations" class="anchor" href="#11-terms-and-abbreviations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.1 Terms and Abbreviations</h3>
 <p>The following figure contains a class diagram that illustrates important concepts used in this specification.</p>
-<p><a href="img/pr-gconf-concepts.png" target="_blank"><img src="img/pr-gconf-concepts.png" alt="" style="max-width:100%;"></a></p>
+<p><a href="img/pr-gconf-concepts.png" target="_blank" rel="noopener noreferrer"><img src="img/pr-gconf-concepts.png" alt="" style="max-width:100%;"></a></p>
 <p>See X-Road terms and abbreviations documentation [<a href="#Ref_TERMS">TA-TERMS</a>].</p>
 <h3>
 <a id="12-references" class="anchor" href="#12-references" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.2 References</h3>
@@ -302,22 +302,22 @@ The certificate is only used as a container for the public key. The configuratio
 <li>optionally any additional configuration parts that are specific to this X-Road installation. <em>Monitoring parameters</em> belong to this category.</li>
 </ul>
 <p>Because the shared parameters are distributed in the main configuration, the private parameters part does not contain any additional configuration sources.</p>
-<p><a href="img/pr-gconf-single-configuration-source.png" target="_blank"><img src="img/pr-gconf-single-configuration-source.png" alt="X-Road installation with single configuration source" style="max-width:100%;"></a></p>
+<p><a href="img/pr-gconf-single-configuration-source.png" target="_blank" rel="noopener noreferrer"><img src="img/pr-gconf-single-configuration-source.png" alt="X-Road installation with single configuration source" style="max-width:100%;"></a></p>
 <h3>
 <a id="32-detached-shared-parameters" class="anchor" href="#32-detached-shared-parameters" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.2 Detached Shared Parameters</h3>
 <p>This scenario involves a standalone X-Road instance that uses different configuration sources for private and shared parameters.</p>
 <p>In this case the X-Road governing authority manages two configuration sources. The first source contains the private parameters and, optionally, other configuration parts that are specific to this X-Road instance. The second source contains shared parameters. The private parameters part contains anchor for the second configuration source. Figure below illustrates this situation.</p>
-<p><a href="img/pr-gconf-detached-shared-parameters.png" target="_blank"><img src="img/pr-gconf-detached-shared-parameters.png" alt="X-Road installation with detached shared parameters" style="max-width:100%;"></a></p>
+<p><a href="img/pr-gconf-detached-shared-parameters.png" target="_blank" rel="noopener noreferrer"><img src="img/pr-gconf-detached-shared-parameters.png" alt="X-Road installation with detached shared parameters" style="max-width:100%;"></a></p>
 <p>Compared to the simplest case, the configuration authority must maintain two separate configuration sources. Additionally, the configuration clients must make additional HTTP requests to download the directory from <em>Source 2</em>. For a non-federated installation, this solution does not offer significant benefits, but it is a good starting point for building a federated X-Road infrastructure.</p>
 <h3>
 <a id="33-simple-federated-installation" class="anchor" href="#33-simple-federated-installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.3 Simple Federated Installation</h3>
 <p>This scenario involves two federated X-Road installations. Both installations are set up according to "Detached Shared Parameters". Figure below describes the setup. Both X-Road installations maintain two configuration sources, one for private parameters, the other one for shared parameters. For both installations, the private parameters part contains configuration anchors for both of the sources that distribute shared parameters.</p>
-<p><a href="img/pr-gconf-simple-federated-installation.png" target="_blank"><img src="img/pr-gconf-simple-federated-installation.png" alt="Two federated X-Road installations" style="max-width:100%;"></a></p>
+<p><a href="img/pr-gconf-simple-federated-installation.png" target="_blank" rel="noopener noreferrer"><img src="img/pr-gconf-simple-federated-installation.png" alt="Two federated X-Road installations" style="max-width:100%;"></a></p>
 <p>Members of the X-Road installations are initialized with configuration anchor pointing to private configuration source of their governing installation. This source is then used to download private parameters that contains configuration anchors for the sources that distribute shared parameters.</p>
 <h3>
 <a id="34-federated-installation-with-proxies" class="anchor" href="#34-federated-installation-with-proxies" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.4 Federated Installation with Proxies</h3>
 <p>Scenario from the simple federated installation can be further developed by using configuration proxies. The figure below shows a setup where one X-Road installation uses proxies to cache both the incoming and outgoing shared parameters. Proxy is configured with a configuration anchor and it downloads and caches configuration from the source described by the anchor. Additionally, proxy acts as a configuration source and allows clients to download the cached configuration.</p>
-<p><a href="img/pr-gconf-federated-installation-with-proxies.png" target="_blank"><img src="img/pr-gconf-federated-installation-with-proxies.png" alt="Two federated X-Road installations with configuration proxies" style="max-width:100%;"></a></p>
+<p><a href="img/pr-gconf-federated-installation-with-proxies.png" target="_blank" rel="noopener noreferrer"><img src="img/pr-gconf-federated-installation-with-proxies.png" alt="Two federated X-Road installations with configuration proxies" style="max-width:100%;"></a></p>
 <p>Instead of direct references from private parameters of one installation to shared configuration source of the other installation, the X-Road installation 2 sets up two proxies. Proxy 1 downloads shared parameters of X-Road installation 2 and redistributes them to other X-Road installations. Proxy 2 downloads shared parameters of another X-Road installation (1 in this example) and distributes them to members of X-Road installation 2.</p>
 <p>In this setup, the X-Road 2 has complete control over configuration that is exchanged with other X-Road installations – both incoming and outgoing. Using a proxy can improve availability of the shared parameters and reduce load on shared configuration sources of both X-Road installations. In addition, the proxies can transform the configuration, e.g. by filtering out some member classes. However, the filtering should be declared in the federation agreement to avoid any confusion among the members of the federated X-Road installations.</p>
 <h2>

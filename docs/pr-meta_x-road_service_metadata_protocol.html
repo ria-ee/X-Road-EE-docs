@@ -19,7 +19,7 @@
 <table>
 <thead>
 <tr>
-<th align="right"><a href="img/eu_regional_development_fund_horizontal_div_15.png" target="_blank"><img src="img/eu_regional_development_fund_horizontal_div_15.png" alt="European Union / European Regional Development Fund / Investing in your future" title="Documents that are tagged with EU/SF logos must keep the logos until 1.1.2022, if it has not stated otherwise in the documentation. If new documentation is created  using EU/SF resources the logos must be tagged appropriately so that the deadline for logos could be found." style="max-width:100%;"></a></th>
+<th align="right"><a href="img/eu_regional_development_fund_horizontal_div_15.png" target="_blank" rel="noopener noreferrer"><img src="img/eu_regional_development_fund_horizontal_div_15.png" alt="European Union / European Regional Development Fund / Investing in your future" title="Documents that are tagged with EU/SF logos must keep the logos until 1.1.2022, if it has not stated otherwise in the documentation. If new documentation is created  using EU/SF resources the logos must be tagged appropriately so that the deadline for logos could be found." style="max-width:100%;"></a></th>
 </tr>
 </thead>
 </table>
@@ -133,19 +133,19 @@ Doc. ID: PR-META</p>
 <p>This specification describes methods that can be used by X-Road participants to discover what services are available to them and download the WSDL files describing these services. The X-Road service metadata protocol is intended to support portals and other software that can discover the available services and then automatically generate user interfaces based on their descriptions. In order to accomplish this, the portal can use the following steps.</p>
 <ol>
 <li>
-<p>Download a list of X-Road members and subsystems (see Section <a href="#2-retrieving-list-of-service-providers">2</a>). This results in a list of (potential) service provides who can be further be queried. Alternatively, the portal can download a list of central services (see Section <a href="#3-retrieving-list-of-central-services">3</a>) defined in the X-Road central server.</p>
+<p>Download a list of X-Road members and subsystems (see Section <a href="#2-retrieving-list-of-service-providers">2</a>). This results in a list of (potential) service provides who can be further be queried. Alternatively, the portal can download a list of central services (see Section <a href="#3-retrieving-list-of-central-services">3</a>) defined in the X-Road central server.</p>
 </li>
 <li>
-<p>Connect to the service provider and acquire a list of services offered by this provider (see Section <a href="#4-retrieving-list-of-services">4</a>). This service has two forms: <code>listMethods</code> returns a list of services provided by a given service provider, <code>allowedMethods</code> constrains the returned list by only including services that are allowed for the client.</p>
+<p>Connect to the service provider and acquire a list of services offered by this provider (see Section <a href="#4-retrieving-list-of-services">4</a>). This service has two forms: <code>listMethods</code> returns a list of services provided by a given service provider, <code>allowedMethods</code> constrains the returned list by only including services that are allowed for the client.</p>
 </li>
 <li>
-<p>Download the description of the service in WSDL format (see Section <a href="#5-retrieving-the-wsdl-of-a-service">5</a>).</p>
+<p>Download the description of the service in WSDL format (see Section <a href="#5-retrieving-the-wsdl-of-a-service">5</a>).</p>
 </li>
 </ol>
 <p>This specification is based on the X-Road protocol [<a href="#Ref_PR-MESS">PR-MESS</a>]. The X-Road protocol specification also defines important concepts used in this text (for example, central service and X-Road identifier). Because this protocol uses HTTP and X-Road protocol as transport mechanisms, the details of message transport and error conditions are not described in this specification.</p>
 <p>Chapters <a href="#2-retrieving-list-of-service-providers">2</a>, <a href="#3-retrieving-list-of-central-services">3</a>, <a href="#4-retrieving-list-of-services">4</a> and <a href="#5-retrieving-the-wsdl-of-a-service">5</a> together with annexes <a href="#annex-a-xml-schema-for-messages">A</a> and <a href="#annex-b-listmethods-and-allowedmethods-wsdl">B</a> contain normative information. All the other sections are informative in nature. All the references are normative.</p>
 <p>This specification does not include option for partially implementing the protocol – the conformant implementation must implement the entire specification.</p>
-<p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document (in uppercase, as shown) are to be interpreted as described in [<a href="#Ref_RFC2119">RFC2119</a>].</p>
+<p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document (in uppercase, as shown) are to be interpreted as described in [<a href="#Ref_RFC2119">RFC2119</a>].</p>
 <h3>
 <a id="11-terms-and-abbreviations" class="anchor" href="#11-terms-and-abbreviations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.1 Terms and abbreviations</h3>
 <p>See X-Road terms and abbreviations documentation [<a href="#Ref_TERMS">TA-TERMS</a>].</p>

@@ -51,11 +51,11 @@ This document is licensed under the Creative Commons Attribution-ShareAlike 3.0 
 
 This specification describes methods that can be used by X-Road participants to discover what services are available to them and download the WSDL files describing these services. The X-Road service metadata protocol is intended to support portals and other software that can discover the available services and then automatically generate user interfaces based on their descriptions. In order to accomplish this, the portal can use the following steps.
 
-1. Download a list of X-Road members and subsystems (see Section [2](#2-retrieving-list-of-service-providers)). This results in a list of (potential) service provides who can be further be queried. Alternatively, the portal can download a list of central services (see Section [3](#3-retrieving-list-of-central-services)) defined in the X-Road central server.
+1. Download a list of X-Road members and subsystems (see Section [2](#2-retrieving-list-of-service-providers)). This results in a list of (potential) service provides who can be further be queried. Alternatively, the portal can download a list of central services (see Section [3](#3-retrieving-list-of-central-services)) defined in the X-Road central server.
 
-2. Connect to the service provider and acquire a list of services offered by this provider (see Section [4](#4-retrieving-list-of-services)). This service has two forms: `listMethods` returns a list of services provided by a given service provider, `allowedMethods` constrains the returned list by only including services that are allowed for the client.
+2. Connect to the service provider and acquire a list of services offered by this provider (see Section [4](#4-retrieving-list-of-services)). This service has two forms: `listMethods` returns a list of services provided by a given service provider, `allowedMethods` constrains the returned list by only including services that are allowed for the client.
 
-3. Download the description of the service in WSDL format (see Section [5](#5-retrieving-the-wsdl-of-a-service)).
+3. Download the description of the service in WSDL format (see Section [5](#5-retrieving-the-wsdl-of-a-service)).
 
 This specification is based on the X-Road protocol \[[PR-MESS](#Ref_PR-MESS)\]. The X-Road protocol specification also defines important concepts used in this text (for example, central service and X-Road identifier). Because this protocol uses HTTP and X-Road protocol as transport mechanisms, the details of message transport and error conditions are not described in this specification.
 
@@ -63,7 +63,7 @@ Chapters [2](#2-retrieving-list-of-service-providers), [3](#3-retrieving-list-of
 
 This specification does not include option for partially implementing the protocol – the conformant implementation must implement the entire specification.
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document (in uppercase, as shown) are to be interpreted as described in \[[RFC2119](#Ref_RFC2119)\].
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document (in uppercase, as shown) are to be interpreted as described in \[[RFC2119](#Ref_RFC2119)\].
 
 ### 1.1 Terms and abbreviations
 

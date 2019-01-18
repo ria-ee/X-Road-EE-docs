@@ -19,14 +19,14 @@
 <table>
 <thead>
 <tr>
-<th align="right"><a href="img/eu_regional_development_fund_horizontal_div_15.png" target="_blank"><img src="img/eu_regional_development_fund_horizontal_div_15.png" alt="European Union / European Regional Development Fund / Investing in your future" title="Documents that are tagged with EU/SF logos must keep the logos until 1.1.2022, if it has not stated otherwise in the documentation. If new documentation is created  using EU/SF resources the logos must be tagged appropriately so that the deadline for logos could be found." style="max-width:100%;"></a></th>
+<th align="right"><a href="img/eu_regional_development_fund_horizontal_div_15.png" target="_blank" rel="noopener noreferrer"><img src="img/eu_regional_development_fund_horizontal_div_15.png" alt="European Union / European Regional Development Fund / Investing in your future" title="Documents that are tagged with EU/SF logos must keep the logos until 1.1.2022, if it has not stated otherwise in the documentation. If new documentation is created  using EU/SF resources the logos must be tagged appropriately so that the deadline for logos could be found." style="max-width:100%;"></a></th>
 </tr>
 </thead>
 </table>
 <h1>
 <a id="security-server-installation-guide" class="anchor" href="#security-server-installation-guide" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Security Server Installation Guide</h1>
 <p><strong>X-ROAD 6</strong></p>
-<p>Version: 2.12.3<br>
+<p>Version: 2.12.6<br>
 Doc. ID: IG-SS</p>
 <hr>
 <h2>
@@ -196,6 +196,18 @@ Doc. ID: IG-SS</p>
 <td>2.12.4</td>
 <td>Package name fix</td>
 <td>Taavi Meinberg</td>
+</tr>
+<tr>
+<td>12.12.2018</td>
+<td>2.12.5</td>
+<td>Added managment security servers' IPs</td>
+<td>Jan Raik</td>
+</tr>
+<tr>
+<td>03.01.2019</td>
+<td>2.12.6</td>
+<td>Updated repository key</td>
+<td>Jan Raik</td>
 </tr>
 </tbody>
 </table>
@@ -433,7 +445,7 @@ Doc. ID: IG-SS</p>
 <p>The following network diagram is an example of a simple stand-alone Security Server setup. Attention should be paid when configuring the firewall of your Security Server, as misconfigurations (e.g. exposing port 80/tcp to the public internet) can leave your server vulnerable.</p>
 <p>Allowing incoming connections from the Monitoring Security Server on ports 5500/tcp and 5577/tcp (<strong>reference data: 1.13</strong>) is necessary for the X-Road Center to be able to monitor the ecosystem and provide statistics and support for Members.</p>
 <p><strong>Caution</strong>: The enabling of auxiliary services which are necessary for the functioning and management of the operating system (such as DNS, NTP, and SSH) stay outside the scope of this guide.</p>
-<p><a href="img/ig-ss_network_diagram.png" target="_blank"><img src="img/ig-ss_network_diagram.png" alt="network diagram" style="max-width:100%;"></a></p>
+<p><a href="img/ig-ss_network_diagram.png" target="_blank" rel="noopener noreferrer"><img src="img/ig-ss_network_diagram.png" alt="network diagram" style="max-width:100%;"></a></p>
 <table>
 <thead>
 <tr>
@@ -455,6 +467,12 @@ Doc. ID: IG-SS</p>
 <td>195.80.123.159</td>
 <td>195.80.123.164</td>
 <td>195.80.123.169</td>
+</tr>
+<tr>
+<td>Management Security Server</td>
+<td>213.184.41.177 <br> 213.184.41.185 <br> 213.184.41.189</td>
+<td>195.80.127.37</td>
+<td>195.80.109.139</td>
 </tr>
 </tbody>
 </table>
@@ -518,7 +536,7 @@ deb http://ppa.launchpad.net/openjdk-r/ppa/ubuntu trusty main
 </li>
 <li>
 <p>Add the X-Road repository’s signing key to the list of trusted keys (<strong>reference data: 1.2</strong>):</p>
-<pre><code>curl http://x-tee.ee/packages/xroad_repo.gpg | sudo apt-key add -
+<pre><code>curl http://x-tee.ee/packages/live/xroad/repo.gpg | sudo apt-key add -
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 00A6F0A3C300EE8C
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EB9B1D8886F44E2A
 </code></pre>

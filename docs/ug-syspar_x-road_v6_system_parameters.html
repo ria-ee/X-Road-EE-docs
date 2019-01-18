@@ -19,7 +19,7 @@
 <table>
 <thead>
 <tr>
-<th align="right"><a href="img/eu_regional_development_fund_horizontal_div_15.png" target="_blank"><img src="img/eu_regional_development_fund_horizontal_div_15.png" alt="European Union / European Regional Development Fund / Investing in your future" title="Documents that are tagged with EU/SF logos must keep the logos until 1.1.2022, if it has not stated otherwise in the documentation. If new documentation is created  using EU/SF resources the logos must be tagged appropriately so that the deadline for logos could be found." style="max-width:100%;"></a></th>
+<th align="right"><a href="img/eu_regional_development_fund_horizontal_div_15.png" target="_blank" rel="noopener noreferrer"><img src="img/eu_regional_development_fund_horizontal_div_15.png" alt="European Union / European Regional Development Fund / Investing in your future" title="Documents that are tagged with EU/SF logos must keep the logos until 1.1.2022, if it has not stated otherwise in the documentation. If new documentation is created  using EU/SF resources the logos must be tagged appropriately so that the deadline for logos could be found." style="max-width:100%;"></a></th>
 </tr>
 </thead>
 </table>
@@ -211,7 +211,7 @@ Doc. ID: UG-SYSPAR</p>
 <td>31.08.2017</td>
 <td>2.24</td>
 <td>Moved ocsp-cache-path and enforce-token-pin-policy from under proxy to under signer and added them to central server and configuration proxy lists</td>
-<td> Tatu Repo</td>
+<td>Tatu Repo</td>
 </tr>
 <tr>
 <td>17.10.2017</td>
@@ -223,24 +223,24 @@ Doc. ID: UG-SYSPAR</p>
 <td>20.10.2017</td>
 <td>2.26</td>
 <td>Clarified the effects of disabling SOAP body logging on the SOAP Headers. Split the system parameters to different tables for readability</td>
-<td> Olli Lindgren</td>
+<td>Olli Lindgren</td>
 </tr>
 <tr>
 <td>22.11.2017</td>
 <td>2.27</td>
-<td> Default changed to vanilla. New colums added for FI and EE values.</td>
+<td>Default changed to vanilla. New colums added for FI and EE values.</td>
 <td>Antti Luoma</td>
 </tr>
 <tr>
 <td>02.01.2018</td>
 <td>2.28</td>
-<td> Added proxy parameter allow-get-wsdl-request.</td>
+<td>Added proxy parameter allow-get-wsdl-request.</td>
 <td>Ilkka Seppälä</td>
 </tr>
 <tr>
 <td>29.01.2018</td>
 <td>2.29</td>
-<td> Removed proxy parameter client-fastest-connecting-ssl-use-uri-cache. Added proxy parameter client-fastest-connecting-ssl-uri-cache-period.</td>
+<td>Removed proxy parameter client-fastest-connecting-ssl-use-uri-cache. Added proxy parameter client-fastest-connecting-ssl-uri-cache-period.</td>
 <td>Ilkka Seppälä</td>
 </tr>
 <tr>
@@ -252,8 +252,15 @@ Doc. ID: UG-SYSPAR</p>
 <tr>
 <td>06.04.2018</td>
 <td>2.31</td>
-<td> Removed TLSv1.1 support (client-side interfaces for incoming request) and TLS SHA-1 ciphers from default ciphers list.</td>
+<td>Removed TLSv1.1 support (client-side interfaces for incoming request) and TLS SHA-1 ciphers from default ciphers list.</td>
 <td>Kristo Heero</td>
+</tr>
+<tr>
+<td>18.08.2018</td>
+<td>2.32</td>
+<td>Added new parameter <em>ocsp-retry-delay</em>
+</td>
+<td>Petteri Kivimäki</td>
 </tr>
 </tbody>
 </table>
@@ -344,7 +351,7 @@ CRON expression, <a href="http://www.quartz-scheduler.org/documentation/quartz-2
 <li>
 <a id="Ref_PR-TARGETSS"></a>[PR-TARGETSS] <a href="pr-targetss_security_server_targeting_extension_for_the_x-road_protocol.html">Security Server Targeting Extension for the X-Road Message Protocol</a>.</li>
 <li>
-<a id="Ref_PR-SECTOKEN"></a>[PR-SECTOKEN] <a href="https://github.com/nordic-institute/X-Road/blob/develop/doc/Protocols/SecurityTokenExtension/pr-sectoken_security_token_extension_for_the_x-road_protocol.md">Security Token Extension for the X-Road Message Protocol</a>.</li>
+<a id="Ref_PR-SECTOKEN"></a>[PR-SECTOKEN] <a href="https://github.com/nordic-institute/X-Road/blob/6.19.0/doc/Protocols/SecurityTokenExtension/pr-sectoken_security_token_extension_for_the_x-road_protocol.md">Security Token Extension for the X-Road Message Protocol</a>.</li>
 <li>
 <a id="Ref_TERMS"></a>[TA-TERMS] <a href="terms_x-road_docs.html">X-Road Terms and Abbreviations</a>.</li>
 <li>
@@ -441,8 +448,7 @@ server-listen-port=20000
 <th><strong>Parameter</strong></th>
 <th><strong>Vanilla value</strong></th>
 <th><strong>FI-package value</strong></th>
-<th> <strong>EE-package value</strong>
-</th>
+<th><strong>EE-package value</strong></th>
 <th><strong>Description</strong></th>
 </tr>
 </thead>
@@ -711,14 +717,14 @@ server-listen-port=20000
 <td>actorsystem-port</td>
 <td>5567</td>
 <td></td>
-<td> </td>
+<td></td>
 <td>The (localhost) port where the proxy actorsystem binds to. Used for communicating with xroad-signer and xroad-monitor.</td>
 </tr>
 <tr>
 <td>allow-get-wsdl-request</td>
 <td>false</td>
 <td></td>
-<td> </td>
+<td></td>
 <td>Whether to allow getWsdl metaservice to be called with HTTP/HTTPS GET method.</td>
 </tr>
 </tbody>
@@ -756,8 +762,7 @@ server-listen-port=20000
 <th><strong>Parameter</strong></th>
 <th><strong>Vanilla value</strong></th>
 <th><strong>FI-package value</strong></th>
-<th> <strong>EE-package value</strong>
-</th>
+<th><strong>EE-package value</strong></th>
 <th><strong>Description</strong></th>
 </tr>
 </thead>
@@ -817,6 +822,13 @@ server-listen-port=20000
 <td></td>
 <td></td>
 <td>Certificate Signing Request signature digest algorithm.<br>Possible values are<br>-   SHA-256,<br>-   SHA-384,<br>-   SHA-512.</td>
+</tr>
+<tr>
+<td>ocsp-retry-delay</td>
+<td>60</td>
+<td></td>
+<td></td>
+<td>OCSP retry delay for signer when fetching OCSP responses fail. After failing to fetch OCSP responses signer waits for the time period defined by "ocsp-retry-delay" before trying again. This is repeated until fetching OCSP responses succeeds. After successfully fetching OCSP responses signer returns to normal OCSP refresh schedule defined by "ocspFetchInterval". If the value of "ocsp-retry-delay" is higher than "ocspFetchInterval", the value of "ocspFetchInterval" is used as OCSP retry delay.</td>
 </tr>
 </tbody>
 </table>
@@ -902,8 +914,7 @@ server-listen-port=20000
 <th><strong>Parameter</strong></th>
 <th><strong>Vanilla value</strong></th>
 <th><strong>FI-package value</strong></th>
-<th> <strong>EE-package value</strong>
-</th>
+<th><strong>EE-package value</strong></th>
 <th><strong>Description</strong></th>
 </tr>
 </thead>
@@ -913,42 +924,42 @@ server-listen-port=20000
 <td>true</td>
 <td>false</td>
 <td></td>
-<td> Whether SOAP body of the messages should be logged or not.<br><br>If <em>true</em>, the SOAP messages are logged in their original form. If <em>false</em>, the SOAP body is cleared of its contents and only has an empty child element inside it. In addition, the SOAP header will only have specific set of elements logged, see <a href="#note-on-logged-x-road-message-headers">Note on logged X-Road message headers</a> . As a side effect, details such as formatting and namespace labels of the xml message can be changed and new elements may be introduced for default values in SOAP header.<br><br>Removal of SOAP body is usually done for confidentiality reasons (body contains data that we do not want to have in the logs).<br><br>Note that changing the message this way prevents verifying its signature with the asicverifier tool.</td>
+<td>Whether SOAP body of the messages should be logged or not.<br><br>If <em>true</em>, the SOAP messages are logged in their original form. If <em>false</em>, the SOAP body is cleared of its contents and only has an empty child element inside it. In addition, the SOAP header will only have specific set of elements logged, see <a href="#note-on-logged-x-road-message-headers">Note on logged X-Road message headers</a> . As a side effect, details such as formatting and namespace labels of the xml message can be changed and new elements may be introduced for default values in SOAP header.<br><br>Removal of SOAP body is usually done for confidentiality reasons (body contains data that we do not want to have in the logs).<br><br>Note that changing the message this way prevents verifying its signature with the asicverifier tool.</td>
 </tr>
 <tr>
 <td>enabled-body-logging-local-producer-subsystems</td>
 <td></td>
 <td></td>
 <td></td>
-<td> Subsystem-specific overrides for SOAP body logging when soap-body-logging = false.<br><br>This parameter defines logging for <strong>local producer</strong> subsystems, that is, our subsystems that produce some service which external clients use.<br><br>Comma-separated list of client identifiers for which SOAP body logging is enabled. For example FI/ORG/1710128-9/SUBSYSTEM_A1, FI/ORG/1710128-9/SUBSYSTEM_A2 where<br>-   FI = x-road instance<br>-   ORG = member class<br>-   1710128-9 = member code<br>-   SUBSYSTEM_A1 = subsystem code<br><br>This parameter can only be used on subsystem-level, it is not possible to configure SOAP body logging per member.<br><br>If a subsystem has forward slashes “/” in for example subsystem code, those subsystems can’t be configured with this parameter.</td>
+<td>Subsystem-specific overrides for SOAP body logging when soap-body-logging = false.<br><br>This parameter defines logging for <strong>local producer</strong> subsystems, that is, our subsystems that produce some service which external clients use.<br><br>Comma-separated list of client identifiers for which SOAP body logging is enabled. For example FI/ORG/1710128-9/SUBSYSTEM_A1, FI/ORG/1710128-9/SUBSYSTEM_A2 where<br>-   FI = x-road instance<br>-   ORG = member class<br>-   1710128-9 = member code<br>-   SUBSYSTEM_A1 = subsystem code<br><br>This parameter can only be used on subsystem-level, it is not possible to configure SOAP body logging per member.<br><br>If a subsystem has forward slashes “/” in for example subsystem code, those subsystems can’t be configured with this parameter.</td>
 </tr>
 <tr>
 <td>enabled-body-logging-remote-producer-subsystems</td>
 <td></td>
 <td></td>
 <td></td>
-<td> Subsystem-specific overrides for <strong>remote producer</strong> subsystems, that is, remote subsystems that produce services which we use.<br><br>Parameter is used when soap-body-logging = false.</td>
+<td>Subsystem-specific overrides for <strong>remote producer</strong> subsystems, that is, remote subsystems that produce services which we use.<br><br>Parameter is used when soap-body-logging = false.</td>
 </tr>
 <tr>
 <td>disabled-body-logging-local-producer-subsystems</td>
 <td></td>
 <td></td>
 <td></td>
-<td> Same as enabled-body-logging-local-producer-subsystems, but this parameter is used when soap-body-logging = true.</td>
+<td>Same as enabled-body-logging-local-producer-subsystems, but this parameter is used when soap-body-logging = true.</td>
 </tr>
 <tr>
 <td>disabled-body-logging-remote-producer-subsystems</td>
 <td></td>
 <td></td>
 <td></td>
-<td> Same as enabled-body-logging-remote-producer-subsystems, but this parameter is used when soap-body-logging = true.</td>
+<td>Same as enabled-body-logging-remote-producer-subsystems, but this parameter is used when soap-body-logging = true.</td>
 </tr>
 <tr>
 <td>acceptable-timestamp-failure-period</td>
 <td>14400</td>
 <td>18000</td>
 <td></td>
-<td> Defines the time period (in seconds) for how long is time-stamping allowed to fail (for whatever reasons) before the message log stops accepting any more messages (and consequently the security server stops accepting requests). Set to 0 to disable this check. The value of this parameter should not be lower than the value of the central server system parameter <em>timeStampingIntervalSeconds.</em>
+<td>Defines the time period (in seconds) for how long is time-stamping allowed to fail (for whatever reasons) before the message log stops accepting any more messages (and consequently the security server stops accepting requests). Set to 0 to disable this check. The value of this parameter should not be lower than the value of the central server system parameter <em>timeStampingIntervalSeconds.</em>
 </td>
 </tr>
 <tr>
@@ -956,55 +967,55 @@ server-listen-port=20000
 <td>0 0 0/6 1/1 * ? *</td>
 <td></td>
 <td></td>
-<td> CRON expression [<a href="#Ref_CRON">CRON</a>] defining the interval of archiving the time-stamped messages.</td>
+<td>CRON expression [<a href="#Ref_CRON">CRON</a>] defining the interval of archiving the time-stamped messages.</td>
 </tr>
 <tr>
 <td>archive-max-filesize</td>
 <td>33554432</td>
 <td></td>
 <td></td>
-<td> Maximum size for archived files in bytes. Reaching the maximum value triggers file rotation.</td>
+<td>Maximum size for archived files in bytes. Reaching the maximum value triggers file rotation.</td>
 </tr>
 <tr>
 <td>archive-path</td>
 <td>/var/lib/xroad</td>
 <td></td>
 <td></td>
-<td> Absolute path to the directory where time-stamped log records are archived.</td>
+<td>Absolute path to the directory where time-stamped log records are archived.</td>
 </tr>
 <tr>
 <td>clean-interval</td>
 <td>0 0 0/12 1/1 * ? *</td>
 <td></td>
 <td></td>
-<td> CRON expression [<a href="#Ref_CRON">CRON</a>] for deleting any time-stamped and archived records that are older than <em>message-log.keep-records-for</em> from the database.</td>
+<td>CRON expression [<a href="#Ref_CRON">CRON</a>] for deleting any time-stamped and archived records that are older than <em>message-log.keep-records-for</em> from the database.</td>
 </tr>
 <tr>
 <td>hash-algo-id</td>
 <td>SHA-512</td>
 <td></td>
 <td></td>
-<td> The algorithm identifier used for hashing in the message log.<br>Possible values are<br>-   SHA-224,<br>-   SHA-256,<br>-   SHA-384,<br>-   SHA-512.</td>
+<td>The algorithm identifier used for hashing in the message log.<br>Possible values are<br>-   SHA-224,<br>-   SHA-256,<br>-   SHA-384,<br>-   SHA-512.</td>
 </tr>
 <tr>
 <td>keep-records-for</td>
 <td>30</td>
 <td></td>
 <td></td>
-<td> Number of days to keep time-stamped and archived records in the database of the security server. If a time-stamped and archived message record is older than this value, the record is deleted from the database.</td>
+<td>Number of days to keep time-stamped and archived records in the database of the security server. If a time-stamped and archived message record is older than this value, the record is deleted from the database.</td>
 </tr>
 <tr>
 <td>timestamp-immediately</td>
 <td>false</td>
 <td></td>
 <td></td>
-<td> If true, the time-stamp is created synchronously for each request message. This is a security policy requirement to guarantee the time-stamp at the time of logging the message.</td>
+<td>If true, the time-stamp is created synchronously for each request message. This is a security policy requirement to guarantee the time-stamp at the time of logging the message.</td>
 </tr>
 <tr>
 <td>timestamp-records-limit</td>
 <td>10000</td>
 <td></td>
-<td> </td>
+<td></td>
 <td>Maximum number of message records to time-stamp in one batch.</td>
 </tr>
 <tr>
@@ -1012,21 +1023,21 @@ server-listen-port=20000
 <td>20000</td>
 <td></td>
 <td></td>
-<td> The timestamper client connect timeout in milliseconds. A timeout of zero is interpreted as an infinite timeout.</td>
+<td>The timestamper client connect timeout in milliseconds. A timeout of zero is interpreted as an infinite timeout.</td>
 </tr>
 <tr>
 <td>timestamper-client-read-timeout</td>
 <td>60000</td>
 <td></td>
 <td></td>
-<td> The timestamper client read timeout in milliseconds. A timeout of zero is interpreted as an infinite timeout.</td>
+<td>The timestamper client read timeout in milliseconds. A timeout of zero is interpreted as an infinite timeout.</td>
 </tr>
 <tr>
 <td>archive-transaction-batch</td>
 <td>10000</td>
 <td></td>
 <td></td>
-<td> Size of transaction batch for archiving messagelog. This size is not exact because it will always make sure that last archived batch includes timestamp also (this might mean that it will go over transaction size).</td>
+<td>Size of transaction batch for archiving messagelog. This size is not exact because it will always make sure that last archived batch includes timestamp also (this might mean that it will go over transaction size).</td>
 </tr>
 </tbody>
 </table>
@@ -1105,7 +1116,7 @@ extension's <a href="http://x-road.eu/xsd/representation.xsd" rel="nofollow">XML
 <td>common</td>
 <td>temp-files-path</td>
 <td>/var/tmp/xroad/</td>
-<td> Absolute path to the directory where temporary files are stored.</td>
+<td>Absolute path to the directory where temporary files are stored.</td>
 </tr>
 </tbody>
 </table>

@@ -145,7 +145,7 @@ Doc. ID: ARC-ENVMON</p>
 </tr>
 <tr>
 <td>UC-GCONF</td>
-<td><a href="https://github.com/nordic-institute/X-Road/blob/develop/doc/UseCases/uc-gconf_x-road_use_case_model_for_global_configuration_distribution_1.4_Y-883-8.md">Cybernetica AS. X-Road: Use Case Model for Global Configuration Distribution</a></td>
+<td><a href="https://github.com/nordic-institute/X-Road/blob/6.19.0/doc/UseCases/uc-gconf_x-road_use_case_model_for_global_configuration_distribution_1.4_Y-883-8.md">Cybernetica AS. X-Road: Use Case Model for Global Configuration Distribution</a></td>
 </tr>
 <tr>
 <td>PR-MESS</td>
@@ -164,7 +164,7 @@ Doc. ID: ARC-ENVMON</p>
 </table>
 <h2>
 <a id="2-components" class="anchor" href="#2-components" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2 Components</h2>
-<p><a href="img/monitoring.png" target="_blank"><img src="img/monitoring.png" alt="monitoring architecture" style="max-width:100%;"></a></p>
+<p><a href="img/monitoring.png" target="_blank" rel="noopener noreferrer"><img src="img/monitoring.png" alt="monitoring architecture" style="max-width:100%;"></a></p>
 <h3>
 <a id="21-monitoring-metaservice-proxymonitor-add-on" class="anchor" href="#21-monitoring-metaservice-proxymonitor-add-on" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.1 Monitoring metaservice (proxymonitor add-on)</h3>
 <p>Monitoring metaservice responds to queries for monitoring data from security server's serverproxy interface. This metaservice requests the current monitoring data from local monitoring service, using <a href="http://akka.io/" rel="nofollow">Akka</a>. Monitoring metaservice translates the monitoring data to a SOAP XML response.</p>
@@ -262,7 +262,7 @@ Doc. ID: ARC-ENVMON</p>
 </ul>
 <p>Monitoring service is installed as a separate package, with name <code>xroad-monitor</code>. It runs in a separate process.</p>
 <p>The service also publishes the monitoring data via JMX. Local monitoring agents can use this as an alternative way to fetch monitoring data. With default configuration, JMX access is only allowed from localhost.</p>
-<p><a href="img/monitoring-jmx.png" target="_blank"><img src="img/monitoring-jmx.png" alt="monitoring JMX agent" style="max-width:100%;"></a></p>
+<p><a href="img/monitoring-jmx.png" target="_blank" rel="noopener noreferrer"><img src="img/monitoring-jmx.png" alt="monitoring JMX agent" style="max-width:100%;"></a></p>
 <h3>
 <a id="23-central-monitoring-client" class="anchor" href="#23-central-monitoring-client" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3 Central monitoring client</h3>
 <p>Central monitoring client is a specific security server, which has been granted access to query monitoring data from other security servers. See <a href="#33-access-control">Access control</a>. The identity of this security server is configured using central server's admin user interface.</p>
