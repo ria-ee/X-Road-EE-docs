@@ -5,8 +5,7 @@
 
 **X-ROAD 6**
 
-Version: 1.5  
-03.11.2018  
+Version: 1.6  
 Doc. ID: UG-SIGDOC
 
 ---

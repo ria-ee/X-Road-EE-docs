@@ -5,7 +5,7 @@
 
 **Technical Specification**
 
-Version: 2.8  
+Version: 2.9  
 Doc. ID: PR-GCONF
 
 | Date       | Version     | Description                                                                  | Author             |
