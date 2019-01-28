@@ -67,3 +67,4 @@ md2html("X-Road: Service Metadata Protocol", "md/pr-meta_x-road_service_metadata
 md2html("X-Road: Protocol for Management Services", "md/pr-mserv_x-road_protocol_for_management_services.md", "docs/pr-mserv_x-road_protocol_for_management_services.html")
 md2html("X-Road: Terms and Abbreviations", "md/terms_x-road_docs.md", "docs/terms_x-road_docs.html")
 md2html("X-Road: Third Party Representation Extension", "md/pr-third_party_representation_extension.md", "docs/pr-third_party_representation_extension.html")
+md2html("X-Road: Signed Document Download and Verification Manual", "md/ug-sigdoc_x-road_signed_document_download_and_verification_manual.md", "docs/ug-sigdoc_x-road_signed_document_download_and_verification_manual.html")

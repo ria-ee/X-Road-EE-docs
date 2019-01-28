@@ -209,17 +209,30 @@ Doc. ID: IG-SS</p>
 <td>Updated repository key</td>
 <td>Jan Raik</td>
 </tr>
+<tr>
+<td>14.10.2018</td>
+<td>2.13</td>
+<td>Update package repository address</td>
+<td>Petteri Kivimäki</td>
+</tr>
+<tr>
+<td>25.10.2018</td>
+<td>2.14</td>
+<td>Add RHEL7 as supported platform, update section 2.2 Reference data</td>
+<td>Petteri Kivimäki</td>
+</tr>
+<tr>
+<td>15.11.2018</td>
+<td>2.15</td>
+<td>Add Ubuntu 18 installation instructions</td>
+<td>Jarkko Hyöty</td>
+</tr>
 </tbody>
 </table>
 <h2>
 <a id="table-of-contents" class="anchor" href="#table-of-contents" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Table of Contents</h2>
 
 <ul>
-<li>
-<a href="#security-server-installation-guide">Security Server Installation Guide</a>
-<ul>
-<li><a href="#version-history">Version history</a></li>
-<li><a href="#table-of-contents">Table of Contents</a></li>
 <li><a href="#license">License</a></li>
 <li>
 <a href="#1-introduction">1 Introduction</a>
@@ -254,13 +267,11 @@ Doc. ID: IG-SS</p>
 <li>
 <a href="#4-installation-error-handling">4 Installation Error handling</a>
 <ul>
-<li><a href="#41-cannot-set-lc-all-to-default-locale">4.1 Cannot Set LC_ALL to Default Locale</a></li>
+<li><a href="#41-cannot-set-lc_all-to-default-locale">4.1 Cannot Set LC_ALL to Default Locale</a></li>
 <li><a href="#42-postgresql-is-not-utf8-compatible">4.2 PostgreSQL Is Not UTF8 Compatible</a></li>
 <li><a href="#43-could-not-create-default-cluster">4.3 Could Not Create Default Cluster</a></li>
 <li><a href="#44-is-postgres-running-on-port-5432">4.4 Is Postgres Running On Port 5432?</a></li>
 <li><a href="#45-different-versions-of-xroad--packages-after-successful-upgrade">4.5 Different versions of xroad-* packages after successful upgrade</a></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
@@ -291,7 +302,7 @@ Doc. ID: IG-SS</p>
 <a id="2-installation" class="anchor" href="#2-installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2 Installation</h2>
 <h3>
 <a id="21-supported-platforms" class="anchor" href="#21-supported-platforms" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.1 Supported Platforms</h3>
-<p>The security server runs on the <em>Ubuntu Server 14.04 Long-Term Support (LTS)</em> operating system on a 64-bit platform. The Estonian version of the security server software is distributed as .deb packages through the official X-tee repository at <a href="http://x-tee.ee/packages/" rel="nofollow">http://x-tee.ee/packages/</a>.</p>
+<p>The security server runs on the <em>Ubuntu Server 14.04 and 18.04 Long-Term Support (LTS)</em> operating system on a 64-bit platform. The Estonian version of the security server software is distributed as .deb packages through the official X-tee repository at <a href="http://x-tee.ee/packages/" rel="nofollow">http://x-tee.ee/packages/</a>.</p>
 <p>The software can be installed both on physical and virtualized hardware (of the latter, Xen and Oracle VirtualBox have been tested).</p>
 <h3>
 <a id="22-reference-data" class="anchor" href="#22-reference-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.2 Reference Data</h3>
@@ -308,7 +319,7 @@ Doc. ID: IG-SS</p>
 <tbody>
 <tr>
 <td>1.0</td>
-<td>Ubuntu 14.04, 64-bit<br>3 GB RAM, 3 GB free disk space</td>
+<td>Ubuntu 14.04 or 18.04, 64-bit<br>3 GB RAM, 3 GB free disk space</td>
 <td>Minimum requirements</td>
 </tr>
 <tr>
@@ -333,7 +344,7 @@ Doc. ID: IG-SS</p>
 </tr>
 <tr>
 <td>1.4</td>
-<td><strong>INBOUND</strong></td>
+<td><strong>INBOUND PORTS FROM EXTERNAL NETWORK</strong></td>
 <td>Ports for inbound connections (from the external network to the security server)</td>
 </tr>
 <tr>
@@ -348,7 +359,7 @@ Doc. ID: IG-SS</p>
 </tr>
 <tr>
 <td>1.5</td>
-<td><strong>OUTBOUND</strong></td>
+<td><strong>OUTBOUND PORTS TO EXTERNAL NETWORK</strong></td>
 <td>Ports for outbound connections (from the security server to the external network)</td>
 </tr>
 <tr>
@@ -378,25 +389,45 @@ Doc. ID: IG-SS</p>
 </tr>
 <tr>
 <td>1.6</td>
+<td><strong>INBOUND PORTS FROM INTERNAL NETWORK</strong></td>
+<td>Ports for inbound connections (from the internal network to the security server)</td>
+</tr>
+<tr>
+<td> </td>
 <td>TCP 4000</td>
 <td>User interface (local network). <strong>Must not be accessible from the Internet!</strong>
 </td>
 </tr>
 <tr>
-<td>1.7</td>
-<td>TCP 80, 443</td>
-<td>Information system access points (in the local network)<br> <strong>Must not be accessible from the Internet!</strong>
-</td>
-</tr>
-<tr>
 <td> </td>
-<td>TCP 2080</td>
-<td>Message exchange between security server and operational data monitoring daemon (by default on localhost)</td>
+<td>TCP 80, 443</td>
+<td>Information system access points (in the local network)<br> <strong>Must not be accessible from the Internet without strong authentication!</strong>
+</td>
 </tr>
 <tr>
 <td> </td>
 <td>TCP 9011</td>
 <td>Operational data monitoring daemon JMX listening port</td>
+</tr>
+<tr>
+<td> </td>
+<td>TCP 9999</td>
+<td>Environmental monitoring daemon JMX listening port</td>
+</tr>
+<tr>
+<td>1.7</td>
+<td><strong>OUTBOUND PORTS TO INTERNAL NETWORK</strong></td>
+<td>Ports for outbound connections (from the security server to the internal network)</td>
+</tr>
+<tr>
+<td> </td>
+<td>TCP 80, 443</td>
+<td>Producer information system endpoints</td>
+</tr>
+<tr>
+<td> </td>
+<td>TCP 2080</td>
+<td>Message exchange between security server and operational data monitoring daemon (by default on localhost)</td>
 </tr>
 <tr>
 <td>1.8</td>
@@ -420,11 +451,6 @@ Doc. ID: IG-SS</p>
 </tr>
 <tr>
 <td>1.12</td>
-<td>TCP 2552</td>
-<td>Port for communications between <code>xroad-proxy</code> and <code>xroad-monitoring</code> processes</td>
-</tr>
-<tr>
-<td>1.13</td>
 <td>195.80.123.159</td>
 <td>Monitoring security server IP in EE instance</td>
 </tr>
@@ -443,7 +469,7 @@ Doc. ID: IG-SS</p>
 <h3>
 <a id="23-network-diagram" class="anchor" href="#23-network-diagram" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3 Network Diagram</h3>
 <p>The following network diagram is an example of a simple stand-alone Security Server setup. Attention should be paid when configuring the firewall of your Security Server, as misconfigurations (e.g. exposing port 80/tcp to the public internet) can leave your server vulnerable.</p>
-<p>Allowing incoming connections from the Monitoring Security Server on ports 5500/tcp and 5577/tcp (<strong>reference data: 1.13</strong>) is necessary for the X-Road Center to be able to monitor the ecosystem and provide statistics and support for Members.</p>
+<p>Allowing incoming connections from the Monitoring Security Server on ports 5500/tcp and 5577/tcp (<strong>reference data: 1.12</strong>) is necessary for the X-Road Center to be able to monitor the ecosystem and provide statistics and support for Members.</p>
 <p><strong>Caution</strong>: The enabling of auxiliary services which are necessary for the functioning and management of the operating system (such as DNS, NTP, and SSH) stay outside the scope of this guide.</p>
 <p><a href="img/ig-ss_network_diagram.png" target="_blank" rel="noopener noreferrer"><img src="img/ig-ss_network_diagram.png" alt="network diagram" style="max-width:100%;"></a></p>
 <table>
@@ -481,7 +507,7 @@ Doc. ID: IG-SS</p>
 <p>Minimum recommended hardware parameters:</p>
 <ul>
 <li>
-<p>the server’s hardware (motherboard, CPU, network interface cards, storage system) must be supported by Ubuntu 14.04 in general;</p>
+<p>the server’s hardware (motherboard, CPU, network interface cards, storage system) must be supported by Ubuntu 14.04 or 18.04 in general;</p>
 </li>
 <li>
 <p>a 64-bit dual-core Intel, AMD or compatible CPU; AES instruction set support is highly recommended;</p>
@@ -499,10 +525,10 @@ Doc. ID: IG-SS</p>
 <p>Requirements to software and settings:</p>
 <ul>
 <li>
-<p>an installed and configured Ubuntu 14.04 LTS x86-64 operating system;</p>
+<p>an installed and configured Ubuntu 14.04 or 18.04 LTS x86-64 operating system;</p>
 </li>
 <li>
-<p>if the security server is separated from other networks by a firewall and/or NAT, the necessary connections to and from the security server are allowed (<strong>reference data: 1.4; 1.5; 1.6; 1.7; 1.13</strong>). The enabling of auxiliary services which are necessary for the functioning and management of the operating system (such as DNS, NTP, and SSH) stay outside the scope of this guide;</p>
+<p>if the security server is separated from other networks by a firewall and/or NAT, the necessary connections to and from the security server are allowed (<strong>reference data: 1.4; 1.5; 1.6; 1.7; 1.12</strong>). The enabling of auxiliary services which are necessary for the functioning and management of the operating system (such as DNS, NTP, and SSH) stay outside the scope of this guide;</p>
 </li>
 <li>
 <p>if the security server has a private IP address, a corresponding NAT record must be created in the firewall (<strong>reference data: 1.9</strong>).</p>
@@ -513,13 +539,18 @@ Doc. ID: IG-SS</p>
 <ul>
 <li>
 <p>Add system user (<strong>reference data: 1.3</strong>) whom all roles in the user interface are granted to. Add a new user with the command</p>
-<pre><code>sudo adduser username
+<pre><code>sudo adduser &lt;username&gt;
 </code></pre>
 <p>User roles are discussed in detail in X-Road Security Server User Guide [<a href="#Ref_UG-SS">UG-SS</a>].</p>
 </li>
 <li>
 <p>Set the operating system locale. Add following line to the <code>/etc/environment</code> file.</p>
 <pre><code>LC_ALL=en_US.UTF-8
+</code></pre>
+</li>
+<li>
+<p>Ensure that the locale is available</p>
+<pre><code>sudo locale-gen en_US.UTF-8
 </code></pre>
 </li>
 </ul>
@@ -594,14 +625,33 @@ The name and IP addresses detected from the system are suggested as default valu
 <ul>
 <li>
 <p>Ensure from the command line that X-Road services are in the <code>start/running</code> state (example output follows):</p>
+<ul>
+<li>
+<p>Ubuntu 14.04</p>
 <pre><code>sudo initctl list | grep "^xroad-"
 
 xroad-jetty start/running, process 19796
 xroad-confclient start/running, process 19563
 xroad-signer start/running, process 19393
-xroad-opmonitor start/running, process 20669
+xroad-monitor start/running, process 20669
+xroad-opmonitor start/running, process 20679
 xroad-proxy start/running, process 19580
 </code></pre>
+</li>
+<li>
+<p>Ubuntu 18.04</p>
+<pre><code>sudo systemctl list-units "xroad*"
+
+UNIT                     LOAD   ACTIVE SUB     DESCRIPTION
+xroad-confclient.service loaded active running X-Road confclient
+xroad-jetty.service      loaded active running X-Road Jetty server
+xroad-monitor.service    loaded active running X-Road Monitor
+xroad-opmonitor.service loaded active running X-Road opmonitor daemon
+xroad-proxy.service      loaded active running X-Road Proxy
+xroad-signer.service     loaded active running X-Road signer
+</code></pre>
+</li>
+</ul>
 </li>
 <li>
 <p>Ensure that the security server user interface at <a href="https://SECURITYSERVER:4000/" rel="nofollow">https://SECURITYSERVER:4000/</a> (<strong>reference data: 1.8; 1.6</strong>) can be opened in a Web browser. To log in, use the account name chosen during the installation (<strong>reference data: 1.3</strong>). While the user interface is still starting up, the Web browser may display the “502 Bad Gateway” error.</p>
@@ -613,7 +663,8 @@ xroad-proxy start/running, process 19580
 <ol>
 <li>
 <p>Install the hardware token support module using the following command:</p>
-<p>sudo apt-get install xroad-addon-hwtokens</p>
+<pre><code>sudo apt-get install xroad-addon-hwtokens
+</code></pre>
 </li>
 <li>
 <p>Install and configure a PKCS#11 driver for the hardware token according to the manufacturer's instructions.</p>
@@ -927,8 +978,7 @@ ii xroad-proxy 6.8.5.20160929134539gitfe60f90
 ii xroad-securityserver 6.8.3-3-201605131138
 </code></pre>
 <p><code>apt-get upgrade</code> command doesn’t install new packages - in this particular case new packages <code>xroad-monitor</code> and <code>xroad-addon-proxymonitor</code> installation is needed for upgrade of <code>xroad-securityserver</code> package.</p>
-<p>To be sure that packages are installed correctly please use <code>sudo apt upgrade</code> or <code>sudo apt-get dist-upgrade</code> commands.</p>
-<p>Please note that <code>xroad-jetty9 package</code> version can be different from other packages’ versions.</p>
+<p>To be sure that packages are installed correctly please use <code>sudo apt upgrade</code> or <code>sudo apt full-upgrade</code> commands.</p>
     </article>
   </body>
 </html>

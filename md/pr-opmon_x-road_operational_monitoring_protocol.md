@@ -5,14 +5,15 @@
 
 **Technical Specification**
 
-Version: 0.4  
+Version: 0.5  
 Doc. ID: PR-OPMON
 
-| Date       | Version     | Description                                                                  | Author             |
-|------------|-------------|------------------------------------------------------------------------------|--------------------|
-|  | 0.2       | Initial version               |          |
-| 23.01.2017 | 0.3       | Added license text, table of contents and version history | Sami Kallio |
-| 05.03.2018 | 0.4       | Added terms and abbreviations reference | Tatu Repo
+| Date | Version | Description | Author|
+|------|---------|-------------|-------|
+|            | 0.2 | Initial version |   |
+| 23.01.2017 | 0.3 | Added license text, table of contents and version history | Sami Kallio |
+| 05.03.2018 | 0.4 | Added terms and abbreviations reference | Tatu Repo |
+| 04.12.2018 | 0.5 | More detailed descriptions for *[request/response][In/Out]Ts* fields | Cybernetica AS |
 
 ## Table of Contents
 
@@ -978,7 +979,9 @@ properties:
             milliseconds when the request was received by the client''s security
             server. In the service provider''s security server: the Unix
             timestamp in milliseconds when the request was received by the
-            service provider''s security server.'
+            service provider''s security server. In both cases, the timestamp is
+            taken just before received payload byte array is decoded and
+            processed'
           type: integer
           minimum: 0
         requestOutTs:
@@ -987,7 +990,8 @@ properties:
             security server to the client''s information system. In the service
             provider''s security server: the Unix timestamp in milliseconds when
             the request was sent out from the service provider''s security
-            server.'
+            server. In both cases, the timestamp is taken just before payload
+            byte array is sent out with HTTP POST request'
           type: integer
           minimum: 0
         responseInTs:
@@ -995,7 +999,9 @@ properties:
             milliseconds when the response was received by the client''s
             security server. In the service provider''s security server: the
             Unix timestamp in milliseconds when the response was received by the
-            service provider''s security server.'
+            service provider''s security server. In both cases, the timestamp is
+            taken just before received payload byte array is decoded and
+            processed.'
           type: integer
           minimum: 0
         responseOutTs:
@@ -1004,7 +1010,8 @@ properties:
             security server to the client''s information system. In the service
             provider''s security server: the Unix timestamp in milliseconds when
             the response was sent out from the service provider''s security
-            server.'
+            server. In both cases, the timestamp is taken just before payload
+            byte array is sent out with HTTP response'
           type: integer
           minimum: 0
         clientXRoadInstance:
@@ -1089,7 +1096,7 @@ properties:
           minimum: 0
         requestMimeSize:
           description: Size of the MIME-container of the request (sum of the
-              SOAP request message and attachments data size in bytes)
+            SOAP request message and attachments data size in bytes)
           type: integer
           minimum: 0
         requestAttachmentCount:
@@ -1102,7 +1109,7 @@ properties:
           minimum: 0
         responseMimeSize:
           description: Size of the MIME-container of the response (sum of the
-             SOAP response message and attachments data size in bytes)
+            SOAP response message and attachments data size in bytes)
           type: integer
           minimum: 0
         responseAttachmentCount:

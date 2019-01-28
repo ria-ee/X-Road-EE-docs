@@ -26,7 +26,7 @@
 <h1>
 <a id="x-road-operational-monitoring-protocol" class="anchor" href="#x-road-operational-monitoring-protocol" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>X-Road: Operational Monitoring Protocol</h1>
 <p><strong>Technical Specification</strong></p>
-<p>Version: 0.4<br>
+<p>Version: 0.5<br>
 Doc. ID: PR-OPMON</p>
 <table>
 <thead>
@@ -55,6 +55,12 @@ Doc. ID: PR-OPMON</p>
 <td>0.4</td>
 <td>Added terms and abbreviations reference</td>
 <td>Tatu Repo</td>
+</tr>
+<tr>
+<td>04.12.2018</td>
+<td>0.5</td>
+<td>More detailed descriptions for <em>[request/response][In/Out]Ts</em> fields</td>
+<td>Cybernetica AS</td>
 </tr>
 </tbody>
 </table>
@@ -1102,7 +1108,9 @@ This element MAY contain XML element <em>filterCriteria</em> to determine a clie
 <span class="pl-s">            milliseconds when the request was received by the client<span class="pl-cce">''</span>s security</span>
 <span class="pl-s">            server. In the service provider<span class="pl-cce">''</span>s security server: the Unix</span>
 <span class="pl-s">            timestamp in milliseconds when the request was received by the</span>
-<span class="pl-s">            service provider<span class="pl-cce">''</span>s security server.<span class="pl-pds">'</span></span>
+<span class="pl-s">            service provider<span class="pl-cce">''</span>s security server. In both cases, the timestamp is</span>
+<span class="pl-s">            taken just before received payload byte array is decoded and</span>
+<span class="pl-s">            processed<span class="pl-pds">'</span></span>
           <span class="pl-ent">type</span>: <span class="pl-s">integer</span>
           <span class="pl-ent">minimum</span>: <span class="pl-c1">0</span>
         <span class="pl-ent">requestOutTs</span>:
@@ -1111,7 +1119,8 @@ This element MAY contain XML element <em>filterCriteria</em> to determine a clie
 <span class="pl-s">            security server to the client<span class="pl-cce">''</span>s information system. In the service</span>
 <span class="pl-s">            provider<span class="pl-cce">''</span>s security server: the Unix timestamp in milliseconds when</span>
 <span class="pl-s">            the request was sent out from the service provider<span class="pl-cce">''</span>s security</span>
-<span class="pl-s">            server.<span class="pl-pds">'</span></span>
+<span class="pl-s">            server. In both cases, the timestamp is taken just before payload</span>
+<span class="pl-s">            byte array is sent out with HTTP POST request<span class="pl-pds">'</span></span>
           <span class="pl-ent">type</span>: <span class="pl-s">integer</span>
           <span class="pl-ent">minimum</span>: <span class="pl-c1">0</span>
         <span class="pl-ent">responseInTs</span>:
@@ -1119,7 +1128,9 @@ This element MAY contain XML element <em>filterCriteria</em> to determine a clie
 <span class="pl-s">            milliseconds when the response was received by the client<span class="pl-cce">''</span>s</span>
 <span class="pl-s">            security server. In the service provider<span class="pl-cce">''</span>s security server: the</span>
 <span class="pl-s">            Unix timestamp in milliseconds when the response was received by the</span>
-<span class="pl-s">            service provider<span class="pl-cce">''</span>s security server.<span class="pl-pds">'</span></span>
+<span class="pl-s">            service provider<span class="pl-cce">''</span>s security server. In both cases, the timestamp is</span>
+<span class="pl-s">            taken just before received payload byte array is decoded and</span>
+<span class="pl-s">            processed.<span class="pl-pds">'</span></span>
           <span class="pl-ent">type</span>: <span class="pl-s">integer</span>
           <span class="pl-ent">minimum</span>: <span class="pl-c1">0</span>
         <span class="pl-ent">responseOutTs</span>:
@@ -1128,7 +1139,8 @@ This element MAY contain XML element <em>filterCriteria</em> to determine a clie
 <span class="pl-s">            security server to the client<span class="pl-cce">''</span>s information system. In the service</span>
 <span class="pl-s">            provider<span class="pl-cce">''</span>s security server: the Unix timestamp in milliseconds when</span>
 <span class="pl-s">            the response was sent out from the service provider<span class="pl-cce">''</span>s security</span>
-<span class="pl-s">            server.<span class="pl-pds">'</span></span>
+<span class="pl-s">            server. In both cases, the timestamp is taken just before payload</span>
+<span class="pl-s">            byte array is sent out with HTTP response<span class="pl-pds">'</span></span>
           <span class="pl-ent">type</span>: <span class="pl-s">integer</span>
           <span class="pl-ent">minimum</span>: <span class="pl-c1">0</span>
         <span class="pl-ent">clientXRoadInstance</span>:
@@ -1213,7 +1225,7 @@ This element MAY contain XML element <em>filterCriteria</em> to determine a clie
           <span class="pl-ent">minimum</span>: <span class="pl-c1">0</span>
         <span class="pl-ent">requestMimeSize</span>:
           <span class="pl-ent">description</span>: <span class="pl-s">Size of the MIME-container of the request (sum of the</span>
-              <span class="pl-s">SOAP request message and attachments data size in bytes)</span>
+            <span class="pl-s">SOAP request message and attachments data size in bytes)</span>
           <span class="pl-ent">type</span>: <span class="pl-s">integer</span>
           <span class="pl-ent">minimum</span>: <span class="pl-c1">0</span>
         <span class="pl-ent">requestAttachmentCount</span>:
@@ -1226,7 +1238,7 @@ This element MAY contain XML element <em>filterCriteria</em> to determine a clie
           <span class="pl-ent">minimum</span>: <span class="pl-c1">0</span>
         <span class="pl-ent">responseMimeSize</span>:
           <span class="pl-ent">description</span>: <span class="pl-s">Size of the MIME-container of the response (sum of the</span>
-             <span class="pl-s">SOAP response message and attachments data size in bytes)</span>
+            <span class="pl-s">SOAP response message and attachments data size in bytes)</span>
           <span class="pl-ent">type</span>: <span class="pl-s">integer</span>
           <span class="pl-ent">minimum</span>: <span class="pl-c1">0</span>
         <span class="pl-ent">responseAttachmentCount</span>:

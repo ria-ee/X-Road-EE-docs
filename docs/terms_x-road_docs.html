@@ -46,7 +46,7 @@
 <tr>
 <td>14.11.2017</td>
 <td>0.3</td>
-<td>All the descriptions in estonian language removed. Couple of new descriptions added</td>
+<td>All the descriptions in Estonian language removed. Couple of new descriptions added</td>
 <td>Antti Luoma</td>
 </tr>
 <tr>
@@ -54,6 +54,12 @@
 <td>0.4</td>
 <td>Moved/merged terminology explanations from other X-Road repository MD-documents to this document</td>
 <td>Tatu Repo</td>
+</tr>
+<tr>
+<td>03.01.2019</td>
+<td>0.5</td>
+<td>Minor changes - typos fixed.</td>
+<td>Yamato Kataoka</td>
 </tr>
 </tbody>
 </table>
@@ -106,7 +112,7 @@
 <p>This document is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="nofollow">http://creativecommons.org/licenses/by-sa/3.0/</a></p>
 <h2>
 <a id="1-x-road-and-x-road-instance" class="anchor" href="#1-x-road-and-x-road-instance" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1 X-Road and X-Road Instance</h2>
-<p><strong>External X-Road instance</strong> – an instance that has been federated with the local instance. For example the FI-instance is defined as an external instance in the EE's local point of view.</p>
+<p><strong>External X-Road instance</strong> – an instance that has been federated with the local instance. For example, the FI-instance is defined as an external instance in the EE's local point of view.</p>
 <p><strong>Local X-Road instance</strong> – a group of members that are registered in a particular instance.</p>
 <p><strong>United/federated X-Road</strong> – a legal, organizational and technical environment, enabling universal internet-based secure data exchange between the members of united/federated X-Road instances</p>
 <p><strong>X-Road instance</strong> – a legal, organizational and technical environment, enabling universal internet-based secure data exchange between the members of X-Road and limited to the participants administered by one governing authority.</p>
@@ -121,7 +127,7 @@
 <p><strong>X-Road member / member</strong> – participant of X-Road entitled to exchange data/messages on X-Road.</p>
 <h2>
 <a id="3-trust-services" class="anchor" href="#3-trust-services" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3 Trust services</h2>
-<p><strong>Approved certification service provider</strong> – Provider of a trust service approved on X-Road, who provides at least following trust services approved on X-Road: service of authentication certificate of security server, service of signature certificate of a member, and sertificate validation service (OCSP).</p>
+<p><strong>Approved certification service provider</strong> – Provider of a trust service approved on X-Road, who provides at least following trust services approved on X-Road: service of authentication certificate of security server, service of signature certificate of a member, and certificate validation service (OCSP).</p>
 <p><strong>Approved timestamp service provider</strong> – Provider of a trust service approved on X-Road, who provides the timestamp service.</p>
 <p><strong>Authentication certificate of security server</strong> – qualified certificate of e-stamp issued by certification service provider approved on X-Road and bound to security server, certifying authenticity of security server and used for authentication of security servers upon establishment of connection between security servers. Upon establishment of connection, it is checked from global configuration, if the security server trying to establish connection has registered the used authentication certificate in X-Road governing authority (i.e. the used authentication certificate is bound to the ID of security server).</p>
 <p><strong>Certification authority</strong> (<strong>CA</strong>) – is an entity that issues digital certificates. A digital certificate certifies the ownership of a public key by the named subject of the certificate.</p>
@@ -148,7 +154,7 @@
 <h2>
 <a id="5-x-road-interfacing-steps" class="anchor" href="#5-x-road-interfacing-steps" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5 X-Road interfacing steps</h2>
 <p><strong>Affiliation of membership</strong> – a process ending with becoming a member of X-Road. Becoming a member requires conclusion of affiliation contract and registration of data of the member (name and ID of the member) in X-Road central server. Requirements for affiliation are established by X-Road governing authority with relevant regulation/affiliation conditions</p>
-<p><strong>Dataservice interfacing</strong> – a process, where a member of X-Road creates organizational and technical capacity for offering or using dataservice. Interfacing includes development of the service by the member as well as its setup in security server, conclusion of service usage contracts and granting access rights. In order to use the service, service provider as well as service client shall undergo interfacing.</p>
+<p><strong>Dataservice interfacing</strong> – a process, where a member of X-Road creates organizational and technical capacity for offering or using dataservice. Interfacing includes development of the service by the member as well as its setup in security server, conclusion of service usage contracts and granting access rights. In order to use the service, service provider, as well as service client, shall undergo interfacing.</p>
 <p><strong>Interaction</strong> – activation procedure of dataservice (single use), bilateral information exchange through dataservice, i.e. request of dataservice by the service client by sending a request, to which the service provider will send a response.</p>
 <p><strong>Registration of security server</strong> – a process, where organizational and technical capacity of a member of X-Road is created to enable contacting the information system of the member of X-Road via X-Road. The result is a member of X-Road, with whom a secure data exchange channel of X-Road can be established. To ensure this, at least one security server shall be bound to the member in the central server.</p>
 <p><strong>Registration of subsystem</strong> – a process for establishing organizational and technical capacity to distinguish organizational users or user groups on the level of a subsystem. Technically, subsystems shall be registered as security server clients.</p>
@@ -156,7 +162,7 @@
 <a id="6-elements-of-x-road-technology" class="anchor" href="#6-elements-of-x-road-technology" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6 Elements of X-Road technology</h2>
 <h3>
 <a id="61-technology-in-general" class="anchor" href="#61-technology-in-general" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.1 Technology in general</h3>
-<p><strong>Core technology</strong> – Component of X-Road software, ensuring integrity and verification value of messages between members. Core technology includes central server, configuration proxy and security server.</p>
+<p><strong>Core technology</strong> – Component of X-Road software, ensuring integrity and verification value of messages between members. Core technology includes central server, configuration proxy, and security server.</p>
 <p><strong>Service technology</strong> – Component of X-Road software, simplifying or enabling the use of core technology.</p>
 <h3>
 <a id="62-x-road-internal-components" class="anchor" href="#62-x-road-internal-components" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.2 X-Road internal components</h3>
@@ -237,7 +243,7 @@
 <p><strong>Local access group identifier</strong> – identifier, that uniquely identifies access group for a security server client. Global access group identifier consists of X-Road instance identifier and global group code.</p>
 <p><strong>Member class</strong> – identifier, that is identified by the X-Road governing authority and that uniquely identifies members with similar characteristics. All members with the same member class must be uniquely identifiable by their member codes.</p>
 <p><strong>Member code</strong> – identifier, that uniquely identifies an X-Road member within its member class. The member code remains unchanged during the entire lifetime of the member.</p>
-<p><strong>Member identifier</strong> – identifier, that uniquely identifies a member in the X-Road Network. Member identifier consists of X-Road instance identifier, member class and member code.</p>
+<p><strong>Member identifier</strong> – identifier, that uniquely identifies a member in the X-Road Network. Member identifier consists of X-Road instance identifier, member class, and member code.</p>
 <p><strong>Security server code</strong> – identifier, that uniquely identifies the security server in all of the security servers of the security server owner.</p>
 <p><strong>Security server identifier</strong> – identifier, that uniquely identifies security server in X-road Network. The security server identifier consists of security server owner identifier and security server code.</p>
 <p><strong>Service identifier</strong> – identifier, that uniquely identifies service in X-Road Network. The service identifier consists of member identifier of the service provider, service code and version of the service. Including version of the service in the service identifier is optional.</p>

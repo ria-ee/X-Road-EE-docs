@@ -66,6 +66,7 @@ Doc. ID: IG-XLB</p>
 <h2>
 <a id="table-of-contents" class="anchor" href="#table-of-contents" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Table of Contents</h2>
 
+
 <ul>
 <li><a href="#license">License</a></li>
 <li>
@@ -140,8 +141,8 @@ Doc. ID: IG-XLB</p>
 <li>
 <a href="#52-set-up-periodic-configuration-synchronization-on-the-slave-nodes">5.2 Set up periodic configuration synchronization on the slave nodes</a>
 <ul>
-<li><a href="#521-rhel-use-systemd-for-configuration-synchronization">5.2.1 RHEL: Use systemd for configuration synchronization</a></li>
-<li><a href="#522-ubuntu-use-upstart-and-cron-for-configuration-synchronization">5.2.2 Ubuntu: Use upstart and cron for configuration synchronization</a></li>
+<li><a href="#521-rhelubuntu-1804-use-systemd-for-configuration-synchronization">5.2.1 RHEL/Ubuntu 18.04: Use systemd for configuration synchronization</a></li>
+<li><a href="#522-ubuntu-1404-use-upstart-and-cron-for-configuration-synchronization">5.2.2 Ubuntu 14.04: Use upstart and cron for configuration synchronization</a></li>
 </ul>
 </li>
 <li><a href="#53-set-up-log-rotation-for-the-sync-log-on-the-slave-nodes">5.3 Set up log rotation for the sync log on the slave nodes</a></li>
@@ -171,6 +172,7 @@ Doc. ID: IG-XLB</p>
 </li>
 </ul>
 
+
 <h2>
 <a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
 <p>This document is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this
@@ -198,7 +200,7 @@ functioning principles.</p>
 <tbody>
 <tr>
 <td align="center">[SS-CLUSTER]</td>
-<td align="left"><a href="https://github.com/nordic-institute/X-Road/tree/6.19.0/ansible/ss_cluster">Readme: Security server cluster setup with Ansible</a></td>
+<td align="left"><a href="https://github.com/nordic-institute/X-Road/tree/6.20.0/ansible/ss_cluster">Readme: Security server cluster setup with Ansible</a></td>
 </tr>
 <tr>
 <td align="center">[IG-SS]</td>
@@ -625,8 +627,8 @@ Fetching health check response timed out for: Authentication key OCSP status
 <a id="4-database-replication-setup" class="anchor" href="#4-database-replication-setup" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4. Database replication setup</h2>
 <p>For technical details on the PostgreSQL replication, refer to the <a href="https://www.postgresql.org/docs/9.2/static/high-availability.html" rel="nofollow">official documentation</a>.
 Note that the versions of PostgreSQL distributed with RHEL and Ubuntu are different. At the time of writing, RHEL 7
-distributes PostgreSQL version 9.2 and Ubuntu 14.04 distributes version 9.3; the replication configuration is the same
-for both versions.</p>
+distributes PostgreSQL version 9.2, Ubuntu 14.04 distributes version 9.3, and Ubuntu 18.04 version 10; the replication configuration is the same
+for all these versions.</p>
 <h3>
 <a id="41-setting-up-tls-certificates-for-database-authentication" class="anchor" href="#41-setting-up-tls-certificates-for-database-authentication" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.1 Setting up TLS certificates for database authentication</h3>
 <p>This section describes how to create and set up certificate authentication between the slave and master database instances.</p>
@@ -695,7 +697,7 @@ systemctl enable postgresql-serverconf
 <h4>
 <a id="422-on-ubuntu" class="anchor" href="#422-on-ubuntu" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.2.2 on Ubuntu</h4>
 <div class="highlight highlight-source-shell"><pre>sudo -u postgres pg_createcluster -p 5433 9.3 serverconf</pre></div>
-<p>In the above command, <code>9.3</code> is the postgresql version. Use <code>pg_lsclusters</code> to find out what version(s) are available.</p>
+<p>In the above command, <code>9.3</code> is the postgresql major version. Use <code>pg_lsclusters</code> to find out what version(s) are available.</p>
 <p><strong>PostgreSQL configuration location:</strong></p>
 <blockquote>
 <p>On RHEL, PostgreSQL config files are located in the <code>PGDATA</code> directory <code>/var/lib/pgql/serverconf</code>.
@@ -724,8 +726,10 @@ see the <a href="https://www.postgresql.org/docs/9.2/static/runtime-config-repli
 documentation</a> for more details.</p>
 <p>The <code>samenet</code> above assumes that the slaves will be in the same subnet as the master.</p>
 <p>Start the master instance:</p>
-<p><strong>Ubuntu:</strong></p>
+<p><strong>Ubuntu 14.04:</strong></p>
 <div class="highlight highlight-source-shell"><pre>/etc/init.d/postgresql start</pre></div>
+<p><strong>Ubuntu 18.04:</strong></p>
+<div class="highlight highlight-source-shell"><pre>systemctl start postgresql@10-serverconf</pre></div>
 <p><strong>RHEL:</strong></p>
 <div class="highlight highlight-source-shell"><pre>systemctl start postgresql-serverconf</pre></div>
 <p>Create the replication user(s) with password authentication disabled:</p>
@@ -750,7 +754,7 @@ sudo -u postgres psql -p 5433 -c <span class="pl-s"><span class="pl-pds">"</span
 <ul>
 <li>RHEL: <code>/var/lib/pgsql/serverconf</code>
 </li>
-<li>Ubuntu: <code>/var/lib/postgresql/9.3/serverconf</code>
+<li>Ubuntu: <code>/var/lib/postgresql/&lt;postgresql major version&gt;/serverconf</code>
 </li>
 </ul>
 <p>Clear the data directory:</p>
@@ -789,9 +793,11 @@ parameters should be disabled. Also check that <code>listen_addresses</code> is 
 <p>Finally, start the database instance</p>
 <p><strong>RHEL:</strong></p>
 <div class="highlight highlight-source-shell"><pre>systemctl start postgresql-serverconf</pre></div>
-<p><strong>Ubuntu:</strong></p>
+<p><strong>Ubuntu 14.04:</strong></p>
 <div class="highlight highlight-source-shell"><pre>/etc/init.d/postgresql start</pre></div>
 <p>Note that on Ubuntu, the command starts all configured database instances.</p>
+<p><strong>Ubuntu 18.04:</strong></p>
+<div class="highlight highlight-source-shell"><pre>systemctl start postgresql@10-serverconf</pre></div>
 <h2>
 <a id="5-configuring-data-replication-with-rsync-over-ssh" class="anchor" href="#5-configuring-data-replication-with-rsync-over-ssh" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5. Configuring data replication with rsync over SSH</h2>
 <h3>
@@ -819,7 +825,7 @@ there will be a small delay before the services are started.</p>
 configuration files,  like <code>local.ini</code>, require restarting the services, which is not automatic.</p>
 </blockquote>
 <h4>
-<a id="521-rhel-use-systemd-for-configuration-synchronization" class="anchor" href="#521-rhel-use-systemd-for-configuration-synchronization" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.2.1 RHEL: Use systemd for configuration synchronization</h4>
+<a id="521-rhelubuntu-1804-use-systemd-for-configuration-synchronization" class="anchor" href="#521-rhelubuntu-1804-use-systemd-for-configuration-synchronization" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.2.1 RHEL/Ubuntu 18.04: Use systemd for configuration synchronization</h4>
 <p>First, add <code>xroad-sync</code> as a <code>systemd</code> service.</p>
 <p>Create a new file <code>/etc/systemd/system/xroad-sync.service</code>:</p>
 <pre><code>[Unit]
@@ -855,7 +861,7 @@ OnUnitActiveSec=60
 [Install]
 WantedBy=timers.target
 </code></pre>
-<p>Next, configure SELinux to allow <code>rsync</code> to be run as a <code>systemd</code> service</p>
+<p>RHEL only: Configure SELinux to allow <code>rsync</code> to be run as a <code>systemd</code> service</p>
 <pre><code>setsebool -P rsync_client 1
 setsebool -P rsync_full_access 1
 </code></pre>
@@ -864,7 +870,7 @@ setsebool -P rsync_full_access 1
 systemctl start xroad-sync.timer
 </code></pre>
 <h4>
-<a id="522-ubuntu-use-upstart-and-cron-for-configuration-synchronization" class="anchor" href="#522-ubuntu-use-upstart-and-cron-for-configuration-synchronization" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.2.2 Ubuntu: Use upstart and cron for configuration synchronization</h4>
+<a id="522-ubuntu-1404-use-upstart-and-cron-for-configuration-synchronization" class="anchor" href="#522-ubuntu-1404-use-upstart-and-cron-for-configuration-synchronization" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.2.2 Ubuntu 14.04: Use upstart and cron for configuration synchronization</h4>
 <p>First, create the main upstart task for syncing.</p>
 <p>Create a new file: <code>/etc/init/xroad-sync.conf</code>:</p>
 <pre><code># xroad-sync
@@ -1054,7 +1060,10 @@ synchronization, upgrade it, then resume operation.</li>
 <li>
 <p>Pause the database synchronization. Assuming that the <code>serverconf</code> database is running in port <code>5433</code>, issue the
 following command:</p>
-<div class="highlight highlight-source-shell"><pre>sudo -u postgres psql -p 5433 -c <span class="pl-s"><span class="pl-pds">'</span>select pg_xlog_replay_pause();<span class="pl-pds">'</span></span></pre></div>
+<div class="highlight highlight-source-shell"><pre><span class="pl-c"><span class="pl-c">#</span> PostgreSQL version &lt; 10</span>
+sudo -u postgres psql -p 5433 -c <span class="pl-s"><span class="pl-pds">'</span>select pg_xlog_replay_pause();<span class="pl-pds">'</span></span></pre></div>
+<div class="highlight highlight-source-shell"><pre><span class="pl-c"><span class="pl-c">#</span> PostgreSQL version &gt;= 10</span>
+sudo -u postgres psql -p 5433 -c <span class="pl-s"><span class="pl-pds">'</span>select pg_wal_replay_pause();<span class="pl-pds">'</span></span></pre></div>
 </li>
 <li>
 <p>Disable the configuration synchronization on the slave nodes:</p>
@@ -1121,9 +1130,23 @@ for more details.</p>
 </li>
 <li>
 <p>Enable database synchronization on the slave:</p>
-<pre><code>sudo -u postgres psql -p 5433 -c 'select pg_xlog_replay_resume()'
+<pre><code>#PostgreSQL version &lt; 10
+sudo -u postgres psql -p 5433 -c 'select pg_xlog_replay_resume()'
+</code></pre>
+<pre><code>#PostgreSQL version &gt;= 10
+sudo -u postgres psql -p 5433 -c 'select pg_wal_replay_resume()'
 </code></pre>
 <p>Note that the above command assumes that the <code>serverconf</code> database is running in port <code>5433</code>.</p>
+<p><strong>Note:</strong> Before proceeding, make sure that the database is up to date. The following should return <code>t</code>:</p>
+<pre><code>#PostgreSQL &lt; 10
+sudo -u postgres psql -p 5433 -c 'select pg_last_xlog_replay_location() = pg_last_xlog_receive_location()'
+</code></pre>
+<pre><code>#PostgreSQL &gt;= 10
+sudo -u postgres psql -p 5433 -c 'select pg_last_wal_replay_lsn() = pg_last_wal_receive_lsn()'
+</code></pre>
+</li>
+<li>
+<p>Upgrade the packages on the slave node to the new software version.</p>
 </li>
 <li>
 <p>Enable the shared configuration synchronization on the slave node:</p>
@@ -1131,23 +1154,13 @@ for more details.</p>
 </code></pre>
 </li>
 <li>
-<p>Wait for the master node changes to propagate to the slave node.</p>
+<p>Wait for the master node configuration changes to propagate to the slave node.</p>
 <p>The configuration synchronization can be forced, if necessary.</p>
-<p><strong>Ubuntu:</strong></p>
-<pre><code>sudo start xroad-sync
-</code></pre>
-<p><strong>RHEL:</strong></p>
-<pre><code>sudo systemctl start xroad-sync
-</code></pre>
-<p><strong>Note:</strong> Before proceeding, make sure that the database is up to date. The following should return <code>t</code>:</p>
-<pre><code>sudo -u postgres psql -p 5433 -c 'select pg_last_xlog_replay_location() = pg_last_xlog_receive_location()'
+<pre><code>service xroad-sync start
 </code></pre>
 </li>
 <li>
-<p>Upgrade the packages on the slave node to the new software version.</p>
-</li>
-<li>
-<p>Start the X-Road services and wait until the slave node is healthy.</p>
+<p>Restart the X-Road services and wait until the slave node is healthy.</p>
 </li>
 <li>
 <p>After the node is healthy, enable the slave node in the load balancer if you manually disabled it. If using the
