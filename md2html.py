@@ -43,6 +43,10 @@ def md2html(htmltitle, infile, outfile):
     inf.close()
 
     html = result.text
+    if re.search('"message":"API rate limit exceeded for', html):
+        print('Github API limit exceeded. Please wait one hour and retry.')
+        exit(0)
+
     html = html.replace("user-content-", "")
     outf = open(outfile, 'w', encoding='utf-8')
     outf.write(HTML_START.format(title=htmltitle))
