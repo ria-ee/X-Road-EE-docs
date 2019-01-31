@@ -4,6 +4,7 @@
 import json
 import re
 import requests
+import sys
 
 
 HTML_START = """<!DOCTYPE html>
@@ -35,16 +36,21 @@ HTML_END = """    </article>
 # Function that converts input MD file to output HTML file.
 def md2html(htmltitle, infile, outfile):
     inf = open(infile, 'r', encoding='utf-8')
-    payload = {'text': inf.read(), 'mode': 'markdown'}
-    # payload['text'] = payload['text'].replace(".md)", ".html)")
-    # payload['text'] = payload['text'].replace(".md#", ".html#")
-    payload['text'] = re.sub('(\((?!https).+)\.md([#|)])', '\g<1>.html\g<2>', payload['text'])
-    result = requests.post('https://api.github.com/markdown', data=json.dumps(payload))
+    text = inf.read()
+    text = re.sub('(\((?!https).+)\.md([#|)])', '\g<1>.html\g<2>', text)
+    payload = {'text': text, 'mode': 'markdown'}
+    headers = {}
+    if len(sys.argv) == 2:
+        headers = {'Authorization': 'token ' + sys.argv[1]}
+    result = requests.post(
+        'https://api.github.com/markdown', data=json.dumps(payload), headers=headers)
     inf.close()
 
     html = result.text
     if re.search('"message":"API rate limit exceeded for', html):
-        print('Github API limit exceeded. Please wait one hour and retry.')
+        print('GitHub API limit exceeded.\nPlease wait one hour and retry or provide GitHub '
+              'personal access token as a parameter to this script.\nToken creation: '
+              'https://github.com/settings/tokens.')
         exit(0)
 
     html = html.replace("user-content-", "")
