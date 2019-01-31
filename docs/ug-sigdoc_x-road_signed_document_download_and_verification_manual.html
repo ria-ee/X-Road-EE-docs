@@ -16,6 +16,277 @@
   </head>
   <body>
     <article class="markdown-body">
-{"message":"API rate limit exceeded for 195.80.118.162. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)","documentation_url":"https://developer.github.com/v3/#rate-limiting"}    </article>
+<table>
+<thead>
+<tr>
+<th align="right"><a href="img/eu_regional_development_fund_horizontal_div_15.png" target="_blank" rel="noopener noreferrer"><img src="img/eu_regional_development_fund_horizontal_div_15.png" alt="European Union / European Regional Development Fund / Investing in your future" title="Documents that are tagged with EU/SF logos must keep the logos until 1.1.2022, if it has not stated otherwise in the documentation. If new documentation is created  using EU/SF resources the logos must be tagged appropriately so that the deadline for logos could be found." style="max-width:100%;"></a></th>
+</tr>
+</thead>
+</table>
+<h1>
+<a id="signed-document-download-and-verification-manual" class="anchor" href="#signed-document-download-and-verification-manual" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Signed Document Download and Verification Manual</h1>
+<p><strong>X-ROAD 6</strong></p>
+<p>Version: 1.6<br>
+Doc. ID: UG-SIGDOC</p>
+<hr>
+<h2>
+<a id="version-history" class="anchor" href="#version-history" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version history</h2>
+<table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Version</th>
+<th>Description</th>
+<th>Author</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>18.06.2015</td>
+<td>0.1</td>
+<td>Initial version</td>
+<td>Ilja Kromonov</td>
+</tr>
+<tr>
+<td>03.07.2015</td>
+<td>0.2</td>
+<td>Corrections	Kristo</td>
+<td>Heero</td>
+</tr>
+<tr>
+<td>19.08.2015</td>
+<td>0.3</td>
+<td>References updated</td>
+<td>Kristo Heero</td>
+</tr>
+<tr>
+<td>09.09.2015</td>
+<td>1.0</td>
+<td>Editorial changes made</td>
+<td>Imbi Nõgisto</td>
+</tr>
+<tr>
+<td>17.09.2015</td>
+<td>1.1</td>
+<td>Download URL of the asicverifier added</td>
+<td>Kristo Heero</td>
+</tr>
+<tr>
+<td>25.09.2015</td>
+<td>1.2</td>
+<td>„Forcing missing timestamps” added</td>
+<td>Ilja Kromonov</td>
+</tr>
+<tr>
+<td>15.02.2016</td>
+<td>1.3</td>
+<td>Parameter subsystemCode is mandatory also</td>
+<td>Kristo Heero</td>
+</tr>
+<tr>
+<td>02.05.2016</td>
+<td>1.4</td>
+<td>Signed documents are available by default 30 days.</td>
+<td>Kristo Heero</td>
+</tr>
+<tr>
+<td>03.11.2018</td>
+<td>1.5</td>
+<td>Convert from Word to Markdown. Asicverifier supports extracting messages when verification fails</td>
+<td>Petteri Kivimäki</td>
+</tr>
+<tr>
+<td>07.01.2019</td>
+<td>1.6</td>
+<td>Asicverifier version option. Updated asicverifier usage and jar name</td>
+<td>Caro Hautamäki</td>
+</tr>
+</tbody>
+</table>
+<h2>
+<a id="table-of-contents" class="anchor" href="#table-of-contents" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Table of Contents</h2>
+
+<ul>
+<li><a href="#license">License</a></li>
+<li>
+<a href="#1-introduction">1 Introduction</a>
+<ul>
+<li><a href="#11-references">1.1 References</a></li>
+</ul>
+</li>
+<li>
+<a href="#2-signed-document-download-service">2 Signed Document Download Service</a>
+<ul>
+<li><a href="#21-retrieving-signed-documents-of-the-entire-transaction">2.1 Retrieving Signed Documents of the Entire Transaction</a></li>
+<li><a href="#22-retrieving-a-single-signed-document">2.2 Retrieving a Single Signed Document</a></li>
+<li><a href="#23-forcing-missing-timestamps-to-be-created">2.3 Forcing Missing Timestamps To Be Created</a></li>
+<li><a href="#24-authentication">2.4 Authentication</a></li>
+<li><a href="#25-error-conditions">2.5 Error Conditions</a></li>
+</ul>
+</li>
+<li>
+<a href="#3-signed-document-verification-tool">3 Signed Document Verification Tool</a>
+<ul>
+<li><a href="#31-usage">3.1 Usage</a></li>
+<li><a href="#32-verification-configuration">3.2 Verification Configuration</a></li>
+</ul>
+</li>
+</ul>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
+<p>This document is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="nofollow">http://creativecommons.org/licenses/by-sa/3.0/</a></p>
+<h2>
+<a id="1-introduction" class="anchor" href="#1-introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1 Introduction</h2>
+<p>Messages exchanged between the X-Road security servers are signed and encrypted. For every regular request and response, the security server produces a signed document. The signatures are time-stamped either synchronously, immediately after the message has been processed by the security server, or asynchronously in periodic batches for a better performance.</p>
+<p>This document describes the retrieving and verification process of the signed and time-stamped document [PR-SIGDOC].</p>
+<h3>
+<a id="11-references" class="anchor" href="#11-references" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.1 References</h3>
+<ol>
+<li>[PR-SIGDOC]	Freudenthal, M. Profile for High-Perfomance Digital Signature. T-4-23, 2015. <a href="https://cyber.ee/research/reports/" rel="nofollow">https://cyber.ee/research/reports/</a>
+</li>
+</ol>
+<h2>
+<a id="2-signed-document-download-service" class="anchor" href="#2-signed-document-download-service" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2 Signed Document Download Service</h2>
+<p>The security server offers the asic web service for downloading its signed documents. The service is used via HTTP GET requests to the service URL:</p>
+<pre><code>http://SECURITYSERVER/asic
+</code></pre>
+<p>where <code>SECURITYSERVER</code> is the actual address of the security server.</p>
+<p>Signed documents are available via the service until they are archived and removed from the message log database (by default 30 days). This time period is configurable in the security server (parameter keep-records-for in the configuration file <code>/etc/xroad/conf.d/addons/message-log.ini</code>).</p>
+<h3>
+<a id="21-retrieving-signed-documents-of-the-entire-transaction" class="anchor" href="#21-retrieving-signed-documents-of-the-entire-transaction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.1 Retrieving Signed Documents of the Entire Transaction</h3>
+<p>The service requires the identifier of the corresponding message and the X-Road client identifier to determine which signed documents to return. These can be provided with the following mandatory parameters:</p>
+<ul>
+<li>
+<code>queryId</code> –  the X-Road message transaction identifier, which is a part of the SOAP message header;</li>
+<li>
+<code>xRoadInstance</code> – the X-Road instance of the client identifier;</li>
+<li>
+<code>memberClass</code> – the member class of the client identifier;</li>
+<li>
+<code>memberCode</code> – the member code of the client identifier;</li>
+<li>
+<code>subsystemCode</code> – the subsystem code of the client identifier.</li>
+</ul>
+<p>Thus, in order to retrieve the signed document for a message with transaction identifier <em>abc12345</em> exchanged by security server <em>sec1.gov</em> by client <em>EE/ENT/CLIENT1/SUB</em>, the request URL is</p>
+<pre><code>http://sec1.gov/asic?queryId=abc12345&amp;xRoadInstance=EE&amp;memberClass=ENT&amp;memberCode=CLIENT1&amp;subsystemCode=SUB
+</code></pre>
+<p>If a message with the given identifier was indeed exchanged by the security server and by the specified client, the server would respond with a ZIP archive (content-type <code>application/zip</code>, filename <code>queryId.zip</code>), which contains signed documents for all requests and responses that match the specified parameters.</p>
+<p>The signed documents provided by the asic service are named <code>queryId-request-Z.asice</code> and <code>queryId-response-Z.asice</code> for requests and responses, respectively, where <code>queryId</code> is the identifier (URL encoded) of the message and <code>Z</code> is a 10-character random alphanumeric string.</p>
+<h3>
+<a id="22-retrieving-a-single-signed-document" class="anchor" href="#22-retrieving-a-single-signed-document" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.2 Retrieving a Single Signed Document</h3>
+<p>Should the user only desire the request or response then additional mutually exclusive parameters are available:</p>
+<ul>
+<li>
+<code>requestOnly</code> – only include signed documents for request messages (response filename  is <code>queryId-request.zip</code>);</li>
+<li>
+<code>responseOnly</code> – only include signed documents for response messages (response filename is <code>queryId-response.zip</code>).</li>
+</ul>
+<p>The aforementioned parameters make the service return a ZIP archive, which may contain either one or more signed documents (depending if the provided <code>queryId</code> is unique). If only a single signed document is expected then the request can be further be constrained by adding the following parameter:</p>
+<ul>
+<li>
+<code>unique</code> – specifies that the only a single signed document is expected in the response, must be used in combination with either <code>requestOnly</code> or <code>responseOnly</code> parameter.</li>
+</ul>
+<p>If this parameter is used and, indeed, the query identifier is unique, then the security server responds with a single signed document (content-type <code>application/vnd.etsi.asic-e+zip</code>) which represents the corresponding message.</p>
+<h3>
+<a id="23-forcing-missing-timestamps-to-be-created" class="anchor" href="#23-forcing-missing-timestamps-to-be-created" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3 Forcing Missing Timestamps To Be Created</h3>
+<p>If the security server was configured to timestamp messages asynchronously it may be possible that there is no timestamp associated with one or more signatures of the requested documents. In this case the request will fail with an internal error and return an appropriate error message string - "Some message signatures have not been timestamped yet!" (or "Message signature has not been timestamped yet!" if requesting a single document only).</p>
+<p>If this behavior is not desired the following parameter can be used:</p>
+<ul>
+<li>
+<code>force</code> – specifies that the timestamping procedure should be executed explicitly in case any of the requested document signatures have no associated timestamps.</li>
+</ul>
+<p>Thus, in order to retrieve the signed document for a message with transaction identifier <em>abc12345</em> exchanged by the security server <em>sec1.gov</em> by the client <em>EE/ENT/CLIENT1/SUB</em> and force any missing timestamps to be created, the request URL is</p>
+<pre><code>http://sec1.gov/asic?queryId=abc12345&amp;xRoadInstance=EE&amp;memberClass=ENT&amp;memberCode=CLIENT1&amp;subsystemCode=SUB&amp;force
+</code></pre>
+<p>Should there be no working time-stamping provider available to the security server, the signed document retrieval service will respond with the error message "Failed to get timestamp from any time-stamping providers".</p>
+<h3>
+<a id="24-authentication" class="anchor" href="#24-authentication" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.4 Authentication</h3>
+<p>In case the security server administrator has configured the connection between the service client and the security server to require authentication, requests to the <em>asic</em> service would need to be made via HTTPS.</p>
+<p>The security server would need the certificate of the service client to be provided as part of the session, when the user makes the request to download a signed document for a message associated with this service client.</p>
+<h3>
+<a id="25-error-conditions" class="anchor" href="#25-error-conditions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.5 Error Conditions</h3>
+<p>The <em>asic</em> service responds with the HTTP error code and plain text error message if error occurs. The possible error codes are:</p>
+<ol>
+<li>
+<em>400 Bad Request</em> – the combination of received parameters is invalid or some required parameter is missing.</li>
+<li>
+<em>401 Unauthorized</em> – the connection was made via HTTPS and the user failed to provide the correct certificate.</li>
+<li>
+<em>404 Not Found</em> – no signed documents matching the provided parameters were found. Also, the signed document may be not time-stamped yet.</li>
+<li>
+<em>500 Internal Server Error</em> – an unexpected internal error occurred (e.g., the provided service client identifier does not match any registered client on the security server).</li>
+</ol>
+<h2>
+<a id="3-signed-document-verification-tool" class="anchor" href="#3-signed-document-verification-tool" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3 Signed Document Verification Tool</h2>
+<p>Verification of signed documents is done by the asicverifier utility tool. The tool is written in the Java programming language and therefore requires Java 8 Runtime Environment (JRE) to be installed on the user's workstation. On Unix-like operating systems the JRE can be installed using package management software or downloaded from the Oracle website.</p>
+<p>The asicverifier utility is shipped with security server and it is located in the following directory:</p>
+<pre><code>/usr/share/xroad/jlib/asicverifier.jar
+</code></pre>
+<h3>
+<a id="31-usage" class="anchor" href="#31-usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.1 Usage</h3>
+<p>The asicverifier utility is run as follows:</p>
+<pre><code>java -jar asicverifier.jar ( --version | &lt;configuration path&gt; &lt;signed document&gt; )
+</code></pre>
+<p>where <code>&lt;signed document&gt;</code> is the path to the signed document being verified and <code>&lt;configuration path&gt;</code> is the path to the verification configuration for this container (see Section 3.2 ). You can check the version of the asicverifier tool with the <code>--version</code> option.</p>
+<p>If verification is successful the output will be similar to:</p>
+<pre><code>Loading configuration from18 verificationconf/... 
+Verifying ASiC container "abc12345-request-1ab2c3d4f5.asice" ... 
+Verification successful. 
+Signer 
+    Certificate: 
+        Subject: CN=CLIENT1, O=COM, C=EE 
+        Issuer: C=EE, O=EJBCA Sample, CN=AdminCA1 
+        Serial number: 897779140320284054 
+        Valid from: Mon May 04 14:30:38 EEST 2015 
+        Valid until: Wed May 03 14:30:38 EEST 2017 
+    ID: MEMBER:EE/COM/CLIENT1 
+OCSP response 
+    Signed by: 
+        Subject: C=EE, O=EJBCA Sample, CN=AdminCA1 
+        Issuer: C=EE, O=EJBCA Sample, CN=AdminCA1 
+        Serial number: 6005434255669835317 
+        Valid from: Thu Jun 14 13:04:29 EEST 2012 
+        Valid until: Sun Jun 12 13:04:29 EEST 2022 
+    Produced at: Fri Jun 05 08:47:11 EEST 2015 
+Timestamp 
+    Signed by: 
+        Subject: CN=timestamp1, O=Internet Widgits Pty Ltd, C=EE 
+        Issuer: CN=timestamp1, O=Internet Widgits Pty Ltd, C=EE 
+        Serial number: 12319570547049363959 
+        Valid from: Sun Nov 30 22:13:44 EET 2014 
+        Valid until: Wed Nov 27 22:13:44 EET 2024 
+    Date: Fri Jun 05 09:31:37 EEST 2015 
+
+
+Would you like to extract the signed files? (y/n) y 
+Created file message.xml 
+Files successfully extracted.
+</code></pre>
+<p>As can be seen from the example above, the asicverifier tool will optionally extract the signed files to the working directory.</p>
+<p>Should the verification fail, the reason for failure will be presented to the user in an error message. For example:</p>
+<pre><code>Loading configuration from verificationconf/... 
+Verifying ASiC container "abc12345-request-1ab2c3d4f5.asice" ... 
+Verification failed: Certificate is not issued by approved certification service provider.
+
+Would you like to extract the signed files? (y/n) y
+Created file message.xml
+Files successfully extracted.
+</code></pre>
+<p>In case of verification failure, the asicverifier tool will optionally extract the signed files to the working directory.</p>
+<p>Notice that when <code>messagelog.soap-body-logging</code> property is set to <code>false</code>, the verification always fails with the error message:</p>
+<pre><code>Verification failed: Signature is not valid
+</code></pre>
+<h3>
+<a id="32-verification-configuration" class="anchor" href="#32-verification-configuration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.2 Verification Configuration</h3>
+<p>The asicverifier tool requires the proper verification configuration containing certificates needed by the verification process. The verification configuration can be downloaded from the same security server by making a HTTP GET request to the URL:</p>
+<pre><code>http://SECURITYSERVER/verificationconf
+</code></pre>
+<p>where <code>SECURITYSERVER</code> is the actual address of the security server.</p>
+<p>The <em>verificationconf</em> service has no parameters and responds with a ZIP archive (content-type <code>application/zip</code>, filename <code>verificationconf.zip</code>). This archive needs to be extracted and the location of it's contents used as an argument to the asicverifier tool.</p>
+<p>A convenient way to download the verification configuration is with the web browser or use of the curl tool:</p>
+<pre><code>curl -J -O http://sec1.gov/verificationconf
+</code></pre>
+    </article>
   </body>
 </html>
