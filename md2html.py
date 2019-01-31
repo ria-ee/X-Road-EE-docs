@@ -52,6 +52,10 @@ def md2html(htmltitle, infile, outfile):
               'personal access token as a parameter to this script.\nToken creation: '
               'https://github.com/settings/tokens.')
         exit(0)
+    if re.search('"message":"Bad credentials"', html):
+        print('Invalid personal access token.\nToken creation: '
+              'https://github.com/settings/tokens.')
+        exit(0)
 
     html = html.replace("user-content-", "")
     outf = open(outfile, 'w', encoding='utf-8')
