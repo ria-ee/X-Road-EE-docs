@@ -560,22 +560,29 @@ Doc. ID: IG-SS</p>
 <ol>
 <li>
 <p>Add to <code>/etc/apt/sources.list.d/xroad.list</code> the address of X-Road package repository (<strong>reference data: 1.1</strong>) and the nginx repository:</p>
+<p><em>Ubuntu 14.04 (trusty)</em>:</p>
 <pre><code>deb http://x-tee.ee/packages/live/xroad trusty main
 deb http://ppa.launchpad.net/nginx/stable/ubuntu trusty main
 deb http://ppa.launchpad.net/openjdk-r/ppa/ubuntu trusty main
 </code></pre>
+<p><em>Ubuntu 18.04 (bionic)</em>:</p>
+<pre><code>deb http://x-tee.ee/packages/live/xroad bionic main
+</code></pre>
 </li>
 <li>
 <p>Add the X-Road repository’s signing key to the list of trusted keys (<strong>reference data: 1.2</strong>):</p>
+<p><em>Ubuntu 14.04 (trusty)</em>:</p>
 <pre><code>curl http://x-tee.ee/packages/live/xroad/repo.gpg | sudo apt-key add -
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 00A6F0A3C300EE8C
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EB9B1D8886F44E2A
+</code></pre>
+<p><em>Ubuntu 18.04 (bionic)</em>:</p>
+<pre><code>curl http://x-tee.ee/packages/live/xroad/repo.gpg | sudo apt-key add -
 </code></pre>
 </li>
 <li>
 <p>Issue the following commands to install the security server packages:</p>
 <pre><code>sudo apt-get update
-sudo apt-get install openjdk-8-jre-headless
 sudo apt-get install xroad-securityserver-ee
 </code></pre>
 </li>

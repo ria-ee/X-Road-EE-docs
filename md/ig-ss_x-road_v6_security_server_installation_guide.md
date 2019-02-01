@@ -215,20 +215,31 @@ To install the X-Road security server software, follow these steps.
 
 1.  Add to `/etc/apt/sources.list.d/xroad.list` the address of X-Road package repository (**reference data: 1.1**) and the nginx repository:
 
+    *Ubuntu 14.04 (trusty)*:
+
         deb http://x-tee.ee/packages/live/xroad trusty main
         deb http://ppa.launchpad.net/nginx/stable/ubuntu trusty main
         deb http://ppa.launchpad.net/openjdk-r/ppa/ubuntu trusty main
 
+    *Ubuntu 18.04 (bionic)*:
+
+        deb http://x-tee.ee/packages/live/xroad bionic main
+
 2.  Add the X-Road repository’s signing key to the list of trusted keys (**reference data: 1.2**):
+
+    *Ubuntu 14.04 (trusty)*:
 
         curl http://x-tee.ee/packages/live/xroad/repo.gpg | sudo apt-key add -
         sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 00A6F0A3C300EE8C
         sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EB9B1D8886F44E2A
 
+    *Ubuntu 18.04 (bionic)*:
+
+        curl http://x-tee.ee/packages/live/xroad/repo.gpg | sudo apt-key add -
+
 3.  Issue the following commands to install the security server packages:
 
         sudo apt-get update
-        sudo apt-get install openjdk-8-jre-headless
         sudo apt-get install xroad-securityserver-ee
 
 Upon the first installation of the packages, the system asks for the following information.
