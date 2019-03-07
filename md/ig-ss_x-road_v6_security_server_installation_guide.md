@@ -5,7 +5,7 @@
 
 **X-ROAD 6**
 
-Version: 2.15  
+Version: 2.16  
 Doc. ID: IG-SS
 
 ---
@@ -46,6 +46,7 @@ Doc. ID: IG-SS
  14.10.2018 | 2.13    | Update package repository address | Petteri Kivimäki
  25.10.2018 | 2.14    | Add RHEL7 as supported platform, update section 2.2 Reference data | Petteri Kivimäki
  15.11.2018 | 2.15    | Add Ubuntu 18 installation instructions | Jarkko Hyöty
+ 07.03.2019 | 2.16    | Added Postgres install command | Jan Raik
 
 ## Table of Contents
 
@@ -240,6 +241,7 @@ To install the X-Road security server software, follow these steps.
 3.  Issue the following commands to install the security server packages:
 
         sudo apt-get update
+        sudo apt-get install postgresql
         sudo apt-get install xroad-securityserver-ee
 
 Upon the first installation of the packages, the system asks for the following information.
