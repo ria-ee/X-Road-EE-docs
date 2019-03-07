@@ -4,6 +4,7 @@
 import json
 import re
 import requests
+import sys
 
 
 HTML_START = """<!DOCTYPE html>
@@ -35,14 +36,27 @@ HTML_END = """    </article>
 # Function that converts input MD file to output HTML file.
 def md2html(htmltitle, infile, outfile):
     inf = open(infile, 'r', encoding='utf-8')
-    payload = {'text': inf.read(), 'mode': 'markdown'}
-    # payload['text'] = payload['text'].replace(".md)", ".html)")
-    # payload['text'] = payload['text'].replace(".md#", ".html#")
-    payload['text'] = re.sub('(\((?!https).+)\.md([#|)])', '\g<1>.html\g<2>', payload['text'])
-    result = requests.post('https://api.github.com/markdown', data=json.dumps(payload))
+    text = inf.read()
+    text = re.sub('(\((?!https).+)\.md([#|)])', '\g<1>.html\g<2>', text)
+    payload = {'text': text, 'mode': 'markdown'}
+    headers = {}
+    if len(sys.argv) == 2:
+        headers = {'Authorization': 'token ' + sys.argv[1]}
+    result = requests.post(
+        'https://api.github.com/markdown', data=json.dumps(payload), headers=headers)
     inf.close()
 
     html = result.text
+    if re.search('"message":"API rate limit exceeded for', html):
+        print('GitHub API limit exceeded.\nPlease wait one hour and retry or provide GitHub '
+              'personal access token as a parameter to this script.\nToken creation: '
+              'https://github.com/settings/tokens.')
+        exit(0)
+    if re.search('"message":"Bad credentials"', html):
+        print('Invalid personal access token.\nToken creation: '
+              'https://github.com/settings/tokens.')
+        exit(0)
+
     html = html.replace("user-content-", "")
     outf = open(outfile, 'w', encoding='utf-8')
     outf.write(HTML_START.format(title=htmltitle))
@@ -67,3 +81,4 @@ md2html("X-Road: Service Metadata Protocol", "md/pr-meta_x-road_service_metadata
 md2html("X-Road: Protocol for Management Services", "md/pr-mserv_x-road_protocol_for_management_services.md", "docs/pr-mserv_x-road_protocol_for_management_services.html")
 md2html("X-Road: Terms and Abbreviations", "md/terms_x-road_docs.md", "docs/terms_x-road_docs.html")
 md2html("X-Road: Third Party Representation Extension", "md/pr-third_party_representation_extension.md", "docs/pr-third_party_representation_extension.html")
+md2html("X-Road: Signed Document Download and Verification Manual", "md/ug-sigdoc_x-road_signed_document_download_and_verification_manual.md", "docs/ug-sigdoc_x-road_signed_document_download_and_verification_manual.html")

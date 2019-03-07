@@ -25,7 +25,7 @@
 </table>
 <h1>
 <a id="x-road-system-parameters-user-guide" class="anchor" href="#x-road-system-parameters-user-guide" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>X-Road: System Parameters User Guide</h1>
-<p>Version: 2.31<br>
+<p>Version: 2.39<br>
 Doc. ID: UG-SYSPAR</p>
 <table>
 <thead>
@@ -262,6 +262,50 @@ Doc. ID: UG-SYSPAR</p>
 </td>
 <td>Petteri Kivimäki</td>
 </tr>
+<tr>
+<td>08.10.2018</td>
+<td>2.33</td>
+<td>Added new parameter <em>xroad-tls-ciphers</em>
+</td>
+<td>Henri Haapakanni</td>
+</tr>
+<tr>
+<td>18.10.2018</td>
+<td>2.34</td>
+<td>Default value of the parameter <em>signer.client-timeout</em> set to 60000</td>
+<td>Petteri Kivimäki</td>
+</tr>
+<tr>
+<td>25.10.2018</td>
+<td>2.35</td>
+<td>Update note regarding supported cipher suites on RHEL 7</td>
+<td>Petteri Kivimäki</td>
+</tr>
+<tr>
+<td>26.10.2018</td>
+<td>2.36</td>
+<td>Added new parameter <em>module-manager-update-interval</em>
+</td>
+<td>Petteri Kivimäki</td>
+</tr>
+<tr>
+<td>08.11.2018</td>
+<td>2.37</td>
+<td>Improved definition of <em>minimum-global-configuration-version</em> on the central server and configuration proxy</td>
+<td>Ilkka Seppälä</td>
+</tr>
+<tr>
+<td>19.12.2018</td>
+<td>2.38</td>
+<td>Fixed the default value of trusted-anchors-allowed</td>
+<td>Ilkka Seppälä</td>
+</tr>
+<tr>
+<td>21.12.2018</td>
+<td>2.39</td>
+<td>Add connector initial idle time parameters</td>
+<td>Jarkko Hyöty</td>
+</tr>
 </tbody>
 </table>
 <h2>
@@ -271,6 +315,11 @@ Doc. ID: UG-SYSPAR</p>
 <li><a href="#license">License</a></li>
 </ul>
 <ul>
+<li>
+<a href="#x-road-system-parameters-user-guide">X-Road: System Parameters User Guide</a>
+<ul>
+<li><a href="#table-of-contents">Table of Contents</a></li>
+<li><a href="#license">License</a></li>
 <li>
 <a href="#1-introduction">1 Introduction</a>
 <ul>
@@ -327,6 +376,8 @@ Doc. ID: UG-SYSPAR</p>
 </ul>
 </li>
 </ul>
+</li>
+</ul>
 
 <h2>
 <a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
@@ -351,7 +402,7 @@ CRON expression, <a href="http://www.quartz-scheduler.org/documentation/quartz-2
 <li>
 <a id="Ref_PR-TARGETSS"></a>[PR-TARGETSS] <a href="pr-targetss_security_server_targeting_extension_for_the_x-road_protocol.html">Security Server Targeting Extension for the X-Road Message Protocol</a>.</li>
 <li>
-<a id="Ref_PR-SECTOKEN"></a>[PR-SECTOKEN] <a href="https://github.com/nordic-institute/X-Road/blob/6.19.0/doc/Protocols/SecurityTokenExtension/pr-sectoken_security_token_extension_for_the_x-road_protocol.md">Security Token Extension for the X-Road Message Protocol</a>.</li>
+<a id="Ref_PR-SECTOKEN"></a>[PR-SECTOKEN] <a href="https://github.com/nordic-institute/X-Road/blob/6.20.0/doc/Protocols/SecurityTokenExtension/pr-sectoken_security_token_extension_for_the_x-road_protocol.md">Security Token Extension for the X-Road Message Protocol</a>.</li>
 <li>
 <a id="Ref_TERMS"></a>[TA-TERMS] <a href="terms_x-road_docs.html">X-Road Terms and Abbreviations</a>.</li>
 <li>
@@ -581,11 +632,26 @@ server-listen-port=20000
 <td>TLS ciphers (comma-separated list) enabled on the client-side interfaces (for both incoming and outgoing requests). (since version 6.7)</td>
 </tr>
 <tr>
+<td>xroad-tls-ciphers</td>
+<td>See <a href="#Ref_note2">2</a>
+</td>
+<td></td>
+<td></td>
+<td>TLS ciphers (comma-separated list in preferred order) accepted on requests between security servers, and between operational monitoring daemon and client. (since version 6.20)</td>
+</tr>
+<tr>
 <td>client-tls-protocols</td>
 <td>TLSv1.2</td>
 <td></td>
 <td></td>
 <td>TLS protocols (comma-separated list) enabled on the client-side interfaces (for both incoming and outgoing requests). For backward compatibility TLSv1.1 is still supported on the client-side interfaces for outgoing requests (since version 6.7)</td>
+</tr>
+<tr>
+<td>server-connector-initial-idle-time</td>
+<td>30000</td>
+<td></td>
+<td></td>
+<td>The initial idle time (in milliseconds) that unauthenticated connections are allowed to be idle before the provider security server starts closing them. Value of 0 means that an infinite idle time is allowed.</td>
 </tr>
 <tr>
 <td>server-connector-max-idle-time</td>
@@ -607,6 +673,13 @@ server-listen-port=20000
 <td>true</td>
 <td></td>
 <td>Whether this service providing security server supports pooled connections from the service consumer side. If set to <em>false</em>, connections are to be closed immediately after each message. This may be a wanted approached for security servers behind load balancers.</td>
+</tr>
+<tr>
+<td>client-connector-initial-idle-time</td>
+<td>30000</td>
+<td></td>
+<td></td>
+<td>The initial idle time (in milliseconds) that client connections are allowed to be idle before the security server starts closing them. Value of 0 means that an infinite idle time is allowed.</td>
 </tr>
 <tr>
 <td>client-connector-max-idle-time</td>
@@ -744,7 +817,7 @@ server-listen-port=20000
 <tr>
 <td>wsdl-validator-command</td>
 <td></td>
-<td>The command to validate the given X-Road service WSDL. The command script must:<br>a) read the WSDL from the URI given as an argument or from standard input (<em>stdin</em>) if no arguments are given,<br>b) return exit code 0 on success,<br>c) return exit code 0 and write warnings to the standard error (<em>stderr</em>), if warnings occurs,<br>d) return exit code other then 0 and write error messages to the standard error (<em>stderr</em>), if errors occurs.<br>Defaults to no operation.</td>
+<td>The command to validate the given X-Road service WSDL. The command script must:<br>a) read the WSDL from the URI given as an argument,<br>b) return exit code 0 on success,<br>c) return exit code 0 and write warnings to the standard error (<em>stderr</em>), if warnings occurs,<br>d) return exit code other then 0 and write error messages to the standard error (<em>stderr</em>), if errors occurs.<br>Defaults to no operation.</td>
 </tr>
 <tr>
 <td>auth-cert-reg-signature-digest-algorithm-id</td>
@@ -783,7 +856,7 @@ server-listen-port=20000
 </tr>
 <tr>
 <td>client-timeout</td>
-<td>15000</td>
+<td>60000</td>
 <td></td>
 <td></td>
 <td>Signing timeout in milliseconds.</td>
@@ -829,6 +902,13 @@ server-listen-port=20000
 <td></td>
 <td></td>
 <td>OCSP retry delay for signer when fetching OCSP responses fail. After failing to fetch OCSP responses signer waits for the time period defined by "ocsp-retry-delay" before trying again. This is repeated until fetching OCSP responses succeeds. After successfully fetching OCSP responses signer returns to normal OCSP refresh schedule defined by "ocspFetchInterval". If the value of "ocsp-retry-delay" is higher than "ocspFetchInterval", the value of "ocspFetchInterval" is used as OCSP retry delay.</td>
+</tr>
+<tr>
+<td>module-manager-update-interval</td>
+<td>60</td>
+<td></td>
+<td></td>
+<td>HSM module manager update interval in seconds.</td>
 </tr>
 </tbody>
 </table>
@@ -1016,7 +1096,7 @@ server-listen-port=20000
 <td>10000</td>
 <td></td>
 <td></td>
-<td>Maximum number of message records to time-stamp in one batch.</td>
+<td>Maximum number of message records to time-stamp in one batch. If the number of message records in a single batch exceeds 70 % of <code>timestamp-records-limit</code> value, a warning is logged in <code>proxy.log</code>.</td>
 </tr>
 <tr>
 <td>timestamper-client-connect-timeout</td>
@@ -1159,13 +1239,13 @@ extension's <a href="http://x-road.eu/xsd/representation.xsd" rel="nofollow">XML
 </tr>
 <tr>
 <td>trusted-anchors-allowed</td>
-<td>false</td>
+<td>true</td>
 <td>True if federation is allowed for this X-Road instance.</td>
 </tr>
 <tr>
 <td>minimum-global-configuration-version</td>
 <td>2</td>
-<td>Minimum supported global configuration version on central server. Change this if old global configuration versions need to be supported.</td>
+<td>The minimum supported global configuration version on the central server. This parameter is used if the central server needs to generate multiple versions of global configuration. Note that the support for global configuration V1 has been dropped in X-Road 6.20.0 and since that version the minimum value for this parameter is 2.</td>
 </tr>
 </tbody>
 </table>
@@ -1310,7 +1390,7 @@ extension's <a href="http://x-road.eu/xsd/representation.xsd" rel="nofollow">XML
 <tr>
 <td>minimum-global-configuration-version</td>
 <td>2</td>
-<td>Minimum supported global configuration version on configuration proxy. Change this if old global configuration versions need to be supported.</td>
+<td>The minimum supported global configuration version on the configuration proxy. This parameter is used if the configuration proxy needs to distribute multiple versions of global configuration. Note that the support for global configuration V1 has been dropped in X-Road 6.20.0 and since that version the minimum value for this parameter is 2.</td>
 </tr>
 </tbody>
 </table>
@@ -1355,9 +1435,14 @@ TLS_DHE_RSA_WITH_AES_128_CBC_SHA256,
 TLS_DHE_RSA_WITH_AES_256_CBC_SHA256,
 TLS_DHE_RSA_WITH_AES_256_GCM_SHA384</p>
 </blockquote>
+<p><a id="Ref_note2"></a>[2] Default value for proxy.xroad-tls-ciphers.</p>
+<blockquote>
+<p>TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384,
+TLS_DHE_RSA_WITH_AES_256_CBC_SHA256</p>
+</blockquote>
 <blockquote>
 <p>(see <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/security/SunProviders.html#SunJSSEProvider" rel="nofollow"><em>https://docs.oracle.com/javase/8/docs/technotes/guides/security/SunProviders.html#SunJSSEProvider</em></a> for possible values)</p>
-<p>Note. OpenJDK 8 on RHEL 7 does not support ECDHE key agreement protocol, only DHE cipher suites are supported.</p>
+<p>Note. OpenJDK 8 on RHEL 7 supports ECDHE key agreement protocol starting from RHEL 7.3. In RHEL 7 versions prior to RHEL 7.3 only DHE cipher suites are supported.</p>
 </blockquote>
     </article>
   </body>

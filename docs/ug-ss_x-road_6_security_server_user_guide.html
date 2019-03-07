@@ -26,8 +26,7 @@
 <h1>
 <a id="security-server-user-guide" class="anchor" href="#security-server-user-guide" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SECURITY SERVER USER GUIDE</h1>
 <p><strong>X-ROAD 6</strong></p>
-<p>Version: 2.22<br>
-25.05.2018<br>
+<p>Version: 2.23<br>
 Doc. ID: UG-SS</p>
 <hr>
 <h2>
@@ -290,10 +289,17 @@ Doc. ID: UG-SS</p>
 <td>Update system parameters documentation.</td>
 <td>Jarkko Hyöty</td>
 </tr>
+<tr>
+<td>15.11.2018</td>
+<td>2.23</td>
+<td>Minor updates for Ubuntu 18.04</td>
+<td>Jarkko Hyöty</td>
+</tr>
 </tbody>
 </table>
 <h2>
 <a id="table-of-contents" class="anchor" href="#table-of-contents" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Table of Contents</h2>
+
 
 <ul>
 <li><a href="#license">License</a></li>
@@ -420,6 +426,7 @@ Doc. ID: UG-SS</p>
 <li><a href="#101-managing-the-configuration-anchor">10.1 Managing the Configuration Anchor</a></li>
 <li><a href="#102-managing-the-timestamping-services">10.2 Managing the Timestamping Services</a></li>
 <li><a href="#103-changing-the-internal-tls-key-and-certificate">10.3 Changing the Internal TLS Key and Certificate</a></li>
+<li><a href="#104-approved-certificate-authorities">10.4 Approved Certificate Authorities</a></li>
 </ul>
 </li>
 <li>
@@ -483,7 +490,7 @@ Doc. ID: UG-SS</p>
 <a href="#16-environmental-monitoring">16 Environmental Monitoring</a>
 <ul>
 <li><a href="#161-usage-via-soap-api">16.1 Usage via SOAP API</a></li>
-<li><a href="#162-usage-via-jmxapi">16.2 Usage via JMX API</a></li>
+<li><a href="#162-usage-via-jmx-api">16.2 Usage via JMX API</a></li>
 <li><a href="#163-limiting-environmental-monitoring-remote-data-set">16.3 Limiting environmental monitoring remote data set</a></li>
 </ul>
 </li>
@@ -497,6 +504,7 @@ Doc. ID: UG-SS</p>
 </li>
 <li><a href="#18-federation">18 Federation</a></li>
 </ul>
+
 
 <h2>
 <a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
@@ -1892,7 +1900,7 @@ messagelog_dbname=&gt;
 </li>
 <li>
 <p>Stop xroad-proxy service for reconfiguration:</p>
-<pre><code>root@security_server:~ # service xroad-proxy stop
+<pre><code>root@security_server:~# service xroad-proxy stop
 </code></pre>
 </li>
 <li>
@@ -1906,9 +1914,10 @@ messagelog.hibernate.connection.password = messagelog_password
 </code></pre>
 </li>
 <li>
-<p>Populate database schema by reinstalling messagelog addon package (it will start xroad-proxy service also):</p>
-<pre><code>root@security_server:~ # apt-get install --reinstall xroad-addon-messagelog
-</code></pre>
+<p>Populate database schema by reinstalling messagelog addon package and start xroad-proxy</p>
+<p>Ubuntu: <code>apt-get install --reinstall xroad-addon-messagelog</code><br>
+RHEL: <code>yum reinstall xroad-addon-messagelog</code></p>
+<p><code>service xroad-proxy start</code></p>
 </li>
 </ol>
 <h2>
@@ -1949,7 +1958,7 @@ messagelog.hibernate.connection.password = messagelog_password
 <pre><code>/etc/rsyslog.d/40-xroad.conf
 </code></pre>
 <p>Restart the <em>rsyslog</em> service to apply the changes made to the configuration file</p>
-<pre><code>restart rsyslog
+<pre><code>service rsyslog restart
 </code></pre>
 <p>The audit log is rotated monthly by <em>logrotate</em>. To configure the audit log rotation, edit the <em>logrotate</em> configuration file</p>
 <pre><code>/etc/logrotate.d/xroad-proxy

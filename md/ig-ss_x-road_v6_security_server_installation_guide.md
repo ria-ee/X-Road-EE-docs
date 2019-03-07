@@ -5,7 +5,7 @@
 
 **X-ROAD 6**
 
-Version: 2.12.6  
+Version: 2.15  
 Doc. ID: IG-SS
 
 ---
@@ -43,40 +43,39 @@ Doc. ID: IG-SS
  13.08.2018 | 2.12.4  | Package name fix											    | Taavi Meinberg
  12.12.2018 | 2.12.5  | Added managment security servers' IPs | Jan Raik
  03.01.2019 | 2.12.6  | Updated repository key | Jan Raik
-
+ 14.10.2018 | 2.13    | Update package repository address | Petteri Kivimäki
+ 25.10.2018 | 2.14    | Add RHEL7 as supported platform, update section 2.2 Reference data | Petteri Kivimäki
+ 15.11.2018 | 2.15    | Add Ubuntu 18 installation instructions | Jarkko Hyöty
 
 ## Table of Contents
 
 <!-- toc -->
 
-- [Security Server Installation Guide](#security-server-installation-guide)
-    - [Version history](#version-history)
-    - [Table of Contents](#table-of-contents)
-    - [License](#license)
-    - [1 Introduction](#1-introduction)
-        - [1.1 Target Audience](#11-target-audience)
-        - [1.2 Terms and abbreviations](#12-terms-and-abbreviations)
-        - [1.3 References](#13-references)
-    - [2 Installation](#2-installation)
-        - [2.1 Supported Platforms](#21-supported-platforms)
-        - [2.2 Reference Data](#22-reference-data)
-        - [2.3 Network Diagram](#23-network-diagram)
-        - [2.4 Requirements for the Security Server](#24-requirements-for-the-security-server)
-        - [2.5 Preparing OS](#25-preparing-os)
-        - [2.6 Installation](#26-installation)
-        - [2.7 Post-Installation Checks](#27-post-installation-checks)
-        - [2.8 Installing the Support for Hardware Tokens](#28-installing-the-support-for-hardware-tokens)
-        - [2.9 Installing the Support for Environmental Monitoring](#29-installing-the-support-for-environmental-monitoring)
-    - [3 Security Server Initial Configuration](#3-security-server-initial-configuration)
-        - [3.1 Prerequisites](#31-prerequisites)
-        - [3.2 Reference Data](#32-reference-data)
-        - [3.3 Configuration](#33-configuration)
-    - [4 Installation Error handling](#4-installation-error-handling)
-        - [4.1 Cannot Set LC\_ALL to Default Locale](#41-cannot-set-lc-all-to-default-locale)
-        - [4.2 PostgreSQL Is Not UTF8 Compatible](#42-postgresql-is-not-utf8-compatible)
-        - [4.3 Could Not Create Default Cluster](#43-could-not-create-default-cluster)
-        - [4.4 Is Postgres Running On Port 5432?](#44-is-postgres-running-on-port-5432)
-        - [4.5 Different versions of xroad-\* packages after successful upgrade](#45-different-versions-of-xroad--packages-after-successful-upgrade)
+- [License](#license)
+- [1 Introduction](#1-introduction)
+  * [1.1 Target Audience](#11-target-audience)
+  * [1.2 Terms and abbreviations](#12-terms-and-abbreviations)
+  * [1.3 References](#13-references)
+- [2 Installation](#2-installation)
+  * [2.1 Supported Platforms](#21-supported-platforms)
+  * [2.2 Reference Data](#22-reference-data)
+  * [2.3 Network Diagram](#23-network-diagram)
+  * [2.4 Requirements for the Security Server](#24-requirements-for-the-security-server)
+  * [2.5 Preparing OS](#25-preparing-os)
+  * [2.6 Installation](#26-installation)
+  * [2.7 Post-Installation Checks](#27-post-installation-checks)
+  * [2.8 Installing the Support for Hardware Tokens](#28-installing-the-support-for-hardware-tokens)
+  * [2.9 Installing the Support for Environmental Monitoring](#29-installing-the-support-for-environmental-monitoring)
+- [3 Security Server Initial Configuration](#3-security-server-initial-configuration)
+  * [3.1 Prerequisites](#31-prerequisites)
+  * [3.2 Reference Data](#32-reference-data)
+  * [3.3 Configuration](#33-configuration)
+- [4 Installation Error handling](#4-installation-error-handling)
+  * [4.1 Cannot Set LC\_ALL to Default Locale](#41-cannot-set-lc_all-to-default-locale)
+  * [4.2 PostgreSQL Is Not UTF8 Compatible](#42-postgresql-is-not-utf8-compatible)
+  * [4.3 Could Not Create Default Cluster](#43-could-not-create-default-cluster)
+  * [4.4 Is Postgres Running On Port 5432?](#44-is-postgres-running-on-port-5432)
+  * [4.5 Different versions of xroad-\* packages after successful upgrade](#45-different-versions-of-xroad--packages-after-successful-upgrade)
 
 <!-- tocstop -->
 
@@ -108,7 +107,7 @@ See X-Road terms and abbreviations documentation \[[TA-TERMS](#Ref_TERMS)\].
 
 ### 2.1 Supported Platforms
 
-The security server runs on the *Ubuntu Server 14.04 Long-Term Support (LTS)* operating system on a 64-bit platform. The Estonian version of the security server software is distributed as .deb packages through the official X-tee repository at http://x-tee.ee/packages/.
+The security server runs on the *Ubuntu Server 14.04 and 18.04 Long-Term Support (LTS)* operating system on a 64-bit platform. The Estonian version of the security server software is distributed as .deb packages through the official X-tee repository at http://x-tee.ee/packages/.
 
 The software can be installed both on physical and virtualized hardware (of the latter, Xen and Oracle VirtualBox have been tested).
 
@@ -122,30 +121,33 @@ The software can be installed both on physical and virtualized hardware (of the 
 
  **Ref** |                                        | **Explanation**
  ------ | --------------------------------------- | ----------------------------------------------------------
- 1.0    | Ubuntu 14.04, 64-bit<br>3 GB RAM, 3 GB free disk space | Minimum requirements
+ 1.0    | Ubuntu 14.04 or 18.04, 64-bit<br>3 GB RAM, 3 GB free disk space | Minimum requirements
  1.1    | http://x-tee.ee/packages/live/xroad     | X-Road stable package repository
  &nbsp; | http://x-tee.ee/packages/test/xroad     | X-Road test package repository
  1.2    | https://x-tee.ee/packages/xroad_repo.gpg | The repository key
  1.3    |                                         | Account name in the user interface
- 1.4	| **INBOUND**							  | Ports for inbound connections (from the external network to the security server)
+ 1.4	| **INBOUND PORTS FROM EXTERNAL NETWORK** | Ports for inbound connections (from the external network to the security server)
  &nbsp; | TCP 5500                                | Message exchange between security servers. Recommended to use IP filtering (**whitelisting only RIA IP's and partners**).
  &nbsp; | TCP 5577                                | Querying of OCSP responses between security servers. Recommended to use IP filtering (**whitelisting only RIA IP's and partners**)
- 1.5	| **OUTBOUND**							  | Ports for outbound connections (from the security server to the external network)
+ 1.5	| **OUTBOUND PORTS TO EXTERNAL NETWORK**  | Ports for outbound connections (from the security server to the external network)
  &nbsp; | TCP 5500                                | Message exchange between security servers
  &nbsp; | TCP 5577                                | Querying of OCSP responses between security servers
  &nbsp; | TCP 4001                                | Communication with the central server
  &nbsp; | TCP 80                                  | Downloading global configuration from central server. 
  &nbsp; | TCP 80,443                              | Most common OCSP and time-stamping services. 
- 1.6  | TCP 4000                                  | User interface (local network). **Must not be accessible from the Internet!**
- 1.7  | TCP 80, 443                               | Information system access points (in the local network)<br> **Must not be accessible from the Internet!**
- &nbsp; | TCP 2080                                | Message exchange between security server and operational data monitoring daemon (by default on localhost)
+ 1.6    | **INBOUND PORTS FROM INTERNAL NETWORK** | Ports for inbound connections (from the internal network to the security server)
+ &nbsp; | TCP 4000                                | User interface (local network). **Must not be accessible from the Internet!**
+ &nbsp; | TCP 80, 443                             | Information system access points (in the local network)<br> **Must not be accessible from the Internet without strong authentication!**
  &nbsp; | TCP 9011                                | Operational data monitoring daemon JMX listening port
- 1.8  |                                           | Security server internal IP address(es) and hostname(s)
- 1.9  |                                           | Security server public IP address, NAT address
- 1.10 | &lt;by default, the server’s IP addresses and names are added to the certificate’s Distinguished Name (DN) field&gt; | Information about the user interface TLS certificate
- 1.11 | &lt;by default, the server’s IP addresses and names are added to the certificate’s Distinguished Name (DN) field&gt; | Information about the services TLS certificate
- 1.12 | TCP 2552                                  | Port for communications between `xroad-proxy` and `xroad-monitoring` processes
- 1.13 | 195.80.123.159                            | Monitoring security server IP in EE instance
+ &nbsp; | TCP 9999                                | Environmental monitoring daemon JMX listening port
+ 1.7    | **OUTBOUND PORTS TO INTERNAL NETWORK**  | Ports for outbound connections (from the security server to the internal network)
+ &nbsp; | TCP 80, 443                             | Producer information system endpoints
+ &nbsp; | TCP 2080                                | Message exchange between security server and operational data monitoring daemon (by default on localhost)
+ 1.8    |                                         | Security server internal IP address(es) and hostname(s)
+ 1.9    |                                         | Security server public IP address, NAT address
+ 1.10   | &lt;by default, the server’s IP addresses and names are added to the certificate’s Distinguished Name (DN) field&gt; | Information about the user interface TLS certificate
+ 1.11   | &lt;by default, the server’s IP addresses and names are added to the certificate’s Distinguished Name (DN) field&gt; | Information about the services TLS certificate
+ 1.12   | 195.80.123.159                          | Monitoring security server IP in EE instance
  &nbsp; | 195.80.123.164	                      | Monitoring security server IP in ee-test instance
  &nbsp; | 195.80.123.169	                      | Monitoring security server IP in ee-dev instance
 
@@ -153,7 +155,7 @@ The software can be installed both on physical and virtualized hardware (of the 
 
  The following network diagram is an example of a simple stand-alone Security Server setup. Attention should be paid when configuring the firewall of your Security Server, as misconfigurations (e.g. exposing port 80/tcp to the public internet) can leave your server vulnerable.
  
- Allowing incoming connections from the Monitoring Security Server on ports 5500/tcp and 5577/tcp (**reference data: 1.13**) is necessary for the X-Road Center to be able to monitor the ecosystem and provide statistics and support for Members.
+ Allowing incoming connections from the Monitoring Security Server on ports 5500/tcp and 5577/tcp (**reference data: 1.12**) is necessary for the X-Road Center to be able to monitor the ecosystem and provide statistics and support for Members.
 
  **Caution**: The enabling of auxiliary services which are necessary for the functioning and management of the operating system (such as DNS, NTP, and SSH) stay outside the scope of this guide.
 
@@ -171,7 +173,7 @@ The software can be installed both on physical and virtualized hardware (of the 
 
 Minimum recommended hardware parameters:
 
--   the server’s hardware (motherboard, CPU, network interface cards, storage system) must be supported by Ubuntu 14.04 in general;
+-   the server’s hardware (motherboard, CPU, network interface cards, storage system) must be supported by Ubuntu 14.04 or 18.04 in general;
 
 -   a 64-bit dual-core Intel, AMD or compatible CPU; AES instruction set support is highly recommended;
 
@@ -183,9 +185,9 @@ Minimum recommended hardware parameters:
 
 Requirements to software and settings:
 
--   an installed and configured Ubuntu 14.04 LTS x86-64 operating system;
+-   an installed and configured Ubuntu 14.04 or 18.04 LTS x86-64 operating system;
 
--   if the security server is separated from other networks by a firewall and/or NAT, the necessary connections to and from the security server are allowed (**reference data: 1.4; 1.5; 1.6; 1.7; 1.13**). The enabling of auxiliary services which are necessary for the functioning and management of the operating system (such as DNS, NTP, and SSH) stay outside the scope of this guide;
+-   if the security server is separated from other networks by a firewall and/or NAT, the necessary connections to and from the security server are allowed (**reference data: 1.4; 1.5; 1.6; 1.7; 1.12**). The enabling of auxiliary services which are necessary for the functioning and management of the operating system (such as DNS, NTP, and SSH) stay outside the scope of this guide;
 
 -   if the security server has a private IP address, a corresponding NAT record must be created in the firewall (**reference data: 1.9**).
 
@@ -194,13 +196,17 @@ Requirements to software and settings:
 
 -   Add system user (**reference data: 1.3**) whom all roles in the user interface are granted to. Add a new user with the command
 
-        sudo adduser username
+        sudo adduser <username>
 
     User roles are discussed in detail in X-Road Security Server User Guide \[[UG-SS](#Ref_UG-SS)\].
 
 -   Set the operating system locale. Add following line to the `/etc/environment` file.
 
         LC_ALL=en_US.UTF-8
+
+-   Ensure that the locale is available
+
+        sudo locale-gen en_US.UTF-8
 
 
 ### 2.6 Installation
@@ -209,20 +215,31 @@ To install the X-Road security server software, follow these steps.
 
 1.  Add to `/etc/apt/sources.list.d/xroad.list` the address of X-Road package repository (**reference data: 1.1**) and the nginx repository:
 
+    *Ubuntu 14.04 (trusty)*:
+
         deb http://x-tee.ee/packages/live/xroad trusty main
         deb http://ppa.launchpad.net/nginx/stable/ubuntu trusty main
         deb http://ppa.launchpad.net/openjdk-r/ppa/ubuntu trusty main
 
+    *Ubuntu 18.04 (bionic)*:
+
+        deb http://x-tee.ee/packages/live/xroad bionic main
+
 2.  Add the X-Road repository’s signing key to the list of trusted keys (**reference data: 1.2**):
+
+    *Ubuntu 14.04 (trusty)*:
 
         curl http://x-tee.ee/packages/live/xroad/repo.gpg | sudo apt-key add -
         sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 00A6F0A3C300EE8C
         sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EB9B1D8886F44E2A
 
+    *Ubuntu 18.04 (bionic)*:
+
+        curl http://x-tee.ee/packages/live/xroad/repo.gpg | sudo apt-key add -
+
 3.  Issue the following commands to install the security server packages:
 
         sudo apt-get update
-        sudo apt-get install openjdk-8-jre-headless
         sudo apt-get install xroad-securityserver-ee
 
 Upon the first installation of the packages, the system asks for the following information.
@@ -260,13 +277,30 @@ The installation is successful if system services are started and the user inter
 
 -   Ensure from the command line that X-Road services are in the `start/running` state (example output follows):
 
+    - Ubuntu 14.04
+        ```
         sudo initctl list | grep "^xroad-"
 
         xroad-jetty start/running, process 19796
         xroad-confclient start/running, process 19563
         xroad-signer start/running, process 19393
-        xroad-opmonitor start/running, process 20669
+        xroad-monitor start/running, process 20669
+        xroad-opmonitor start/running, process 20679
         xroad-proxy start/running, process 19580
+        ```
+
+    - Ubuntu 18.04
+        ```
+        sudo systemctl list-units "xroad*"
+
+        UNIT                     LOAD   ACTIVE SUB     DESCRIPTION
+        xroad-confclient.service loaded active running X-Road confclient
+        xroad-jetty.service      loaded active running X-Road Jetty server
+        xroad-monitor.service    loaded active running X-Road Monitor
+        xroad-opmonitor.service loaded active running X-Road opmonitor daemon
+        xroad-proxy.service      loaded active running X-Road Proxy
+        xroad-signer.service     loaded active running X-Road signer
+        ```
 
 -   Ensure that the security server user interface at https://SECURITYSERVER:4000/ (**reference data: 1.8; 1.6**) can be opened in a Web browser. To log in, use the account name chosen during the installation (**reference data: 1.3**). While the user interface is still starting up, the Web browser may display the “502 Bad Gateway” error.
 
@@ -277,7 +311,7 @@ To configure support for hardware security tokens (smartcard, USB token, Hardwar
 
 1.  Install the hardware token support module using the following command:
 
-    sudo apt-get install xroad-addon-hwtokens
+        sudo apt-get install xroad-addon-hwtokens
 
 2.  Install and configure a PKCS\#11 driver for the hardware token according to the manufacturer's instructions.
 
@@ -486,6 +520,4 @@ Sometimes, after using `sudo apt-get upgrade` command, some of the packages are 
 
 `apt-get upgrade` command doesn’t install new packages - in this particular case new packages `xroad-monitor` and `xroad-addon-proxymonitor` installation is needed for upgrade of `xroad-securityserver` package.
 
-To be sure that packages are installed correctly please use `sudo apt upgrade` or `sudo apt-get dist-upgrade` commands.
-
-Please note that `xroad-jetty9 package` version can be different from other packages’ versions.
+To be sure that packages are installed correctly please use `sudo apt upgrade` or `sudo apt full-upgrade` commands.
