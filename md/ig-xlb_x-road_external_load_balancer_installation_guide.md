@@ -1,6 +1,6 @@
 # X-Road: External Load Balancer Installation Guide
 
-Version: 1.4  
+Version: 1.6  
 Doc. ID: IG-XLB
 
 
@@ -11,6 +11,8 @@ Doc. ID: IG-XLB
 | 15.6.2017   | 1.2         | Added health check interface maintenance mode                                                                            | Tatu Repo                    |
 | 21.6.2017   | 1.3         | Added chapter 7 on [upgrading the security server cluster](#7-upgrading-a-clustered-x-road-security-server-installation) | Olli Lindgren                |
 | 02.03.2018  | 1.4         | Added uniform terms and conditions reference                                                                             | Tatu Repo                    |
+| 15.11.2018  | 1.5         | Updates for Ubuntu 18.04 support                                                                                         | Jarkko Hyöty                 |
+| 20.12.2018  | 1.6         | Update upgrade instructions                                                                                              | Jarkko Hyöty                 |
 
 ## Table of Contents
 

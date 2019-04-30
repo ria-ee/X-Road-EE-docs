@@ -46,7 +46,8 @@ Doc. ID: IG-SS
  14.10.2018 | 2.13    | Update package repository address | Petteri Kivimäki
  25.10.2018 | 2.14    | Add RHEL7 as supported platform, update section 2.2 Reference data | Petteri Kivimäki
  15.11.2018 | 2.15    | Add Ubuntu 18 installation instructions | Jarkko Hyöty
- 07.03.2019 | 2.16    | Added Postgres install command | Jan Raik
+ 07.03.2019 | 2.15.1  | Added Postgres install command | Jan Raik
+ 28.01.2018 | 2.16    | Update port 2080 documentation | Petteri Kivimäki
 
 ## Table of Contents
 

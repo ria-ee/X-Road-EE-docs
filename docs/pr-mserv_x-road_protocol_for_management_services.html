@@ -26,7 +26,7 @@
 <h1>
 <a id="x-road-protocol-for-management-services" class="anchor" href="#x-road-protocol-for-management-services" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>X-Road: Protocol for Management Services</h1>
 <p><strong>Technical Specification</strong></p>
-<p>Version: 1.11<br>
+<p>Version: 1.12<br>
 Doc. ID: PR-MSERV</p>
 <table>
 <thead>
@@ -152,6 +152,12 @@ Doc. ID: PR-MSERV</p>
 <td>Added terms section, term doc reference and link, fixed references</td>
 <td>Tatu Repo</td>
 </tr>
+<tr>
+<td>06.02.2019</td>
+<td>1.12</td>
+<td>Update <em>clientReg</em> message description</td>
+<td>Petteri Kivimäki</td>
+</tr>
 </tbody>
 </table>
 <h2>
@@ -259,6 +265,21 @@ Doc. ID: PR-MSERV</p>
         &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>requestId<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:RequestIdType<span class="pl-pds">"</span></span> <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span>/&gt;
     &lt;/<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
 &lt;/<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;</pre></div>
+<p>The request is sent using HTTP POST method. The content type of the request MUST be <em>multipart/related</em> and the request must contain the following MIME parts.</p>
+<ol>
+<li>
+<p>X-Road SOAP request message. The message MUST contain the regular X-Road headers and the two data fields (<em>server</em>, <em>client</em>). The content type of this part MUST be <em>text/xml</em>.</p>
+</li>
+<li>
+<p>Signature of the member that owns the subsystem to be registered as a security server client. The MIME part must contain signature of the SOAP request message, created with the private key corresponding to a <strong>signing certificate</strong> of the subsystem's owner. The content type of this part must be <em>application/octet-stream</em>. Additionally, the part MUST include header field <em>signature-algorithm-ID</em> that identifies the signature algorithm. Currently supported signature algorithms are <em>SHA256withRSA</em>, <em>SHA384withRSA</em>, <em>SHA512withRSA</em>, <em>SHA256withRSAandMGF1</em>, <em>SHA384withRSAandMGF1</em>, and <em>SHA512withRSAandMGF1</em>.</p>
+</li>
+<li>
+<p>Signing certificate of the subsystem's owner that was used to create the second MIME part. The content type of this part MUST be <em>application/octet-stream</em>.</p>
+</li>
+<li>
+<p>OCSP response certifying that the signing certificate was valid at the time of creation of the request. The content type of this part MUST be <em>application/octet-stream</em>.</p>
+</li>
+</ol>
 <p>The response echoes back the client and the server fields of the request and adds the field <em>requestId</em>.</p>
 <p>An example of the client registration request and response is given in <a href="#a1-clientreg">Annex A.1</a>.</p>
 <h3>
@@ -368,7 +389,9 @@ Doc. ID: PR-MSERV</p>
 <h3>
 <a id="a1-clientreg" class="anchor" href="#a1-clientreg" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>A.1 clientReg</h3>
 <p>Request message</p>
-<div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
+<div class="highlight highlight-text-xml"><pre>--jetty113950090iemuz6a3
+Content-Type: text/xml; charset=UTF-8
+&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
 &lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>
         <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">SOAP-ENV</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.xmlsoap.org/soap/envelope/<span class="pl-pds">"</span></span>
         <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/identifiers<span class="pl-pds">"</span></span>
@@ -404,7 +427,21 @@ Doc. ID: PR-MSERV</p>
             &lt;/<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">client</span>&gt;
         &lt;/<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">clientReg</span>&gt;
     &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
-&lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>&gt;</pre></div>
+&lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>&gt;
+--jetty113950090iemuz6a3
+Content-Type: application/octet-stream
+signature-algorithm-id: SHA512withRSA
+ 
+[SUBSYSTEM OWNER SIGNATURE BYTES]
+--jetty113950090iemuz6a3
+Content-Type: application/octet-stream
+ 
+[SUBSYSTEM OWNER CERTIFICATE BYTES]
+--jetty113950090iemuz6a3
+Content-Type: application/octet-stream
+ 
+[SUBSYSTEM OWNER CERTIFICATE OCSP RESPONSE BYTES]
+--jetty113950090iemuz6a3--</pre></div>
 <p>Response message</p>
 <div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
 &lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>

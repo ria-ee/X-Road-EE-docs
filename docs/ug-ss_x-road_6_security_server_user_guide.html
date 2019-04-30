@@ -26,7 +26,7 @@
 <h1>
 <a id="security-server-user-guide" class="anchor" href="#security-server-user-guide" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SECURITY SERVER USER GUIDE</h1>
 <p><strong>X-ROAD 6</strong></p>
-<p>Version: 2.23<br>
+<p>Version: 2.26<br>
 Doc. ID: UG-SS</p>
 <hr>
 <h2>
@@ -295,6 +295,24 @@ Doc. ID: UG-SS</p>
 <td>Minor updates for Ubuntu 18.04</td>
 <td>Jarkko Hyöty</td>
 </tr>
+<tr>
+<td>06.02.2019</td>
+<td>2.24</td>
+<td>Minor updates on security server client registration in Chapters <a href="#43-configuring-a-signing-key-and-certificate-for-a-security-server-client">4.3</a> and <a href="#44-registering-a-security-server-client-in-the-x-road-governing-authority">4.4</a>.</td>
+<td>Petteri Kivimäki</td>
+</tr>
+<tr>
+<td>15.03.2019</td>
+<td>2.25</td>
+<td>Update documentation to cover REST service usage in chapter [6]</td>
+<td>Jarkko Hyöty</td>
+</tr>
+<tr>
+<td>16.04.2019</td>
+<td>2.26</td>
+<td>Minor updates regarding REST services in chapter [6]</td>
+<td>Petteri Kivimäki</td>
+</tr>
 </tbody>
 </table>
 <h2>
@@ -394,11 +412,17 @@ Doc. ID: UG-SS</p>
 <li>
 <a href="#6-x-road-services">6 X-Road Services</a>
 <ul>
-<li><a href="#61-adding-a-wsdl">6.1 Adding a WSDL</a></li>
-<li><a href="#62-refreshing-a-wsdl">6.2 Refreshing a WSDL</a></li>
-<li><a href="#63-enabling-and-disabling-a-wsdl">6.3 Enabling and Disabling a WSDL</a></li>
-<li><a href="#64-changing-the-address-of-a-wsdl">6.4 Changing the Address of a WSDL</a></li>
-<li><a href="#65-deleting-a-wsdl">6.5 Deleting a WSDL</a></li>
+<li>
+<a href="#61-adding-a-service-description">6.1 Adding a service description</a>
+<ul>
+<li><a href="#611-soap">6.1.1 SOAP</a></li>
+<li><a href="#612-rest">6.1.2 REST</a></li>
+</ul>
+</li>
+<li><a href="#62-refreshing-a-service-description">6.2 Refreshing a service description</a></li>
+<li><a href="#63-enabling-and-disabling-a-service-description">6.3 Enabling and Disabling a service description</a></li>
+<li><a href="#64-changing-the-address-of-a-service-description">6.4 Changing the Address of a service description</a></li>
+<li><a href="#65-deleting-a-service-description">6.5 Deleting a service description</a></li>
 <li><a href="#66-changing-the-parameters-of-a-service">6.6 Changing the Parameters of a Service</a></li>
 </ul>
 </li>
@@ -946,7 +970,7 @@ adduser username xroad-securityserver-observer
 </ul>
 <h3>
 <a id="43-configuring-a-signing-key-and-certificate-for-a-security-server-client" class="anchor" href="#43-configuring-a-signing-key-and-certificate-for-a-security-server-client" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.3 Configuring a Signing Key and Certificate for a Security Server Client</h3>
-<p>A signing key and certificate must be configured for the security server client to sign messages exchanged over the X-Road.</p>
+<p>A signing key and certificate must be configured for the security server client to sign messages exchanged over the X-Road. In addition, a signing key and certificate are required for registering a security server client.</p>
 <p>Certificates are not issued to subsystems; therefore, the certificate of the subsystem’s owner (that is, an X-Road member) is used for the subsystem.</p>
 <p>All particular X-Road member’s subsystems that are registered in the same security server use the same signing certificate for signing messages. Hence, if the security server already contains the member's signing certificate, it is not necessary to configure a new signing key and/or certificate when adding a subsystem of that member.</p>
 <p>The process of configuring the signing key and certificate for a security server client is the same as for the security server owner. The process is described in Section <a href="#31-configuring-the-signing-key-and-certificate-for-the-security-server-owner">3.1</a>.</p>
@@ -954,6 +978,9 @@ adduser username xroad-securityserver-observer
 <a id="44-registering-a-security-server-client-in-the-x-road-governing-authority" class="anchor" href="#44-registering-a-security-server-client-in-the-x-road-governing-authority" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.4 Registering a Security Server Client in the X-Road Governing Authority</h3>
 <p>To register a security server client in the X-Road governing authority, the following actions must be completed.</p>
 <ul>
+<li>
+<p>A signing key and certificate must be configured for the member that owns the subsystem to be registered as a the security server client (see <a href="#43-configuring-a-signing-key-and-certificate-for-a-security-server-client">4.3</a>).</p>
+</li>
 <li>
 <p>The security server client registration request must be submitted from the security server (see <a href="#441-registering-a-security-server-client">4.4.1</a>).</p>
 </li>
@@ -1242,18 +1269,20 @@ adduser username xroad-securityserver-observer
 </ol>
 <h2>
 <a id="6-x-road-services" class="anchor" href="#6-x-road-services" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6 X-Road Services</h2>
-<p>The services are managed on two levels:</p>
+<p>X-Road supports both SOAP and REST services. The services are managed on two levels:</p>
 <ul>
 <li>
-<p>the addition, deletion, and deactivation of services is carried out on the WSDL level;</p>
+<p>the addition, deletion, and deactivation of services is carried out on the WSDL / REST API level;</p>
 </li>
 <li>
-<p>the service address, internal network connection method, and the service timeout values are configured at the service level. However, it is easy to extend the configuration of one service to all the other services in the same WSDL.</p>
+<p>the service address, internal network connection method, and the service timeout values are configured at the service level for SOAP services and at the API level for REST services. In addition, for SOAP / WSDL, it is easy to extend the configuration of one service to all the other services.</p>
 </li>
 </ul>
 <h3>
-<a id="61-adding-a-wsdl" class="anchor" href="#61-adding-a-wsdl" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.1 Adding a WSDL</h3>
+<a id="61-adding-a-service-description" class="anchor" href="#61-adding-a-service-description" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.1 Adding a service description</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-service-administrator">Service Administrator</a></p>
+<h3>
+<a id="611-soap" class="anchor" href="#611-soap" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.1.1 SOAP</h3>
 <p>When a new WSDL file is added, the security server reads service information from it and displays the information in the table of services. The service code, title and address are read from the WSDL.</p>
 <p><strong>To add a WSDL</strong>, follow these steps.</p>
 <ol>
@@ -1261,7 +1290,7 @@ adduser username xroad-securityserver-observer
 <p>On the <strong>Configuration</strong> menu, select <strong>Security Server Clients</strong>, select a client from the table and click the <strong>Services</strong> icon on that row.</p>
 </li>
 <li>
-<p>Click <strong>Add WSDL</strong>, enter the WSDL address in the window that opens and click <strong>OK</strong>. The WSDL and the information about the services it contains are added to the table. By default, the WSDL is added in disabled state (see <a href="#63-enabling-and-disabling-a-wsdl">6.3</a>).</p>
+<p>Click <strong>ADD WSDL</strong>, enter the WSDL address in the window that opens and click <strong>OK</strong>. Once the window is closed, the WSDL and the information about the services it contains are added to the table. By default, the WSDL is added in disabled state (see <a href="#63-enabling-and-disabling-a-service-description">6.3</a>).</p>
 </li>
 </ol>
 <p><strong>To see a list of services contained in the WSDL</strong></p>
@@ -1269,7 +1298,23 @@ adduser username xroad-securityserver-observer
 <li>click the “<strong>+</strong>” symbol in front of the WSDL row to expand the list.</li>
 </ul>
 <h3>
-<a id="62-refreshing-a-wsdl" class="anchor" href="#62-refreshing-a-wsdl" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.2 Refreshing a WSDL</h3>
+<a id="612-rest" class="anchor" href="#612-rest" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.1.2 REST</h3>
+<p>When a new REST service is added, the security server displays url and service code provided.</p>
+<p><strong>To add a REST service</strong>, follow these steps.</p>
+<ol>
+<li>
+<p>On the <strong>Configuration</strong> menu, select <strong>Security Server Clients</strong>, select a client from the table and click the <strong>Services</strong> icon on that row.</p>
+</li>
+<li>
+<p>Click <strong>ADD REST</strong>, enter the url and service code in the window that opens and click <strong>OK</strong>. Once the window is closed, the url and the service code are added to the table. By default, the REST API is added in disabled state (see <a href="#63-enabling-and-disabling-a-service-description">6.3</a>).</p>
+</li>
+</ol>
+<p><strong>To see the service the REST service</strong></p>
+<ul>
+<li>click the "<strong>+</strong>" symbol in front of the REST row to expand the service description.</li>
+</ul>
+<h3>
+<a id="62-refreshing-a-service-description" class="anchor" href="#62-refreshing-a-service-description" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.2 Refreshing a service description</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-service-administrator">Service Administrator</a></p>
 <p>Upon refreshing, the security server reloads the WSDL file from the WSDL address to the security server and checks the service information in the reloaded file against existing services. If the composition of services in the new WSDL has changed compared to the current version, a warning is displayed and you can either continue with the refresh or cancel.</p>
 <p>To refresh the WSDL, follow these steps.</p>
@@ -1285,59 +1330,60 @@ adduser username xroad-securityserver-observer
 </li>
 </ol>
 <p>When the WSDL is refreshed, the existing services’ settings are not overwritten.</p>
+<p>Refreshing a REST service is disabled.</p>
 <h3>
-<a id="63-enabling-and-disabling-a-wsdl" class="anchor" href="#63-enabling-and-disabling-a-wsdl" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.3 Enabling and Disabling a WSDL</h3>
+<a id="63-enabling-and-disabling-a-service-description" class="anchor" href="#63-enabling-and-disabling-a-service-description" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.3 Enabling and Disabling a service description</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-service-administrator">Service Administrator</a></p>
-<p>A disabled WSDL is displayed in the services’ table in red with a "Disabled" note.</p>
-<p>Services described by a disabled WSDL cannot be accessed by the service clients – if an attempt is made to access the service, an error message is returned, containing the information entered by the security server's administrator when the WSDL was disabled.</p>
-<p>If a WSDL is enabled, the services described there become accessible to users. Therefore it is necessary to ensure that before enabling the WSDL, the parameters of all its services are correctly configured (see <a href="#66-changing-the-parameters-of-a-service">6.6</a>).</p>
-<p>To <strong>enable</strong> a WSDL, follow these steps.</p>
+<p>A disabled service description is displayed in the services’ table in red with a "Disabled" note.</p>
+<p>Services described by a disabled service description cannot be accessed by the service clients – if an attempt is made to access the service, an error message is returned, containing the information entered by the security server's administrator when the service description was disabled.</p>
+<p>If a service description is enabled, the services described there become accessible to users. Therefore it is necessary to ensure that before enabling the service description, the parameters of all its services are correctly configured (see <a href="#66-changing-the-parameters-of-a-service">6.6</a>).</p>
+<p>To <strong>enable</strong> a service description, follow these steps.</p>
 <ol>
 <li>
 <p>On the <strong>Configuration</strong> menu, select <strong>Security Server Clients</strong>, select a client from the table and click the <strong>Services</strong> icon on that row.</p>
 </li>
 <li>
-<p>Select a disabled WSDL from the table and click <strong>Enable</strong>.</p>
+<p>Select a disabled service description from the table and click <strong>Enable</strong>.</p>
 </li>
 </ol>
-<p>To <strong>disable</strong> a WSDL, follow these steps.</p>
+<p>To <strong>disable</strong> a service description, follow these steps.</p>
 <ol>
 <li>
 <p>On the <strong>Configuration</strong> menu, select <strong>Security Server Clients</strong>, select a client from the table and click the <strong>Services</strong> icon on that row.</p>
 </li>
 <li>
-<p>To enable a WSDL, select an enabled WSDL from the table and click <strong>Disable</strong>.</p>
+<p>To enable a service description, select an enabled service description from the table and click <strong>Disable</strong>.</p>
 </li>
 <li>
-<p>In the window that opens, enter an error message, which is shown to clients who try to access any of the services in the WSDL, and click <strong>OK</strong>.</p>
-</li>
-</ol>
-<h3>
-<a id="64-changing-the-address-of-a-wsdl" class="anchor" href="#64-changing-the-address-of-a-wsdl" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.4 Changing the Address of a WSDL</h3>
-<p><strong>Access rights:</strong> <a href="#xroad-service-administrator">Service Administrator</a></p>
-<p>To change the WSDL address, follow these steps.</p>
-<ol>
-<li>
-<p>On the <strong>Configuration</strong> menu, select <strong>Security Server Clients</strong>, select a client from the table and click the <strong>Services</strong> icon on that row.</p>
-</li>
-<li>
-<p>Select from the table a WSDL whose address you wish to change and click <strong>Edit</strong>.</p>
-</li>
-<li>
-<p>In the window that opens, edit the WSDL address and click <strong>OK</strong>. When the address is changed, the WSDL is refreshed (see section <a href="#62-refreshing-a-wsdl">6.2</a>).</p>
+<p>In the window that opens, enter an error message, which is shown to clients who try to access any of the services in the service description, and click <strong>OK</strong>.</p>
 </li>
 </ol>
 <h3>
-<a id="65-deleting-a-wsdl" class="anchor" href="#65-deleting-a-wsdl" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.5 Deleting a WSDL</h3>
+<a id="64-changing-the-address-of-a-service-description" class="anchor" href="#64-changing-the-address-of-a-service-description" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.4 Changing the Address of a service description</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-service-administrator">Service Administrator</a></p>
-<p>When a WSDL is deleted, all information related to the services described in the WSDL, including access rights, are deleted.</p>
-<p>To delete a WSDL, follow these steps.</p>
+<p>To change the service description address, follow these steps.</p>
 <ol>
 <li>
 <p>On the <strong>Configuration</strong> menu, select <strong>Security Server Clients</strong>, select a client from the table and click the <strong>Services</strong> icon on that row.</p>
 </li>
 <li>
-<p>Select from the table a WSDL to be deleted and click <strong>Delete</strong>.</p>
+<p>Select from the table a service description whose information you wish to change and click <strong>Edit</strong>.</p>
+</li>
+<li>
+<p>In the window that opens, edit the WSDL address for WSDL, and url and/or service code for REST, and click <strong>OK</strong>. The service information updates accordingly (see section <a href="#62-refreshing-a-service-description">6.2</a>).</p>
+</li>
+</ol>
+<h3>
+<a id="65-deleting-a-service-description" class="anchor" href="#65-deleting-a-service-description" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.5 Deleting a service description</h3>
+<p><strong>Access rights:</strong> <a href="#xroad-service-administrator">Service Administrator</a></p>
+<p>When a service description is deleted, all information related to the services described in the service description, including access rights, are deleted.</p>
+<p>To delete a service description, follow these steps.</p>
+<ol>
+<li>
+<p>On the <strong>Configuration</strong> menu, select <strong>Security Server Clients</strong>, select a client from the table and click the <strong>Services</strong> icon on that row.</p>
+</li>
+<li>
+<p>Select from the table a service description to be deleted and click <strong>Delete</strong>.</p>
 </li>
 <li>
 <p>Confirm the deletion by clicking <strong>Confirm</strong> in the window that opens.</p>
@@ -1367,7 +1413,7 @@ adduser username xroad-securityserver-observer
 <p>Select a service from the table and click <strong>Edit</strong>.</p>
 </li>
 <li>
-<p>In the window that opens, configure the service parameters. To apply the selected parameter to all services described in the same WSDL, select the checkbox adjacent to this parameter in the <strong>Apply to All in WSDL</strong> column. To apply the configured parameters, click <strong>OK</strong>.</p>
+<p>In the window that opens, configure the service parameters. To apply the selected parameter to all services described in the same service description, select the checkbox adjacent to this parameter in the <strong>Apply to All in WSDL</strong> column. To apply the configured parameters, click <strong>OK</strong>.</p>
 </li>
 </ol>
 <h2>
