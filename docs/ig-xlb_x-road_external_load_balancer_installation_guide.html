@@ -61,6 +61,24 @@ Doc. ID: IG-XLB</p>
 <td>Added uniform terms and conditions reference</td>
 <td>Tatu Repo</td>
 </tr>
+<tr>
+<td>15.11.2018</td>
+<td>1.5</td>
+<td>Updates for Ubuntu 18.04 support</td>
+<td>Jarkko Hyöty</td>
+</tr>
+<tr>
+<td>20.12.2018</td>
+<td>1.6</td>
+<td>Update upgrade instructions</td>
+<td>Jarkko Hyöty</td>
+</tr>
+<tr>
+<td>11.09.2019</td>
+<td>1.7</td>
+<td>Remove Ubuntu 14.04 support</td>
+<td>Jarkko Hyöty</td>
+</tr>
 </tbody>
 </table>
 <h2>
@@ -142,7 +160,6 @@ Doc. ID: IG-XLB</p>
 <a href="#52-set-up-periodic-configuration-synchronization-on-the-slave-nodes">5.2 Set up periodic configuration synchronization on the slave nodes</a>
 <ul>
 <li><a href="#521-rhelubuntu-1804-use-systemd-for-configuration-synchronization">5.2.1 RHEL/Ubuntu 18.04: Use systemd for configuration synchronization</a></li>
-<li><a href="#522-ubuntu-1404-use-upstart-and-cron-for-configuration-synchronization">5.2.2 Ubuntu 14.04: Use upstart and cron for configuration synchronization</a></li>
 </ul>
 </li>
 <li><a href="#53-set-up-log-rotation-for-the-sync-log-on-the-slave-nodes">5.3 Set up log rotation for the sync log on the slave nodes</a></li>
@@ -509,6 +526,9 @@ type=slave</pre></div>
 <p>After removing these groups, the super user created during the security server installation is a member of only one UI privilege group: <code>xroad-securityserver-observer</code>. This group allows read-only access to the admin user interface and provides a safe way to use the UI for checking the configuration status of the slave security server. Since admin UI users are UNIX users that are members of specific privilege groups, more users can be added to the read-only group as necessary. Security server installation scripts detect the node type of existing installations and modify user group creation accordingly so as to not overwrite this configuration step during security server updates.</p>
 <p>For more information on user groups and their effect on admin user interface privileges in the security server, see the  Security Server User Guide [<a href="#13-references">UG-SS</a>].</p>
 </li>
+<li>
+<p>It is possible to use the autologin-package with slave nodes to enable automatic PIN-code insertion, however the autologin-package default implementation stores PIN-codes in plain text and should not be used in production environments. Instructions on how to configure the autologin-package to use a more secure custom PIN-code storing implementation can be found in <a href="ug-autologin_x-road_v6_autologin_user_guide.html">autologin documentation</a></p>
+</li>
 </ol>
 <p>The configuration is now complete. If you do not want to set up the health check service, continue to <a href="#6-verifying-the-setup">chapter 6</a>
 to verify the setup.</p>
@@ -627,7 +647,7 @@ Fetching health check response timed out for: Authentication key OCSP status
 <a id="4-database-replication-setup" class="anchor" href="#4-database-replication-setup" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4. Database replication setup</h2>
 <p>For technical details on the PostgreSQL replication, refer to the <a href="https://www.postgresql.org/docs/9.2/static/high-availability.html" rel="nofollow">official documentation</a>.
 Note that the versions of PostgreSQL distributed with RHEL and Ubuntu are different. At the time of writing, RHEL 7
-distributes PostgreSQL version 9.2, Ubuntu 14.04 distributes version 9.3, and Ubuntu 18.04 version 10; the replication configuration is the same
+distributes PostgreSQL version 9.2, and Ubuntu 18.04 version 10; the replication configuration is the same
 for all these versions.</p>
 <h3>
 <a id="41-setting-up-tls-certificates-for-database-authentication" class="anchor" href="#41-setting-up-tls-certificates-for-database-authentication" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.1 Setting up TLS certificates for database authentication</h3>
@@ -726,8 +746,6 @@ see the <a href="https://www.postgresql.org/docs/9.2/static/runtime-config-repli
 documentation</a> for more details.</p>
 <p>The <code>samenet</code> above assumes that the slaves will be in the same subnet as the master.</p>
 <p>Start the master instance:</p>
-<p><strong>Ubuntu 14.04:</strong></p>
-<div class="highlight highlight-source-shell"><pre>/etc/init.d/postgresql start</pre></div>
 <p><strong>Ubuntu 18.04:</strong></p>
 <div class="highlight highlight-source-shell"><pre>systemctl start postgresql@10-serverconf</pre></div>
 <p><strong>RHEL:</strong></p>
@@ -793,9 +811,6 @@ parameters should be disabled. Also check that <code>listen_addresses</code> is 
 <p>Finally, start the database instance</p>
 <p><strong>RHEL:</strong></p>
 <div class="highlight highlight-source-shell"><pre>systemctl start postgresql-serverconf</pre></div>
-<p><strong>Ubuntu 14.04:</strong></p>
-<div class="highlight highlight-source-shell"><pre>/etc/init.d/postgresql start</pre></div>
-<p>Note that on Ubuntu, the command starts all configured database instances.</p>
 <p><strong>Ubuntu 18.04:</strong></p>
 <div class="highlight highlight-source-shell"><pre>systemctl start postgresql@10-serverconf</pre></div>
 <h2>
@@ -868,43 +883,6 @@ setsebool -P rsync_full_access 1
 <p>Finally, enable the services:</p>
 <pre><code>systemctl enable xroad-sync.timer xroad-sync.service
 systemctl start xroad-sync.timer
-</code></pre>
-<h4>
-<a id="522-ubuntu-1404-use-upstart-and-cron-for-configuration-synchronization" class="anchor" href="#522-ubuntu-1404-use-upstart-and-cron-for-configuration-synchronization" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.2.2 Ubuntu 14.04: Use upstart and cron for configuration synchronization</h4>
-<p>First, create the main upstart task for syncing.</p>
-<p>Create a new file: <code>/etc/init/xroad-sync.conf</code>:</p>
-<pre><code># xroad-sync
-env XROAD_USER=xroad-slave
-env MASTER=&lt;master_host&gt;
-task
-
-pre-start script
-  test ! -f /var/tmp/xroad/sync-disabled || { stop; exit 0; }
-end script
-
-script
-  su -s /bin/sh -c 'exec "$0" "$@"' xroad -- rsync -e "ssh -o ConnectTimeout=5 " -aqz --timeout=10 --delete-delay --exclude db.properties --exclude "/conf.d/node.ini" --exclude "*.tmp" --exclude "/postgresql" --exclude "/nginx" --exclude "/globalconf" --exclude "/jetty" --delay-updates --log-file=/var/log/xroad/slave-sync.log ${XROAD_USER}@${MASTER}:/etc/xroad/ /etc/xroad/
-end script
-</code></pre>
-<p>Where <code>&lt;master_host&gt;</code> is the DNS name or IP address of the master node.</p>
-<p>The task will log <code>rsync</code> events to <code>/var/log/xroad/slave-sync.log</code>.</p>
-<p>Then, create a helper task that ensures that the sync task is executed before the services are started.</p>
-<p>Create a new file <code>/etc/init/xroad-sync-wait.conf</code>:</p>
-<pre><code># wait for xroad-sync to complete before starting services
-start on starting xroad-proxy or starting xroad-jetty or starting xroad-signer or starting xroad-confclient
-stop on stopped xroad-sync
-instance $JOB
-normal exit 2
-task
-script
-  echo "$JOB"
-  start xroad-sync || :
-  sleep 360
-end script
-</code></pre>
-<p>Next, add a cron job to periodically start the sync task as upstart does not have a timer facility.</p>
-<p>Create a new file <code>/etc/cron.d/xroad-state-sync</code>:</p>
-<pre><code>* * * * * root /sbin/initctl --quiet start xroad-sync
 </code></pre>
 <p><strong>A note about the <code>rsync</code> options:</strong></p>
 <blockquote>

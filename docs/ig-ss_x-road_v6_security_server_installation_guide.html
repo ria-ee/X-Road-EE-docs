@@ -24,13 +24,13 @@
 </thead>
 </table>
 <h1>
-<a id="security-server-installation-guide" class="anchor" href="#security-server-installation-guide" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Security Server Installation Guide</h1>
+<a id="security-server-installation-guide-for-ubuntu-" class="anchor" href="#security-server-installation-guide-for-ubuntu-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Security Server Installation Guide for Ubuntu </h1>
 <p><strong>X-ROAD 6</strong></p>
-<p>Version: 2.16<br>
+<p>Version: 2.19<br>
 Doc. ID: IG-SS</p>
 <hr>
 <h2>
-<a id="version-history" class="anchor" href="#version-history" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version history</h2>
+<a id="version-history-" class="anchor" href="#version-history-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version history </h2>
 <table>
 <thead>
 <tr>
@@ -198,18 +198,6 @@ Doc. ID: IG-SS</p>
 <td>Taavi Meinberg</td>
 </tr>
 <tr>
-<td>12.12.2018</td>
-<td>2.12.5</td>
-<td>Added managment security servers' IPs</td>
-<td>Jan Raik</td>
-</tr>
-<tr>
-<td>03.01.2019</td>
-<td>2.12.6</td>
-<td>Updated repository key</td>
-<td>Jan Raik</td>
-</tr>
-<tr>
 <td>14.10.2018</td>
 <td>2.13</td>
 <td>Update package repository address</td>
@@ -228,15 +216,45 @@ Doc. ID: IG-SS</p>
 <td>Jarkko Hyöty</td>
 </tr>
 <tr>
-<td>07.03.2019</td>
-<td>2.16</td>
-<td>Added Postgres install command</td>
+<td>12.12.2018</td>
+<td>2.12.5</td>
+<td>Added managment security servers' IPs</td>
 <td>Jan Raik</td>
+</tr>
+<tr>
+<td>03.01.2019</td>
+<td>2.12.6</td>
+<td>Updated repository key</td>
+<td>Jan Raik</td>
+</tr>
+<tr>
+<td>28.01.2019</td>
+<td>2.16</td>
+<td>Update port 2080 documentation</td>
+<td>Petteri Kivimäki</td>
+</tr>
+<tr>
+<td>30.05.2019</td>
+<td>2.17</td>
+<td>Added package installation instructions on chapter "<a href="#24-preparing-os">2.4 Preparing OS</a>"</td>
+<td>Raul Martinez</td>
+</tr>
+<tr>
+<td>11.09.2019</td>
+<td>2.18</td>
+<td>Remove Ubuntu 14.04 from supported platforms</td>
+<td>Jarkko Hyöty</td>
+</tr>
+<tr>
+<td>20.09.2019</td>
+<td>2.19</td>
+<td>Add instructions for using remote databases</td>
+<td>Ilkka Seppälä</td>
 </tr>
 </tbody>
 </table>
 <h2>
-<a id="table-of-contents" class="anchor" href="#table-of-contents" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Table of Contents</h2>
+<a id="table-of-contents-" class="anchor" href="#table-of-contents-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Table of Contents </h2>
 
 <ul>
 <li><a href="#license">License</a></li>
@@ -260,6 +278,7 @@ Doc. ID: IG-SS</p>
 <li><a href="#27-post-installation-checks">2.7 Post-Installation Checks</a></li>
 <li><a href="#28-installing-the-support-for-hardware-tokens">2.8 Installing the Support for Hardware Tokens</a></li>
 <li><a href="#29-installing-the-support-for-environmental-monitoring">2.9 Installing the Support for Environmental Monitoring</a></li>
+<li><a href="#29-remote-database-post-installation-tasks">2.10 Remote Database Post-Installation Tasks</a></li>
 </ul>
 </li>
 <li>
@@ -273,7 +292,7 @@ Doc. ID: IG-SS</p>
 <li>
 <a href="#4-installation-error-handling">4 Installation Error handling</a>
 <ul>
-<li><a href="#41-cannot-set-lc_all-to-default-locale">4.1 Cannot Set LC_ALL to Default Locale</a></li>
+<li><a href="#41-cannot-set-lcall-to-default-locale">4.1 Cannot Set LC_ALL to Default Locale</a></li>
 <li><a href="#42-postgresql-is-not-utf8-compatible">4.2 PostgreSQL Is Not UTF8 Compatible</a></li>
 <li><a href="#43-could-not-create-default-cluster">4.3 Could Not Create Default Cluster</a></li>
 <li><a href="#44-is-postgres-running-on-port-5432">4.4 Is Postgres Running On Port 5432?</a></li>
@@ -308,7 +327,7 @@ Doc. ID: IG-SS</p>
 <a id="2-installation" class="anchor" href="#2-installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2 Installation</h2>
 <h3>
 <a id="21-supported-platforms" class="anchor" href="#21-supported-platforms" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.1 Supported Platforms</h3>
-<p>The security server runs on the <em>Ubuntu Server 14.04 and 18.04 Long-Term Support (LTS)</em> operating system on a 64-bit platform. The Estonian version of the security server software is distributed as .deb packages through the official X-tee repository at <a href="http://x-tee.ee/packages/" rel="nofollow">http://x-tee.ee/packages/</a>.</p>
+<p>The security server runs on the *Ubuntu Server 18.04 Long-Term Support (LTS) operating system on a 64-bit platform. The Estonian version of the security server software is distributed as .deb packages through the official X-tee repository at <a href="http://x-tee.ee/packages/" rel="nofollow">http://x-tee.ee/packages/</a>.</p>
 <p>The software can be installed both on physical and virtualized hardware (of the latter, Xen and Oracle VirtualBox have been tested).</p>
 <h3>
 <a id="22-reference-data" class="anchor" href="#22-reference-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.2 Reference Data</h3>
@@ -325,7 +344,7 @@ Doc. ID: IG-SS</p>
 <tbody>
 <tr>
 <td>1.0</td>
-<td>Ubuntu 14.04 or 18.04, 64-bit<br>3 GB RAM, 3 GB free disk space</td>
+<td>Ubuntu 18.04, 64-bit<br>3 GB RAM, 3 GB free disk space</td>
 <td>Minimum requirements</td>
 </tr>
 <tr>
@@ -513,7 +532,7 @@ Doc. ID: IG-SS</p>
 <p>Minimum recommended hardware parameters:</p>
 <ul>
 <li>
-<p>the server’s hardware (motherboard, CPU, network interface cards, storage system) must be supported by Ubuntu 14.04 or 18.04 in general;</p>
+<p>the server’s hardware (motherboard, CPU, network interface cards, storage system) must be supported by Ubuntu 18.04 in general;</p>
 </li>
 <li>
 <p>a 64-bit dual-core Intel, AMD or compatible CPU; AES instruction set support is highly recommended;</p>
@@ -531,7 +550,7 @@ Doc. ID: IG-SS</p>
 <p>Requirements to software and settings:</p>
 <ul>
 <li>
-<p>an installed and configured Ubuntu 14.04 or 18.04 LTS x86-64 operating system;</p>
+<p>an installed and configured Ubuntu 18.04 LTS x86-64 operating system;</p>
 </li>
 <li>
 <p>if the security server is separated from other networks by a firewall and/or NAT, the necessary connections to and from the security server are allowed (<strong>reference data: 1.4; 1.5; 1.6; 1.7; 1.12</strong>). The enabling of auxiliary services which are necessary for the functioning and management of the operating system (such as DNS, NTP, and SSH) stay outside the scope of this guide;</p>
@@ -555,6 +574,11 @@ Doc. ID: IG-SS</p>
 </code></pre>
 </li>
 <li>
+<p>Ensure that the packages <code>locales</code> and <code>software-properties-common</code> are present</p>
+<pre><code>sudo apt-get install locales software-properties-common
+</code></pre>
+</li>
+<li>
 <p>Ensure that the locale is available</p>
 <pre><code>sudo locale-gen en_US.UTF-8
 </code></pre>
@@ -566,28 +590,26 @@ Doc. ID: IG-SS</p>
 <ol>
 <li>
 <p>Add to <code>/etc/apt/sources.list.d/xroad.list</code> the address of X-Road package repository (<strong>reference data: 1.1</strong>) and the nginx repository:</p>
-<p><em>Ubuntu 14.04 (trusty)</em>:</p>
-<pre><code>deb http://x-tee.ee/packages/live/xroad trusty main
-deb http://ppa.launchpad.net/nginx/stable/ubuntu trusty main
-deb http://ppa.launchpad.net/openjdk-r/ppa/ubuntu trusty main
-</code></pre>
-<p><em>Ubuntu 18.04 (bionic)</em>:</p>
 <pre><code>deb http://x-tee.ee/packages/live/xroad bionic main
 </code></pre>
 </li>
 <li>
 <p>Add the X-Road repository’s signing key to the list of trusted keys (<strong>reference data: 1.2</strong>):</p>
-<p><em>Ubuntu 14.04 (trusty)</em>:</p>
-<pre><code>curl http://x-tee.ee/packages/live/xroad/repo.gpg | sudo apt-key add -
-sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 00A6F0A3C300EE8C
-sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EB9B1D8886F44E2A
-</code></pre>
-<p><em>Ubuntu 18.04 (bionic)</em>:</p>
 <pre><code>curl http://x-tee.ee/packages/live/xroad/repo.gpg | sudo apt-key add -
 </code></pre>
 </li>
 <li>
-<p>Issue the following commands to install the security server packages:</p>
+<p>(Optional step) If you want to use remote database server instead of the default locally installed one, you need to pre-create a configuration file containing the database administrator master password. This can be done by performing the following steps:</p>
+<pre><code> sudo touch /etc/xroad.properties
+ sudo chown root:root /etc/xroad.properties
+ sudo chmod 600 /etc/xroad.properties
+</code></pre>
+<p>Edit <code>/etc/xroad.properties</code> contents. See the example below. Replace parameter values with your own.</p>
+<pre><code> postgres.connection.password = 54F46A19E50C11DA8631468CF09BE5DB
+</code></pre>
+</li>
+<li>
+<p>Issue the following commands to install the security server packages (use package xroad-securityserver-ee to include configuration specific to Estonia; use package xroad-securityserver-fi to include configuration specific to Finland):</p>
 <pre><code>sudo apt-get update
 sudo apt-get install postgresql
 sudo apt-get install xroad-securityserver-ee
@@ -598,6 +620,9 @@ sudo apt-get install xroad-securityserver-ee
 <ul>
 <li>
 <p>Account name for the user who will be granted the rights to perform all activities in the user interface (<strong>reference data: 1.3</strong>).</p>
+</li>
+<li>
+<p>Database server URL. Locally installed database is suggested as default but remote databases can be used as well. In case remote database is used, one should verify that the version of the local PostgreSQL client matches the version of the remote PostgreSQL server.</p>
 </li>
 <li>
 <p>The Distinguished Name of the owner of the <strong>user interface’s</strong> self-signed TLS certificate (<em>Subject DN</em>) and its alternative names (<em>subjectAltName</em>) (<strong>reference data: 1.8; 1.10</strong>). The certificate is used for securing connections to the user interface.
@@ -638,22 +663,9 @@ The name and IP addresses detected from the system are suggested as default valu
 <p>The installation is successful if system services are started and the user interface is responding.</p>
 <ul>
 <li>
-<p>Ensure from the command line that X-Road services are in the <code>start/running</code> state (example output follows):</p>
+<p>Ensure from the command line that X-Road services are in the <code>running</code> state (example output follows):</p>
 <ul>
-<li>
-<p>Ubuntu 14.04</p>
-<pre><code>sudo initctl list | grep "^xroad-"
-
-xroad-jetty start/running, process 19796
-xroad-confclient start/running, process 19563
-xroad-signer start/running, process 19393
-xroad-monitor start/running, process 20669
-xroad-opmonitor start/running, process 20679
-xroad-proxy start/running, process 19580
-</code></pre>
-</li>
-<li>
-<p>Ubuntu 18.04</p>
+<li>Ubuntu 18.04
 <pre><code>sudo systemctl list-units "xroad*"
 
 UNIT                     LOAD   ACTIVE SUB     DESCRIPTION
@@ -807,6 +819,13 @@ xroad-signer.service     loaded active running X-Road signer
 <h3>
 <a id="29-installing-the-support-for-environmental-monitoring" class="anchor" href="#29-installing-the-support-for-environmental-monitoring" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.9 Installing the Support for Environmental Monitoring</h3>
 <p>The support for environmental monitoring functionality on a security server is provided by package xroad-monitor that is installed by default. The package installs and starts the <code>xroad-monitor</code> process that will gather and make available the monitoring information.</p>
+<h3>
+<a id="29-remote-database-post-installation-tasks" class="anchor" href="#29-remote-database-post-installation-tasks" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.9 Remote Database Post-Installation Tasks</h3>
+<p>Local PostgreSQL is always installed with Security Server. When remote database host is used, the local PostgreSQL can be stopped and disabled after the installation.</p>
+<p>To stop the local PostgreSQL server</p>
+<p><code>systemctl stop postgresql</code></p>
+<p>To disable the local PostgreSQL server so that it does not start automatically when the server is rebooted.</p>
+<p><code>systemctl mask postgresql</code></p>
 <h2>
 <a id="3-security-server-initial-configuration" class="anchor" href="#3-security-server-initial-configuration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3 Security Server Initial Configuration</h2>
 <p>During the security server initial configuration, the server’s X-Road membership information and the software token’s PIN are set.</p>

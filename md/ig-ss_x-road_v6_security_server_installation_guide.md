@@ -41,12 +41,12 @@ Doc. ID: IG-SS
  03.07.2018 | 2.12.2  | Added network diagram and reference data for monitoring servers | Jürgen Šuvalov
  08.08.2018 | 2.12.3  | Editorial changes												| Jan Raik
  13.08.2018 | 2.12.4  | Package name fix											    | Taavi Meinberg
- 12.12.2018 | 2.12.5  | Added managment security servers' IPs | Jan Raik
- 03.01.2019 | 2.12.6  | Updated repository key | Jan Raik
  14.10.2018 | 2.13    | Update package repository address | Petteri Kivimäki
  25.10.2018 | 2.14    | Add RHEL7 as supported platform, update section 2.2 Reference data | Petteri Kivimäki
  15.11.2018 | 2.15    | Add Ubuntu 18 installation instructions | Jarkko Hyöty
- 28.01.2018 | 2.16    | Update port 2080 documentation | Petteri Kivimäki
+ 12.12.2018 | 2.12.5  | Added managment security servers' IPs | Jan Raik
+ 03.01.2019 | 2.12.6  | Updated repository key | Jan Raik
+ 28.01.2019 | 2.16    | Update port 2080 documentation | Petteri Kivimäki
  30.05.2019 | 2.17    | Added package installation instructions on chapter "[2.4 Preparing OS](#24-preparing-os)" | Raul Martinez
  11.09.2019 | 2.18    | Remove Ubuntu 14.04 from supported platforms | Jarkko Hyöty
  20.09.2019 | 2.19    | Add instructions for using remote databases | Ilkka Seppälä
@@ -229,8 +229,18 @@ To install the X-Road security server software, follow these steps.
 2.  Add the X-Road repository’s signing key to the list of trusted keys (**reference data: 1.2**):
 
         curl http://x-tee.ee/packages/live/xroad/repo.gpg | sudo apt-key add -
+        
+3. (Optional step) If you want to use remote database server instead of the default locally installed one, you need to pre-create a configuration file containing the database administrator master password. This can be done by performing the following steps:
 
-3.  Issue the following commands to install the security server packages:
+        sudo touch /etc/xroad.properties
+        sudo chown root:root /etc/xroad.properties
+        sudo chmod 600 /etc/xroad.properties
+        
+    Edit `/etc/xroad.properties` contents. See the example below. Replace parameter values with your own.
+
+        postgres.connection.password = 54F46A19E50C11DA8631468CF09BE5DB
+
+4.  Issue the following commands to install the security server packages (use package xroad-securityserver-ee to include configuration specific to Estonia; use package xroad-securityserver-fi to include configuration specific to Finland):
 
         sudo apt-get update
         sudo apt-get install postgresql

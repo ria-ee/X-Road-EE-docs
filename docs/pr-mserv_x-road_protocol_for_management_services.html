@@ -26,7 +26,7 @@
 <h1>
 <a id="x-road-protocol-for-management-services" class="anchor" href="#x-road-protocol-for-management-services" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>X-Road: Protocol for Management Services</h1>
 <p><strong>Technical Specification</strong></p>
-<p>Version: 1.11<br>
+<p>Version: 1.14<br>
 Doc. ID: PR-MSERV</p>
 <table>
 <thead>
@@ -152,11 +152,28 @@ Doc. ID: PR-MSERV</p>
 <td>Added terms section, term doc reference and link, fixed references</td>
 <td>Tatu Repo</td>
 </tr>
+<tr>
+<td>06.02.2019</td>
+<td>1.12</td>
+<td>Update <em>clientReg</em> message description</td>
+<td>Petteri Kivimäki</td>
+</tr>
+<tr>
+<td>03.06.2019</td>
+<td>1.13</td>
+<td>Add ownerChange management service</td>
+<td>Ilkka Seppälä</td>
+</tr>
+<tr>
+<td>29.06.2019</td>
+<td>1.14</td>
+<td>Rename <em>newOwner</em> element to <em>client</em> in ownerChange management service</td>
+<td>Petteri Kivimäki</td>
+</tr>
 </tbody>
 </table>
 <h2>
 <a id="table-of-contents" class="anchor" href="#table-of-contents" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Table of Contents</h2>
-
 <ul>
 <li><a href="#license">License</a></li>
 <li>
@@ -169,24 +186,25 @@ Doc. ID: PR-MSERV</p>
 <li>
 <a href="#2-format-of-the-messages">2 Format of the Messages</a>
 <ul>
-<li><a href="#21-clientreg---security-server-client-registration">2.1 clientReg - Security Server Client Registration</a></li>
-<li><a href="#22-clientdeletion---security-server-client-deletion">2.2 clientDeletion - Security Server Client Deletion</a></li>
-<li><a href="#23-authcertreg---security-server-authentication-certificate-registration">2.3 authCertReg - Security Server Authentication Certificate Registration</a></li>
-<li><a href="#24-authcertdeletion---security-server-authentication-certificate-deletion">2.4 authCertDeletion - Security Server Authentication Certificate Deletion</a></li>
+<li><a href="#21-clientreg---security-server-client-registration">2.1 <em>clientReg</em> - Security Server Client Registration</a></li>
+<li><a href="#22-clientdeletion---security-server-client-deletion">2.2 <em>clientDeletion</em> - Security Server Client Deletion</a></li>
+<li><a href="#23-authcertreg---security-server-authentication-certificate-registration">2.3 <em>authCertReg</em> - Security Server Authentication Certificate Registration</a></li>
+<li><a href="#24-authcertdeletion---security-server-authentication-certificate-deletion">2.4 <em>authCertDeletion</em> - Security Server Authentication Certificate Deletion</a></li>
+<li><a href="#25-ownerchange---security-server-owner-change">2.5 <em>ownerChange</em> - Security Server Owner Change</a></li>
 </ul>
 </li>
 <li>
-<a href="#annex-a-example-messages">Annex A Example messages</a>
+<a href="#annex-a-example-messages">Annex A. Example messages</a>
 <ul>
 <li><a href="#a1-clientreg">A.1 clientReg</a></li>
 <li><a href="#a2-clientdeletion">A.2 clientDeletion</a></li>
 <li><a href="#a3-authcertreg">A.3 authCertReg</a></li>
 <li><a href="#a4-authcertdeletion">A.4 authCertDeletion</a></li>
+<li><a href="#a5-ownerchange">A.5 ownerChange</a></li>
 </ul>
 </li>
 <li><a href="#annex-b-wsdl-file-for-management-services">Annex B WSDL File for Management Services</a></li>
 </ul>
-
 <h2>
 <a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
 <p>This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="nofollow">http://creativecommons.org/licenses/by-sa/3.0/</a>.</p>
@@ -205,6 +223,9 @@ Doc. ID: PR-MSERV</p>
 </li>
 <li>
 <p><em>authCertDeletion</em> – removing an authentication certificate from the security server.</p>
+</li>
+<li>
+<p><em>ownerChange</em> - changing the owner member of the security server.</p>
 </li>
 </ul>
 <p>The management services are implemented as standard X-Road services (see [<a href="#Ref_PR-MESS">PR-MESS</a>] for detailed description of the protocol) that are offered by the X-Road governing authority. The exception is the <em>authCertReg</em> service that, for technical reasons, is implemented as HTTPS POST (see below for details).</p>
@@ -259,6 +280,21 @@ Doc. ID: PR-MSERV</p>
         &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>requestId<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:RequestIdType<span class="pl-pds">"</span></span> <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span>/&gt;
     &lt;/<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
 &lt;/<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;</pre></div>
+<p>The request is sent using HTTP POST method. The content type of the request MUST be <em>multipart/related</em> and the request must contain the following MIME parts.</p>
+<ol>
+<li>
+<p>X-Road SOAP request message. The message MUST contain the regular X-Road headers and the two data fields (<em>server</em>, <em>client</em>). The content type of this part MUST be <em>text/xml</em>.</p>
+</li>
+<li>
+<p>Signature of the member that owns the subsystem to be registered as a security server client. The MIME part must contain signature of the SOAP request message, created with the private key corresponding to a <strong>signing certificate</strong> of the subsystem's owner. The content type of this part must be <em>application/octet-stream</em>. Additionally, the part MUST include header field <em>signature-algorithm-ID</em> that identifies the signature algorithm. Currently supported signature algorithms are <em>SHA256withRSA</em>, <em>SHA384withRSA</em>, <em>SHA512withRSA</em>, <em>SHA256withRSAandMGF1</em>, <em>SHA384withRSAandMGF1</em>, and <em>SHA512withRSAandMGF1</em>.</p>
+</li>
+<li>
+<p>Signing certificate of the subsystem's owner that was used to create the second MIME part. The content type of this part MUST be <em>application/octet-stream</em>.</p>
+</li>
+<li>
+<p>OCSP response certifying that the signing certificate was valid at the time of creation of the request. The content type of this part MUST be <em>application/octet-stream</em>.</p>
+</li>
+</ol>
 <p>The response echoes back the client and the server fields of the request and adds the field <em>requestId</em>.</p>
 <p>An example of the client registration request and response is given in <a href="#a1-clientreg">Annex A.1</a>.</p>
 <h3>
@@ -363,12 +399,54 @@ Doc. ID: PR-MSERV</p>
 &lt;/<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;</pre></div>
 <p>The response echoes back the client and the server fields of the request and adds the field <em>requestId</em>.</p>
 <p>An example of the authentication certificate deletion request and response is given in <a href="#a4-authcertdeletion">Annex A.4</a>.</p>
+<h3>
+<a id="25-ownerchange---security-server-owner-change" class="anchor" href="#25-ownerchange---security-server-owner-change" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.5 <em>ownerChange</em> - Security Server Owner Change</h3>
+<p>The owner change service is invoked by the security server when the owner member of the security server is changed.</p>
+<p>The body of the owner change message (request or response) contains the following fields:</p>
+<ul>
+<li>
+<p><strong>server</strong> – identifier of the security server where the owner is changed;</p>
+</li>
+<li>
+<p><strong>client</strong> – identifier of the new owner member of the security server;</p>
+</li>
+<li>
+<p><strong>requestId</strong> – for responses only, unique identifier of the request that is stored in the central server database [<a href="#Ref_DM-CS">DM-CS</a>].</p>
+</li>
+</ul>
+<p>The XML Schema fragment of the client registration request body is shown below. For clarity, documentation in the schema fragment is omitted.</p>
+<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>ClientRequestType<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+        &lt;<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>server<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>id:XRoadSecurityServerIdentifierType<span class="pl-pds">"</span></span>/&gt;
+        &lt;<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>client<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>id:XRoadClientIdentifierType<span class="pl-pds">"</span></span>/&gt;
+        &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>requestId<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:RequestIdType<span class="pl-pds">"</span></span> <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span>/&gt;
+    &lt;/<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+&lt;/<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;</pre></div>
+<p>The request is sent using HTTP POST method. The content type of the request MUST be <em>multipart/related</em> and the request must contain the following MIME parts.</p>
+<ol>
+<li>
+<p>X-Road SOAP request message. The message MUST contain the regular X-Road headers and the two data fields (<em>server</em>, <em>client</em>). The content type of this part MUST be <em>text/xml</em>.</p>
+</li>
+<li>
+<p>Signature of the new owner member of the security server. The MIME part must contain signature of the SOAP request message, created with the private key corresponding to a <strong>signing certificate</strong> of the new owner member. The content type of this part must be <em>application/octet-stream</em>. Additionally, the part MUST include header field <em>signature-algorithm-ID</em> that identifies the signature algorithm. Currently supported signature algorithms are <em>SHA256withRSA</em>, <em>SHA384withRSA</em>, <em>SHA512withRSA</em>, <em>SHA256withRSAandMGF1</em>, <em>SHA384withRSAandMGF1</em>, and <em>SHA512withRSAandMGF1</em>.</p>
+</li>
+<li>
+<p>Signing certificate of the new owner member that was used to create the second MIME part. The content type of this part MUST be <em>application/octet-stream</em>.</p>
+</li>
+<li>
+<p>OCSP response certifying that the new owner member's signing certificate was valid at the time of creation of the request. The content type of this part MUST be <em>application/octet-stream</em>.</p>
+</li>
+</ol>
+<p>The response echoes back the server and the client fields of the request and adds the field <em>requestId</em>.</p>
+<p>An example of the owner change request and response is given in <a href="#a5-ownerchange">Annex A.5</a>.</p>
 <h2>
 <a id="annex-a-example-messages" class="anchor" href="#annex-a-example-messages" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Annex A. Example messages</h2>
 <h3>
 <a id="a1-clientreg" class="anchor" href="#a1-clientreg" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>A.1 clientReg</h3>
 <p>Request message</p>
-<div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
+<div class="highlight highlight-text-xml"><pre>--jetty113950090iemuz6a3
+Content-Type: text/xml; charset=UTF-8
+&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
 &lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>
         <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">SOAP-ENV</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.xmlsoap.org/soap/envelope/<span class="pl-pds">"</span></span>
         <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/identifiers<span class="pl-pds">"</span></span>
@@ -404,7 +482,21 @@ Doc. ID: PR-MSERV</p>
             &lt;/<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">client</span>&gt;
         &lt;/<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">clientReg</span>&gt;
     &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
-&lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>&gt;</pre></div>
+&lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>&gt;
+--jetty113950090iemuz6a3
+Content-Type: application/octet-stream
+signature-algorithm-id: SHA512withRSA
+ 
+[SUBSYSTEM OWNER SIGNATURE BYTES]
+--jetty113950090iemuz6a3
+Content-Type: application/octet-stream
+ 
+[SUBSYSTEM OWNER CERTIFICATE BYTES]
+--jetty113950090iemuz6a3
+Content-Type: application/octet-stream
+ 
+[SUBSYSTEM OWNER CERTIFICATE OCSP RESPONSE BYTES]
+--jetty113950090iemuz6a3--</pre></div>
 <p>Response message</p>
 <div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
 &lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>
@@ -787,6 +879,104 @@ Content-Type: application/octet-stream
         &lt;/<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">authCertDeletionResponse</span>&gt;
     &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
 &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>&gt;</pre></div>
+<h3>
+<a id="a5-ownerchange" class="anchor" href="#a5-ownerchange" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>A.5 ownerChange</h3>
+<p>Request message</p>
+<div class="highlight highlight-text-xml"><pre>--jetty113950090iemuz6a3
+Content-Type: text/xml; charset=UTF-8
+&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
+&lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>
+        <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">SOAP-ENV</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.xmlsoap.org/soap/envelope/<span class="pl-pds">"</span></span>
+        <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/identifiers<span class="pl-pds">"</span></span>
+        <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">xroad</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Header</span>&gt;
+        &lt;<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">client</span> <span class="pl-e">id</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>MEMBER<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;EE&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;GOV&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;TS1OWNER&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
+        &lt;/<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">client</span>&gt;
+        &lt;<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">service</span> <span class="pl-e">id</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>SERVICE<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;EE&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;GOV&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;TS1OWNER&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serviceCode</span>&gt;ownerChange&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serviceCode</span>&gt;
+        &lt;/<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">service</span>&gt;
+        &lt;<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">id</span>&gt;40c1a424-729d-4d52-bd77-ac6f70d1dac0&lt;/<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">id</span>&gt;
+        &lt;<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">protocolVersion</span>&gt;4.0&lt;/<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">protocolVersion</span>&gt;
+    &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Header</span>&gt;
+    &lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
+        &lt;<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">ownerChange</span>&gt;
+            &lt;<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">server</span> <span class="pl-e">id</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>SERVER<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;EE&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
+                &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;GOV&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
+                &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;TS1OWNER&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
+                &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serverCode</span>&gt;TS1&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serverCode</span>&gt;
+            &lt;/<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">server</span>&gt;
+            &lt;<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">client</span> <span class="pl-e">id</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>MEMBER<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;EE&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
+                &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;COM&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
+                &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;MACK&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
+            &lt;/<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">client</span>&gt;
+        &lt;/<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">ownerChange</span>&gt;
+    &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
+&lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>&gt;
+--jetty113950090iemuz6a3
+Content-Type: application/octet-stream
+signature-algorithm-id: SHA512withRSA
+ 
+[NEW OWNER SIGNATURE BYTES]
+--jetty113950090iemuz6a3
+Content-Type: application/octet-stream
+ 
+[NEW OWNER CERTIFICATE BYTES]
+--jetty113950090iemuz6a3
+Content-Type: application/octet-stream
+ 
+[NEW OWNER CERTIFICATE OCSP RESPONSE BYTES]
+--jetty113950090iemuz6a3--</pre></div>
+<p>Response message</p>
+<div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
+&lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>
+        <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">SOAP-ENV</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.xmlsoap.org/soap/envelope/<span class="pl-pds">"</span></span>
+        <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/identifiers<span class="pl-pds">"</span></span>
+        <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">xroad</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Header</span>&gt;
+        &lt;<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">client</span> <span class="pl-e">id</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>MEMBER<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;EE&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;GOV&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;TS1OWNER&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
+        &lt;/<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">client</span>&gt;
+        &lt;<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">service</span> <span class="pl-e">id</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>SERVICE<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;EE&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;GOV&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;TS1OWNER&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serviceCode</span>&gt;ownerChange&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serviceCode</span>&gt;
+        &lt;/<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">service</span>&gt;
+        &lt;<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">id</span>&gt;40c1a424-729d-4d52-bd77-ac6f70d1dac0&lt;/<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">id</span>&gt;
+        &lt;<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">protocolVersion</span>&gt;4.0&lt;/<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">protocolVersion</span>&gt;
+        &lt;<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">requestHash</span>
+                <span class="pl-e">algorithmId</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.w3.org/2001/04/xmlenc#sha512<span class="pl-pds">"</span></span>&gt;
+            LGxmFNQhkhehCsbrrBgX4w64N0Z+knazghehKDYwJzSmVwf8tyVCYHyD8Vp5eSNNMtm0
+            XDBzMOkqQ3uSDfNrLw==
+        &lt;/<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">requestHash</span>&gt;
+    &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Header</span>&gt;
+    &lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
+        &lt;<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">ownerChangeResponse</span>&gt;
+            &lt;<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">server</span> <span class="pl-e">id</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>SERVER<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;EE&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
+                &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;GOV&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
+                &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;TS1OWNER&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
+                &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serverCode</span>&gt;TS1&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serverCode</span>&gt;
+            &lt;/<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">server</span>&gt;
+            &lt;<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">client</span> <span class="pl-e">id</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>MEMBER<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;EE&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
+                &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;COM&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
+                &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;MACK&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
+            &lt;/<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">client</span>&gt;
+            &lt;<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">requestId</span>&gt;691&lt;/<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">requestId</span>&gt;
+        &lt;/<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">ownerChangeResponse</span>&gt;
+    &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
+&lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>&gt;</pre></div>
 <h2>
 <a id="annex-b-wsdl-file-for-management-services" class="anchor" href="#annex-b-wsdl-file-for-management-services" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Annex B WSDL File for Management Services</h2>
 <div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span><span class="pl-e"> standalone</span>=<span class="pl-s"><span class="pl-pds">"</span>no<span class="pl-pds">"</span></span>?&gt;
@@ -1023,6 +1213,8 @@ Content-Type: application/octet-stream
                     <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:AuthCertDeletionRequestType<span class="pl-pds">"</span></span>/&gt;
             &lt;<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>authCertDeletionResponse<span class="pl-pds">"</span></span>
                     <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:AuthCertDeletionRequestType<span class="pl-pds">"</span></span>/&gt;
+            &lt;<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>ownerChange<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:ClientRequestType<span class="pl-pds">"</span></span>/&gt;
+            &lt;<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>ownerChangeResponse<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:ClientRequestType<span class="pl-pds">"</span></span>/&gt;
             <span class="pl-c"><span class="pl-c">&lt;!--</span> Header fields <span class="pl-c">--&gt;</span></span>
             &lt;<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>client<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>id:XRoadClientIdentifierType<span class="pl-pds">"</span></span>/&gt;
             &lt;<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>service<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>id:XRoadServiceIdentifierType<span class="pl-pds">"</span></span>/&gt;
@@ -1159,6 +1351,12 @@ Content-Type: application/octet-stream
     &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">message</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>authCertDeletionResponse<span class="pl-pds">"</span></span>&gt;
         &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xroad:authCertDeletionResponse<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>parameters<span class="pl-pds">"</span></span>/&gt;
     &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">message</span>&gt;
+    &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">message</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>ownerChange<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xroad:ownerChange<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>parameters<span class="pl-pds">"</span></span>/&gt;
+    &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">message</span>&gt;
+    &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">message</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>ownerChangeResponse<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xroad:ownerChangeResponse<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>parameters<span class="pl-pds">"</span></span>/&gt;
+    &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">message</span>&gt;
     &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">portType</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>centralservice<span class="pl-pds">"</span></span>&gt;
         &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">operation</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>clientReg<span class="pl-pds">"</span></span>&gt;
             &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">input</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:clientReg<span class="pl-pds">"</span></span>/&gt;
@@ -1171,6 +1369,10 @@ Content-Type: application/octet-stream
         &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">operation</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>authCertDeletion<span class="pl-pds">"</span></span>&gt;
             &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">input</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:authCertDeletion<span class="pl-pds">"</span></span>/&gt;
             &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">output</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:authCertDeletionResponse<span class="pl-pds">"</span></span>/&gt;
+        &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">operation</span>&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">operation</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>ownerChange<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">input</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:ownerChange<span class="pl-pds">"</span></span>/&gt;
+            &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">output</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:ownerChangeResponse<span class="pl-pds">"</span></span>/&gt;
         &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">operation</span>&gt;
     &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">portType</span>&gt;
     &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">binding</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>centralserviceSOAP<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:centralservice<span class="pl-pds">"</span></span>&gt;
@@ -1255,6 +1457,33 @@ Content-Type: application/octet-stream
                       <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
                 &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestheader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>requestHash<span class="pl-pds">"</span></span>
                       <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+            &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">output</span>&gt;
+        &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">operation</span>&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">operation</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>ownerChange<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">operation</span> <span class="pl-e">soapAction</span>=<span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>/&gt;
+            &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">input</span>&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">body</span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestheader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>client<span class="pl-pds">"</span></span>
+                        <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestheader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>service<span class="pl-pds">"</span></span>
+                        <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestheader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>
+                        <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestheader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>protocolVersion<span class="pl-pds">"</span></span>
+                        <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+            &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">input</span>&gt;
+            &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">output</span>&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">body</span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestheader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>client<span class="pl-pds">"</span></span>
+                        <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestheader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>service<span class="pl-pds">"</span></span>
+                        <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestheader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>
+                        <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestheader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>protocolVersion<span class="pl-pds">"</span></span>
+                        <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestheader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>requestHash<span class="pl-pds">"</span></span>
+                        <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
             &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">output</span>&gt;
         &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">operation</span>&gt;
     &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">binding</span>&gt;
