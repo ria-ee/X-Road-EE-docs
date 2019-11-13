@@ -24,13 +24,13 @@
 </thead>
 </table>
 <h1>
-<a id="security-server-user-guide" class="anchor" href="#security-server-user-guide" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SECURITY SERVER USER GUIDE</h1>
+<a id="security-server-user-guide-" class="anchor" href="#security-server-user-guide-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SECURITY SERVER USER GUIDE </h1>
 <p><strong>X-ROAD 6</strong></p>
-<p>Version: 2.23<br>
+<p>Version: 2.31<br>
 Doc. ID: UG-SS</p>
 <hr>
 <h2>
-<a id="version-history" class="anchor" href="#version-history" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version history</h2>
+<a id="version-history-" class="anchor" href="#version-history-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version history </h2>
 <table>
 <thead>
 <tr>
@@ -275,7 +275,7 @@ Doc. ID: UG-SS</p>
 <td>05.03.2018</td>
 <td>2.20</td>
 <td>Added terms and abbreviations reference, document links, moved concepts to terms and abbreviations.</td>
-<td>Tatu Repo</td>
+<td>Tatu Repo </td>
 </tr>
 <tr>
 <td>10.04.2018</td>
@@ -295,10 +295,58 @@ Doc. ID: UG-SS</p>
 <td>Minor updates for Ubuntu 18.04</td>
 <td>Jarkko Hyöty</td>
 </tr>
+<tr>
+<td>06.02.2019</td>
+<td>2.24</td>
+<td>Minor updates on security server client registration in Chapters <a href="#43-configuring-a-signing-key-and-certificate-for-a-security-server-client">4.3</a> and <a href="#44-registering-a-security-server-client-in-the-x-road-governing-authority">4.4</a>.</td>
+<td>Petteri Kivimäki</td>
+</tr>
+<tr>
+<td>15.03.2019</td>
+<td>2.25</td>
+<td>Update documentation to cover REST service usage in chapter [6]</td>
+<td>Jarkko Hyöty</td>
+</tr>
+<tr>
+<td>16.04.2019</td>
+<td>2.26</td>
+<td>Minor updates regarding REST services in chapter [6]</td>
+<td>Petteri Kivimäki</td>
+</tr>
+<tr>
+<td>30.06.2019</td>
+<td>2.27</td>
+<td>Update the default connection type from HTTP to HTTPS in chapter [9]</td>
+<td>Petteri Kivimäki</td>
+</tr>
+<tr>
+<td>01.07.2019</td>
+<td>2.28</td>
+<td>Changing the Security Server Owner chapter added (Chapter <a href="#34-changing-the-security-server-owner">3.4</a>)</td>
+<td>Petteri Kivimäki</td>
+</tr>
+<tr>
+<td>14.08.2019</td>
+<td>2.29</td>
+<td>Added automatic backups</td>
+<td>Ilkka Seppälä</td>
+</tr>
+<tr>
+<td>30.09.2019</td>
+<td>2.30</td>
+<td>Added remote database migration guide</td>
+<td>Ilkka Seppälä</td>
+</tr>
+<tr>
+<td>15.10.2019</td>
+<td>2.31</td>
+<td>Updated REST services in chapter [6]</td>
+<td>Ilkka Seppälä</td>
+</tr>
 </tbody>
 </table>
 <h2>
-<a id="table-of-contents" class="anchor" href="#table-of-contents" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Table of Contents</h2>
+<a id="table-of-contents-" class="anchor" href="#table-of-contents-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Table of Contents </h2>
 
 
 <ul>
@@ -344,6 +392,7 @@ Doc. ID: UG-SS</p>
 <li><a href="#331-registering-an-authentication-certificate">3.3.1 Registering an Authentication Certificate</a></li>
 </ul>
 </li>
+<li><a href="#34-changing-the-security-server-owner">3.4 Changing the Security Server Owner</a></li>
 </ul>
 </li>
 <li>
@@ -394,12 +443,15 @@ Doc. ID: UG-SS</p>
 <li>
 <a href="#6-x-road-services">6 X-Road Services</a>
 <ul>
-<li><a href="#61-adding-a-wsdl">6.1 Adding a WSDL</a></li>
-<li><a href="#62-refreshing-a-wsdl">6.2 Refreshing a WSDL</a></li>
-<li><a href="#63-enabling-and-disabling-a-wsdl">6.3 Enabling and Disabling a WSDL</a></li>
-<li><a href="#64-changing-the-address-of-a-wsdl">6.4 Changing the Address of a WSDL</a></li>
-<li><a href="#65-deleting-a-wsdl">6.5 Deleting a WSDL</a></li>
+<li><a href="#61-adding-a-service-description">6.1 Adding a service description</a></li>
+<li><a href="#611-soap">6.1.1 SOAP</a></li>
+<li><a href="#612-rest">6.1.2 REST</a></li>
+<li><a href="#62-refreshing-a-service-description">6.2 Refreshing a service description</a></li>
+<li><a href="#63-enabling-and-disabling-a-service-description">6.3 Enabling and Disabling a service description</a></li>
+<li><a href="#64-changing-the-address-of-a-service-description">6.4 Changing the Address of a service description</a></li>
+<li><a href="#65-deleting-a-service-description">6.5 Deleting a service description</a></li>
 <li><a href="#66-changing-the-parameters-of-a-service">6.6 Changing the Parameters of a Service</a></li>
+<li><a href="#67-managing-rest-endpoints">6.7 Managing REST Endpoints</a></li>
 </ul>
 </li>
 <li>
@@ -456,6 +508,7 @@ Doc. ID: UG-SS</p>
 <ul>
 <li><a href="#131-back-up-and-restore-in-the-user-interface">13.1 Back up and Restore in the User Interface</a></li>
 <li><a href="#132-restore-from-the-command-line">13.2 Restore from the Command Line</a></li>
+<li><a href="#133-automatic-backups">13.3 Automatic Backups</a></li>
 </ul>
 </li>
 <li>
@@ -503,6 +556,7 @@ Doc. ID: UG-SS</p>
 </ul>
 </li>
 <li><a href="#18-federation">18 Federation</a></li>
+<li><a href="#19-migrating-to-remote-database-host">19 Migrating to Remote Database Host</a></li>
 </ul>
 
 
@@ -848,6 +902,47 @@ adduser username xroad-securityserver-observer
 </ol>
 <p>On submitting the request, the message "Request sent" is displayed, and the authentication certificate’s state is set to "Registration in process".</p>
 <p>After the X-Road governing authority has accepted the registration, the registration state of the authentication certificate is set to “Registered” and the registration process is completed.</p>
+<h3>
+<a id="34-changing-the-security-server-owner" class="anchor" href="#34-changing-the-security-server-owner" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.4 Changing the Security Server Owner</h3>
+<p><strong>Access rights:</strong> <a href="#xroad-registration-officer">Registration Officer</a></p>
+<p>To change the security server owner the following actions must be completed.</p>
+<ul>
+<li>
+<p>The new Owner member must be added to the security server (see <a href="#42-adding-a-security-server-client">4.2</a>).</p>
+</li>
+<li>
+<p>A Signing Key and Certificate must be configured for the new Owner member (see <a href="#43-configuring-a-signing-key-and-certificate-for-a-security-server-client">4.3</a>).</p>
+</li>
+<li>
+<p>The new Owner must be registered in the X-Road Governing Authority (see <a href="#44-registering-a-security-server-client-in-the-x-road-governing-authority">4.3</a>).</p>
+</li>
+<li>
+<p>The security server owner change request must be submitted from the security server. To submit an owner change request follow these steps.</p>
+<ol>
+<li>
+<p>On the <strong>Configuration</strong> menu, select <strong>Security Server Clients</strong>.</p>
+</li>
+<li>
+<p>Select the new Owner member from the list of security server clients.</p>
+</li>
+<li>
+<p>Click the <strong>Details</strong> icon and in the window that opens, click <strong>Make Owner</strong>.</p>
+</li>
+<li>
+<p>Click <strong>Confirm</strong> to submit the request.</p>
+</li>
+</ol>
+</li>
+<li>
+<p>A request for changing the security server owner must be submitted to the X-Road governing authority according to the organizational procedures of the X-Road instance.</p>
+</li>
+<li>
+<p>The owner change request must be approved by the X-Road governing authority.</p>
+</li>
+<li>
+<p>New Authentication Key and Certificate should be configured for the new security server owner (see <a href="#32-configuring-the-authentication-key-and-certificate-for-the-security-server">3.2</a>).</p>
+</li>
+</ul>
 <h2>
 <a id="4-security-server-clients" class="anchor" href="#4-security-server-clients" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4 Security Server Clients</h2>
 <p><strong>Important: to use or provide X-Road services, a security server client needs to be certified by a certification service provider approved by the X-Road governing authority, and the association between the client and the security server used by the client must be registered at the X-Road governing authority.</strong></p>
@@ -946,7 +1041,7 @@ adduser username xroad-securityserver-observer
 </ul>
 <h3>
 <a id="43-configuring-a-signing-key-and-certificate-for-a-security-server-client" class="anchor" href="#43-configuring-a-signing-key-and-certificate-for-a-security-server-client" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.3 Configuring a Signing Key and Certificate for a Security Server Client</h3>
-<p>A signing key and certificate must be configured for the security server client to sign messages exchanged over the X-Road.</p>
+<p>A signing key and certificate must be configured for the security server client to sign messages exchanged over the X-Road. In addition, a signing key and certificate are required for registering a security server client.</p>
 <p>Certificates are not issued to subsystems; therefore, the certificate of the subsystem’s owner (that is, an X-Road member) is used for the subsystem.</p>
 <p>All particular X-Road member’s subsystems that are registered in the same security server use the same signing certificate for signing messages. Hence, if the security server already contains the member's signing certificate, it is not necessary to configure a new signing key and/or certificate when adding a subsystem of that member.</p>
 <p>The process of configuring the signing key and certificate for a security server client is the same as for the security server owner. The process is described in Section <a href="#31-configuring-the-signing-key-and-certificate-for-the-security-server-owner">3.1</a>.</p>
@@ -954,6 +1049,9 @@ adduser username xroad-securityserver-observer
 <a id="44-registering-a-security-server-client-in-the-x-road-governing-authority" class="anchor" href="#44-registering-a-security-server-client-in-the-x-road-governing-authority" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.4 Registering a Security Server Client in the X-Road Governing Authority</h3>
 <p>To register a security server client in the X-Road governing authority, the following actions must be completed.</p>
 <ul>
+<li>
+<p>A signing key and certificate must be configured for the member that owns the subsystem to be registered as a the security server client (see <a href="#43-configuring-a-signing-key-and-certificate-for-a-security-server-client">4.3</a>).</p>
+</li>
 <li>
 <p>The security server client registration request must be submitted from the security server (see <a href="#441-registering-a-security-server-client">4.4.1</a>).</p>
 </li>
@@ -1242,18 +1340,20 @@ adduser username xroad-securityserver-observer
 </ol>
 <h2>
 <a id="6-x-road-services" class="anchor" href="#6-x-road-services" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6 X-Road Services</h2>
-<p>The services are managed on two levels:</p>
+<p>X-Road supports both SOAP and REST services. The services are managed on two levels:</p>
 <ul>
 <li>
-<p>the addition, deletion, and deactivation of services is carried out on the WSDL level;</p>
+<p>the addition, deletion, and deactivation of services is carried out on the WSDL / REST API / OpenAPI 3 level;</p>
 </li>
 <li>
-<p>the service address, internal network connection method, and the service timeout values are configured at the service level. However, it is easy to extend the configuration of one service to all the other services in the same WSDL.</p>
+<p>the service address, internal network connection method, and the service timeout values are configured at the service level for SOAP services and at the API level for REST / OpenAPI 3 services. In addition, for SOAP / WSDL, it is easy to extend the configuration of one service to all the other services.</p>
 </li>
 </ul>
 <h3>
-<a id="61-adding-a-wsdl" class="anchor" href="#61-adding-a-wsdl" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.1 Adding a WSDL</h3>
+<a id="61-adding-a-service-description" class="anchor" href="#61-adding-a-service-description" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.1 Adding a service description</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-service-administrator">Service Administrator</a></p>
+<h3>
+<a id="611-soap" class="anchor" href="#611-soap" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.1.1 SOAP</h3>
 <p>When a new WSDL file is added, the security server reads service information from it and displays the information in the table of services. The service code, title and address are read from the WSDL.</p>
 <p><strong>To add a WSDL</strong>, follow these steps.</p>
 <ol>
@@ -1261,7 +1361,7 @@ adduser username xroad-securityserver-observer
 <p>On the <strong>Configuration</strong> menu, select <strong>Security Server Clients</strong>, select a client from the table and click the <strong>Services</strong> icon on that row.</p>
 </li>
 <li>
-<p>Click <strong>Add WSDL</strong>, enter the WSDL address in the window that opens and click <strong>OK</strong>. The WSDL and the information about the services it contains are added to the table. By default, the WSDL is added in disabled state (see <a href="#63-enabling-and-disabling-a-wsdl">6.3</a>).</p>
+<p>Click <strong>ADD WSDL</strong>, enter the WSDL address in the window that opens and click <strong>OK</strong>. Once the window is closed, the WSDL and the information about the services it contains are added to the table. By default, the WSDL is added in disabled state (see <a href="#63-enabling-and-disabling-a-service-description">6.3</a>).</p>
 </li>
 </ol>
 <p><strong>To see a list of services contained in the WSDL</strong></p>
@@ -1269,75 +1369,94 @@ adduser username xroad-securityserver-observer
 <li>click the “<strong>+</strong>” symbol in front of the WSDL row to expand the list.</li>
 </ul>
 <h3>
-<a id="62-refreshing-a-wsdl" class="anchor" href="#62-refreshing-a-wsdl" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.2 Refreshing a WSDL</h3>
-<p><strong>Access rights:</strong> <a href="#xroad-service-administrator">Service Administrator</a></p>
-<p>Upon refreshing, the security server reloads the WSDL file from the WSDL address to the security server and checks the service information in the reloaded file against existing services. If the composition of services in the new WSDL has changed compared to the current version, a warning is displayed and you can either continue with the refresh or cancel.</p>
-<p>To refresh the WSDL, follow these steps.</p>
+<a id="612-rest" class="anchor" href="#612-rest" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.1.2 REST</h3>
+<p>When a new REST service is added, the security server displays url and service code provided.</p>
+<p><strong>To add a REST service</strong>, follow these steps.</p>
 <ol>
 <li>
 <p>On the <strong>Configuration</strong> menu, select <strong>Security Server Clients</strong>, select a client from the table and click the <strong>Services</strong> icon on that row.</p>
 </li>
 <li>
-<p>Select from the table a WSDL to be refreshed and click <strong>Refresh</strong>.</p>
+<p>Click <strong>ADD REST</strong>. Select whether the URL type is REST API base path or OpenAPI 3 description. Enter the url and service code in the window that opens and click <strong>OK</strong>.</p>
 </li>
 <li>
-<p>If the new WSDL contains changes compared to the current WSDL in the security server, a warning is displayed. To proceed with the refresh, click <strong>Continue</strong>.</p>
+<p>Once the window is closed, the url and the service code are added to the table. If the added URL type was OpenAPI 3 description, the service description is parsed and endpoints are added under the service. By default, the REST service is added in disabled state (see <a href="#63-enabling-and-disabling-a-service-description">6.3</a>).</p>
 </li>
 </ol>
-<p>When the WSDL is refreshed, the existing services’ settings are not overwritten.</p>
+<p><strong>To see the service details under the REST service</strong></p>
+<ul>
+<li>click the "<strong>+</strong>" symbol in front of the REST row to expand the service details.</li>
+</ul>
 <h3>
-<a id="63-enabling-and-disabling-a-wsdl" class="anchor" href="#63-enabling-and-disabling-a-wsdl" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.3 Enabling and Disabling a WSDL</h3>
+<a id="62-refreshing-a-service-description" class="anchor" href="#62-refreshing-a-service-description" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.2 Refreshing a service description</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-service-administrator">Service Administrator</a></p>
-<p>A disabled WSDL is displayed in the services’ table in red with a "Disabled" note.</p>
-<p>Services described by a disabled WSDL cannot be accessed by the service clients – if an attempt is made to access the service, an error message is returned, containing the information entered by the security server's administrator when the WSDL was disabled.</p>
-<p>If a WSDL is enabled, the services described there become accessible to users. Therefore it is necessary to ensure that before enabling the WSDL, the parameters of all its services are correctly configured (see <a href="#66-changing-the-parameters-of-a-service">6.6</a>).</p>
-<p>To <strong>enable</strong> a WSDL, follow these steps.</p>
+<p>Upon refreshing, the security server reloads the service description file from the service description URL to the security server and checks the service information in the reloaded file against existing services. If the composition of services in the new service description has changed compared to the current version, a warning is displayed and you can either continue with the refresh or cancel.</p>
+<p>To refresh the service description, follow these steps.</p>
 <ol>
 <li>
 <p>On the <strong>Configuration</strong> menu, select <strong>Security Server Clients</strong>, select a client from the table and click the <strong>Services</strong> icon on that row.</p>
 </li>
 <li>
-<p>Select a disabled WSDL from the table and click <strong>Enable</strong>.</p>
+<p>Select from the table a WSDL or REST to be refreshed and click <strong>Refresh</strong>.</p>
+</li>
+<li>
+<p>If the new service description contains changes compared to the current service description in the security server, a warning is displayed. To proceed with the refresh, click <strong>Continue</strong>.</p>
 </li>
 </ol>
-<p>To <strong>disable</strong> a WSDL, follow these steps.</p>
+<p>When the service description is refreshed, the existing services’ settings are not overwritten.</p>
+<h3>
+<a id="63-enabling-and-disabling-a-service-description" class="anchor" href="#63-enabling-and-disabling-a-service-description" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.3 Enabling and Disabling a service description</h3>
+<p><strong>Access rights:</strong> <a href="#xroad-service-administrator">Service Administrator</a></p>
+<p>A disabled service description is displayed in the services’ table in red with a "Disabled" note.</p>
+<p>Services described by a disabled service description cannot be accessed by the service clients – if an attempt is made to access the service, an error message is returned, containing the information entered by the security server's administrator when the service description was disabled.</p>
+<p>If a service description is enabled, the services described there become accessible to users. Therefore it is necessary to ensure that before enabling the service description, the parameters of all its services are correctly configured (see <a href="#66-changing-the-parameters-of-a-service">6.6</a>).</p>
+<p>To <strong>enable</strong> a service description, follow these steps.</p>
 <ol>
 <li>
 <p>On the <strong>Configuration</strong> menu, select <strong>Security Server Clients</strong>, select a client from the table and click the <strong>Services</strong> icon on that row.</p>
 </li>
 <li>
-<p>To enable a WSDL, select an enabled WSDL from the table and click <strong>Disable</strong>.</p>
+<p>Select a disabled service description from the table and click <strong>Enable</strong>.</p>
+</li>
+</ol>
+<p>To <strong>disable</strong> a service description, follow these steps.</p>
+<ol>
+<li>
+<p>On the <strong>Configuration</strong> menu, select <strong>Security Server Clients</strong>, select a client from the table and click the <strong>Services</strong> icon on that row.</p>
 </li>
 <li>
-<p>In the window that opens, enter an error message, which is shown to clients who try to access any of the services in the WSDL, and click <strong>OK</strong>.</p>
+<p>To enable a service description, select an enabled service description from the table and click <strong>Disable</strong>.</p>
+</li>
+<li>
+<p>In the window that opens, enter an error message, which is shown to clients who try to access any of the services in the service description, and click <strong>OK</strong>.</p>
 </li>
 </ol>
 <h3>
-<a id="64-changing-the-address-of-a-wsdl" class="anchor" href="#64-changing-the-address-of-a-wsdl" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.4 Changing the Address of a WSDL</h3>
+<a id="64-changing-the-address-of-a-service-description" class="anchor" href="#64-changing-the-address-of-a-service-description" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.4 Changing the Address of a service description</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-service-administrator">Service Administrator</a></p>
-<p>To change the WSDL address, follow these steps.</p>
+<p>To change the service description address, follow these steps.</p>
 <ol>
 <li>
 <p>On the <strong>Configuration</strong> menu, select <strong>Security Server Clients</strong>, select a client from the table and click the <strong>Services</strong> icon on that row.</p>
 </li>
 <li>
-<p>Select from the table a WSDL whose address you wish to change and click <strong>Edit</strong>.</p>
+<p>Select from the table a service description whose information you wish to change and click <strong>Edit</strong>.</p>
 </li>
 <li>
-<p>In the window that opens, edit the WSDL address and click <strong>OK</strong>. When the address is changed, the WSDL is refreshed (see section <a href="#62-refreshing-a-wsdl">6.2</a>).</p>
+<p>In the window that opens, edit the WSDL address for WSDL, URL and/or service code for REST, and click <strong>OK</strong>. The service information updates accordingly (see section <a href="#62-refreshing-a-service-description">6.2</a>).</p>
 </li>
 </ol>
 <h3>
-<a id="65-deleting-a-wsdl" class="anchor" href="#65-deleting-a-wsdl" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.5 Deleting a WSDL</h3>
+<a id="65-deleting-a-service-description" class="anchor" href="#65-deleting-a-service-description" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.5 Deleting a service description</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-service-administrator">Service Administrator</a></p>
-<p>When a WSDL is deleted, all information related to the services described in the WSDL, including access rights, are deleted.</p>
-<p>To delete a WSDL, follow these steps.</p>
+<p>When a service description is deleted, all information related to the services described in the service description, including access rights, are deleted.</p>
+<p>To delete a service description, follow these steps.</p>
 <ol>
 <li>
 <p>On the <strong>Configuration</strong> menu, select <strong>Security Server Clients</strong>, select a client from the table and click the <strong>Services</strong> icon on that row.</p>
 </li>
 <li>
-<p>Select from the table a WSDL to be deleted and click <strong>Delete</strong>.</p>
+<p>Select from the table a service description to be deleted and click <strong>Delete</strong>.</p>
 </li>
 <li>
 <p>Confirm the deletion by clicking <strong>Confirm</strong> in the window that opens.</p>
@@ -1367,7 +1486,27 @@ adduser username xroad-securityserver-observer
 <p>Select a service from the table and click <strong>Edit</strong>.</p>
 </li>
 <li>
-<p>In the window that opens, configure the service parameters. To apply the selected parameter to all services described in the same WSDL, select the checkbox adjacent to this parameter in the <strong>Apply to All in WSDL</strong> column. To apply the configured parameters, click <strong>OK</strong>.</p>
+<p>In the window that opens, configure the service parameters. To apply the selected parameter to all services described in the same service description, select the checkbox adjacent to this parameter in the <strong>Apply to All in WSDL</strong> column. To apply the configured parameters, click <strong>OK</strong>.</p>
+</li>
+</ol>
+<h3>
+<a id="67-managing-rest-endpoints" class="anchor" href="#67-managing-rest-endpoints" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.7 Managing REST Endpoints</h3>
+<p><strong>Access rights:</strong> <a href="#xroad-service-administrator">Service Administrator</a></p>
+<p>REST type service descriptions can contain API endpoints. The purpose of the endpoints is more fine-grained access control. More about that in chapter <a href="#7-access-rights">7 Access Rights</a>.</p>
+<p>When URL type of the REST service is an OpenAPI 3 description, endpoints are parsed from the service description automatically. These endpoints cannot be manually updated or deleted. Additionally manual endpoints can be added as needed. When URL type is REST API base path, all the endpoints need to be created manually. Manually created endpoints can also be edited and deleted as needed.</p>
+<p>To create API endpoint manually, follow these steps</p>
+<ol>
+<li>
+<p>On the <strong>Configuration</strong> menu, select <strong>Security Server Clients</strong>, select a client from the table and click the <strong>Services</strong> icon on that row.</p>
+</li>
+<li>
+<p>Select from the table a REST service description where the endpoint is going to be added and click "<strong>+</strong>" to see the service details.</p>
+</li>
+<li>
+<p>Select the service code item immediately under the service description level and click <strong>Add Endpoint</strong>.</p>
+</li>
+<li>
+<p>Select HTTP request method and Path for the endpoint and click <strong>OK</strong>.</p>
 </li>
 </ol>
 <h2>
@@ -1393,6 +1532,12 @@ adduser username xroad-securityserver-observer
 <p>Service client-based access rights management – if a single service client needs multiple services opened/closed (see <a href="#72-adding-a-service-client">7.2</a>).</p>
 </li>
 </ul>
+<p>It is possible to define access rights on two levels for REST services:</p>
+<ul>
+<li>REST service level</li>
+<li>endpoint level</li>
+</ul>
+<p>In general, a REST service usually has multiple endpoints. When access rights are defined on the service level, they apply to all the endpoints of the REST service. Instead, defining access rights on the endpoint level gives access to specific endpoint(s) only.</p>
 <h3>
 <a id="71-changing-the-access-rights-of-a-service" class="anchor" href="#71-changing-the-access-rights-of-a-service" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>7.1 Changing the Access Rights of a Service</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-service-administrator">Service Administrator</a></p>
@@ -1402,7 +1547,7 @@ adduser username xroad-securityserver-observer
 <p>On the <strong>Configuration</strong> menu, select <strong>Security Server Clients</strong>, select a client from the table and click the <strong>Services</strong> icon on that row.</p>
 </li>
 <li>
-<p>Select a service from the table and click <strong>Access Rights</strong>.</p>
+<p>Select a service or endpoint from the table and click <strong>Access Rights</strong>.</p>
 </li>
 <li>
 <p>In the window that opens, the access rights table displays information about all X-Road subsystems and groups that have access to the selected service.</p>
@@ -1431,7 +1576,7 @@ Select one or more subjects from the table and click <strong>Add Selected to ACL
 <p>In the window that opens, locate and select a subject (a subsystem, or a local or global group) to which you want to grant access rights to and click <strong>Next</strong>.</p>
 </li>
 <li>
-<p>Locate the service(s) whose access rights you want to grant to the selected subject. Click <strong>Add Selected to ACL</strong> to grant access rights to the selected services to this subject. Click <strong>Add All to ACL</strong> to grant access rights to all services in the filter to the subject.</p>
+<p>Locate the service(s) whose access rights you want to grant to the selected subject. Click <strong>Add Selected to ACL</strong> to grant access rights to the selected services to this subject. Click <strong>Add All to ACL</strong> to grant access rights to all services in the filter to the subject. Note that access rights to REST API endpoints can not be added using this view, those need to be added on <strong>Services</strong> tab as described in <a href="#71-changing-the-access-rights-of-a-service">7.1</a>.</p>
 </li>
 </ol>
 <p>The subject is added to the list of service clients, after which the service client's access rights view is displayed where the access rights can be changed.</p>
@@ -1458,7 +1603,7 @@ Select one or more subjects from the table and click <strong>Add Selected to ACL
 <p>To remove all access rights from the service client, click <strong>Remove All</strong> and then click <strong>Confirm</strong>.</p>
 </li>
 <li>
-<p>To add access rights to a service client, start by clicking <strong>Add Service</strong>. In the window that opens, select the service(s) that you wish to grant to the subject (already granted services are displayed in gray) and click <strong>Add Selected to ACL</strong>. To add all services found by the search, click <strong>Add All to ACL</strong>.</p>
+<p>To add access rights to a service client, start by clicking <strong>Add Service</strong>. In the window that opens, select the service(s) that you wish to grant to the subject (already granted services are displayed in gray) and click <strong>Add Selected to ACL</strong>. To add all services found by the search, click <strong>Add All to ACL</strong>. Note that access rights to REST API endpoints can not be added using this view, those need to be added on <strong>Services</strong> tab as described in <a href="#71-changing-the-access-rights-of-a-service">7.1</a>.</p>
 </li>
 </ul>
 <p><strong>Caution:</strong> If you refresh the page, all service clients that do not have access rights to any services are removed from the service clients’ view.</p>
@@ -1542,14 +1687,15 @@ Select one or more subjects from the table and click <strong>Add Selected to ACL
 <p>The HTTP protocol should be used if the information system server and the security server communicate in a private network segment where no other computers are connected to. Furthermore, the information system server must not allow interactive log-in.</p>
 </li>
 <li>
-<p>The HTTPS protocol should be used if it is not possible to provide a separate network segment for the communication between the information system server and the security server. In that case, cryptographic methods are used to protect their communication against potential eavesdropping and interception. Before HTTPS can be used, internal TLS certificates must be created for the information system server(s) and loaded to the security server.</p>
+<p>The HTTPS protocol (<strong>default for new clients</strong>) should be used if it is not possible to provide a separate network segment for the communication between the information system server and the security server. In that case, cryptographic methods are used to protect their communication against potential eavesdropping and interception. Before HTTPS can be used, internal TLS certificates must be created for the information system server(s) and uploaded to the security server.</p>
 </li>
 <li>
 <p>The HTTPS NOAUTH protocol should be used if you want the security server to skip the verification of the information system TLS certificate.</p>
 </li>
 </ul>
 <p><em>Note:</em> If the HTTP connection method is selected, but the information system connects to the security server over HTTPS, then the connection is accepted, but the client’s internal TLS certificate is not verified (same behavior as with HTTPS NOAUTH).</p>
-<p><strong>By default the connection type for the security server owner is set to HTTPS to prevent security server clients from making operational monitoring data requests as a security server owner.</strong></p>
+<p><strong>By default the connection type for all the security server clients is set to HTTPS to prevent unauthorised use of the clients.</strong></p>
+<p><strong>It is strongly recommended to keep the connection type of the security server owner as HTTPS to prevent security server clients from making operational monitoring data requests as a security server owner.</strong></p>
 <p>To set the connection method for internal network servers in the <strong>service consumer role</strong>, follow these steps.</p>
 <ol>
 <li>
@@ -2016,6 +2162,9 @@ RHEL: <code>yum reinstall xroad-addon-messagelog</code></p>
 <pre><code>/usr/share/xroad/scripts/restore_xroad_proxy_configuration.sh \
 -F –f /var/lib/xroad/backup/conf_backup_20140703-110438.tar
 </code></pre>
+<h3>
+<a id="133-automatic-backups" class="anchor" href="#133-automatic-backups" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>13.3 Automatic Backups</h3>
+<p>By default the Security Server backs up its configuration automatically once every day. Backups older than 30 days are automatically removed from the server. If needed, the automatic backup policies can be adjusted by editing the <code>/etc/cron.d/xroad-proxy</code> file.</p>
 <h2>
 <a id="14-diagnostics" class="anchor" href="#14-diagnostics" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>14 Diagnostics</h2>
 <h3>
@@ -2284,6 +2433,88 @@ allowed-federations=xe-test, all, ee-test
 <pre><code>[configuration-client]
 allowed-federations=xe-test, all, none, ee-test
 </code></pre>
+<h2>
+<a id="19-migrating-to-remote-database-host" class="anchor" href="#19-migrating-to-remote-database-host" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>19 Migrating to Remote Database Host</h2>
+<p>Since version <code>6.22.0</code> Security Server supports using remote databases. In case you have an already running Security Server with local database, it is possible to migrate it to use remote database host instead. The instructions for this process are listed below.</p>
+<ol>
+<li>
+<p>Shutdown X-Road processes.</p>
+<pre><code>systemctl stop "xroad*"
+</code></pre>
+</li>
+<li>
+<p>Dump the local databases to be migrated. You can find the passwords of users <code>serverconf</code>, <code>messagelog</code> and <code>opmonitor</code> in <code>/etc/xroad/db.properties</code>. Notice that the versions of the local PostgreSQL client and remote PostgreSQL server must match. Also take into account that on a busy system the messagelog database can be quite large and therefore dump and restore can take considerable amount of time and disk space.</p>
+<pre><code>pg_dump -F t -h 127.0.0.1 -p 5432 -U serverconf -f serverconf.dat serverconf
+pg_dump -F t -h 127.0.0.1 -p 5432 -U messagelog -f messagelog.dat messagelog
+pg_dump -F t -h 127.0.0.1 -p 5432 -U opmonitor_admin -f op-monitor.dat op-monitor
+</code></pre>
+</li>
+<li>
+<p>Shut down and mask local <code>postgresql</code> so it won't start when <code>xroad-proxy</code> starts.</p>
+<pre><code>systemctl stop postgresql
+systemctl mask postgresql
+</code></pre>
+</li>
+<li>
+<p>Connect to the remote database server as the superuser <code>postgres</code> and create roles, databases and access permissions as follows. Note that the line <code>GRANT serverconf to postgres</code> is AWS RDS specific and not necessary if the <code>postgres</code> user is a true super-user.</p>
+<pre><code>psql -h &lt;remote-db-url&gt; -p &lt;remote-db-port&gt; -U postgres
+CREATE ROLE serverconf LOGIN PASSWORD '&lt;serverconf-password&gt;';
+GRANT serverconf to postgres;
+CREATE DATABASE serverconf OWNER serverconf ENCODING 'UTF-8';
+\c serverconf
+CREATE EXTENSION IF NOT EXISTS hstore;
+\c postgres
+
+CREATE ROLE messagelog LOGIN PASSWORD '&lt;messagelog-password&gt;';
+GRANT messagelog to postgres;
+CREATE DATABASE messagelog OWNER messagelog ENCODING 'UTF-8';
+
+CREATE ROLE opmonitor_admin LOGIN PASSWORD '&lt;opmonitor_admin-password&gt;';
+CREATE ROLE opmonitor LOGIN PASSWORD '&lt;opmonitor-password&gt;';
+GRANT opmonitor_admin to postgres;
+CREATE DATABASE "op-monitor" OWNER opmonitor_admin ENCODING "UTF-8";
+grant usage on schema public to opmonitor;
+</code></pre>
+</li>
+<li>
+<p>Restore the database dumps on the remote database host.</p>
+<pre><code>pg_restore -h &lt;remote-db-url&gt; -p &lt;remote-db-port&gt; -U serverconf -O -n public -1 -d serverconf serverconf.dat
+pg_restore -h &lt;remote-db-url&gt; -p &lt;remote-db-port&gt; -U messagelog -O -n public -1 -d messagelog messagelog.dat
+pg_restore -h &lt;remote-db-url&gt; -p &lt;remote-db-port&gt; -U opmonitor_admin -O -n public -1 -d op-monitor op-monitor.dat
+</code></pre>
+</li>
+<li>
+<p>Create properties file <code>/etc/xroad.properties</code> containing the superuser password.</p>
+<pre><code>sudo touch /etc/xroad.properties
+sudo chown root:root /etc/xroad.properties
+sudo chmod 600 /etc/xroad.properties
+</code></pre>
+</li>
+<li>
+<p>Edit <code>/etc/xroad.properties</code>.</p>
+<pre><code>postgres.connection.password = &lt;postgres-password&gt;
+op-monitor.database.admin_password = &lt;opmonitor_admin-password&gt;
+serverconf.database.initialized = true
+messagelog.database.initialized = true
+op-monitor.database.initialized = true
+</code></pre>
+</li>
+<li>
+<p>Update <code>/etc/xroad/db.properties</code> contents with correct database host URLs and passwords.</p>
+<pre><code>serverconf.hibernate.connection.url = jdbc:postgresql://&lt;remote-db-url&gt;:&lt;remote-db-port&gt;/serverconf
+messagelog.hibernate.connection.url = jdbc:postgresql://&lt;remote-db-url&gt;:&lt;remote-db-port&gt;/messagelog
+op-monitor.hibernate.connection.url = jdbc:postgresql://&lt;remote-db-url&gt;:&lt;remote-db-port&gt;/op-monitor
+serverconf.hibernate.connection.password = &lt;serverconf-password&gt;
+messagelog.hibernate.connection.password = &lt;messagelog-password&gt;
+op-monitor.hibernate.connection.password = &lt;opmonitor-password&gt;
+</code></pre>
+</li>
+<li>
+<p>Start again the X-Road services.</p>
+<pre><code>systemctl start "xroad*"
+</code></pre>
+</li>
+</ol>
     </article>
   </body>
 </html>

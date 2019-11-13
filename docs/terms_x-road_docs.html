@@ -17,8 +17,10 @@
   <body>
     <article class="markdown-body">
 <h1>
-<a id="x-road-terms-and-abbreviations" class="anchor" href="#x-road-terms-and-abbreviations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>X-Road: Terms and Abbreviations</h1>
-<p>Document ID: TA-TERMS</p>
+<a id="x-road-terms-and-abbreviations" class="anchor" href="#x-road-terms-and-abbreviations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>X-Road Terms and Abbreviations</h1>
+<p><strong>X-ROAD 6</strong></p>
+<p>Version: 0.6<br>
+Doc. ID:  TA-TERMS</p>
 <h2>
 <a id="version-history" class="anchor" href="#version-history" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version history</h2>
 <table>
@@ -60,6 +62,12 @@
 <td>0.5</td>
 <td>Minor changes - typos fixed.</td>
 <td>Yamato Kataoka</td>
+</tr>
+<tr>
+<td>16.04.2019</td>
+<td>0.6</td>
+<td>Add description of REST services.</td>
+<td>Petteri Kivimäki</td>
 </tr>
 </tbody>
 </table>
@@ -135,7 +143,7 @@
 <p><strong>Certificate signing request</strong>  (<strong>CSR</strong>) – is generated in the security server for a certain approved certification authority for signing a public key and associated information.</p>
 <p><strong>Internal TLS certificates</strong> – are used for setting up the TLS connection between the security server and the client information systems.</p>
 <p><strong>Signature certificate of a member</strong> – qualified certificate of e-stamp issued by certification service provider approved on X-Road and bound to a member, used for verification of the integrity of mediated messages and association of the member with the message.</p>
-<p><strong>Timestamp</strong> – means data in electronic form which binds other data in electronic form to a particular time establishing evidence that the latter data existed at that time (EU No 910/2014)</p>
+<p><strong>Timestamp</strong> – means data in electronic form which binds other data in electronic form to a particular time establishing evidence that the latter data existed at that time (EU No 910/2014)</p>
 <p><strong>Timestamping authority</strong> (<strong>TSA</strong>) – is an entity that issues timestamps. Timestamps are used to prove the existence of certain data before a certain point of time without the possibility that the owner can backdate the timestamps.</p>
 <p><strong>TLS certificate</strong> – is a certificate used by the security server to authenticate the information system when HTTPS protocol is used for connections between the service client's or service provider's security server and information system.</p>
 <p><strong>Validation service</strong> (<strong>OCSP</strong>) – Validation service of the validity of certificate issued by certification service provider approved on X-Road.</p>
@@ -177,7 +185,7 @@
 <p><strong>System configuration</strong> –  consists of data stored in the database, and in the various configuration files held in the file system of an X-Road component.</p>
 <h3>
 <a id="63-x-road-external-components" class="anchor" href="#63-x-road-external-components" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.3 X-Road external components</h3>
-<p><strong>Adapter Service</strong> – converts a request or response query (e.g. from REST) to required X-Road SOAP-protocol.</p>
+<p><strong>Adapter Service</strong> – converts a request or response query to X-Road Message Protocol for SOAP or X-Road Message Protocol for REST.</p>
 <p><strong>Information system</strong> – a system including technological as well as organizational information processing of a member of X-Road. The information system (IS) uses and/or provides services via the X-Road.</p>
 <p><strong>Subsystem</strong> – represents a part of an X-Road member's information system. X-Road members must declare parts of its information system as subsystems to use or provide X-Road services.</p>
 <ul>
@@ -198,7 +206,7 @@
 <p><strong>Central service</strong> – dataservice, in case of which the name of service provider is defined by the governing authority. The reason for such alias-name may be the need to assure the service provision (when the service provider changes) without a need to change access rights.</p>
 <p><strong>Dataservice</strong> – web-service executed by a member of X-Road, in order to enable access to the resources of information system of X-Road dataservice provider. The predefined request-response, sent by the information system of a member to the information system of another member and receiving agreed data in response.</p>
 <p><strong>Management service</strong> – services provided by the X-Road governing organization to manage security servers and security server clients. Management services are implemented as standard X-Road services following X-Road message protocol.</p>
-<p><strong>Message</strong> – Data set meeting profile description and service description required by X-Road governing authority. Messages are divided into requests and responses. Message consists of headers and payload. Payload is a SOAP body that contains service specific content.</p>
+<p><strong>Message</strong> – Data set meeting profile description and service description required by X-Road governing authority. Messages are divided into requests and responses. SOAP message consists of headers and a SOAP body that contains service specific content. REST message consists of HTTP verb, path, query parameters, HTTP headers and message body.</p>
 <p><strong>Metadata service</strong> – services between members executed by X-Road governing authority, enabling members of X-Road to get an overview of X-Road (e.g. enabling to get an overview of completed services and access rights needed for the consumption of services). Generally, it shall meet the description of X-Road service.</p>
 <p><strong>Monitoring services</strong> – The X-Road monitoring solution is conceptually split into two parts: environmental and operational monitoring.</p>
 <ul>
@@ -216,7 +224,7 @@
 </li>
 </ul>
 <p><strong>Service client</strong> – is an X-Road member, subsystem, local access rights group or global access rights group that has access rights to one or more services of a security server client.</p>
-<p><strong>X-Road service</strong> – SOAP-based web service that is offered by an X-Road member or by a subsystem and that can be used by other X-Road members or subsystems.</p>
+<p><strong>X-Road service</strong> – SOAP- or REST-based web service or API that is offered by an X-Road member or by a subsystem and that can be used by other X-Road members or subsystems.</p>
 <h4>
 <a id="642-subsystems-and-access-rights" class="anchor" href="#642-subsystems-and-access-rights" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.4.2 Subsystems and access rights</h4>
 <p><strong>Access right</strong> – in X-Road technology enables specifying the rights of security server clients (subsystems) to use dataservices.</p>
@@ -308,6 +316,7 @@
 <p><strong>TSP</strong> - Time Stamp Provider</p>
 <h3>
 <a id="72-general-software-terminology" class="anchor" href="#72-general-software-terminology" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>7.2 General software terminology</h3>
+<p><strong>API</strong> Application Programming Interface</p>
 <p><strong>CI</strong> - Continuous Integration</p>
 <p><strong>DSL</strong> - Domain Specific Language</p>
 <p><strong>HTTP</strong> - Hypertext Transfer Protocol</p>
@@ -318,6 +327,7 @@
 <p><strong>MBean</strong> - Java Managed Bean</p>
 <p><strong>MIME</strong> - Multipurpose Internet Mail Extensions</p>
 <p><strong>RPC</strong> – Remote Procedure Call</p>
+<p><strong>REST</strong> - Representational State Transfer</p>
 <p><strong>SDK</strong> - Software Development Kit</p>
 <p><strong>SOAP</strong> - Simple Object Access Protocol</p>
     </article>

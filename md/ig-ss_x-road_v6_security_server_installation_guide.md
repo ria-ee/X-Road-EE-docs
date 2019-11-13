@@ -1,17 +1,17 @@
 | ![European Union / European Regional Development Fund / Investing in your future](img/eu_regional_development_fund_horizontal_div_15.png "Documents that are tagged with EU/SF logos must keep the logos until 1.1.2022, if it has not stated otherwise in the documentation. If new documentation is created  using EU/SF resources the logos must be tagged appropriately so that the deadline for logos could be found.") |
 | -------------------------: |
 
-# Security Server Installation Guide
+# Security Server Installation Guide for Ubuntu <!-- omit in toc -->
 
 **X-ROAD 6**
 
-Version: 2.16  
+Version: 2.19  
 Doc. ID: IG-SS
 
 ---
 
 
-## Version history
+## Version history <!-- omit in toc -->
 
  Date       | Version | Description                                                     | Author
  ---------- | ------- | --------------------------------------------------------------- | --------------------
@@ -41,42 +41,46 @@ Doc. ID: IG-SS
  03.07.2018 | 2.12.2  | Added network diagram and reference data for monitoring servers | Jürgen Šuvalov
  08.08.2018 | 2.12.3  | Editorial changes												| Jan Raik
  13.08.2018 | 2.12.4  | Package name fix											    | Taavi Meinberg
- 12.12.2018 | 2.12.5  | Added managment security servers' IPs | Jan Raik
- 03.01.2019 | 2.12.6  | Updated repository key | Jan Raik
  14.10.2018 | 2.13    | Update package repository address | Petteri Kivimäki
  25.10.2018 | 2.14    | Add RHEL7 as supported platform, update section 2.2 Reference data | Petteri Kivimäki
  15.11.2018 | 2.15    | Add Ubuntu 18 installation instructions | Jarkko Hyöty
- 07.03.2019 | 2.16    | Added Postgres install command | Jan Raik
-
-## Table of Contents
+ 12.12.2018 | 2.12.5  | Added managment security servers' IPs | Jan Raik
+ 03.01.2019 | 2.12.6  | Updated repository key | Jan Raik
+ 28.01.2019 | 2.16    | Update port 2080 documentation | Petteri Kivimäki
+ 30.05.2019 | 2.17    | Added package installation instructions on chapter "[2.4 Preparing OS](#24-preparing-os)" | Raul Martinez
+ 11.09.2019 | 2.18    | Remove Ubuntu 14.04 from supported platforms | Jarkko Hyöty
+ 20.09.2019 | 2.19    | Add instructions for using remote databases | Ilkka Seppälä
+  
+## Table of Contents <!-- omit in toc -->
 
 <!-- toc -->
 
 - [License](#license)
 - [1 Introduction](#1-introduction)
-  * [1.1 Target Audience](#11-target-audience)
-  * [1.2 Terms and abbreviations](#12-terms-and-abbreviations)
-  * [1.3 References](#13-references)
+  - [1.1 Target Audience](#11-target-audience)
+  - [1.2 Terms and abbreviations](#12-terms-and-abbreviations)
+  - [1.3 References](#13-references)
 - [2 Installation](#2-installation)
-  * [2.1 Supported Platforms](#21-supported-platforms)
-  * [2.2 Reference Data](#22-reference-data)
-  * [2.3 Network Diagram](#23-network-diagram)
-  * [2.4 Requirements for the Security Server](#24-requirements-for-the-security-server)
-  * [2.5 Preparing OS](#25-preparing-os)
-  * [2.6 Installation](#26-installation)
-  * [2.7 Post-Installation Checks](#27-post-installation-checks)
-  * [2.8 Installing the Support for Hardware Tokens](#28-installing-the-support-for-hardware-tokens)
-  * [2.9 Installing the Support for Environmental Monitoring](#29-installing-the-support-for-environmental-monitoring)
+  - [2.1 Supported Platforms](#21-supported-platforms)
+  - [2.2 Reference Data](#22-reference-data)
+  - [2.3 Network Diagram](#23-network-diagram)
+  - [2.4 Requirements for the Security Server](#24-requirements-for-the-security-server)
+  - [2.5 Preparing OS](#25-preparing-os)
+  - [2.6 Installation](#26-installation)
+  - [2.7 Post-Installation Checks](#27-post-installation-checks)
+  - [2.8 Installing the Support for Hardware Tokens](#28-installing-the-support-for-hardware-tokens)
+  - [2.9 Installing the Support for Environmental Monitoring](#29-installing-the-support-for-environmental-monitoring)
+  - [2.10 Remote Database Post-Installation Tasks](#29-remote-database-post-installation-tasks)
 - [3 Security Server Initial Configuration](#3-security-server-initial-configuration)
-  * [3.1 Prerequisites](#31-prerequisites)
-  * [3.2 Reference Data](#32-reference-data)
-  * [3.3 Configuration](#33-configuration)
+  - [3.1 Prerequisites](#31-prerequisites)
+  - [3.2 Reference Data](#32-reference-data)
+  - [3.3 Configuration](#33-configuration)
 - [4 Installation Error handling](#4-installation-error-handling)
-  * [4.1 Cannot Set LC\_ALL to Default Locale](#41-cannot-set-lc_all-to-default-locale)
-  * [4.2 PostgreSQL Is Not UTF8 Compatible](#42-postgresql-is-not-utf8-compatible)
-  * [4.3 Could Not Create Default Cluster](#43-could-not-create-default-cluster)
-  * [4.4 Is Postgres Running On Port 5432?](#44-is-postgres-running-on-port-5432)
-  * [4.5 Different versions of xroad-\* packages after successful upgrade](#45-different-versions-of-xroad--packages-after-successful-upgrade)
+  - [4.1 Cannot Set LC\_ALL to Default Locale](#41-cannot-set-lcall-to-default-locale)
+  - [4.2 PostgreSQL Is Not UTF8 Compatible](#42-postgresql-is-not-utf8-compatible)
+  - [4.3 Could Not Create Default Cluster](#43-could-not-create-default-cluster)
+  - [4.4 Is Postgres Running On Port 5432?](#44-is-postgres-running-on-port-5432)
+  - [4.5 Different versions of xroad-\* packages after successful upgrade](#45-different-versions-of-xroad--packages-after-successful-upgrade)
 
 <!-- tocstop -->
 
@@ -108,7 +112,7 @@ See X-Road terms and abbreviations documentation \[[TA-TERMS](#Ref_TERMS)\].
 
 ### 2.1 Supported Platforms
 
-The security server runs on the *Ubuntu Server 14.04 and 18.04 Long-Term Support (LTS)* operating system on a 64-bit platform. The Estonian version of the security server software is distributed as .deb packages through the official X-tee repository at http://x-tee.ee/packages/.
+The security server runs on the *Ubuntu Server 18.04 Long-Term Support (LTS) operating system on a 64-bit platform. The Estonian version of the security server software is distributed as .deb packages through the official X-tee repository at http://x-tee.ee/packages/.
 
 The software can be installed both on physical and virtualized hardware (of the latter, Xen and Oracle VirtualBox have been tested).
 
@@ -122,7 +126,7 @@ The software can be installed both on physical and virtualized hardware (of the 
 
  **Ref** |                                        | **Explanation**
  ------ | --------------------------------------- | ----------------------------------------------------------
- 1.0    | Ubuntu 14.04 or 18.04, 64-bit<br>3 GB RAM, 3 GB free disk space | Minimum requirements
+ 1.0    | Ubuntu 18.04, 64-bit<br>3 GB RAM, 3 GB free disk space | Minimum requirements
  1.1    | http://x-tee.ee/packages/live/xroad     | X-Road stable package repository
  &nbsp; | http://x-tee.ee/packages/test/xroad     | X-Road test package repository
  1.2    | https://x-tee.ee/packages/xroad_repo.gpg | The repository key
@@ -174,7 +178,7 @@ The software can be installed both on physical and virtualized hardware (of the 
 
 Minimum recommended hardware parameters:
 
--   the server’s hardware (motherboard, CPU, network interface cards, storage system) must be supported by Ubuntu 14.04 or 18.04 in general;
+-   the server’s hardware (motherboard, CPU, network interface cards, storage system) must be supported by Ubuntu 18.04 in general;
 
 -   a 64-bit dual-core Intel, AMD or compatible CPU; AES instruction set support is highly recommended;
 
@@ -186,7 +190,7 @@ Minimum recommended hardware parameters:
 
 Requirements to software and settings:
 
--   an installed and configured Ubuntu 14.04 or 18.04 LTS x86-64 operating system;
+-   an installed and configured Ubuntu 18.04 LTS x86-64 operating system;
 
 -   if the security server is separated from other networks by a firewall and/or NAT, the necessary connections to and from the security server are allowed (**reference data: 1.4; 1.5; 1.6; 1.7; 1.12**). The enabling of auxiliary services which are necessary for the functioning and management of the operating system (such as DNS, NTP, and SSH) stay outside the scope of this guide;
 
@@ -205,6 +209,10 @@ Requirements to software and settings:
 
         LC_ALL=en_US.UTF-8
 
+-   Ensure that the packages `locales` and `software-properties-common` are present
+
+        sudo apt-get install locales software-properties-common
+
 -   Ensure that the locale is available
 
         sudo locale-gen en_US.UTF-8
@@ -216,29 +224,23 @@ To install the X-Road security server software, follow these steps.
 
 1.  Add to `/etc/apt/sources.list.d/xroad.list` the address of X-Road package repository (**reference data: 1.1**) and the nginx repository:
 
-    *Ubuntu 14.04 (trusty)*:
-
-        deb http://x-tee.ee/packages/live/xroad trusty main
-        deb http://ppa.launchpad.net/nginx/stable/ubuntu trusty main
-        deb http://ppa.launchpad.net/openjdk-r/ppa/ubuntu trusty main
-
-    *Ubuntu 18.04 (bionic)*:
-
         deb http://x-tee.ee/packages/live/xroad bionic main
 
 2.  Add the X-Road repository’s signing key to the list of trusted keys (**reference data: 1.2**):
 
-    *Ubuntu 14.04 (trusty)*:
-
         curl http://x-tee.ee/packages/live/xroad/repo.gpg | sudo apt-key add -
-        sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 00A6F0A3C300EE8C
-        sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EB9B1D8886F44E2A
+        
+3. (Optional step) If you want to use remote database server instead of the default locally installed one, you need to pre-create a configuration file containing the database administrator master password. This can be done by performing the following steps:
 
-    *Ubuntu 18.04 (bionic)*:
+        sudo touch /etc/xroad.properties
+        sudo chown root:root /etc/xroad.properties
+        sudo chmod 600 /etc/xroad.properties
+        
+    Edit `/etc/xroad.properties` contents. See the example below. Replace parameter values with your own.
 
-        curl http://x-tee.ee/packages/live/xroad/repo.gpg | sudo apt-key add -
+        postgres.connection.password = 54F46A19E50C11DA8631468CF09BE5DB
 
-3.  Issue the following commands to install the security server packages:
+4.  Issue the following commands to install the security server packages (use package xroad-securityserver-ee to include configuration specific to Estonia; use package xroad-securityserver-fi to include configuration specific to Finland):
 
         sudo apt-get update
         sudo apt-get install postgresql
@@ -247,6 +249,8 @@ To install the X-Road security server software, follow these steps.
 Upon the first installation of the packages, the system asks for the following information.
 
 -   Account name for the user who will be granted the rights to perform all activities in the user interface (**reference data: 1.3**).
+
+-   Database server URL. Locally installed database is suggested as default but remote databases can be used as well. In case remote database is used, one should verify that the version of the local PostgreSQL client matches the version of the remote PostgreSQL server.
 
 -   The Distinguished Name of the owner of the **user interface’s** self-signed TLS certificate (*Subject DN*) and its alternative names (*subjectAltName*) (**reference data: 1.8; 1.10**). The certificate is used for securing connections to the user interface.
     The name and IP addresses detected from the operating system are suggested as default values.
@@ -277,19 +281,7 @@ The meta-package `xroad-securityserver-ee` also installs metaservices module `xr
 
 The installation is successful if system services are started and the user interface is responding.
 
--   Ensure from the command line that X-Road services are in the `start/running` state (example output follows):
-
-    - Ubuntu 14.04
-        ```
-        sudo initctl list | grep "^xroad-"
-
-        xroad-jetty start/running, process 19796
-        xroad-confclient start/running, process 19563
-        xroad-signer start/running, process 19393
-        xroad-monitor start/running, process 20669
-        xroad-opmonitor start/running, process 20679
-        xroad-proxy start/running, process 19580
-        ```
+-   Ensure from the command line that X-Road services are in the `running` state (example output follows):
 
     - Ubuntu 18.04
         ```
@@ -353,6 +345,18 @@ Parameter   | Type    | Default Value | Explanation
 ### 2.9 Installing the Support for Environmental Monitoring
 
 The support for environmental monitoring functionality on a security server is provided by package xroad-monitor that is installed by default. The package installs and starts the `xroad-monitor` process that will gather and make available the monitoring information.
+
+### 2.9 Remote Database Post-Installation Tasks
+
+Local PostgreSQL is always installed with Security Server. When remote database host is used, the local PostgreSQL can be stopped and disabled after the installation.
+
+To stop the local PostgreSQL server
+
+`systemctl stop postgresql`
+
+To disable the local PostgreSQL server so that it does not start automatically when the server is rebooted.
+
+`systemctl mask postgresql`
 
 
 ## 3 Security Server Initial Configuration

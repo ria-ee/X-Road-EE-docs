@@ -5,7 +5,7 @@
 
 **Technical Specification**
 
-Version: 0.5  
+Version: 0.7  
 Doc. ID: PR-OPMON
 
 | Date | Version | Description | Author|
@@ -14,6 +14,8 @@ Doc. ID: PR-OPMON
 | 23.01.2017 | 0.3 | Added license text, table of contents and version history | Sami Kallio |
 | 05.03.2018 | 0.4 | Added terms and abbreviations reference | Tatu Repo |
 | 04.12.2018 | 0.5 | More detailed descriptions for *[request/response][In/Out]Ts* fields | Cybernetica AS |
+| 18.02.2019 | 0.6 | Example response updated: added xRequestId | Caro Hautamäki |
+| 23.05.2019 | 0.7 | Add info about status_code, request_rest_size, response_rest_size | Tapio Jaakkola |
 
 ## Table of Contents
 
@@ -119,6 +121,10 @@ The body of the request MUST contain an XML element *getSecurityServerOperationa
  * *succeeded*
  * *soapFaultCode*
  * *soapFaultString*
+ * *requestRestSize*
+ * *responseRestSize*
+ * *statusCode*
+ 
 
 The fields are described in the JSON-schema of the response payload \[[Annex B](#AnnexB)\].
 
@@ -1127,6 +1133,18 @@ properties:
           description: SOAP fault code in case SOAPFault received
           type: string
           maxLength: 255
+        requestRestSize:
+          description: Size of the request (bytes)
+          type: integer
+          minimum: 0
+        responseRestSize:
+          description: Size of the response (bytes)
+          type: integer
+          minimum: 0
+        statusCode:
+          description: Response HTTP status code
+          type: integer
+          minimum: 0
 required:
 - records
 ```
@@ -1270,7 +1288,8 @@ content-id: <operational-monitoring-data.json.gz>
       "serviceSubsystemCode": "subsystem1",
       "serviceVersion": "v1",
       "serviceXRoadInstance": "EE",
-      "succeeded": true
+      "succeeded": true,
+      "xRequestId": "fd83f20e-bc19-4eb4-9602-e37f94c09fbe"
     }
   ]
 }

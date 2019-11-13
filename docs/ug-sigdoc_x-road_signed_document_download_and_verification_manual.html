@@ -23,10 +23,11 @@
 </tr>
 </thead>
 </table>
+<hr>
 <h1>
 <a id="signed-document-download-and-verification-manual" class="anchor" href="#signed-document-download-and-verification-manual" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Signed Document Download and Verification Manual</h1>
 <p><strong>X-ROAD 6</strong></p>
-<p>Version: 1.6<br>
+<p>Version: 1.7<br>
 Doc. ID: UG-SIGDOC</p>
 <hr>
 <h2>
@@ -101,10 +102,17 @@ Doc. ID: UG-SIGDOC</p>
 <td>Asicverifier version option. Updated asicverifier usage and jar name</td>
 <td>Caro Hautamäki</td>
 </tr>
+<tr>
+<td>07.03.2019</td>
+<td>1.7</td>
+<td>REST support modifications</td>
+<td>Jarkko Hyöty</td>
+</tr>
 </tbody>
 </table>
 <h2>
 <a id="table-of-contents" class="anchor" href="#table-of-contents" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Table of Contents</h2>
+
 
 <ul>
 <li><a href="#license">License</a></li>
@@ -132,6 +140,7 @@ Doc. ID: UG-SIGDOC</p>
 </ul>
 </li>
 </ul>
+
 
 <h2>
 <a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
@@ -263,7 +272,7 @@ Would you like to extract the signed files? (y/n) y
 Created file message.xml 
 Files successfully extracted.
 </code></pre>
-<p>As can be seen from the example above, the asicverifier tool will optionally extract the signed files to the working directory.</p>
+<p>As can be seen from the example above, the asicverifier tool will optionally extract the signed files to the working directory. In the case of REST message, the request/response line and headers are in <code>message.xml</code> and the REST body (if logged) is present in a file <code>attachment1</code>.</p>
 <p>Should the verification fail, the reason for failure will be presented to the user in an error message. For example:</p>
 <pre><code>Loading configuration from verificationconf/... 
 Verifying ASiC container "abc12345-request-1ab2c3d4f5.asice" ... 
@@ -274,7 +283,7 @@ Created file message.xml
 Files successfully extracted.
 </code></pre>
 <p>In case of verification failure, the asicverifier tool will optionally extract the signed files to the working directory.</p>
-<p>Notice that when <code>messagelog.soap-body-logging</code> property is set to <code>false</code>, the verification always fails with the error message:</p>
+<p>Notice that when <code>messagelog.message-body-logging</code> property is set to <code>false</code>, the verification always fails with the error message:</p>
 <pre><code>Verification failed: Signature is not valid
 </code></pre>
 <h3>

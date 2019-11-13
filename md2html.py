@@ -82,3 +82,6 @@ md2html("X-Road: Protocol for Management Services", "md/pr-mserv_x-road_protocol
 md2html("X-Road: Terms and Abbreviations", "md/terms_x-road_docs.md", "docs/terms_x-road_docs.html")
 md2html("X-Road: Third Party Representation Extension", "md/pr-third_party_representation_extension.md", "docs/pr-third_party_representation_extension.html")
 md2html("X-Road: Signed Document Download and Verification Manual", "md/ug-sigdoc_x-road_signed_document_download_and_verification_manual.md", "docs/ug-sigdoc_x-road_signed_document_download_and_verification_manual.html")
+md2html("X-Road: Message Transport Protocol", "md/pr-messtransp_x-road_message_transport_protocol.md", "docs/pr-messtransp_x-road_message_transport_protocol.html")
+md2html("X-Road: Message Protocol for REST", "md/pr-rest_x-road_message_protocol_for_rest.md", "docs/pr-rest_x-road_message_protocol_for_rest.html")
+md2html("X-Road: Autologin User Guide", "md/ug-autologin_x-road_v6_autologin_user_guide.md", "docs/ug-autologin_x-road_v6_autologin_user_guide.html")

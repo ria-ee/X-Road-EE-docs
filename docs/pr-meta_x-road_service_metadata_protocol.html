@@ -23,15 +23,15 @@
 </tr>
 </thead>
 </table>
+<hr>
 <h1>
-<a id="x-road-service-metadata-protocol" class="anchor" href="#x-road-service-metadata-protocol" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>X-Road: Service Metadata Protocol</h1>
+<a id="x-road-service-metadata-protocol-" class="anchor" href="#x-road-service-metadata-protocol-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>X-Road: Service Metadata Protocol </h1>
 <p><strong>Technical Specification</strong></p>
-<p>Version: 2.6<br>
-15.10.2018<br>
+<p>Version: 2.9<br>
 Doc. ID: PR-META</p>
 <hr>
 <h2>
-<a id="version-history" class="anchor" href="#version-history" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version history</h2>
+<a id="version-history-" class="anchor" href="#version-history-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version history </h2>
 <table>
 <thead>
 <tr>
@@ -108,10 +108,29 @@ Doc. ID: PR-META</p>
 <td>Update Annex B</td>
 <td>Petteri Kivimäki</td>
 </tr>
+<tr>
+<td>05.06.2019</td>
+<td>2.7</td>
+<td>Add JSON response for listClients metadata API</td>
+<td>Jarkko Hyöty</td>
+</tr>
+<tr>
+<td>30.07.2019</td>
+<td>2.8</td>
+<td>Update listMethods and allowedMethods descriptions</td>
+<td>Ilkka Seppälä</td>
+</tr>
+<tr>
+<td>09.10.2019</td>
+<td>2.9</td>
+<td>Remove listCentralServices from the OpenAPI definition</td>
+<td>Jarkko Hyöty</td>
+</tr>
 </tbody>
 </table>
 <h2>
-<a id="table-of-contents" class="anchor" href="#table-of-contents" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Table of Contents</h2>
+<a id="table-of-contents-" class="anchor" href="#table-of-contents-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Table of Contents </h2>
+
 
 <ul>
 <li><a href="#license">License</a></li>
@@ -125,11 +144,44 @@ Doc. ID: PR-META</p>
 <li><a href="#2-retrieving-list-of-service-providers">2 Retrieving List of Service Providers</a></li>
 <li><a href="#3-retrieving-list-of-central-services">3 Retrieving List of Central Services</a></li>
 <li><a href="#4-retrieving-list-of-services">4 Retrieving List of Services</a></li>
-<li><a href="#5-retrieving-the-wsdl-of-a-service">5 Retrieving the WSDL of a Service</a></li>
-<li><a href="#annex-a-xml-schema-for-messages">Annex A XML Schema for Messages</a></li>
-<li><a href="#annex-b-listmethods-allowedmethods-and-getwsdl-wsdl">Annex B listMethods and allowedMethods WSDL</a></li>
-<li><a href="#annex-c-example-messages">Annex C Example Messages</a></li>
+<li>
+<a href="#5-retrieving-the-wsdl-of-a-service">5 Retrieving the WSDL of a Service</a>
+<ul>
+<li><a href="#x-road-protocol-post-request">X-Road protocol POST-request</a></li>
+<li><a href="#http-get-request">HTTP GET-request</a></li>
+<li><a href="#wsdl-information-modifications">WSDL-information modifications</a></li>
 </ul>
+</li>
+<li><a href="#annex-a-xml-schema-for-messages">Annex A XML Schema for Messages</a></li>
+<li>
+<a href="#annex-b-listmethods-allowedmethods-and-getwsdl-service-descriptions">Annex B listMethods, allowedMethods, and getWsdl service descriptions</a>
+<ul>
+<li><a href="#wsdl">WSDL</a></li>
+<li><a href="#openapi-definition">OpenAPI definition</a></li>
+</ul>
+</li>
+<li>
+<a href="#annex-c-example-messages">Annex C Example Messages</a>
+<ul>
+<li>
+<a href="#c1-listclients-response">C.1 listClients Response</a>
+<ul>
+<li><a href="#xml-response">XML Response</a></li>
+<li><a href="#json-response">JSON Response</a></li>
+</ul>
+</li>
+<li><a href="#c2-listcentralservices-response">C.2 listCentralServices Response</a></li>
+<li><a href="#c3-listmethods-request">C.3 listMethods Request</a></li>
+<li><a href="#c4-listmethods-response">C.4 listMethods Response</a></li>
+<li><a href="#c5-allowedmethods-request">C.5 allowedMethods Request</a></li>
+<li><a href="#c6-allowedmethods-response">C.6 allowedMethods Response</a></li>
+<li><a href="#c7-getwsdl-request">C.7 getWsdl Request</a></li>
+<li><a href="#c8-getwsdl-response">C.8 getWsdl Response</a></li>
+<li><a href="#c9-getwsdl-response-attachment">C.9 getWsdl Response attachment</a></li>
+</ul>
+</li>
+</ul>
+
 
 <h2>
 <a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
@@ -139,19 +191,19 @@ Doc. ID: PR-META</p>
 <p>This specification describes methods that can be used by X-Road participants to discover what services are available to them and download the WSDL files describing these services. The X-Road service metadata protocol is intended to support portals and other software that can discover the available services and then automatically generate user interfaces based on their descriptions. In order to accomplish this, the portal can use the following steps.</p>
 <ol>
 <li>
-<p>Download a list of X-Road members and subsystems (see Section <a href="#2-retrieving-list-of-service-providers">2</a>). This results in a list of (potential) service provides who can be further be queried. Alternatively, the portal can download a list of central services (see Section <a href="#3-retrieving-list-of-central-services">3</a>) defined in the X-Road central server.</p>
+<p>Download a list of X-Road members and subsystems (see Section <a href="#2-retrieving-list-of-service-providers">2</a>). This results in a list of (potential) service provides who can be further be queried. Alternatively, the portal can download a list of central services (see Section <a href="#3-retrieving-list-of-central-services">3</a>) defined in the X-Road central server.</p>
 </li>
 <li>
-<p>Connect to the service provider and acquire a list of services offered by this provider (see Section <a href="#4-retrieving-list-of-services">4</a>). This service has two forms: <code>listMethods</code> returns a list of services provided by a given service provider, <code>allowedMethods</code> constrains the returned list by only including services that are allowed for the client.</p>
+<p>Connect to the service provider and acquire a list of services offered by this provider (see Section <a href="#4-retrieving-list-of-services">4</a>). This service has two forms: <code>listMethods</code> returns a list of services provided by a given service provider, <code>allowedMethods</code> constrains the returned list by only including services that are allowed for the client.</p>
 </li>
 <li>
-<p>Download the description of the service in WSDL format (see Section <a href="#5-retrieving-the-wsdl-of-a-service">5</a>).</p>
+<p>Download the description of the service in WSDL format (see Section <a href="#5-retrieving-the-wsdl-of-a-service">5</a>).</p>
 </li>
 </ol>
 <p>This specification is based on the X-Road protocol [<a href="#Ref_PR-MESS">PR-MESS</a>]. The X-Road protocol specification also defines important concepts used in this text (for example, central service and X-Road identifier). Because this protocol uses HTTP and X-Road protocol as transport mechanisms, the details of message transport and error conditions are not described in this specification.</p>
-<p>Chapters <a href="#2-retrieving-list-of-service-providers">2</a>, <a href="#3-retrieving-list-of-central-services">3</a>, <a href="#4-retrieving-list-of-services">4</a> and <a href="#5-retrieving-the-wsdl-of-a-service">5</a> together with annexes <a href="#annex-a-xml-schema-for-messages">A</a> and <a href="#annex-b-listmethods-and-allowedmethods-wsdl">B</a> contain normative information. All the other sections are informative in nature. All the references are normative.</p>
+<p>Chapters <a href="#2-retrieving-list-of-service-providers">2</a>, <a href="#3-retrieving-list-of-central-services">3</a>, <a href="#4-retrieving-list-of-services">4</a> and <a href="#5-retrieving-the-wsdl-of-a-service">5</a> together with annexes <a href="#annex-a-xml-schema-for-messages">A</a> and <a href="#annex-b-listmethods-allowedmethods-and-getwsdl-service-descriptions">B</a> contain normative information. All the other sections are informative in nature. All the references are normative.</p>
 <p>This specification does not include option for partially implementing the protocol – the conformant implementation must implement the entire specification.</p>
-<p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document (in uppercase, as shown) are to be interpreted as described in [<a href="#Ref_RFC2119">RFC2119</a>].</p>
+<p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document (in uppercase, as shown) are to be interpreted as described in [<a href="#Ref_RFC2119">RFC2119</a>].</p>
 <h3>
 <a id="11-terms-and-abbreviations" class="anchor" href="#11-terms-and-abbreviations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.1 Terms and abbreviations</h3>
 <p>See X-Road terms and abbreviations documentation [<a href="#Ref_TERMS">TA-TERMS</a>].</p>
@@ -180,30 +232,15 @@ In addition, it is possible to retrieve a list of clients in other, federated X-
 <code>xRoadInstance</code> – code that identifies the X-Road instance.</li>
 </ul>
 <p>Thus, in order to retrieve a list of clients defined in the X-Road instance <code>AA</code>, the request URL is <code>http://SECURITYSERVER/listClients?xRoadInstance=AA</code>.</p>
-<p>Security server MUST respond with content-type <code>text/xml</code> and the response MUST contain the <code>clientList</code> XML element defined below
-(full XML schema appears in Annex <a href="#annex-a-xml-schema-for-messages">A</a>).
-Annex <a href="#c1-listclients-response">C.1</a> contains an example response message.</p>
-<div class="highlight highlight-text-xml"><pre>    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>clientList<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>ClientListType<span class="pl-pds">"</span></span>/&gt;
-    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>ClientListType<span class="pl-pds">"</span></span>&gt;
-        &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
-            &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">maxOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>unbounded<span class="pl-pds">"</span></span> <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span>
-                <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>member<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>ClientType<span class="pl-pds">"</span></span>/&gt;
-        &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
-    &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
-    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>ClientType<span class="pl-pds">"</span></span>&gt;
-        &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
-            &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>id:XRoadClientIdentifierType<span class="pl-pds">"</span></span>/&gt;
-            &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>xs:string<span class="pl-pds">"</span></span> <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span>/&gt;
-        &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
-    &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;</pre></div>
-<p>The <code>XRoadClientIdentifierType</code> represents a globally unique identifier of an X-Road client.
-The client identifier has a hierarchical structure consisting of X-Road instance, member class, member and (optionally) subsystem codes. See specification [<a href="#Ref_PR-MESS">PR-MESS</a>] for explanation and specification of identifiers.</p>
+<p>It is possible to control the response content type using HTTP <code>Accept</code> header. If the header value is <code>application/json</code>, the security server must produce an application/json response, as defined in Annex B, <a href="#openapi-definition">OpenAPI definition</a>. Otherwise, security server MUST respond with content-type <code>text/xml</code> and the response MUST contain the <code>clientList</code> XML element defined in Annex <a href="#annex-a-xml-schema-for-messages">A</a>).</p>
+<p>Annex <a href="#c1-listclients-response">C.1</a> contains an example XML and JSON response messages</p>
+<p>The X-Road client identifier has a hierarchical structure consisting of X-Road instance, member class, member and (optionally) subsystem codes. See specification [<a href="#Ref_PR-MESS">PR-MESS</a>] for explanation and specification of identifiers.</p>
 <h2>
 <a id="3-retrieving-list-of-central-services" class="anchor" href="#3-retrieving-list-of-central-services" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3 Retrieving List of Central Services</h2>
 <p>Security server clients can retrieve a list of all central services defined in an X-Road instance. This can be accomplished by making a HTTP GET request to the security server.
 The request URL is <code>http://SECURITYSERVER/listCentralServices</code> or <code>https://SECURITYSERVER/listCentralServices</code> depending on whether the HTTPS protocol is configured for interaction between the security server and the information system.
 When making the request, the address <code>SECURITYSERVER</code> must be replaced with the actual address of the security server.</p>
-<p>In addition, it is possible to retrieve a list of security servers in other, federated X-Road instances by adding the following HTTP parameter:</p>
+<p>In addition, it is possible to retrieve a list of central services in other, federated X-Road instances by adding the following HTTP parameter:</p>
 <ul>
 <li>
 <code>xRoadInstance</code> – code that identifies the X-Road instance.</li>
@@ -226,16 +263,16 @@ Annex <a href="#c2-listcentralservices-response">C.2</a> contains an example res
 <p>The <code>XRoadCentralServiceIdentifierType</code> represents a globally unique identifier of a central service consisting of a unique code identifying the X-Road instance and a code for the central service (unique within the given instance). See specification [<a href="#Ref_PR-MESS">PR-MESS</a>] for explanation and specification of identifiers.</p>
 <h2>
 <a id="4-retrieving-list-of-services" class="anchor" href="#4-retrieving-list-of-services" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4 Retrieving List of Services</h2>
-<p>X-Road provides two methods for getting the list of services offered by an X-Road client:</p>
+<p>X-Road provides two methods for getting the list of SOAP services offered by an X-Road client:</p>
 <ul>
 <li>
-<p><code>listMethods</code> lists all services offered by a service provider; and</p>
+<p><code>listMethods</code> lists all SOAP services offered by a service provider; and</p>
 </li>
 <li>
-<p><code>allowedMethods</code> lists all services offered by a service provider that the caller has permission to invoke.</p>
+<p><code>allowedMethods</code> lists all SOAP services offered by a service provider that the caller has permission to invoke.</p>
 </li>
 </ul>
-<p>Both methods are invoked as regular X-Road services (see specification [<a href="#Ref_PR-MESS">PR-MESS</a>] for details on the X-Road protocol).
+<p>Both methods are invoked as regular X-Road SOAP services (see specification [<a href="#Ref_PR-MESS">PR-MESS</a>] for details on the X-Road SOAP protocol).
 The service SOAP header MUST contain the identifier of the target service provider and the value of the serviceCode element MUST be either <code>listMethods</code> or <code>allowedMethods</code>.
 The body of the request MUST contain an appropriately named empty XML element (either <code>listMethods</code> or <code>allowedMethods</code>).
 Annexes <a href="#c3-listmethods-request">C.3</a> and <a href="#c5-allowedmethods-request">C.5</a> contain example request messages for services, respectively.</p>
@@ -356,7 +393,9 @@ the provider security server.</p>
     &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>centralServiceList<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>CentralServiceListType<span class="pl-pds">"</span></span>/&gt;
 &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">schema</span>&gt;</pre></div>
 <h2>
-<a id="annex-b-listmethods-allowedmethods-and-getwsdl-wsdl" class="anchor" href="#annex-b-listmethods-allowedmethods-and-getwsdl-wsdl" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Annex B listMethods, allowedMethods, and getWsdl WSDL</h2>
+<a id="annex-b-listmethods-allowedmethods-and-getwsdl-service-descriptions" class="anchor" href="#annex-b-listmethods-allowedmethods-and-getwsdl-service-descriptions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Annex B listMethods, allowedMethods, and getWsdl service descriptions</h2>
+<h3>
+<a id="wsdl" class="anchor" href="#wsdl" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>WSDL</h3>
 <div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
 &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">definitions</span> <span class="pl-e">targetNamespace</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>
     <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">wsdl</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.xmlsoap.org/wsdl/<span class="pl-pds">"</span></span>
@@ -575,10 +614,75 @@ the provider security server.</p>
         &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">port</span>&gt;
     &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">service</span>&gt;
 &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">definitions</span>&gt;</pre></div>
+<h3>
+<a id="openapi-definition" class="anchor" href="#openapi-definition" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>OpenAPI definition</h3>
+<div class="highlight highlight-source-yaml"><pre><span class="pl-ent">openapi</span>: <span class="pl-s">3.0.0</span>
+<span class="pl-ent">info</span>:
+  <span class="pl-ent">title</span>: <span class="pl-s">X-Road Service Metadata API</span>
+  <span class="pl-ent">version</span>: <span class="pl-s"><span class="pl-pds">'</span>2.7<span class="pl-pds">'</span></span>
+<span class="pl-ent">servers</span>:
+  - <span class="pl-ent">url</span>: <span class="pl-s"><span class="pl-pds">'</span>https://{securityserver}/<span class="pl-pds">'</span></span>
+<span class="pl-ent">paths</span>:
+  <span class="pl-ent">/listClients</span>:
+    <span class="pl-ent">get</span>:
+      <span class="pl-ent">tags</span>:
+        - <span class="pl-s">metaservices</span>
+      <span class="pl-ent">summary</span>: <span class="pl-s">List clients defined in the X-Road instance</span>
+      <span class="pl-ent">operationId</span>: <span class="pl-s">listClients</span>
+      <span class="pl-ent">parameters</span>:
+        - <span class="pl-ent">name</span>: <span class="pl-s">xRoadInstance</span>
+          <span class="pl-ent">in</span>: <span class="pl-s">query</span>
+          <span class="pl-ent">schema</span>:
+            <span class="pl-ent">type</span>: <span class="pl-s">string</span>
+      <span class="pl-ent">responses</span>:
+        <span class="pl-s"><span class="pl-pds">'</span><span class="pl-ent">200</span><span class="pl-pds">'</span></span>:
+          <span class="pl-ent">description</span>: <span class="pl-s">List of clients</span>
+          <span class="pl-ent">content</span>:
+            <span class="pl-ent">application/json</span>:
+              <span class="pl-ent">schema</span>:
+                <span class="pl-ent">$ref</span>: <span class="pl-s"><span class="pl-pds">'</span>#/components/schemas/clientList<span class="pl-pds">'</span></span>
+<span class="pl-ent">components</span>:
+  <span class="pl-ent">schemas</span>:
+    <span class="pl-ent">clientList</span>:
+      <span class="pl-ent">type</span>: <span class="pl-s">object</span>
+      <span class="pl-ent">properties</span>:
+        <span class="pl-ent">member</span>:
+          <span class="pl-ent">type</span>: <span class="pl-s">array</span>
+          <span class="pl-ent">items</span>:
+            <span class="pl-ent">$ref</span>: <span class="pl-s"><span class="pl-pds">'</span>#/components/schemas/xroadIdentifier<span class="pl-pds">'</span></span>
+    <span class="pl-ent">xroadIdentifier</span>:
+      <span class="pl-ent">type</span>: <span class="pl-s">object</span>
+      <span class="pl-ent">properties</span>:
+        <span class="pl-ent">name</span>:
+          <span class="pl-ent">type</span>: <span class="pl-s">string</span>
+        <span class="pl-ent">id</span>:
+          <span class="pl-ent">type</span>: <span class="pl-s">object</span>
+          <span class="pl-ent">properties</span>:
+            <span class="pl-ent">object_type</span>:
+              <span class="pl-ent">type</span>: <span class="pl-s">string</span>
+              <span class="pl-ent">enum</span>:
+                - <span class="pl-s">MEMBER</span>
+                - <span class="pl-s">SUBSYSTEM</span>
+                - <span class="pl-s">SERVER</span>
+                - <span class="pl-s">GLOBALGROUP</span>
+                - <span class="pl-s">LOCALGROUP</span>
+                - <span class="pl-s">SERVICE</span>
+                - <span class="pl-s">CENTRALSERVICE</span>
+            <span class="pl-ent">xroad_instance</span>:
+              <span class="pl-ent">type</span>: <span class="pl-s">string</span>
+            <span class="pl-ent">member_class</span>:
+              <span class="pl-ent">type</span>: <span class="pl-s">string</span>
+            <span class="pl-ent">member_code</span>:
+              <span class="pl-ent">type</span>: <span class="pl-s">string</span>
+            <span class="pl-ent">subsystem_code</span>:
+              <span class="pl-ent">type</span>: <span class="pl-s">string</span></pre></div>
 <h2>
 <a id="annex-c-example-messages" class="anchor" href="#annex-c-example-messages" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Annex C Example Messages</h2>
 <h3>
 <a id="c1-listclients-response" class="anchor" href="#c1-listclients-response" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>C.1 listClients Response</h3>
+<h4>
+<a id="xml-response" class="anchor" href="#xml-response" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>XML Response</h4>
+<p><code>curl http://SECURITYSERVER/listClients</code></p>
 <div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span><span class="pl-e"> standalone</span>=<span class="pl-s"><span class="pl-pds">"</span>yes<span class="pl-pds">"</span></span>?&gt;
 &lt;<span class="pl-ent">ns2</span><span class="pl-ent">:</span><span class="pl-ent">clientList</span>
         <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">ns1</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/identifiers<span class="pl-pds">"</span></span>
@@ -617,6 +721,50 @@ the provider security server.</p>
         &lt;<span class="pl-ent">ns2</span><span class="pl-ent">:</span><span class="pl-ent">name</span>&gt;Client One&lt;/<span class="pl-ent">ns2</span><span class="pl-ent">:</span><span class="pl-ent">name</span>&gt;
     &lt;/<span class="pl-ent">ns2</span><span class="pl-ent">:</span><span class="pl-ent">member</span>&gt;
 &lt;/<span class="pl-ent">ns2</span><span class="pl-ent">:</span><span class="pl-ent">clientList</span>&gt;</pre></div>
+<h4>
+<a id="json-response" class="anchor" href="#json-response" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>JSON Response</h4>
+<p><code>curl -H "Accept: application/json" http://SECURITYSERVER/listClients</code></p>
+<div class="highlight highlight-source-json"><pre>{
+  <span class="pl-s"><span class="pl-pds">"</span>member<span class="pl-pds">"</span></span>: [
+    {
+      <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: {
+        <span class="pl-s"><span class="pl-pds">"</span>member_class<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>GOV<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>member_code<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>TS1OWNER<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>object_type<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>MEMBER<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>xroad_instance<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>AA<span class="pl-pds">"</span></span>
+      },
+      <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>TS1 Owner<span class="pl-pds">"</span></span>
+    },
+    {
+      <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: {
+        <span class="pl-s"><span class="pl-pds">"</span>member_class<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>GOV<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>member_code<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>TS2OWNER<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>object_type<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>MEMBER<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>xroad_instance<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>AA<span class="pl-pds">"</span></span>
+      },
+      <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>TS2 Owner<span class="pl-pds">"</span></span>
+    },
+    {
+      <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: {
+        <span class="pl-s"><span class="pl-pds">"</span>member_class<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>ENT<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>member_code<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>CLIENT1<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>object_type<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>MEMBER<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>xroad_instance<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>AA<span class="pl-pds">"</span></span>
+      },
+      <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Client One<span class="pl-pds">"</span></span>
+    },
+    {
+      <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: {
+        <span class="pl-s"><span class="pl-pds">"</span>member_class<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>ENT<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>member_code<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>CLIENT1<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>subsystem_code<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>sub<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>object_type<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>SUBSYSTEM<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>xroad_instance<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>AA<span class="pl-pds">"</span></span>
+      },
+      <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Client One<span class="pl-pds">"</span></span>
+    }
+  ]
+}</pre></div>
 <h3>
 <a id="c2-listcentralservices-response" class="anchor" href="#c2-listcentralservices-response" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>C.2 listCentralServices Response</h3>
 <div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span><span class="pl-e"> standalone</span>=<span class="pl-s"><span class="pl-pds">"</span>yes<span class="pl-pds">"</span></span>?&gt;
