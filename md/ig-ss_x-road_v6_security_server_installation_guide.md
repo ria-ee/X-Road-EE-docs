@@ -70,17 +70,17 @@ Doc. ID: IG-SS
   - [2.7 Post-Installation Checks](#27-post-installation-checks)
   - [2.8 Installing the Support for Hardware Tokens](#28-installing-the-support-for-hardware-tokens)
   - [2.9 Installing the Support for Environmental Monitoring](#29-installing-the-support-for-environmental-monitoring)
-  - [2.9 Remote Database Post-Installation Tasks](#29-remote-database-post-installation-tasks)
+  - [2.10 Remote Database Post-Installation Tasks](#210-remote-database-post-installation-tasks)
 - [3 Security Server Initial Configuration](#3-security-server-initial-configuration)
   - [3.1 Prerequisites](#31-prerequisites)
   - [3.2 Reference Data](#32-reference-data)
   - [3.3 Configuration](#33-configuration)
 - [4 Installation Error handling](#4-installation-error-handling)
-  - [4.1 Cannot Set LC\_ALL to Default Locale](#41-cannot-set-lcall-to-default-locale)
+  - [4.1 Cannot Set LC_ALL to Default Locale](#41-cannot-set-lcall-to-default-locale)
   - [4.2 PostgreSQL Is Not UTF8 Compatible](#42-postgresql-is-not-utf8-compatible)
   - [4.3 Could Not Create Default Cluster](#43-could-not-create-default-cluster)
   - [4.4 Is Postgres Running On Port 5432?](#44-is-postgres-running-on-port-5432)
-  - [4.5 Different versions of xroad-\* packages after successful upgrade](#45-different-versions-of-xroad--packages-after-successful-upgrade)
+  - [4.5 Different versions of xroad-* packages after successful upgrade](#45-different-versions-of-xroad--packages-after-successful-upgrade)
 
 <!-- tocstop -->
 
@@ -346,7 +346,7 @@ Parameter   | Type    | Default Value | Explanation
 
 The support for environmental monitoring functionality on a security server is provided by package xroad-monitor that is installed by default. The package installs and starts the `xroad-monitor` process that will gather and make available the monitoring information.
 
-### 2.9 Remote Database Post-Installation Tasks
+### 2.10 Remote Database Post-Installation Tasks
 
 Local PostgreSQL is always installed with Security Server. When remote database host is used, the local PostgreSQL can be stopped and disabled after the installation.
 
