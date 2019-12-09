@@ -70,7 +70,7 @@ Doc. ID: IG-SS
   - [2.7 Post-Installation Checks](#27-post-installation-checks)
   - [2.8 Installing the Support for Hardware Tokens](#28-installing-the-support-for-hardware-tokens)
   - [2.9 Installing the Support for Environmental Monitoring](#29-installing-the-support-for-environmental-monitoring)
-  - [2.10 Remote Database Post-Installation Tasks](#29-remote-database-post-installation-tasks)
+  - [2.9 Remote Database Post-Installation Tasks](#29-remote-database-post-installation-tasks)
 - [3 Security Server Initial Configuration](#3-security-server-initial-configuration)
   - [3.1 Prerequisites](#31-prerequisites)
   - [3.2 Reference Data](#32-reference-data)
@@ -408,13 +408,13 @@ If the configuration is successfully downloaded, the system asks for the followi
 
         The Member Code must be formed as follows:
 
-        **"NTRCONTRYCODE-ORGANISAZIONREGISTRYCODE"** - without whitespaces
+        **"NTRCONTRYCODE-ORGANIZATIONREGISTRYCODE"** - without whitespaces
 
         Where:
         * "NTR" - Prefix of the legal entity identifier according to ETSI EN 319 412-1 clause 5.1.4.
         * COUNTRY CODE - Country code according to ISO 3166 (Alpha 2)
         * `-` hyphen
-        * REGISTRY CODE - Organizational registry code in the organization's country.
+        * ORGANIZATION REGISTRY CODE - Organizational registry code in the organization's country.
 
         Example:
         * Lexbyte Digital Limited, a registered organization in Malta
