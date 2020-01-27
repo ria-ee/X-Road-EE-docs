@@ -64,13 +64,14 @@ Doc. ID: IG-SS
   - [2.1 Supported Platforms](#21-supported-platforms)
   - [2.2 Reference Data](#22-reference-data)
   - [2.3 Network Diagram](#23-network-diagram)
+    - [2.3.1 RIA IP's for Whitelisting](#231-ria-ips-for-whitelisting)
   - [2.4 Requirements for the Security Server](#24-requirements-for-the-security-server)
   - [2.5 Preparing OS](#25-preparing-os)
   - [2.6 Installation](#26-installation)
   - [2.7 Post-Installation Checks](#27-post-installation-checks)
   - [2.8 Installing the Support for Hardware Tokens](#28-installing-the-support-for-hardware-tokens)
   - [2.9 Installing the Support for Environmental Monitoring](#29-installing-the-support-for-environmental-monitoring)
-  - [2.10 Remote Database Post-Installation Tasks](#29-remote-database-post-installation-tasks)
+  - [2.10 Remote Database Post-Installation Tasks](#210-remote-database-post-installation-tasks)
 - [3 Security Server Initial Configuration](#3-security-server-initial-configuration)
   - [3.1 Prerequisites](#31-prerequisites)
   - [3.2 Reference Data](#32-reference-data)
@@ -132,8 +133,8 @@ The software can be installed both on physical and virtualized hardware (of the 
  1.2    | https://x-tee.ee/packages/xroad_repo.gpg | The repository key
  1.3    |                                         | Account name in the user interface
  1.4	| **INBOUND PORTS FROM EXTERNAL NETWORK** | Ports for inbound connections (from the external network to the security server)
- &nbsp; | TCP 5500                                | Message exchange between security servers. Recommended to use IP filtering (**whitelisting only RIA IP's and partners**).
- &nbsp; | TCP 5577                                | Querying of OCSP responses between security servers. Recommended to use IP filtering (**whitelisting only RIA IP's and partners**)
+ &nbsp; | TCP 5500                                | Message exchange between security servers. Recommended to use IP filtering (**whitelisting only [RIA IP's](#231-ria-ips-for-whitelisting) and partners**).
+ &nbsp; | TCP 5577                                | Querying of OCSP responses between security servers. Recommended to use IP filtering (**whitelisting only [RIA IP's](#231-ria-ips-for-whitelisting) and partners**)
  1.5	| **OUTBOUND PORTS TO EXTERNAL NETWORK**  | Ports for outbound connections (from the security server to the external network)
  &nbsp; | TCP 5500                                | Message exchange between security servers
  &nbsp; | TCP 5577                                | Querying of OCSP responses between security servers
@@ -152,22 +153,19 @@ The software can be installed both on physical and virtualized hardware (of the 
  1.9    |                                         | Security server public IP address, NAT address
  1.10   | &lt;by default, the server’s IP addresses and names are added to the certificate’s Distinguished Name (DN) field&gt; | Information about the user interface TLS certificate
  1.11   | &lt;by default, the server’s IP addresses and names are added to the certificate’s Distinguished Name (DN) field&gt; | Information about the services TLS certificate
- 1.12   | 195.80.123.159                          | Monitoring security server IP in EE instance
- &nbsp; | 195.80.123.164	                      | Monitoring security server IP in ee-test instance
- &nbsp; | 195.80.123.169	                      | Monitoring security server IP in ee-dev instance
 
  ### 2.3 Network Diagram
 
  The following network diagram is an example of a simple stand-alone Security Server setup. Attention should be paid when configuring the firewall of your Security Server, as misconfigurations (e.g. exposing port 80/tcp to the public internet) can leave your server vulnerable.
  
- Allowing incoming connections from the Monitoring Security Server on ports 5500/tcp and 5577/tcp (**reference data: 1.12**) is necessary for the X-Road Center to be able to monitor the ecosystem and provide statistics and support for Members.
+ Allowing incoming connections from the Monitoring Security Server on ports 5500/tcp and 5577/tcp ([monitoring server IP's](#231-ria-ips-for-whitelisting)) is necessary for the X-Road Center to be able to monitor the ecosystem and provide statistics and support for Members.
 
  **Caution**: The enabling of auxiliary services which are necessary for the functioning and management of the operating system (such as DNS, NTP, and SSH) stay outside the scope of this guide.
 
  ![network diagram](img/ig-ss_network_diagram.png)
 
- 
- RIA IP's for whitelisting | **EE - production** | **ee-test**	| **ee-dev**
+ #### 2.3.1 RIA IP's for Whitelisting
+ Type | **EE - production** | **ee-test**	| **ee-dev**
 -------------------------- | --------------------| -------------- | -------------
  Central Server 			| 213.184.41.178 <br> 213.184.41.186 <br> 213.184.41.190 | 195.80.127.40 <br> 195.80.127.43 | 195.80.109.140
  Central Monitoring Server 	| 195.80.123.159 | 195.80.123.164 | 195.80.123.169
@@ -346,7 +344,7 @@ Parameter   | Type    | Default Value | Explanation
 
 The support for environmental monitoring functionality on a security server is provided by package xroad-monitor that is installed by default. The package installs and starts the `xroad-monitor` process that will gather and make available the monitoring information.
 
-### 2.9 Remote Database Post-Installation Tasks
+### 2.10 Remote Database Post-Installation Tasks
 
 Local PostgreSQL is always installed with Security Server. When remote database host is used, the local PostgreSQL can be stopped and disabled after the installation.
 
