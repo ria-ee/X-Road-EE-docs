@@ -85,3 +85,4 @@ md2html("X-Road: Signed Document Download and Verification Manual", "md/ug-sigdo
 md2html("X-Road: Message Transport Protocol", "md/pr-messtransp_x-road_message_transport_protocol.md", "docs/pr-messtransp_x-road_message_transport_protocol.html")
 md2html("X-Road: Message Protocol for REST", "md/pr-rest_x-road_message_protocol_for_rest.md", "docs/pr-rest_x-road_message_protocol_for_rest.html")
 md2html("X-Road: Autologin User Guide", "md/ug-autologin_x-road_v6_autologin_user_guide.md", "docs/ug-autologin_x-road_v6_autologin_user_guide.html")
+md2html("X-Road: Service Metadata Protocol for REST", "md/pr-mrest_x-road_service_metadata_protocol_for_rest.md", "docs/pr-mrest_x-road_service_metadata_protocol_for_rest.html")
