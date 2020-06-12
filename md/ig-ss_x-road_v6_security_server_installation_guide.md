@@ -77,11 +77,11 @@ Doc. ID: IG-SS
   - [3.2 Reference Data](#32-reference-data)
   - [3.3 Configuration](#33-configuration)
 - [4 Installation Error handling](#4-installation-error-handling)
-  - [4.1 Cannot Set LC_ALL to Default Locale](#41-cannot-set-lcall-to-default-locale)
+  - [4.1 Cannot Set LC\_ALL to Default Locale](#41-cannot-set-lc_all-to-default-locale)
   - [4.2 PostgreSQL Is Not UTF8 Compatible](#42-postgresql-is-not-utf8-compatible)
   - [4.3 Could Not Create Default Cluster](#43-could-not-create-default-cluster)
   - [4.4 Is Postgres Running On Port 5432?](#44-is-postgres-running-on-port-5432)
-  - [4.5 Different versions of xroad-* packages after successful upgrade](#45-different-versions-of-xroad--packages-after-successful-upgrade)
+  - [4.5 Different versions of xroad-\* packages after successful upgrade](#45-different-versions-of-xroad--packages-after-successful-upgrade)
 
 <!-- tocstop -->
 
@@ -143,7 +143,7 @@ The software can be installed both on physical and virtualized hardware (of the 
  &nbsp; | TCP 80,443                              | Most common OCSP and time-stamping services. 
  1.6    | **INBOUND PORTS FROM INTERNAL NETWORK** | Ports for inbound connections (from the internal network to the security server)
  &nbsp; | TCP 4000                                | User interface (local network). **Must not be accessible from the Internet!**
- &nbsp; | TCP 80, 443                             | Information system access points (in the local network)<br> **Must not be accessible from the Internet without strong authentication!**
+ &nbsp; | TCP 80, 443                             | Information system access points (in the local network)<br> **Must not be accessible from the Internet without strong authentication and Recommended to use IP filtering.** 
  &nbsp; | TCP 9011                                | Operational data monitoring daemon JMX listening port
  &nbsp; | TCP 9999                                | Environmental monitoring daemon JMX listening port
  1.7    | **OUTBOUND PORTS TO INTERNAL NETWORK**  | Ports for outbound connections (from the security server to the internal network)
@@ -156,7 +156,7 @@ The software can be installed both on physical and virtualized hardware (of the 
 
  ### 2.3 Network Diagram
 
- The following network diagram is an example of a simple stand-alone Security Server setup. Attention should be paid when configuring the firewall of your Security Server, as misconfigurations (e.g. exposing port 80/tcp to the public internet) can leave your server vulnerable.
+ The following network diagram is an example of a simple stand-alone Security Server setup. Attention should be paid when configuring the firewall of your Security Server, as misconfigurations (e.g. exposing port 80/tcp to the public internet) can leave your server vulnerable. **IP whitelisting is recommended for all ports.**
  
  Allowing incoming connections from the Monitoring Security Server on ports 5500/tcp and 5577/tcp ([monitoring server IP's](#231-ria-ips-for-whitelisting)) is necessary for the X-Road Center to be able to monitor the ecosystem and provide statistics and support for Members.
 
