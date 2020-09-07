@@ -225,3 +225,4 @@ The *verificationconf* service has no parameters and responds with a ZIP archive
 A convenient way to download the verification configuration is with the web browser or use of the curl tool:
 
     curl -J -O http://sec1.gov/verificationconf
+

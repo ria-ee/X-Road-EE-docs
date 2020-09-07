@@ -5,7 +5,7 @@
 
 **X-ROAD 6**
 
-Version: 2.19  
+Version: 2.26  
 Doc. ID: IG-SS
 
 ---
@@ -50,44 +50,51 @@ Doc. ID: IG-SS
  30.05.2019 | 2.17    | Added package installation instructions on chapter "[2.4 Preparing OS](#24-preparing-os)" | Raul Martinez
  11.09.2019 | 2.18    | Remove Ubuntu 14.04 from supported platforms | Jarkko Hyöty
  20.09.2019 | 2.19    | Add instructions for using remote databases | Ilkka Seppälä
-  
-## Table of Contents <!-- omit in toc -->
-
-<!-- toc -->
-
-- [License](#license)
-- [1 Introduction](#1-introduction)
-  - [1.1 Target Audience](#11-target-audience)
-  - [1.2 Terms and abbreviations](#12-terms-and-abbreviations)
-  - [1.3 References](#13-references)
-- [2 Installation](#2-installation)
-  - [2.1 Supported Platforms](#21-supported-platforms)
-  - [2.2 Reference Data](#22-reference-data)
-  - [2.3 Network Diagram](#23-network-diagram)
-    - [2.3.1 RIA IP's for Whitelisting](#231-ria-ips-for-whitelisting)
-  - [2.4 Requirements for the Security Server](#24-requirements-for-the-security-server)
-  - [2.5 Preparing OS](#25-preparing-os)
-  - [2.6 Installation](#26-installation)
-  - [2.7 Post-Installation Checks](#27-post-installation-checks)
-  - [2.8 Installing the Support for Hardware Tokens](#28-installing-the-support-for-hardware-tokens)
-  - [2.9 Installing the Support for Environmental Monitoring](#29-installing-the-support-for-environmental-monitoring)
-  - [2.10 Remote Database Post-Installation Tasks](#210-remote-database-post-installation-tasks)
-- [3 Security Server Initial Configuration](#3-security-server-initial-configuration)
-  - [3.1 Prerequisites](#31-prerequisites)
-  - [3.2 Reference Data](#32-reference-data)
-  - [3.3 Configuration](#33-configuration)
-- [4 Installation Error handling](#4-installation-error-handling)
-  - [4.1 Cannot Set LC\_ALL to Default Locale](#41-cannot-set-lc_all-to-default-locale)
-  - [4.2 PostgreSQL Is Not UTF8 Compatible](#42-postgresql-is-not-utf8-compatible)
-  - [4.3 Could Not Create Default Cluster](#43-could-not-create-default-cluster)
-  - [4.4 Is Postgres Running On Port 5432?](#44-is-postgres-running-on-port-5432)
-  - [4.5 Different versions of xroad-\* packages after successful upgrade](#45-different-versions-of-xroad--packages-after-successful-upgrade)
-
-<!-- tocstop -->
+ 12.04.2020 | 2.20    | Add note about the default value of the *connector-host* property in the EE-package | Petteri Kivimäki
+ 29.04.2020 | 2.21    | Add instructions how to use remote database located in Microsoft Azure | Ilkka Seppälä
+ 12.06.2020 | 2.22    | Update reference data regarding JMX listening ports | Petteri Kivimäki
+ 24.06.2020 | 2.23    | Add repository sign key details in section [2.2 Reference data](#22-reference-data) | Petteri Kivimäki
+ 24.06.2020 | 2.24    | Remove environmental and operational monitoring daemon JMX listening ports from section [2.2 Reference data](#22-reference-data) | Petteri Kivimäki
+ 09.08.2020 | 2.25    | Update ports information in section [2.2 Reference data](#22-reference-data), add section [2.2.1 Network Diagram](#221-network-diagram) | Petteri Kivimäki
+ 17.08.2020 | 2.26    | Update for RHEL 8. | Jarkko Hyöty
 
 ## License
 
 This document is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/
+
+## Table of Contents <!-- omit in toc -->
+
+<!-- toc -->
+<!-- vim-markdown-toc GFM -->
+
+* [1 Introduction](#1-introduction)
+  * [1.1 Target Audience](#11-target-audience)
+  * [1.2 Terms and abbreviations](#12-terms-and-abbreviations)
+  * [1.3 References](#13-references)
+* [2 Installation](#2-installation)
+  * [2.1 Supported Platforms](#21-supported-platforms)
+  * [2.2 Reference Data](#22-reference-data)
+    * [2.2.1 Network Diagram](#221-network-diagram)
+  * [2.3 Requirements for the Security Server](#23-requirements-for-the-security-server)
+  * [2.4 Preparing OS](#24-preparing-os)
+  * [2.5 Installation](#25-installation)
+  * [2.6 Post-Installation Checks](#26-post-installation-checks)
+  * [2.7 Installing the Support for Hardware Tokens](#27-installing-the-support-for-hardware-tokens)
+  * [2.8 Installing the Support for Environmental Monitoring](#28-installing-the-support-for-environmental-monitoring)
+  * [2.9 Remote Database Post-Installation Tasks](#29-remote-database-post-installation-tasks)
+* [3 Security Server Initial Configuration](#3-security-server-initial-configuration)
+  * [3.1 Prerequisites](#31-prerequisites)
+  * [3.2 Reference Data](#32-reference-data)
+  * [3.3 Configuration](#33-configuration)
+* [4 Installation Error handling](#4-installation-error-handling)
+  * [4.1 Cannot Set LC\_ALL to Default Locale](#41-cannot-set-lc_all-to-default-locale)
+  * [4.2 PostgreSQL Is Not UTF8 Compatible](#42-postgresql-is-not-utf8-compatible)
+  * [4.3 Could Not Create Default Cluster](#43-could-not-create-default-cluster)
+  * [4.4 Is Postgres Running On Port 5432?](#44-is-postgres-running-on-port-5432)
+  * [4.5 Different versions of xroad-\* packages after successful upgrade](#45-different-versions-of-xroad--packages-after-successful-upgrade)
+
+<!-- vim-markdown-toc -->
+<!-- tocstop -->
 
 ## 1 Introduction
 
@@ -106,14 +113,20 @@ See X-Road terms and abbreviations documentation \[[TA-TERMS](#Ref_TERMS)\].
 
 1.  <a id="Ref_UG-SS" class="anchor"></a>\[UG-SS\] Cybernetica AS. X-Road 6. Security Server User Guide. Document ID: [UG-SS](ug-ss_x-road_6_security_server_user_guide.md)
 
-2.  <a id="Ref_TERMS" class="anchor"></a>\[TA-TERMS\] X-Road Terms and Abbreviations. Document ID: [TA-TERMS](terms_x-road_docs.md).
+2.  <a id="Ref_TERMS" class="anchor"></a>\[TA-TERMS\] X-Road Terms and Abbreviations. Document ID: [TA-TERMS](/terms_x-road_docs.md).
+
+3. <a name="Ref_UG-SYSPAR" class="anchor"></a>\[UG-SYSPAR\] X-Road: System Parameters User Guide. Document ID:
+[UG-SYSPAR](ug-syspar_x-road_v6_system_parameters.md).
 
 ## 2 Installation
 
 
 ### 2.1 Supported Platforms
 
-The security server runs on the *Ubuntu Server 18.04 Long-Term Support (LTS) operating system on a 64-bit platform. The Estonian version of the security server software is distributed as .deb packages through the official X-tee repository at http://x-tee.ee/packages/.
+The security server runs on the following platforms:
+
+* Ubuntu Server 18.04 Long-Term Support (LTS) operating system on a x86-64 platform.
+* Red Hat Enterprise Linux (RHEL) 7 and 8 (x86-64). See [IG-SS-RHEL](ig-ss_x-road_v6_security_server_installation_guide_for_rhel.md) for more information.
 
 The software can be installed both on physical and virtualized hardware (of the latter, Xen and Oracle VirtualBox have been tested).
 
@@ -154,11 +167,28 @@ The software can be installed both on physical and virtualized hardware (of the 
  1.10   | &lt;by default, the server’s IP addresses and names are added to the certificate’s Distinguished Name (DN) field&gt; | Information about the user interface TLS certificate
  1.11   | &lt;by default, the server’s IP addresses and names are added to the certificate’s Distinguished Name (DN) field&gt; | Information about the services TLS certificate
 
- ### 2.3 Network Diagram
+The table below lists the required connections between different components.
 
+**Connection Type** | **Source** | **Target** | **Target Ports** | **Protocol** | **Note** |
+-----------|------------|-----------|-----------|-----------|-----------|
+Out | Security Server | Central Server | 80, 4001 | tcp | |
+Out | Security Server | Management Security Server | 5500, 5577 | tcp | |
+Out | Security Server | OCSP Service | 80 / 443 | tcp | |
+Out | Security Server | Timestamping Service | 80 / 443 | tcp | |
+Out | Security Server | Data Exchange Partner Security Server (Service Producer) | 5500, 5577 | tcp | |
+Out | Security Server | Producer Information System | 80, 443, other | tcp | Target in the internal network |
+In  | Monitoring Security Server | Security Server | 5500, 5577 | tcp | |
+In  | Data Exchange Partner Security Server (Service Consumer) | Security Server | 5500, 5577 | tcp | |
+In | Consumer Information System | Security Server | 80, 443 | tcp | Source in the internal network |
+In | Admin | Security Server | 4000 | tcp | Source in the internal network |
+
+It is strongly recommended to protect the security server from unwanted access using a firewall (hardware or software based). The firewall can be applied to both incoming and outgoing connections depending on the security requirements of the environment where the security server is deployed. It is recommended to allow incoming traffic to specific ports only from explicitly defined sources using IP filtering. **Special attention should be paid with the firewall configuration since incorrect configuration may leave the security server vulnerable to exploits and attacks.**
+
+ #### 2.2.1 Network Diagram
  The following network diagram is an example of a simple stand-alone Security Server setup. Attention should be paid when configuring the firewall of your Security Server, as misconfigurations (e.g. exposing port 80/tcp to the public internet) can leave your server vulnerable. **IP whitelisting should be used for all ports that are open to the external network.**
  
  Allowing incoming connections from the Monitoring Security Server on ports 5500/tcp and 5577/tcp ([monitoring server IP's](#231-ria-ips-for-whitelisting)) is necessary for the X-Road Center to be able to monitor the ecosystem and provide statistics and support for Members.
+
 
  **Caution**: The enabling of auxiliary services which are necessary for the functioning and management of the operating system (such as DNS, NTP, and SSH) stay outside the scope of this guide.
 
@@ -171,56 +201,47 @@ The software can be installed both on physical and virtualized hardware (of the 
  Central Monitoring Server 	| 195.80.123.159 | 195.80.123.164 | 195.80.123.169
  Management Security Server 			| 213.184.41.177 <br> 213.184.41.185 <br> 213.184.41.189 |195.80.127.37 | 195.80.109.139
 
-
-### 2.4 Requirements for the Security Server
+### 2.3 Requirements for the Security Server
 
 Minimum recommended hardware parameters:
 
--   the server’s hardware (motherboard, CPU, network interface cards, storage system) must be supported by Ubuntu 18.04 in general;
-
--   a 64-bit dual-core Intel, AMD or compatible CPU; AES instruction set support is highly recommended;
-
--   3 GB RAM;
-
--   a 100 Mbps network interface card;
-
--   if necessary, interfaces for the use of hardware tokens.
+* the server’s hardware (motherboard, CPU, network interface cards, storage system) must be supported by Ubuntu in general;
+* a 64-bit dual-core Intel, AMD or compatible CPU; AES instruction set support is highly recommended;
+* 3 GB RAM;
+* a 100 Mbps network interface card;
+* if necessary, interfaces for the use of hardware tokens.
 
 Requirements to software and settings:
 
--   an installed and configured Ubuntu 18.04 LTS x86-64 operating system;
-
--   if the security server is separated from other networks by a firewall and/or NAT, the necessary connections to and from the security server are allowed (**reference data: 1.4; 1.5; 1.6; 1.7; 1.12**). The enabling of auxiliary services which are necessary for the functioning and management of the operating system (such as DNS, NTP, and SSH) stay outside the scope of this guide;
-
--   if the security server has a private IP address, a corresponding NAT record must be created in the firewall (**reference data: 1.9**).
+* an installed and configured Ubuntu 18.04 LTS x86-64 operating system;
+* if the security server is separated from other networks by a firewall and/or NAT, the necessary connections to and from the security server are allowed (**reference data: 1.4; 1.5; 1.6; 1.7**). The enabling of auxiliary services which are necessary for the functioning and management of the operating system (such as DNS, NTP, and SSH) stay outside the scope of this guide;
+* if the security server has a private IP address, a corresponding NAT record must be created in the firewall (**reference data: 1.9**).
 
 
-### 2.5 Preparing OS
+### 2.4 Preparing OS
 
--   Add system user (**reference data: 1.3**) whom all roles in the user interface are granted to. Add a new user with the command
+* Add system user (**reference data: 1.3**) whom all roles in the user interface are granted to. Add a new user with the command
 
         sudo adduser <username>
 
     User roles are discussed in detail in X-Road Security Server User Guide \[[UG-SS](#Ref_UG-SS)\].
 
--   Set the operating system locale. Add following line to the `/etc/environment` file.
+* Set the operating system locale. Add following line to the `/etc/environment` file.
 
         LC_ALL=en_US.UTF-8
 
--   Ensure that the packages `locales` and `software-properties-common` are present
+* Ensure that the packages `locales` and `software-properties-common` are present
 
         sudo apt-get install locales software-properties-common
 
--   Ensure that the locale is available
+* Ensure that the locale is available
 
         sudo locale-gen en_US.UTF-8
 
 
-### 2.6 Installation
+### 2.5 Installation
 
-To install the X-Road security server software, follow these steps.
-
-1.  Add to `/etc/apt/sources.list.d/xroad.list` the address of X-Road package repository (**reference data: 1.1**) and the nginx repository:
+To install the X-Road security server software on *Ubuntu* operating system, follow these steps.
 
         deb http://x-tee.ee/packages/live/xroad bionic main
 
@@ -235,69 +256,68 @@ To install the X-Road security server software, follow these steps.
         sudo chmod 600 /etc/xroad.properties
         
     Edit `/etc/xroad.properties` contents. See the example below. Replace parameter values with your own.
+    ```
+    postgres.connection.password = {database superuser password}
+    postgres.connection.user = {database superuser name, postgres by default}
+    ```
+    * If Microsoft Azure database for PostgreSQL is used, the connection user needs to be in format `username@servername`.
+    * One should verify that the version of the local PostgreSQL client matches the version of the remote PostgreSQL server.
 
-        postgres.connection.password = 54F46A19E50C11DA8631468CF09BE5DB
-
-4.  Issue the following commands to install the security server packages (use package xroad-securityserver-ee to include configuration specific to Estonia; use package xroad-securityserver-fi to include configuration specific to Finland):
+4. Issue the following commands to install the security server packages (use package xroad-securityserver-ee to include configuration specific to Estonia; use package xroad-securityserver-fi to include configuration specific to Finland):
 
         sudo apt-get update
-        sudo apt-get install postgresql
-        sudo apt-get install xroad-securityserver-ee
+        sudo apt-get install xroad-securityserver
 
 Upon the first installation of the packages, the system asks for the following information.
 
--   Account name for the user who will be granted the rights to perform all activities in the user interface (**reference data: 1.3**).
+* Account name for the user who will be granted the rights to perform all activities in the user interface (**reference data: 1.3**).
+* Database server URL. Locally installed database is suggested as default but remote databases can be used as well. In case remote database is used, one should verify that the version of the local PostgreSQL client matches the version of the remote PostgreSQL server.
+* The Distinguished Name of the owner of the **user interface's and management REST API's** self-signed TLS certificate (*Subject DN*) and its alternative names (*subjectAltName*) (**reference data: 1.8; 1.10**). The certificate is used for securing connections to the user interface and to the management REST APIs.
+  The name and IP addresses detected from the operating system are suggested as default values.
 
--   Database server URL. Locally installed database is suggested as default but remote databases can be used as well. In case remote database is used, one should verify that the version of the local PostgreSQL client matches the version of the remote PostgreSQL server.
-
--   The Distinguished Name of the owner of the **user interface’s** self-signed TLS certificate (*Subject DN*) and its alternative names (*subjectAltName*) (**reference data: 1.8; 1.10**). The certificate is used for securing connections to the user interface.
-    The name and IP addresses detected from the operating system are suggested as default values.
-
-    -   The *Subject DN* must be entered in the format:
+  * The *Subject DN* must be entered in the format:
 
             /CN=server.domain.tld
 
-    -   All IP addresses and domain names in use must be entered as alternative names in the format:
+  * All IP addresses and domain names in use must be entered as alternative names in the format:
 
             IP:1.2.3.4,IP:4.3.2.1,DNS:servername,DNS:servername2.domain.tld
 
--   The Distinguished Name of the owner of the TLS certificate that is used for securing the HTTPS access point of information systems (**reference data: 1.8; 1.11**).
+* The Distinguished Name of the owner of the TLS certificate that is used for securing the HTTPS access point of information systems (**reference data: 1.8; 1.11**).
     The name and IP addresses detected from the system are suggested as default values.
 
-    -   The *Subject DN* must be entered in the format:
+    * The *Subject DN* must be entered in the format:
 
             /CN=server.domain.tld
 
-    -   All IP addresses and domain names in use must be entered as alternative names in the format:
+    * All IP addresses and domain names in use must be entered as alternative names in the format:
 
             IP:1.2.3.4,IP:4.3.2.1,DNS:servername,DNS:servername2.domain.tld
 
-The meta-package `xroad-securityserver-ee` also installs metaservices module `xroad-addon-metaservices`, messagelog module `xroad-addon-messagelog`, operational data monitoring modules `xroad-addon-opmonitoring`, `xroad-opmonitor` and WSDL validator module `xroad-addon-wsdlvalidator`.
+The meta-package `xroad-securityserver` also installs metaservices module `xroad-addon-metaservices`, messagelog module `xroad-addon-messagelog` and WSDL validator module `xroad-addon-wsdlvalidator`. Both meta-packages `xroad-securityserver-ee` and `xroad-securityserver-fi` install operational data monitoring module `xroad-addon-opmonitoring`.
 
+**N.B.** In case configuration specific to Estonia (package `xroad-securityserver-ee`) is installed, connections from client applications are restricted to localhost by default. To enable client application connections from external sources, the value of the `connector-host` property must be overridden in the `/etc/xroad/conf.d/local.ini` configuration file. Changing the system parameter values is explained in the System Parameters User Guide \[[UG-SS](#Ref_UG-SS)\].
 
-### 2.7 Post-Installation Checks
+### 2.6 Post-Installation Checks
 
 The installation is successful if system services are started and the user interface is responding.
 
--   Ensure from the command line that X-Road services are in the `running` state (example output follows):
+* Ensure from the command line that X-Road services are in the `running` state (example output follows):
+    ```
+    sudo systemctl list-units "xroad*"
 
-    - Ubuntu 18.04
-        ```
-        sudo systemctl list-units "xroad*"
-
-        UNIT                     LOAD   ACTIVE SUB     DESCRIPTION
-        xroad-confclient.service loaded active running X-Road confclient
-        xroad-jetty.service      loaded active running X-Road Jetty server
-        xroad-monitor.service    loaded active running X-Road Monitor
-        xroad-opmonitor.service loaded active running X-Road opmonitor daemon
-        xroad-proxy.service      loaded active running X-Road Proxy
-        xroad-signer.service     loaded active running X-Road signer
-        ```
+    UNIT                     LOAD   ACTIVE SUB     DESCRIPTION
+    xroad-confclient.service loaded active running X-Road confclient
+    xroad-monitor.service    loaded active running X-Road Monitor
+    xroad-proxy-ui-api.service loaded active running X-Road Proxy UI REST API
+    xroad-proxy.service      loaded active running X-Road Proxy
+    xroad-signer.service     loaded active running X-Road signer
+    ```
+* Ensure that the security server user interface at https://SECURITYSERVER:4000/ (**reference data: 1.8; 1.6**) can be opened in a Web browser. To log in, use the account name chosen during the installation (**reference data: 1.3**). While the user interface is still starting up, the Web browser may display the “502 Bad Gateway” error.
 
 -   Ensure that the security server user interface at https://SECURITYSERVER:4000/ (**reference data: 1.8; 1.6**) can be opened in a Web browser. To log in, use the account name chosen during the installation (**reference data: 1.3**). While the user interface is still starting up, the Web browser may display the “502 Bad Gateway” error.
 
-
-### 2.8 Installing the Support for Hardware Tokens
+### 2.7 Installing the Support for Hardware Tokens
 
 To configure support for hardware security tokens (smartcard, USB token, Hardware Security Module), act as follows.
 
@@ -321,7 +341,7 @@ Parameter   | Type    | Default Value | Explanation
 ----------- | ------- |-------------- | ---------------------------------------
 *enabled*     | BOOLEAN | *true* | Indicates whether this device is enabled.
 *library*     | STRING  |      | The path to the pkcs#11 library of the device driver.
-*library_cant_create_os_threads* | BOOLEAN | *false* | Indicates whether application threads, which are executing calls to the pkcs#11 library, may not use native operating system calls to spawn new threads (in other words, the library’s code may not create its own threads). 
+*library_cant_create_os_threads* | BOOLEAN | *false* | Indicates whether application threads, which are executing calls to the pkcs#11 library, may not use native operating system calls to spawn new threads (in other words, the library’s code may not create its own threads).
 *os_locking_ok* | BOOLEAN | *false* | Indicates whether the pkcs#11 library may use the native operation system threading model for locking.
 *sign_verify_pin* | BOOLEAN | *false* | Indicates whether the PIN should be entered per signing operation.
 *token_id_format* | STRING | *{moduleType}{slotIndex}{serialNumber}{label}* | Specifies the identifier format used to uniquely identify a token. In certain high availability setups may need be constrained to support replicated tokens (eg. by removing the slot index part which may be diffirent for the token replicas).
@@ -336,15 +356,15 @@ Parameter   | Type    | Default Value | Explanation
 *priv_key_attribute_unwrap* | BOOLEAN | | Indicates whether private key can be used for unwrapping wrapped keys.
 *priv_key_attribute_allowed_mechanisms* | STRING LIST | | Specifies private key allowed mechanisms. Supported values: *CKM_RSA_PKCS*, *CKM_SHA256_RSA_PKCS*, *CKM_SHA384_RSA_PKCS*, *CKM_SHA512_RSA_PKCS*, and *CKM_RSA_PKCS_PSS*, *CKM_SHA256_RSA_PKCS_PSS*, *CKM_SHA384_RSA_PKCS_PSS*, *CKM_SHA512_RSA_PKCS_PSS*.
 
-**Note 1:** Only parameter *library* is mandatory, all the others are optional.  
+**Note 1:** Only parameter *library* is mandatory, all the others are optional.
 **Note 2:** The item separator of the type STRING LIST is ",".
 
 
-### 2.9 Installing the Support for Environmental Monitoring
+### 2.8 Installing the Support for Environmental Monitoring
 
 The support for environmental monitoring functionality on a security server is provided by package xroad-monitor that is installed by default. The package installs and starts the `xroad-monitor` process that will gather and make available the monitoring information.
 
-### 2.10 Remote Database Post-Installation Tasks
+### 2.9 Remote Database Post-Installation Tasks
 
 Local PostgreSQL is always installed with Security Server. When remote database host is used, the local PostgreSQL can be stopped and disabled after the installation.
 
@@ -392,13 +412,14 @@ in a Web browser (**reference data: 1.8; 1.6**). To log in, use the account name
 
 Upon first log-in, the system asks for the following information.
 
--   The global configuration anchor file (**reference data: 2.1**).
+* The global configuration anchor file (**reference data: 2.1**).
 
     **Please verify anchor hash value with the published value.**
 
 If the configuration is successfully downloaded, the system asks for the following information.
 
--   The security server owner’s member class (**reference data: 2.2**).
+* The security server owner’s member class (**reference data: 2.2**).
+* The security server owner’s member code (**reference data: 2.3**).
 
 -   The security server owner’s member code (**reference data: 2.3**).
     If the member class and member code are correctly entered, the system displays the security server owner’s name as registered in the X-Road center.
@@ -427,9 +448,9 @@ If the configuration is successfully downloaded, the system asks for the followi
         * ETSI EN 319 412-1: http://www.etsi.org/deliver/etsi_en/319400_319499/31941201/01.01.00_30/en_31941201v010100v.pdf  
         * Alpha 2 country code: https://www.iso.org/obp/ui/#search  
 
--   Security server code (**reference data: 2.4**), which is chosen by the security server administrator and which has to be unique across all the security servers belonging to the same X-Road member.
+*   Security server code (**reference data: 2.4**), which is chosen by the security server administrator and which has to be unique across all the security servers belonging to the same X-Road member.
 
--   Software token’s PIN (**reference data: 2.5**). The PIN will be used to protect the keys stored in the software token. The PIN must be stored in a secure place, because it will be no longer possible to use or recover the private keys in the token once the PIN has been lost.
+*   Software token’s PIN (**reference data: 2.5**). The PIN will be used to protect the keys stored in the software token. The PIN must be stored in a secure place, because it will be no longer possible to use or recover the private keys in the token once the PIN has been lost.
 
 
 ## 4 Installation Error handling
@@ -467,8 +488,8 @@ then the PostgreSQL package is installed with a wrong locale. One way to resolve
 
 **WARNING**: All data in the database will be erased!
 
-    sudo pg_dropcluster --stop 9.3 main
-    LC_ALL="en_US.UTF-8" sudo pg_createcluster --start 9.3 main
+    sudo pg_dropcluster --stop 10 main
+    LC_ALL="en_US.UTF-8" sudo pg_createcluster --start 10 main
 
 To complete the interrupted installation, run the command
 
@@ -480,11 +501,11 @@ To complete the interrupted installation, run the command
 If the following error message is displayed during PostgreSQL installation:
 
     Error: The locale requested by the environment is invalid.
-    Error: could not create default cluster. Please create it manually with pg_createcluster 9.3 main –start,
+    Error: could not create default cluster. Please create it manually with pg_createcluster 10 main –start,
 
 use the following command to create the PostgreSQL data cluster:
 
-    LC_ALL="en_US.UTF-8" sudo pg_createcluster --start 9.3 main
+    LC_ALL="en_US.UTF-8" sudo pg_createcluster --start 10 main
 
 The interrupted installation can be finished using
 
@@ -500,9 +521,9 @@ If the following error message appears during installation
 
 check if any of the following errors occurred during the installation of PostgreSQL.
 
--   Error installing the data cluster. Refer to section [“Could not create default cluster”](#43-could-not-create-default-cluster).
+* Error installing the data cluster. Refer to section [“Could not create default cluster”](#43-could-not-create-default-cluster).
 
--   The PostgreSQL data cluster installed during the installation of the security server is not configured to listen on port 5432. To verify and configure the listening port, edit the PostgreSQL configuration file in `/etc/postgresql/9.3/main/postgresql.conf`. If you change the listening port, the postgresql service must be restarted.
+* The PostgreSQL data cluster installed during the installation of the security server is not configured to listen on port 5432. To verify and configure the listening port, edit the PostgreSQL configuration file in `/etc/postgresql/10/main/postgresql.conf`. If you change the listening port, the postgresql service must be restarted.
 
 The interrupted installation can be finished using
 
@@ -525,3 +546,4 @@ Sometimes, after using `sudo apt-get upgrade` command, some of the packages are 
 `apt-get upgrade` command doesn’t install new packages - in this particular case new packages `xroad-monitor` and `xroad-addon-proxymonitor` installation is needed for upgrade of `xroad-securityserver` package.
 
 To be sure that packages are installed correctly please use `sudo apt upgrade` or `sudo apt full-upgrade` commands.
+

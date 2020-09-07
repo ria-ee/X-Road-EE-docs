@@ -26,8 +26,8 @@
 <h1>
 <a id="x-road-message-protocol-v40" class="anchor" href="#x-road-message-protocol-v40" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>X-Road: Message Protocol v4.0</h1>
 <p><strong>Technical Specification</strong></p>
-<p>Version: 4.0.21<br>
-06.03.2018<br>
+<p>Version: 4.0.22<br>
+19.05.2020<br>
 Doc. ID: PR-MESS</p>
 <hr>
 <h2>
@@ -162,13 +162,22 @@ Doc. ID: PR-MESS</p>
 <td>Moved terms to term doc, added terms reference and doc link</td>
 <td>Tatu Repo</td>
 </tr>
+<tr>
+<td>19.05.2020</td>
+<td>4.0.22</td>
+<td>Added chapter <a href="#27-identifier-character-restrictions">2.7 Identifier Character Restrictions</a>
+</td>
+<td>Ilkka Seppälä</td>
+</tr>
 </tbody>
 </table>
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
+<p>This document is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="nofollow">http://creativecommons.org/licenses/by-sa/3.0/</a></p>
 <h2>
 <a id="table-of-contents" class="anchor" href="#table-of-contents" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Table of Contents</h2>
 
 <ul>
-<li><a href="#license">License</a></li>
 <li>
 <a href="#1-introduction">1 Introduction</a>
 <ul>
@@ -186,6 +195,7 @@ Doc. ID: PR-MESS</p>
 <li><a href="#24-attachments">2.4 Attachments</a></li>
 <li><a href="#25-fault-messages">2.5 Fault Messages</a></li>
 <li><a href="#26-character-encoding">2.6 Character Encoding</a></li>
+<li><a href="#27-identifier-character-restrictions">2.7 Identifier Character Restrictions</a></li>
 </ul>
 </li>
 <li>
@@ -217,9 +227,6 @@ Doc. ID: PR-MESS</p>
 <li><a href="#annex-h-known-x-road-message-protocol-extensions">Annex H Known X-Road Message Protocol Extensions</a></li>
 </ul>
 
-<h2>
-<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
-<p>This document is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="nofollow">http://creativecommons.org/licenses/by-sa/3.0/</a></p>
 <h2>
 <a id="1-introduction" class="anchor" href="#1-introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1 Introduction</h2>
 <p>This specification describes the X-Road message protocol version 4.0. This protocol is used between information systems and security servers in the X-Road system. The protocol is implemented as a profile of the SOAP 1.1 protocol [<a href="#Ref_SOAP">SOAP</a>]. Because this protocol inherits the general model, the transport mechanism, and the error handling mechanism of the base SOAP protocol, these issues are not discussed separately in this specification.</p>
@@ -485,6 +492,38 @@ Table 1. Supported header fields</p>
 <p>All parties SHOULD indicate the character encoding of XML messages. The preferred way of specifying the character encoding is by using the <em>charset</em> parameter the of <em>Content-Type</em> header.</p>
 <p>In case the <em>charset</em> parameter is not determined in the HTTP <em>Content-Type</em> header, the UTF-8 encoding is considered to use by the security server.</p>
 <p>With UTF-8 encoding BOM (Byte Order Mark) bytes MAY be used in the beginning of XML message. Security servers MAY remove the BOM bytes when processing the message.</p>
+<h3>
+<a id="27-identifier-character-restrictions" class="anchor" href="#27-identifier-character-restrictions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.7 Identifier Character Restrictions</h3>
+<p>X-Road identifiers include, but are not restricted to:</p>
+<ul>
+<li>Instance id</li>
+<li>Member class</li>
+<li>Member code</li>
+<li>Subsystem code</li>
+<li>Service code</li>
+<li>Service version</li>
+<li>Central service code</li>
+<li>Security server code</li>
+</ul>
+<p>X-Road Message Protocol imposes some restrictions on the characters that can be used in X-Road identifiers. The following characters SHALL NOT be used in the identifier values:</p>
+<ul>
+<li>Colon <code>:</code>
+</li>
+<li>Semicolon <code>;</code>
+</li>
+<li>Slash <code>/</code>
+</li>
+<li>Backslash <code>\</code>
+</li>
+<li>Percent <code>%</code>
+</li>
+<li>Control characters and zero-width spaces
+<ul>
+<li>U+0000—U+001F and U+007F—U+009F; includes chars like tab, newline, del etc.</li>
+<li>U+200B and U+FEFF</li>
+</ul>
+</li>
+</ul>
 <h2>
 <a id="3-describing-services" class="anchor" href="#3-describing-services" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3 Describing Services</h2>
 <h3>

@@ -26,7 +26,7 @@
 <h1>
 <a id="security-server-installation-guide-for-ubuntu-" class="anchor" href="#security-server-installation-guide-for-ubuntu-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Security Server Installation Guide for Ubuntu </h1>
 <p><strong>X-ROAD 6</strong></p>
-<p>Version: 2.19<br>
+<p>Version: 2.26<br>
 Doc. ID: IG-SS</p>
 <hr>
 <h2>
@@ -251,13 +251,61 @@ Doc. ID: IG-SS</p>
 <td>Add instructions for using remote databases</td>
 <td>Ilkka Seppälä</td>
 </tr>
+<tr>
+<td>12.04.2020</td>
+<td>2.20</td>
+<td>Add note about the default value of the <em>connector-host</em> property in the EE-package</td>
+<td>Petteri Kivimäki</td>
+</tr>
+<tr>
+<td>29.04.2020</td>
+<td>2.21</td>
+<td>Add instructions how to use remote database located in Microsoft Azure</td>
+<td>Ilkka Seppälä</td>
+</tr>
+<tr>
+<td>12.06.2020</td>
+<td>2.22</td>
+<td>Update reference data regarding JMX listening ports</td>
+<td>Petteri Kivimäki</td>
+</tr>
+<tr>
+<td>24.06.2020</td>
+<td>2.23</td>
+<td>Add repository sign key details in section <a href="#22-reference-data">2.2 Reference data</a>
+</td>
+<td>Petteri Kivimäki</td>
+</tr>
+<tr>
+<td>24.06.2020</td>
+<td>2.24</td>
+<td>Remove environmental and operational monitoring daemon JMX listening ports from section <a href="#22-reference-data">2.2 Reference data</a>
+</td>
+<td>Petteri Kivimäki</td>
+</tr>
+<tr>
+<td>09.08.2020</td>
+<td>2.25</td>
+<td>Update ports information in section <a href="#22-reference-data">2.2 Reference data</a>, add section <a href="#221-network-diagram">2.2.1 Network Diagram</a>
+</td>
+<td>Petteri Kivimäki</td>
+</tr>
+<tr>
+<td>17.08.2020</td>
+<td>2.26</td>
+<td>Update for RHEL 8.</td>
+<td>Jarkko Hyöty</td>
+</tr>
 </tbody>
 </table>
 <h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
+<p>This document is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="nofollow">http://creativecommons.org/licenses/by-sa/3.0/</a></p>
+<h2>
 <a id="table-of-contents-" class="anchor" href="#table-of-contents-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Table of Contents </h2>
 
+
 <ul>
-<li><a href="#license">License</a></li>
 <li>
 <a href="#1-introduction">1 Introduction</a>
 <ul>
@@ -270,20 +318,19 @@ Doc. ID: IG-SS</p>
 <a href="#2-installation">2 Installation</a>
 <ul>
 <li><a href="#21-supported-platforms">2.1 Supported Platforms</a></li>
-<li><a href="#22-reference-data">2.2 Reference Data</a></li>
 <li>
-<a href="#23-network-diagram">2.3 Network Diagram</a>
+<a href="#22-reference-data">2.2 Reference Data</a>
 <ul>
-<li><a href="#231-ria-ips-for-whitelisting">2.3.1 RIA IP's for Whitelisting</a></li>
+<li><a href="#221-network-diagram">2.2.1 Network Diagram</a></li>
 </ul>
 </li>
-<li><a href="#24-requirements-for-the-security-server">2.4 Requirements for the Security Server</a></li>
-<li><a href="#25-preparing-os">2.5 Preparing OS</a></li>
-<li><a href="#26-installation">2.6 Installation</a></li>
-<li><a href="#27-post-installation-checks">2.7 Post-Installation Checks</a></li>
-<li><a href="#28-installing-the-support-for-hardware-tokens">2.8 Installing the Support for Hardware Tokens</a></li>
-<li><a href="#29-installing-the-support-for-environmental-monitoring">2.9 Installing the Support for Environmental Monitoring</a></li>
-<li><a href="#210-remote-database-post-installation-tasks">2.10 Remote Database Post-Installation Tasks</a></li>
+<li><a href="#23-requirements-for-the-security-server">2.3 Requirements for the Security Server</a></li>
+<li><a href="#24-preparing-os">2.4 Preparing OS</a></li>
+<li><a href="#25-installation">2.5 Installation</a></li>
+<li><a href="#26-post-installation-checks">2.6 Post-Installation Checks</a></li>
+<li><a href="#27-installing-the-support-for-hardware-tokens">2.7 Installing the Support for Hardware Tokens</a></li>
+<li><a href="#28-installing-the-support-for-environmental-monitoring">2.8 Installing the Support for Environmental Monitoring</a></li>
+<li><a href="#29-remote-database-post-installation-tasks">2.9 Remote Database Post-Installation Tasks</a></li>
 </ul>
 </li>
 <li>
@@ -306,9 +353,7 @@ Doc. ID: IG-SS</p>
 </li>
 </ul>
 
-<h2>
-<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
-<p>This document is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="nofollow">http://creativecommons.org/licenses/by-sa/3.0/</a></p>
+
 <h2>
 <a id="1-introduction" class="anchor" href="#1-introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1 Introduction</h2>
 <h3>
@@ -325,14 +370,22 @@ Doc. ID: IG-SS</p>
 <p><a id="Ref_UG-SS"></a>[UG-SS] Cybernetica AS. X-Road 6. Security Server User Guide. Document ID: <a href="ug-ss_x-road_6_security_server_user_guide.html">UG-SS</a></p>
 </li>
 <li>
-<p><a id="Ref_TERMS"></a>[TA-TERMS] X-Road Terms and Abbreviations. Document ID: <a href="terms_x-road_docs.html">TA-TERMS</a>.</p>
+<p><a id="Ref_TERMS"></a>[TA-TERMS] X-Road Terms and Abbreviations. Document ID: <a href="/terms_x-road_docs.html">TA-TERMS</a>.</p>
+</li>
+<li>
+<p><a name="Ref_UG-SYSPAR"></a>[UG-SYSPAR] X-Road: System Parameters User Guide. Document ID:
+<a href="ug-syspar_x-road_v6_system_parameters.html">UG-SYSPAR</a>.</p>
 </li>
 </ol>
 <h2>
 <a id="2-installation" class="anchor" href="#2-installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2 Installation</h2>
 <h3>
 <a id="21-supported-platforms" class="anchor" href="#21-supported-platforms" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.1 Supported Platforms</h3>
-<p>The security server runs on the *Ubuntu Server 18.04 Long-Term Support (LTS) operating system on a 64-bit platform. The Estonian version of the security server software is distributed as .deb packages through the official X-tee repository at <a href="http://x-tee.ee/packages/" rel="nofollow">http://x-tee.ee/packages/</a>.</p>
+<p>The security server runs on the following platforms:</p>
+<ul>
+<li>Ubuntu Server 18.04 Long-Term Support (LTS) operating system on a x86-64 platform.</li>
+<li>Red Hat Enterprise Linux (RHEL) 7 and 8 (x86-64). See <a href="ig-ss_x-road_v6_security_server_installation_guide_for_rhel.html">IG-SS-RHEL</a> for more information.</li>
+</ul>
 <p>The software can be installed both on physical and virtualized hardware (of the latter, Xen and Oracle VirtualBox have been tested).</p>
 <h3>
 <a id="22-reference-data" class="anchor" href="#22-reference-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.2 Reference Data</h3>
@@ -481,8 +534,104 @@ Doc. ID: IG-SS</p>
 </tr>
 </tbody>
 </table>
-<h3>
-<a id="23-network-diagram" class="anchor" href="#23-network-diagram" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3 Network Diagram</h3>
+<p>The table below lists the required connections between different components.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Connection Type</strong></th>
+<th><strong>Source</strong></th>
+<th><strong>Target</strong></th>
+<th><strong>Target Ports</strong></th>
+<th><strong>Protocol</strong></th>
+<th><strong>Note</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Out</td>
+<td>Security Server</td>
+<td>Central Server</td>
+<td>80, 4001</td>
+<td>tcp</td>
+<td></td>
+</tr>
+<tr>
+<td>Out</td>
+<td>Security Server</td>
+<td>Management Security Server</td>
+<td>5500, 5577</td>
+<td>tcp</td>
+<td></td>
+</tr>
+<tr>
+<td>Out</td>
+<td>Security Server</td>
+<td>OCSP Service</td>
+<td>80 / 443</td>
+<td>tcp</td>
+<td></td>
+</tr>
+<tr>
+<td>Out</td>
+<td>Security Server</td>
+<td>Timestamping Service</td>
+<td>80 / 443</td>
+<td>tcp</td>
+<td></td>
+</tr>
+<tr>
+<td>Out</td>
+<td>Security Server</td>
+<td>Data Exchange Partner Security Server (Service Producer)</td>
+<td>5500, 5577</td>
+<td>tcp</td>
+<td></td>
+</tr>
+<tr>
+<td>Out</td>
+<td>Security Server</td>
+<td>Producer Information System</td>
+<td>80, 443, other</td>
+<td>tcp</td>
+<td>Target in the internal network</td>
+</tr>
+<tr>
+<td>In</td>
+<td>Monitoring Security Server</td>
+<td>Security Server</td>
+<td>5500, 5577</td>
+<td>tcp</td>
+<td></td>
+</tr>
+<tr>
+<td>In</td>
+<td>Data Exchange Partner Security Server (Service Consumer)</td>
+<td>Security Server</td>
+<td>5500, 5577</td>
+<td>tcp</td>
+<td></td>
+</tr>
+<tr>
+<td>In</td>
+<td>Consumer Information System</td>
+<td>Security Server</td>
+<td>80, 443</td>
+<td>tcp</td>
+<td>Source in the internal network</td>
+</tr>
+<tr>
+<td>In</td>
+<td>Admin</td>
+<td>Security Server</td>
+<td>4000</td>
+<td>tcp</td>
+<td>Source in the internal network</td>
+</tr>
+</tbody>
+</table>
+<p>It is strongly recommended to protect the security server from unwanted access using a firewall (hardware or software based). The firewall can be applied to both incoming and outgoing connections depending on the security requirements of the environment where the security server is deployed. It is recommended to allow incoming traffic to specific ports only from explicitly defined sources using IP filtering. <strong>Special attention should be paid with the firewall configuration since incorrect configuration may leave the security server vulnerable to exploits and attacks.</strong></p>
+<h4>
+<a id="221-network-diagram" class="anchor" href="#221-network-diagram" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.2.1 Network Diagram</h4>
 <p>The following network diagram is an example of a simple stand-alone Security Server setup. Attention should be paid when configuring the firewall of your Security Server, as misconfigurations (e.g. exposing port 80/tcp to the public internet) can leave your server vulnerable. <strong>IP whitelisting should be used for all ports that are open to the external network.</strong></p>
 <p>Allowing incoming connections from the Monitoring Security Server on ports 5500/tcp and 5577/tcp (<a href="#231-ria-ips-for-whitelisting">monitoring server IP's</a>) is necessary for the X-Road Center to be able to monitor the ecosystem and provide statistics and support for Members.</p>
 <p><strong>Caution</strong>: The enabling of auxiliary services which are necessary for the functioning and management of the operating system (such as DNS, NTP, and SSH) stay outside the scope of this guide.</p>
@@ -520,71 +669,52 @@ Doc. ID: IG-SS</p>
 </tbody>
 </table>
 <h3>
-<a id="24-requirements-for-the-security-server" class="anchor" href="#24-requirements-for-the-security-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.4 Requirements for the Security Server</h3>
+<a id="23-requirements-for-the-security-server" class="anchor" href="#23-requirements-for-the-security-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3 Requirements for the Security Server</h3>
 <p>Minimum recommended hardware parameters:</p>
 <ul>
-<li>
-<p>the server’s hardware (motherboard, CPU, network interface cards, storage system) must be supported by Ubuntu 18.04 in general;</p>
-</li>
-<li>
-<p>a 64-bit dual-core Intel, AMD or compatible CPU; AES instruction set support is highly recommended;</p>
-</li>
-<li>
-<p>3 GB RAM;</p>
-</li>
-<li>
-<p>a 100 Mbps network interface card;</p>
-</li>
-<li>
-<p>if necessary, interfaces for the use of hardware tokens.</p>
-</li>
+<li>the server’s hardware (motherboard, CPU, network interface cards, storage system) must be supported by Ubuntu in general;</li>
+<li>a 64-bit dual-core Intel, AMD or compatible CPU; AES instruction set support is highly recommended;</li>
+<li>3 GB RAM;</li>
+<li>a 100 Mbps network interface card;</li>
+<li>if necessary, interfaces for the use of hardware tokens.</li>
 </ul>
 <p>Requirements to software and settings:</p>
 <ul>
-<li>
-<p>an installed and configured Ubuntu 18.04 LTS x86-64 operating system;</p>
-</li>
-<li>
-<p>if the security server is separated from other networks by a firewall and/or NAT, the necessary connections to and from the security server are allowed (<strong>reference data: 1.4; 1.5; 1.6; 1.7; 1.12</strong>). The enabling of auxiliary services which are necessary for the functioning and management of the operating system (such as DNS, NTP, and SSH) stay outside the scope of this guide;</p>
-</li>
-<li>
-<p>if the security server has a private IP address, a corresponding NAT record must be created in the firewall (<strong>reference data: 1.9</strong>).</p>
-</li>
+<li>an installed and configured Ubuntu 18.04 LTS x86-64 operating system;</li>
+<li>if the security server is separated from other networks by a firewall and/or NAT, the necessary connections to and from the security server are allowed (<strong>reference data: 1.4; 1.5; 1.6; 1.7</strong>). The enabling of auxiliary services which are necessary for the functioning and management of the operating system (such as DNS, NTP, and SSH) stay outside the scope of this guide;</li>
+<li>if the security server has a private IP address, a corresponding NAT record must be created in the firewall (<strong>reference data: 1.9</strong>).</li>
 </ul>
 <h3>
-<a id="25-preparing-os" class="anchor" href="#25-preparing-os" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.5 Preparing OS</h3>
+<a id="24-preparing-os" class="anchor" href="#24-preparing-os" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.4 Preparing OS</h3>
 <ul>
 <li>
 <p>Add system user (<strong>reference data: 1.3</strong>) whom all roles in the user interface are granted to. Add a new user with the command</p>
-<pre><code>sudo adduser &lt;username&gt;
+<pre><code>  sudo adduser &lt;username&gt;
 </code></pre>
 <p>User roles are discussed in detail in X-Road Security Server User Guide [<a href="#Ref_UG-SS">UG-SS</a>].</p>
 </li>
 <li>
 <p>Set the operating system locale. Add following line to the <code>/etc/environment</code> file.</p>
-<pre><code>LC_ALL=en_US.UTF-8
+<pre><code>  LC_ALL=en_US.UTF-8
 </code></pre>
 </li>
 <li>
 <p>Ensure that the packages <code>locales</code> and <code>software-properties-common</code> are present</p>
-<pre><code>sudo apt-get install locales software-properties-common
+<pre><code>  sudo apt-get install locales software-properties-common
 </code></pre>
 </li>
 <li>
 <p>Ensure that the locale is available</p>
-<pre><code>sudo locale-gen en_US.UTF-8
+<pre><code>  sudo locale-gen en_US.UTF-8
 </code></pre>
 </li>
 </ul>
 <h3>
-<a id="26-installation" class="anchor" href="#26-installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.6 Installation</h3>
-<p>To install the X-Road security server software, follow these steps.</p>
-<ol>
-<li>
-<p>Add to <code>/etc/apt/sources.list.d/xroad.list</code> the address of X-Road package repository (<strong>reference data: 1.1</strong>) and the nginx repository:</p>
-<pre><code>deb http://x-tee.ee/packages/live/xroad bionic main
+<a id="25-installation" class="anchor" href="#25-installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.5 Installation</h3>
+<p>To install the X-Road security server software on <em>Ubuntu</em> operating system, follow these steps.</p>
+<pre><code>    deb http://x-tee.ee/packages/live/xroad bionic main
 </code></pre>
-</li>
+<ol start="2">
 <li>
 <p>Add the X-Road repository’s signing key to the list of trusted keys (<strong>reference data: 1.2</strong>):</p>
 <pre><code>curl http://x-tee.ee/packages/live/xroad/repo.gpg | sudo apt-key add -
@@ -597,14 +727,18 @@ Doc. ID: IG-SS</p>
  sudo chmod 600 /etc/xroad.properties
 </code></pre>
 <p>Edit <code>/etc/xroad.properties</code> contents. See the example below. Replace parameter values with your own.</p>
-<pre><code> postgres.connection.password = 54F46A19E50C11DA8631468CF09BE5DB
+<pre><code>postgres.connection.password = {database superuser password}
+postgres.connection.user = {database superuser name, postgres by default}
 </code></pre>
+<ul>
+<li>If Microsoft Azure database for PostgreSQL is used, the connection user needs to be in format <code>username@servername</code>.</li>
+<li>One should verify that the version of the local PostgreSQL client matches the version of the remote PostgreSQL server.</li>
+</ul>
 </li>
 <li>
 <p>Issue the following commands to install the security server packages (use package xroad-securityserver-ee to include configuration specific to Estonia; use package xroad-securityserver-fi to include configuration specific to Finland):</p>
-<pre><code>sudo apt-get update
-sudo apt-get install postgresql
-sudo apt-get install xroad-securityserver-ee
+<pre><code> sudo apt-get update
+ sudo apt-get install xroad-securityserver
 </code></pre>
 </li>
 </ol>
@@ -617,17 +751,17 @@ sudo apt-get install xroad-securityserver-ee
 <p>Database server URL. Locally installed database is suggested as default but remote databases can be used as well. In case remote database is used, one should verify that the version of the local PostgreSQL client matches the version of the remote PostgreSQL server.</p>
 </li>
 <li>
-<p>The Distinguished Name of the owner of the <strong>user interface’s</strong> self-signed TLS certificate (<em>Subject DN</em>) and its alternative names (<em>subjectAltName</em>) (<strong>reference data: 1.8; 1.10</strong>). The certificate is used for securing connections to the user interface.
+<p>The Distinguished Name of the owner of the <strong>user interface's and management REST API's</strong> self-signed TLS certificate (<em>Subject DN</em>) and its alternative names (<em>subjectAltName</em>) (<strong>reference data: 1.8; 1.10</strong>). The certificate is used for securing connections to the user interface and to the management REST APIs.
 The name and IP addresses detected from the operating system are suggested as default values.</p>
 <ul>
 <li>
 <p>The <em>Subject DN</em> must be entered in the format:</p>
-<pre><code>/CN=server.domain.tld
+<pre><code>    /CN=server.domain.tld
 </code></pre>
 </li>
 <li>
 <p>All IP addresses and domain names in use must be entered as alternative names in the format:</p>
-<pre><code>IP:1.2.3.4,IP:4.3.2.1,DNS:servername,DNS:servername2.domain.tld
+<pre><code>    IP:1.2.3.4,IP:4.3.2.1,DNS:servername,DNS:servername2.domain.tld
 </code></pre>
 </li>
 </ul>
@@ -638,45 +772,41 @@ The name and IP addresses detected from the system are suggested as default valu
 <ul>
 <li>
 <p>The <em>Subject DN</em> must be entered in the format:</p>
-<pre><code>/CN=server.domain.tld
+<pre><code>  /CN=server.domain.tld
 </code></pre>
 </li>
 <li>
 <p>All IP addresses and domain names in use must be entered as alternative names in the format:</p>
-<pre><code>IP:1.2.3.4,IP:4.3.2.1,DNS:servername,DNS:servername2.domain.tld
+<pre><code>  IP:1.2.3.4,IP:4.3.2.1,DNS:servername,DNS:servername2.domain.tld
 </code></pre>
 </li>
 </ul>
 </li>
 </ul>
-<p>The meta-package <code>xroad-securityserver-ee</code> also installs metaservices module <code>xroad-addon-metaservices</code>, messagelog module <code>xroad-addon-messagelog</code>, operational data monitoring modules <code>xroad-addon-opmonitoring</code>, <code>xroad-opmonitor</code> and WSDL validator module <code>xroad-addon-wsdlvalidator</code>.</p>
+<p>The meta-package <code>xroad-securityserver</code> also installs metaservices module <code>xroad-addon-metaservices</code>, messagelog module <code>xroad-addon-messagelog</code> and WSDL validator module <code>xroad-addon-wsdlvalidator</code>. Both meta-packages <code>xroad-securityserver-ee</code> and <code>xroad-securityserver-fi</code> install operational data monitoring module <code>xroad-addon-opmonitoring</code>.</p>
+<p><strong>N.B.</strong> In case configuration specific to Estonia (package <code>xroad-securityserver-ee</code>) is installed, connections from client applications are restricted to localhost by default. To enable client application connections from external sources, the value of the <code>connector-host</code> property must be overridden in the <code>/etc/xroad/conf.d/local.ini</code> configuration file. Changing the system parameter values is explained in the System Parameters User Guide [<a href="#Ref_UG-SS">UG-SS</a>].</p>
 <h3>
-<a id="27-post-installation-checks" class="anchor" href="#27-post-installation-checks" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.7 Post-Installation Checks</h3>
+<a id="26-post-installation-checks" class="anchor" href="#26-post-installation-checks" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.6 Post-Installation Checks</h3>
 <p>The installation is successful if system services are started and the user interface is responding.</p>
 <ul>
-<li>
-<p>Ensure from the command line that X-Road services are in the <code>running</code> state (example output follows):</p>
-<ul>
-<li>Ubuntu 18.04
+<li>Ensure from the command line that X-Road services are in the <code>running</code> state (example output follows):
 <pre><code>sudo systemctl list-units "xroad*"
 
 UNIT                     LOAD   ACTIVE SUB     DESCRIPTION
 xroad-confclient.service loaded active running X-Road confclient
-xroad-jetty.service      loaded active running X-Road Jetty server
 xroad-monitor.service    loaded active running X-Road Monitor
-xroad-opmonitor.service loaded active running X-Road opmonitor daemon
+xroad-proxy-ui-api.service loaded active running X-Road Proxy UI REST API
 xroad-proxy.service      loaded active running X-Road Proxy
 xroad-signer.service     loaded active running X-Road signer
 </code></pre>
 </li>
+<li>Ensure that the security server user interface at <a href="https://SECURITYSERVER:4000/" rel="nofollow">https://SECURITYSERVER:4000/</a> (<strong>reference data: 1.8; 1.6</strong>) can be opened in a Web browser. To log in, use the account name chosen during the installation (<strong>reference data: 1.3</strong>). While the user interface is still starting up, the Web browser may display the “502 Bad Gateway” error.</li>
 </ul>
-</li>
-<li>
-<p>Ensure that the security server user interface at <a href="https://SECURITYSERVER:4000/" rel="nofollow">https://SECURITYSERVER:4000/</a> (<strong>reference data: 1.8; 1.6</strong>) can be opened in a Web browser. To log in, use the account name chosen during the installation (<strong>reference data: 1.3</strong>). While the user interface is still starting up, the Web browser may display the “502 Bad Gateway” error.</p>
-</li>
+<ul>
+<li>Ensure that the security server user interface at <a href="https://SECURITYSERVER:4000/" rel="nofollow">https://SECURITYSERVER:4000/</a> (<strong>reference data: 1.8; 1.6</strong>) can be opened in a Web browser. To log in, use the account name chosen during the installation (<strong>reference data: 1.3</strong>). While the user interface is still starting up, the Web browser may display the “502 Bad Gateway” error.</li>
 </ul>
 <h3>
-<a id="28-installing-the-support-for-hardware-tokens" class="anchor" href="#28-installing-the-support-for-hardware-tokens" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.8 Installing the Support for Hardware Tokens</h3>
+<a id="27-installing-the-support-for-hardware-tokens" class="anchor" href="#27-installing-the-support-for-hardware-tokens" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.7 Installing the Support for Hardware Tokens</h3>
 <p>To configure support for hardware security tokens (smartcard, USB token, Hardware Security Module), act as follows.</p>
 <ol>
 <li>
@@ -806,13 +936,13 @@ xroad-signer.service     loaded active running X-Road signer
 </tr>
 </tbody>
 </table>
-<p><strong>Note 1:</strong> Only parameter <em>library</em> is mandatory, all the others are optional.<br>
+<p><strong>Note 1:</strong> Only parameter <em>library</em> is mandatory, all the others are optional.
 <strong>Note 2:</strong> The item separator of the type STRING LIST is ",".</p>
 <h3>
-<a id="29-installing-the-support-for-environmental-monitoring" class="anchor" href="#29-installing-the-support-for-environmental-monitoring" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.9 Installing the Support for Environmental Monitoring</h3>
+<a id="28-installing-the-support-for-environmental-monitoring" class="anchor" href="#28-installing-the-support-for-environmental-monitoring" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.8 Installing the Support for Environmental Monitoring</h3>
 <p>The support for environmental monitoring functionality on a security server is provided by package xroad-monitor that is installed by default. The package installs and starts the <code>xroad-monitor</code> process that will gather and make available the monitoring information.</p>
 <h3>
-<a id="210-remote-database-post-installation-tasks" class="anchor" href="#210-remote-database-post-installation-tasks" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.10 Remote Database Post-Installation Tasks</h3>
+<a id="29-remote-database-post-installation-tasks" class="anchor" href="#29-remote-database-post-installation-tasks" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.9 Remote Database Post-Installation Tasks</h3>
 <p>Local PostgreSQL is always installed with Security Server. When remote database host is used, the local PostgreSQL can be stopped and disabled after the installation.</p>
 <p>To stop the local PostgreSQL server</p>
 <p><code>systemctl stop postgresql</code></p>
@@ -880,12 +1010,12 @@ xroad-signer.service     loaded active running X-Road signer
 </ul>
 <p>If the configuration is successfully downloaded, the system asks for the following information.</p>
 <ul>
-<li>
-<p>The security server owner’s member class (<strong>reference data: 2.2</strong>).</p>
-</li>
-<li>
-<p>The security server owner’s member code (<strong>reference data: 2.3</strong>).
-If the member class and member code are correctly entered, the system displays the security server owner’s name as registered in the X-Road center.</p>
+<li>The security server owner’s member class (<strong>reference data: 2.2</strong>).</li>
+<li>The security server owner’s member code (<strong>reference data: 2.3</strong>).</li>
+</ul>
+<ul>
+<li>The security server owner’s member code (<strong>reference data: 2.3</strong>).
+If the member class and member code are correctly entered, the system displays the security server owner’s name as registered in the X-Road center.
 <ul>
 <li>
 <p><strong>NB! If the security server owner  or hosted client is a foreign organization (not Estonian), then the "NEE" Member Class must be selected in the security server.</strong></p>
@@ -922,6 +1052,8 @@ If the member class and member code are correctly entered, the system displays t
 </li>
 </ul>
 </li>
+</ul>
+<ul>
 <li>
 <p>Security server code (<strong>reference data: 2.4</strong>), which is chosen by the security server administrator and which has to be unique across all the security servers belonging to the same X-Road member.</p>
 </li>
@@ -954,8 +1086,8 @@ sudo update-locale en_US.UTF-8
 </code></pre>
 <p>then the PostgreSQL package is installed with a wrong locale. One way to resolve it is to remove the data store created upon the PostgreSQL installation and recreate it with the correct encoding.</p>
 <p><strong>WARNING</strong>: All data in the database will be erased!</p>
-<pre><code>sudo pg_dropcluster --stop 9.3 main
-LC_ALL="en_US.UTF-8" sudo pg_createcluster --start 9.3 main
+<pre><code>sudo pg_dropcluster --stop 10 main
+LC_ALL="en_US.UTF-8" sudo pg_createcluster --start 10 main
 </code></pre>
 <p>To complete the interrupted installation, run the command</p>
 <pre><code>sudo apt-get -f install
@@ -964,10 +1096,10 @@ LC_ALL="en_US.UTF-8" sudo pg_createcluster --start 9.3 main
 <a id="43-could-not-create-default-cluster" class="anchor" href="#43-could-not-create-default-cluster" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.3 Could Not Create Default Cluster</h3>
 <p>If the following error message is displayed during PostgreSQL installation:</p>
 <pre><code>Error: The locale requested by the environment is invalid.
-Error: could not create default cluster. Please create it manually with pg_createcluster 9.3 main –start,
+Error: could not create default cluster. Please create it manually with pg_createcluster 10 main –start,
 </code></pre>
 <p>use the following command to create the PostgreSQL data cluster:</p>
-<pre><code>LC_ALL="en_US.UTF-8" sudo pg_createcluster --start 9.3 main
+<pre><code>LC_ALL="en_US.UTF-8" sudo pg_createcluster --start 10 main
 </code></pre>
 <p>The interrupted installation can be finished using</p>
 <pre><code>sudo apt-get -f install
@@ -984,7 +1116,7 @@ Aborting installation! please fix issues and rerun with apt-get -f install,
 <p>Error installing the data cluster. Refer to section <a href="#43-could-not-create-default-cluster">“Could not create default cluster”</a>.</p>
 </li>
 <li>
-<p>The PostgreSQL data cluster installed during the installation of the security server is not configured to listen on port 5432. To verify and configure the listening port, edit the PostgreSQL configuration file in <code>/etc/postgresql/9.3/main/postgresql.conf</code>. If you change the listening port, the postgresql service must be restarted.</p>
+<p>The PostgreSQL data cluster installed during the installation of the security server is not configured to listen on port 5432. To verify and configure the listening port, edit the PostgreSQL configuration file in <code>/etc/postgresql/10/main/postgresql.conf</code>. If you change the listening port, the postgresql service must be restarted.</p>
 </li>
 </ul>
 <p>The interrupted installation can be finished using</p>

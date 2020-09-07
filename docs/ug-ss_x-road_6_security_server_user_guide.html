@@ -26,7 +26,7 @@
 <h1>
 <a id="security-server-user-guide-" class="anchor" href="#security-server-user-guide-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SECURITY SERVER USER GUIDE </h1>
 <p><strong>X-ROAD 6</strong></p>
-<p>Version: 2.31<br>
+<p>Version: 2.46
 Doc. ID: UG-SS</p>
 <hr>
 <h2>
@@ -308,40 +308,138 @@ Doc. ID: UG-SS</p>
 <td>Jarkko Hyöty</td>
 </tr>
 <tr>
-<td>16.04.2019</td>
+<td>26.03.2019</td>
 <td>2.26</td>
+<td>Added chapter on API keys <a href="#19-management-rest-apis">19</a>
+</td>
+<td>Janne Mattila</td>
+</tr>
+<tr>
+<td>16.04.2019</td>
+<td>2.27</td>
 <td>Minor updates regarding REST services in chapter [6]</td>
 <td>Petteri Kivimäki</td>
 </tr>
 <tr>
 <td>30.06.2019</td>
-<td>2.27</td>
+<td>2.28</td>
 <td>Update the default connection type from HTTP to HTTPS in chapter [9]</td>
 <td>Petteri Kivimäki</td>
 </tr>
 <tr>
 <td>01.07.2019</td>
-<td>2.28</td>
+<td>2.29</td>
 <td>Changing the Security Server Owner chapter added (Chapter <a href="#34-changing-the-security-server-owner">3.4</a>)</td>
 <td>Petteri Kivimäki</td>
 </tr>
 <tr>
 <td>14.08.2019</td>
-<td>2.29</td>
+<td>2.30</td>
 <td>Added automatic backups</td>
 <td>Ilkka Seppälä</td>
 </tr>
 <tr>
+<td>29.09.2019</td>
+<td>2.31</td>
+<td>Added chapter <a href="#193-correlation-id-http-header">19.3</a> on REST API correlation id</td>
+<td>Janne Mattila</td>
+</tr>
+<tr>
 <td>30.09.2019</td>
-<td>2.30</td>
+<td>2.32</td>
 <td>Added remote database migration guide</td>
 <td>Ilkka Seppälä</td>
 </tr>
 <tr>
 <td>15.10.2019</td>
-<td>2.31</td>
+<td>2.33</td>
 <td>Updated REST services in chapter [6]</td>
 <td>Ilkka Seppälä</td>
+</tr>
+<tr>
+<td>04.11.2019</td>
+<td>2.34</td>
+<td>Added information about REST API request rate and size limits</td>
+<td>Janne Mattila</td>
+</tr>
+<tr>
+<td>07.11.2019</td>
+<td>2.35</td>
+<td>Add more information about service descriptions to chapter [6]</td>
+<td>Ilkka Seppälä</td>
+</tr>
+<tr>
+<td>05.12.2019</td>
+<td>2.36</td>
+<td>Add information about timestamping failover capabilities in chapter <a href="#102-managing-the-timestamping-services">10.2</a>
+</td>
+<td>Petteri Kivimäki</td>
+</tr>
+<tr>
+<td>24.02.2020</td>
+<td>2.37</td>
+<td>Updated notes about key caching after changing internal TLS key and certificate <a href="#103-changing-the-internal-tls-key-and-certificate">10.3</a>
+</td>
+<td>Caro Hautamäki</td>
+</tr>
+<tr>
+<td>26.03.2020</td>
+<td>2.38</td>
+<td>Added chapter on updating API keys <a href="#1913-updating-api-keys">19.1.3</a>
+</td>
+<td>Petteri Kivimäki</td>
+</tr>
+<tr>
+<td>30.03.2020</td>
+<td>2.39</td>
+<td>Added description of pre-restore backups</td>
+<td>Ilkka Seppälä</td>
+</tr>
+<tr>
+<td>01.04.2020</td>
+<td>2.40</td>
+<td>Added notes about IP whitelists for APIs</td>
+<td>Janne Mattila</td>
+</tr>
+<tr>
+<td>03.06.2020</td>
+<td>2.41</td>
+<td>Updated audit logging description</td>
+<td>Janne Mattila</td>
+</tr>
+<tr>
+<td>05.06.2020</td>
+<td>2.42</td>
+<td>Added chapter about validation errors <a href="#194-validation-errors">19.4</a>
+</td>
+<td>Caro Hautamäki</td>
+</tr>
+<tr>
+<td>25.06.2020</td>
+<td>2.43</td>
+<td>Update environmental and operational monitoring JMXMP details</td>
+<td>Petteri Kivimäki</td>
+</tr>
+<tr>
+<td>08.07.2020</td>
+<td>2.44</td>
+<td>Update chapter on access rights <a href="#7-access-rights">7</a>
+</td>
+<td>Petteri Kivimäki</td>
+</tr>
+<tr>
+<td>30.07.2020</td>
+<td>2.45</td>
+<td>Added mention about proxy_ui_api.log to <a href="#17-logs-and-system-services">17 Logs and System Services</a>
+</td>
+<td>Janne Mattila</td>
+</tr>
+<tr>
+<td>10.08.2020</td>
+<td>2.46</td>
+<td>Added mention about unit start rate limits to <a href="#171-system-services">17.1 System Services</a>
+</td>
+<td>Janne Mattila</td>
 </tr>
 </tbody>
 </table>
@@ -443,9 +541,13 @@ Doc. ID: UG-SS</p>
 <li>
 <a href="#6-x-road-services">6 X-Road Services</a>
 <ul>
-<li><a href="#61-adding-a-service-description">6.1 Adding a service description</a></li>
+<li>
+<a href="#61-adding-a-service-description">6.1 Adding a service description</a>
+<ul>
 <li><a href="#611-soap">6.1.1 SOAP</a></li>
 <li><a href="#612-rest">6.1.2 REST</a></li>
+</ul>
+</li>
 <li><a href="#62-refreshing-a-service-description">6.2 Refreshing a service description</a></li>
 <li><a href="#63-enabling-and-disabling-a-service-description">6.3 Enabling and Disabling a service description</a></li>
 <li><a href="#64-changing-the-address-of-a-service-description">6.4 Changing the Address of a service description</a></li>
@@ -556,7 +658,25 @@ Doc. ID: UG-SS</p>
 </ul>
 </li>
 <li><a href="#18-federation">18 Federation</a></li>
-<li><a href="#19-migrating-to-remote-database-host">19 Migrating to Remote Database Host</a></li>
+<li>
+<a href="#19-management-rest-apis">19 Management REST APIs</a>
+<ul>
+<li>
+<a href="#191-api-key-management-operations">19.1 API key management operations</a>
+<ul>
+<li><a href="#1911-creating-new-api-keys">19.1.1 Creating new API keys</a></li>
+<li><a href="#1912-listing-api-keys">19.1.2 Listing API keys</a></li>
+<li><a href="#1913-updating-api-keys">19.1.3 Updating API keys</a></li>
+<li><a href="#1914-revoking-api-keys">19.1.4 Revoking API keys</a></li>
+<li><a href="#1915-api-key-caching">19.1.5 API key caching</a></li>
+</ul>
+</li>
+<li><a href="#192-executing-rest-calls">19.2 Executing REST calls</a></li>
+<li><a href="#193-correlation-id-http-header">19.3 Correlation ID HTTP header</a></li>
+<li><a href="#194-validation-errors">19.4 Validation errors</a></li>
+</ul>
+</li>
+<li><a href="#20-migrating-to-remote-database-host">20 Migrating to Remote Database Host</a></li>
 </ul>
 
 
@@ -662,6 +782,15 @@ Doc. ID: UG-SS</p>
 </li>
 <li>
 <p><a id="Ref_TERMS"></a>[TA-TERMS] X-Road Terms and Abbreviations. Document ID: <a href="terms_x-road_docs.html">TA-TERMS</a>.</p>
+</li>
+<li>
+<p><a id="Ref_PR-META"></a>[PR-META] X-Road: Service Metadata Protocol. Document ID: <a href="../Protocols/pr-meta_x-road_service_metadata_protocol.html">PR-META</a>.</p>
+</li>
+<li>
+<p><a id="Ref_PR-MREST"></a>[PR-MREST] X-Road: Service Metadata Protocol for REST. Document ID: <a href="../Protocols/pr-mrest_x-road_service_metadata_protocol_for_rest.html">PR-MREST</a>.</p>
+</li>
+<li>
+<p><a id="Ref_UG-SYSPAR"></a>[UG-SYSPAR] X-Road: System Parameters User Guide. Document ID: <a href="../Manuals/ug-syspar_x-road_v6_system_parameters.html">UG-SYSPAR</a>.</p>
 </li>
 </ol>
 <h2>
@@ -905,39 +1034,56 @@ adduser username xroad-securityserver-observer
 <h3>
 <a id="34-changing-the-security-server-owner" class="anchor" href="#34-changing-the-security-server-owner" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.4 Changing the Security Server Owner</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-registration-officer">Registration Officer</a></p>
-<p>To change the security server owner the following actions must be completed.</p>
+<p>To change the security server owner, two registered Owner members must be available. If a registered member is already available, jump directly to step 3.</p>
+<p>To add a new member and change it to Owner member, the following actions must be completed.</p>
+<ol>
+<li>
+<p>Add a new Owner member to the security server</p>
+<p>1.1 On the <strong>Clients</strong> view, select <strong>Add Member</strong>.</p>
+<p>1.2 In the opening wizard, Select the new Owner member from the list of security server clients</p>
+<p>1.3 Add the selected member</p>
+<p>Note: Signing Key and Certificate must be configured for the new Owner member. If needed, the wizard will automatically show the dedicated steps for Key and Certificate configuration to collect the needed information.</p>
+</li>
+<li>
+<p>Register the new member</p>
+<p>2.1 On the <strong>Clients</strong> view, locate the new member in the Clients list and click <strong>Register</strong> in the corresponding row</p>
+<p>2.2 In the opening dialog, click <strong>Register</strong>. A registeration request is sent to the X-Road Governing Authority</p>
+<p>Note: Once the request is approved, the new member appears as "Registered" - it can be set as Owner member.</p>
+</li>
+<li>
+<p>Request a change of the security server owner</p>
+<p>3.1 On the <strong>Clients</strong> view, locate the new member and click its name to open the member's detail view</p>
+<p>3.2 In the detail view, click <strong>Make owner</strong></p>
+<p>1.3 In the opening dialog, click <strong>Make owner</strong>. A owner change request is sent to the X-Road Governing Authority</p>
+</li>
+</ol>
+<p>Once the owner change request, the new member will be automatically shown as the security server Owner member.</p>
 <ul>
 <li>
-<p>The new Owner member must be added to the security server (see <a href="#42-adding-a-security-server-client">4.2</a>).</p>
+<p>A new member must be added to the security server (see <a href="#42-adding-a-security-server-client">4.2</a>). If needed, specify the token on which the member is configured</p>
 </li>
 <li>
-<p>A Signing Key and Certificate must be configured for the new Owner member (see <a href="#43-configuring-a-signing-key-and-certificate-for-a-security-server-client">4.3</a>).</p>
+<p>If not yet available, a Signing Key and Certificate must be configured for the new member (see <a href="#43-configuring-a-signing-key-and-certificate-for-a-security-server-client">4.3</a>).</p>
 </li>
 <li>
-<p>The new Owner must be registered in the X-Road Governing Authority (see <a href="#44-registering-a-security-server-client-in-the-x-road-governing-authority">4.3</a>).</p>
+<p>The new member must be registered in the X-Road Governing Authority (see <a href="#44-registering-a-security-server-client-in-the-x-road-governing-authority">4.3</a>).</p>
 </li>
 <li>
 <p>The security server owner change request must be submitted from the security server. To submit an owner change request follow these steps.</p>
 <ol>
 <li>
-<p>On the <strong>Configuration</strong> menu, select <strong>Security Server Clients</strong>.</p>
+<p>In the <strong>Member Detail view</strong> click <strong>Make Owner</strong>.</p>
 </li>
 <li>
-<p>Select the new Owner member from the list of security server clients.</p>
-</li>
-<li>
-<p>Click the <strong>Details</strong> icon and in the window that opens, click <strong>Make Owner</strong>.</p>
-</li>
-<li>
-<p>Click <strong>Confirm</strong> to submit the request.</p>
+<p>Click <strong>Make Owner</strong> to submit a change request.</p>
 </li>
 </ol>
 </li>
 <li>
-<p>A request for changing the security server owner must be submitted to the X-Road governing authority according to the organizational procedures of the X-Road instance.</p>
+<p>The change request is sent to the X-Road governing authority according to the organizational procedures of the X-Road instance.</p>
 </li>
 <li>
-<p>The owner change request must be approved by the X-Road governing authority.</p>
+<p>Once the change request is approved by the X-Road governing authority, the member will automatically become the Owner Member.</p>
 </li>
 <li>
 <p>New Authentication Key and Certificate should be configured for the new security server owner (see <a href="#32-configuring-the-authentication-key-and-certificate-for-the-security-server">3.2</a>).</p>
@@ -1352,8 +1498,8 @@ adduser username xroad-securityserver-observer
 <h3>
 <a id="61-adding-a-service-description" class="anchor" href="#61-adding-a-service-description" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.1 Adding a service description</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-service-administrator">Service Administrator</a></p>
-<h3>
-<a id="611-soap" class="anchor" href="#611-soap" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.1.1 SOAP</h3>
+<h4>
+<a id="611-soap" class="anchor" href="#611-soap" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.1.1 SOAP</h4>
 <p>When a new WSDL file is added, the security server reads service information from it and displays the information in the table of services. The service code, title and address are read from the WSDL.</p>
 <p><strong>To add a WSDL</strong>, follow these steps.</p>
 <ol>
@@ -1368,8 +1514,8 @@ adduser username xroad-securityserver-observer
 <ul>
 <li>click the “<strong>+</strong>” symbol in front of the WSDL row to expand the list.</li>
 </ul>
-<h3>
-<a id="612-rest" class="anchor" href="#612-rest" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.1.2 REST</h3>
+<h4>
+<a id="612-rest" class="anchor" href="#612-rest" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.1.2 REST</h4>
 <p>When a new REST service is added, the security server displays url and service code provided.</p>
 <p><strong>To add a REST service</strong>, follow these steps.</p>
 <ol>
@@ -1474,7 +1620,11 @@ adduser username xroad-securityserver-observer
 <p>"Timeout (s)" – the maximum duration of a request to the database, in seconds;</p>
 </li>
 <li>
-<p>"Verify TLS certificate" – toggles the verification of the certificate when a TLS connection is established.</p>
+<p>"Verify TLS certificate" – toggles the verification of the certificate when a TLS connection is established. This option is used for two different scenarios:</p>
+<ul>
+<li>Between Security Server and service endpoint.</li>
+<li>Between Security Server and service description URL, when metaservices getWsdl or getOpenAPI are used for this subsystem and service. See [<a href="#Ref_PR-META">PR-META</a>] and [<a href="#Ref_PR-MREST">PR-MREST</a>].</li>
+</ul>
 </li>
 </ul>
 <p>To change service parameters, follow these steps.</p>
@@ -1537,7 +1687,7 @@ adduser username xroad-securityserver-observer
 <li>REST service level</li>
 <li>endpoint level</li>
 </ul>
-<p>In general, a REST service usually has multiple endpoints. When access rights are defined on the service level, they apply to all the endpoints of the REST service. Instead, defining access rights on the endpoint level gives access to specific endpoint(s) only.</p>
+<p>In general, a REST service usually has multiple endpoints. When access rights are defined on the service level, they apply to all the endpoints of the REST service. Instead, defining access rights on the endpoint level gives access to specific endpoint(s) only. The service level access rights support both service-based and service client-based access rights management. The endpoint level access rights support only service based access rights management.</p>
 <h3>
 <a id="71-changing-the-access-rights-of-a-service" class="anchor" href="#71-changing-the-access-rights-of-a-service" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>7.1 Changing the Access Rights of a Service</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-service-administrator">Service Administrator</a></p>
@@ -1563,7 +1713,7 @@ Select one or more subjects from the table and click <strong>Add Selected to ACL
 <h3>
 <a id="72-adding-a-service-client" class="anchor" href="#72-adding-a-service-client" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>7.2 Adding a Service Client</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-service-administrator">Service Administrator</a></p>
-<p>The service client view (<strong>Configuration</strong> -&gt; <strong>Security Server Clients</strong> -&gt; <strong>Service Clients</strong>) displays all the access rights subjects of the services mediated by this security server client. In other words, if an X-Road subsystem or group has been granted the access right to a service of this client, then the subject is shown in this view.</p>
+<p>The service client view (<strong>Configuration</strong> -&gt; <strong>Security Server Clients</strong> -&gt; <strong>Service Clients</strong>) displays all the service level access rights subjects of the services mediated by this security server client. In other words, if an X-Road subsystem or group has been granted a service level access right to a service of this client, then the subject is shown in this view. Subjects that have been granted an endpoint level access right to a REST service, are not shown in the view.</p>
 <p>To add a service client, follow these steps.</p>
 <ol>
 <li>
@@ -1601,6 +1751,9 @@ Select one or more subjects from the table and click <strong>Add Selected to ACL
 </li>
 <li>
 <p>To remove all access rights from the service client, click <strong>Remove All</strong> and then click <strong>Confirm</strong>.</p>
+</li>
+<li>
+<p>Removing service level access rights from the service client also removes all REST API endpoint level access rights to the endpoints of the service. In other words, removing access rights from the service client removes all access rights to a service and its endpoints.</p>
 </li>
 <li>
 <p>To add access rights to a service client, start by clicking <strong>Add Service</strong>. In the window that opens, select the service(s) that you wish to grant to the subject (already granted services are displayed in gray) and click <strong>Add Selected to ACL</strong>. To add all services found by the search, click <strong>Add All to ACL</strong>. Note that access rights to REST API endpoints can not be added using this view, those need to be added on <strong>Services</strong> tab as described in <a href="#71-changing-the-access-rights-of-a-service">7.1</a>.</p>
@@ -1845,7 +1998,7 @@ If the HTTPS protocol was selected, select the <strong>Verify TLS certificate</s
 <p>In the <strong>Timestamping Services</strong> section, select the service to be deleted and click <strong>Delete</strong>.</p>
 </li>
 </ol>
-<p><em>Note</em>: If more than one time stamping service is configured, the security server will try to get a timestamp from the topmost service in the table, moving down to the next service if the try was unsuccessful.</p>
+<p><em>Note</em>: If more than one timestamping service is configured, the security server will try to get a timestamp from the topmost service in the table, moving down to the next service if the try was unsuccessful. The failover covers both connection and timestamp response verification issues. For example, security server is not able to establish a connection to a timestamping service because of a misconfigured firewall, or verification of a timestamp response fails because of the sign certificate of the timestamping service is changed.</p>
 <h3>
 <a id="103-changing-the-internal-tls-key-and-certificate" class="anchor" href="#103-changing-the-internal-tls-key-and-certificate" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>10.3 Changing the Internal TLS Key and Certificate</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-security-officer">Security Officer</a>, <a href="#xroad-system-administrator">System Administrator</a></p>
@@ -1877,7 +2030,7 @@ If the HTTPS protocol was selected, select the <strong>Verify TLS certificate</s
 <li>
 <p>In the “Internal TLS Certificate” section, click <strong>Import Certificate</strong> and point to the file to be imported.</p>
 <p>The imported certificate must be in PEM-format to be accepted. Certificate chains are supported; concatenate possible intermediate certificate(s) to the server certificate before importing the file.</p>
-<p>Note that importing a new TLS certificate will restart the xroad-proxy and thus affects providing services from the security server.</p>
+<p>Note that the Internal TLS Key and Certificate are cached by default for 60 seconds (default cache period for serverconf) so generating a new key and importing a new certificate might affect providing services from the security server for the caching period. The caching period can be changed with System Parameters [<a href="#Ref_UG-SYSPAR">UG-SYSPAR</a>]</p>
 </li>
 </ol>
 <p><em>To export the security server’s internal TLS certificate</em>, follow these steps.</p>
@@ -2070,7 +2223,8 @@ RHEL: <code>yum reinstall xroad-addon-messagelog</code></p>
 <a id="12-audit-log" class="anchor" href="#12-audit-log" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>12 Audit Log</h2>
 <p>The security server keeps an audit log. The audit log events are generated by the user interface when the user changes the system’s state or configuration. The user actions are logged regardless of whether the outcome was a success or a failure. The complete list of the audit log events is described in [<a href="#Ref_SPEC-AL">SPEC-AL</a>].</p>
 <p>Actions that change the system state or configuration but are not carried out using the user interface are not logged (for example, X-Road software installation and upgrade, user creation and permission granting, and changing the configuration files).</p>
-<p>An audit log record contains</p>
+<p>An audit log record contains correlation-id, which can be used to link the record to other log messages about the same request.</p>
+<p>An audit log record also contains</p>
 <ul>
 <li>
 <p>the description of the user action,</p>
@@ -2079,16 +2233,34 @@ RHEL: <code>yum reinstall xroad-addon-messagelog</code></p>
 <p>the date and time of the event,</p>
 </li>
 <li>
-<p>the username of the user performing the action, and</p>
+<p>the username of the user performing the action</p>
+</li>
+<li>
+<p>the authentication type used for this request (Session, ApiKey or HttpBasicPam)</p>
+<ul>
+<li>
+<code>Session</code> – session based authentication (web application)</li>
+<li>
+<code>ApiKey</code> - direct API call using API key authentication</li>
+<li>
+<code>HttpBasicPam</code> – HTTP basic authentication with PAM login (for api key management API operations)</li>
+</ul>
+</li>
+<li>
+<p>the API url for this request, and</p>
 </li>
 <li>
 <p>the data related to the event.</p>
 </li>
 </ul>
 <p>For example, registering a new client in the security server produces the following log record:</p>
-<p><code>2015-07-03T10:21:59+03:00 my-security-server-host INFO [X-Road Proxy UI] 2015-07-03 10:21:59+0300 - {"event":"Register client", "user":"admin1", "data":{"clientIdentifier":{"xRoadInstance":"EE", "memberClass":"COM",  "memberCode":"member1"}, "clientStatus":"registration in progress"}}</code></p>
-<p>The event is present in JSON [<a href="#Ref_JSON">JSON</a>] format, in order to ensure machine processability. The field event represents the description of the event, the field user represents the user name of the performer, and the field data represents data related with the event. The failed action event record contains an additional field reason for the error message. For example:</p>
-<p><code>2015-07-03T11:55:39+03:00 my-security-server-host INFO [X-Road Proxy UI] 2015-07-03 11:55:39+0300 - {"event":"Log in to token failed", "user":"admin1", "reason":"PIN incorrect", "data":{"tokenId":"0", "tokenSerialNumber":null, "tokenFriendlyName":"softToken-0"}}</code></p>
+<p><code>2020-06-03T11:00:51+00:00 my-security-server-host correlation-id: [24b47d04dc6e1c49] INFO  [X-Road Proxy Admin REST API] 2020-06-03T11:00:51.944Z - {"event":"Register client","user":"admin1","auth":"Session","url":"/api/clients/LXD:GOV:M1:audit-test/register","data":{"clientIdentifier":{"xRoadInstance":"LXD","memberClass":"GOV","memberCode":"M1","subsystemCode":"audit-test","clientStatus":"registration in progress"}}}</code></p>
+<p>The event is present in JSON [<a href="#Ref_JSON">JSON</a>] format, in order to ensure machine processability.
+The field event represents the description of the event, the field user represents the user name of the performer, and the field data represents data related with the event.
+Field auth represents the authentication type, and url represents the API url.
+The failed action event record contains additional fields reason for the error message, and boolean warning to document whether failure was due to an unhandled warning.
+For example:</p>
+<p><code>2020-06-03T10:57:46+00:00 my-security-server-host correlation-id: [49458d51a0bbe9ed] INFO  [X-Road Proxy Admin REST API] 2020-06-03T10:57:46.417Z - {"event":"Log in to token failed","user":"admin1","reason":"org.niis.xroad.restapi.service.TokenService$PinIncorrectException: Signer.PinIncorrect: PIN incorrect","warning":false,"auth":"Session","url":"/api/tokens/0/login","data":{"tokenId":"0","tokenSerialNumber":null,"tokenFriendlyName":"softToken-0"}}</code></p>
 <p>By default, audit log is located in the file</p>
 <pre><code>/var/log/xroad/audit.log
 </code></pre>
@@ -2140,6 +2312,7 @@ RHEL: <code>yum reinstall xroad-addon-messagelog</code></p>
 <p>A window opens displaying the output of the restore script; click <strong>OK</strong> to close it.</p>
 </li>
 </ol>
+<p>If something goes wrong while restoring the configuration it is possible to revert back to the old configuration. Security Server stores so called pre-restore configuration automatically to <code>/var/lib/xroad/conf_prerestore_backup.tar</code>. Either move it to <code>/var/lib/xroad/backup/</code> folder and utilize the user interface to restore it or use the command line interaface described in the next chapter.</p>
 <p>To <strong>delete a configuration backup file</strong>, click <strong>Delete</strong> on the appropriate row in the configuration backup file list and then click <strong>Confirm</strong>.</p>
 <p>To <strong>upload a configuration backup file</strong> from the local file system to the security server, click <strong>Upload Backup File</strong>, select a file and click <strong>OK</strong>. The uploaded configuration file appears in the list of configuration files.</p>
 <h3>
@@ -2316,7 +2489,7 @@ tls-certificate = &lt;path/to/external/daemon/tls/cert&gt;
 <h4>
 <a id="1526-monitoring-health-data-over-jmxmp" class="anchor" href="#1526-monitoring-health-data-over-jmxmp" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>15.2.6 Monitoring Health Data over JMXMP</h4>
 <p>The operational monitoring daemon makes health data available over the JMXMP protocol. The Zabbix monitoring software can be configured to gather that data periodically, using its built in JMX interface type.</p>
-<p>By default, the operational monitoring daemon exposes health data over JMXMP on localhost, port 9011, with no authentication configured and TLS enabled (see <code>/etc/xroad/services/opmonitor.conf</code>). This configuration has to be customized for external tools such as Zabbix to be able to access the data. Please refer to the documentation at [<a href="#Ref_JMX">JMX</a>] for instructions on configuring access to the JMX interface of the operational monitoring daemon.</p>
+<p>By default, the operational monitoring daemon JMXMP is disabled. JMXMP must be enabled for external tools such as Zabbix to be able to access the data. Please refer to the documentation at [<a href="#Ref_JMX">JMX</a>] for instructions on configuring access to the JMX interface of the operational monitoring daemon.</p>
 <p>For Zabbix to be able to gather data over JMX, the Zabbix Java gateway must be installed. See [<a href="#Ref_ZABBIX-GATEWAY">ZABBIX-GATEWAY</a>] for instructions.</p>
 <p>The JMX interface must be configured to each host item in Zabbix, for which health data needs to be obtained. See [<a href="#Ref_ZABBIX-JMX">ZABBIX-JMX</a>] for instructions.</p>
 <p>Please refer to [<a href="#Ref_PR-OPMONJMX">PR-OPMONJMX</a>] for a specification of the names and attributes of the JMX objects exposed by the operational monitoring daemon.</p>
@@ -2331,7 +2504,7 @@ tls-certificate = &lt;path/to/external/daemon/tls/cert&gt;
 <h3>
 <a id="162-usage-via-jmx-api" class="anchor" href="#162-usage-via-jmx-api" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>16.2 Usage via JMX API</h3>
 <p>Environmental monitoring provides also a standard JMX endpoint which can be accessed with any JMX client (for example Java's jconsole application). See [<a href="#Ref_ARC-ENVMON">ARC-ENVMON</a>] for details.</p>
-<p>JMX is disabled on default. JMX is enabled by adding standard JMX-related options to the executable java process as in example by [<a href="#Ref_ZABBIX-JMX">ZABBIX-JMX</a>]. Monitor process options are defined in security server's path <code>/etc/xroad/services/monitor.conf</code>.</p>
+<p>JMX is disabled on default. JMX is enabled by adding standard JMX-related options to the executable java process as in example by [<a href="#Ref_ZABBIX-JMX">ZABBIX-JMX</a>].</p>
 <h3>
 <a id="163-limiting-environmental-monitoring-remote-data-set" class="anchor" href="#163-limiting-environmental-monitoring-remote-data-set" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>16.3 Limiting environmental monitoring remote data set</h3>
 <p>It is possibility to limit what allowed non-owners can request via environmental monotiring data request by changing monitor-env limit-remote-data-set parameter. By changing flag to be true non-owners who are allowed to query environmental monitoring data will get only certificate, operating system and xroad version information. This parameters is set by default false. Security server owner will always get full data set as requested.</p>
@@ -2371,19 +2544,29 @@ tls-certificate = &lt;path/to/external/daemon/tls/cert&gt;
 <td><code>/var/log/xroad/signer.log</code></td>
 </tr>
 <tr>
+<td><code>xroad-proxy-ui-api</code></td>
+<td>Management UI and REST API</td>
+<td>
+<code>/var/log/xroad/proxy_ui_api.log</code> and <br><code>/var/log/xroad/proxy_ui_api_access.log</code>
+</td>
+</tr>
+<tr>
 <td><code>nginx</code></td>
 <td>Web server that exchanges the services of the user interface's application server and the message exchanger</td>
 <td><code>/var/log/nginx/</code></td>
 </tr>
 </tbody>
 </table>
-<p>System services are managed through the <em>upstart</em> facility.</p>
+<p>System services are managed through the <em>systemd</em> facility.</p>
 <p><strong>To start a service</strong>, issue the following command as a <code>root</code> user:</p>
 <pre><code>service &lt;service&gt; start
 </code></pre>
 <p><strong>To stop a service</strong>, enter:</p>
 <pre><code>service &lt;service&gt; stop
 </code></pre>
+<p>Services use the <a href="https://www.freedesktop.org/software/systemd/man/systemd-system.conf.html#DefaultStartLimitIntervalSec=" rel="nofollow">default unit start rate limits</a>.
+An exception to this is <code>xroad-proxy-ui-api</code>, which uses a longer start rate limit (<a href="../../src/packages/src/xroad/ubuntu/bionic/debian/xroad-proxy-ui-api.service">5 starts / 40 seconds</a>)
+to prevent infinite restart-loop in some specific error situations.</p>
 <h3>
 <a id="172-logging-configuration" class="anchor" href="#172-logging-configuration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>17.2 Logging configuration</h3>
 <p>For logging, the <strong>Logback</strong> system is used. Logback configuration files are stored in the directory <code>/etc/xroad/conf.d/</code>.</p>
@@ -2434,7 +2617,161 @@ allowed-federations=xe-test, all, ee-test
 allowed-federations=xe-test, all, none, ee-test
 </code></pre>
 <h2>
-<a id="19-migrating-to-remote-database-host" class="anchor" href="#19-migrating-to-remote-database-host" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>19 Migrating to Remote Database Host</h2>
+<a id="19-management-rest-apis" class="anchor" href="#19-management-rest-apis" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>19 Management REST APIs</h2>
+<p>Security server has REST APIs that can be used to do all the same server configuration operations that can be done
+using the web UI.</p>
+<p>Management REST APIs are protected with an API key based authentication. To execute REST calls, API keys need to be created.</p>
+<p>All REST APIs are protected by TLS. Since server uses self signed certificate, the caller needs to accept this (for example
+with <code>curl</code> you need to use <code>--insecure</code> or <code>-k</code> option.</p>
+<p>Request sent to REST APIs have a <em>limit for maximum size</em>. If a too large request is sent
+to REST API, it will not be processed, and http status 413 Payload too large will be returned.
+There is a different limit for binary file uploads, and for other requests.</p>
+<p>Limits are</p>
+<ul>
+<li>10MB for file uploads</li>
+<li>50KB for other requests</li>
+</ul>
+<p>REST APIs are also <em>rate limited</em>. Rate limits apply per each calling IP. If the number of calls
+from one IP address exceeds the limit, REST APIs return http status 429 Too Many Requests.</p>
+<p>Limits are</p>
+<ul>
+<li>600 requests per minute</li>
+<li>20 requests per second</li>
+</ul>
+<p>If the default limits are too restricting (or too loose), they can be overridden with command line arguments. Limits are set with
+application properties</p>
+<ul>
+<li><code>request.sizelimit.regular</code></li>
+<li><code>request.sizelimit.binary.upload</code></li>
+<li><code>ratelimit.requests.per.second</code></li>
+<li><code>ratelimit.requests.per.minute</code></li>
+</ul>
+<p>Size limit parameters support formats from Formats from <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/util/unit/DataSize.html" rel="nofollow">DataSize</a>,
+for example <code>5MB</code>.</p>
+<p>Command line arguments can be modified using configuration file <code>local.conf</code>.
+Example from <code>/etc/xroad/services/local.conf</code> with modifications:</p>
+<pre><code>PROXY_UI_API_PARAMS=" $PROXY_UI_API_PARAMS -Dratelimit.requests.per.second=100"
+PROXY_UI_API_PARAMS=" $PROXY_UI_API_PARAMS -Drequest.sizelimit.binary.upload=1MB"
+</code></pre>
+<h3>
+<a id="191-api-key-management-operations" class="anchor" href="#191-api-key-management-operations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>19.1 API key management operations</h3>
+<p><strong>Access rights:</strong> <a href="#xroad-system-administrator">System Administrator</a></p>
+<p>An API key is linked to a role or roles, and grants access to the operations that are allowed for that role/roles.
+A separate REST api exists for API key management.
+API key management API is authenticated to with <a href="https://en.wikipedia.org/wiki/Basic_access_authentication" rel="nofollow">HTTP basic authentication</a> (username and password)
+or with session authentication (for admin web application).
+Basic authentication access is limited to localhost by default, but this can
+be changed using System Parameters [<a href="#Ref_UG-SYSPAR">UG-SYSPAR</a>].</p>
+<h4>
+<a id="1911-creating-new-api-keys" class="anchor" href="#1911-creating-new-api-keys" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>19.1.1 Creating new API keys</h4>
+<p>A new API key is created with a <code>POST</code> request to <code>/api/api-keys</code>. Message body must contain the roles to be
+associated with the key. Server responds with data that contains the actual API key. After this point the key
+cannot be retrieved, as it is not stored in plaintext.</p>
+<pre><code>curl -X POST -u &lt;user&gt;:&lt;password&gt; https://localhost:4000/api/api-keys --data '["XROAD_SECURITYSERVER_OBSERVER","XROAD_REGISTRATION_OFFICER"]' --header "Content-Type: application/json" -k
+{
+  "roles": [
+    "XROAD_REGISTRATION_OFFICER",
+    "XROAD_SECURITYSERVER_OBSERVER"
+  ],
+  "id": 61,
+  "key": "23bc57cd-b1ba-4702-9657-8d53e335c843"
+}
+
+</code></pre>
+<p>In this example the created key was <code>23bc57cd-b1ba-4702-9657-8d53e335c843</code>.</p>
+<h4>
+<a id="1912-listing-api-keys" class="anchor" href="#1912-listing-api-keys" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>19.1.2 Listing API keys</h4>
+<p>Existing API keys can be listed with a <code>GET</code> request to <code>/api/api-keys</code>. This lists all keys, regardless of who has created them.</p>
+<pre><code>curl -X GET -u &lt;user&gt;:&lt;password&gt; https://localhost:4000/api/api-keys -k
+[
+  {
+    "id": 59,
+    "roles": [
+      "XROAD_REGISTRATION_OFFICER",
+      "XROAD_SECURITYSERVER_OBSERVER",
+      "XROAD_SERVICE_ADMINISTRATOR"
+    ]
+  },
+  {
+    "id": 60,
+...
+
+</code></pre>
+<h4>
+<a id="1913-updating-api-keys" class="anchor" href="#1913-updating-api-keys" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>19.1.3 Updating API keys</h4>
+<p>An existing API key is updated with a <code>PUT</code> request to <code>/api/api-key/{id}</code>. Message body must contain the roles to be
+associated with the key. Server responds with data that contains the key id and roles associated with the key.</p>
+<pre><code>curl -X PUT -u &lt;user&gt;:&lt;password&gt; https://localhost:4000/api/api-key/60 --data '["XROAD_SECURITYSERVER_OBSERVER","XROAD_REGISTRATION_OFFICER"]' --header "Content-Type: application/json" -k
+{
+  "id": 60,
+  "roles": [
+    "XROAD_REGISTRATION_OFFICER",
+    "XROAD_SECURITYSERVER_OBSERVER"
+  ]
+}
+
+</code></pre>
+<h4>
+<a id="1914-revoking-api-keys" class="anchor" href="#1914-revoking-api-keys" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>19.1.4 Revoking API keys</h4>
+<p>An API key can be revoked with a <code>DELETE</code> request to <code>/api/api-keys/{id}</code>. Server responds with <code>HTTP 200</code> if
+revocation was successful and <code>HTTP 404</code> if key did not exist.</p>
+<pre><code>curl -X DELETE -u &lt;user&gt;:&lt;password&gt; https://localhost:4000/api/api-keys/60  -k
+
+</code></pre>
+<h4>
+<a id="1915-api-key-caching" class="anchor" href="#1915-api-key-caching" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>19.1.5 API key caching</h4>
+<p>API keys are cached in memory. In typical security server configurations this does not create problems.
+However, if you have configured a setup where multiple security servers share the same <code>serverconf</code> database,
+and use multiple nodes to access REST APIs and execute API key management operations, the caches of different nodes
+can become out of sync.</p>
+<p>For example, you may revoke an API key from node 1 but node 2 is not aware of this, and still grants access to
+REST APIs with this API key.</p>
+<p>If you operate such a configuration, you need to target all REST API operations to the same security server node,
+or otherwise ensure that caching will not create problems (for example, always restart REST API modules when API key
+operations are executed).</p>
+<h3>
+<a id="192-executing-rest-calls" class="anchor" href="#192-executing-rest-calls" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>19.2 Executing REST calls</h3>
+<p><strong>Access rights:</strong> Depends on the API.</p>
+<p>Once a valid API key has been created, it is used by providing an <code>Authorization: X-Road-ApiKey token=&lt;api key&gt;</code> HTTP
+header in the REST calls. For example</p>
+<pre><code>curl --header "Authorization: X-Road-apikey token=ff6f55a8-cc63-4e83-aa4c-55f99dc77bbf" "https://localhost:4000/api/clients" -k
+[
+  {
+    "id": "XRD2:GOV:999:foobar",
+    "member_name": Foo Name,
+    "member_class": "GOV",
+    "member_code": "999",
+    "subsystem_code": "SUBS_1",
+    "status": "saved
+...
+</code></pre>
+<p>The available APIs are documented in OpenAPI specification (TBD). Access rights for different APIs follow the same rules
+as the corresponding UI operations.
+Access to regular APIs is allowed from all IP addresses by default, but this can
+be changed using System Parameters [<a href="#Ref_UG-SYSPAR">UG-SYSPAR</a>].</p>
+<h3>
+<a id="193-correlation-id-http-header" class="anchor" href="#193-correlation-id-http-header" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>19.3 Correlation ID HTTP header</h3>
+<p>The REST APIs return an <strong>X-Road-UI-Correlation-ID</strong> HTTP header. This header is also logged in <code>proxy_ui_api.log</code>, so it
+can be used to find the log messages related to a specific API call.</p>
+<p>The correlation ID header is returned for all requests, both successful and failed ones.</p>
+<p>For example, these log messages are related to an API call with correlation ID <code>3d5f193102435242</code>:</p>
+<pre><code>2019-08-26 13:16:23,611 [https-jsse-nio-4000-exec-10] correlation-id:[3d5f193102435242] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - The HttpSession is currently null, and the HttpSessionSecurityContextRepository is prohibited from creating an HttpSession (because the allowSessionCreation property is false) - SecurityContext thus not stored for next request
+2019-08-26 13:16:23,611 [https-jsse-nio-4000-exec-10] correlation-id:[3d5f193102435242] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.niis.xroad.restapi.exceptions.ConflictException: local group with code koodi6 already added]
+2019-08-26 13:16:23,611 [https-jsse-nio-4000-exec-10] correlation-id:[3d5f193102435242] DEBUG o.s.s.w.a.ExceptionTranslationFilter - Chain processed normally
+</code></pre>
+<h3>
+<a id="194-validation-errors" class="anchor" href="#194-validation-errors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>19.4 Validation errors</h3>
+<p>An error response from the REST API can include validation errors if an unsupported parameter was provided with the request.</p>
+<p>In addition to the validation messages declared in Java Validation API, the following validation errors are possible:</p>
+<pre><code>Normalized
+NoColons
+NoSemicolons
+NoForwardslashes
+NoBackslashes
+NoPercents
+</code></pre>
+<h2>
+<a id="20-migrating-to-remote-database-host" class="anchor" href="#20-migrating-to-remote-database-host" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>20 Migrating to Remote Database Host</h2>
 <p>Since version <code>6.22.0</code> Security Server supports using remote databases. In case you have an already running Security Server with local database, it is possible to migrate it to use remote database host instead. The instructions for this process are listed below.</p>
 <ol>
 <li>
