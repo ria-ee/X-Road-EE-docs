@@ -266,7 +266,7 @@ To install the X-Road security server software on *Ubuntu* operating system, fol
 4. Issue the following commands to install the security server packages (use package xroad-securityserver-ee to include configuration specific to Estonia; use package xroad-securityserver-fi to include configuration specific to Finland):
 
         sudo apt-get update
-        sudo apt-get install xroad-securityserver
+        sudo apt-get install xroad-securityserver-ee
 
 Upon the first installation of the packages, the system asks for the following information.
 
@@ -532,7 +532,7 @@ The interrupted installation can be finished using
 
 ### 4.5 Different versions of xroad-\* packages after successful upgrade
 
-Sometimes, after using `sudo apt-get upgrade` command, some of the packages are not upgraded. In the following example `xroad-securityserver` package version is still 6.8.3 although other packages are upgraded to 6.8.5:
+Sometimes, after using `sudo apt-get upgrade` command, some of the packages are not upgraded. In the following example `xroad-securityserver-ee` package version is still 6.8.3 although other packages are upgraded to 6.8.5:
 
     # sudo dpkg -l | grep xroad-
     ii xroad-addon-messagelog 6.8.5.20160929134539gitfe60f90
@@ -541,7 +541,7 @@ Sometimes, after using `sudo apt-get upgrade` command, some of the packages are 
     ii xroad-common 6.8.5.20160929134539gitfe60f90
     ii xroad-jetty9 6.8.5.20160929134539gitfe60f90
     ii xroad-proxy 6.8.5.20160929134539gitfe60f90
-    ii xroad-securityserver 6.8.3-3-201605131138
+    ii xroad-securityserver-ee 6.8.3-3-201605131138
 
 `apt-get upgrade` command doesn’t install new packages - in this particular case new packages `xroad-monitor` and `xroad-addon-proxymonitor` installation is needed for upgrade of `xroad-securityserver` package.
 
