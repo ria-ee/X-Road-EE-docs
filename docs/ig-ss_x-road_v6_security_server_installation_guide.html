@@ -738,7 +738,7 @@ postgres.connection.user = {database superuser name, postgres by default}
 <li>
 <p>Issue the following commands to install the security server packages (use package xroad-securityserver-ee to include configuration specific to Estonia; use package xroad-securityserver-fi to include configuration specific to Finland):</p>
 <pre><code> sudo apt-get update
- sudo apt-get install xroad-securityserver
+ sudo apt-get install xroad-securityserver-ee
 </code></pre>
 </li>
 </ol>
@@ -1124,7 +1124,7 @@ Aborting installation! please fix issues and rerun with apt-get -f install,
 </code></pre>
 <h3>
 <a id="45-different-versions-of-xroad--packages-after-successful-upgrade" class="anchor" href="#45-different-versions-of-xroad--packages-after-successful-upgrade" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.5 Different versions of xroad-* packages after successful upgrade</h3>
-<p>Sometimes, after using <code>sudo apt-get upgrade</code> command, some of the packages are not upgraded. In the following example <code>xroad-securityserver</code> package version is still 6.8.3 although other packages are upgraded to 6.8.5:</p>
+<p>Sometimes, after using <code>sudo apt-get upgrade</code> command, some of the packages are not upgraded. In the following example <code>xroad-securityserver-ee</code> package version is still 6.8.3 although other packages are upgraded to 6.8.5:</p>
 <pre><code># sudo dpkg -l | grep xroad-
 ii xroad-addon-messagelog 6.8.5.20160929134539gitfe60f90
 ii xroad-addon-metaservices 6.8.5.20160929134539gitfe60f90
@@ -1132,7 +1132,7 @@ ii xroad-addon-wsdlvalidator 6.8.5.20160929134539gitfe60f90
 ii xroad-common 6.8.5.20160929134539gitfe60f90
 ii xroad-jetty9 6.8.5.20160929134539gitfe60f90
 ii xroad-proxy 6.8.5.20160929134539gitfe60f90
-ii xroad-securityserver 6.8.3-3-201605131138
+ii xroad-securityserver-ee 6.8.3-3-201605131138
 </code></pre>
 <p><code>apt-get upgrade</code> command doesn’t install new packages - in this particular case new packages <code>xroad-monitor</code> and <code>xroad-addon-proxymonitor</code> installation is needed for upgrade of <code>xroad-securityserver</code> package.</p>
 <p>To be sure that packages are installed correctly please use <code>sudo apt upgrade</code> or <code>sudo apt full-upgrade</code> commands.</p>
