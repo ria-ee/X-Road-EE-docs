@@ -192,7 +192,7 @@ It is strongly recommended to protect the security server from unwanted access u
 
  **Caution**: The enabling of auxiliary services which are necessary for the functioning and management of the operating system (such as DNS, NTP, and SSH) stay outside the scope of this guide.
 
- ![network diagram](img/ig-ss_network_diagram.png)
+ ![network diagram](img/ig-ss_network_diagram_Ubuntu.png)
 
  #### 2.3.1 RIA IP's for Whitelisting
  Type | **EE - production** | **ee-test**	| **ee-dev**
@@ -242,6 +242,8 @@ Requirements to software and settings:
 ### 2.5 Installation
 
 To install the X-Road security server software on *Ubuntu* operating system, follow these steps.
+
+1. Add to /etc/apt/sources.list.d/xroad.list the address of X-Road package repository (reference data: 1.1) and the nginx repository:
 
         deb http://x-tee.ee/packages/live/xroad bionic main
 

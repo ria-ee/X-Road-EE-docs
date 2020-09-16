@@ -635,7 +635,7 @@ Doc. ID: IG-SS</p>
 <p>The following network diagram is an example of a simple stand-alone Security Server setup. Attention should be paid when configuring the firewall of your Security Server, as misconfigurations (e.g. exposing port 80/tcp to the public internet) can leave your server vulnerable. <strong>IP whitelisting should be used for all ports that are open to the external network.</strong></p>
 <p>Allowing incoming connections from the Monitoring Security Server on ports 5500/tcp and 5577/tcp (<a href="#231-ria-ips-for-whitelisting">monitoring server IP's</a>) is necessary for the X-Road Center to be able to monitor the ecosystem and provide statistics and support for Members.</p>
 <p><strong>Caution</strong>: The enabling of auxiliary services which are necessary for the functioning and management of the operating system (such as DNS, NTP, and SSH) stay outside the scope of this guide.</p>
-<p><a href="img/ig-ss_network_diagram.png" target="_blank" rel="noopener noreferrer"><img src="img/ig-ss_network_diagram.png" alt="network diagram" style="max-width:100%;"></a></p>
+<p><a href="img/ig-ss_network_diagram_Ubuntu.png" target="_blank" rel="noopener noreferrer"><img src="img/ig-ss_network_diagram_Ubuntu.png" alt="network diagram" style="max-width:100%;"></a></p>
 <h4>
 <a id="231-ria-ips-for-whitelisting" class="anchor" href="#231-ria-ips-for-whitelisting" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3.1 RIA IP's for Whitelisting</h4>
 <table>
@@ -712,9 +712,12 @@ Doc. ID: IG-SS</p>
 <h3>
 <a id="25-installation" class="anchor" href="#25-installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.5 Installation</h3>
 <p>To install the X-Road security server software on <em>Ubuntu</em> operating system, follow these steps.</p>
-<pre><code>    deb http://x-tee.ee/packages/live/xroad bionic main
+<ol>
+<li>
+<p>Add to /etc/apt/sources.list.d/xroad.list the address of X-Road package repository (reference data: 1.1) and the nginx repository:</p>
+<pre><code> deb http://x-tee.ee/packages/live/xroad bionic main
 </code></pre>
-<ol start="2">
+</li>
 <li>
 <p>Add the X-Road repository’s signing key to the list of trusted keys (<strong>reference data: 1.2</strong>):</p>
 <pre><code>curl http://x-tee.ee/packages/live/xroad/repo.gpg | sudo apt-key add -
