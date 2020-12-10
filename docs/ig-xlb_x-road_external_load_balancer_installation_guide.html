@@ -79,6 +79,24 @@ Doc. ID: IG-XLB</p>
 <td>Remove Ubuntu 14.04 support</td>
 <td>Jarkko Hyöty</td>
 </tr>
+<tr>
+<td>08.10.2020</td>
+<td>1.8</td>
+<td>Added notes about API keys and caching</td>
+<td>Janne Mattila</td>
+</tr>
+<tr>
+<td>19.10.2020</td>
+<td>1.9</td>
+<td>Remove xroad-jetty and nginx mentions and add xroad-proxy-ui-api</td>
+<td>Caro Hautamäki</td>
+</tr>
+<tr>
+<td>19.10.2020</td>
+<td>1.10</td>
+<td>Added information about management REST API permissions</td>
+<td>Petteri Kivimäki</td>
+</tr>
 </tbody>
 </table>
 <h2>
@@ -469,9 +487,10 @@ server-support-clients-pooled-connections=false
 <a id="33-slave-installation" class="anchor" href="#33-slave-installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.3 Slave installation</h3>
 <ol>
 <li>
-<p>Install security server packages using the normal installation procedure. <code>nginx</code> or <code>xroad-jetty</code> packages  are not
-required for slave nodes, but the admin graphical user interface (which requires these packages) can be handy for
-diagnostics. It should be noted that changing a slave's configuration via the admin gui is not possible.</p>
+<p>Install security server packages using the normal installation procedure. Alternatively you can also install only the packages
+required for slave nodes. <code>xroad-proxy-ui-api</code> package can be omitted, but the admin graphical user interface
+(which is provided by this package) can be handy for diagnostics. It should be noted that changing a slave's
+configuration via the admin gui is not possible.</p>
 </li>
 <li>
 <p>Stop the xroad services.</p>
@@ -501,9 +520,9 @@ defined in the master database (the password is part of the data that is replica
 <p>Set up state synchronization using rsync+ssh. See section
 <a href="#5-configuring-data-replication-with-rsync-over-ssh">5. Configuring data replication with rsync over SSH</a></p>
 <ul>
-<li>Make the inital synchronization between the master and the slave.</li>
+<li>Make the initial synchronization between the master and the slave.</li>
 </ul>
-<div class="highlight highlight-source-shell"><pre>rsync -e ssh -avz --delete --exclude db.properties --exclude <span class="pl-s"><span class="pl-pds">"</span>/postgresql<span class="pl-pds">"</span></span> --exclude <span class="pl-s"><span class="pl-pds">"</span>/conf.d/node.ini<span class="pl-pds">"</span></span> --exclude <span class="pl-s"><span class="pl-pds">"</span>/nginx<span class="pl-pds">"</span></span> xroad-slave@<span class="pl-k">&lt;</span>master<span class="pl-k">&gt;</span>:/etc/xroad/ /etc/xroad/</pre></div>
+<div class="highlight highlight-source-shell"><pre>rsync -e ssh -avz --delete --exclude db.properties --exclude <span class="pl-s"><span class="pl-pds">"</span>/postgresql<span class="pl-pds">"</span></span> --exclude <span class="pl-s"><span class="pl-pds">"</span>/conf.d/node.ini<span class="pl-pds">"</span></span> xroad-slave@<span class="pl-k">&lt;</span>master<span class="pl-k">&gt;</span>:/etc/xroad/ /etc/xroad/</pre></div>
 <p>Where <code>&lt;master&gt;</code> is the master server's DNS or IP address.</p>
 </li>
 <li>
@@ -525,6 +544,21 @@ type=slave</pre></div>
 </ul>
 <p>After removing these groups, the super user created during the security server installation is a member of only one UI privilege group: <code>xroad-securityserver-observer</code>. This group allows read-only access to the admin user interface and provides a safe way to use the UI for checking the configuration status of the slave security server. Since admin UI users are UNIX users that are members of specific privilege groups, more users can be added to the read-only group as necessary. Security server installation scripts detect the node type of existing installations and modify user group creation accordingly so as to not overwrite this configuration step during security server updates.</p>
 <p>For more information on user groups and their effect on admin user interface privileges in the security server, see the  Security Server User Guide [<a href="#13-references">UG-SS</a>].</p>
+<p>Also, the slave security server's management REST API can be used to read the slave's configuration. However, modifying the slave's configuration using the management REST API is blocked. API keys are replicated from the master to the slaves, and the keys that are associated with the <code>xroad-securityserver-observer</code> role have read-only access to the slave. The keys that are not associated with the <code>xroad-securityserver-observer</code> role, don't have any access to the slave. See next item for more details.</p>
+<p>For more information on the management REST API, see the  Security Server User Guide [<a href="#13-references">UG-SS</a>].</p>
+</li>
+<li>
+<p>Note about API keys and caching.
+If API keys have been created for master node, those keys are replicated to slaves, like everything else from <code>serverconf</code> database is.
+The keys that are associated with the <code>xroad-securityserver-observer</code> role have read-only access to the slave.
+Instead, the keys that are not associated with the <code>xroad-securityserver-observer</code> role, don't have any access to the slave and API calls will fail.
+To avoid this, slave REST API should only be accessed using keys associated with the <code>xroad-securityserver-observer</code> role, and only for operations that read configuration, not updates. </p>
+<p>
+Furthermore, API keys are accessed through a cache that assumes that all updates to keys (e.g. revoking keys, or changing permissions) are done using the same node.
+If API keys are changed on master, the changes are not reflected on the slave caches until the next time <code>xroad-proxy-ui-api</code> process is restarted.
+To address this issue, you should restart slave nodes' <code>xroad-proxy-ui-api</code> processes after API keys are modified (and database has been replicated to slaves), to ensure correct operation.</p>
+<p>
+Improvements to API key handling in clustered setups will be included in later releases.</p>
 </li>
 <li>
 <p>It is possible to use the autologin-package with slave nodes to enable automatic PIN-code insertion, however the autologin-package default implementation stores PIN-codes in plain text and should not be used in production environments. Instructions on how to configure the autologin-package to use a more secure custom PIN-code storing implementation can be found in <a href="../Utils/ug-autologin_x-road_v6_autologin_user_guide.html">autologin documentation</a></p>
@@ -849,7 +883,7 @@ After=network.target
 Before=xroad-proxy.service
 Before=xroad-signer.service
 Before=xroad-confclient.service
-Before=xroad-jetty.service
+Before=xroad-proxy-ui-api.service
 [Service]
 User=xroad
 Group=xroad
@@ -859,7 +893,7 @@ Environment=MASTER=&lt;master_host&gt;
 
 ExecStartPre=/usr/bin/test ! -f /var/tmp/xroad/sync-disabled
 
-ExecStart=/usr/bin/rsync -e "ssh -o ConnectTimeout=5 " -aqz --timeout=10 --delete-delay --exclude db.properties --exclude "/conf.d/node.ini" --exclude "*.tmp" --exclude "/postgresql" --exclude "/nginx" --exclude "/globalconf" --exclude "/jetty" --delay-updates --log-file=/var/log/xroad/slave-sync.log ${XROAD_USER}@${MASTER}:/etc/xroad/ /etc/xroad/
+ExecStart=/usr/bin/rsync -e "ssh -o ConnectTimeout=5 " -aqz --timeout=10 --delete-delay --exclude db.properties --exclude "/conf.d/node.ini" --exclude "*.tmp" --exclude "/postgresql" --exclude "/globalconf" --delay-updates --log-file=/var/log/xroad/slave-sync.log ${XROAD_USER}@${MASTER}:/etc/xroad/ /etc/xroad/
 [Install]
 WantedBy=multi-user.target
 WantedBy=xroad-proxy.service
@@ -1012,7 +1046,7 @@ disrupt message delivery while the online option should allow upgrades with mini
 <a id="71-offline-upgrade" class="anchor" href="#71-offline-upgrade" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>7.1 Offline upgrade</h3>
 <p>If the X-Road security server cluster can be shut down for an offline upgrade, the procedure remains fairly simple:</p>
 <ol>
-<li>Stop the X-Road services (<code>xroad-proxy</code>, <code>xroad-signer</code>, <code>xroad-confclient</code>, <code>xroad-jetty</code> and <code>xroad-monitor</code>) on all
+<li>Stop the X-Road services (<code>xroad-proxy</code>, <code>xroad-signer</code>, <code>xroad-confclient</code>, <code>xroad-proxy-ui-api</code> and <code>xroad-monitor</code>) on all
 the nodes. You can read more about the services in the Security Server User Guide
 [<a href="#13-references">UG-SS</a>] chapter on <a href="ug-ss_x-road_6_security_server_user_guide.html#161-system-services">System services</a>.</li>
 <li>Upgrade the packages on the master node to the new software version.</li>
@@ -1069,7 +1103,7 @@ new requests are routed to other nodes (<em>connection draining</em>).</p>
 </li>
 <li>
 <p><a name="master-upgrade-step-2">Check</a> that the master is no longer processing requests and stop the X-Road services
-(<code>xroad-proxy</code>, <code>xroad-signer</code>, <code>xroad-confclient</code>, <code>xroad-jetty</code>, <code>xroad-monitor</code>) on the master node. You can read
+(<code>xroad-proxy</code>, <code>xroad-signer</code>, <code>xroad-confclient</code>, <code>xroad-monitor</code>, <code>xroad-proxy-ui-api</code>) on the master node. You can read
 more about the services in the Security Server User Guide
 [<a href="#13-references">UG-SS</a>] chapter on <a href="ug-ss_x-road_6_security_server_user_guide.html#161-system-services">System services</a>.</p>
 <p>To ensure that the node is no longer processing requests, you can monitor <code>/var/log/xroad/proxy.log</code> to verify that

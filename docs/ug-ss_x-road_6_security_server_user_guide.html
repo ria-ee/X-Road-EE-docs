@@ -19,14 +19,14 @@
 <table>
 <thead>
 <tr>
-<th align="right"><a href="img/eu_regional_development_fund_horizontal_div_15.png" target="_blank" rel="noopener noreferrer"><img src="img/eu_regional_development_fund_horizontal_div_15.png" alt="European Union / European Regional Development Fund / Investing in your future" title="Documents that are tagged with EU/SF logos must keep the logos until 1.1.2022, if it has not stated otherwise in the documentation. If new documentation is created  using EU/SF resources the logos must be tagged appropriately so that the deadline for logos could be found." style="max-width:100%;"></a></th>
+<th align="right"><a href="img/eu_rdf_75_en.png" target="_blank" rel="noopener noreferrer"><img src="img/eu_rdf_75_en.png" alt="European Union / European Regional Development Fund / Investing in your future" title="Documents that are tagged with EU/SF logos must keep the logos until 1.1.2022, if it has not stated otherwise in the documentation. If new documentation is created  using EU/SF resources the logos must be tagged appropriately so that the deadline for logos could be found." style="max-width:100%;"></a></th>
 </tr>
 </thead>
 </table>
 <h1>
 <a id="security-server-user-guide-" class="anchor" href="#security-server-user-guide-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SECURITY SERVER USER GUIDE </h1>
 <p><strong>X-ROAD 6</strong></p>
-<p>Version: 2.46
+<p>Version: 2.53<br>
 Doc. ID: UG-SS</p>
 <hr>
 <h2>
@@ -98,7 +98,7 @@ Doc. ID: UG-SS</p>
 <tr>
 <td>30.04.2015</td>
 <td>1.3</td>
-<td>“sdsb” changed to “xroad”</td>
+<td>"sdsb" changed to "xroad"</td>
 <td></td>
 </tr>
 <tr>
@@ -310,7 +310,7 @@ Doc. ID: UG-SS</p>
 <tr>
 <td>26.03.2019</td>
 <td>2.26</td>
-<td>Added chapter on API keys <a href="#19-management-rest-apis">19</a>
+<td>Added chapter on API keys <a href="#19-management-rest-api">19</a>
 </td>
 <td>Janne Mattila</td>
 </tr>
@@ -398,7 +398,7 @@ Doc. ID: UG-SS</p>
 <tr>
 <td>01.04.2020</td>
 <td>2.40</td>
-<td>Added notes about IP whitelists for APIs</td>
+<td>Added notes about IP whitelists for REST API</td>
 <td>Janne Mattila</td>
 </tr>
 <tr>
@@ -441,6 +441,52 @@ Doc. ID: UG-SS</p>
 </td>
 <td>Janne Mattila</td>
 </tr>
+<tr>
+<td>21.09.2020</td>
+<td>2.47</td>
+<td>Added a validation error example to <a href="#194-validation-errors">19.4 Validation errors</a>
+</td>
+<td>Caro Hautamäki</td>
+</tr>
+<tr>
+<td>29.09.2020</td>
+<td>2.48</td>
+<td>Update chapters <a href="#3-security-server-registration">3</a>, <a href="#4-security-server-clients">4</a>, <a href="#6-x-road-services">6</a>, <a href="#7-access-rights">7</a>, <a href="#8-local-access-right-groups">8</a> and <a href="#13-back-up-and-restore">13</a> to match the new management API</td>
+<td>Tapio Jaakkola</td>
+</tr>
+<tr>
+<td>30.09.2020</td>
+<td>2.49</td>
+<td>Update chapters <a href="#3-security-server-registration">3</a>, <a href="#5-security-tokens-keys-and-certificates">5</a>, <a href="#9-communication-with-the-client-information-systems">9</a>, <a href="#10-system-parameters">10</a>, <a href="#14-diagnostics">14</a> and <a href="#17-logs-and-system-services">17</a> to match the new management API</td>
+<td>Caro Hautamäki</td>
+</tr>
+<tr>
+<td>10.10.2020</td>
+<td>2.50</td>
+<td>Corrections in Chapter <a href="#19-management-rest-api">19 Management REST API</a>
+</td>
+<td>Janne Mattila</td>
+</tr>
+<tr>
+<td>13.10.2020</td>
+<td>2.51</td>
+<td>Added a section about the warning responses <a href="#195-warning-responses">19.5 Warning responses</a>
+</td>
+<td>Caro Hautamäki</td>
+</tr>
+<tr>
+<td>15.10.2020</td>
+<td>2.52</td>
+<td>Added chapter <a href="#23-managing-api-keys">2.3 Managing API Keys</a>
+</td>
+<td>Caro Hautamäki</td>
+</tr>
+<tr>
+<td>22.10.2020</td>
+<td>2.53</td>
+<td>Added reference to management REST API's OpenAPI description</td>
+<td>Petteri Kivimäki</td>
+</tr>
 </tbody>
 </table>
 <h2>
@@ -462,6 +508,14 @@ Doc. ID: UG-SS</p>
 <ul>
 <li><a href="#21-user-roles">2.1 User Roles</a></li>
 <li><a href="#22-managing-the-users">2.2 Managing the Users</a></li>
+<li>
+<a href="#23-managing-api-keys">2.3 Managing API Keys</a>
+<ul>
+<li><a href="#231-creating-a-new-api-key">2.3.1 Creating a new API key</a></li>
+<li><a href="#232-editing-the-roles-of-an-api-key">2.3.2 Editing the roles of an API key</a></li>
+<li><a href="#233-revoking-an-api-key">2.3.3 Revoking an API key</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li>
@@ -470,10 +524,9 @@ Doc. ID: UG-SS</p>
 <li>
 <a href="#31-configuring-the-signing-key-and-certificate-for-the-security-server-owner">3.1 Configuring the Signing Key and Certificate for the Security Server Owner</a>
 <ul>
-<li><a href="#311-generating-a-signing-key">3.1.1 Generating a Signing Key</a></li>
-<li><a href="#312-generating-a-certificate-signing-request-for-a-signing-key">3.1.2 Generating a Certificate Signing Request for a Signing Key</a></li>
-<li><a href="#313-importing-a-certificate-from-the-local-file-system">3.1.3 Importing a Certificate from the Local File System</a></li>
-<li><a href="#314-importing-a-certificate-from-a-security-token">3.1.4 Importing a Certificate from a Security Token</a></li>
+<li><a href="#311-generating-a-signing-key-and-certificate-signing-request">3.1.1 Generating a Signing Key and Certificate Signing Request</a></li>
+<li><a href="#312-importing-a-certificate-from-the-local-file-system">3.1.2 Importing a Certificate from the Local File System</a></li>
+<li><a href="#313-importing-a-certificate-from-a-security-token">3.1.3 Importing a Certificate from a Security Token</a></li>
 </ul>
 </li>
 <li>
@@ -517,7 +570,7 @@ Doc. ID: UG-SS</p>
 <li>
 <a href="#5-security-tokens-keys-and-certificates">5 Security Tokens, Keys, and Certificates</a>
 <ul>
-<li><a href="#51-availability-states-of-security-tokens-keys-and-certificates">5.1 Availability States of Security Tokens, Keys, and Certificates</a></li>
+<li><a href="#51-availability-states-of-security-tokens">5.1 Availability States of Security Tokens</a></li>
 <li>
 <a href="#52-registration-states-of-certificates">5.2 Registration States of Certificates</a>
 <ul>
@@ -659,7 +712,7 @@ Doc. ID: UG-SS</p>
 </li>
 <li><a href="#18-federation">18 Federation</a></li>
 <li>
-<a href="#19-management-rest-apis">19 Management REST APIs</a>
+<a href="#19-management-rest-api">19 Management REST API</a>
 <ul>
 <li>
 <a href="#191-api-key-management-operations">19.1 API key management operations</a>
@@ -674,6 +727,7 @@ Doc. ID: UG-SS</p>
 <li><a href="#192-executing-rest-calls">19.2 Executing REST calls</a></li>
 <li><a href="#193-correlation-id-http-header">19.3 Correlation ID HTTP header</a></li>
 <li><a href="#194-validation-errors">19.4 Validation errors</a></li>
+<li><a href="#195-warning-responses">19.5 Warning responses</a></li>
 </ul>
 </li>
 <li><a href="#20-migrating-to-remote-database-host">20 Migrating to Remote Database Host</a></li>
@@ -689,7 +743,7 @@ Doc. ID: UG-SS</p>
 <h3>
 <a id="11-the-x-road-security-server" class="anchor" href="#11-the-x-road-security-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.1 The X-Road Security Server</h3>
 <p>The main function of a security server is to mediate requests in a way that preserves their evidential value.</p>
-<p>The security server is connected to the public Internet from one side and to the information system within the organization's internal network from the other side. In a sense, the security server can be seen as a specialized application-level firewall that supports the SOAP protocol; hence, it should be set up in parallel with the organization's firewall, which mediates other protocols.</p>
+<p>The security server is connected to the public Internet from one side and to the information system within the organization's internal network from the other side. In a sense, the security server can be seen as a specialized application-level firewall that supports the SOAP and REST protocols; hence, it should be set up in parallel with the organization's firewall, which mediates other protocols.</p>
 <p>The security server is equipped with the functionality needed to secure the message exchange between a client and a service provider.</p>
 <ul>
 <li>
@@ -792,6 +846,9 @@ Doc. ID: UG-SS</p>
 <li>
 <p><a id="Ref_UG-SYSPAR"></a>[UG-SYSPAR] X-Road: System Parameters User Guide. Document ID: <a href="../Manuals/ug-syspar_x-road_v6_system_parameters.html">UG-SYSPAR</a>.</p>
 </li>
+<li>
+<p><a id="Ref_REST_UI-API"></a>[REST_UI-API] X-Road Security Server Admin API OpenAPI Specification, <a href="https://github.com/nordic-institute/X-Road/blob/develop/src/proxy-ui-api/src/main/resources/openapi-definition.yaml">https://github.com/nordic-institute/X-Road/blob/develop/src/proxy-ui-api/src/main/resources/openapi-definition.yaml</a>.</p>
+</li>
 </ol>
 <h2>
 <a id="2-user-management" class="anchor" href="#2-user-management" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2 User Management</h2>
@@ -835,10 +892,81 @@ adduser username xroad-securityserver-observer
 <p>To remove a user permission, remove the user from the corresponding system group, for example:</p>
 <pre><code>deluser username xroad-security-officer
 </code></pre>
-<p>User permissions are applied only after restart of the xroad-jetty service (see Section <a href="#171-system-services">16.1</a>).</p>
+<p>Modified user permissions are applied only after user does a new log in.</p>
 <p>To remove a user, enter:</p>
 <pre><code>deluser username
 </code></pre>
+<h3>
+<a id="23-managing-api-keys" class="anchor" href="#23-managing-api-keys" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3 Managing API Keys</h3>
+<p>API keys are used to authenticate API calls to Security Server's management REST API. API keys are associated with roles that define the permissions granted to the API key. If the API key is lost, it can be revoked.</p>
+<h4>
+<a id="231-creating-a-new-api-key" class="anchor" href="#231-creating-a-new-api-key" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3.1 Creating a new API key</h4>
+<p><strong>Access rights</strong></p>
+<ul>
+<li>All activities: <a href="#xroad-system-administrator">System Administrator</a>
+</li>
+</ul>
+<ol>
+<li>
+<p>In the <strong>Navigation tabs</strong>, select <strong>KEYS AND CERTIFICATES</strong>.</p>
+</li>
+<li>
+<p>In the opening view, select <strong>API KEYS</strong> tab.</p>
+</li>
+<li>
+<p>In the opening view, click <strong>CREATE API KEY</strong>. In the wizard that opens</p>
+<ol>
+<li>
+<p>Select the roles you want to be associated with the API key. Click <strong>NEXT</strong>.</p>
+</li>
+<li>
+<p>Click <strong>CREATE KEY</strong>. The API key, API key id and assigned roles will be displayed in the view. <strong>The API key will only be displayed this once so save it in a secure location</strong>.</p>
+</li>
+<li>
+<p>Click <strong>FINISH</strong>.</p>
+</li>
+</ol>
+</li>
+</ol>
+<h4>
+<a id="232-editing-the-roles-of-an-api-key" class="anchor" href="#232-editing-the-roles-of-an-api-key" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3.2 Editing the roles of an API key</h4>
+<p><strong>Access rights</strong></p>
+<ul>
+<li>All activities: <a href="#xroad-system-administrator">System Administrator</a>
+</li>
+</ul>
+<ol>
+<li>
+<p>In the <strong>Navigation tabs</strong>, select <strong>KEYS AND CERTIFICATES</strong>.</p>
+</li>
+<li>
+<p>In the opening view, select <strong>API KEYS</strong> tab.</p>
+</li>
+<li>
+<p>In the opening view, in the API key list, locate the API key you want to edit and click <strong>Edit</strong> at the end of the API key row. In the popup that opens</p>
+<ol>
+<li>Select the roles you want to be associated with the API key. Click <strong>SAVE</strong>.</li>
+</ol>
+</li>
+</ol>
+<h4>
+<a id="233-revoking-an-api-key" class="anchor" href="#233-revoking-an-api-key" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3.3 Revoking an API key</h4>
+<p><strong>Access rights</strong></p>
+<ul>
+<li>All activities: <a href="#xroad-system-administrator">System Administrator</a>
+</li>
+</ul>
+<ol>
+<li>
+<p>In the <strong>Navigation tabs</strong>, select <strong>KEYS AND CERTIFICATES</strong>.</p>
+</li>
+<li>
+<p>In the opening view, select <strong>API KEYS</strong> tab.</p>
+</li>
+<li>
+<p>In the opening view, in the API key list, locate the API key you want to revoke and click <strong>Revoke Key</strong> at the end of the API key row. In the dialog that opens click <strong>YES</strong>.</p>
+</li>
+</ol>
 <h2>
 <a id="3-security-server-registration" class="anchor" href="#3-security-server-registration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3 Security Server Registration</h2>
 <p>To use a security server for mediating (exchanging) messages, the security server and its owner must be certified by a certification service provider approved by the X-Road governing authority, and the security server has to be registered in the X-Road governing authority.</p>
@@ -848,7 +976,7 @@ adduser username xroad-securityserver-observer
 <p>Depending on the certification policy, the signing keys are generated either in the security server or by the certification service provider. Sections <a href="#311-generating-a-signing-key">3.1.1</a> to <a href="#313-importing-a-certificate-from-the-local-file-system">3.1.3</a> describe the actions necessary to configure the signing key and certificate in case the key is generated in the security server. Section <a href="#314-importing-a-certificate-from-a-security-token">3.1.4</a> describes the importing of the signing key and certificate in case the key is generated by the certification service provider.</p>
 <p>The <strong>background colors</strong> of the devices, keys and certificate are explained in Section <a href="#51-availability-states-of-security-tokens-keys-and-certificates">5.1</a>.</p>
 <h4>
-<a id="311-generating-a-signing-key" class="anchor" href="#311-generating-a-signing-key" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.1.1 Generating a Signing Key</h4>
+<a id="311-generating-a-signing-key-and-certificate-signing-request" class="anchor" href="#311-generating-a-signing-key-and-certificate-signing-request" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.1.1 Generating a Signing Key and Certificate Signing Request</h4>
 <p><strong>Access rights:</strong></p>
 <ul>
 <li>
@@ -861,74 +989,96 @@ adduser username xroad-securityserver-observer
 <p>Logging in to the key device: <a href="#xroad-system-administrator">System Administrator</a></p>
 </li>
 </ul>
-<p>To generate a signing key, follow these steps.</p>
+<p>To generate a Signing key and a Certificate Signing Request, follow these steps.</p>
 <ol>
 <li>
-<p>On the <strong>Management</strong> menu, select <strong>Keys and Certificates</strong>.</p>
+<p>In the <strong>Navigation tabs</strong>, select <strong>KEYS AND CERTIFICATES</strong>.</p>
 </li>
 <li>
-<p>If you are using a hardware security token, ensure that the device is connected to the security server. The device information must be displayed in the <strong>Keys and Certificates</strong> table.</p>
+<p>If you are using a hardware security token, ensure that the device is connected to the security server. The device information must be displayed in the <strong>SIGN AND AUTH KEYS</strong> table.</p>
 </li>
 <li>
-<p>To log in to the token, click <strong>Enter PIN</strong> on the token’s row in the table and enter the PIN code. Once the correct PIN is entered, the <strong>Enter PIN</strong> button changes to <strong>Logout</strong>.</p>
+<p>To log in to the token, click <strong>LOG IN</strong> on the token's row in the table and enter the PIN code. Once the correct PIN is entered, the <strong>LOG IN</strong> button changes to <strong>LOG OUT</strong>.</p>
 </li>
 <li>
-<p>To generate a signing key, select the token from the table by clicking the respective row, and click <strong>Generate key</strong>. Enter the label value for the key and click <strong>OK</strong>. The generated key appears under the token’s row in the table. The label value is displayed as the name of the key.</p>
-</li>
-</ol>
-<h4>
-<a id="312-generating-a-certificate-signing-request-for-a-signing-key" class="anchor" href="#312-generating-a-certificate-signing-request-for-a-signing-key" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.1.2 Generating a Certificate Signing Request for a Signing Key</h4>
-<p><strong>Access rights:</strong> <a href="#xroad-security-officer">Security Officer</a>, <a href="#xroad-registration-officer">Registration Officer</a></p>
-<p>To generate a certificate signing request (CSR) for the signing key, follow these steps.</p>
+<p>To generate a signing key and CSR for it, expand the token's information by clicking the caret next to the token name and click <strong>ADD KEY</strong>. In the wizard that opens</p>
 <ol>
 <li>
-<p>On the <strong>Management</strong> menu, select <strong>Keys and Certificates</strong>.</p>
+<p>Define a label for the newly created signing key (not mandatory) and click <strong>NEXT</strong>.</p>
 </li>
 <li>
-<p>Select a key from the table and click <strong>Generate CSR</strong>. In the dialog that opens</p>
-<p>2.1  Select the certificate usage policy from the <strong>Usage</strong> drop down list (SIGN for signing certificates);</p>
-<p>2.2  select the X-Road member the certificate will be issued for from the <strong>Client</strong> drop-down list;</p>
-<p>2.3  select the issuer of the certificate from the <strong>Certification Service</strong> drop-down list;</p>
-<p>2.4  select the format of the certificate signing request (PEM or DER), according to the certification service provider’s requirements</p>
-<p>2.5  click <strong>OK</strong>;</p>
+<p>In the dialog page that opens</p>
+<ol>
+<li>
+<p>Select the certificate usage policy from the <strong>Usage</strong> drop down list (SIGNING for signing certificates)</p>
 </li>
 <li>
-<p>In the form that opens, review the certificate owner’s information that will be included in the CSR and fill in the empty fields, if needed.</p>
+<p>Select the X-Road member the certificate will be issued for from the <strong>Client</strong> drop-down list</p>
 </li>
 <li>
-<p>Click <strong>OK</strong> to complete the generation of the CSR and save the prompted file to the local file system.</p>
+<p>Select the issuer of the certificate from the <strong>Certification Service</strong> drop-down list</p>
+</li>
+<li>
+<p>Select the format of the certificate signing request (PEM or DER) from the <strong>CSR Format</strong> drop-down list, according to the certification service provider's requirements</p>
+</li>
+<li>
+<p>Click <strong>CONTINUE</strong></p>
 </li>
 </ol>
-<p>After the generation of the CSR, a “Request” record is added under the key’s row in the table, indicating that a certificate signing request has been created for this key. The record is added even if the request file was not saved to the local file system.</p>
+</li>
+<li>
+<p>In the dialog that opens</p>
+<ol>
+<li>
+<p>Review the certificate owner's information that will be included in the CSR and fill in the empty fields, if needed</p>
+</li>
+<li>
+<p>Click <strong>GENERATE CSR</strong></p>
+</li>
+<li>
+<p>Click <strong>DONE</strong></p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<p>After the generation of the CSR, a "Request" record is added under the key's row in the table, indicating that a certificate signing request has been created for this key. The record is added even if the request file was not saved to the local file system.</p>
 <p><strong>To certify the signing key, transmit the certificate signing request to the approved certification service provider and accept the signing certificate created from the certificate signing request.</strong></p>
 <h4>
-<a id="313-importing-a-certificate-from-the-local-file-system" class="anchor" href="#313-importing-a-certificate-from-the-local-file-system" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.1.3 Importing a Certificate from the Local File System</h4>
+<a id="312-importing-a-certificate-from-the-local-file-system" class="anchor" href="#312-importing-a-certificate-from-the-local-file-system" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.1.2 Importing a Certificate from the Local File System</h4>
 <p><strong>Access rights:</strong> <a href="#xroad-security-officer">Security Officer</a>, <a href="#xroad-registration-officer">Registration Officer</a></p>
 <p>To import the signing certificate to the security server, follow these steps.</p>
 <ol>
 <li>
-<p>On the <strong>Management</strong> menu, select <strong>Keys and Certificates</strong>.</p>
+<p>In the <strong>Navigation tabs</strong>, select <strong>KEYS AND CERTIFICATES</strong>.</p>
 </li>
 <li>
-<p>Click <strong>Import certificate</strong>.</p>
+<p>Show more details about a token by clicking the caret next to the token name.</p>
+</li>
+<li>
+<p>Click <strong>IMPORT CERT.</strong>.</p>
 </li>
 <li>
 <p>Locate the certificate file from the local file system and click <strong>OK</strong>. After importing the certificate, the "Request" record under the signing key's row is replaced with the information from the imported certificate. By default, the signing certificate is imported in the "Registered" state.</p>
 </li>
 </ol>
 <h4>
-<a id="314-importing-a-certificate-from-a-security-token" class="anchor" href="#314-importing-a-certificate-from-a-security-token" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.1.4 Importing a Certificate from a Security Token</h4>
+<a id="313-importing-a-certificate-from-a-security-token" class="anchor" href="#313-importing-a-certificate-from-a-security-token" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.1.3 Importing a Certificate from a Security Token</h4>
 <p><strong>Access rights:</strong> <a href="#xroad-security-officer">Security Officer</a>, <a href="#xroad-registration-officer">Registration Officer</a></p>
 <p>To import a certificate from a security token, follow these steps.</p>
 <ol>
 <li>
-<p>On the <strong>Management</strong> menu, select <strong>Keys and Certificates</strong>.</p>
+<p>In the <strong>Navigation tabs</strong>, select <strong>KEYS AND CERTIFICATES</strong>.</p>
 </li>
 <li>
-<p>Make sure that a key device containing the signing key and the signing certificate is connected to the security server. The device and the keys and certificates stored on the device must be displayed in the <strong>Keys and Certificates</strong> view.</p>
+<p>Show more details about a token by clicking the caret next to the token name.</p>
 </li>
 <li>
-<p>To log in to the security token, click <strong>Enter PIN</strong> on the token’s row in the table and enter the PIN. Once the correct PIN is entered, the <strong>Enter PIN</strong> button changes to <strong>Logout</strong>.</p>
+<p>Make sure that a key device containing the signing key and the signing certificate is connected to the security server. The device and the keys and certificates stored on the device must be displayed in the <strong>SIGN AND AUTH KEYS</strong> view.</p>
+</li>
+<li>
+<p>To log in to the security token, click <strong>LOG IN</strong> on the token's row in the table and enter the PIN. Once the correct PIN is entered, the <strong>LOG IN</strong> button changes to <strong>LOG OUT</strong>.</p>
 </li>
 <li>
 <p>Click the <strong>Import</strong> button on the row of the certificate. By default, the certificate is imported in the "Registered" state.</p>
@@ -951,13 +1101,52 @@ adduser username xroad-securityserver-observer
 <p><strong>The security server's authentication keys can only be generated on software security tokens.</strong></p>
 <ol>
 <li>
-<p>On the <strong>Management</strong> menu, select <strong>Keys and Certificates</strong>.</p>
+<p>In the <strong>Navigation tabs</strong>, select <strong>KEYS AND CERTIFICATES</strong>.</p>
 </li>
 <li>
-<p>To log in to the software token, click <strong>Enter PIN</strong> on the token’s row in the table and enter the token’s PIN code. Once the correct PIN is entered, the <strong>Enter PIN</strong> button changes to <strong>Logout</strong>.</p>
+<p>To log in to the software token, click <strong>LOG IN</strong> on the token's row in the table and enter the token's PIN code. Once the correct PIN is entered, the <strong>LOG IN</strong> button changes to <strong>LOG OUT</strong>.</p>
 </li>
 <li>
-<p>To generate an authentication key, select the software token from the table by clicking the respective row, and click <strong>Generate key</strong>. Enter the label value for the key and click <strong>OK</strong>. The generated key appears under the token’s row in the table. The label value is displayed as the name of the key.</p>
+<p>Show more details about the token by clicking the caret next to the token name.</p>
+</li>
+<li>
+<p>To generate an authentication key and CSR for it, click the <strong>ADD KEY</strong> button below the token row. In the wizard that opens</p>
+<ol>
+<li>
+<p>Define a label for the newly created authentication key (not mandatory) and click <strong>NEXT</strong>.</p>
+</li>
+<li>
+<p>In the dialog page that opens</p>
+<ol>
+<li>
+<p>Select the certificate usage policy from the <strong>Usage</strong> drop down list (AUTHENTICATION for authentication certificates)</p>
+</li>
+<li>
+<p>Select the issuer of the certificate from the <strong>Certification Service</strong> drop-down list</p>
+</li>
+<li>
+<p>Select the format of the certificate signing request (PEM or DER) from the <strong>CSR Format</strong> drop-down list, according to the certification service provider's requirements</p>
+</li>
+<li>
+<p>Click <strong>CONTINUE</strong></p>
+</li>
+</ol>
+</li>
+<li>
+<p>In the dialog that opens</p>
+<ol>
+<li>
+<p>Review the certificate owner's information that will be included in the CSR and fill in the empty fields, if needed</p>
+</li>
+<li>
+<p>Click <strong>GENERATE CSR</strong></p>
+</li>
+<li>
+<p>Click <strong>DONE</strong></p>
+</li>
+</ol>
+</li>
+</ol>
 </li>
 </ol>
 <h4>
@@ -966,23 +1155,29 @@ adduser username xroad-securityserver-observer
 <p>To generate a certificate signing request (CSR) for the authentication key, follow these steps.</p>
 <ol>
 <li>
-<p>On the <strong>Management</strong> menu, select <strong>Keys and Certificates</strong>.</p>
+<p>In the <strong>Navigation tabs</strong>, select <strong>KEYS AND CERTIFICATES</strong>.</p>
 </li>
 <li>
-<p>Select the authentication key from the table and click <strong>Generate CSR</strong>. In the dialog that opens</p>
+<p>Show more details about a token by clicking the caret next to the token name.</p>
+</li>
+<li>
+<p>On the row of the desired key, click <strong>Generate CSR</strong>. In the dialog that opens</p>
 <p>2.1  Select the certificate usage policy from the <strong>Usage</strong> drop down list (AUTH for authentication certificates);</p>
 <p>2.2  select the issuer of the certificate from the <strong>Certification Service</strong> drop-down list;</p>
-<p>2.3  select the format of the certificate signing request (PEM or DER), according to the certification service provider’s requirements</p>
-<p>2.4  click <strong>OK</strong>;</p>
+<p>2.3  select the format of the certificate signing request (PEM or DER), according to the certification service provider's requirements</p>
+<p>2.4  click <strong>CONTINUE</strong>;</p>
 </li>
 <li>
 <p>In the form that opens, review the information that will be included in the CSR and fill in the empty fields, if needed.</p>
 </li>
 <li>
-<p>Click <strong>OK</strong> to complete the generation of the CSR and save the prompted file to the local file system.</p>
+<p>Click <strong>GENERATE CSR</strong> to complete the generation of the CSR and save the prompted file to the local file system.</p>
+</li>
+<li>
+<p>Click <strong>DONE</strong></p>
 </li>
 </ol>
-<p>After the generation of the CSR, a “Request” record is added under the key’s row in the table, indicating that a certificate signing request has been created for this key. The record is added even if the request file was not saved to the local file system.</p>
+<p>After the generation of the CSR, a "Request" record is added under the key's row in the table, indicating that a certificate signing request has been created for this key. The record is added even if the request file was not saved to the local file system.</p>
 <p><strong>To certify the authentication key, transmit the certificate signing request to the approved certification service provider and accept the authentication certificate created from the certificate signing request.</strong></p>
 <h4>
 <a id="323-importing-an-authentication-certificate-from-the-local-file-system" class="anchor" href="#323-importing-an-authentication-certificate-from-the-local-file-system" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.2.3 Importing an Authentication Certificate from the Local File System</h4>
@@ -990,13 +1185,16 @@ adduser username xroad-securityserver-observer
 <p>To import the authentication certificate to the security server, follow these steps.</p>
 <ol>
 <li>
-<p>On the Management menu, select Keys and Certificates.</p>
+<p>In the <strong>Navigation tabs</strong>, select Keys and Certificates.</p>
 </li>
 <li>
-<p>Click Import certificate.</p>
+<p>Show more details about a token by clicking the caret next to the token name.</p>
 </li>
 <li>
-<p>Locate the certificate file from the local file system and click OK. After importing the certificate, the "Request" record under the authentication key's row is replaced with the information from the imported certificate. By default, the certificate is imported in the “Saved” (see Section <a href="#522-registration-states-of-the-authentication-certificate">5.2.2</a>) and “Disabled” states (see Section <a href="#53-validity-states-of-certificates">5.3</a>).</p>
+<p>Click <strong>Import certificate</strong>.</p>
+</li>
+<li>
+<p>Locate the certificate file from the local file system and click <strong>OK</strong>. After importing the certificate, the "Request" record under the authentication key's row is replaced with the information from the imported certificate. By default, the certificate is imported in the "Saved" (see Section <a href="#522-registration-states-of-the-authentication-certificate">5.2.2</a>) and "Disabled" states (see Section <a href="#53-validity-states-of-certificates">5.3</a>).</p>
 </li>
 </ol>
 <h3>
@@ -1016,21 +1214,24 @@ adduser username xroad-securityserver-observer
 <h4>
 <a id="331-registering-an-authentication-certificate" class="anchor" href="#331-registering-an-authentication-certificate" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.3.1 Registering an Authentication Certificate</h4>
 <p><strong>Access rights:</strong> <a href="#xroad-security-officer">Security Officer</a></p>
-<p>The security server's registration request is signed in the security server with the server owner's signing key and the server's authentication key. Therefore, ensure that the corresponding certificates are imported to the security server and are in a usable state (the tokens holding the keys are in logged in state and the OCSP status of the certificates is “good”).</p>
+<p>The security server's registration request is signed in the security server with the server owner's signing key and the server's authentication key. Therefore, ensure that the corresponding certificates are imported to the security server and are in a usable state (the tokens holding the keys are in logged in state and the OCSP status of the certificates is "good").</p>
 <p>To submit an authentication certificate registration request, follow these steps.</p>
 <ol>
 <li>
-<p>On the Management menu, select Keys and Certificates.</p>
+<p>In the <strong>Navigation tabs</strong>, select <strong>KEYS AND CERTIFICATES</strong>.</p>
 </li>
 <li>
-<p>Select an authentication certificate to be registered (it must be in the "saved" state) and click <strong>Register</strong>.</p>
+<p>Show more details about a token by clicking the caret next to the token name.</p>
 </li>
 <li>
-<p>In the dialog that opens, enter the security server's public DNS name or its external IP address and click <strong>OK</strong>.</p>
+<p>Click <strong>Register</strong> at the end of the desired certificate row. Note that the certificate must be in "Saved" state.</p>
+</li>
+<li>
+<p>In the dialog that opens, enter the security server's public DNS name or its external IP address and click <strong>ADD</strong>.</p>
 </li>
 </ol>
-<p>On submitting the request, the message "Request sent" is displayed, and the authentication certificate’s state is set to "Registration in process".</p>
-<p>After the X-Road governing authority has accepted the registration, the registration state of the authentication certificate is set to “Registered” and the registration process is completed.</p>
+<p>On submitting the request, the message "Certificate registration request successful" is displayed, and the authentication certificate's state is set to "Registration in process".</p>
+<p>After the X-Road governing authority has accepted the registration, the registration state of the authentication certificate is set to "Registered" and the registration process is completed.</p>
 <h3>
 <a id="34-changing-the-security-server-owner" class="anchor" href="#34-changing-the-security-server-owner" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.4 Changing the Security Server Owner</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-registration-officer">Registration Officer</a></p>
@@ -1039,25 +1240,25 @@ adduser username xroad-securityserver-observer
 <ol>
 <li>
 <p>Add a new Owner member to the security server</p>
-<p>1.1 On the <strong>Clients</strong> view, select <strong>Add Member</strong>.</p>
+<p>1.1 On the <strong>CLIENTS</strong> view, select <strong>ADD MEMBER</strong>.</p>
 <p>1.2 In the opening wizard, Select the new Owner member from the list of security server clients</p>
 <p>1.3 Add the selected member</p>
 <p>Note: Signing Key and Certificate must be configured for the new Owner member. If needed, the wizard will automatically show the dedicated steps for Key and Certificate configuration to collect the needed information.</p>
 </li>
 <li>
 <p>Register the new member</p>
-<p>2.1 On the <strong>Clients</strong> view, locate the new member in the Clients list and click <strong>Register</strong> in the corresponding row</p>
+<p>2.1 On the <strong>CLIENTS</strong> view, locate the new member in the Clients list and click <strong>Register</strong> in the corresponding row</p>
 <p>2.2 In the opening dialog, click <strong>Register</strong>. A registeration request is sent to the X-Road Governing Authority</p>
 <p>Note: Once the request is approved, the new member appears as "Registered" - it can be set as Owner member.</p>
 </li>
 <li>
 <p>Request a change of the security server owner</p>
-<p>3.1 On the <strong>Clients</strong> view, locate the new member and click its name to open the member's detail view</p>
-<p>3.2 In the detail view, click <strong>Make owner</strong></p>
-<p>1.3 In the opening dialog, click <strong>Make owner</strong>. A owner change request is sent to the X-Road Governing Authority</p>
+<p>3.1 On the <strong>CLIENTS</strong> view, locate the new member and click its name to open the member's detail view</p>
+<p>3.2 In the detail view, click <strong>MAKE OWNER</strong></p>
+<p>1.3 In the opening dialog, click <strong>MAKE OWNER</strong>. An owner change request is sent to the X-Road Governing Authority</p>
 </li>
 </ol>
-<p>Once the owner change request, the new member will be automatically shown as the security server Owner member.</p>
+<p>Once the owner change request is approved, the new member will be automatically shown as the security server Owner member.</p>
 <ul>
 <li>
 <p>A new member must be added to the security server (see <a href="#42-adding-a-security-server-client">4.2</a>). If needed, specify the token on which the member is configured</p>
@@ -1072,10 +1273,10 @@ adduser username xroad-securityserver-observer
 <p>The security server owner change request must be submitted from the security server. To submit an owner change request follow these steps.</p>
 <ol>
 <li>
-<p>In the <strong>Member Detail view</strong> click <strong>Make Owner</strong>.</p>
+<p>In the <strong>Member Detail view</strong> click <strong>MAKE OWNER</strong>.</p>
 </li>
 <li>
-<p>Click <strong>Make Owner</strong> to submit a change request.</p>
+<p>Click <strong>MAKE OWNER</strong> to submit a change request.</p>
 </li>
 </ol>
 </li>
@@ -1083,7 +1284,7 @@ adduser username xroad-securityserver-observer
 <p>The change request is sent to the X-Road governing authority according to the organizational procedures of the X-Road instance.</p>
 </li>
 <li>
-<p>Once the change request is approved by the X-Road governing authority, the member will automatically become the Owner Member.</p>
+<p>Once the owner change request is approved by the X-Road governing authority, the member will automatically become the Owner Member.</p>
 </li>
 <li>
 <p>New Authentication Key and Certificate should be configured for the new security server owner (see <a href="#32-configuring-the-authentication-key-and-certificate-for-the-security-server">3.2</a>).</p>
@@ -1092,7 +1293,7 @@ adduser username xroad-securityserver-observer
 <h2>
 <a id="4-security-server-clients" class="anchor" href="#4-security-server-clients" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4 Security Server Clients</h2>
 <p><strong>Important: to use or provide X-Road services, a security server client needs to be certified by a certification service provider approved by the X-Road governing authority, and the association between the client and the security server used by the client must be registered at the X-Road governing authority.</strong></p>
-<p><strong>This section does not address managing the owner to a security server.</strong> The owner's information has been already added to the security server upon the installation, and registered upon the security server's registration. The owner's registration status can be looked up by selecting <strong>Security Server Clients</strong> on the <strong>Configuration</strong> menu. The security server's owner is displayed in bold. Before the registration of the security server, the owner is in the "Saved" state and after the completion of the registration process, in the "Registered" state.</p>
+<p><strong>This section does not address managing the owner to a security server.</strong> The owner's information has been already added to the security server upon the installation, and registered upon the security server's registration. The owner's registration status can be looked up by selecting <strong>CLIENTS</strong> on the main menu. In the list the item with text "(Owner)" after the name is security server's owner. Before the registration of the security server, the owner is in the "Saved" state and after the completion of the registration process, in the "Registered" state.</p>
 <p>The registration of the security server's owner does not extend to the owner's subsystems. The subsystems must be registered as individual clients.</p>
 <h3>
 <a id="41-security-server-client-states" class="anchor" href="#41-security-server-client-states" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.1 Security Server Client States</h3>
@@ -1100,10 +1301,10 @@ adduser username xroad-securityserver-observer
 <p><a href="img/ug-ss_saved.png" target="_blank" rel="noopener noreferrer"><img src="img/ug-ss_saved.png" alt="" style="max-width:100%;"></a> <strong>Saved</strong> – the client's information has been entered and saved into the security server's configuration (see <a href="#42-adding-a-security-server-client">4.2</a>), but the association between the client and the security server is not registered in the X-Road governing authority. (If the association is registered in the central server prior to the entry of data, the client will move to the "Registered" state upon data entry.) From this state, the client can move to the following states:</p>
 <ul>
 <li>
-<p>“Registration in progress”, if a registration request for the client is submitted from the security server (see <a href="#441-registering-a-security-server-client">4.4.1</a>);</p>
+<p>"Registration in progress", if a registration request for the client is submitted from the security server (see <a href="#441-registering-a-security-server-client">4.4.1</a>);</p>
 </li>
 <li>
-<p>“Deleted”, if the client's information is deleted from the security server configuration (see <a href="#452-deleting-a-client">4.5.2</a>).</p>
+<p>"Deleted", if the client's information is deleted from the security server configuration (see <a href="#452-deleting-a-client">4.5.2</a>).</p>
 </li>
 </ul>
 <p><a href="img/ug-ss_registration_in_progress.png" target="_blank" rel="noopener noreferrer"><img src="img/ug-ss_registration_in_progress.png" alt="" style="max-width:100%;"></a> <strong>Registration in progress</strong> – a registration request for the client is submitted from the security server to the central server, but the association between the client and the security server is not yet approved by the X-Road governing authority. From this state, the client can move to the following states:</p>
@@ -1144,55 +1345,57 @@ adduser username xroad-securityserver-observer
 <p>Follow these steps.</p>
 <ol>
 <li>
-<p>On the <strong>Configuration</strong> menu, select <strong>Security Server Clients</strong>.</p>
+<p>In the <strong>CLIENTS</strong> view, click <strong>ADD CLIENT</strong>.</p>
 </li>
 <li>
-<p>Click <strong>Add Client</strong>. In the window that opens, either enter the client's information manually or click <strong>Select Client from Global List</strong> and locate the client's information from within all X-Road members and their subsystems.</p>
+<p>In the wizard that opens</p>
+<ol>
+<li>
+<p>Client details page: Select an existing client from the Global list by pressing <strong>SELECT CLIENT</strong> or specify the details of the Client to be added manually and click <strong>NEXT</strong></p>
 </li>
 <li>
-<p>Click <strong>OK</strong> once the client’s information has been entered.</p>
+<p>Token page: Select the token where you want to add the SIGN key for the new Client. Click <strong>NEXT</strong></p>
+</li>
+<li>
+<p>Sign key page: Define a label (optional) for the newly created SIGN key and click <strong>NEXT</strong></p>
+</li>
+<li>
+<p>CSR details page: Select the Certification Authority (CA) that will issue the certificate in <strong>Certification Service</strong> field and format of the certificate signing request according to the CA's requirements in the <strong>CSR Format</strong> field. Click <strong>NEXT</strong>.</p>
+</li>
+<li>
+<p>Generate CSR page: Define <strong>Organization Name (O)</strong> and click <strong>NEXT</strong></p>
+</li>
+<li>
+<p>Finish page: click <strong>SUBMIT</strong> and the new client will be added to the Clients list and the new key and CSR will appear in the Keys and Certificates view.</p>
+</li>
+</ol>
 </li>
 </ol>
 <p>The new client is added to the list of security server clients in the "Saved" state.</p>
-<p><strong>NB! If the security server owner  or hosted client is a foreign organization (not Estonian), then the "NEE" Member Class must be selected in the security server.</strong></p>
-<p>The Member Code must be formed as follows:</p>
-<p><strong>"NTRCONTRYCODE-ORGANISAZIONREGISTRYCODE"</strong> - without whitespaces</p>
-<p>Where:</p>
-<ul>
-<li>"NTR" - Prefix of the legal entity identifier according to ETSI EN 319 412-1 clause 5.1.4.</li>
-<li>COUNTRY CODE - Country code according to ISO 3166 (Alpha 2)</li>
-<li>
-<code>-</code> hyphen</li>
-<li>REGISTRY CODE - Organizational registry code in the organization's country.</li>
-</ul>
-<p>Example:</p>
-<ul>
-<li>Lexbyte Digital Limited, a registered organization in Malta</li>
-<li>Member Name: <strong>Lexbyte Digital Limited</strong>
-</li>
-<li>Member Class: <strong>NEE</strong>
-</li>
-<li>Member Code: <strong>NTRMT-C56249</strong>
-</li>
-</ul>
-<p>Such requirements to the NEE Member Code are necessary to ensure the uniqueness of the Member Code of foreign organizations on X-Road (X-tee). In addition, the Member Code of X-Road members must correspond to the Organization Identifier (2.5.4.97) field in the SK ID Solutions AS e-Seal certificate profile.</p>
-<p>References:</p>
-<ul>
-<li>SK ID Solutions AS certificate profile: <a href="https://sk.ee/upload/files/SK-CPR-KLASS3-EN-v8_0-20171130.pdf" rel="nofollow">https://sk.ee/upload/files/SK-CPR-KLASS3-EN-v8_0-20171130.pdf</a>
-</li>
-<li>ETSI EN 319 412-1: <a href="http://www.etsi.org/deliver/etsi_en/319400_319499/31941201/01.01.00_30/en_31941201v010100v.pdf" rel="nofollow">http://www.etsi.org/deliver/etsi_en/319400_319499/31941201/01.01.00_30/en_31941201v010100v.pdf</a>
-</li>
-<li>Alpha 2 country code: <a href="https://www.iso.org/obp/ui/#search" rel="nofollow">https://www.iso.org/obp/ui/#search</a>
-</li>
-</ul>
 <h3>
-<a id="43-configuring-a-signing-key-and-certificate-for-a-security-server-client" class="anchor" href="#43-configuring-a-signing-key-and-certificate-for-a-security-server-client" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.3 Configuring a Signing Key and Certificate for a Security Server Client</h3>
+<a id="43-adding-a-security-server-member-subsystem" class="anchor" href="#43-adding-a-security-server-member-subsystem" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.3 Adding a Security Server Member Subsystem</h3>
+<p><strong>Access rights:</strong> <a href="#xroad-registration-officer">Registration Officer</a></p>
+<p>Follow these steps.</p>
+<ol>
+<li>
+<p>In the <strong>CLIENTS</strong> view in the client list, locate the X-Road member you want to add a subsystem to and click <strong>Add Subsystem</strong> at the end of the row.</p>
+</li>
+<li>
+<p>In the wizard that opens</p>
+<p>2.1. Select an existing subsystem from the Global list by pressing <strong>SELECT SUBSYSTEM</strong> or specify the <strong>Subsystem Code</strong> manually</p>
+<p>2.2. If you wish to register the new subsystem immediately, check the <strong>Register subsystem</strong> checkbox and then click <strong>ADD SUBSYSTEM</strong>.</p>
+<p>(2.3.) If you checked the <strong>Register subsystem</strong> checkbox, a popup will appear asking whether you wish to register the subsystem immediately. In the popup, click <strong>YES</strong>.</p>
+</li>
+</ol>
+<p>The new subsystem is added to the list of security server clients in the "Saved" state.</p>
+<h3>
+<a id="44-configuring-a-signing-key-and-certificate-for-a-security-server-client" class="anchor" href="#44-configuring-a-signing-key-and-certificate-for-a-security-server-client" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.4 Configuring a Signing Key and Certificate for a Security Server Client</h3>
 <p>A signing key and certificate must be configured for the security server client to sign messages exchanged over the X-Road. In addition, a signing key and certificate are required for registering a security server client.</p>
-<p>Certificates are not issued to subsystems; therefore, the certificate of the subsystem’s owner (that is, an X-Road member) is used for the subsystem.</p>
-<p>All particular X-Road member’s subsystems that are registered in the same security server use the same signing certificate for signing messages. Hence, if the security server already contains the member's signing certificate, it is not necessary to configure a new signing key and/or certificate when adding a subsystem of that member.</p>
+<p>Certificates are not issued to subsystems; therefore, the certificate of the subsystem's owner (that is, an X-Road member) is used for the subsystem.</p>
+<p>All particular X-Road member's subsystems that are registered in the same security server use the same signing certificate for signing messages. Hence, if the security server already contains the member's signing certificate, it is not necessary to configure a new signing key and/or certificate when adding a subsystem of that member.</p>
 <p>The process of configuring the signing key and certificate for a security server client is the same as for the security server owner. The process is described in Section <a href="#31-configuring-the-signing-key-and-certificate-for-the-security-server-owner">3.1</a>.</p>
 <h3>
-<a id="44-registering-a-security-server-client-in-the-x-road-governing-authority" class="anchor" href="#44-registering-a-security-server-client-in-the-x-road-governing-authority" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.4 Registering a Security Server Client in the X-Road Governing Authority</h3>
+<a id="45-registering-a-security-server-client-in-the-x-road-governing-authority" class="anchor" href="#45-registering-a-security-server-client-in-the-x-road-governing-authority" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.5 Registering a Security Server Client in the X-Road Governing Authority</h3>
 <p>To register a security server client in the X-Road governing authority, the following actions must be completed.</p>
 <ul>
 <li>
@@ -1209,90 +1412,77 @@ adduser username xroad-securityserver-observer
 </li>
 </ul>
 <h4>
-<a id="441-registering-a-security-server-client" class="anchor" href="#441-registering-a-security-server-client" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.4.1 Registering a Security Server Client</h4>
+<a id="451-registering-a-security-server-client" class="anchor" href="#451-registering-a-security-server-client" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.5.1 Registering a Security Server Client</h4>
 <p><strong>Access rights:</strong> <a href="#xroad-registration-officer">Registration Officer</a></p>
 <p>To submit a client registration request follow these steps.</p>
 <ol>
 <li>
-<p>On the <strong>Configuration</strong> menu, select <strong>Security Server Clients</strong>.</p>
+<p>In the <strong>CLIENTS</strong> view.</p>
 </li>
 <li>
-<p>Select the client in the "Saved" state from the list of security server clients.</p>
+<p>Click <strong>Register</strong> button on the row that contains the client you wish to register.</p>
 </li>
 <li>
-<p>Click the <strong>Details</strong> icon and in the window that opens, click <strong>Register</strong>.</p>
-</li>
-<li>
-<p>Click <strong>Confirm</strong> to submit the request.</p>
+<p>Click <strong>YES</strong> to submit the request.</p>
 </li>
 </ol>
-<p>On submitting the request, the message "Request sent" is displayed, and the client’s state is set to "Registration in process".</p>
-<p>After the X-Road governing authority has accepted the registration, the state of the client is set to “Registered” and the registration process is completed.</p>
+<p>On submitting the request, the message "Request sent" is displayed, and the client's state is set to "Registration in process".</p>
+<p>After the X-Road governing authority has accepted the registration, the state of the client is set to "Registered" and the registration process is completed.</p>
 <h3>
-<a id="45-deleting-a-client-from-the-security-server" class="anchor" href="#45-deleting-a-client-from-the-security-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.5 Deleting a Client from the Security Server</h3>
+<a id="46-deleting-a-client-from-the-security-server" class="anchor" href="#46-deleting-a-client-from-the-security-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.6 Deleting a Client from the Security Server</h3>
 <p>If a client is deleted from the security server, all the information related to the client is deleted from the server as well – that is, the WSDLs, services, access rights, and, if necessary, the certificates.</p>
 <p>When one of the clients is deleted, it is not advisable to delete the signing certificate if the certificate is used by other clients registered to the security server, e.g., other subsystems belonging the same X-Road member as the deleted subsystem.</p>
 <p>A client registered or submitted for registration in the X-Road governing authority (indicated by the "Registered" or "Registration in progress" state) must be unregistered before it can be deleted. The unregistering event sends a security server client deletion request from the security server to the central server.</p>
 <h4>
-<a id="451-unregistering-a-client" class="anchor" href="#451-unregistering-a-client" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.5.1 Unregistering a Client</h4>
+<a id="461-unregistering-a-client" class="anchor" href="#461-unregistering-a-client" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.6.1 Unregistering a Client</h4>
 <p><strong>Access rights:</strong> <a href="#xroad-registration-officer">Registration Officer</a></p>
 <p>To unregister a client, follow these steps.</p>
 <ol>
 <li>
-<p>On the <strong>Configuration</strong> menu, select <strong>Security Server Clients</strong>.</p>
+<p>In the <strong>CLIENTS</strong> view click the name of client that you wish to remove from the server</p>
 </li>
 <li>
-<p>Select the client that you wish to remove from the server and click the <strong>Details</strong> icon on the client’s row.</p>
+<p>In the window that opens, click <strong>UNREGISTER</strong> and then click <strong>YES</strong>. The security server automatically sends a client deletion request to the X-Road central server, upon the receipt of which the association between the security server and the client is revoked.</p>
 </li>
 <li>
-<p>In the window that opens, click <strong>Unregister</strong> and then click <strong>Confirm</strong>. The security server automatically sends a client deletion request to the X-Road central server, upon the receipt of which the association between the security server and the client is revoked.</p>
+<p>Next, a notification is displayed about unregistering client. Now the client is moved to the "Deletion in progress" state, wherein the client cannot mediate messages and cannot be registered again in the X-Road governing authority.</p>
 </li>
-<li>
-<p>Next, a notification is displayed about sending a deletion request to the central server, and a confirmation is presented about deleting the client's information (except its certificates).</p>
-</li>
-</ol>
-<ul>
-<li>
-<p>If you wish to delete the client's information immediately, click <strong>Confirm</strong>. Next, an option is presented to delete the client's certificates. To delete the certificates, click <strong>Confirm</strong> again.</p>
-</li>
-<li>
-<p>If you wish to retain the client's information, click <strong>Cancel</strong>. In that case, the client is moved to the "Deletion in progress" state, wherein the client cannot mediate messages and cannot be registered again in the X-Road governing authority.</p>
-</li>
-</ul>
-<ol start="5">
-<li>To delete the information of a client in the "Deletion in progress" state, select the client by clicking the <strong>Details</strong> icon on its row, click <strong>Delete</strong> in the window that opens, and then click <strong>Confirm</strong>.</li>
 </ol>
 <p><em>Note:</em> It is possible to unregister a registered client from the central server without sending a deletion request through the security server. In this case, the security server's administrator responsible for the client must transmit a request containing information about the client to be unregistered to the central server's administrator. If the client has been deleted from the central server without a prior deletion request from the security server, the client is shown in the "Global error" state in the security server.</p>
 <h4>
-<a id="452-deleting-a-client" class="anchor" href="#452-deleting-a-client" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.5.2 Deleting a Client</h4>
+<a id="462-deleting-a-client" class="anchor" href="#462-deleting-a-client" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.6.2 Deleting a Client</h4>
 <p><strong>Access rights:</strong> <a href="#xroad-registration-officer">Registration Officer</a></p>
 <p>A security server client can be deleted if its state is "Saved", "Global error" or "Deletion in progress". Clients that are in states "Registered" or "Registration in progress" need to be unregistered before they can be deleted (see Section <a href="#451-unregistering-a-client">4.5.1</a>).</p>
 <p>To delete a client, follow these steps.</p>
 <ol>
 <li>
-<p>On the <strong>Configuration</strong> menu, select <strong>Security Server Clients</strong>.</p>
+<p>In the <strong>CLIENTS</strong> view click the name of the client you wish to remove from the security server.</p>
 </li>
 <li>
-<p>Select from the table a client that you wish to remove from the security server and click the <strong>Details</strong> icon on that row.</p>
-</li>
-<li>
-<p>In the window that opens, click <strong>Delete</strong>. Confirm the deletion by clicking <strong>Confirm</strong>.</p>
+<p>In the window that opens, click <strong>DELETE</strong> and then click <strong>YES</strong>. If there are no users for the signature key nor for the certificate associated then an option is presented to delete the client's certificates. To delete the certificates, click <strong>YES</strong> again.</p>
 </li>
 </ol>
 <h2>
 <a id="5-security-tokens-keys-and-certificates" class="anchor" href="#5-security-tokens-keys-and-certificates" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5 Security Tokens, Keys, and Certificates</h2>
 <h3>
-<a id="51-availability-states-of-security-tokens-keys-and-certificates" class="anchor" href="#51-availability-states-of-security-tokens-keys-and-certificates" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.1 Availability States of Security Tokens, Keys, and Certificates</h3>
-<p>To display the availability of objects (that is, tokens, keys or certificates), the following background colors are used in the "Keys and Certificates" view.</p>
+<a id="51-availability-states-of-security-tokens" class="anchor" href="#51-availability-states-of-security-tokens" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.1 Availability States of Security Tokens</h3>
+<p><strong>Notice that the colors are a new feature introduced in the upcoming version 6.25.0</strong></p>
+<p>To display the availability of tokens, the following colors and labels are used in the "Keys and Certificates" view.</p>
 <ul>
 <li>
-<p><strong>Yellow</strong> background – the object is available to the security server, but the object's information has not been saved to the security server configuration. For example, a smartcard could be connected to the server, but the certificates on the smartcard may not have been imported to the server. Certificates on the yellow background cannot be used for mediating messages.</p>
+<p><strong>Red</strong> text and a label <strong>Not saved</strong> – the token is available to the security server, but it's information has not been saved to the security server configuration. For example, a smartcard could be connected to the server, but the certificates on the smartcard may not have been imported to the server. The user cannot interact with the token or it's content.</p>
 </li>
 <li>
-<p><strong>White</strong> background – the object is available to the security server and the object's information has been saved to the security server's configuration. <strong>Certificates on the white background can be used for mediating messages.</strong></p>
+<p><strong>Red</strong> text and a label <strong>Blocked</strong> – the token is available to the security server and it's information has been saved to the security server's configuration but the token is unavailable. The user cannot interact with the token or it's content.</p>
 </li>
 <li>
-<p><strong>Gray</strong> background – the object is not available for the security server. Certificates on the gray background cannot be used for mediating messages.</p>
+<p><strong>Gray</strong> text and a label <strong>Inactive</strong> – the token is not available for the security server. The user cannot interact with the token or it's content.</p>
+</li>
+<li>
+<p><strong>Black</strong> text and a <strong>LOG IN</strong> button – the token is logged out. The user must log in the token before interacting the content.</p>
+</li>
+<li>
+<p><strong>Black</strong> text and a <strong>LOG OUT</strong> button – the token is logged in. The user can interact with the token and it's content.</p>
 </li>
 </ul>
 <p><strong>Caution:</strong> The key device's and key's information is automatically saved to the configuration when a certificate associated with either of them is imported to the security server, or when a certificate signing request is generated for the key. Similarly, the key device's and key's information is deleted from the security server configuration automatically upon the deletion of the last associated certificate and/or certificate signing request.</p>
@@ -1304,10 +1494,10 @@ adduser username xroad-securityserver-observer
 <p>A security server signing certificate can be in one of the following registration states.</p>
 <ul>
 <li>
-<p><strong>Registered</strong> – the certificate has been imported to the security server and saved to its configuration. A signing certificate in a “Registered” state can be used for signing X-Road messages.</p>
+<p><strong>Registered</strong> – the certificate has been imported to the security server and saved to its configuration. A signing certificate in a "Registered" state can be used for signing X-Road messages.</p>
 </li>
 <li>
-<p><strong>Deleted</strong> – the certificate has been deleted from the server configuration. If the certificate is in the “Deleted” state and stored on a hardware key device connected to the security server, the certificate is displayed on a yellow background.</p>
+<p><strong>Deleted</strong> – the certificate has been deleted from the server configuration. If the certificate is in the "Deleted" state and stored on a soft token key, the certificate will not be displayed in the table. If the certificate is in the "Deleted" state and stored on a hardware key device connected to the security server, the certificate status will be displayed with a <strong>red circle</strong> and a hyphen <strong>-</strong>.</p>
 </li>
 </ul>
 <h4>
@@ -1319,7 +1509,7 @@ adduser username xroad-securityserver-observer
 <p>"Registration in progress", if the authentication certificate registration request is sent from the security server to the central server (see <a href="#331-registering-an-authentication-certificate">3.3.1</a>);</p>
 </li>
 <li>
-<p>"Deleted", if the authentication certificate's information is deleted from the security server configuration (see Section <a href="#56-deleting-a-certificate">5.6</a>).</p>
+<p>"Deleted", if the authentication certificate's information is deleted from the security server configuration (see Section <a href="#56-deleting-a-certificate">5.6</a>). Notice that after the certificate is deleted, it will not be displayed in the table anymore.</p>
 </li>
 </ul>
 <p><strong>Registration in progress</strong> – an authentication certificate registration request has been created and sent to the central server, but the association between the certificate and the security server has not yet been approved. From this state, the certificate can move to the following states:</p>
@@ -1346,21 +1536,17 @@ adduser username xroad-securityserver-observer
 <p>"Registered", if the association between the authentication certificate and the security server has been restored in the central server (e.g., the association between the client and the security server was lost due to an error);</p>
 </li>
 <li>
-<p>"Deleted", if the authentication certificate's information is deleted from the security server configuration (see <a href="#56-deleting-a-certificate">5.6</a>).</p>
+<p>"Deleted", if the authentication certificate's information is deleted from the security server configuration (see <a href="#56-deleting-a-certificate">5.6</a>). Notice that after the certificate is deleted, it will not be displayed in the table anymore.</p>
 </li>
 </ul>
-<p><strong>Deletion in progress</strong> – an authentication certificate registration request has been created for the certificate and sent to the central server. From this state, the certificate can move to the following state:</p>
-<ul>
-<li>"Deleted", if the authentication certificate's information is deleted from the security server configuration (see <a href="#56-deleting-a-certificate">5.6</a>).</li>
-</ul>
-<p><strong>Deleted</strong> – the certificate has been deleted from the security server configuration.</p>
+<p><strong>Deletion in progress</strong> – an authentication certificate registration request has been created for the certificate and sent to the central server. From this state, the certificate can be deleted. If the certificate has been deleted from the security server configuration, it will not be displayed in the table anymore.</p>
 <h3>
 <a id="53-validity-states-of-certificates" class="anchor" href="#53-validity-states-of-certificates" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.3 Validity States of Certificates</h3>
-<p>Validity states indicate if and how a certificate can be used independent of the X-Road system. In the "Keys and Certificates" view, the certificate's validity states are displayed in the "OCSP response" column. Validity states (except "Disabled") are displayed for certificates that are in the "Registered" registration state.</p>
+<p>Validity states indicate if and how a certificate can be used independent of the X-Road system. In the "Keys and Certificates" view, the certificate's validity states are displayed in the "OCSP" column. Validity states (except "Disabled") are displayed for certificates that are in the "Registered" registration state.</p>
 <p>A security server certificate can be in one of the following validity states.</p>
 <ul>
 <li>
-<p><strong>Unknown</strong> (validity information missing) – the certificate does not have a valid OCSP response (the OCSP response validity period is set by the X-Road governing authority) or the last OCSP response was either “unknown” (the responder doesn't know about the certificate being requested) or an error.</p>
+<p><strong>Unknown</strong> (validity information missing) – the certificate does not have a valid OCSP response (the OCSP response validity period is set by the X-Road governing authority) or the last OCSP response was either "unknown" (the responder doesn't know about the certificate being requested) or an error.</p>
 </li>
 <li>
 <p><strong>Suspended</strong> – the last OCSP response about the certificate was "suspended".</p>
@@ -1389,14 +1575,18 @@ adduser username xroad-securityserver-observer
 <p>For signing certificates: <a href="#xroad-security-officer">Security Officer</a>, <a href="#xroad-registration-officer">Registration Officer</a></p>
 </li>
 </ul>
-<p>Disabled certificates are not used for signing messages or for establishing secure channels between security servers (authentication). If a certificate is disabled, its status in the “OCSP response” column in the “Keys and Certificates” table is “Disabled”.</p>
+<p>Disabled certificates are not used for signing messages or for establishing secure channels between security servers (authentication). If a certificate is disabled, its status in the "OCSP" column in the "Keys and Certificates" table is "Disabled".</p>
 <p>To activate or disable a certificate, follow these steps.</p>
 <ol>
 <li>
-<p>On the <strong>Management</strong> menu, select <strong>Keys and Certificates</strong>.</p>
+<p>In the <strong>Navigation tabs</strong>, select <strong>KEYS AND CERTIFICATES</strong>.</p>
 </li>
 <li>
-<p>To activate a certificate, select an inactive certificate from the table and click <strong>Activate</strong>. To deactivate a certificate, select an active certificate from the table and click <strong>Disable</strong>.</p>
+<p>Show more details about a token by clicking the caret next to the token name.</p>
+</li>
+<li>
+<p>To activate a certificate, click on the desired certificate's name.</p>
+<p>3.1 In the opening <strong>Certificate</strong> dialog, click <strong>Activate</strong>. To deactivate a certificate, click <strong>DISABLE</strong> in the <strong>Certificate</strong> dialog.</p>
 </li>
 </ol>
 <h3>
@@ -1413,11 +1603,15 @@ adduser username xroad-securityserver-observer
 <p>To unregister an authentication certificate, follow these steps.</p>
 <ol>
 <li>
-<p>On the <strong>Management</strong> menu, select <strong>Keys and Certificates</strong>.</p>
+<p>In the <strong>Navigation tabs</strong>, select <strong>KEYS AND CERTIFICATES</strong>.</p>
 </li>
 <li>
-<p>Select an authentication certificate in the state "Registered" or "Registration in progress" and click <strong>Unregister</strong>.</p>
-<p>Next, an authentication certificate deletion request is automatically sent to the X-Road central server, upon the receipt of which the associated authentication certificate is deleted from the central server. If the request was successfully sent, the message "Request sent" is displayed and the authentication certificate is moved to the "Deletion in progress" state.</p>
+<p>Show more details about a token by clicking the caret next to the token name.</p>
+</li>
+<li>
+<p>Click on an authentication certificate that is in the state "Registered" or "Registration in progress".</p>
+<p>3.1 In the opening <strong>Certificate</strong> dialog, click <strong>UNREGISTER</strong>.</p>
+<p>Next, an authentication certificate deletion request is automatically sent to the X-Road central server, upon the receipt of which the associated authentication certificate is deleted from the central server. If the request was successfully sent, the message "Certificate unregistration request sent successfully" is displayed and the authentication certificate is moved to the "Deletion in progress" state.</p>
 </li>
 </ol>
 <p>A registered authentication certificate can be deleted from the central server without sending a deletion request through the security server. In this case, the security server's administrator must transmit a request containing information about the authentication certificate to be deleted to the central server's administrator. If the authentication certificate has been deleted from the central server without a deletion request from the security server, the certificate is shown in the "Global error" state in the security server.</p>
@@ -1439,16 +1633,32 @@ adduser username xroad-securityserver-observer
 <p>if the certificate is saved in the server configuration, then the deletion <strong>deletes the certificate from server configuration</strong>, but not from the security token;</p>
 </li>
 <li>
-<p>if the certificate is not saved in the server configuration (the background of the certificate is yellow), then the deletion deletes the certificate from the security token (assuming the token supports this operation).</p>
+<p>if the certificate is not saved in the server configuration (certificate's status has a red circle and status "-" (a hyphen)), then the deletion deletes the certificate from the security token (assuming the token supports this operation).</p>
 </li>
 </ul>
-<p><strong>To delete a certificate or a signing request notice, follow these steps.</strong></p>
+<p><strong>To delete a certificate, follow these steps.</strong></p>
 <ol>
 <li>
-<p>On the <strong>Management</strong> menu, select <strong>Keys and Certificates</strong>.</p>
+<p>In the <strong>Navigation tabs</strong>, select <strong>KEYS AND CERTIFICATES</strong>.</p>
 </li>
 <li>
-<p>Select from the table a certificate or a certificate signing request notice and click <strong>Delete</strong>. Confirm the deletion by clicking <strong>Confirm</strong>.</p>
+<p>Show more details about a token by clicking the caret next to the token name.</p>
+</li>
+<li>
+<p>Click on the certificate that you want to delete.</p>
+<p>3.1 In the opening <strong>Certificate</strong> dialog, click <strong>DELETE</strong>. Confirm the deletion by clicking <strong>YES</strong>.</p>
+</li>
+</ol>
+<p><strong>To delete a certificate signing request notice (CSR), follow these steps.</strong></p>
+<ol>
+<li>
+<p>In the <strong>Navigation tabs</strong>, select <strong>KEYS AND CERTIFICATES</strong>.</p>
+</li>
+<li>
+<p>Show more details about a token by clicking the caret next to the token name.</p>
+</li>
+<li>
+<p>At the end of the desired CSR row click <strong>Delete CSR</strong>. Confirm the deletion by clicking <strong>YES</strong>.</p>
 </li>
 </ol>
 <h3>
@@ -1472,16 +1682,20 @@ adduser username xroad-securityserver-observer
 <p>if the key is saved in the server configuration, then the deletion <strong>deletes the key</strong> (and associated certificates) <strong>from server configuration</strong>, but not from the security token;</p>
 </li>
 <li>
-<p>if the key is not saved in the server configuration (the background of the key is yellow), then the deletion <strong>deletes the key from the security token</strong> (assuming the token supports this operation).</p>
+<p>if the key is not saved in the server configuration (certificate's status has a red circle and status "-" (a hyphen)), then the deletion <strong>deletes the key from the security token</strong> (assuming the token supports this operation).</p>
 </li>
 </ul>
 <p>To delete a key, follow these steps.</p>
 <ol>
 <li>
-<p>On the <strong>Management</strong> menu, select <strong>Keys and Certificates</strong>.</p>
+<p>In the <strong>Navigation tabs</strong>, select <strong>KEYS AND CERTIFICATES</strong>.</p>
 </li>
 <li>
-<p>Select a key and click <strong>Delete</strong>. Confirm the deletion of the key (and its associated certificates) by clicking <strong>Confirm</strong>.</p>
+<p>Show more details about a token by clicking the caret next to the token name.</p>
+</li>
+<li>
+<p>Click on the desired Key.</p>
+<p>3.1 In the opening <strong>Key</strong> dialog, click <strong>DELETE</strong>. Confirm the deletion of the key (and its associated certificates) by clicking <strong>YES</strong>.</p>
 </li>
 </ol>
 <h2>
@@ -1504,34 +1718,34 @@ adduser username xroad-securityserver-observer
 <p><strong>To add a WSDL</strong>, follow these steps.</p>
 <ol>
 <li>
-<p>On the <strong>Configuration</strong> menu, select <strong>Security Server Clients</strong>, select a client from the table and click the <strong>Services</strong> icon on that row.</p>
+<p>Navigate to <strong>CLIENTS</strong> tab, click the name of the client for which you wish to add WSDL to and click the <strong>SERVICES</strong> tab.</p>
 </li>
 <li>
-<p>Click <strong>ADD WSDL</strong>, enter the WSDL address in the window that opens and click <strong>OK</strong>. Once the window is closed, the WSDL and the information about the services it contains are added to the table. By default, the WSDL is added in disabled state (see <a href="#63-enabling-and-disabling-a-service-description">6.3</a>).</p>
+<p>Click <strong>ADD WSDL</strong>, enter the WSDL address in the dialog that opens and click <strong>ADD</strong>. Once the window is closed, the WSDL and the information about the services it contains are added to the client. By default, the WSDL is added in disabled state (see <a href="#63-enabling-and-disabling-a-service-description">6.3</a>).</p>
 </li>
 </ol>
 <p><strong>To see a list of services contained in the WSDL</strong></p>
 <ul>
-<li>click the “<strong>+</strong>” symbol in front of the WSDL row to expand the list.</li>
+<li>click the caret next to the WSDL service url to expand the list.</li>
 </ul>
 <h4>
 <a id="612-rest" class="anchor" href="#612-rest" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.1.2 REST</h4>
-<p>When a new REST service is added, the security server displays url and service code provided.</p>
+<p>After a new REST service is added, the security server displays text "REST" and url for that service.</p>
 <p><strong>To add a REST service</strong>, follow these steps.</p>
 <ol>
 <li>
-<p>On the <strong>Configuration</strong> menu, select <strong>Security Server Clients</strong>, select a client from the table and click the <strong>Services</strong> icon on that row.</p>
+<p>Navigate to <strong>CLIENTS</strong> tab, click the name of the client for which you wish to add REST service to and click the <strong>SERVICES</strong> tab.</p>
 </li>
 <li>
-<p>Click <strong>ADD REST</strong>. Select whether the URL type is REST API base path or OpenAPI 3 description. Enter the url and service code in the window that opens and click <strong>OK</strong>.</p>
+<p>Click <strong>ADD REST</strong>. Select whether the URL type is "REST API Base Path" or "OpenAPI 3 Description". Enter the url and service code in the window that opens and click <strong>ADD</strong>.</p>
 </li>
 <li>
-<p>Once the window is closed, the url and the service code are added to the table. If the added URL type was OpenAPI 3 description, the service description is parsed and endpoints are added under the service. By default, the REST service is added in disabled state (see <a href="#63-enabling-and-disabling-a-service-description">6.3</a>).</p>
+<p>Once the window is closed, the url and the service code are added to the service list. If the added URL type was OpenAPI 3 description, the service description is parsed and endpoints are added under the service. By default, the REST service is added in disabled state (see <a href="#63-enabling-and-disabling-a-service-description">6.3</a>).</p>
 </li>
 </ol>
 <p><strong>To see the service details under the REST service</strong></p>
 <ul>
-<li>click the "<strong>+</strong>" symbol in front of the REST row to expand the service details.</li>
+<li>click the caret on the REST service description row to expand the service details.</li>
 </ul>
 <h3>
 <a id="62-refreshing-a-service-description" class="anchor" href="#62-refreshing-a-service-description" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.2 Refreshing a service description</h3>
@@ -1540,56 +1754,45 @@ adduser username xroad-securityserver-observer
 <p>To refresh the service description, follow these steps.</p>
 <ol>
 <li>
-<p>On the <strong>Configuration</strong> menu, select <strong>Security Server Clients</strong>, select a client from the table and click the <strong>Services</strong> icon on that row.</p>
+<p>Navigate to <strong>CLIENTS</strong> tab, click the name of the client containing service you wish to refresh and click the <strong>SERVICES</strong> tab.</p>
 </li>
 <li>
-<p>Select from the table a WSDL or REST to be refreshed and click <strong>Refresh</strong>.</p>
+<p>Click the arrow symbol in front of the WSDL or REST to be refreshed and click the <strong>Refresh</strong> button.</p>
 </li>
 <li>
-<p>If the new service description contains changes compared to the current service description in the security server, a warning is displayed. To proceed with the refresh, click <strong>Continue</strong>.</p>
+<p>If the new service description contains changes compared to the current service description in the security server, a warning is displayed. To proceed with the refresh, click <strong>CONTINUE</strong>.</p>
 </li>
 </ol>
-<p>When the service description is refreshed, the existing services’ settings are not overwritten.</p>
+<p>When the service description is refreshed, the existing services' settings are not overwritten.</p>
 <h3>
 <a id="63-enabling-and-disabling-a-service-description" class="anchor" href="#63-enabling-and-disabling-a-service-description" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.3 Enabling and Disabling a service description</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-service-administrator">Service Administrator</a></p>
-<p>A disabled service description is displayed in the services’ table in red with a "Disabled" note.</p>
+<p>A disabled service description is displayed in the services' list with a disabled switch icon on the same row.</p>
 <p>Services described by a disabled service description cannot be accessed by the service clients – if an attempt is made to access the service, an error message is returned, containing the information entered by the security server's administrator when the service description was disabled.</p>
 <p>If a service description is enabled, the services described there become accessible to users. Therefore it is necessary to ensure that before enabling the service description, the parameters of all its services are correctly configured (see <a href="#66-changing-the-parameters-of-a-service">6.6</a>).</p>
-<p>To <strong>enable</strong> a service description, follow these steps.</p>
+<p>To <strong>enable</strong> or <strong>disable</strong> a service description, follow these steps.</p>
 <ol>
 <li>
-<p>On the <strong>Configuration</strong> menu, select <strong>Security Server Clients</strong>, select a client from the table and click the <strong>Services</strong> icon on that row.</p>
+<p>Navigate to <strong>CLIENTS</strong> tab, click the name of the client containing service you wish to view and click the <strong>SERVICES</strong> tab.</p>
 </li>
 <li>
-<p>Select a disabled service description from the table and click <strong>Enable</strong>.</p>
+<p>Click the switch icon on the same row with service WSDL or REST service you wish to enable or disable</p>
 </li>
 </ol>
-<p>To <strong>disable</strong> a service description, follow these steps.</p>
-<ol>
-<li>
-<p>On the <strong>Configuration</strong> menu, select <strong>Security Server Clients</strong>, select a client from the table and click the <strong>Services</strong> icon on that row.</p>
-</li>
-<li>
-<p>To enable a service description, select an enabled service description from the table and click <strong>Disable</strong>.</p>
-</li>
-<li>
-<p>In the window that opens, enter an error message, which is shown to clients who try to access any of the services in the service description, and click <strong>OK</strong>.</p>
-</li>
-</ol>
+<p>(3.) If the service was disabled a popup will appear. In the popup, enter a Disable notice which is shown to clients who try to access any of the services in the service description, and click <strong>OK</strong>.</p>
 <h3>
 <a id="64-changing-the-address-of-a-service-description" class="anchor" href="#64-changing-the-address-of-a-service-description" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.4 Changing the Address of a service description</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-service-administrator">Service Administrator</a></p>
 <p>To change the service description address, follow these steps.</p>
 <ol>
 <li>
-<p>On the <strong>Configuration</strong> menu, select <strong>Security Server Clients</strong>, select a client from the table and click the <strong>Services</strong> icon on that row.</p>
+<p>Navigate to <strong>CLIENTS</strong> tab, click the name of the client containing service you wish to view and click the <strong>SERVICES</strong> tab.</p>
 </li>
 <li>
-<p>Select from the table a service description whose information you wish to change and click <strong>Edit</strong>.</p>
+<p>Click the link text containing the type of the service and its url in paranthesis</p>
 </li>
 <li>
-<p>In the window that opens, edit the WSDL address for WSDL, URL and/or service code for REST, and click <strong>OK</strong>. The service information updates accordingly (see section <a href="#62-refreshing-a-service-description">6.2</a>).</p>
+<p>In the dialog that opens you can edit the URL for all types of services and for REST services the service code can also be changed. Click <strong>SAVE</strong>. The service information updates accordingly (see section <a href="#62-refreshing-a-service-description">6.2</a>).</p>
 </li>
 </ol>
 <h3>
@@ -1599,13 +1802,13 @@ adduser username xroad-securityserver-observer
 <p>To delete a service description, follow these steps.</p>
 <ol>
 <li>
-<p>On the <strong>Configuration</strong> menu, select <strong>Security Server Clients</strong>, select a client from the table and click the <strong>Services</strong> icon on that row.</p>
+<p>Navigate to <strong>CLIENTS</strong> tab, click the name of the client containing service you wish to view and click the <strong>SERVICES</strong> tab.</p>
 </li>
 <li>
-<p>Select from the table a service description to be deleted and click <strong>Delete</strong>.</p>
+<p>Click the link text containing the type of the service and its url in paranthesis.</p>
 </li>
 <li>
-<p>Confirm the deletion by clicking <strong>Confirm</strong> in the window that opens.</p>
+<p>Click <strong>DELETE</strong> and confirm the deletion by clicking <strong>YES</strong> in the dialog that opens.</p>
 </li>
 </ol>
 <h3>
@@ -1630,13 +1833,13 @@ adduser username xroad-securityserver-observer
 <p>To change service parameters, follow these steps.</p>
 <ol>
 <li>
-<p>On the <strong>Configuration</strong> menu, select <strong>Security Server Clients</strong>, select a client from the table and click the <strong>Services</strong> icon on that row.</p>
+<p>Navigate to <strong>CLIENTS</strong> tab, click the name of the client containing service you wish to view and click the <strong>SERVICES</strong> tab.</p>
 </li>
 <li>
-<p>Select a service from the table and click <strong>Edit</strong>.</p>
+<p>Click the arrow symbol in front of a REST or WSDL service and in the list that is displayed click the service code which you wish to edit.</p>
 </li>
 <li>
-<p>In the window that opens, configure the service parameters. To apply the selected parameter to all services described in the same service description, select the checkbox adjacent to this parameter in the <strong>Apply to All in WSDL</strong> column. To apply the configured parameters, click <strong>OK</strong>.</p>
+<p>In the view that opens, configure the service parameters. To apply the selected parameter to all services described in the same service description, select the checkbox adjacent to this parameter in the <strong>Apply to All in WSDL</strong> column. To apply the configured parameters, click <strong>SAVE</strong>.</p>
 </li>
 </ol>
 <h3>
@@ -1647,16 +1850,16 @@ adduser username xroad-securityserver-observer
 <p>To create API endpoint manually, follow these steps</p>
 <ol>
 <li>
-<p>On the <strong>Configuration</strong> menu, select <strong>Security Server Clients</strong>, select a client from the table and click the <strong>Services</strong> icon on that row.</p>
+<p>Navigate to <strong>CLIENTS</strong> tab, click the name of the client containing service you wish to view and click the <strong>SERVICES</strong> tab.</p>
 </li>
 <li>
-<p>Select from the table a REST service description where the endpoint is going to be added and click "<strong>+</strong>" to see the service details.</p>
+<p>Click the arrow symbol in front of a REST service and click the service code that is displayed.</p>
 </li>
 <li>
-<p>Select the service code item immediately under the service description level and click <strong>Add Endpoint</strong>.</p>
+<p>Click the <strong>ENDPOINTS</strong> tab and in the following view click <strong>ADD ENDPOINTS</strong>.</p>
 </li>
 <li>
-<p>Select HTTP request method and Path for the endpoint and click <strong>OK</strong>.</p>
+<p>In the dialog that opens fill in the HTTP Request method and path for the endpoint and click <strong>ADD</strong></p>
 </li>
 </ol>
 <h2>
@@ -1691,75 +1894,93 @@ adduser username xroad-securityserver-observer
 <h3>
 <a id="71-changing-the-access-rights-of-a-service" class="anchor" href="#71-changing-the-access-rights-of-a-service" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>7.1 Changing the Access Rights of a Service</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-service-administrator">Service Administrator</a></p>
-<p>To change the access rights to a service, follow these steps.</p>
+<p>To change the access rights to a <strong>service</strong>, follow these steps.</p>
 <ol>
 <li>
-<p>On the <strong>Configuration</strong> menu, select <strong>Security Server Clients</strong>, select a client from the table and click the <strong>Services</strong> icon on that row.</p>
+<p>Navigate to <strong>CLIENTS</strong> tab, click the name of the client containing service you wish to view and click the <strong>SERVICES</strong> tab.</p>
 </li>
 <li>
-<p>Select a service or endpoint from the table and click <strong>Access Rights</strong>.</p>
+<p>Click the arrow symbol in front of a service and click the service code that is displayed.</p>
 </li>
 <li>
 <p>In the window that opens, the access rights table displays information about all X-Road subsystems and groups that have access to the selected service.</p>
 </li>
 <li>
-<p>To add one or more access right subjects to the service, click <strong>Add Subjects</strong>. The subject search window appears. You can search among all subsystems and global groups registered in the X-Road governing authority and among the security server client's local groups.
-Select one or more subjects from the table and click <strong>Add Selected to ACL</strong>. To grant the access right to all subjects in the search results, click <strong>Add All to ACL</strong>.</p>
+<p>To add one or more access right subjects to the service, click <strong>ADD SUBJECTS</strong>. The subject search window appears. You can search among    all subsystems and global groups registered in the X-Road governing authority and among the security server client's local groups. Fill in optional filters for subjects and click <strong>SEARCH</strong>. Select one or more subjects from the list and click <strong>ADD SELECTED</strong>.</p>
 </li>
 <li>
-<p>To remove service access rights subjects, select the respective rows in the access rights table and click <strong>Remove Selected</strong>. To clear the access rights list (that is, remove all subjects), click <strong>Remove All</strong>.</p>
+<p>To remove service access rights subjects, click <strong>Remove</strong> button on the respective row in the access rights table. To clear the access rights list (that is, remove all subjects), click <strong>REMOVE ALL</strong>.</p>
+</li>
+</ol>
+<p>To change access rights to an <strong>endpoint</strong>, follow there steps.</p>
+<ol>
+<li>
+<p>Navigate to <strong>CLIENTS</strong> tab, click the name of the client containing service you wish to view and click the <strong>SERVICES</strong> tab.</p>
+</li>
+<li>
+<p>Click the arrow symbol in front of a REST service and click the service code that is displayed.</p>
+</li>
+<li>
+<p>Click the <strong>ENDPOINTS</strong> tab and in the following views endpoints list click <strong>Access Rights</strong> on the respective row of an endpoint.</p>
+</li>
+<li>
+<p>To add one or more access right subjects to the endpoint, click <strong>ADD SUBJECTS</strong>. The subject search window appears. You can search among all subsystems and global groups registered in the X-Road governing authority and among the security server client's local groups. Fill in optional filters for subjects and click <strong>SEARCH</strong>. Select one or more subjects from the list and click <strong>ADD SELECTED</strong>.</p>
+</li>
+<li>
+<p>To remove endpoint access rights subjects, click <strong>Remove</strong> button on the respective row in the access rights table and click <strong>YES</strong> in the confirmation dialog. To clear the access rights list (that is, remove all subjects), click <strong>REMOVE ALL</strong> and click <strong>YES</strong> in the confirmation dialog.</p>
 </li>
 </ol>
 <h3>
 <a id="72-adding-a-service-client" class="anchor" href="#72-adding-a-service-client" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>7.2 Adding a Service Client</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-service-administrator">Service Administrator</a></p>
-<p>The service client view (<strong>Configuration</strong> -&gt; <strong>Security Server Clients</strong> -&gt; <strong>Service Clients</strong>) displays all the service level access rights subjects of the services mediated by this security server client. In other words, if an X-Road subsystem or group has been granted a service level access right to a service of this client, then the subject is shown in this view. Subjects that have been granted an endpoint level access right to a REST service, are not shown in the view.</p>
+<p>The service client view (<strong>CLIENTS</strong> -&gt; <strong>SERVICE CLIENTS</strong>) displays all the service level access rights subjects of the services mediated by this security server client. In other words, if an X-Road subsystem or group has been granted a service level access right to a service of this client, then the subject is shown in this view. Subjects that have been granted an endpoint level access right to a REST service, are not shown in the view.</p>
 <p>To add a service client, follow these steps.</p>
 <ol>
 <li>
-<p>On the <strong>Configuration</strong> menu, select <strong>Security Server Clients</strong>.</p>
+<p>Navigate to <strong>CLIENTS</strong> tab, click the name of the client containing service you wish to view and click the <strong>SERVICE CLIENTS</strong> tab.</p>
 </li>
 <li>
-<p>Select a client from the table and click the <strong>Service Clients</strong> icon, then click <strong>Add</strong>.</p>
+<p>Click <strong>ADD SUBJECT</strong>. In the following wizard that opens</p>
+<ol>
+<li>
+<p>Select a subject (a subsystem, or a local or global group) to which you want to grant access rights to and click <strong>NEXT</strong></p>
 </li>
 <li>
-<p>In the window that opens, locate and select a subject (a subsystem, or a local or global group) to which you want to grant access rights to and click <strong>Next</strong>.</p>
-</li>
-<li>
-<p>Locate the service(s) whose access rights you want to grant to the selected subject. Click <strong>Add Selected to ACL</strong> to grant access rights to the selected services to this subject. Click <strong>Add All to ACL</strong> to grant access rights to all services in the filter to the subject. Note that access rights to REST API endpoints can not be added using this view, those need to be added on <strong>Services</strong> tab as described in <a href="#71-changing-the-access-rights-of-a-service">7.1</a>.</p>
+<p>Select service(s) whose access rights you want to grant to the selected subject. Click <strong>ADD SELECTED</strong> to grant access rights to the selected services to this subject. Note that access rights to REST API endpoints can not be added using this view, those need to be added on <strong>SERVICES</strong> tab as described in <a href="#71-changing-the-access-rights-of-a-service">7.1</a>.</p>
 </li>
 </ol>
-<p>The subject is added to the list of service clients, after which the service client's access rights view is displayed where the access rights can be changed.</p>
+</li>
+</ol>
+<p>The subject is added to the list of service clients, after which the service clients view is displayed.</p>
 <h3>
 <a id="73-changing-the-access-rights-of-a-service-client" class="anchor" href="#73-changing-the-access-rights-of-a-service-client" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>7.3 Changing the Access Rights of a Service Client</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-service-administrator">Service Administrator</a></p>
 <p>To change the service client's access rights, follow these steps.</p>
 <ol>
 <li>
-<p>On the <strong>Configuration</strong> menu, select <strong>Security Server Clients</strong>, select a client from the table and click the <strong>Service Clients</strong> icon on that row.</p>
+<p>Navigate to <strong>CLIENTS</strong> tab, click the name of the client containing service you wish to view and click the <strong>SERVICE CLIENTS</strong> tab.</p>
 </li>
 <li>
-<p>In the window that opens, locate and select a subject (a subsystem, or a local or global group) whose access rights you want to change and click <strong>Access Rights</strong>.</p>
+<p>In the view that opens click the name of a subject (a subsystem, or a local or global group) whose access rights you want to change</p>
 </li>
 <li>
 <p>In the window that opens, a list of services opened in the security server to the selected subject is displayed.</p>
-</li>
-</ol>
 <ul>
 <li>
-<p>To remove access rights to a service from the service client, select one or more services from the table and click <strong>Remove Selected</strong>, then click <strong>Confirm</strong>.</p>
+<p>To add access rights to a service client, start by clicking <strong>ADD SERVICE</strong>. In the window that opens, select the service(s) that you wish to grant to the subject and click <strong>ADD</strong>. Note that access rights to REST API endpoints can not be added using this view, those need to be added on <strong>SERVICES</strong> tab as described in <a href="#71-changing-the-access-rights-of-a-service">7.1</a>.</p>
 </li>
 <li>
-<p>To remove all access rights from the service client, click <strong>Remove All</strong> and then click <strong>Confirm</strong>.</p>
+<p>To remove a single access right to a service from the service client click <strong>Remove</strong> button on the corresponding row and click <strong>YES</strong> in the confirmation dialog.</p>
+</li>
+<li>
+<p>To remove all access rights to a service from the service client click <strong>REMOVE ALL</strong> and click <strong>YES</strong> in the confirmation dialog.</p>
 </li>
 <li>
 <p>Removing service level access rights from the service client also removes all REST API endpoint level access rights to the endpoints of the service. In other words, removing access rights from the service client removes all access rights to a service and its endpoints.</p>
 </li>
-<li>
-<p>To add access rights to a service client, start by clicking <strong>Add Service</strong>. In the window that opens, select the service(s) that you wish to grant to the subject (already granted services are displayed in gray) and click <strong>Add Selected to ACL</strong>. To add all services found by the search, click <strong>Add All to ACL</strong>. Note that access rights to REST API endpoints can not be added using this view, those need to be added on <strong>Services</strong> tab as described in <a href="#71-changing-the-access-rights-of-a-service">7.1</a>.</p>
-</li>
 </ul>
-<p><strong>Caution:</strong> If you refresh the page, all service clients that do not have access rights to any services are removed from the service clients’ view.</p>
+</li>
+</ol>
 <h2>
 <a id="8-local-access-right-groups" class="anchor" href="#8-local-access-right-groups" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>8 Local Access Right Groups</h2>
 <p>A local access rights group can be created for a security server client in order to facilitate the management of service access rights for a group of X-Road subsystems that use the same services. The access rights granted for a group apply for all the members of the group. Local groups are client-based, that is, a local group can only be used to manage the service access rights of one security server client in one security server.</p>
@@ -1769,10 +1990,10 @@ Select one or more subjects from the table and click <strong>Add Selected to ACL
 <p>To create a local group for a security server client, follow these steps.</p>
 <ol>
 <li>
-<p>On the <strong>Configuration</strong> menu, select <strong>Security Server Clients</strong>, select a client and click the <strong>Local Groups</strong> icon on that row. In the window that opens, a list of the client's local groups is displayed.</p>
+<p>Navigate to <strong>CLIENTS</strong> tab, click the name of the client and click the <strong>LOCAL GROUPS</strong> tab. In the view that opens, a list of the client's local groups is displayed.</p>
 </li>
 <li>
-<p>To create a new group, click <strong>Add Group</strong>. In the window that opens, enter the code and description for the new group and click <strong>OK</strong>.</p>
+<p>To create a new group, click <strong>ADD GROUP</strong>. In the view that opens, enter the code and description for the new group and click <strong>ADD</strong>.</p>
 </li>
 </ol>
 <h3>
@@ -1781,38 +2002,35 @@ Select one or more subjects from the table and click <strong>Add Selected to ACL
 <p>To <strong>view the members</strong> of a local group, follow these steps.</p>
 <ol>
 <li>
-<p>On the <strong>Configuration</strong> menu, select <strong>Security Server Clients</strong>, select a client and click the <strong>Local Groups</strong> icon on that row.</p>
+<p>Navigate to <strong>CLIENTS</strong> tab, click the name of the client and click the <strong>LOCAL GROUPS</strong> tab.</p>
 </li>
 <li>
-<p>In the window that opens, select a group whose members you want to view or change, and click <strong>Details</strong> to open the detail view.</p>
+<p>In the view that opens click the code of the group you wish to edit.</p>
 </li>
 </ol>
-<p>To <strong>add one or more members</strong> to a local group, follow these steps in the group’s detail view.</p>
+<p>To <strong>add one or more members</strong> to a local group, follow these steps in the group's detail view.</p>
 <ol>
 <li>
-<p>Click <strong>Add Members</strong>.</p>
+<p>Click <strong>ADD MEMBERS</strong>.</p>
 </li>
 <li>
-<p>In the window that opens, locate and select the subsystems that you wish to add to the group and click <strong>Add Selected to Group</strong>. To add all subsystems found by the search function to the group, click <strong>Add All to Group</strong>.</p>
+<p>In the window that opens add optional filters to your members search and click <strong>SEARCH</strong>. Select the subsystems that you wish to add to the group and click <strong>ADD SELECTED</strong>.</p>
 </li>
 </ol>
-<p>To <strong>remove members</strong> from a local group, select the members to be deleted in the group’s detail view and click <strong>Remove Selected Members</strong>. To remove all group members from the group, click <strong>Remove All Members</strong>.</p>
+<p>To <strong>remove members</strong> from a local group, click <strong>Remove</strong> on the corresponding row on group you wish to be deleted in the group's detail view and then click <strong>YES</strong> in the confirmation dialog. To remove all group members from the group, click <strong>REMOVE ALL</strong> and then click <strong>YES</strong> in the confirmation dialog.</p>
 <h3>
 <a id="83-changing-the-description-of-a-local-group" class="anchor" href="#83-changing-the-description-of-a-local-group" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>8.3 Changing the description of a Local Group</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-service-administrator">Service Administrator</a></p>
 <p>To change the description of a local group, follow these steps.</p>
 <ol>
 <li>
-<p>On the <strong>Configuration</strong> menu, select <strong>Security Server Clients</strong>, select a client from the table and click the <strong>Local Groups</strong> icon on that row.</p>
+<p>Navigate to <strong>CLIENTS</strong> tab, click the name of the client and click the <strong>LOCAL GROUPS</strong> tab.</p>
 </li>
 <li>
-<p>Select a group from the local groups table and click <strong>Details</strong>.</p>
+<p>In the view that opens click the code of the group you wish to edit.</p>
 </li>
 <li>
-<p>In the group detail view, click <strong>Edit</strong> to change the description.</p>
-</li>
-<li>
-<p>Enter the group description and click <strong>OK</strong>.</p>
+<p>In the group´s detail view change the description. The description is saved when the input field loses focus.</p>
 </li>
 </ol>
 <h3>
@@ -1822,13 +2040,13 @@ Select one or more subjects from the table and click <strong>Add Selected to ACL
 <p>To delete a local group, follow these steps.</p>
 <ol>
 <li>
-<p>On the <strong>Configuration</strong> menu, select <strong>Security Server Clients</strong>, select a client from the table and click the <strong>Local Groups</strong> icon on that row.</p>
+<p>Navigate to <strong>CLIENTS</strong> tab, click the name of the client and click the <strong>LOCAL GROUPS</strong> tab.</p>
 </li>
 <li>
-<p>Select a group from the local groups table and click <strong>Details</strong>.</p>
+<p>In the view that opens click the code of the group you wish to delete.</p>
 </li>
 <li>
-<p>In the group detail view, click <strong>Delete Group</strong> and confirm the deletion by clicking <strong>Confirm</strong> in the window that opens.</p>
+<p>In the group detail view, click <strong>DELETE</strong> and confirm the deletion by clicking <strong>YES</strong> in the dialog that opens.</p>
 </li>
 </ol>
 <h2>
@@ -1846,80 +2064,101 @@ Select one or more subjects from the table and click <strong>Add Selected to ACL
 <p>The HTTPS NOAUTH protocol should be used if you want the security server to skip the verification of the information system TLS certificate.</p>
 </li>
 </ul>
-<p><em>Note:</em> If the HTTP connection method is selected, but the information system connects to the security server over HTTPS, then the connection is accepted, but the client’s internal TLS certificate is not verified (same behavior as with HTTPS NOAUTH).</p>
+<p><em>Note:</em> If the HTTP connection method is selected, but the information system connects to the security server over HTTPS, then the connection is accepted, but the client's internal TLS certificate is not verified (same behavior as with HTTPS NOAUTH).</p>
 <p><strong>By default the connection type for all the security server clients is set to HTTPS to prevent unauthorised use of the clients.</strong></p>
 <p><strong>It is strongly recommended to keep the connection type of the security server owner as HTTPS to prevent security server clients from making operational monitoring data requests as a security server owner.</strong></p>
 <p>To set the connection method for internal network servers in the <strong>service consumer role</strong>, follow these steps.</p>
 <ol>
 <li>
-<p>On the <strong>Configuration</strong> menu, select <strong>Security Server Clients</strong>, select a security server owner or a client from the table and click the <strong>Internal Servers</strong> icon on that row.</p>
+<p>In the <strong>Navigation tabs</strong>, select <strong>CLIENTS</strong>, select a security server owner or a client from the table</p>
 </li>
 <li>
-<p>On the <strong>Connection Type</strong> drop-down, select the connection method and click <strong>Save</strong>.</p>
+<p>In the view that opens, select the <strong>INTERNAL SERVERS</strong> tab</p>
+</li>
+<li>
+<p>On the <strong>Connection type</strong> drop-down, select the connection method. The changes will be saved immediately on selecting the new method and a "Connection type updated" message is displayed.</p>
 </li>
 </ol>
 <p>Depending on the configured connection method, the request URL for information system is <strong><code>http://SECURITYSERVER/</code></strong> or <strong><code>https://SECURITYSERVER/</code></strong>. When making the request, the address <code>SECURITYSERVER</code> must be replaced with the actual address of the security server.</p>
 <p>The connection method for internal network servers in the <strong>service provider role</strong> is determined by the protocol in the URL. To change the connection method, follow these steps.</p>
 <ol>
 <li>
-<p>On the <strong>Configuration</strong> menu, select <strong>Security Server Clients</strong>, select a client from the table and click the <strong>Services</strong> icon on that row.</p>
+<p>In the <strong>Navigation tabs</strong>, select <strong>CLIENTS</strong>, select a security server owner or a client from the table</p>
 </li>
 <li>
-<p>Select a service from the table and click <strong>Edit</strong>.</p>
+<p>In the view that opens, select the <strong>SERVICES</strong> tab</p>
 </li>
 <li>
-<p>Change the protocol in the service URL to HTTP or HTTPS.
+<p>Click the caret next to the desired service description to show all services related to it</p>
+</li>
+<li>
+<p>Click on a service code in the table.</p>
+</li>
+<li>
+<p>In the view that opens, change the protocol in the service URL to HTTP, HTTPS or HTTPS NO AUTH.
 If the HTTPS protocol was selected, select the <strong>Verify TLS certificate</strong> checkbox if needed (see section <a href="#66-changing-the-parameters-of-a-service">6.6</a>). According to the service parameters, the connection with the internal network server is created using one the following protocols:</p>
 </li>
 </ol>
 <ul>
 <li>
-<p>HTTP – the service/adapter URL begins with “<strong>http:</strong>//...”.</p>
+<p>HTTP – the service/adapter URL begins with "<strong>http:</strong>//...".</p>
 </li>
 <li>
-<p>HTTPS – the service/adapter URL begins with “<strong>https</strong>://” and the <strong>Verify TLS certificate</strong> checkbox is selected.</p>
+<p>HTTPS – the service/adapter URL begins with "<strong>https</strong>://" and the <strong>Verify TLS certificate</strong> checkbox is selected.</p>
 </li>
 <li>
-<p>HTTPS NOAUTH – the service/adapter URL begins with "<strong>https</strong>://" and the <strong>Verify TLS certificate</strong> checkbox is not selected.</p>
+<p>HTTPS NO AUTH – the service/adapter URL begins with "<strong>https</strong>://" and the <strong>Verify TLS certificate</strong> checkbox is not selected.</p>
 </li>
 </ul>
 <p>To add an internal TLS certificate for a security server owner or security server client (for HTTPS connections), follow these steps.</p>
 <ol>
 <li>
-<p>On the <strong>Configuration</strong> menu, select <strong>Security Server Clients</strong>, select a security server owner or a client from the table and click the <strong>Internal Servers</strong> icon on that row.</p>
+<p>In the <strong>Navigation tabs</strong>, select <strong>CLIENTS</strong>, select a security server owner or a client from the table</p>
 </li>
 <li>
-<p>To add a certificate, click <strong>Add</strong> in the <strong>Internal TLS Certificates</strong> section, select a certificate file from the local file system and click <strong>OK</strong>. The certificate fingerprint appears in the “Internal TLS Certificates” table.</p>
+<p>In the view that opens, select the <strong>INTERNAL SERVERS</strong> tab</p>
+</li>
+<li>
+<p>To add a certificate, click <strong>ADD</strong> in the <strong>Information System TLS certificate</strong> section, select a certificate file from the local file system and click <strong>OK</strong>. The certificate fingerprint appears in the "Information System TLS certificate" table.</p>
 </li>
 </ol>
 <p>To display the detailed information of an internal TLS certificate, follow these steps.</p>
 <ol>
 <li>
-<p>On the <strong>Configuration</strong> menu, select <strong>Security Server Clients</strong>, select a security server owner or a client from the table and click the <strong>Internal Servers</strong> icon on that row.</p>
+<p>In the <strong>Navigation tabs</strong>, select <strong>CLIENTS</strong>, select a security server owner or a client from the table</p>
 </li>
 <li>
-<p>Select a certificate from the “Internal TLS Certificates” table and click <strong>Details</strong>.</p>
+<p>In the view that opens, select the <strong>INTERNAL SERVERS</strong> tab</p>
+</li>
+<li>
+<p>Click on a certificate in the "Information System TLS certificate".</p>
 </li>
 </ol>
 <p>To delete an internal TLS certificate, follow these steps.</p>
 <ol>
 <li>
-<p>On the <strong>Configuration</strong> menu, select <strong>Security Server Clients</strong>, select a security server owner or a client from the table and click the <strong>Internal Servers</strong> icon on that row.</p>
+<p>In the <strong>Navigation tabs</strong>, select <strong>CLIENTS</strong>, select a security server owner or a client from the table</p>
 </li>
 <li>
-<p>Select a certificate from the “Internal TLS Certificates” table and click <strong>Delete</strong>.</p>
+<p>In the view that opens, select the <strong>INTERNAL SERVERS</strong> tab</p>
 </li>
 <li>
-<p>Confirm the deletion by clicking <strong>Confirm</strong> in the window that opens.</p>
+<p>Click on a certificate in the "Information System TLS certificate".</p>
+</li>
+<li>
+<p>In the <strong>Certificate</strong> view that opens, click <strong>DELETE</strong>. Confirm deletion by clicking <strong>YES</strong>.</p>
 </li>
 </ol>
 <p>To export the security server's internal TLS certificate, follow these steps.</p>
 <ol>
 <li>
-<p>On the <strong>Configuration</strong> menu, select <strong>Security Server Clients</strong>, select a security server owner or a client from the table and click the <strong>Internal Servers</strong> icon on that row.</p>
+<p>In the <strong>Navigation tabs</strong>, select <strong>CLIENTS</strong>, select a security server owner or a client from the table</p>
 </li>
 <li>
-<p>Click <strong>Export</strong> and save the prompted file to the local file system.</p>
+<p>In the view that opens, select the <strong>INTERNAL SERVERS</strong> tab</p>
+</li>
+<li>
+<p>Click <strong>Export</strong> at the end of a certificate row in the "Security Server certificate" table and save the prompted file to the local file system.</p>
 </li>
 </ol>
 <h2>
@@ -1953,25 +2192,31 @@ If the HTTPS protocol was selected, select the <strong>Verify TLS certificate</s
 <p>To upload the configuration anchor, follow these steps.</p>
 <ol>
 <li>
-<p>On the <strong>Configuration</strong> menu, select <strong>System Parameters</strong>. The system parameters view is opened.</p>
+<p>In the <strong>Navigation tabs</strong>, select <strong>SETTINGS</strong>.</p>
 </li>
 <li>
-<p>In the <strong>Configuration Anchor</strong> section, click <strong>Upload</strong>.</p>
+<p>In the opening view select <strong>SYSTEM PARAMETERS</strong> tab.</p>
 </li>
 <li>
-<p>Find the anchor file from the local file system and click <strong>Upload</strong>.</p>
+<p>In the <strong>Configuration Anchor</strong> section, click <strong>UPLOAD</strong>.</p>
 </li>
 <li>
-<p>Ensure that the anchor file you are uploading is valid by comparing the hash value of the uploaded file with the hash value of the currently valid anchor published by the X-Road governing authority. If the hash values match, confirm the upload by clicking <strong>Confirm</strong>.</p>
+<p>Find the anchor file from the local file system and click <strong>Open</strong>.</p>
+</li>
+<li>
+<p>Ensure that the anchor file you are uploading is valid by comparing the hash value of the uploaded file with the hash value of the currently valid anchor published by the X-Road governing authority. If the hash values match, confirm the upload by clicking <strong>CONFIRM</strong>.</p>
 </li>
 </ol>
 <p>To download the configuration anchor, follow these steps.</p>
 <ol>
 <li>
-<p>On the <strong>Configuration</strong> menu, select <strong>System Parameters</strong>. The system parameters view is opened.</p>
+<p>In the <strong>Navigation tabs</strong>, select <strong>SETTINGS</strong>.</p>
 </li>
 <li>
-<p>On the <strong>Configuration Anchor</strong> section, click <strong>Download</strong> and save the prompted file.</p>
+<p>In the opening view select <strong>SYSTEM PARAMETERS</strong> tab.</p>
+</li>
+<li>
+<p>On the <strong>Configuration Anchor</strong> section, click <strong>DOWNLOAD</strong> and save the prompted file.</p>
 </li>
 </ol>
 <h3>
@@ -1980,76 +2225,113 @@ If the HTTPS protocol was selected, select the <strong>Verify TLS certificate</s
 <p>To add a timestamping service, follow these steps.</p>
 <ol>
 <li>
-<p>On the <strong>Configuration</strong> menu, select <strong>System Parameters</strong>. The system parameters view is opened.</p>
+<p>In the <strong>Navigation tabs</strong>, select <strong>SETTINGS</strong>.</p>
 </li>
 <li>
-<p>In the <strong>Timestamping Services</strong> section, click <strong>Add</strong>.</p>
+<p>In the opening view select <strong>SYSTEM PARAMETERS</strong> tab.</p>
 </li>
 <li>
-<p>In the window that opens, select a service and click <strong>OK</strong>.</p>
+<p>In the <strong>Timestamping Services</strong> section, click <strong>ADD</strong>.</p>
+</li>
+<li>
+<p>In the dialog that opens, select a service and click <strong>ADD</strong>.</p>
 </li>
 </ol>
 <p>To delete a timestamping service, follow these steps.</p>
 <ol>
 <li>
-<p>On the <strong>Configuration</strong> menu, select <strong>System Parameters</strong>. The system parameters view is opened.</p>
+<p>In the <strong>Navigation tabs</strong>, select <strong>SETTINGS</strong>.</p>
 </li>
 <li>
-<p>In the <strong>Timestamping Services</strong> section, select the service to be deleted and click <strong>Delete</strong>.</p>
+<p>In the opening view select <strong>SYSTEM PARAMETERS</strong> tab.</p>
+</li>
+<li>
+<p>In the <strong>Timestamping Services</strong> section, click <strong>DELETE</strong> at the end of the row of the service you wish to delete.</p>
 </li>
 </ol>
 <p><em>Note</em>: If more than one timestamping service is configured, the security server will try to get a timestamp from the topmost service in the table, moving down to the next service if the try was unsuccessful. The failover covers both connection and timestamp response verification issues. For example, security server is not able to establish a connection to a timestamping service because of a misconfigured firewall, or verification of a timestamp response fails because of the sign certificate of the timestamping service is changed.</p>
 <h3>
 <a id="103-changing-the-internal-tls-key-and-certificate" class="anchor" href="#103-changing-the-internal-tls-key-and-certificate" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>10.3 Changing the Internal TLS Key and Certificate</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-security-officer">Security Officer</a>, <a href="#xroad-system-administrator">System Administrator</a></p>
-<p><em>To change the security server’s internal TLS key and certificate</em>, follow these steps.</p>
+<p><em>To change the security server's internal TLS key and certificate</em>, follow these steps.</p>
 <ol>
 <li>
-<p>On the <strong>Configuration</strong> menu, select <strong>System Parameters</strong>. The system parameters view is opened.</p>
+<p>On the <strong>Navigation tabs</strong>, select <strong>Keys and Certificates</strong></p>
 </li>
 <li>
-<p>In the <strong>Internal TLS Certificate</strong> section, click <strong>Generate New TLS Key</strong> and in the window that opens, click <strong>Confirm</strong>.</p>
-<p>The security server generates a key used for communication with the client information systems, and the corresponding self-signed certificate. The security server's certificate fingerprint will also change. The security server's domain name is saved to the certificate's <em>Common Name</em> field, and the internal IP address to the <em>subjectAltName</em> extension field.</p>
+<p>In the opening view, select <strong>SECURITY SERVER TLS KEY</strong> tab</p>
+</li>
+<li>
+<p>In the opening view, click <strong>GENERATE KEY</strong> and in the dialog that opens, click <strong>CONFIRM</strong>.</p>
+<p>The security server generates a key used for communication with the client information systems, and the corresponding self-signed certificate. The security server's certificate fingerprint will also change. The security server's domain name is saved to the certificate's <strong>Common Name</strong> field, and the internal IP address to the <strong>subjectAltName</strong> extension field.</p>
 </li>
 </ol>
 <p><em>To generate a new certificate request</em>, follow these steps.</p>
 <ol>
 <li>
-<p>On the <strong>Configuration</strong> menu, select <strong>System Parameters</strong>. The system parameters view is opened.</p>
+<p>On the <strong>Navigation tabs</strong>, select <strong>KEYS AND CERTIFICATES</strong></p>
 </li>
 <li>
-<p>In the “Internal TLS Certificate” section, click <strong>Generate Certificate Request</strong>, input the <strong>Distinguished Name</strong> and save the certificate request file to the local file system.</p>
+<p>In the opening view, select <strong>SECURITY SERVER TLS KEY</strong> tab</p>
+</li>
+<li>
+<p>In the "TLS Key and Certificate" section, at the end of the key row, click <strong>Generate CSR</strong></p>
+</li>
+<li>
+<p>In the opening view, input the <strong>Distinguished Name</strong> and click <strong>GENERATE CSR</strong>. Save the certificate request file to the local file system and click <strong>DONE</strong>.</p>
 <p>The security server generates a certificate request using the current key and the provided <strong>Distinguished Name</strong>.</p>
 </li>
 </ol>
 <p><em>To import a new TLS certificate</em>, follow these steps.</p>
 <ol>
 <li>
-<p>On the <strong>Configuration</strong> menu, select <strong>System Parameters</strong>. The system parameters view is opened.</p>
+<p>On the <strong>Navigation tabs</strong>, select <strong>KEYS AND CERTIFICATES</strong></p>
 </li>
 <li>
-<p>In the “Internal TLS Certificate” section, click <strong>Import Certificate</strong> and point to the file to be imported.</p>
+<p>In the opening view, select <strong>SECURITY SERVER TLS KEY</strong> tab</p>
+</li>
+<li>
+<p>In the opening view, click <strong>IMPORT CERT.</strong> and point to the file to be imported.</p>
 <p>The imported certificate must be in PEM-format to be accepted. Certificate chains are supported; concatenate possible intermediate certificate(s) to the server certificate before importing the file.</p>
 <p>Note that the Internal TLS Key and Certificate are cached by default for 60 seconds (default cache period for serverconf) so generating a new key and importing a new certificate might affect providing services from the security server for the caching period. The caching period can be changed with System Parameters [<a href="#Ref_UG-SYSPAR">UG-SYSPAR</a>]</p>
 </li>
 </ol>
-<p><em>To export the security server’s internal TLS certificate</em>, follow these steps.</p>
+<p><em>To export the security server's internal TLS certificate</em>, follow these steps.</p>
 <ol>
 <li>
-<p>On the <strong>Configuration</strong> menu, select <strong>System Parameters</strong>. The system parameters view is opened.</p>
+<p>On the <strong>Navigation tabs</strong>, select <strong>KEYS AND CERTIFICATES</strong></p>
 </li>
 <li>
-<p>In the <strong>Internal TLS Certificate</strong> section, click <strong>Export</strong> and save the prompted file to the local file system.</p>
+<p>In the opening view, select <strong>SECURITY SERVER TLS KEY</strong> tab</p>
+</li>
+<li>
+<p>In the opening view, click <strong>EXPORT CERT.</strong> and save the prompted file to the local file system.</p>
 <p>Note that only the internal server certificate is exported, not the possible intermediate certificates.</p>
 </li>
 </ol>
-<p><em>To view the detailed information of the security server’s internal TLS certificate</em>, follow these steps.</p>
+<p><em>To view the detailed information of the security server's internal TLS certificate</em>, follow these steps.</p>
 <ol>
-<li>On the <strong>Configuration</strong> menu, select <strong>System Parameters</strong>. The system parameters view is opened.</li>
-<li>In the <strong>Internal TLS Certificate</strong> section, click <strong>Certificate Details</strong>.</li>
+<li>
+<p>On the <strong>Navigation tabs</strong>, select <strong>Keys and Certificates</strong></p>
+</li>
+<li>
+<p>In the opening view, select <strong>SECURITY SERVER TLS KEY</strong> tab</p>
+</li>
+<li>
+<p>In the "TLS Key and Certificate" section, click on the certificate hash.</p>
+</li>
 </ol>
 <h3>
 <a id="104-approved-certificate-authorities" class="anchor" href="#104-approved-certificate-authorities" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>10.4 Approved Certificate Authorities</h3>
+<p><em>To list the approved certificate authorities</em>, follow these steps.</p>
+<ol>
+<li>
+<p>In the <strong>Navigation tabs</strong>, select <strong>SETTINGS</strong>.</p>
+</li>
+<li>
+<p>In the opening view select <strong>SYSTEM PARAMETERS</strong> tab. Approved certificate authorities are listed in the "Approved Certificate Authorities" section.</p>
+</li>
+</ol>
 <p>Lists approved certificate authorities. The listing contains the following information:</p>
 <ul>
 <li>CA certificate subject distinguished name. Top-level CAs are <strong>emphasized</strong>.</li>
@@ -2221,7 +2503,7 @@ RHEL: <code>yum reinstall xroad-addon-messagelog</code></p>
 </ol>
 <h2>
 <a id="12-audit-log" class="anchor" href="#12-audit-log" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>12 Audit Log</h2>
-<p>The security server keeps an audit log. The audit log events are generated by the user interface when the user changes the system’s state or configuration. The user actions are logged regardless of whether the outcome was a success or a failure. The complete list of the audit log events is described in [<a href="#Ref_SPEC-AL">SPEC-AL</a>].</p>
+<p>The security server keeps an audit log. The audit log events are generated by the user interface when the user changes the system's state or configuration. The user actions are logged regardless of whether the outcome was a success or a failure. The complete list of the audit log events is described in [<a href="#Ref_SPEC-AL">SPEC-AL</a>].</p>
 <p>Actions that change the system state or configuration but are not carried out using the user interface are not logged (for example, X-Road software installation and upgrade, user creation and permission granting, and changing the configuration files).</p>
 <p>An audit log record contains correlation-id, which can be used to link the record to other log messages about the same request.</p>
 <p>An audit log record also contains</p>
@@ -2254,13 +2536,13 @@ RHEL: <code>yum reinstall xroad-addon-messagelog</code></p>
 </li>
 </ul>
 <p>For example, registering a new client in the security server produces the following log record:</p>
-<p><code>2020-06-03T11:00:51+00:00 my-security-server-host correlation-id: [24b47d04dc6e1c49] INFO  [X-Road Proxy Admin REST API] 2020-06-03T11:00:51.944Z - {"event":"Register client","user":"admin1","auth":"Session","url":"/api/clients/LXD:GOV:M1:audit-test/register","data":{"clientIdentifier":{"xRoadInstance":"LXD","memberClass":"GOV","memberCode":"M1","subsystemCode":"audit-test","clientStatus":"registration in progress"}}}</code></p>
+<p><code>2020-06-03T11:00:51+00:00 my-security-server-host correlation-id: [24b47d04dc6e1c49] INFO  [X-Road Proxy Admin REST API] 2020-06-03T11:00:51.944Z - {"event":"Register client","user":"admin1","auth":"Session","url":"/api/v1/clients/LXD:GOV:M1:audit-test/register","data":{"clientIdentifier":{"xRoadInstance":"LXD","memberClass":"GOV","memberCode":"M1","subsystemCode":"audit-test","clientStatus":"registration in progress"}}}</code></p>
 <p>The event is present in JSON [<a href="#Ref_JSON">JSON</a>] format, in order to ensure machine processability.
 The field event represents the description of the event, the field user represents the user name of the performer, and the field data represents data related with the event.
 Field auth represents the authentication type, and url represents the API url.
 The failed action event record contains additional fields reason for the error message, and boolean warning to document whether failure was due to an unhandled warning.
 For example:</p>
-<p><code>2020-06-03T10:57:46+00:00 my-security-server-host correlation-id: [49458d51a0bbe9ed] INFO  [X-Road Proxy Admin REST API] 2020-06-03T10:57:46.417Z - {"event":"Log in to token failed","user":"admin1","reason":"org.niis.xroad.restapi.service.TokenService$PinIncorrectException: Signer.PinIncorrect: PIN incorrect","warning":false,"auth":"Session","url":"/api/tokens/0/login","data":{"tokenId":"0","tokenSerialNumber":null,"tokenFriendlyName":"softToken-0"}}</code></p>
+<p><code>2020-06-03T10:57:46+00:00 my-security-server-host correlation-id: [49458d51a0bbe9ed] INFO  [X-Road Proxy Admin REST API] 2020-06-03T10:57:46.417Z - {"event":"Log in to token failed","user":"admin1","reason":"org.niis.xroad.restapi.service.TokenService$PinIncorrectException: Signer.PinIncorrect: PIN incorrect","warning":false,"auth":"Session","url":"/api/v1/tokens/0/login","data":{"tokenId":"0","tokenSerialNumber":null,"tokenFriendlyName":"softToken-0"}}</code></p>
 <p>By default, audit log is located in the file</p>
 <pre><code>/var/log/xroad/audit.log
 </code></pre>
@@ -2290,31 +2572,34 @@ For example:</p>
 <h3>
 <a id="131-back-up-and-restore-in-the-user-interface" class="anchor" href="#131-back-up-and-restore-in-the-user-interface" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>13.1 Back up and Restore in the User Interface</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-system-administrator">System Administrator</a></p>
-<p>The backup and restore view can be accessed from the <strong>Management</strong> menu by selecting <strong>Back Up and Restore</strong>.</p>
+<p>The backup and restore view can be accessed from the <strong>Navigation tabs</strong> by selecting <strong>Back Up and Restore</strong>.</p>
 <p>To <strong>back up configuration</strong>, follow these steps.</p>
 <ol>
 <li>
-<p>Click <strong>Back Up Configuration</strong>.</p>
+<p>Navigate to <strong>SETTINGS</strong> tab and in the view that opens click <strong>BACKUP AND RESTORE</strong> tab.</p>
 </li>
 <li>
-<p>A window opens displaying the output of the backup script; click <strong>OK</strong> to close it. The configuration backup file appears in the list of configuration backup files.</p>
+<p>Click <strong>BACK UP CONFIG.</strong></p>
 </li>
 <li>
-<p>To save the configuration backup file to the local file system, click <strong>Download</strong> on the configuration file’s row and save the prompted file.</p>
+<p>The configuration backup file appears in the list of configuration backup files.</p>
+</li>
+<li>
+<p>To save the configuration backup file to the local file system, click <strong>DOWNLOAD</strong> on the configuration file's row.</p>
 </li>
 </ol>
 <p>To <strong>restore configuration</strong>, follow these steps.</p>
 <ol>
 <li>
-<p>Click <strong>Restore</strong> on the appropriate row in the list of configuration backup files and click <strong>Confirm</strong>.</p>
+<p>Click <strong>Restore</strong> on the appropriate row in the list of configuration backup files and click <strong>YES</strong>.</p>
 </li>
 <li>
-<p>A window opens displaying the output of the restore script; click <strong>OK</strong> to close it.</p>
+<p>A popup notification shows after the restore whether the restoring was successful or not.</p>
 </li>
 </ol>
 <p>If something goes wrong while restoring the configuration it is possible to revert back to the old configuration. Security Server stores so called pre-restore configuration automatically to <code>/var/lib/xroad/conf_prerestore_backup.tar</code>. Either move it to <code>/var/lib/xroad/backup/</code> folder and utilize the user interface to restore it or use the command line interaface described in the next chapter.</p>
-<p>To <strong>delete a configuration backup file</strong>, click <strong>Delete</strong> on the appropriate row in the configuration backup file list and then click <strong>Confirm</strong>.</p>
-<p>To <strong>upload a configuration backup file</strong> from the local file system to the security server, click <strong>Upload Backup File</strong>, select a file and click <strong>OK</strong>. The uploaded configuration file appears in the list of configuration files.</p>
+<p>To <strong>delete a configuration backup file</strong>, click <strong>Delete</strong> on the appropriate row in the configuration backup file list and then click <strong>YES</strong>.</p>
+<p>To <strong>upload a configuration backup file</strong> from the local file system to the security server, click <strong>UPLOAD BACKUP</strong>, select a file and click <strong>YES</strong>. The uploaded configuration file appears in the list of configuration files.</p>
 <h3>
 <a id="132-restore-from-the-command-line" class="anchor" href="#132-restore-from-the-command-line" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>13.2 Restore from the Command Line</h3>
 <p>To restore configuration from the command line, the following data must be available:</p>
@@ -2343,7 +2628,7 @@ For example:</p>
 <h3>
 <a id="141-examine-security-server-services-status-information" class="anchor" href="#141-examine-security-server-services-status-information" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>14.1 Examine security server services status information</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-system-administrator">System Administrator</a></p>
-<p>Open the <strong>Management</strong> menu and select <strong>Diagnostics</strong>.</p>
+<p>Click on <strong>DIAGNOSTICS</strong> in the <strong>Navigation tabs</strong>.</p>
 <p>On this page you can examine the statuses of the following services:</p>
 <table>
 <thead>
@@ -2360,8 +2645,8 @@ For example:</p>
 <td>Global configuration</td>
 <td>Green/yellow/red</td>
 <td>Status message</td>
-<td>The time of the global configuration client’s last run</td>
-<td>The estimated time of the global configuration client’s next run</td>
+<td>The time of the global configuration client's last run</td>
+<td>The estimated time of the global configuration client's next run</td>
 </tr>
 <tr>
 <td>Timestamping</td>
@@ -2379,7 +2664,7 @@ For example:</p>
 </tr>
 </tbody>
 </table>
-<p>To refresh the service statuses click the <strong>Diagnostics</strong> item on the <strong>Management</strong> menu.</p>
+<p>To refresh the service statuses, refresh the page.</p>
 <p>The status colors indicate the following:</p>
 <ul>
 <li>
@@ -2461,7 +2746,7 @@ xroad-opmonitor
 <a id="1525-configuring-an-external-operational-monitoring-daemon-and-the-corresponding-security-server" class="anchor" href="#1525-configuring-an-external-operational-monitoring-daemon-and-the-corresponding-security-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>15.2.5 Configuring an External Operational Monitoring Daemon and the Corresponding Security Server</h4>
 <p>To make a security server communicate with an external operational monitoring daemon, it is necessary to configure both the daemon and the security server.</p>
 <p>By default, the operational monitoring daemon listens on localhost. To make the daemon available to security servers on other hosts, the listening address must be set to the IP address that is relevant in the particular network, as described in the previous section.</p>
-<p>As advised, the scheme parameter should be set to “https”. For communication over HTTPS, the security server and the operational monitoring daemon must know each other’s TLS certificates to enable the security server to authenticate to the monitoring daemon successfully.</p>
+<p>As advised, the scheme parameter should be set to "https". For communication over HTTPS, the security server and the operational monitoring daemon must know each other's TLS certificates to enable the security server to authenticate to the monitoring daemon successfully.</p>
 <p><strong>NOTE:</strong> If an external operational monitoring daemon is used, the host, scheme (and optionally, port) parameters must be changed at both hosts.</p>
 <p>The internal TLS certificate of the security server is used for authenticating the security server to the operational monitoring daemon. This certificate has been generated beforehand, during the installation process of the security server, and is available in PEM format in the file <code>/etc/xroad/ssl/internal.crt</code>. Please refer to Section <a href="#103-changing-the-internal-tls-key-and-certificate">10.3</a> for the instructions on exporting the internal TLS certificate from UI. The file must be copied to the host running the operational monitoring daemon. The system user xroad must have permissions to read this file.</p>
 <p>In the configuration of the external daemon, the corresponding path must be set in <code>/etc/xroad/conf.d/local.ini</code>:</p>
@@ -2529,11 +2814,6 @@ tls-certificate = &lt;path/to/external/daemon/tls/cert&gt;
 <td><code>/var/log/xroad/configuration_client.log</code></td>
 </tr>
 <tr>
-<td><code>xroad-jetty </code></td>
-<td>Application server running the user interface</td>
-<td><code>/var/log/xroad/jetty/</code></td>
-</tr>
-<tr>
 <td><code>xroad-proxy</code></td>
 <td>Message exchanger</td>
 <td><code>/var/log/xroad/proxy.log</code></td>
@@ -2549,11 +2829,6 @@ tls-certificate = &lt;path/to/external/daemon/tls/cert&gt;
 <td>
 <code>/var/log/xroad/proxy_ui_api.log</code> and <br><code>/var/log/xroad/proxy_ui_api_access.log</code>
 </td>
-</tr>
-<tr>
-<td><code>nginx</code></td>
-<td>Web server that exchanges the services of the user interface's application server and the message exchanger</td>
-<td><code>/var/log/nginx/</code></td>
 </tr>
 </tbody>
 </table>
@@ -2617,13 +2892,13 @@ allowed-federations=xe-test, all, ee-test
 allowed-federations=xe-test, all, none, ee-test
 </code></pre>
 <h2>
-<a id="19-management-rest-apis" class="anchor" href="#19-management-rest-apis" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>19 Management REST APIs</h2>
-<p>Security server has REST APIs that can be used to do all the same server configuration operations that can be done
+<a id="19-management-rest-api" class="anchor" href="#19-management-rest-api" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>19 Management REST API</h2>
+<p>Security server has a REST API that can be used to do all the same server configuration operations that can be done
 using the web UI.</p>
-<p>Management REST APIs are protected with an API key based authentication. To execute REST calls, API keys need to be created.</p>
-<p>All REST APIs are protected by TLS. Since server uses self signed certificate, the caller needs to accept this (for example
-with <code>curl</code> you need to use <code>--insecure</code> or <code>-k</code> option.</p>
-<p>Request sent to REST APIs have a <em>limit for maximum size</em>. If a too large request is sent
+<p>Management REST API is protected with an API key based authentication. To execute REST calls, API keys need to be created.</p>
+<p>REST API is protected by TLS. Since server uses self signed certificate, the caller needs to accept this (for example
+with <code>curl</code> you might use <code>--insecure</code> or <code>-k</code> option).</p>
+<p>Requests sent to REST API have a <em>limit for maximum size</em>. If a too large request is sent
 to REST API, it will not be processed, and http status 413 Payload too large will be returned.
 There is a different limit for binary file uploads, and for other requests.</p>
 <p>Limits are</p>
@@ -2631,8 +2906,8 @@ There is a different limit for binary file uploads, and for other requests.</p>
 <li>10MB for file uploads</li>
 <li>50KB for other requests</li>
 </ul>
-<p>REST APIs are also <em>rate limited</em>. Rate limits apply per each calling IP. If the number of calls
-from one IP address exceeds the limit, REST APIs return http status 429 Too Many Requests.</p>
+<p>REST API is also <em>rate limited</em>. Rate limits apply per each calling IP. If the number of calls
+from one IP address exceeds the limit, endpoints return http status 429 Too Many Requests.</p>
 <p>Limits are</p>
 <ul>
 <li>600 requests per minute</li>
@@ -2657,17 +2932,17 @@ PROXY_UI_API_PARAMS=" $PROXY_UI_API_PARAMS -Drequest.sizelimit.binary.upload=1MB
 <a id="191-api-key-management-operations" class="anchor" href="#191-api-key-management-operations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>19.1 API key management operations</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-system-administrator">System Administrator</a></p>
 <p>An API key is linked to a role or roles, and grants access to the operations that are allowed for that role/roles.
-A separate REST api exists for API key management.
-API key management API is authenticated to with <a href="https://en.wikipedia.org/wiki/Basic_access_authentication" rel="nofollow">HTTP basic authentication</a> (username and password)
+Separate REST endpoints exist for API key management.
+API key management endpoints are authenticated to with <a href="https://en.wikipedia.org/wiki/Basic_access_authentication" rel="nofollow">HTTP basic authentication</a> (username and password)
 or with session authentication (for admin web application).
 Basic authentication access is limited to localhost by default, but this can
 be changed using System Parameters [<a href="#Ref_UG-SYSPAR">UG-SYSPAR</a>].</p>
 <h4>
 <a id="1911-creating-new-api-keys" class="anchor" href="#1911-creating-new-api-keys" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>19.1.1 Creating new API keys</h4>
-<p>A new API key is created with a <code>POST</code> request to <code>/api/api-keys</code>. Message body must contain the roles to be
+<p>A new API key is created with a <code>POST</code> request to <code>/api/v1/api-keys</code>. Message body must contain the roles to be
 associated with the key. Server responds with data that contains the actual API key. After this point the key
 cannot be retrieved, as it is not stored in plaintext.</p>
-<pre><code>curl -X POST -u &lt;user&gt;:&lt;password&gt; https://localhost:4000/api/api-keys --data '["XROAD_SECURITYSERVER_OBSERVER","XROAD_REGISTRATION_OFFICER"]' --header "Content-Type: application/json" -k
+<pre><code>curl -X POST -u &lt;user&gt;:&lt;password&gt; https://localhost:4000/api/v1/api-keys --data '["XROAD_SECURITYSERVER_OBSERVER","XROAD_REGISTRATION_OFFICER"]' --header "Content-Type: application/json" -k
 {
   "roles": [
     "XROAD_REGISTRATION_OFFICER",
@@ -2681,8 +2956,8 @@ cannot be retrieved, as it is not stored in plaintext.</p>
 <p>In this example the created key was <code>23bc57cd-b1ba-4702-9657-8d53e335c843</code>.</p>
 <h4>
 <a id="1912-listing-api-keys" class="anchor" href="#1912-listing-api-keys" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>19.1.2 Listing API keys</h4>
-<p>Existing API keys can be listed with a <code>GET</code> request to <code>/api/api-keys</code>. This lists all keys, regardless of who has created them.</p>
-<pre><code>curl -X GET -u &lt;user&gt;:&lt;password&gt; https://localhost:4000/api/api-keys -k
+<p>Existing API keys can be listed with a <code>GET</code> request to <code>/api/v1/api-keys</code>. This lists all keys, regardless of who has created them.</p>
+<pre><code>curl -X GET -u &lt;user&gt;:&lt;password&gt; https://localhost:4000/api/v1/api-keys -k
 [
   {
     "id": 59,
@@ -2699,9 +2974,9 @@ cannot be retrieved, as it is not stored in plaintext.</p>
 </code></pre>
 <h4>
 <a id="1913-updating-api-keys" class="anchor" href="#1913-updating-api-keys" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>19.1.3 Updating API keys</h4>
-<p>An existing API key is updated with a <code>PUT</code> request to <code>/api/api-key/{id}</code>. Message body must contain the roles to be
+<p>An existing API key is updated with a <code>PUT</code> request to <code>/api/v1/api-keys/{id}</code>. Message body must contain the roles to be
 associated with the key. Server responds with data that contains the key id and roles associated with the key.</p>
-<pre><code>curl -X PUT -u &lt;user&gt;:&lt;password&gt; https://localhost:4000/api/api-key/60 --data '["XROAD_SECURITYSERVER_OBSERVER","XROAD_REGISTRATION_OFFICER"]' --header "Content-Type: application/json" -k
+<pre><code>curl -X PUT -u &lt;user&gt;:&lt;password&gt; https://localhost:4000/api/v1/api-keys/60 --data '["XROAD_SECURITYSERVER_OBSERVER","XROAD_REGISTRATION_OFFICER"]' --header "Content-Type: application/json" -k
 {
   "id": 60,
   "roles": [
@@ -2713,19 +2988,19 @@ associated with the key. Server responds with data that contains the key id and 
 </code></pre>
 <h4>
 <a id="1914-revoking-api-keys" class="anchor" href="#1914-revoking-api-keys" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>19.1.4 Revoking API keys</h4>
-<p>An API key can be revoked with a <code>DELETE</code> request to <code>/api/api-keys/{id}</code>. Server responds with <code>HTTP 200</code> if
+<p>An API key can be revoked with a <code>DELETE</code> request to <code>/api/v1/api-keys/{id}</code>. Server responds with <code>HTTP 200</code> if
 revocation was successful and <code>HTTP 404</code> if key did not exist.</p>
-<pre><code>curl -X DELETE -u &lt;user&gt;:&lt;password&gt; https://localhost:4000/api/api-keys/60  -k
+<pre><code>curl -X DELETE -u &lt;user&gt;:&lt;password&gt; https://localhost:4000/api/v1/api-keys/60  -k
 
 </code></pre>
 <h4>
 <a id="1915-api-key-caching" class="anchor" href="#1915-api-key-caching" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>19.1.5 API key caching</h4>
 <p>API keys are cached in memory. In typical security server configurations this does not create problems.
 However, if you have configured a setup where multiple security servers share the same <code>serverconf</code> database,
-and use multiple nodes to access REST APIs and execute API key management operations, the caches of different nodes
+and use multiple nodes to access REST API and execute API key management operations, the caches of different nodes
 can become out of sync.</p>
 <p>For example, you may revoke an API key from node 1 but node 2 is not aware of this, and still grants access to
-REST APIs with this API key.</p>
+REST API endpoints with this API key.</p>
 <p>If you operate such a configuration, you need to target all REST API operations to the same security server node,
 or otherwise ensure that caching will not create problems (for example, always restart REST API modules when API key
 operations are executed).</p>
@@ -2734,7 +3009,7 @@ operations are executed).</p>
 <p><strong>Access rights:</strong> Depends on the API.</p>
 <p>Once a valid API key has been created, it is used by providing an <code>Authorization: X-Road-ApiKey token=&lt;api key&gt;</code> HTTP
 header in the REST calls. For example</p>
-<pre><code>curl --header "Authorization: X-Road-apikey token=ff6f55a8-cc63-4e83-aa4c-55f99dc77bbf" "https://localhost:4000/api/clients" -k
+<pre><code>curl --header "Authorization: X-Road-ApiKey token=ff6f55a8-cc63-4e83-aa4c-55f99dc77bbf" "https://localhost:4000/api/v1/clients" -k
 [
   {
     "id": "XRD2:GOV:999:foobar",
@@ -2745,13 +3020,13 @@ header in the REST calls. For example</p>
     "status": "saved
 ...
 </code></pre>
-<p>The available APIs are documented in OpenAPI specification (TBD). Access rights for different APIs follow the same rules
+<p>The available APIs are documented in OpenAPI specification [<a href="#Ref_REST_UI-API">REST_UI-API</a>]. Access rights for different APIs follow the same rules
 as the corresponding UI operations.
 Access to regular APIs is allowed from all IP addresses by default, but this can
 be changed using System Parameters [<a href="#Ref_UG-SYSPAR">UG-SYSPAR</a>].</p>
 <h3>
 <a id="193-correlation-id-http-header" class="anchor" href="#193-correlation-id-http-header" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>19.3 Correlation ID HTTP header</h3>
-<p>The REST APIs return an <strong>X-Road-UI-Correlation-ID</strong> HTTP header. This header is also logged in <code>proxy_ui_api.log</code>, so it
+<p>The REST API endpoints return an <strong>x-road-ui-correlation-id</strong> HTTP header. This header is also logged in <code>proxy_ui_api.log</code>, so it
 can be used to find the log messages related to a specific API call.</p>
 <p>The correlation ID header is returned for all requests, both successful and failed ones.</p>
 <p>For example, these log messages are related to an API call with correlation ID <code>3d5f193102435242</code>:</p>
@@ -2761,15 +3036,107 @@ can be used to find the log messages related to a specific API call.</p>
 </code></pre>
 <h3>
 <a id="194-validation-errors" class="anchor" href="#194-validation-errors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>19.4 Validation errors</h3>
-<p>An error response from the REST API can include validation errors if an unsupported parameter was provided with the request.</p>
-<p>In addition to the validation messages declared in Java Validation API, the following validation errors are possible:</p>
-<pre><code>Normalized
-NoColons
-NoSemicolons
-NoForwardslashes
-NoBackslashes
-NoPercents
+<p>An error response from the REST API can include validation errors if an unsupported parameter was provided with the request.
+When</p>
+<p>Example request and response of adding a new subsystem with illegal characters:</p>
+<pre><code>POST https://ss1:4100/api/v1/clients
+
+Request body:
+{
+  "client": {
+    "member_class": "ORG",
+    "member_code": "0/1234",
+    "subsystem_code": "Subsystem%Code"
+  },
+  "ignore_warnings": false
+}
+
+Response body:
+{
+  "error": {
+    "code": "validation_failure",
+    "validation_errors": {
+      "clientAdd.client.memberCode": [
+        "NoForwardslashes"
+      ],
+      "clientAdd.client.subsystemCode": [
+        "NoPercents"
+      ]
+    }
+  },
+  "status": 400
+}
 </code></pre>
+<p>In addition to the validation messages declared in <a href="https://javaee.github.io/javaee-spec/javadocs/javax/validation/constraints/package-summary.html" rel="nofollow">Java Validation API</a>, the following validation errors are possible:</p>
+<table>
+<thead>
+<tr>
+<th>Error</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NoControlChars</code></td>
+<td>The provided string contains <a href="https://en.wikipedia.org/wiki/Control_character" rel="nofollow">ISO control characters</a> or zero-width spaces</td>
+</tr>
+<tr>
+<td><code>NoColons</code></td>
+<td>The provided string contains colons <code>:</code>
+</td>
+</tr>
+<tr>
+<td><code>NoSemicolons</code></td>
+<td>The provided string contains semicolons <code>;</code>
+</td>
+</tr>
+<tr>
+<td><code>NoForwardslashes</code></td>
+<td>The provided string contains slashes <code>/</code>
+</td>
+</tr>
+<tr>
+<td><code>NoBackslashes</code></td>
+<td>The provided string contains backslashes <code>\</code>
+</td>
+</tr>
+<tr>
+<td><code>NoPercents</code></td>
+<td>The provided string contains percent symbol <code>%</code>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>
+<a id="195-warning-responses" class="anchor" href="#195-warning-responses" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>19.5 Warning responses</h3>
+<p>Error response from the Management API can include additional warnings that you can ignore if seen necessary. The warnings can be ignored by your decision, by executing the same operation with <code>ignore_warnings</code> boolean parameter set to <code>true</code>. <em>Always consider the warning before making the decision to ignore it.</em></p>
+<p>An example case:</p>
+<ol>
+<li>Client executes a REST request, without <code>ignore_warnings</code> parameter, to backend.</li>
+<li>Backend notices warnings and responds with error message that contains the warnings. Nothing is updated at this point.</li>
+<li>Client determines if warnings can be ignored.</li>
+<li>If the warnings can be ignored, client resends the REST request, but with <code>ignore_warnings</code> parameter set to <code>true</code>.</li>
+<li>Backend ignores the warnings and executes the operation.</li>
+</ol>
+<p>Error response with warnings always contains the error code <code>warnings_detected</code>.</p>
+<p>Like errors, warnings contain an identifier (code) and possibly some metadata.</p>
+<p>Warning example when trying to register a WSDL that produces non-fatal validation warnings:</p>
+<pre><code>{
+  "status": 400,
+  "error": {
+    "code": "warnings_detected"
+  },
+  "warnings": [
+    {
+      "code": "wsdl_validation_warnings",
+      "metadata": [
+        "WSDLValidator Error : Summary: Failures: 0, Warnings: 1 &lt;&lt;&lt; WARNING! Operation 'someService' in PortType: {http://test.x-road.global/some-service}someService.servicePortType has no output message"
+      ]
+    }
+  ]
+}
+</code></pre>
+<p>Note that when you are using the admin UI and you encounter warnings, you will always be provided with a popup window with a <code>CONTINUE</code> button in it. When you click the <code>CONTINUE</code> button in the popup, the request is sent again but this time warnings will be ignored.</p>
 <h2>
 <a id="20-migrating-to-remote-database-host" class="anchor" href="#20-migrating-to-remote-database-host" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>20 Migrating to Remote Database Host</h2>
 <p>Since version <code>6.22.0</code> Security Server supports using remote databases. In case you have an already running Security Server with local database, it is possible to migrate it to use remote database host instead. The instructions for this process are listed below.</p>

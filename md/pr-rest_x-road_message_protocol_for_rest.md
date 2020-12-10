@@ -1,4 +1,5 @@
-![European Union / European Regional Development Fund / Investing in your future](img/eu_regional_development_fund_horizontal_div_15.png "Documents that are tagged with EU/SF logos must keep the logos until 1.1.2022, if it has not stated otherwise in the documentation. If new documentation is created  using EU/SF resources the logos must be tagged appropriately so that the deadline for logos could be found.") |
+![](img/eu_regional_development_fund_horizontal_div_15.png "European Union | European Regional Development Fund | Investing in your future")
+
 ---
 
 # X-Road: Message Protocol for REST
@@ -29,6 +30,7 @@ This document is licensed under the Creative Commons Attribution-ShareAlike 3.0 
 ## Table of Contents  
 
 <!-- toc -->
+<!-- vim-markdown-toc GFM -->
 
 * [1 Introduction](#1-introduction)
   * [1.1 Overview](#11-overview)

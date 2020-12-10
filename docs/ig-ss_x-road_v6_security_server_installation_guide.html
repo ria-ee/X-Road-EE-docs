@@ -296,6 +296,24 @@ Doc. ID: IG-SS</p>
 <td>Update for RHEL 8.</td>
 <td>Jarkko Hyöty</td>
 </tr>
+<tr>
+<td>08.09.2020</td>
+<td>2.27</td>
+<td>Fix minimum RAM requirement.</td>
+<td>Ilkka Seppälä</td>
+</tr>
+<tr>
+<td>16.09.2020</td>
+<td>2.28</td>
+<td>Describe deployment options and database customization options.</td>
+<td>Ilkka Seppälä</td>
+</tr>
+<tr>
+<td>29.09.2020</td>
+<td>2.29</td>
+<td>Add instructions for creating database structure and roles manually.</td>
+<td>Ilkka Seppälä</td>
+</tr>
 </tbody>
 </table>
 <h2>
@@ -306,6 +324,7 @@ Doc. ID: IG-SS</p>
 
 
 <ul>
+<li><a href="#license">License</a></li>
 <li>
 <a href="#1-introduction">1 Introduction</a>
 <ul>
@@ -317,20 +336,29 @@ Doc. ID: IG-SS</p>
 <li>
 <a href="#2-installation">2 Installation</a>
 <ul>
-<li><a href="#21-supported-platforms">2.1 Supported Platforms</a></li>
+<li><a href="#21-prerequisites-to-installation">2.1 Prerequisites to Installation</a></li>
 <li>
 <a href="#22-reference-data">2.2 Reference Data</a>
 <ul>
 <li><a href="#221-network-diagram">2.2.1 Network Diagram</a></li>
+<li><a href="#231-ria-ips-for-whitelisting">2.3.1 RIA IP's for Whitelisting</a></li>
 </ul>
 </li>
 <li><a href="#23-requirements-for-the-security-server">2.3 Requirements for the Security Server</a></li>
 <li><a href="#24-preparing-os">2.4 Preparing OS</a></li>
-<li><a href="#25-installation">2.5 Installation</a></li>
-<li><a href="#26-post-installation-checks">2.6 Post-Installation Checks</a></li>
-<li><a href="#27-installing-the-support-for-hardware-tokens">2.7 Installing the Support for Hardware Tokens</a></li>
-<li><a href="#28-installing-the-support-for-environmental-monitoring">2.8 Installing the Support for Environmental Monitoring</a></li>
-<li><a href="#29-remote-database-post-installation-tasks">2.9 Remote Database Post-Installation Tasks</a></li>
+<li>
+<a href="#25-prepare-for-installation">2.5 Prepare for Installation</a>
+<ul>
+<li><a href="#251-customize-the-database-properties">2.5.1 Customize the Database Properties</a></li>
+</ul>
+</li>
+<li><a href="#26-remote-database-installation">2.6 Remote Database Installation</a></li>
+<li><a href="#27-setup-package-repository">2.7 Setup Package Repository</a></li>
+<li><a href="#28-package-installation">2.8 Package Installation</a></li>
+<li><a href="#29-post-installation-checks">2.9 Post-Installation Checks</a></li>
+<li><a href="#210-installing-the-support-for-hardware-tokens">2.10 Installing the Support for Hardware Tokens</a></li>
+<li><a href="#211-installing-the-support-for-environmental-monitoring">2.11 Installing the Support for Environmental Monitoring</a></li>
+<li><a href="#212-remote-database-post-installation-tasks">2.12 Remote Database Post-Installation Tasks</a></li>
 </ul>
 </li>
 <li>
@@ -351,6 +379,20 @@ Doc. ID: IG-SS</p>
 <li><a href="#45-different-versions-of-xroad--packages-after-successful-upgrade">4.5 Different versions of xroad-* packages after successful upgrade</a></li>
 </ul>
 </li>
+<li><a href="#annex-a-security-server-default-database-properties">Annex A Security Server Default Database Properties</a></li>
+<li><a href="#annex-b-database-users">Annex B Database Users</a></li>
+<li>
+<a href="#annex-c-deployment-options">Annex C Deployment Options</a>
+<ul>
+<li><a href="#c1-general">C.1 General</a></li>
+<li><a href="#c2-local-database">C.2 Local Database</a></li>
+<li><a href="#c3-remote-database">C.3 Remote Database</a></li>
+<li><a href="#c4-high-availability-setup">C.4 High Availability Setup</a></li>
+<li><a href="#c5-load-balancing-setup">C.5 Load Balancing Setup</a></li>
+<li><a href="#c6-summary">C.6 Summary</a></li>
+</ul>
+</li>
+<li><a href="#annex-d-create-database-structure-manually">Annex D Create Database Structure Manually</a></li>
 </ul>
 
 
@@ -376,16 +418,22 @@ Doc. ID: IG-SS</p>
 <p><a name="Ref_UG-SYSPAR"></a>[UG-SYSPAR] X-Road: System Parameters User Guide. Document ID:
 <a href="ug-syspar_x-road_v6_system_parameters.html">UG-SYSPAR</a>.</p>
 </li>
+<li>
+<p><a name="Ref_IG-XLB"></a>[IG-XLB] X-Road: External Load Balancer Installation Guide. Document ID:
+<a href="LoadBalancing/ig-xlb_x-road_external_load_balancer_installation_guide.html">IG-XLB</a>.</p>
+</li>
 </ol>
 <h2>
 <a id="2-installation" class="anchor" href="#2-installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2 Installation</h2>
 <h3>
-<a id="21-supported-platforms" class="anchor" href="#21-supported-platforms" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.1 Supported Platforms</h3>
+<a id="21-prerequisites-to-installation" class="anchor" href="#21-prerequisites-to-installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.1 Prerequisites to Installation</h3>
+<p>There are multiple alternatives how the security server can be deployed. The options are described in <a href="#annex-c-deployment-options">Annex C Deployment Options</a>.</p>
 <p>The security server runs on the following platforms:</p>
 <ul>
 <li>Ubuntu Server 18.04 Long-Term Support (LTS) operating system on a x86-64 platform.</li>
-<li>Red Hat Enterprise Linux (RHEL) 7 and 8 (x86-64). See <a href="ig-ss_x-road_v6_security_server_installation_guide_for_rhel.html">IG-SS-RHEL</a> for more information.</li>
+<li>Red Hat Enterprise Linux (RHEL) 7 and 8 (x86-64).</li>
 </ul>
+<p>NB: RIA provides support only for Security Servers which are installed on the Ubuntu operating system.</p>
 <p>The software can be installed both on physical and virtualized hardware (of the latter, Xen and Oracle VirtualBox have been tested).</p>
 <h3>
 <a id="22-reference-data" class="anchor" href="#22-reference-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.2 Reference Data</h3>
@@ -402,7 +450,7 @@ Doc. ID: IG-SS</p>
 <tbody>
 <tr>
 <td>1.0</td>
-<td>Ubuntu 18.04, 64-bit<br>3 GB RAM, 3 GB free disk space</td>
+<td>Ubuntu 18.04, x86-64<br>3 GB RAM, 3 GB free disk space</td>
 <td>Minimum requirements</td>
 </tr>
 <tr>
@@ -534,6 +582,7 @@ Doc. ID: IG-SS</p>
 </tr>
 </tbody>
 </table>
+<p>It is strongly recommended to protect the security server from unwanted access using a firewall (hardware or software based). The firewall can be applied to both incoming and outgoing connections depending on the security requirements of the environment where the security server is deployed. It is recommended to allow incoming traffic to specific ports only from explicitly defined sources using IP filtering. <strong>Special attention should be paid with the firewall configuration since incorrect configuration may leave the security server vulnerable to exploits and attacks.</strong></p>
 <p>The table below lists the required connections between different components.</p>
 <table>
 <thead>
@@ -635,7 +684,7 @@ Doc. ID: IG-SS</p>
 <p>The following network diagram is an example of a simple stand-alone Security Server setup. Attention should be paid when configuring the firewall of your Security Server, as misconfigurations (e.g. exposing port 80/tcp to the public internet) can leave your server vulnerable. <strong>IP whitelisting should be used for all ports that are open to the external network.</strong></p>
 <p>Allowing incoming connections from the Monitoring Security Server on ports 5500/tcp and 5577/tcp (<a href="#231-ria-ips-for-whitelisting">monitoring server IP's</a>) is necessary for the X-Road Center to be able to monitor the ecosystem and provide statistics and support for Members.</p>
 <p><strong>Caution</strong>: The enabling of auxiliary services which are necessary for the functioning and management of the operating system (such as DNS, NTP, and SSH) stay outside the scope of this guide.</p>
-<p><a href="img/ig-ss_network_diagram_Ubuntu.png" target="_blank" rel="noopener noreferrer"><img src="img/ig-ss_network_diagram_Ubuntu.png" alt="network diagram" style="max-width:100%;"></a></p>
+<p><a href="img/ig-ss_network_diagram.png" target="_blank" rel="noopener noreferrer"><img src="img/ig-ss_network_diagram.png" alt="network diagram" style="max-width:100%;"></a></p>
 <h4>
 <a id="231-ria-ips-for-whitelisting" class="anchor" href="#231-ria-ips-for-whitelisting" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3.1 RIA IP's for Whitelisting</h4>
 <table>
@@ -674,7 +723,7 @@ Doc. ID: IG-SS</p>
 <ul>
 <li>the server’s hardware (motherboard, CPU, network interface cards, storage system) must be supported by Ubuntu in general;</li>
 <li>a 64-bit dual-core Intel, AMD or compatible CPU; AES instruction set support is highly recommended;</li>
-<li>3 GB RAM;</li>
+<li>4 GB RAM;</li>
 <li>a 100 Mbps network interface card;</li>
 <li>if necessary, interfaces for the use of hardware tokens.</li>
 </ul>
@@ -708,43 +757,78 @@ Doc. ID: IG-SS</p>
 <pre><code>  sudo locale-gen en_US.UTF-8
 </code></pre>
 </li>
+<li>
+<p>Ensure that the timezone is correct</p>
+<pre><code>  timedatectl
+  If the timezone shown is not correct, then this can be modified with the 
+</code></pre>
+</li>
 </ul>
 <h3>
-<a id="25-installation" class="anchor" href="#25-installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.5 Installation</h3>
-<p>To install the X-Road security server software on <em>Ubuntu</em> operating system, follow these steps.</p>
-<ol>
-<li>
-<p>Add to /etc/apt/sources.list.d/xroad.list the address of X-Road package repository (reference data: 1.1) and the nginx repository:</p>
-<pre><code> deb http://x-tee.ee/packages/live/xroad bionic main
+<a id="25-prepare-for-installation" class="anchor" href="#25-prepare-for-installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.5 Prepare for Installation</h3>
+<p>The database users required by security server are listed in <a href="#annex-b-database-users">Annex B Database Users</a>. The database properties created by the default installation can be found at <a href="#annex-a-security-server-default-database-properties">Annex A Security Server Default Database Properties</a>. If necessary, it's possible to customize the database names, users, passwords etc. by following the steps in <a href="#251-customize-the-database-properties">2.5.1 Customize the Database Properties</a>.</p>
+<h4>
+<a id="251-customize-the-database-properties" class="anchor" href="#251-customize-the-database-properties" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.5.1 Customize the Database Properties</h4>
+<p><strong>This is an optional step.</strong> Security server uses <code>/etc/xroad/db.properties</code> file to store the database properties. It's possible to customize the installation by precreating this file before running the installer. First create the directory and the file as follows:</p>
+<pre><code>sudo useradd --system --home /var/lib/xroad --no-create-home --shell /bin/bash --user-group --comment "X-Road system user" xroad
+sudo mkdir /etc/xroad
+sudo chown xroad:xroad /etc/xroad
+sudo chmod 751 /etc/xroad
+sudo touch /etc/xroad/db.properties
+sudo chown xroad:xroad /etc/xroad/db.properties
+sudo chmod 640 /etc/xroad/db.properties
 </code></pre>
-</li>
-<li>
-<p>Add the X-Road repository’s signing key to the list of trusted keys (<strong>reference data: 1.2</strong>):</p>
-<pre><code>curl http://x-tee.ee/packages/live/xroad/repo.gpg | sudo apt-key add -
+<p>Then edit <code>/etc/xroad/db.properties</code> contents. See the template below. Replace the parameter values with your own. The default values can be found in <a href="#annex-a-security-server-default-database-properties">Annex A Security Server Default Database Properties</a>. Note that you only need to define the properties that need to be customized, elsewhere the defaults apply. The database names can be changed by modifying the <code>&lt;database&gt;.hibernate.connection.url</code> property e.g. <code>serverconf.hibernate.connection.url = jdbc:postgresql://&lt;host:port&gt;/custom</code>.</p>
+<pre><code>serverconf.hibernate.connection.url = jdbc:postgresql://&lt;host:port&gt;/serverconf
+serverconf.hibernate.hikari.dataSource.currentSchema = serverconf,public
+serverconf.hibernate.connection.username = &lt;serverconf username&gt;
+serverconf.hibernate.connection.password = &lt;serverconf password&gt;
+messagelog.hibernate.connection.url = jdbc:postgresql://&lt;host:port&gt;/messagelog
+messagelog.hibernate.hikari.dataSource.currentSchema = messagelog,public
+messagelog.hibernate.connection.username = &lt;messagelog username&gt;
+messagelog.hibernate.connection.password = &lt;messagelog password&gt;
+op-monitor.hibernate.connection.url = jdbc:postgresql://&lt;host:port&gt;/op-monitor
+op-monitor.hibernate.hikari.dataSource.currentSchema = opmonitor,public
+op-monitor.hibernate.connection.username = &lt;opmonitor username&gt;
+op-monitor.hibernate.connection.password = &lt;opmonitor password&gt;
 </code></pre>
-</li>
-<li>
-<p>(Optional step) If you want to use remote database server instead of the default locally installed one, you need to pre-create a configuration file containing the database administrator master password. This can be done by performing the following steps:</p>
-<pre><code> sudo touch /etc/xroad.properties
- sudo chown root:root /etc/xroad.properties
- sudo chmod 600 /etc/xroad.properties
+<h3>
+<a id="26-remote-database-installation" class="anchor" href="#26-remote-database-installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.6 Remote Database Installation</h3>
+<p><strong>This is an optional step.</strong> If you want to use remote database server instead of the default locally installed one, you need to pre-create a configuration file containing at least the database administrator master password. If storing the database administrator password on the security server is not possible due to security risk or other problem, the alternative is to create the database structure manually as described in <a href="#annex-d-create-database-structure-manually">Annex D Create Database Structure Manually</a>. Otherwise, creating the configuration file can be done by performing the following steps:</p>
+<pre><code>sudo touch /etc/xroad.properties
+sudo chown root:root /etc/xroad.properties
+sudo chmod 600 /etc/xroad.properties
 </code></pre>
 <p>Edit <code>/etc/xroad.properties</code> contents. See the example below. Replace parameter values with your own.</p>
-<pre><code>postgres.connection.password = {database superuser password}
-postgres.connection.user = {database superuser name, postgres by default}
+<pre><code>postgres.connection.password = &lt;database superuser password&gt;
+postgres.connection.user = &lt;database superuser name, postgres by default&gt;
 </code></pre>
 <ul>
 <li>If Microsoft Azure database for PostgreSQL is used, the connection user needs to be in format <code>username@servername</code>.</li>
 <li>One should verify that the version of the local PostgreSQL client matches the version of the remote PostgreSQL server.</li>
 </ul>
-</li>
-<li>
-<p>Issue the following commands to install the security server packages (use package xroad-securityserver-ee to include configuration specific to Estonia; use package xroad-securityserver-fi to include configuration specific to Finland):</p>
-<pre><code> sudo apt-get update
- sudo apt-get install xroad-securityserver-ee
+<p><strong>This is an optional step.</strong> If you want to customize the names and/or passwords of the database admin users created by the installer, follow these steps. By default the installer generates these users with format <code>&lt;database-name&gt;_admin</code> and autogenerates the password. Edit <code>/etc/xroad.properties</code> contents. See the example below. Replace parameter values with your own.</p>
+<pre><code>serverconf.database.admin_user = &lt;serverconf-admin-username&gt;
+serverconf.database.admin_password = &lt;serverconf-admin-password&gt;
+op-monitor.database.admin_user = &lt;op-monitor-admin-username&gt;
+op-monitor.database.admin_password = &lt;op-monitor-admin-password&gt;
+messagelog.database.admin_user = &lt;messagelog-admin-username&gt;
+messagelog.database.admin_password = &lt;messagelog-admin-password&gt;
 </code></pre>
-</li>
-</ol>
+<h3>
+<a id="27-setup-package-repository" class="anchor" href="#27-setup-package-repository" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.7 Setup Package Repository</h3>
+<p>Add to /etc/apt/sources.list.d/xroad.list the address of X-Road package repository (<strong>reference data: 1.1</strong>) and the nginx repository:</p>
+<pre><code>deb http://x-tee.ee/packages/live/xroad bionic main
+</code></pre>
+<p>Add the X-Road repository’s signing key to the list of trusted keys (<strong>reference data: 1.2</strong>):</p>
+<pre><code>curl http://x-tee.ee/packages/live/xroad/repo.gpg | sudo apt-key add -
+</code></pre>
+<h3>
+<a id="28-package-installation" class="anchor" href="#28-package-installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.8 Package Installation</h3>
+<p>Issue the following commands to install the security server packages (use package <code>xroad-securityserver-ee</code> to include configuration specific to Estonia; use package <code>xroad-securityserver-fi</code> to include configuration specific to Finland):</p>
+<pre><code>sudo apt-get update
+sudo apt-get install xroad-securityserver-ee
+</code></pre>
 <p>Upon the first installation of the packages, the system asks for the following information.</p>
 <ul>
 <li>
@@ -754,7 +838,7 @@ postgres.connection.user = {database superuser name, postgres by default}
 <p>Database server URL. Locally installed database is suggested as default but remote databases can be used as well. In case remote database is used, one should verify that the version of the local PostgreSQL client matches the version of the remote PostgreSQL server.</p>
 </li>
 <li>
-<p>The Distinguished Name of the owner of the <strong>user interface's and management REST API's</strong> self-signed TLS certificate (<em>Subject DN</em>) and its alternative names (<em>subjectAltName</em>) (<strong>reference data: 1.8; 1.10</strong>). The certificate is used for securing connections to the user interface and to the management REST APIs.
+<p>The Distinguished Name of the owner of the <strong>user interface's and management REST API's</strong> self-signed TLS certificate (<em>Subject DN</em>) and its alternative names (<em>subjectAltName</em>) (<strong>reference data: 1.8; 1.10</strong>). The certificate is used for securing connections to the user interface and to the management REST API.
 The name and IP addresses detected from the operating system are suggested as default values.</p>
 <ul>
 <li>
@@ -789,7 +873,7 @@ The name and IP addresses detected from the system are suggested as default valu
 <p>The meta-package <code>xroad-securityserver</code> also installs metaservices module <code>xroad-addon-metaservices</code>, messagelog module <code>xroad-addon-messagelog</code> and WSDL validator module <code>xroad-addon-wsdlvalidator</code>. Both meta-packages <code>xroad-securityserver-ee</code> and <code>xroad-securityserver-fi</code> install operational data monitoring module <code>xroad-addon-opmonitoring</code>.</p>
 <p><strong>N.B.</strong> In case configuration specific to Estonia (package <code>xroad-securityserver-ee</code>) is installed, connections from client applications are restricted to localhost by default. To enable client application connections from external sources, the value of the <code>connector-host</code> property must be overridden in the <code>/etc/xroad/conf.d/local.ini</code> configuration file. Changing the system parameter values is explained in the System Parameters User Guide [<a href="#Ref_UG-SS">UG-SS</a>].</p>
 <h3>
-<a id="26-post-installation-checks" class="anchor" href="#26-post-installation-checks" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.6 Post-Installation Checks</h3>
+<a id="29-post-installation-checks" class="anchor" href="#29-post-installation-checks" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.9 Post-Installation Checks</h3>
 <p>The installation is successful if system services are started and the user interface is responding.</p>
 <ul>
 <li>Ensure from the command line that X-Road services are in the <code>running</code> state (example output follows):
@@ -803,13 +887,10 @@ xroad-proxy.service      loaded active running X-Road Proxy
 xroad-signer.service     loaded active running X-Road signer
 </code></pre>
 </li>
-<li>Ensure that the security server user interface at <a href="https://SECURITYSERVER:4000/" rel="nofollow">https://SECURITYSERVER:4000/</a> (<strong>reference data: 1.8; 1.6</strong>) can be opened in a Web browser. To log in, use the account name chosen during the installation (<strong>reference data: 1.3</strong>). While the user interface is still starting up, the Web browser may display the “502 Bad Gateway” error.</li>
-</ul>
-<ul>
-<li>Ensure that the security server user interface at <a href="https://SECURITYSERVER:4000/" rel="nofollow">https://SECURITYSERVER:4000/</a> (<strong>reference data: 1.8; 1.6</strong>) can be opened in a Web browser. To log in, use the account name chosen during the installation (<strong>reference data: 1.3</strong>). While the user interface is still starting up, the Web browser may display the “502 Bad Gateway” error.</li>
+<li>Ensure that the security server user interface at <a href="https://SECURITYSERVER:4000/" rel="nofollow">https://SECURITYSERVER:4000/</a> (<strong>reference data: 1.8; 1.6</strong>) can be opened in a Web browser. To log in, use the account name chosen during the installation (<strong>reference data: 1.3</strong>). While the user interface is still starting up, the Web browser may display a connection refused -error.</li>
 </ul>
 <h3>
-<a id="27-installing-the-support-for-hardware-tokens" class="anchor" href="#27-installing-the-support-for-hardware-tokens" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.7 Installing the Support for Hardware Tokens</h3>
+<a id="210-installing-the-support-for-hardware-tokens" class="anchor" href="#210-installing-the-support-for-hardware-tokens" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.10 Installing the Support for Hardware Tokens</h3>
 <p>To configure support for hardware security tokens (smartcard, USB token, Hardware Security Module), act as follows.</p>
 <ol>
 <li>
@@ -942,10 +1023,10 @@ xroad-signer.service     loaded active running X-Road signer
 <p><strong>Note 1:</strong> Only parameter <em>library</em> is mandatory, all the others are optional.
 <strong>Note 2:</strong> The item separator of the type STRING LIST is ",".</p>
 <h3>
-<a id="28-installing-the-support-for-environmental-monitoring" class="anchor" href="#28-installing-the-support-for-environmental-monitoring" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.8 Installing the Support for Environmental Monitoring</h3>
+<a id="211-installing-the-support-for-environmental-monitoring" class="anchor" href="#211-installing-the-support-for-environmental-monitoring" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.11 Installing the Support for Environmental Monitoring</h3>
 <p>The support for environmental monitoring functionality on a security server is provided by package xroad-monitor that is installed by default. The package installs and starts the <code>xroad-monitor</code> process that will gather and make available the monitoring information.</p>
 <h3>
-<a id="29-remote-database-post-installation-tasks" class="anchor" href="#29-remote-database-post-installation-tasks" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.9 Remote Database Post-Installation Tasks</h3>
+<a id="212-remote-database-post-installation-tasks" class="anchor" href="#212-remote-database-post-installation-tasks" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.12 Remote Database Post-Installation Tasks</h3>
 <p>Local PostgreSQL is always installed with Security Server. When remote database host is used, the local PostgreSQL can be stopped and disabled after the installation.</p>
 <p>To stop the local PostgreSQL server</p>
 <p><code>systemctl stop postgresql</code></p>
@@ -1057,12 +1138,8 @@ If the member class and member code are correctly entered, the system displays t
 </li>
 </ul>
 <ul>
-<li>
-<p>Security server code (<strong>reference data: 2.4</strong>), which is chosen by the security server administrator and which has to be unique across all the security servers belonging to the same X-Road member.</p>
-</li>
-<li>
-<p>Software token’s PIN (<strong>reference data: 2.5</strong>). The PIN will be used to protect the keys stored in the software token. The PIN must be stored in a secure place, because it will be no longer possible to use or recover the private keys in the token once the PIN has been lost.</p>
-</li>
+<li>Security server code (<strong>reference data: 2.4</strong>), which is chosen by the security server administrator and which has to be unique across all the security servers belonging to the same X-Road member.</li>
+<li>Software token’s PIN (<strong>reference data: 2.5</strong>). The PIN will be used to protect the keys stored in the software token. The PIN must be stored in a secure place, because it will be no longer possible to use or recover the private keys in the token once the PIN has been lost.</li>
 </ul>
 <h2>
 <a id="4-installation-error-handling" class="anchor" href="#4-installation-error-handling" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4 Installation Error handling</h2>
@@ -1139,6 +1216,207 @@ ii xroad-securityserver-ee 6.8.3-3-201605131138
 </code></pre>
 <p><code>apt-get upgrade</code> command doesn’t install new packages - in this particular case new packages <code>xroad-monitor</code> and <code>xroad-addon-proxymonitor</code> installation is needed for upgrade of <code>xroad-securityserver</code> package.</p>
 <p>To be sure that packages are installed correctly please use <code>sudo apt upgrade</code> or <code>sudo apt full-upgrade</code> commands.</p>
+<h2>
+<a id="annex-a-security-server-default-database-properties" class="anchor" href="#annex-a-security-server-default-database-properties" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Annex A Security Server Default Database Properties</h2>
+<p><code>/etc/xroad/db.properties</code></p>
+<pre><code>serverconf.hibernate.jdbc.use_streams_for_binary = true
+serverconf.hibernate.dialect = ee.ria.xroad.common.db.CustomPostgreSQLDialect
+serverconf.hibernate.connection.driver_class = org.postgresql.Driver
+serverconf.hibernate.connection.url = jdbc:postgresql://127.0.0.1:5432/serverconf
+serverconf.hibernate.hikari.dataSource.currentSchema = serverconf,public
+serverconf.hibernate.connection.username = serverconf
+serverconf.hibernate.connection.password = &lt;randomly generated password&gt;
+messagelog.hibernate.jdbc.use_streams_for_binary = true
+messagelog.hibernate.connection.driver_class = org.postgresql.Driver
+messagelog.hibernate.connection.url = jdbc:postgresql://127.0.0.1:5432/messagelog
+messagelog.hibernate.hikari.dataSource.currentSchema = messagelog,public
+messagelog.hibernate.connection.username = messagelog
+messagelog.hibernate.connection.password = &lt;randomly generated password&gt;
+op-monitor.hibernate.jdbc.use_streams_for_binary = true
+op-monitor.hibernate.connection.driver_class = org.postgresql.Driver
+op-monitor.hibernate.connection.url = jdbc:postgresql://127.0.0.1:5432/op-monitor
+op-monitor.hibernate.hikari.dataSource.currentSchema = opmonitor,public
+op-monitor.hibernate.connection.username = opmonitor
+op-monitor.hibernate.connection.password = &lt;randomly generated password&gt;
+</code></pre>
+<h2>
+<a id="annex-b-database-users" class="anchor" href="#annex-b-database-users" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Annex B Database Users</h2>
+<table>
+<thead>
+<tr>
+<th>User</th>
+<th>Database</th>
+<th>Privileges</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>serverconf</td>
+<td>serverconf</td>
+<td>TEMPORARY,CONNECT</td>
+<td>The database user used to read/write the serverconf database during application runtime.</td>
+</tr>
+<tr>
+<td>serverconf_admin</td>
+<td>serverconf</td>
+<td>CREATE,TEMPORARY,CONNECT</td>
+<td>The database user used to create/update the serverconf schema.</td>
+</tr>
+<tr>
+<td>messagelog</td>
+<td>messagelog</td>
+<td>TEMPORARY,CONNECT</td>
+<td>The database user used to read/write the messagelog database during application runtime.</td>
+</tr>
+<tr>
+<td>messagelog_admin</td>
+<td>messagelog</td>
+<td>CREATE,TEMPORARY,CONNECT</td>
+<td>The database user used to create/update the messagelog schema.</td>
+</tr>
+<tr>
+<td>opmonitor</td>
+<td>op-monitor</td>
+<td>TEMPORARY,CONNECT</td>
+<td>The database user used to read/write the op-monitor database during application runtime.</td>
+</tr>
+<tr>
+<td>opmonitor_admin</td>
+<td>op-monitor</td>
+<td>CREATE,TEMPORARY,CONNECT</td>
+<td>The database user used to create/update the op-monitor schema.</td>
+</tr>
+<tr>
+<td>postgres</td>
+<td>ALL</td>
+<td>ALL</td>
+<td>PostgreSQL database default superuser.</td>
+</tr>
+</tbody>
+</table>
+<h2>
+<a id="annex-c-deployment-options" class="anchor" href="#annex-c-deployment-options" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Annex C Deployment Options</h2>
+<h3>
+<a id="c1-general" class="anchor" href="#c1-general" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>C.1 General</h3>
+<p>X-Road security server has multiple deployment options. The simplest choice is to have a single security server with local database. This is usually fine for majority of the cases, but there are multiple reasons to tailor the deployment.</p>
+<h3>
+<a id="c2-local-database" class="anchor" href="#c2-local-database" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>C.2 Local Database</h3>
+<p>The simplest deployment option is to use a single security server with local database. For development and testing purposes there is rarely need for anything else, but for production the requirements may be stricter.</p>
+<p><a href="img/ig-ss_local_db.svg" target="_blank" rel="noopener noreferrer"><img src="img/ig-ss_local_db.svg" alt="Security server with local database" style="max-width:100%;"></a></p>
+<h3>
+<a id="c3-remote-database" class="anchor" href="#c3-remote-database" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>C.3 Remote Database</h3>
+<p>It is possible to use a remote database with security server. This option is sometimes used in development and testing when there's need to externalize the database state.</p>
+<p>Security server supports a variety of cloud databases including AWS RDS and Azure Database for PostgreSQL. This deployment option is useful when doing development in cloud environment, where use of cloud native database is the first choice.</p>
+<p><a href="img/ig-ss_remote_db.svg" target="_blank" rel="noopener noreferrer"><img src="img/ig-ss_remote_db.svg" alt="Security server with remote database" style="max-width:100%;"></a></p>
+<h3>
+<a id="c4-high-availability-setup" class="anchor" href="#c4-high-availability-setup" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>C.4 High Availability Setup</h3>
+<p>In production systems it's rarely acceptable to have a single point of failure. Security server supports provider side high availability setup via so called internal load balancing mechanism. The setup works so that the same member / member class / member code / subsystem / service code is configured on multiple security servers and X-Road will then route the request to the server that responds the fastest. Note that this deployment option does not provide performance benefits, just redundancy.</p>
+<p><a href="img/ig-ss_high_availability.svg" target="_blank" rel="noopener noreferrer"><img src="img/ig-ss_high_availability.svg" alt="Security server high-availability setup" style="max-width:100%;"></a></p>
+<h3>
+<a id="c5-load-balancing-setup" class="anchor" href="#c5-load-balancing-setup" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>C.5 Load Balancing Setup</h3>
+<p>Busy production systems may need scalable performance in addition to high availability. X-Road supports external load balancing mechanism to address both of these problems simultaneously. A load balancer is added in front of a security server cluster to route the requests based on selected algorithm. This deployment option is extensively documented in [<a href="#Ref_IG-XLB">IG-XLB</a>].</p>
+<p><a href="img/ig-ss_load_balancing.svg" target="_blank" rel="noopener noreferrer"><img src="img/ig-ss_load_balancing.svg" alt="Security server load balancing setup" style="max-width:100%;"></a></p>
+<h3>
+<a id="c6-summary" class="anchor" href="#c6-summary" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>C.6 Summary</h3>
+<p>The following table lists a summary of the security server deployment options and indicates whether they are aimed for development or production use.</p>
+<table>
+<thead>
+<tr>
+<th>Deployment</th>
+<th>Dev</th>
+<th>Prod</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Local database</td>
+<td>x</td>
+<td></td>
+</tr>
+<tr>
+<td>Remote database</td>
+<td>x</td>
+<td></td>
+</tr>
+<tr>
+<td>High-availability Setup</td>
+<td></td>
+<td>x</td>
+</tr>
+<tr>
+<td>Load Balancing Setup</td>
+<td></td>
+<td>x</td>
+</tr>
+</tbody>
+</table>
+<h2>
+<a id="annex-d-create-database-structure-manually" class="anchor" href="#annex-d-create-database-structure-manually" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Annex D Create Database Structure Manually</h2>
+<p>First create the configuration file <code>/etc/xroad.properties</code>.</p>
+<pre><code>sudo touch /etc/xroad.properties
+sudo chown root:root /etc/xroad.properties
+sudo chmod 600 /etc/xroad.properties
+</code></pre>
+<p>Edit <code>/etc/xroad.properties</code> contents.</p>
+<pre><code>serverconf.database.admin_user = &lt;serverconf admin username&gt;
+serverconf.database.admin_password = &lt;serverconf admin password&gt;
+op-monitor.database.admin_user = &lt;op-monitor admin username&gt;
+op-monitor.database.admin_password = &lt;op-monitor admin password&gt;
+messagelog.database.admin_user = &lt;messagelog admin username&gt;
+messagelog.database.admin_password = &lt;messagelog admin password&gt;
+</code></pre>
+<p>Next install PostgreSQL client.</p>
+<pre><code>sudo apt install postgresql-client-10
+</code></pre>
+<p>Login to the database server as the superuser (<code>postgres</code> by default).</p>
+<pre><code>psql -h &lt;database host&gt; -U &lt;superuser&gt; -d postgres
+</code></pre>
+<p>Run the following commands to create the necessary database structures and roles for <code>serverconf</code> and <code>messagelog</code> databases.</p>
+<pre><code>CREATE DATABASE &lt;serverconf database&gt; ENCODING 'UTF8';
+REVOKE ALL ON DATABASE &lt;serverconf database&gt; FROM PUBLIC;
+CREATE ROLE &lt;serverconf admin&gt; LOGIN PASSWORD '&lt;serverconf admin password&gt;';
+GRANT &lt;serverconf admin&gt; to &lt;superuser&gt;;
+GRANT CREATE,TEMPORARY,CONNECT ON DATABASE &lt;serverconf database&gt; TO &lt;serverconf admin&gt;;
+\c &lt;serverconf database&gt;
+CREATE EXTENSION hstore;
+CREATE SCHEMA &lt;serverconf database schema&gt; AUTHORIZATION &lt;serverconf admin&gt;;
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+GRANT USAGE ON SCHEMA public to &lt;serverconf admin&gt;;
+CREATE ROLE &lt;serverconf user&gt; LOGIN PASSWORD '&lt;serverconf user password&gt;';
+GRANT &lt;serverconf user&gt; to &lt;superuser&gt;;
+GRANT TEMPORARY,CONNECT ON DATABASE &lt;serverconf database&gt; TO &lt;serverconf user&gt;;
+GRANT USAGE ON SCHEMA public to &lt;serverconf user&gt;;
+</code></pre>
+<pre><code>CREATE DATABASE &lt;messagelog database&gt; ENCODING 'UTF8';
+REVOKE ALL ON DATABASE &lt;messagelog database&gt; FROM PUBLIC;
+CREATE ROLE &lt;messagelog admin&gt; LOGIN PASSWORD '&lt;messagelog admin password&gt;';
+GRANT &lt;messagelog admin&gt; to &lt;superuser&gt;;
+GRANT CREATE,TEMPORARY,CONNECT ON DATABASE &lt;messagelog database&gt; TO &lt;messagelog admin&gt;;
+\c &lt;messagelog database&gt;
+CREATE SCHEMA &lt;messagelog database schema&gt; AUTHORIZATION &lt;messagelog admin&gt;;
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+GRANT USAGE ON SCHEMA public to &lt;messagelog admin&gt;;
+CREATE ROLE &lt;messagelog user&gt; LOGIN PASSWORD '&lt;messagelog user password&gt;';
+GRANT &lt;messagelog user&gt; to &lt;superuser&gt;;
+GRANT TEMPORARY,CONNECT ON DATABASE &lt;messagelog database&gt; TO &lt;messagelog user&gt;;
+GRANT USAGE ON SCHEMA public to &lt;messagelog user&gt;;
+</code></pre>
+<p>If operational monitoring is going to be installed, run additionally the following commands.</p>
+<pre><code>CREATE DATABASE &lt;op-monitor database&gt; ENCODING 'UTF8';
+REVOKE ALL ON DATABASE &lt;op-monitor database&gt; FROM PUBLIC;
+CREATE ROLE &lt;op-monitor admin&gt; LOGIN PASSWORD '&lt;op-monitor admin password&gt;';
+GRANT &lt;op-monitor admin&gt; to &lt;superuser&gt;;
+GRANT CREATE,TEMPORARY,CONNECT ON DATABASE &lt;op-monitor database&gt; TO &lt;op-monitor admin&gt;;
+\c &lt;op-monitor database&gt;
+CREATE SCHEMA &lt;op-monitor database schema&gt; AUTHORIZATION &lt;op-monitor admin&gt;;
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+GRANT USAGE ON SCHEMA public to &lt;op-monitor admin&gt;;
+CREATE ROLE &lt;op-monitor user&gt; LOGIN PASSWORD '&lt;op-monitor user password&gt;';
+GRANT &lt;op-monitor user&gt; to &lt;superuser&gt;;
+GRANT TEMPORARY,CONNECT ON DATABASE &lt;op-monitor database&gt; TO &lt;op-monitor user&gt;;
+GRANT USAGE ON SCHEMA public to &lt;op-monitor user&gt;;
+</code></pre>
     </article>
   </body>
 </html>
