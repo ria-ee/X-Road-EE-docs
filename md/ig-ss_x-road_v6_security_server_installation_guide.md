@@ -60,6 +60,8 @@ Doc. ID: IG-SS
  08.09.2020 | 2.27    | Fix minimum RAM requirement. | Ilkka Seppälä
  16.09.2020 | 2.28    | Describe deployment options and database customization options. | Ilkka Seppälä
  29.09.2020 | 2.29    | Add instructions for creating database structure and roles manually. | Ilkka Seppälä
+ 19.01.2021 | 2.30    | Add instructions for using an alternative Java distribution. | Jarkko Hyöty
+ 04.02.2021 | 2.31    | Minor updates. | Ilkka Seppälä
 
 
 ## License
@@ -246,18 +248,18 @@ Minimum recommended hardware parameters:
 
 Requirements to software and settings:
 
-* an installed and configured Ubuntu 18.04 LTS x86-64 operating system;
+* an installed and configured Ubuntu 18.04 LTS or 20.04 LTS x86-64 operating system;
 * if the security server is separated from other networks by a firewall and/or NAT, the necessary connections to and from the security server are allowed (**reference data: 1.4; 1.5; 1.6; 1.7**). The enabling of auxiliary services which are necessary for the functioning and management of the operating system (such as DNS, NTP, and SSH) stay outside the scope of this guide;
 * if the security server has a private IP address, a corresponding NAT record must be created in the firewall (**reference data: 1.9**).
 
 
 ### 2.4 Preparing OS
 
-* Add system user (**reference data: 1.3**) whom all roles in the user interface are granted to. Add a new user with the command
+* Add an X-Road system administrator user (**reference data: 1.3**) whom all roles in the user interface are granted to. Add a new user with the command
 
         sudo adduser <username>
 
-    User roles are discussed in detail in X-Road Security Server User Guide \[[UG-SS](#Ref_UG-SS)\].
+    User roles are discussed in detail in X-Road Security Server User Guide \[[UG-SS](#Ref_UG-SS)\]. Do not use the user name `xroad`, it is reserved for the X-Road system user.
 
 * Set the operating system locale. Add following line to the `/etc/environment` file.
 
@@ -345,7 +347,6 @@ Then edit `/etc/xroad/db.properties` contents. See the template below. Replace t
   messagelog.database.admin_password = <messagelog-admin-password>
   ```
 
-
 ### 2.7 Setup Package Repository
 
 Add to /etc/apt/sources.list.d/xroad.list the address of X-Road package repository (**reference data: 1.1**) and the nginx repository:
@@ -360,8 +361,24 @@ Add the X-Road repository’s signing key to the list of trusted keys (**referen
   curl http://x-tee.ee/packages/live/xroad/repo.gpg | sudo apt-key add -
   ```
 
+**This is an optional step.** Add a package repository for an alternative Java distribution. According to [the Ubuntu blog](https://ubuntu.com/blog/announcing-openjdk-11-packages-in-ubuntu-18-04-lts), Ubuntu OpenJDK 8 security updates end in April 2021. [AdoptOpenJDK](https://adoptopenjdk.net/) is an open-source Java 8 distribution that is [supported until May, 2026](https://adoptopenjdk.net/support.html#roadmap).
+```
+curl https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | sudo apt-key add -
+sudo apt-add-repository -y "deb https://adoptopenjdk.jfrog.io/adoptopenjdk/deb $(lsb_release -sc) main"
+```
 
 ### 2.8 Package Installation
+
+Update package repository metadata:
+```
+sudo apt update
+```
+
+If using the AdoptOpenJDK Java distribution, install the Java runtime environment and set it as the default java:
+```
+sudo apt install adoptopenjdk-8-hotspot-jre
+sudo update-java-alternatives -s adoptopenjdk-8-hotspot-jre-amd64
+```
 
 Issue the following commands to install the security server packages (use package `xroad-securityserver-ee` to include configuration specific to Estonia; use package `xroad-securityserver-fi` to include configuration specific to Finland):
 
@@ -410,6 +427,7 @@ The installation is successful if system services are started and the user inter
     sudo systemctl list-units "xroad*"
 
     UNIT                     LOAD   ACTIVE SUB     DESCRIPTION
+    xroad-base.service       loaded active exited  X-Road initialization
     xroad-confclient.service loaded active running X-Road confclient
     xroad-monitor.service    loaded active running X-Road Monitor
     xroad-proxy-ui-api.service loaded active running X-Road Proxy UI REST API
