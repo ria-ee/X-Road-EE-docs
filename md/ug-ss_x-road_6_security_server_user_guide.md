@@ -1,17 +1,18 @@
-| ![European Union / European Regional Development Fund / Investing in your future](img/eu_regional_development_fund_horizontal_div_15.png "Documents that are tagged with EU/SF logos must keep the logos until 1.1.2022, if it has not stated otherwise in the documentation. If new documentation is created  using EU/SF resources the logos must be tagged appropriately so that the deadline for logos could be found.") |
+
+| ![European Union / European Regional Development Fund / Investing in your future](img/eu_rdf_75_en.png "Documents that are tagged with EU/SF logos must keep the logos until 1.1.2022, if it has not stated otherwise in the documentation. If new documentation is created  using EU/SF resources the logos must be tagged appropriately so that the deadline for logos could be found.") |
 | -------------------------: |
 
-# SECURITY SERVER USER GUIDE <!-- omit in toc --> 
+# SECURITY SERVER USER GUIDE <!-- omit in toc -->
 
-**X-ROAD 6**
+**X-ROAD 7**
 
-Version: 2.31  
+Version: 2.68 
 Doc. ID: UG-SS
 
 ---
 
 
-## Version history <!-- omit in toc --> 
+## Version history <!-- omit in toc -->
 
  Date       | Version | Description                                                     | Author
  ---------- | ------- | --------------------------------------------------------------- | --------------------
@@ -24,7 +25,7 @@ Doc. ID: UG-SS
  1.12.2014  | 1.0     | Minor corrections done
  19.01.2015 | 1.1     | License information added
  27.01.2015 | 1.2     | Minor corrections done
- 30.04.2015 | 1.3     | “sdsb” changed to “xroad”
+ 30.04.2015 | 1.3     | "sdsb" changed to "xroad"
  29.05.2015 | 1.4     | Message Log chapter added (Chapter [11](#11-message-log))
  30.06.2015 | 1.5     | Minor corrections done
  3.07.2015  | 1.6     | Audit Log chapter added (Chapter [12](#12-audit-log))
@@ -58,121 +59,188 @@ Doc. ID: UG-SS
  15.11.2018 | 2.23    | Minor updates for Ubuntu 18.04 | Jarkko Hyöty
  06.02.2019 | 2.24    | Minor updates on security server client registration in Chapters [4.3](#43-configuring-a-signing-key-and-certificate-for-a-security-server-client) and [4.4](#44-registering-a-security-server-client-in-the-x-road-governing-authority). | Petteri Kivimäki
  15.03.2019 | 2.25    | Update documentation to cover REST service usage in chapter [6] | Jarkko Hyöty
- 16.04.2019 | 2.26    | Minor updates regarding REST services in chapter [6] | Petteri Kivimäki
- 30.06.2019 | 2.27    | Update the default connection type from HTTP to HTTPS in chapter [9] | Petteri Kivimäki
- 01.07.2019 | 2.28    | Changing the Security Server Owner chapter added (Chapter [3.4](#34-changing-the-security-server-owner)) | Petteri Kivimäki
- 14.08.2019 | 2.29    | Added automatic backups | Ilkka Seppälä
- 30.09.2019 | 2.30    | Added remote database migration guide | Ilkka Seppälä
- 15.10.2019 | 2.31    | Updated REST services in chapter [6] | Ilkka Seppälä
+ 26.03.2019 | 2.26    | Added chapter on API keys [19](#19-management-rest-api) | Janne Mattila
+ 16.04.2019 | 2.27    | Minor updates regarding REST services in chapter [6] | Petteri Kivimäki
+ 30.06.2019 | 2.28    | Update the default connection type from HTTP to HTTPS in chapter [9] | Petteri Kivimäki
+ 01.07.2019 | 2.29    | Changing the Security Server Owner chapter added (Chapter [3.4](#34-changing-the-security-server-owner)) | Petteri Kivimäki
+ 14.08.2019 | 2.30    | Added automatic backups | Ilkka Seppälä
+ 29.09.2019 | 2.31    | Added chapter [19.3](#193-correlation-id-http-header) on REST API correlation id | Janne Mattila
+ 30.09.2019 | 2.32    | Added remote database migration guide | Ilkka Seppälä
+ 15.10.2019 | 2.33    | Updated REST services in chapter [6] | Ilkka Seppälä
+ 04.11.2019 | 2.34    | Added information about REST API request rate and size limits | Janne Mattila
+ 07.11.2019 | 2.35    | Add more information about service descriptions to chapter [6] | Ilkka Seppälä
+ 05.12.2019 | 2.36    | Add information about timestamping failover capabilities in chapter [10.2](#102-managing-the-timestamping-services) | Petteri Kivimäki
+ 24.02.2020 | 2.37    | Updated notes about key caching after changing internal TLS key and certificate [10.3](#103-changing-the-internal-tls-key-and-certificate) | Caro Hautamäki
+ 26.03.2020 | 2.38    | Added chapter on updating API keys [19.1.3](#1913-updating-api-keys) | Petteri Kivimäki
+ 30.03.2020 | 2.39    | Added description of pre-restore backups | Ilkka Seppälä
+ 01.04.2020 | 2.40    | Added notes about IP whitelists for REST API | Janne Mattila
+ 03.06.2020 | 2.41    | Updated audit logging description | Janne Mattila
+ 05.06.2020 | 2.42    | Added chapter about validation errors [19.4](#194-validation-errors) | Caro Hautamäki
+ 25.06.2020 | 2.43    | Update environmental and operational monitoring JMXMP details | Petteri Kivimäki
+ 08.07.2020 | 2.44    | Update chapter on access rights [7](#7-access-rights) | Petteri Kivimäki
+ 30.07.2020 | 2.45    | Added mention about proxy_ui_api.log to [17 Logs and System Services](#17-logs-and-system-services) | Janne Mattila
+ 10.08.2020 | 2.46    | Added mention about unit start rate limits to [17.1 System Services](#171-system-services) | Janne Mattila
+ 21.09.2020 | 2.47    | Added a validation error example to [19.4 Validation errors](#194-validation-errors) | Caro Hautamäki
+ 29.09.2020 | 2.48    | Update chapters [3](#3-security-server-registration), [4](#4-security-server-clients), [6](#6-x-road-services), [7](#7-access-rights), [8](#8-local-access-right-groups) and [13](#13-back-up-and-restore) to match the new management API | Tapio Jaakkola
+ 30.09.2020 | 2.49    | Update chapters [3](#3-security-server-registration), [5](#5-security-tokens-keys-and-certificates), [9](#9-communication-with-the-client-information-systems), [10](#10-system-parameters), [14](#14-diagnostics) and [17](#17-logs-and-system-services) to match the new management API | Caro Hautamäki
+ 10.10.2020 | 2.50    | Corrections in Chapter [19 Management REST API](#19-management-rest-api) | Janne Mattila
+ 13.10.2020 | 2.51    | Added a section about the warning responses [19.5 Warning responses](#195-warning-responses) | Caro Hautamäki
+ 15.10.2020 | 2.52    | Added chapter [2.3 Managing API Keys](#23-managing-api-keys) | Caro Hautamäki
+ 22.10.2020 | 2.53    | Added reference to management REST API's OpenAPI description | Petteri Kivimäki
+ 01.12.2020 | 2.54    | Added endpoint for getting one API key to [19.1.2 Listing API keys](#1912-listing-api-keys) | Janne Mattila
+ 25.02.2020 | 2.55    | Added information to find X-Road ID from conf backup file in chapter [13.2 Restore from the Command Line](#132-restore-from-the-command-line) | Karl Talumäe
+ 31.05.2021 | 2.56    | Added information about backup archive contents and encryption | Andres Allkivi
+ 23.06.2021 | 2.57    | Fix incorrect link in Chapter [3.1](#31-configuring-the-signing-key-and-certificate-for-the-security-server-owner) | Petteri Kivimäki
+ 11.08.2021 | 2.58    | Minor updates to backup archive contents and encryption | Petteri Kivimäki
+ 13.08.2021 | 2.59    | Add documentation about message log archive grouping and encryption | Jarkko Hyöty
+ 25.08.2021 | 2.60    | Update X-Road references from version 6 to 7 | Caro Hautamäki
+ 31.08.2021 | 2.61    | Describe new messagelog and message archive functionality | Ilkka Seppälä
+ 13.09.2021 | 2.62    | Added a new chapter about custom command line arguments [21](#21-adding-command-line-arguments) | Caro Hautamäki
+ 22.09.2021 | 2.63    | Update backup encryption instructions | Jarkko Hyöty
+ 05.10.2021 | 2.64    | Moved the chapter about command line arguments to the system parameters document | Caro Hautamäki
+ 24.11.2021 | 2.65    | Updated anchors to match correct sections | Raido Kaju
+ 30.11.2021 | 2.66    | Added chapter about configuring account lockouts | Caro Hautamäki
+ 09.12.2021 | 2.67    | Added instructions for ensuring user account security | Ilkka Seppälä
+ 09.12.2021 | 2.68    | Updated chapter [22](#22-additional-security-hardening) and added information about password policies  | Caro Hautamäki
 
-## Table of Contents <!-- omit in toc --> 
+## Table of Contents <!-- omit in toc -->
 
 <!-- toc -->
 <!-- vim-markdown-toc GFM -->
 
-- [License](#license)
-- [1 Introduction](#1-introduction)
-  - [1.1 The X-Road Security Server](#11-the-x-road-security-server)
-  - [1.2 Terms and abbreviations](#12-terms-and-abbreviations)
-  - [1.3 References](#13-references)
-- [2 User Management](#2-user-management)
-  - [2.1 User Roles](#21-user-roles)
-  - [2.2 Managing the Users](#22-managing-the-users)
-- [3 Security Server Registration](#3-security-server-registration)
-  - [3.1 Configuring the Signing Key and Certificate for the Security Server Owner](#31-configuring-the-signing-key-and-certificate-for-the-security-server-owner)
-    - [3.1.1 Generating a Signing Key](#311-generating-a-signing-key)
-    - [3.1.2 Generating a Certificate Signing Request for a Signing Key](#312-generating-a-certificate-signing-request-for-a-signing-key)
-    - [3.1.3 Importing a Certificate from the Local File System](#313-importing-a-certificate-from-the-local-file-system)
-    - [3.1.4 Importing a Certificate from a Security Token](#314-importing-a-certificate-from-a-security-token)
-  - [3.2 Configuring the Authentication Key and Certificate for the Security Server](#32-configuring-the-authentication-key-and-certificate-for-the-security-server)
-    - [3.2.1 Generating an Authentication Key](#321-generating-an-authentication-key)
-    - [3.2.2 Generating a Certificate Signing Request for an Authentication Key](#322-generating-a-certificate-signing-request-for-an-authentication-key)
-    - [3.2.3 Importing an Authentication Certificate from the Local File System](#323-importing-an-authentication-certificate-from-the-local-file-system)
-  - [3.3 Registering the Security Server in the X-Road Governing Authority](#33-registering-the-security-server-in-the-x-road-governing-authority)
-    - [3.3.1 Registering an Authentication Certificate](#331-registering-an-authentication-certificate)
-  - [3.4 Changing the Security Server Owner](#34-changing-the-security-server-owner)
-- [4 Security Server Clients](#4-security-server-clients)
-  - [4.1 Security Server Client States](#41-security-server-client-states)
-  - [4.2 Adding a Security Server Client](#42-adding-a-security-server-client)
-  - [4.3 Configuring a Signing Key and Certificate for a Security Server Client](#43-configuring-a-signing-key-and-certificate-for-a-security-server-client)
-  - [4.4 Registering a Security Server Client in the X-Road Governing Authority](#44-registering-a-security-server-client-in-the-x-road-governing-authority)
-    - [4.4.1 Registering a Security Server Client](#441-registering-a-security-server-client)
-  - [4.5 Deleting a Client from the Security Server](#45-deleting-a-client-from-the-security-server)
-    - [4.5.1 Unregistering a Client](#451-unregistering-a-client)
-    - [4.5.2 Deleting a Client](#452-deleting-a-client)
-- [5 Security Tokens, Keys, and Certificates](#5-security-tokens-keys-and-certificates)
-  - [5.1 Availability States of Security Tokens, Keys, and Certificates](#51-availability-states-of-security-tokens-keys-and-certificates)
-  - [5.2 Registration States of Certificates](#52-registration-states-of-certificates)
-    - [5.2.1 Registration States of the Signing Certificate](#521-registration-states-of-the-signing-certificate)
-    - [5.2.2 Registration States of the Authentication Certificate](#522-registration-states-of-the-authentication-certificate)
-  - [5.3 Validity States of Certificates](#53-validity-states-of-certificates)
-  - [5.4 Activating and Disabling the Certificates](#54-activating-and-disabling-the-certificates)
-  - [5.5 Configuring and Registering an Authentication key and Certificate](#55-configuring-and-registering-an-authentication-key-and-certificate)
-  - [5.6 Deleting a Certificate](#56-deleting-a-certificate)
-    - [5.6.1 Unregistering an Authentication Certificate](#561-unregistering-an-authentication-certificate)
-    - [5.6.2 Deleting a Certificate or a certificate Signing Request notice](#562-deleting-a-certificate-or-a-certificate-signing-request-notice)
-  - [5.7 Deleting a Key](#57-deleting-a-key)
-- [6 X-Road Services](#6-x-road-services)
-  - [6.1 Adding a service description](#61-adding-a-service-description)
-  - [6.1.1 SOAP](#611-soap)
-  - [6.1.2 REST](#612-rest)
-  - [6.2 Refreshing a service description](#62-refreshing-a-service-description)
-  - [6.3 Enabling and Disabling a service description](#63-enabling-and-disabling-a-service-description)
-  - [6.4 Changing the Address of a service description](#64-changing-the-address-of-a-service-description)
-  - [6.5 Deleting a service description](#65-deleting-a-service-description)
-  - [6.6 Changing the Parameters of a Service](#66-changing-the-parameters-of-a-service)
-  - [6.7 Managing REST Endpoints](#67-managing-rest-endpoints)
-- [7 Access Rights](#7-access-rights)
-  - [7.1 Changing the Access Rights of a Service](#71-changing-the-access-rights-of-a-service)
-  - [7.2 Adding a Service Client](#72-adding-a-service-client)
-  - [7.3 Changing the Access Rights of a Service Client](#73-changing-the-access-rights-of-a-service-client)
-- [8 Local Access Right Groups](#8-local-access-right-groups)
-  - [8.1 Adding a Local Group](#81-adding-a-local-group)
-  - [8.2 Displaying and Changing the Members of a Local Group](#82-displaying-and-changing-the-members-of-a-local-group)
-  - [8.3 Changing the description of a Local Group](#83-changing-the-description-of-a-local-group)
-  - [8.4 Deleting a Local Group](#84-deleting-a-local-group)
-- [9 Communication with the Client Information Systems](#9-communication-with-the-client-information-systems)
-- [10 System Parameters](#10-system-parameters)
-  - [10.1 Managing the Configuration Anchor](#101-managing-the-configuration-anchor)
-  - [10.2 Managing the Timestamping Services](#102-managing-the-timestamping-services)
-  - [10.3 Changing the Internal TLS Key and Certificate](#103-changing-the-internal-tls-key-and-certificate)
-  - [10.4 Approved Certificate Authorities](#104-approved-certificate-authorities)
-- [11 Message Log](#11-message-log)
-  - [11.1 Changing the Configuration of the Message Log](#111-changing-the-configuration-of-the-message-log)
-    - [11.1.1 Common parameters](#1111-common-parameters)
-    - [11.1.2 Timestamping parameters](#1112-timestamping-parameters)
-    - [11.1.3 Archiving parameters](#1113-archiving-parameters)
-  - [11.2 Transferring the Archive Files from the Security Server](#112-transferring-the-archive-files-from-the-security-server)
-  - [11.3 Using a Remote Database](#113-using-a-remote-database)
-- [12 Audit Log](#12-audit-log)
-  - [12.1 Changing the Configuration of the Audit Log](#121-changing-the-configuration-of-the-audit-log)
-  - [12.2 Archiving the Audit Log](#122-archiving-the-audit-log)
-- [13 Back up and Restore](#13-back-up-and-restore)
-  - [13.1 Back up and Restore in the User Interface](#131-back-up-and-restore-in-the-user-interface)
-  - [13.2 Restore from the Command Line](#132-restore-from-the-command-line)
-  - [13.3 Automatic Backups](#133-automatic-backups)
-- [14 Diagnostics](#14-diagnostics)
-  - [14.1 Examine security server services status information](#141-examine-security-server-services-status-information)
-- [15 Operational Monitoring](#15-operational-monitoring)
-  - [15.1 Operational Monitoring Buffer](#151-operational-monitoring-buffer)
-    - [15.1.1 Stopping the Collecting of Operational Data](#1511-stopping-the-collecting-of-operational-data)
-  - [15.2 Operational Monitoring Daemon](#152-operational-monitoring-daemon)
-    - [15.2.1 Configuring the Health Statistics Period](#1521-configuring-the-health-statistics-period)
-    - [15.2.2 Configuring the Parameters Related to Database Cleanup](#1522-configuring-the-parameters-related-to-database-cleanup)
-    - [15.2.3 Configuring the Parameters related to the HTTP Endpoint of the Operational Monitoring Daemon](#1523-configuring-the-parameters-related-to-the-http-endpoint-of-the-operational-monitoring-daemon)
-    - [15.2.4 Installing an External Operational Monitoring Daemon](#1524-installing-an-external-operational-monitoring-daemon)
-    - [15.2.5 Configuring an External Operational Monitoring Daemon and the Corresponding Security Server](#1525-configuring-an-external-operational-monitoring-daemon-and-the-corresponding-security-server)
-    - [15.2.6 Monitoring Health Data over JMXMP](#1526-monitoring-health-data-over-jmxmp)
-- [16 Environmental Monitoring](#16-environmental-monitoring)
-  - [16.1 Usage via SOAP API](#161-usage-via-soap-api)
-  - [16.2 Usage via JMX API](#162-usage-via-jmx-api)
-  - [16.3 Limiting environmental monitoring remote data set](#163-limiting-environmental-monitoring-remote-data-set)
-- [17 Logs and System Services](#17-logs-and-system-services)
-  - [17.1 System Services](#171-system-services)
-  - [17.2 Logging configuration](#172-logging-configuration)
-  - [17.3 Fault Detail UUID](#173-fault-detail-uuid)
-- [18 Federation](#18-federation)
-- [19 Migrating to Remote Database Host](#19-migrating-to-remote-database-host)
+* [License](#license)
+* [1 Introduction](#1-introduction)
+  * [1.1 The X-Road Security Server](#11-the-x-road-security-server)
+  * [1.2 Terms and abbreviations](#12-terms-and-abbreviations)
+  * [1.3 References](#13-references)
+* [2 User Management](#2-user-management)
+  * [2.1 User Roles](#21-user-roles)
+  * [2.2 Managing the Users](#22-managing-the-users)
+    * [2.2.1 Adding and Removing Users](#221-adding-and-removing-users)
+  * [2.3 Managing API Keys](#23-managing-api-keys)
+    * [2.3.1 Creating a new API key](#231-creating-a-new-api-key)
+    * [2.3.2 Editing the roles of an API key](#232-editing-the-roles-of-an-api-key)
+    * [2.3.3 Revoking an API key](#233-revoking-an-api-key)
+* [3 Security Server Registration](#3-security-server-registration)
+  * [3.1 Configuring the Signing Key and Certificate for the Security Server Owner](#31-configuring-the-signing-key-and-certificate-for-the-security-server-owner)
+    * [3.1.1 Generating a Signing Key and Certificate Signing Request](#311-generating-a-signing-key-and-certificate-signing-request)
+    * [3.1.2 Importing a Certificate from the Local File System](#312-importing-a-certificate-from-the-local-file-system)
+    * [3.1.3 Importing a Certificate from a Security Token](#313-importing-a-certificate-from-a-security-token)
+  * [3.2 Configuring the Authentication Key and Certificate for the Security Server](#32-configuring-the-authentication-key-and-certificate-for-the-security-server)
+    * [3.2.1 Generating an Authentication Key](#321-generating-an-authentication-key)
+    * [3.2.2 Generating a Certificate Signing Request for an Authentication Key](#322-generating-a-certificate-signing-request-for-an-authentication-key)
+    * [3.2.3 Importing an Authentication Certificate from the Local File System](#323-importing-an-authentication-certificate-from-the-local-file-system)
+  * [3.3 Registering the Security Server in the X-Road Governing Authority](#33-registering-the-security-server-in-the-x-road-governing-authority)
+    * [3.3.1 Registering an Authentication Certificate](#331-registering-an-authentication-certificate)
+  * [3.4 Changing the Security Server Owner](#34-changing-the-security-server-owner)
+* [4 Security Server Clients](#4-security-server-clients)
+  * [4.1 Security Server Client States](#41-security-server-client-states)
+  * [4.2 Adding a Security Server Client](#42-adding-a-security-server-client)
+  * [4.3 Adding a Security Server Member Subsystem](#43-adding-a-security-server-member-subsystem)
+  * [4.4 Configuring a Signing Key and Certificate for a Security Server Client](#44-configuring-a-signing-key-and-certificate-for-a-security-server-client)
+  * [4.5 Registering a Security Server Client in the X-Road Governing Authority](#45-registering-a-security-server-client-in-the-x-road-governing-authority)
+    * [4.5.1 Registering a Security Server Client](#451-registering-a-security-server-client)
+  * [4.6 Deleting a Client from the Security Server](#46-deleting-a-client-from-the-security-server)
+    * [4.6.1 Unregistering a Client](#461-unregistering-a-client)
+    * [4.6.2 Deleting a Client](#462-deleting-a-client)
+* [5 Security Tokens, Keys, and Certificates](#5-security-tokens-keys-and-certificates)
+  * [5.1 Availability States of Security Tokens](#51-availability-states-of-security-tokens)
+  * [5.2 Registration States of Certificates](#52-registration-states-of-certificates)
+    * [5.2.1 Registration States of the Signing Certificate](#521-registration-states-of-the-signing-certificate)
+    * [5.2.2 Registration States of the Authentication Certificate](#522-registration-states-of-the-authentication-certificate)
+  * [5.3 Validity States of Certificates](#53-validity-states-of-certificates)
+  * [5.4 Activating and Disabling the Certificates](#54-activating-and-disabling-the-certificates)
+  * [5.5 Configuring and Registering an Authentication key and Certificate](#55-configuring-and-registering-an-authentication-key-and-certificate)
+  * [5.6 Deleting a Certificate](#56-deleting-a-certificate)
+    * [5.6.1 Unregistering an Authentication Certificate](#561-unregistering-an-authentication-certificate)
+    * [5.6.2 Deleting a Certificate or a certificate Signing Request notice](#562-deleting-a-certificate-or-a-certificate-signing-request-notice)
+  * [5.7 Deleting a Key](#57-deleting-a-key)
+* [6 X-Road Services](#6-x-road-services)
+  * [6.1 Adding a service description](#61-adding-a-service-description)
+    * [6.1.1 SOAP](#611-soap)
+    * [6.1.2 REST](#612-rest)
+  * [6.2 Refreshing a service description](#62-refreshing-a-service-description)
+  * [6.3 Enabling and Disabling a service description](#63-enabling-and-disabling-a-service-description)
+  * [6.4 Changing the Address of a service description](#64-changing-the-address-of-a-service-description)
+  * [6.5 Deleting a service description](#65-deleting-a-service-description)
+  * [6.6 Changing the Parameters of a Service](#66-changing-the-parameters-of-a-service)
+  * [6.7 Managing REST Endpoints](#67-managing-rest-endpoints)
+* [7 Access Rights](#7-access-rights)
+  * [7.1 Changing the Access Rights of a Service](#71-changing-the-access-rights-of-a-service)
+  * [7.2 Adding a Service Client](#72-adding-a-service-client)
+  * [7.3 Changing the Access Rights of a Service Client](#73-changing-the-access-rights-of-a-service-client)
+* [8 Local Access Right Groups](#8-local-access-right-groups)
+  * [8.1 Adding a Local Group](#81-adding-a-local-group)
+  * [8.2 Displaying and Changing the Members of a Local Group](#82-displaying-and-changing-the-members-of-a-local-group)
+  * [8.3 Changing the description of a Local Group](#83-changing-the-description-of-a-local-group)
+  * [8.4 Deleting a Local Group](#84-deleting-a-local-group)
+* [9 Communication with the Client Information Systems](#9-communication-with-the-client-information-systems)
+* [10 System Parameters](#10-system-parameters)
+  * [10.1 Managing the Configuration Anchor](#101-managing-the-configuration-anchor)
+  * [10.2 Managing the Timestamping Services](#102-managing-the-timestamping-services)
+  * [10.3 Changing the Internal TLS Key and Certificate](#103-changing-the-internal-tls-key-and-certificate)
+  * [10.4 Approved Certificate Authorities](#104-approved-certificate-authorities)
+* [11 Message Log](#11-message-log)
+  * [11.1 Changing the Configuration of the Message Log](#111-changing-the-configuration-of-the-message-log)
+    * [11.1.1 Common Parameters](#1111-common-parameters)
+    * [11.1.2 Logging Parameters](#1112-logging-parameters)
+    * [11.1.3 Messagelog Encryption](#1113-messagelog-encryption)
+    * [11.1.4 Timestamping Parameters](#1114-timestamping-parameters)
+    * [11.1.5 Archiving Parameters](#1115-archiving-parameters)
+    * [11.1.6 Archive Files](#1116-archive-files)
+    * [11.1.7 Archive Encryption and Grouping](#1117-archive-encryption-and-grouping)
+  * [11.2 Transferring the Archive Files from the Security Server](#112-transferring-the-archive-files-from-the-security-server)
+  * [11.3 Using a Remote Database](#113-using-a-remote-database)
+* [12 Audit Log](#12-audit-log)
+  * [12.1 Changing the Configuration of the Audit Log](#121-changing-the-configuration-of-the-audit-log)
+  * [12.2 Archiving the Audit Log](#122-archiving-the-audit-log)
+* [13 Back up and restore](#13-back-up-and-restore)
+  * [13.1 Back up and Restore in the User Interface](#131-back-up-and-restore-in-the-user-interface)
+  * [13.2 Restore from the Command Line](#132-restore-from-the-command-line)
+  * [13.3 Automatic Backups](#133-automatic-backups)
+  * [13.4 Backup Encryption Configuration](#134-backup-encryption-configuration)
+  * [13.5 Verifying Backup Archive Consistency](#135-verifying-backup-archive-consistency)
+* [14 Diagnostics](#14-diagnostics)
+  * [14.1 Examine security server services status information](#141-examine-security-server-services-status-information)
+* [15 Operational Monitoring](#15-operational-monitoring)
+  * [15.1 Operational Monitoring Buffer](#151-operational-monitoring-buffer)
+    * [15.1.1 Stopping the Collecting of Operational Data](#1511-stopping-the-collecting-of-operational-data)
+  * [15.2 Operational Monitoring Daemon](#152-operational-monitoring-daemon)
+    * [15.2.1 Configuring the Health Statistics Period](#1521-configuring-the-health-statistics-period)
+    * [15.2.2 Configuring the Parameters Related to Database Cleanup](#1522-configuring-the-parameters-related-to-database-cleanup)
+    * [15.2.3 Configuring the Parameters related to the HTTP Endpoint of the Operational Monitoring Daemon](#1523-configuring-the-parameters-related-to-the-http-endpoint-of-the-operational-monitoring-daemon)
+    * [15.2.4 Installing an External Operational Monitoring Daemon](#1524-installing-an-external-operational-monitoring-daemon)
+    * [15.2.5 Configuring an External Operational Monitoring Daemon and the Corresponding Security Server](#1525-configuring-an-external-operational-monitoring-daemon-and-the-corresponding-security-server)
+    * [15.2.6 Monitoring Health Data over JMXMP](#1526-monitoring-health-data-over-jmxmp)
+* [16 Environmental Monitoring](#16-environmental-monitoring)
+  * [16.1 Usage via SOAP API](#161-usage-via-soap-api)
+  * [16.2 Usage via JMX API](#162-usage-via-jmx-api)
+  * [16.3 Limiting environmental monitoring remote data set](#163-limiting-environmental-monitoring-remote-data-set)
+* [17 Logs and System Services](#17-logs-and-system-services)
+  * [17.1 System Services](#171-system-services)
+  * [17.2 Logging configuration](#172-logging-configuration)
+  * [17.3 Fault Detail UUID](#173-fault-detail-uuid)
+* [18 Federation](#18-federation)
+* [19 Management REST API](#19-management-rest-api)
+  * [19.1 API key management operations](#191-api-key-management-operations)
+    * [19.1.1 Creating new API keys](#1911-creating-new-api-keys)
+    * [19.1.2 Listing API keys](#1912-listing-api-keys)
+    * [19.1.3 Updating API keys](#1913-updating-api-keys)
+    * [19.1.4 Revoking API keys](#1914-revoking-api-keys)
+    * [19.1.5 API key caching](#1915-api-key-caching)
+  * [19.2 Executing REST calls](#192-executing-rest-calls)
+  * [19.3 Correlation ID HTTP header](#193-correlation-id-http-header)
+  * [19.4 Validation errors](#194-validation-errors)
+  * [19.5 Warning responses](#195-warning-responses)
+* [20 Migrating to Remote Database Host](#20-migrating-to-remote-database-host)
+* [21 Adding command line arguments](#21-adding-command-line-arguments)
+* [22 Additional Security Hardening](#22-additional-security-hardening)
+  * [22.1 Configuring account lockout](#221-configuring-account-lockout)
+    * [22.1.1 Considerations and risks](#2211-considerations-and-risks)
+    * [22.1.2 Account lockout examples](#2212-account-lockout-examples)
+  * [22.2 Configuring password policies](#222-configuring-password-policies)
+    * [22.2.1 Considerations and risks](#2221-considerations-and-risks)
+  * [22.3 Ensuring User Account Security](#223-ensuring-user-account-security)
 
 <!-- vim-markdown-toc -->
 <!-- tocstop -->
@@ -183,14 +251,14 @@ This document is licensed under the Creative Commons Attribution-ShareAlike 3.0 
 
 ## 1 Introduction
 
-This document describes the management and maintenance of an X-Road version 6 security server.
+This document describes the management and maintenance of an X-Road version 7 security server.
 
 
 ### 1.1 The X-Road Security Server
 
 The main function of a security server is to mediate requests in a way that preserves their evidential value.
 
-The security server is connected to the public Internet from one side and to the information system within the organization's internal network from the other side. In a sense, the security server can be seen as a specialized application-level firewall that supports the SOAP protocol; hence, it should be set up in parallel with the organization's firewall, which mediates other protocols.
+The security server is connected to the public Internet from one side and to the information system within the organization's internal network from the other side. In a sense, the security server can be seen as a specialized application-level firewall that supports the SOAP and REST protocols; hence, it should be set up in parallel with the organization's firewall, which mediates other protocols.
 
 The security server is equipped with the functionality needed to secure the message exchange between a client and a service provider.
 
@@ -217,7 +285,7 @@ See X-Road terms and abbreviations documentation \[[TA-TERMS](#Ref_TERMS)\].
 1.  <a id="Ref_ASiC" class="anchor"></a>\[ASiC\] ETSI TS 102 918, Electronic Signatures and Infrastructures (ESI); Associated Signature Containers (ASiC)
 
 2.  <a id="Ref_CRON" class="anchor"></a>\[CRON\] Quartz Scheduler CRON expression,  
-    <http://www.quartz-scheduler.org/generated/2.2.1/html/qs-all/#page/Quartz_Scheduler_Documentation_Set%2Fco-trg_crontriggers.html>
+    <http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/tutorial-lesson-06.html>
 
 3.  <a id="Ref_INI" class="anchor"></a>\[INI\] INI file,  
     <http://en.wikipedia.org/wiki/INI_file>
@@ -260,6 +328,19 @@ See X-Road terms and abbreviations documentation \[[TA-TERMS](#Ref_TERMS)\].
 
 19. <a id="Ref_TERMS" class="anchor"></a>\[TA-TERMS\] X-Road Terms and Abbreviations. Document ID: [TA-TERMS](terms_x-road_docs.md).
 
+20. <a id="Ref_PR-META" class="anchor"></a>\[PR-META\] X-Road: Service Metadata Protocol. Document ID: [PR-META](../Protocols/pr-meta_x-road_service_metadata_protocol.md).
+
+21. <a id="Ref_PR-MREST" class="anchor"></a>\[PR-MREST\] X-Road: Service Metadata Protocol for REST. Document ID: [PR-MREST](../Protocols/pr-mrest_x-road_service_metadata_protocol_for_rest.md).
+
+22. <a id="Ref_UG-SYSPAR" class="anchor"></a>\[UG-SYSPAR\] X-Road: System Parameters User Guide. Document ID: [UG-SYSPAR](../Manuals/ug-syspar_x-road_v6_system_parameters.md).
+
+23. <a id="Ref_REST_UI-API" class="anchor"></a>\[REST_UI-API\] X-Road Security Server Admin API OpenAPI Specification, <https://github.com/nordic-institute/X-Road/blob/develop/src/proxy-ui-api/src/main/resources/openapi-definition.yaml>.
+
+24. <a id="Ref_GnuPG" class="anchor"></a>\[GnuPG\] The GNU Privacy Guard, <https://gnupg.org>.
+
+25. <a id="Ref_UG-SIGDOC" class="anchor"></a>\[UG-SIGDOC\] X-Road: Signed Document Download and Verification Manual. Document ID: [UG-SIGDOC](../Manuals/ug-sigdoc_x-road_signed_document_download_and_verification_manual.md).
+
+
 ## 2 User Management
 
 
@@ -288,7 +369,9 @@ If the logged-in user does not have a permission to carry out a particular task,
 
 ### 2.2 Managing the Users
 
-User management is carried out on command line in root user permissions.
+User management is carried out on the command line in root user permissions.
+
+#### 2.2.1 Adding and Removing Users
 
 To add a new user, enter the command:
 
@@ -302,15 +385,63 @@ To grant permissions to the user you created, add it to the corresponding system
     adduser username xroad-system-administrator
     adduser username xroad-securityserver-observer
 
-To remove a user permission, remove the user from the corresponding system group, for example:
+To remove user permission, remove the user from the corresponding system group, for example:
 
     deluser username xroad-security-officer
 
-User permissions are applied only after restart of the xroad-jetty service (see Section [16.1](#171-system-services)).
+Modified user permissions are applied only after a user does a new login.
 
 To remove a user, enter:
 
     deluser username
+
+### 2.3 Managing API Keys
+
+API keys are used to authenticate API calls to Security Server's management REST API. API keys are associated with roles that define the permissions granted to the API key. If the API key is lost, it can be revoked.
+
+#### 2.3.1 Creating a new API key
+
+**Access rights**
+
+-   All activities: [System Administrator](#xroad-system-administrator)
+
+1.  In the **Navigation tabs**, select **KEYS AND CERTIFICATES**.
+
+2.  In the opening view, select **API KEYS** tab.
+
+3.  In the opening view, click **CREATE API KEY**. In the wizard that opens
+
+    1. Select the roles you want to be associated with the API key. Click **NEXT**.
+    
+    2. Click **CREATE KEY**. The API key, API key id and assigned roles will be displayed in the view. **The API key will only be displayed this once so save it in a secure location**.
+    
+    3. Click **FINISH**.
+
+#### 2.3.2 Editing the roles of an API key
+
+**Access rights**
+
+-   All activities: [System Administrator](#xroad-system-administrator)
+
+1.  In the **Navigation tabs**, select **KEYS AND CERTIFICATES**.
+
+2.  In the opening view, select **API KEYS** tab.
+
+3.  In the opening view, in the API key list, locate the API key you want to edit and click **Edit** at the end of the API key row. In the popup that opens
+
+    1. Select the roles you want to be associated with the API key. Click **SAVE**.
+    
+#### 2.3.3 Revoking an API key
+
+**Access rights**
+
+-   All activities: [System Administrator](#xroad-system-administrator)
+
+1.  In the **Navigation tabs**, select **KEYS AND CERTIFICATES**.
+
+2.  In the opening view, select **API KEYS** tab.
+
+3.  In the opening view, in the API key list, locate the API key you want to revoke and click **Revoke Key** at the end of the API key row. In the dialog that opens click **YES**.
 
 
 ## 3 Security Server Registration
@@ -322,12 +453,12 @@ To use a security server for mediating (exchanging) messages, the security serve
 
 The signing keys used by the security servers for signing X-Road messages can be stored on software or hardware based (a Hardware Security Module or a smartcard) security tokens, according to the security policy of the X-Road instance.
 
-Depending on the certification policy, the signing keys are generated either in the security server or by the certification service provider. Sections [3.1.1](#311-generating-a-signing-key) to [3.1.3](#313-importing-a-certificate-from-the-local-file-system) describe the actions necessary to configure the signing key and certificate in case the key is generated in the security server. Section [3.1.4](#314-importing-a-certificate-from-a-security-token) describes the importing of the signing key and certificate in case the key is generated by the certification service provider.
+Depending on the certification policy, the signing keys are generated either in the security server or by the certification service provider. Sections [3.1.1](#311-generating-a-signing-key-and-certificate-signing-request) and [3.1.2](#312-importing-a-certificate-from-the-local-file-system) describe the actions necessary to configure the signing key and certificate in case the key is generated in the security server. Section [3.1.3](#313-importing-a-certificate-from-a-security-token) describes the importing of the signing key and certificate in case the key is generated by the certification service provider.
 
-The **background colors** of the devices, keys and certificate are explained in Section [5.1](#51-availability-states-of-security-tokens-keys-and-certificates).
+The **background colors** of the devices, keys and certificate are explained in Section [5.1](#51-availability-states-of-security-tokens).
 
 
-#### 3.1.1 Generating a Signing Key
+#### 3.1.1 Generating a Signing Key and Certificate Signing Request
 
 **Access rights:**
 
@@ -337,77 +468,78 @@ The **background colors** of the devices, keys and certificate are explained in 
 
 -   Logging in to the key device: [System Administrator](#xroad-system-administrator)
 
-To generate a signing key, follow these steps.
+To generate a Signing key and a Certificate Signing Request, follow these steps.
 
-1.  On the **Management** menu, select **Keys and Certificates**.
+1.  In the **Navigation tabs**, select **KEYS AND CERTIFICATES**.
 
-2.  If you are using a hardware security token, ensure that the device is connected to the security server. The device information must be displayed in the **Keys and Certificates** table.
+2.  If you are using a hardware security token, ensure that the device is connected to the security server. The device information must be displayed in the **SIGN AND AUTH KEYS** table.
 
-3.  To log in to the token, click **Enter PIN** on the token’s row in the table and enter the PIN code. Once the correct PIN is entered, the **Enter PIN** button changes to **Logout**.
+3.  To log in to the token, click **LOG IN** on the token's row in the table and enter the PIN code. Once the correct PIN is entered, the **LOG IN** button changes to **LOG OUT**.
 
-4.  To generate a signing key, select the token from the table by clicking the respective row, and click **Generate key**. Enter the label value for the key and click **OK**. The generated key appears under the token’s row in the table. The label value is displayed as the name of the key.
+4.  To generate a signing key and CSR for it, expand the token's information by clicking the caret next to the token name and click **ADD KEY**. In the wizard that opens 
+    
+    1. Define a label for the newly created signing key (not mandatory) and click **NEXT**. 
+    
+    2. In the dialog page that opens
+    
+       1. Select the certificate usage policy from the **Usage** drop down list (SIGNING for signing certificates)
+    
+       2. Select the X-Road member the certificate will be issued for from the **Client** drop-down list
+    
+       3. Select the issuer of the certificate from the **Certification Service** drop-down list
+    
+       4. Select the format of the certificate signing request (PEM or DER) from the **CSR Format** drop-down list, according to the certification service provider's requirements
+    
+       5. Click **CONTINUE**
+    
+    3. In the dialog that opens 
+    
+       1. Review the certificate owner's information that will be included in the CSR and fill in the empty fields, if needed
+    
+       2. Click **GENERATE CSR**
+    
+       3. Click **DONE**
 
-
-#### 3.1.2 Generating a Certificate Signing Request for a Signing Key
-
-**Access rights:** [Security Officer](#xroad-security-officer), [Registration Officer](#xroad-registration-officer)
-
-To generate a certificate signing request (CSR) for the signing key, follow these steps.
-
-1.  On the **Management** menu, select **Keys and Certificates**.
-
-2.  Select a key from the table and click **Generate CSR**. In the dialog that opens
-
-    2.1  Select the certificate usage policy from the **Usage** drop down list (SIGN for signing certificates);
-
-    2.2  select the X-Road member the certificate will be issued for from the **Client** drop-down list;
-
-    2.3  select the issuer of the certificate from the **Certification Service** drop-down list;
-
-    2.4  select the format of the certificate signing request (PEM or DER), according to the certification service provider’s requirements
-
-    2.5  click **OK**;
-
-3.  In the form that opens, review the certificate owner’s information that will be included in the CSR and fill in the empty fields, if needed.
-
-4.  Click **OK** to complete the generation of the CSR and save the prompted file to the local file system.
-
-After the generation of the CSR, a “Request” record is added under the key’s row in the table, indicating that a certificate signing request has been created for this key. The record is added even if the request file was not saved to the local file system.
+After the generation of the CSR, a "Request" record is added under the key's row in the table, indicating that a certificate signing request has been created for this key. The record is added even if the request file was not saved to the local file system.
 
 **To certify the signing key, transmit the certificate signing request to the approved certification service provider and accept the signing certificate created from the certificate signing request.**
 
 
-#### 3.1.3 Importing a Certificate from the Local File System
+#### 3.1.2 Importing a Certificate from the Local File System
 
 **Access rights:** [Security Officer](#xroad-security-officer), [Registration Officer](#xroad-registration-officer)
 
 To import the signing certificate to the security server, follow these steps.
 
-1.  On the **Management** menu, select **Keys and Certificates**.
+1.  In the **Navigation tabs**, select **KEYS AND CERTIFICATES**.
 
-2.  Click **Import certificate**.
+2.  Show more details about a token by clicking the caret next to the token name.
 
-3.  Locate the certificate file from the local file system and click **OK**. After importing the certificate, the "Request" record under the signing key's row is replaced with the information from the imported certificate. By default, the signing certificate is imported in the "Registered" state.
+3.  Click **IMPORT CERT.**.
+
+4.  Locate the certificate file from the local file system and click **OK**. After importing the certificate, the "Request" record under the signing key's row is replaced with the information from the imported certificate. By default, the signing certificate is imported in the "Registered" state.
 
 
-#### 3.1.4 Importing a Certificate from a Security Token
+#### 3.1.3 Importing a Certificate from a Security Token
 
 **Access rights:** [Security Officer](#xroad-security-officer), [Registration Officer](#xroad-registration-officer)
 
 To import a certificate from a security token, follow these steps.
 
-1.  On the **Management** menu, select **Keys and Certificates**.
+1.  In the **Navigation tabs**, select **KEYS AND CERTIFICATES**.
 
-2.  Make sure that a key device containing the signing key and the signing certificate is connected to the security server. The device and the keys and certificates stored on the device must be displayed in the **Keys and Certificates** view.
+2.  Show more details about a token by clicking the caret next to the token name.
 
-3.  To log in to the security token, click **Enter PIN** on the token’s row in the table and enter the PIN. Once the correct PIN is entered, the **Enter PIN** button changes to **Logout**.
+3.  Make sure that a key device containing the signing key and the signing certificate is connected to the security server. The device and the keys and certificates stored on the device must be displayed in the **SIGN AND AUTH KEYS** view.
 
-4.  Click the **Import** button on the row of the certificate. By default, the certificate is imported in the "Registered" state.
+4.  To log in to the security token, click **LOG IN** on the token's row in the table and enter the PIN. Once the correct PIN is entered, the **LOG IN** button changes to **LOG OUT**.
+
+5.  Click the **Import** button on the row of the certificate. By default, the certificate is imported in the "Registered" state.
 
 
 ### 3.2 Configuring the Authentication Key and Certificate for the Security Server
 
-The **background colors** of the devices, keys and certificate are explained in Section [5.1](#51-availability-states-of-security-tokens-keys-and-certificates).
+The **background colors** of the devices, keys and certificate are explained in Section [5.1](#51-availability-states-of-security-tokens).
 
 
 #### 3.2.1 Generating an Authentication Key
@@ -420,11 +552,33 @@ The **background colors** of the devices, keys and certificate are explained in 
 
 **The security server's authentication keys can only be generated on software security tokens.**
 
-1.  On the **Management** menu, select **Keys and Certificates**.
+1.  In the **Navigation tabs**, select **KEYS AND CERTIFICATES**.
 
-2.  To log in to the software token, click **Enter PIN** on the token’s row in the table and enter the token’s PIN code. Once the correct PIN is entered, the **Enter PIN** button changes to **Logout**.
+2.  To log in to the software token, click **LOG IN** on the token's row in the table and enter the token's PIN code. Once the correct PIN is entered, the **LOG IN** button changes to **LOG OUT**.
 
-3.  To generate an authentication key, select the software token from the table by clicking the respective row, and click **Generate key**. Enter the label value for the key and click **OK**. The generated key appears under the token’s row in the table. The label value is displayed as the name of the key.
+3.  Show more details about the token by clicking the caret next to the token name.
+
+4.  To generate an authentication key and CSR for it, click the **ADD KEY** button below the token row. In the wizard that opens 
+    
+    1. Define a label for the newly created authentication key (not mandatory) and click **NEXT**. 
+    
+    2. In the dialog page that opens
+    
+       1. Select the certificate usage policy from the **Usage** drop down list (AUTHENTICATION for authentication certificates)
+    
+       2. Select the issuer of the certificate from the **Certification Service** drop-down list
+    
+       3. Select the format of the certificate signing request (PEM or DER) from the **CSR Format** drop-down list, according to the certification service provider's requirements
+    
+       4. Click **CONTINUE**
+    
+    3. In the dialog that opens 
+    
+       1. Review the certificate owner's information that will be included in the CSR and fill in the empty fields, if needed
+    
+       2. Click **GENERATE CSR**
+    
+       3. Click **DONE**
 
 
 #### 3.2.2 Generating a Certificate Signing Request for an Authentication Key
@@ -433,23 +587,27 @@ The **background colors** of the devices, keys and certificate are explained in 
 
 To generate a certificate signing request (CSR) for the authentication key, follow these steps.
 
-1.  On the **Management** menu, select **Keys and Certificates**.
+1.  In the **Navigation tabs**, select **KEYS AND CERTIFICATES**.
 
-2.  Select the authentication key from the table and click **Generate CSR**. In the dialog that opens
+2.  Show more details about a token by clicking the caret next to the token name.
+
+3.  On the row of the desired key, click **Generate CSR**. In the dialog that opens
 
     2.1  Select the certificate usage policy from the **Usage** drop down list (AUTH for authentication certificates);
 
     2.2  select the issuer of the certificate from the **Certification Service** drop-down list;
 
-    2.3  select the format of the certificate signing request (PEM or DER), according to the certification service provider’s requirements
+    2.3  select the format of the certificate signing request (PEM or DER), according to the certification service provider's requirements
 
-    2.4  click **OK**;
+    2.4  click **CONTINUE**;
 
 3.  In the form that opens, review the information that will be included in the CSR and fill in the empty fields, if needed.
 
-4.  Click **OK** to complete the generation of the CSR and save the prompted file to the local file system.
+4.  Click **GENERATE CSR** to complete the generation of the CSR and save the prompted file to the local file system.
 
-After the generation of the CSR, a “Request” record is added under the key’s row in the table, indicating that a certificate signing request has been created for this key. The record is added even if the request file was not saved to the local file system.
+5. Click **DONE**
+
+After the generation of the CSR, a "Request" record is added under the key's row in the table, indicating that a certificate signing request has been created for this key. The record is added even if the request file was not saved to the local file system.
 
 **To certify the authentication key, transmit the certificate signing request to the approved certification service provider and accept the authentication certificate created from the certificate signing request.**
 
@@ -460,11 +618,13 @@ After the generation of the CSR, a “Request” record is added under the key�
 
 To import the authentication certificate to the security server, follow these steps.
 
-1.  On the Management menu, select Keys and Certificates.
+1.  In the **Navigation tabs**, select Keys and Certificates.
 
-2.  Click Import certificate.
+2.  Show more details about a token by clicking the caret next to the token name.
 
-3.  Locate the certificate file from the local file system and click OK. After importing the certificate, the "Request" record under the authentication key's row is replaced with the information from the imported certificate. By default, the certificate is imported in the “Saved” (see Section [5.2.2](#522-registration-states-of-the-authentication-certificate)) and “Disabled” states (see Section [5.3](#53-validity-states-of-certificates)).
+3.  Click **Import certificate**.
+
+4.  Locate the certificate file from the local file system and click **OK**. After importing the certificate, the "Request" record under the authentication key's row is replaced with the information from the imported certificate. By default, the certificate is imported in the "Saved" (see Section [5.2.2](#522-registration-states-of-the-authentication-certificate)) and "Disabled" states (see Section [5.3](#53-validity-states-of-certificates)).
 
 
 ### 3.3 Registering the Security Server in the X-Road Governing Authority
@@ -482,45 +642,73 @@ To register the security server in the X-Road governing authority, the following
 
 **Access rights:** [Security Officer](#xroad-security-officer)
 
-The security server's registration request is signed in the security server with the server owner's signing key and the server's authentication key. Therefore, ensure that the corresponding certificates are imported to the security server and are in a usable state (the tokens holding the keys are in logged in state and the OCSP status of the certificates is “good”).
+The security server's registration request is signed in the security server with the server owner's signing key and the server's authentication key. Therefore, ensure that the corresponding certificates are imported to the security server and are in a usable state (the tokens holding the keys are in logged in state and the OCSP status of the certificates is "good").
 
 To submit an authentication certificate registration request, follow these steps.
 
-1.  On the Management menu, select Keys and Certificates.
+1.  In the **Navigation tabs**, select **KEYS AND CERTIFICATES**.
 
-2.  Select an authentication certificate to be registered (it must be in the "saved" state) and click **Register**.
+2.  Show more details about a token by clicking the caret next to the token name.
 
-3.  In the dialog that opens, enter the security server's public DNS name or its external IP address and click **OK**.
+3.  Click **Register** at the end of the desired certificate row. Note that the certificate must be in "Saved" state.
 
-On submitting the request, the message "Request sent" is displayed, and the authentication certificate’s state is set to "Registration in process".
+4.  In the dialog that opens, enter the security server's public DNS name or its external IP address and click **ADD**.
 
-After the X-Road governing authority has accepted the registration, the registration state of the authentication certificate is set to “Registered” and the registration process is completed.
+On submitting the request, the message "Certificate registration request successful" is displayed, and the authentication certificate's state is set to "Registration in process".
+
+After the X-Road governing authority has accepted the registration, the registration state of the authentication certificate is set to "Registered" and the registration process is completed.
 
 ### 3.4 Changing the Security Server Owner
 
 **Access rights:** [Registration Officer](#xroad-registration-officer)
 
-To change the security server owner the following actions must be completed.
+To change the security server owner, two registered Owner members must be available. If a registered member is already available, jump directly to step 3.
 
-- The new Owner member must be added to the security server (see [4.2](#42-adding-a-security-server-client)).
+To add a new member and change it to Owner member, the following actions must be completed.
 
-- A Signing Key and Certificate must be configured for the new Owner member (see [4.3](#43-configuring-a-signing-key-and-certificate-for-a-security-server-client)).
- 
-- The new Owner must be registered in the X-Road Governing Authority (see [4.3](#44-registering-a-security-server-client-in-the-x-road-governing-authority)).
+1.  Add a new Owner member to the security server
+
+    1.1 On the **CLIENTS** view, select **ADD MEMBER**.
+    
+    1.2 In the opening wizard, Select the new Owner member from the list of security server clients
+    
+    1.3 Add the selected member
+    
+    Note: Signing Key and Certificate must be configured for the new Owner member. If needed, the wizard will automatically show the dedicated steps for Key and Certificate configuration to collect the needed information.
+    
+2.  Register the new member
+
+    2.1 On the **CLIENTS** view, locate the new member in the Clients list and click **Register** in the corresponding row
+    
+    2.2 In the opening dialog, click **Register**. A registeration request is sent to the X-Road Governing Authority
+    
+    Note: Once the request is approved, the new member appears as "Registered" - it can be set as Owner member.
+
+3.  Request a change of the security server owner
+
+    3.1 On the **CLIENTS** view, locate the new member and click its name to open the member's detail view
+    
+    3.2 In the detail view, click **MAKE OWNER**
+    
+    1.3 In the opening dialog, click **MAKE OWNER**. An owner change request is sent to the X-Road Governing Authority
+    
+Once the owner change request is approved, the new member will be automatically shown as the security server Owner member.
+
+- A new member must be added to the security server (see [4.2](#42-adding-a-security-server-client)). If needed, specify the token on which the member is configured
+
+- If not yet available, a Signing Key and Certificate must be configured for the new member (see [4.4](#44-configuring-a-signing-key-and-certificate-for-a-security-server-client)).
+
+- The new member must be registered in the X-Road Governing Authority (see [4.5](#45-registering-a-security-server-client-in-the-x-road-governing-authority)).
 
 - The security server owner change request must be submitted from the security server. To submit an owner change request follow these steps.
 
-  1. On the **Configuration** menu, select **Security Server Clients**.
+  1. In the **Member Detail view** click **MAKE OWNER**.
 
-  2. Select the new Owner member from the list of security server clients.
+  2. Click **MAKE OWNER** to submit a change request.
 
-  3. Click the **Details** icon and in the window that opens, click **Make Owner**.
+- The change request is sent to the X-Road governing authority according to the organizational procedures of the X-Road instance.
 
-  4. Click **Confirm** to submit the request.
-
-- A request for changing the security server owner must be submitted to the X-Road governing authority according to the organizational procedures of the X-Road instance.
-
-- The owner change request must be approved by the X-Road governing authority.
+- Once the owner change request is approved by the X-Road governing authority, the member will automatically become the Owner Member.
 
 - New Authentication Key and Certificate should be configured for the new security server owner (see [3.2](#32-configuring-the-authentication-key-and-certificate-for-the-security-server)).
 
@@ -528,7 +716,7 @@ To change the security server owner the following actions must be completed.
 
 **Important: to use or provide X-Road services, a security server client needs to be certified by a certification service provider approved by the X-Road governing authority, and the association between the client and the security server used by the client must be registered at the X-Road governing authority.**
 
-**This section does not address managing the owner to a security server.** The owner's information has been already added to the security server upon the installation, and registered upon the security server's registration. The owner's registration status can be looked up by selecting **Security Server Clients** on the **Configuration** menu. The security server's owner is displayed in bold. Before the registration of the security server, the owner is in the "Saved" state and after the completion of the registration process, in the "Registered" state.
+**This section does not address managing the owner to a security server.** The owner's information has been already added to the security server upon the installation, and registered upon the security server's registration. The owner's registration status can be looked up by selecting **CLIENTS** on the main menu. In the list the item with text "(Owner)" after the name is security server's owner. Before the registration of the security server, the owner is in the "Saved" state and after the completion of the registration process, in the "Registered" state.
 
 The registration of the security server's owner does not extend to the owner's subsystems. The subsystems must be registered as individual clients.
 
@@ -539,31 +727,31 @@ The security server distinguishes between the following client states.
 
 ![](img/ug-ss_saved.png) **Saved** – the client's information has been entered and saved into the security server's configuration (see [4.2](#42-adding-a-security-server-client)), but the association between the client and the security server is not registered in the X-Road governing authority. (If the association is registered in the central server prior to the entry of data, the client will move to the "Registered" state upon data entry.) From this state, the client can move to the following states:
 
--   “Registration in progress”, if a registration request for the client is submitted from the security server (see [4.4.1](#441-registering-a-security-server-client));
+-   "Registration in progress", if a registration request for the client is submitted from the security server (see [4.5.1](#451-registering-a-security-server-client));
 
--   “Deleted”, if the client's information is deleted from the security server configuration (see [4.5.2](#452-deleting-a-client)).
+-   "Deleted", if the client's information is deleted from the security server configuration (see [4.6.2](#462-deleting-a-client)).
 
 ![](img/ug-ss_registration_in_progress.png) **Registration in progress** – a registration request for the client is submitted from the security server to the central server, but the association between the client and the security server is not yet approved by the X-Road governing authority. From this state, the client can move to the following states:
 
 -   "Registered", if the association between the client and the security server is approved by the X-Road governing authority (see [4.4.1](#441-registering-a-security-server-client));
 
--   "Deletion in progress", if a client deletion request is submitted from the security server (see [4.5.1](#451-unregistering-a-client)).
+-   "Deletion in progress", if a client deletion request is submitted from the security server (see [4.6.1](#461-unregistering-a-client)).
 
 ![](img/ug-ss_registered.png) **Registered** – the association between the client and the security server has been approved in the X-Road governing authority. In this state, the client can provide and use X-Road services (assuming all other prerequisites are fulfilled). From this state, the client can move to the following states:
 
 -   "Global error", if the association between the client and the security server has been revoked by the X-Road governing authority;
 
--   "Deletion in progress", if a client deletion request is submitted from the security server (see [4.5.1](#451-unregistering-a-client)).
+-   "Deletion in progress", if a client deletion request is submitted from the security server (see [4.6.1](#461-unregistering-a-client)).
 
 ![](img/ug-ss_global_error.png) **Global error** – the association between the client and the security server has been revoked in the central server. From this state, the client can move to the following states:
 
 -   "Registered", if the association between the client and the security server has been restored in the central server (e.g., the association between the client and the security server was lost due to an error);
 
--   "Deleted", if the client's information is deleted from the security server's configuration (see [4.5.2](#452-deleting-a-client)).
+-   "Deleted", if the client's information is deleted from the security server's configuration (see [4.6.2](#452-deleting-a-client)).
 
 ![](img/ug-ss_deletion_in_progress.png) **Deletion in progress** – a client deletion request has been submitted from the security server. From this state, the client can move to the following state:
 
--   "Deleted", if the client's information is deleted from the security server's configuration (see [4.5.2](#452-deleting-a-client)).
+-   "Deleted", if the client's information is deleted from the security server's configuration (see [4.6.2](#452-deleting-a-client)).
 
 **Deleted** – the client's information has been deleted from the security server's configuration.
 
@@ -574,84 +762,84 @@ The security server distinguishes between the following client states.
 
 Follow these steps.
 
-1.  On the **Configuration** menu, select **Security Server Clients**.
+1.  In the **CLIENTS** view, click **ADD CLIENT**.
 
-2.  Click **Add Client**. In the window that opens, either enter the client's information manually or click **Select Client from Global List** and locate the client's information from within all X-Road members and their subsystems.
-
-3.  Click **OK** once the client’s information has been entered.
+2.  In the wizard that opens
+    
+    1. Client details page: Select an existing client from the Global list by pressing **SELECT CLIENT** or specify the details of the Client to be added manually and click **NEXT**
+    
+    2. Token page: Select the token where you want to add the SIGN key for the new Client. Click **NEXT**
+    
+    3. Sign key page: Define a label (optional) for the newly created SIGN key and click **NEXT**
+    
+    4. CSR details page: Select the Certification Authority (CA) that will issue the certificate in **Certification Service** field and format of the certificate signing request according to the CA's requirements in the **CSR Format** field. Click **NEXT**.
+    
+    5. Generate CSR page: Define **Organization Name (O)** and click **NEXT**
+    
+    6. Finish page: click **SUBMIT** and the new client will be added to the Clients list and the new key and CSR will appear in the Keys and Certificates view.
 
 The new client is added to the list of security server clients in the "Saved" state.
 
-**NB! If the security server owner  or hosted client is a foreign organization (not Estonian), then the "NEE" Member Class must be selected in the security server.**
+### 4.3 Adding a Security Server Member Subsystem
 
-The Member Code must be formed as follows:
+**Access rights:** [Registration Officer](#xroad-registration-officer)
 
-**"NTRCONTRYCODE-ORGANISAZIONREGISTRYCODE"** - without whitespaces
+Follow these steps.
 
-Where:
-* "NTR" - Prefix of the legal entity identifier according to ETSI EN 319 412-1 clause 5.1.4.
-* COUNTRY CODE - Country code according to ISO 3166 (Alpha 2)
-* `-` hyphen
-* REGISTRY CODE - Organizational registry code in the organization's country.
+1.  In the **CLIENTS** view in the client list, locate the X-Road member you want to add a subsystem to and click **Add Subsystem** at the end of the row.
 
-Example:
-* Lexbyte Digital Limited, a registered organization in Malta
-* Member Name: **Lexbyte Digital Limited**
-* Member Class: **NEE**
-* Member Code: **NTRMT-C56249**
+2.  In the wizard that opens
+    
+    2.1. Select an existing subsystem from the Global list by pressing **SELECT SUBSYSTEM** or specify the **Subsystem Code** manually
+    
+    2.2. If you wish to register the new subsystem immediately, check the **Register subsystem** checkbox and then click **ADD SUBSYSTEM**.
+    
+    (2.3.) If you checked the **Register subsystem** checkbox, a popup will appear asking whether you wish to register the subsystem immediately. In the popup, click **YES**.
+    
+The new subsystem is added to the list of security server clients in the "Saved" state.
 
-Such requirements to the NEE Member Code are necessary to ensure the uniqueness of the Member Code of foreign organizations on X-Road (X-tee). In addition, the Member Code of X-Road members must correspond to the Organization Identifier (2.5.4.97) field in the SK ID Solutions AS e-Seal certificate profile.
-
-References:
-* SK ID Solutions AS certificate profile: https://sk.ee/upload/files/SK-CPR-KLASS3-EN-v8_0-20171130.pdf
-* ETSI EN 319 412-1: http://www.etsi.org/deliver/etsi_en/319400_319499/31941201/01.01.00_30/en_31941201v010100v.pdf  
-* Alpha 2 country code: https://www.iso.org/obp/ui/#search  
-
-
-### 4.3 Configuring a Signing Key and Certificate for a Security Server Client
+### 4.4 Configuring a Signing Key and Certificate for a Security Server Client
 
 A signing key and certificate must be configured for the security server client to sign messages exchanged over the X-Road. In addition, a signing key and certificate are required for registering a security server client.
 
-Certificates are not issued to subsystems; therefore, the certificate of the subsystem’s owner (that is, an X-Road member) is used for the subsystem.
+Certificates are not issued to subsystems; therefore, the certificate of the subsystem's owner (that is, an X-Road member) is used for the subsystem.
 
-All particular X-Road member’s subsystems that are registered in the same security server use the same signing certificate for signing messages. Hence, if the security server already contains the member's signing certificate, it is not necessary to configure a new signing key and/or certificate when adding a subsystem of that member.
+All particular X-Road member's subsystems that are registered in the same security server use the same signing certificate for signing messages. Hence, if the security server already contains the member's signing certificate, it is not necessary to configure a new signing key and/or certificate when adding a subsystem of that member.
 
 The process of configuring the signing key and certificate for a security server client is the same as for the security server owner. The process is described in Section [3.1](#31-configuring-the-signing-key-and-certificate-for-the-security-server-owner).
 
 
-### 4.4 Registering a Security Server Client in the X-Road Governing Authority
+### 4.5 Registering a Security Server Client in the X-Road Governing Authority
 
 To register a security server client in the X-Road governing authority, the following actions must be completed.
 
--   A signing key and certificate must be configured for the member that owns the subsystem to be registered as a the security server client (see [4.3](#43-configuring-a-signing-key-and-certificate-for-a-security-server-client)).
+-   A signing key and certificate must be configured for the member that owns the subsystem to be registered as a the security server client (see [4.4](#44-configuring-a-signing-key-and-certificate-for-a-security-server-client)).
 
--   The security server client registration request must be submitted from the security server (see [4.4.1](#441-registering-a-security-server-client)).
+-   The security server client registration request must be submitted from the security server (see [4.5.1](#451-registering-a-security-server-client)).
 
 -   A request for registering the client must be submitted to the X-Road governing authority according to the organizational procedures of the X-Road instance.
 
 -   The registration request must be approved by the X-Road governing authority.
 
 
-#### 4.4.1 Registering a Security Server Client
+#### 4.5.1 Registering a Security Server Client
 
 **Access rights:** [Registration Officer](#xroad-registration-officer)
 
 To submit a client registration request follow these steps.
 
-1.  On the **Configuration** menu, select **Security Server Clients**.
+1.  In the **CLIENTS** view.
 
-2.  Select the client in the "Saved" state from the list of security server clients.
+2.  Click **Register** button on the row that contains the client you wish to register. 
 
-3.  Click the **Details** icon and in the window that opens, click **Register**.
+3.  Click **YES** to submit the request.
 
-4.  Click **Confirm** to submit the request.
+On submitting the request, the message "Request sent" is displayed, and the client's state is set to "Registration in process".
 
-On submitting the request, the message "Request sent" is displayed, and the client’s state is set to "Registration in process".
-
-After the X-Road governing authority has accepted the registration, the state of the client is set to “Registered” and the registration process is completed.
+After the X-Road governing authority has accepted the registration, the state of the client is set to "Registered" and the registration process is completed.
 
 
-### 4.5 Deleting a Client from the Security Server
+### 4.6 Deleting a Client from the Security Server
 
 If a client is deleted from the security server, all the information related to the client is deleted from the server as well – that is, the WSDLs, services, access rights, and, if necessary, the certificates.
 
@@ -660,72 +848,68 @@ When one of the clients is deleted, it is not advisable to delete the signing ce
 A client registered or submitted for registration in the X-Road governing authority (indicated by the "Registered" or "Registration in progress" state) must be unregistered before it can be deleted. The unregistering event sends a security server client deletion request from the security server to the central server.
 
 
-#### 4.5.1 Unregistering a Client
+#### 4.6.1 Unregistering a Client
 
 **Access rights:** [Registration Officer](#xroad-registration-officer)
 
 To unregister a client, follow these steps.
 
-1.  On the **Configuration** menu, select **Security Server Clients**.
+1.  In the **CLIENTS** view click the name of client that you wish to remove from the server
 
-2.  Select the client that you wish to remove from the server and click the **Details** icon on the client’s row.
+2.  In the window that opens, click **UNREGISTER** and then click **YES**. The security server automatically sends a client deletion request to the X-Road central server, upon the receipt of which the association between the security server and the client is revoked.
 
-3.  In the window that opens, click **Unregister** and then click **Confirm**. The security server automatically sends a client deletion request to the X-Road central server, upon the receipt of which the association between the security server and the client is revoked.
-
-4.  Next, a notification is displayed about sending a deletion request to the central server, and a confirmation is presented about deleting the client's information (except its certificates).
-
-  -   If you wish to delete the client's information immediately, click **Confirm**. Next, an option is presented to delete the client's certificates. To delete the certificates, click **Confirm** again.
-
-  -   If you wish to retain the client's information, click **Cancel**. In that case, the client is moved to the "Deletion in progress" state, wherein the client cannot mediate messages and cannot be registered again in the X-Road governing authority.
-
-5.  To delete the information of a client in the "Deletion in progress" state, select the client by clicking the **Details** icon on its row, click **Delete** in the window that opens, and then click **Confirm**.
+3.  Next, a notification is displayed about unregistering client. Now the client is moved to the "Deletion in progress" state, wherein the client cannot mediate messages and cannot be registered again in the X-Road governing authority.
 
 *Note:* It is possible to unregister a registered client from the central server without sending a deletion request through the security server. In this case, the security server's administrator responsible for the client must transmit a request containing information about the client to be unregistered to the central server's administrator. If the client has been deleted from the central server without a prior deletion request from the security server, the client is shown in the "Global error" state in the security server.
 
 
-#### 4.5.2 Deleting a Client
+#### 4.6.2 Deleting a Client
 
 **Access rights:** [Registration Officer](#xroad-registration-officer)
 
-A security server client can be deleted if its state is "Saved", "Global error" or "Deletion in progress". Clients that are in states "Registered" or "Registration in progress" need to be unregistered before they can be deleted (see Section [4.5.1](#451-unregistering-a-client)).
+A security server client can be deleted if its state is "Saved", "Global error" or "Deletion in progress". Clients that are in states "Registered" or "Registration in progress" need to be unregistered before they can be deleted (see Section [4.6.1](#461-unregistering-a-client)).
 
 To delete a client, follow these steps.
 
-1.  On the **Configuration** menu, select **Security Server Clients**.
+1.  In the **CLIENTS** view click the name of the client you wish to remove from the security server.
 
-2.  Select from the table a client that you wish to remove from the security server and click the **Details** icon on that row.
-
-3.  In the window that opens, click **Delete**. Confirm the deletion by clicking **Confirm**.
+2.  In the window that opens, click **DELETE** and then click **YES**. If there are no users for the signature key nor for the certificate associated then an option is presented to delete the client's certificates. To delete the certificates, click **YES** again.
 
 
 ## 5 Security Tokens, Keys, and Certificates
 
 
-### 5.1 Availability States of Security Tokens, Keys, and Certificates
+### 5.1 Availability States of Security Tokens
 
-To display the availability of objects (that is, tokens, keys or certificates), the following background colors are used in the "Keys and Certificates" view.
+**Notice that the colors were introduced in version 6.25.0**
 
--   **Yellow** background – the object is available to the security server, but the object's information has not been saved to the security server configuration. For example, a smartcard could be connected to the server, but the certificates on the smartcard may not have been imported to the server. Certificates on the yellow background cannot be used for mediating messages.
+To display the availability of tokens, the following colors and labels are used in the "Keys and Certificates" view.
 
--   **White** background – the object is available to the security server and the object's information has been saved to the security server's configuration. **Certificates on the white background can be used for mediating messages.**
+-   **Red** text and a label **Not saved** – the token is available to the security server, but it's information has not been saved to the security server configuration. For example, a smartcard could be connected to the server, but the certificates on the smartcard may not have been imported to the server. The user cannot interact with the token or it's content.
 
--   **Gray** background – the object is not available for the security server. Certificates on the gray background cannot be used for mediating messages.
+-   **Red** text and a label **Blocked** – the token is available to the security server and it's information has been saved to the security server's configuration but the token is unavailable. The user cannot interact with the token or it's content.
+
+-   **Gray** text and a label **Inactive** – the token is not available for the security server. The user cannot interact with the token or it's content.
+
+-   **Black** text and a **LOG IN** button – the token is logged out. The user must log in the token before interacting the content.
+
+-   **Black** text and a **LOG OUT** button – the token is logged in. The user can interact with the token and it's content.
 
 **Caution:** The key device's and key's information is automatically saved to the configuration when a certificate associated with either of them is imported to the security server, or when a certificate signing request is generated for the key. Similarly, the key device's and key's information is deleted from the security server configuration automatically upon the deletion of the last associated certificate and/or certificate signing request.
 
 
 ### 5.2 Registration States of Certificates
 
-Registration states indicate if and how a certificate can be used in the X-Road system. In the "Keys and Certificates" view, a certificate's registration states (except "Deleted") are displayed in the "Status" column.
+Registration states indicate if and how a certificate can be used in the X-Road system. In the "Keys and Certificates" view, a certificate's registration states (except "Deleted"  for certificates stored on soft token key) are displayed in the "Status" column.
 
 
 #### 5.2.1 Registration States of the Signing Certificate
 
 A security server signing certificate can be in one of the following registration states.
 
--   **Registered** – the certificate has been imported to the security server and saved to its configuration. A signing certificate in a “Registered” state can be used for signing X-Road messages.
+-   **Registered** – the certificate has been imported to the security server and saved to its configuration. A signing certificate in a "Registered" state can be used for signing X-Road messages.
 
--   **Deleted** – the certificate has been deleted from the server configuration. If the certificate is in the “Deleted” state and stored on a hardware key device connected to the security server, the certificate is displayed on a yellow background.
+-   **Deleted** – the certificate has been deleted from the server configuration. If the certificate is in the "Deleted" state and stored on a soft token key, the certificate will not be displayed in the table. If the certificate is in the "Deleted" state and stored on a hardware key device connected to the security server, the certificate status will be displayed with a **red circle** and a text **ONLY IN TOKEN**.
 
 
 #### 5.2.2 Registration States of the Authentication Certificate
@@ -736,7 +920,7 @@ A security server authentication certificate can be in one of the following regi
 
 -   "Registration in progress", if the authentication certificate registration request is sent from the security server to the central server (see [3.3.1](#331-registering-an-authentication-certificate));
 
--   "Deleted", if the authentication certificate's information is deleted from the security server configuration (see Section [5.6](#56-deleting-a-certificate)).
+-   "Deleted", if the authentication certificate's information is deleted from the security server configuration (see Section [5.6](#56-deleting-a-certificate)). Notice that after the certificate is deleted, it will not be displayed in the table anymore.
 
 **Registration in progress** – an authentication certificate registration request has been created and sent to the central server, but the association between the certificate and the security server has not yet been approved. From this state, the certificate can move to the following states:
 
@@ -754,22 +938,18 @@ A security server authentication certificate can be in one of the following regi
 
 -   "Registered", if the association between the authentication certificate and the security server has been restored in the central server (e.g., the association between the client and the security server was lost due to an error);
 
--   "Deleted", if the authentication certificate's information is deleted from the security server configuration (see [5.6](#56-deleting-a-certificate)).
+-   "Deleted", if the authentication certificate's information is deleted from the security server configuration (see [5.6](#56-deleting-a-certificate)). Notice that after the certificate is deleted, it will not be displayed in the table anymore.
 
-**Deletion in progress** – an authentication certificate registration request has been created for the certificate and sent to the central server. From this state, the certificate can move to the following state:
-
--   "Deleted", if the authentication certificate's information is deleted from the security server configuration (see [5.6](#56-deleting-a-certificate)).
-
-**Deleted** – the certificate has been deleted from the security server configuration.
+**Deletion in progress** – an authentication certificate registration request has been created for the certificate and sent to the central server. From this state, the certificate can be deleted. If the certificate has been deleted from the security server configuration, it will not be displayed in the table anymore.
 
 
 ### 5.3 Validity States of Certificates
 
-Validity states indicate if and how a certificate can be used independent of the X-Road system. In the "Keys and Certificates" view, the certificate's validity states are displayed in the "OCSP response" column. Validity states (except "Disabled") are displayed for certificates that are in the "Registered" registration state.
+Validity states indicate if and how a certificate can be used independent of the X-Road system. In the "Keys and Certificates" view, the certificate's validity states are displayed in the "OCSP" column. Validity states (except "Disabled") are displayed for certificates that are in the "Registered" registration state.
 
 A security server certificate can be in one of the following validity states.
 
--   **Unknown** (validity information missing) – the certificate does not have a valid OCSP response (the OCSP response validity period is set by the X-Road governing authority) or the last OCSP response was either “unknown” (the responder doesn't know about the certificate being requested) or an error.
+-   **Unknown** (validity information missing) – the certificate does not have a valid OCSP response (the OCSP response validity period is set by the X-Road governing authority) or the last OCSP response was either "unknown" (the responder doesn't know about the certificate being requested) or an error.
 
 -   **Suspended** – the last OCSP response about the certificate was "suspended".
 
@@ -790,13 +970,17 @@ A security server certificate can be in one of the following validity states.
 
 -   For signing certificates: [Security Officer](#xroad-security-officer), [Registration Officer](#xroad-registration-officer)
 
-Disabled certificates are not used for signing messages or for establishing secure channels between security servers (authentication). If a certificate is disabled, its status in the “OCSP response” column in the “Keys and Certificates” table is “Disabled”.
+Disabled certificates are not used for signing messages or for establishing secure channels between security servers (authentication). If a certificate is disabled, its status in the "OCSP" column in the "Keys and Certificates" table is "Disabled".
 
 To activate or disable a certificate, follow these steps.
 
-1.  On the **Management** menu, select **Keys and Certificates**.
+1.  In the **Navigation tabs**, select **KEYS AND CERTIFICATES**.
 
-2.  To activate a certificate, select an inactive certificate from the table and click **Activate**. To deactivate a certificate, select an active certificate from the table and click **Disable**.
+2.  Show more details about a token by clicking the caret next to the token name.
+
+3.  To activate a certificate, click on the desired certificate's name.
+
+    3.1 In the opening **Certificate** dialog, click **Activate**. To deactivate a certificate, click **DISABLE** in the **Certificate** dialog. 
 
 
 ### 5.5 Configuring and Registering an Authentication key and Certificate
@@ -819,11 +1003,15 @@ An authentication certificate registered or submitted for registration in the X-
 
 To unregister an authentication certificate, follow these steps.
 
-1.  On the **Management** menu, select **Keys and Certificates**.
+1.  In the **Navigation tabs**, select **KEYS AND CERTIFICATES**.
 
-2.  Select an authentication certificate in the state "Registered" or "Registration in progress" and click **Unregister**.
+2.  Show more details about a token by clicking the caret next to the token name.
 
-    Next, an authentication certificate deletion request is automatically sent to the X-Road central server, upon the receipt of which the associated authentication certificate is deleted from the central server. If the request was successfully sent, the message "Request sent" is displayed and the authentication certificate is moved to the "Deletion in progress" state.
+3.  Click on an authentication certificate that is in the state "Registered" or "Registration in progress".
+
+    3.1 In the opening **Certificate** dialog, click **UNREGISTER**.
+
+    Next, an authentication certificate deletion request is automatically sent to the X-Road central server, upon the receipt of which the associated authentication certificate is deleted from the central server. If the request was successfully sent, the message "Certificate unregistration request sent successfully" is displayed and the authentication certificate is moved to the "Deletion in progress" state.
 
 A registered authentication certificate can be deleted from the central server without sending a deletion request through the security server. In this case, the security server's administrator must transmit a request containing information about the authentication certificate to be deleted to the central server's administrator. If the authentication certificate has been deleted from the central server without a deletion request from the security server, the certificate is shown in the "Global error" state in the security server.
 
@@ -842,14 +1030,25 @@ An authentication certificate saved in the system configuration can be deleted i
 
 -   if the certificate is saved in the server configuration, then the deletion **deletes the certificate from server configuration**, but not from the security token;
 
--   if the certificate is not saved in the server configuration (the background of the certificate is yellow), then the deletion deletes the certificate from the security token (assuming the token supports this operation).
+-   if the certificate is not saved in the server configuration (certificate's status has a red circle and status is "STORED IN TOKEN"), then the deletion deletes the certificate from the security token (assuming the token supports this operation).
 
-**To delete a certificate or a signing request notice, follow these steps.**
+**To delete a certificate, follow these steps.**
 
-1.  On the **Management** menu, select **Keys and Certificates**.
+1.  In the **Navigation tabs**, select **KEYS AND CERTIFICATES**.
 
-2.  Select from the table a certificate or a certificate signing request notice and click **Delete**. Confirm the deletion by clicking **Confirm**.
+2.  Show more details about a token by clicking the caret next to the token name.
 
+3.  Click on the certificate that you want to delete.
+
+    3.1 In the opening **Certificate** dialog, click **DELETE**. Confirm the deletion by clicking **YES**.
+
+**To delete a certificate signing request notice (CSR), follow these steps.**
+
+1.  In the **Navigation tabs**, select **KEYS AND CERTIFICATES**.
+
+2.  Show more details about a token by clicking the caret next to the token name.
+
+3.  At the end of the desired CSR row click **Delete CSR**. Confirm the deletion by clicking **YES**.
 
 ### 5.7 Deleting a Key
 
@@ -863,17 +1062,15 @@ An authentication certificate saved in the system configuration can be deleted i
 
 -   For keys without a role: [Security Officer](#xroad-security-officer), [Registration Officer](#xroad-registration-officer)
 
-**The deletion of keys works on two levels:**
-
--   if the key is saved in the server configuration, then the deletion **deletes the key** (and associated certificates) **from server configuration**, but not from the security token;
-
--   if the key is not saved in the server configuration (the background of the key is yellow), then the deletion **deletes the key from the security token** (assuming the token supports this operation).
-
 To delete a key, follow these steps.
 
-1.  On the **Management** menu, select **Keys and Certificates**.
+1.  In the **Navigation tabs**, select **KEYS AND CERTIFICATES**.
 
-2.  Select a key and click **Delete**. Confirm the deletion of the key (and its associated certificates) by clicking **Confirm**.
+2.  Show more details about a token by clicking the caret next to the token name.
+
+3.  Click on the desired Key.
+
+    3.1 In the opening **Key** dialog, click **DELETE**. Confirm the deletion of the key (and its associated certificates) by clicking **YES**.
 
 
 ## 6 X-Road Services
@@ -889,36 +1086,35 @@ X-Road supports both SOAP and REST services. The services are managed on two lev
 
 **Access rights:** [Service Administrator](#xroad-service-administrator)
 
-### 6.1.1 SOAP
+#### 6.1.1 SOAP
 
 When a new WSDL file is added, the security server reads service information from it and displays the information in the table of services. The service code, title and address are read from the WSDL.
 
 **To add a WSDL**, follow these steps.
 
-1.  On the **Configuration** menu, select **Security Server Clients**, select a client from the table and click the **Services** icon on that row.
+1.  Navigate to **CLIENTS** tab, click the name of the client for which you wish to add WSDL to and click the **SERVICES** tab. 
 
-2.  Click **ADD WSDL**, enter the WSDL address in the window that opens and click **OK**. Once the window is closed, the WSDL and the information about the services it contains are added to the table. By default, the WSDL is added in disabled state (see [6.3](#63-enabling-and-disabling-a-service-description)).
+3.  Click **ADD WSDL**, enter the WSDL address in the dialog that opens and click **ADD**. Once the window is closed, the WSDL and the information about the services it contains are added to the client. By default, the WSDL is added in disabled state (see [6.3](#63-enabling-and-disabling-a-service-description)).
 
 **To see a list of services contained in the WSDL**
 
--   click the “**+**” symbol in front of the WSDL row to expand the list.
+-   click the caret next to the WSDL service url to expand the list.
 
-### 6.1.2 REST
+#### 6.1.2 REST
 
-When a new REST service is added, the security server displays url and service code provided.
+After a new REST service is added, the security server displays text "REST" and url for that service.
 
 **To add a REST service**, follow these steps.
 
-1.  On the **Configuration** menu, select **Security Server Clients**, select a client from the table and click the **Services** icon on that row.
+1.  Navigate to **CLIENTS** tab, click the name of the client for which you wish to add REST service to and click the **SERVICES** tab. 
 
-2.  Click **ADD REST**. Select whether the URL type is REST API base path or OpenAPI 3 description. Enter the url and service code in the window that opens and click **OK**.
+3.  Click **ADD REST**. Select whether the URL type is "REST API Base Path" or "OpenAPI 3 Description". Enter the url and service code in the window that opens and click **ADD**.
 
-3.  Once the window is closed, the url and the service code are added to the table. If the added URL type was OpenAPI 3 description, the service description is parsed and endpoints are added under the service. By default, the REST service is added in disabled state (see [6.3](#63-enabling-and-disabling-a-service-description)).
+4.  Once the window is closed, the url and the service code are added to the service list. If the added URL type was OpenAPI 3 description, the service description is parsed and endpoints are added under the service. By default, the REST service is added in disabled state (see [6.3](#63-enabling-and-disabling-a-service-description)).
 
 **To see the service details under the REST service**
 
--   click the "**+**" symbol in front of the REST row to expand the service details.
-
+-   click the caret on the REST service description row to expand the service details.
 
 ### 6.2 Refreshing a service description
 
@@ -928,38 +1124,32 @@ Upon refreshing, the security server reloads the service description file from t
 
 To refresh the service description, follow these steps.
 
-1.  On the **Configuration** menu, select **Security Server Clients**, select a client from the table and click the **Services** icon on that row.
+1.  Navigate to **CLIENTS** tab, click the name of the client containing service you wish to refresh and click the **SERVICES** tab. 
 
-2.  Select from the table a WSDL or REST to be refreshed and click **Refresh**.
+2.  Click the arrow symbol in front of the WSDL or REST to be refreshed and click the **Refresh** button.
 
-3.  If the new service description contains changes compared to the current service description in the security server, a warning is displayed. To proceed with the refresh, click **Continue**.
+3.  If the new service description contains changes compared to the current service description in the security server, a warning is displayed. To proceed with the refresh, click **CONTINUE**.
 
-When the service description is refreshed, the existing services’ settings are not overwritten.
+When the service description is refreshed, the existing services' settings are not overwritten.
 
 
 ### 6.3 Enabling and Disabling a service description
 
 **Access rights:** [Service Administrator](#xroad-service-administrator)
 
-A disabled service description is displayed in the services’ table in red with a "Disabled" note.
+A disabled service description is displayed in the services' list with a disabled switch icon on the same row.
 
 Services described by a disabled service description cannot be accessed by the service clients – if an attempt is made to access the service, an error message is returned, containing the information entered by the security server's administrator when the service description was disabled.
 
 If a service description is enabled, the services described there become accessible to users. Therefore it is necessary to ensure that before enabling the service description, the parameters of all its services are correctly configured (see [6.6](#66-changing-the-parameters-of-a-service)).
 
-To **enable** a service description, follow these steps.
+To **enable** or **disable** a service description, follow these steps.
 
-1.  On the **Configuration** menu, select **Security Server Clients**, select a client from the table and click the **Services** icon on that row.
+1.  Navigate to **CLIENTS** tab, click the name of the client containing service you wish to view and click the **SERVICES** tab. 
 
-2.  Select a disabled service description from the table and click **Enable**.
+2. Click the switch icon on the same row with service WSDL or REST service you wish to enable or disable
 
-To **disable** a service description, follow these steps.
-
-1.  On the **Configuration** menu, select **Security Server Clients**, select a client from the table and click the **Services** icon on that row.
-
-2.  To enable a service description, select an enabled service description from the table and click **Disable**.
-
-3.  In the window that opens, enter an error message, which is shown to clients who try to access any of the services in the service description, and click **OK**.
+(3.) If the service was disabled a popup will appear. In the popup, enter a Disable notice which is shown to clients who try to access any of the services in the service description, and click **OK**.
 
 
 ### 6.4 Changing the Address of a service description
@@ -968,11 +1158,11 @@ To **disable** a service description, follow these steps.
 
 To change the service description address, follow these steps.
 
-1.  On the **Configuration** menu, select **Security Server Clients**, select a client from the table and click the **Services** icon on that row.
+1.  Navigate to **CLIENTS** tab, click the name of the client containing service you wish to view and click the **SERVICES** tab. 
 
-2.  Select from the table a service description whose information you wish to change and click **Edit**.
+2. Click the link text containing the type of the service and its url in paranthesis
 
-3.  In the window that opens, edit the WSDL address for WSDL, URL and/or service code for REST, and click **OK**. The service information updates accordingly (see section [6.2](#62-refreshing-a-service-description)).
+3.  In the dialog that opens you can edit the URL for all types of services and for REST services the service code can also be changed. Click **SAVE**. The service information updates accordingly (see section [6.2](#62-refreshing-a-service-description)).
 
 
 ### 6.5 Deleting a service description
@@ -983,12 +1173,11 @@ When a service description is deleted, all information related to the services d
 
 To delete a service description, follow these steps.
 
-1.  On the **Configuration** menu, select **Security Server Clients**, select a client from the table and click the **Services** icon on that row.
+1.  Navigate to **CLIENTS** tab, click the name of the client containing service you wish to view and click the **SERVICES** tab. 
 
-2.  Select from the table a service description to be deleted and click **Delete**.
+2. Click the link text containing the type of the service and its url in paranthesis. 
 
-3.  Confirm the deletion by clicking **Confirm** in the window that opens.
-
+3. Click **DELETE** and confirm the deletion by clicking **YES** in the dialog that opens. 
 
 ### 6.6 Changing the Parameters of a Service
 
@@ -1000,15 +1189,17 @@ Service parameters are
 
 -   "Timeout (s)" – the maximum duration of a request to the database, in seconds;
 
--   "Verify TLS certificate" – toggles the verification of the certificate when a TLS connection is established.
+-   "Verify TLS certificate" – toggles the verification of the certificate when a TLS connection is established. This option is used for two different scenarios:
+    -   Between Security Server and service endpoint.
+    -   Between Security Server and service description URL, when metaservices getWsdl or getOpenAPI are used for this subsystem and service. See \[[PR-META](#Ref_PR-META)\] and \[[PR-MREST](#Ref_PR-MREST)\].
 
 To change service parameters, follow these steps.
 
-1.  On the **Configuration** menu, select **Security Server Clients**, select a client from the table and click the **Services** icon on that row.
+1.  Navigate to **CLIENTS** tab, click the name of the client containing service you wish to view and click the **SERVICES** tab. 
 
-2.  Select a service from the table and click **Edit**.
+2.  Click the arrow symbol in front of a REST or WSDL service and in the list that is displayed click the service code which you wish to edit.
 
-3.  In the window that opens, configure the service parameters. To apply the selected parameter to all services described in the same service description, select the checkbox adjacent to this parameter in the **Apply to All in WSDL** column. To apply the configured parameters, click **OK**.
+3.  In the view that opens, configure the service parameters. To apply the selected parameter to all services described in the same service description, select the checkbox adjacent to this parameter in the **Apply to All in WSDL** column. To apply the configured parameters, click **SAVE**.
 
 
 ### 6.7 Managing REST Endpoints
@@ -1021,13 +1212,13 @@ When URL type of the REST service is an OpenAPI 3 description, endpoints are par
 
 To create API endpoint manually, follow these steps
 
-1.  On the **Configuration** menu, select **Security Server Clients**, select a client from the table and click the **Services** icon on that row.
+1.  Navigate to **CLIENTS** tab, click the name of the client containing service you wish to view and click the **SERVICES** tab. 
 
-2.  Select from the table a REST service description where the endpoint is going to be added and click "**+**" to see the service details.
+2.  Click the arrow symbol in front of a REST service and click the service code that is displayed.
 
-3.  Select the service code item immediately under the service description level and click **Add Endpoint**.
+3.  Click the **ENDPOINTS** tab and in the following view click **ADD ENDPOINTS**.
 
-4.  Select HTTP request method and Path for the endpoint and click **OK**.
+4.  In the dialog that opens fill in the HTTP Request method and path for the endpoint and click **ADD**
 
 
 ## 7 Access Rights
@@ -1051,44 +1242,55 @@ It is possible to define access rights on two levels for REST services:
 -   REST service level
 -   endpoint level
 
-In general, a REST service usually has multiple endpoints. When access rights are defined on the service level, they apply to all the endpoints of the REST service. Instead, defining access rights on the endpoint level gives access to specific endpoint(s) only.
+In general, a REST service usually has multiple endpoints. When access rights are defined on the service level, they apply to all the endpoints of the REST service. Instead, defining access rights on the endpoint level gives access to specific endpoint(s) only. The service level access rights support both service-based and service client-based access rights management. The endpoint level access rights support only service based access rights management.
 
 
 ### 7.1 Changing the Access Rights of a Service
 
 **Access rights:** [Service Administrator](#xroad-service-administrator)
 
-To change the access rights to a service, follow these steps.
+To change the access rights to a **service**, follow these steps.
 
-1.  On the **Configuration** menu, select **Security Server Clients**, select a client from the table and click the **Services** icon on that row.
+1.  Navigate to **CLIENTS** tab, click the name of the client containing service you wish to view and click the **SERVICES** tab. 
 
-2.  Select a service or endpoint from the table and click **Access Rights**.
+2.  Click the arrow symbol in front of a service and click the service code that is displayed.
 
 3.  In the window that opens, the access rights table displays information about all X-Road subsystems and groups that have access to the selected service.
 
-4.  To add one or more access right subjects to the service, click **Add Subjects**. The subject search window appears. You can search among all subsystems and global groups registered in the X-Road governing authority and among the security server client's local groups.
-    Select one or more subjects from the table and click **Add Selected to ACL**. To grant the access right to all subjects in the search results, click **Add All to ACL**.
+4.  To add one or more access right subjects to the service, click **ADD SUBJECTS**. The subject search window appears. You can search among    all subsystems and global groups registered in the X-Road governing authority and among the security server client's local groups. Fill in optional filters for subjects and click **SEARCH**. Select one or more subjects from the list and click **ADD SELECTED**.
 
-5.  To remove service access rights subjects, select the respective rows in the access rights table and click **Remove Selected**. To clear the access rights list (that is, remove all subjects), click **Remove All**.
+5.  To remove service access rights subjects, click **Remove** button on the respective row in the access rights table. To clear the access rights list (that is, remove all subjects), click **REMOVE ALL**.
+
+To change access rights to an **endpoint**, follow there steps.
+
+1.  Navigate to **CLIENTS** tab, click the name of the client containing service you wish to view and click the **SERVICES** tab. 
+
+2.  Click the arrow symbol in front of a REST service and click the service code that is displayed.
+
+3.  Click the **ENDPOINTS** tab and in the following views endpoints list click **Access Rights** on the respective row of an endpoint.
+
+4.  To add one or more access right subjects to the endpoint, click **ADD SUBJECTS**. The subject search window appears. You can search among all subsystems and global groups registered in the X-Road governing authority and among the security server client's local groups. Fill in optional filters for subjects and click **SEARCH**. Select one or more subjects from the list and click **ADD SELECTED**.
+
+5. To remove endpoint access rights subjects, click **Remove** button on the respective row in the access rights table and click **YES** in the confirmation dialog. To clear the access rights list (that is, remove all subjects), click **REMOVE ALL** and click **YES** in the confirmation dialog.
 
 
 ### 7.2 Adding a Service Client
 
 **Access rights:** [Service Administrator](#xroad-service-administrator)
 
-The service client view (**Configuration** -&gt; **Security Server Clients** -&gt; **Service Clients**) displays all the access rights subjects of the services mediated by this security server client. In other words, if an X-Road subsystem or group has been granted the access right to a service of this client, then the subject is shown in this view.
+The service client view (**CLIENTS** -&gt; **SERVICE CLIENTS**) displays all the service level access rights subjects of the services mediated by this security server client. In other words, if an X-Road subsystem or group has been granted a service level access right to a service of this client, then the subject is shown in this view. Subjects that have been granted an endpoint level access right to a REST service, are not shown in the view.
 
 To add a service client, follow these steps.
 
-1.  On the **Configuration** menu, select **Security Server Clients**.
+1.  Navigate to **CLIENTS** tab, click the name of the client containing service you wish to view and click the **SERVICE CLIENTS** tab. 
 
-2.  Select a client from the table and click the **Service Clients** icon, then click **Add**.
+2.  Click **ADD SUBJECT**. In the following wizard that opens
+    
+    1. Select a subject (a subsystem, or a local or global group) to which you want to grant access rights to and click **NEXT**
+    
+    2. Select service(s) whose access rights you want to grant to the selected subject. Click **ADD SELECTED** to grant access rights to the selected services to this subject. Note that access rights to REST API endpoints can not be added using this view, those need to be added on **SERVICES** tab as described in [7.1](#71-changing-the-access-rights-of-a-service).
 
-3.  In the window that opens, locate and select a subject (a subsystem, or a local or global group) to which you want to grant access rights to and click **Next**.
-
-4.  Locate the service(s) whose access rights you want to grant to the selected subject. Click **Add Selected to ACL** to grant access rights to the selected services to this subject. Click **Add All to ACL** to grant access rights to all services in the filter to the subject. Note that access rights to REST API endpoints can not be added using this view, those need to be added on **Services** tab as described in [7.1](#71-changing-the-access-rights-of-a-service).
-
-The subject is added to the list of service clients, after which the service client's access rights view is displayed where the access rights can be changed.
+The subject is added to the list of service clients, after which the service clients view is displayed.
 
 
 ### 7.3 Changing the Access Rights of a Service Client
@@ -1097,19 +1299,19 @@ The subject is added to the list of service clients, after which the service cli
 
 To change the service client's access rights, follow these steps.
 
-1.  On the **Configuration** menu, select **Security Server Clients**, select a client from the table and click the **Service Clients** icon on that row.
+1.  Navigate to **CLIENTS** tab, click the name of the client containing service you wish to view and click the **SERVICE CLIENTS** tab. 
 
-2.  In the window that opens, locate and select a subject (a subsystem, or a local or global group) whose access rights you want to change and click **Access Rights**.
+2.  In the view that opens click the name of a subject (a subsystem, or a local or global group) whose access rights you want to change
 
 3.  In the window that opens, a list of services opened in the security server to the selected subject is displayed.
 
--   To remove access rights to a service from the service client, select one or more services from the table and click **Remove Selected**, then click **Confirm**.
+    - To add access rights to a service client, start by clicking **ADD SERVICE**. In the window that opens, select the service(s) that you wish to grant to the subject and click **ADD**. Note that access rights to REST API endpoints can not be added using this view, those need to be added on **SERVICES** tab as described in [7.1](#71-changing-the-access-rights-of-a-service).
 
--   To remove all access rights from the service client, click **Remove All** and then click **Confirm**.
-
--   To add access rights to a service client, start by clicking **Add Service**. In the window that opens, select the service(s) that you wish to grant to the subject (already granted services are displayed in gray) and click **Add Selected to ACL**. To add all services found by the search, click **Add All to ACL**. Note that access rights to REST API endpoints can not be added using this view, those need to be added on **Services** tab as described in [7.1](#71-changing-the-access-rights-of-a-service).
-
-**Caution:** If you refresh the page, all service clients that do not have access rights to any services are removed from the service clients’ view.
+    - To remove a single access right to a service from the service client click **Remove** button on the corresponding row and click **YES** in the confirmation dialog. 
+    
+    - To remove all access rights to a service from the service client click **REMOVE ALL** and click **YES** in the confirmation dialog. 
+    
+    - Removing service level access rights from the service client also removes all REST API endpoint level access rights to the endpoints of the service. In other words, removing access rights from the service client removes all access rights to a service and its endpoints.
 
 
 ## 8 Local Access Right Groups
@@ -1123,9 +1325,9 @@ A local access rights group can be created for a security server client in order
 
 To create a local group for a security server client, follow these steps.
 
-1.  On the **Configuration** menu, select **Security Server Clients**, select a client and click the **Local Groups** icon on that row. In the window that opens, a list of the client's local groups is displayed.
+1.  Navigate to **CLIENTS** tab, click the name of the client and click the **LOCAL GROUPS** tab. In the view that opens, a list of the client's local groups is displayed.
 
-2.  To create a new group, click **Add Group**. In the window that opens, enter the code and description for the new group and click **OK**.
+2.  To create a new group, click **ADD GROUP**. In the view that opens, enter the code and description for the new group and click **ADD**.
 
 
 ### 8.2 Displaying and Changing the Members of a Local Group
@@ -1134,17 +1336,17 @@ To create a local group for a security server client, follow these steps.
 
 To **view the members** of a local group, follow these steps.
 
-1.  On the **Configuration** menu, select **Security Server Clients**, select a client and click the **Local Groups** icon on that row.
+1.  Navigate to **CLIENTS** tab, click the name of the client and click the **LOCAL GROUPS** tab.
 
-2.  In the window that opens, select a group whose members you want to view or change, and click **Details** to open the detail view.
+2.  In the view that opens click the code of the group you wish to edit.
 
-To **add one or more members** to a local group, follow these steps in the group’s detail view.
+To **add one or more members** to a local group, follow these steps in the group's detail view.
 
-1.  Click **Add Members**.
+1.  Click **ADD MEMBERS**.
 
-2.  In the window that opens, locate and select the subsystems that you wish to add to the group and click **Add Selected to Group**. To add all subsystems found by the search function to the group, click **Add All to Group**.
+2.  In the window that opens add optional filters to your members search and click **SEARCH**. Select the subsystems that you wish to add to the group and click **ADD SELECTED**.
 
-To **remove members** from a local group, select the members to be deleted in the group’s detail view and click **Remove Selected Members**. To remove all group members from the group, click **Remove All Members**.
+To **remove members** from a local group, click **Remove** on the corresponding row on group you wish to be deleted in the group's detail view and then click **YES** in the confirmation dialog. To remove all group members from the group, click **REMOVE ALL** and then click **YES** in the confirmation dialog.
 
 
 ### 8.3 Changing the description of a Local Group
@@ -1153,13 +1355,11 @@ To **remove members** from a local group, select the members to be deleted in th
 
 To change the description of a local group, follow these steps.
 
-1.  On the **Configuration** menu, select **Security Server Clients**, select a client from the table and click the **Local Groups** icon on that row.
+1.  Navigate to **CLIENTS** tab, click the name of the client and click the **LOCAL GROUPS** tab.
 
-2.  Select a group from the local groups table and click **Details**.
+2.  In the view that opens click the code of the group you wish to edit.
 
-3.  In the group detail view, click **Edit** to change the description.
-
-4.  Enter the group description and click **OK**.
+3.  In the group´s detail view change the description. The description is saved when the input field loses focus. 
 
 
 ### 8.4 Deleting a Local Group
@@ -1170,11 +1370,11 @@ To change the description of a local group, follow these steps.
 
 To delete a local group, follow these steps.
 
-1.  On the **Configuration** menu, select **Security Server Clients**, select a client from the table and click the **Local Groups** icon on that row.
+1.  Navigate to **CLIENTS** tab, click the name of the client and click the **LOCAL GROUPS** tab.
 
-2.  Select a group from the local groups table and click **Details**.
+2.  In the view that opens click the code of the group you wish to delete.
 
-3.  In the group detail view, click **Delete Group** and confirm the deletion by clicking **Confirm** in the window that opens.
+3.  In the group detail view, click **DELETE** and confirm the deletion by clicking **YES** in the dialog that opens.
 
 
 ## 9 Communication with the Client Information Systems
@@ -1189,7 +1389,7 @@ A security server can use either the HTTP, HTTPS, or HTTPS NOAUTH protocol to co
 
 -   The HTTPS NOAUTH protocol should be used if you want the security server to skip the verification of the information system TLS certificate.
 
-   *Note:* If the HTTP connection method is selected, but the information system connects to the security server over HTTPS, then the connection is accepted, but the client’s internal TLS certificate is not verified (same behavior as with HTTPS NOAUTH).
+   *Note:* If the HTTP connection method is selected, but the information system connects to the security server over HTTPS, then the connection is accepted, but the client's internal TLS certificate is not verified (same behavior as with HTTPS NOAUTH).
 
 **By default the connection type for all the security server clients is set to HTTPS to prevent unauthorised use of the clients.**
 
@@ -1197,52 +1397,66 @@ A security server can use either the HTTP, HTTPS, or HTTPS NOAUTH protocol to co
 
 To set the connection method for internal network servers in the **service consumer role**, follow these steps.
 
-1.  On the **Configuration** menu, select **Security Server Clients**, select a security server owner or a client from the table and click the **Internal Servers** icon on that row.
+1.  In the **Navigation tabs**, select **CLIENTS**, select a security server owner or a client from the table
 
-2.  On the **Connection Type** drop-down, select the connection method and click **Save**.
+2.  In the view that opens, select the **INTERNAL SERVERS** tab
+ 
+3.  On the **Connection type** drop-down, select the connection method. The changes will be saved immediately on selecting the new method and a "Connection type updated" message is displayed.
 
 Depending on the configured connection method, the request URL for information system is **`http://SECURITYSERVER/`** or **`https://SECURITYSERVER/`**. When making the request, the address `SECURITYSERVER` must be replaced with the actual address of the security server.
 
 The connection method for internal network servers in the **service provider role** is determined by the protocol in the URL. To change the connection method, follow these steps.
 
-1.  On the **Configuration** menu, select **Security Server Clients**, select a client from the table and click the **Services** icon on that row.
+1.  In the **Navigation tabs**, select **CLIENTS**, select a security server owner or a client from the table
 
-2.  Select a service from the table and click **Edit**.
+2.  In the view that opens, select the **SERVICES** tab
+    
+3.  Click the caret next to the desired service description to show all services related to it
 
-3.  Change the protocol in the service URL to HTTP or HTTPS.
+4.  Click on a service code in the table.
+    
+5.  In the view that opens, change the protocol in the service URL to HTTP, HTTPS or HTTPS NO AUTH.
     If the HTTPS protocol was selected, select the **Verify TLS certificate** checkbox if needed (see section [6.6](#66-changing-the-parameters-of-a-service)). According to the service parameters, the connection with the internal network server is created using one the following protocols:
 
--   HTTP – the service/adapter URL begins with “**http:**//...”.
+-   HTTP – the service/adapter URL begins with "**http:**//...".
 
--   HTTPS – the service/adapter URL begins with “**https**://” and the **Verify TLS certificate** checkbox is selected.
+-   HTTPS – the service/adapter URL begins with "**https**://" and the **Verify TLS certificate** checkbox is selected.
 
--   HTTPS NOAUTH – the service/adapter URL begins with "**https**://" and the **Verify TLS certificate** checkbox is not selected.
+-   HTTPS NO AUTH – the service/adapter URL begins with "**https**://" and the **Verify TLS certificate** checkbox is not selected.
 
 To add an internal TLS certificate for a security server owner or security server client (for HTTPS connections), follow these steps.
 
-1.  On the **Configuration** menu, select **Security Server Clients**, select a security server owner or a client from the table and click the **Internal Servers** icon on that row.
+1.  In the **Navigation tabs**, select **CLIENTS**, select a security server owner or a client from the table
 
-2.  To add a certificate, click **Add** in the **Internal TLS Certificates** section, select a certificate file from the local file system and click **OK**. The certificate fingerprint appears in the “Internal TLS Certificates” table.
+2.  In the view that opens, select the **INTERNAL SERVERS** tab
+
+3.  To add a certificate, click **ADD** in the **Information System TLS certificate** section, select a certificate file from the local file system and click **OK**. The certificate fingerprint appears in the "Information System TLS certificate" table.
 
 To display the detailed information of an internal TLS certificate, follow these steps.
 
-1.  On the **Configuration** menu, select **Security Server Clients**, select a security server owner or a client from the table and click the **Internal Servers** icon on that row.
+1.  In the **Navigation tabs**, select **CLIENTS**, select a security server owner or a client from the table
 
-2.  Select a certificate from the “Internal TLS Certificates” table and click **Details**.
+2.  In the view that opens, select the **INTERNAL SERVERS** tab
+
+3.  Click on a certificate in the "Information System TLS certificate".
 
 To delete an internal TLS certificate, follow these steps.
 
-1.  On the **Configuration** menu, select **Security Server Clients**, select a security server owner or a client from the table and click the **Internal Servers** icon on that row.
+1.  In the **Navigation tabs**, select **CLIENTS**, select a security server owner or a client from the table
 
-2.  Select a certificate from the “Internal TLS Certificates” table and click **Delete**.
+2.  In the view that opens, select the **INTERNAL SERVERS** tab
 
-3.  Confirm the deletion by clicking **Confirm** in the window that opens.
+3.  Click on a certificate in the "Information System TLS certificate".
+
+4. In the **Certificate** view that opens, click **DELETE**. Confirm deletion by clicking **YES**.
 
 To export the security server's internal TLS certificate, follow these steps.
 
-1.  On the **Configuration** menu, select **Security Server Clients**, select a security server owner or a client from the table and click the **Internal Servers** icon on that row.
+1.  In the **Navigation tabs**, select **CLIENTS**, select a security server owner or a client from the table
 
-2.  Click **Export** and save the prompted file to the local file system.
+2.  In the view that opens, select the **INTERNAL SERVERS** tab
+
+2.  Click **Export** at the end of a certificate row in the "Security Server certificate" table and save the prompted file to the local file system.
 
 
 ## 10 System Parameters
@@ -1268,19 +1482,23 @@ The security server system parameters are:
 
 To upload the configuration anchor, follow these steps.
 
-1.  On the **Configuration** menu, select **System Parameters**. The system parameters view is opened.
+1.  In the **Navigation tabs**, select **SETTINGS**.
 
-2.  In the **Configuration Anchor** section, click **Upload**.
+2.  In the opening view select **SYSTEM PARAMETERS** tab.
 
-3.  Find the anchor file from the local file system and click **Upload**.
+3.  In the **Configuration Anchor** section, click **UPLOAD**.
 
-4.  Ensure that the anchor file you are uploading is valid by comparing the hash value of the uploaded file with the hash value of the currently valid anchor published by the X-Road governing authority. If the hash values match, confirm the upload by clicking **Confirm**.
+4.  Find the anchor file from the local file system and click **Open**.
+
+5.  Ensure that the anchor file you are uploading is valid by comparing the hash value of the uploaded file with the hash value of the currently valid anchor published by the X-Road governing authority. If the hash values match, confirm the upload by clicking **CONFIRM**.
 
 To download the configuration anchor, follow these steps.
 
-1.  On the **Configuration** menu, select **System Parameters**. The system parameters view is opened.
+1.  In the **Navigation tabs**, select **SETTINGS**.
 
-2.  On the **Configuration Anchor** section, click **Download** and save the prompted file.
+2.  In the opening view select **SYSTEM PARAMETERS** tab.
+
+3.  On the **Configuration Anchor** section, click **DOWNLOAD** and save the prompted file.
 
 
 ### 10.2 Managing the Timestamping Services
@@ -1289,61 +1507,86 @@ To download the configuration anchor, follow these steps.
 
 To add a timestamping service, follow these steps.
 
-1.  On the **Configuration** menu, select **System Parameters**. The system parameters view is opened.
+1.  In the **Navigation tabs**, select **SETTINGS**.
 
-2.  In the **Timestamping Services** section, click **Add**.
+2.  In the opening view select **SYSTEM PARAMETERS** tab.
 
-3.  In the window that opens, select a service and click **OK**.
+3.  In the **Timestamping Services** section, click **ADD**.
+
+4.  In the dialog that opens, select a service and click **ADD**.
 
 To delete a timestamping service, follow these steps.
 
-1.  On the **Configuration** menu, select **System Parameters**. The system parameters view is opened.
+1.  In the **Navigation tabs**, select **SETTINGS**.
 
-2.  In the **Timestamping Services** section, select the service to be deleted and click **Delete**.
+2.  In the opening view select **SYSTEM PARAMETERS** tab.
 
-*Note*: If more than one time stamping service is configured, the security server will try to get a timestamp from the topmost service in the table, moving down to the next service if the try was unsuccessful.
+3.  In the **Timestamping Services** section, click **DELETE** at the end of the row of the service you wish to delete.
+
+*Note*: If more than one timestamping service is configured, the security server will try to get a timestamp from the topmost service in the table, moving down to the next service if the try was unsuccessful. The failover covers both connection and timestamp response verification issues. For example, security server is not able to establish a connection to a timestamping service because of a misconfigured firewall, or verification of a timestamp response fails because of the sign certificate of the timestamping service is changed.
 
 
 ### 10.3 Changing the Internal TLS Key and Certificate
 
 **Access rights:** [Security Officer](#xroad-security-officer), [System Administrator](#xroad-system-administrator)
 
-_To change the security server’s internal TLS key and certificate_, follow these steps.
+_To change the security server's internal TLS key and certificate_, follow these steps.
 
-1. On the **Configuration** menu, select **System Parameters**. The system parameters view is opened.
-2. In the **Internal TLS Certificate** section, click **Generate New TLS Key** and in the window that opens, click **Confirm**.
+1. On the **Navigation tabs**, select **Keys and Certificates**
 
-   The security server generates a key used for communication with the client information systems, and the corresponding self-signed certificate. The security server's certificate fingerprint will also change. The security server's domain name is saved to the certificate's *Common Name* field, and the internal IP address to the *subjectAltName* extension field.
+2. In the opening view, select **SECURITY SERVER TLS KEY** tab
+
+3. In the opening view, click **GENERATE KEY** and in the dialog that opens, click **CONFIRM**.
+
+   The security server generates a key used for communication with the client information systems, and the corresponding self-signed certificate. The security server's certificate fingerprint will also change. The security server's domain name is saved to the certificate's **Common Name** field, and the internal IP address to the **subjectAltName** extension field.
 
 _To generate a new certificate request_, follow these steps.
 
-1. On the **Configuration** menu, select **System Parameters**. The system parameters view is opened.
-2. In the “Internal TLS Certificate” section, click **Generate Certificate Request**, input the **Distinguished Name** and save the certificate request file to the local file system.  
+1. On the **Navigation tabs**, select **KEYS AND CERTIFICATES**
+
+2. In the opening view, select **SECURITY SERVER TLS KEY** tab
+
+3. In the "TLS Key and Certificate" section, at the end of the key row, click **Generate CSR**
+
+4. In the opening view, input the **Distinguished Name** and click **GENERATE CSR**. Save the certificate request file to the local file system and click **DONE**.
 
    The security server generates a certificate request using the current key and the provided **Distinguished Name**.
 
 _To import a new TLS certificate_, follow these steps.
 
-1. On the **Configuration** menu, select **System Parameters**. The system parameters view is opened.
-2. In the “Internal TLS Certificate” section, click **Import Certificate** and point to the file to be imported.
+1. On the **Navigation tabs**, select **KEYS AND CERTIFICATES**
+
+2. In the opening view, select **SECURITY SERVER TLS KEY** tab
+
+3. In the opening view, click **IMPORT CERT.** and point to the file to be imported.
 
    The imported certificate must be in PEM-format to be accepted. Certificate chains are supported; concatenate possible intermediate certificate(s) to the server certificate before importing the file.
 
-   Note that importing a new TLS certificate will restart the xroad-proxy and thus affects providing services from the security server.
+_To export the security server's internal TLS certificate_, follow these steps.
 
-_To export the security server’s internal TLS certificate_, follow these steps.
+1. On the **Navigation tabs**, select **KEYS AND CERTIFICATES**
 
-1. On the **Configuration** menu, select **System Parameters**. The system parameters view is opened.
-2. In the **Internal TLS Certificate** section, click **Export** and save the prompted file to the local file system.
+2. In the opening view, select **SECURITY SERVER TLS KEY** tab
+
+3. In the opening view, click **EXPORT CERT.** and save the prompted file to the local file system.
 
    Note that only the internal server certificate is exported, not the possible intermediate certificates.
 
-_To view the detailed information of the security server’s internal TLS certificate_, follow these steps.
+_To view the detailed information of the security server's internal TLS certificate_, follow these steps.
 
-1. On the **Configuration** menu, select **System Parameters**. The system parameters view is opened.
-2. In the **Internal TLS Certificate** section, click **Certificate Details**.
+1. On the **Navigation tabs**, select **Keys and Certificates**
+
+2. In the opening view, select **SECURITY SERVER TLS KEY** tab
+
+3. In the "TLS Key and Certificate" section, click on the certificate hash.
 
 ### 10.4 Approved Certificate Authorities
+
+_To list the approved certificate authorities_, follow these steps.
+
+1.  In the **Navigation tabs**, select **SETTINGS**.
+
+2.  In the opening view select **SYSTEM PARAMETERS** tab. Approved certificate authorities are listed in the "Approved Certificate Authorities" section.
 
 Lists approved certificate authorities. The listing contains the following information:
 
@@ -1355,16 +1598,26 @@ Lists approved certificate authorities. The listing contains the following infor
 
 ## 11 Message Log
 
-The purpose of the message log is to provide means to prove the reception of a regular request or response message to a third party. Messages exchanged between security servers are signed and encrypted. For every regular request and response, the security server produces a complete signed and timestamped document (Associated Signature Container \[[ASiC](#Ref_ASiC)\]).
+The purpose of the message log is to provide means to prove the reception of a regular request or response message to a third party. The security server supports three options for configuring message log:
 
-Message log data is stored to the database of the security server during message exchange. According to the configuration (see [11.1](#111-changing-the-configuration-of-the-message-log)), the timestamping of the signatures of the exchanged messages is either synchronous to the message exchange process or is done asynchronously using the time period set by the X-Road governing agency.
+- Full logging
+  - The whole message including both message body and metadata is logged. The log records can be verified afterwards and they can be used as evidence.
+- Metadata logging
+  - Only metadata is logged while message body is not logged. Verifying the log records afterwards is not possible and they cannot be used as evidence.
+- No message logging
+  - Message logging is fully disabled, neither message body nor metadata is logged. No log records are generated.
+  
+Full logging and metadata logging can be configured on security server and subsystem level. When the security server level configuration is used, the same configuration is applied to all the subsystems. Instead, when the subsystem level configuration is used, the configuration is applied to specific subsystems only. In addition, combining the security server and subsystem level configurations is also possible, e.g., set metadata logging on the security server level and enable full logging for specific subsystems only. Instead, message logging is fully disabled on a security server level. Therefore, a subsystem that requires full or metadata logging should not be registered on the same security server with a subsystem that requires fully disabling message logging.
+
+Regardless of how logging is configured, messages exchanged between security servers are always signed and encrypted. Also, when full logging or metadata logging is enabled, the security server produces a signed and timestamped document (Associated Signature Container [ASiC]) for regular requests and responses.
+
+Message log data is stored to the database of the security server during message exchange. When storing messages to the database, the message body can be optionally encrypted, but by default the encryption is switched off. According to the configuration ([11.1.4 Timestamping Parameters](#1114-timestamping-parameters)), the timestamping of the signatures of the exchanged messages is either synchronous to the message exchange process or is done asynchronously using the time period set by the X-Road governing agency. In case message logging is fully disabled, timestamping doesn't occur at all.
 
 In case of synchronous timestamping, the timestamping is an integral part of the message exchange process (one timestamp is taken for the request and another for the response). If the timestamping fails, the message exchange fails as well and the security server responds with an error message.
 
-In case of asynchronous timestamping, all the messages (maximum limit is determined in the configuration, see [11.1](#111-changing-the-configuration-of-the-message-log)) stored in the message log since the last periodical timestamping event are timestamped with a single (batch) timestamp. By default, the security server uses asynchronous timestamping for better performance and availability.
+In case of asynchronous timestamping, all the messages (maximum limit is determined in the configuration, see [11.1.4 Timestamping Parameters](#1114-timestamping-parameters)) stored in the message log since the last periodical timestamping event are timestamped with a single (batch) timestamp. By default, the security server uses asynchronous timestamping for better performance and availability.
 
-The security server periodically composes signed (and timestamped) documents from the message log data and archives them in the local file system. Archive files are ZIP containers containing one or more signed documents and a special linking information file for additional integrity verification purpose.
-
+The security server periodically composes signed (and timestamped) documents from the (optionally encrypted) message log data and archives them in the local file system. Archive files are ZIP containers containing one or more signed documents and a special linking information file for additional integrity verification purpose. Message log archive encryption and grouping can be enabled and configured separately. By default, both are disabled. Message grouping can be configured by member or subsystem. By default, all archive files go to the same default group. Grouping and encryption are enabled/disabled on a security server level - they are either enabled or disabled for all the members and subsystems. It's not possible to enable/disable neither of them for selected members or subsystems only.
 
 ### 11.1 Changing the Configuration of the Message Log
 
@@ -1381,16 +1634,67 @@ Create the `[message-log]` section (if not present) in the file. Below the start
 For example, to configure the parameters `archive-path` and `archive-max-filesize`, the following lines must be added to the configuration file:
 
     [message-log]
-    archive-path=/my/arhcive/path/
+    archive-path=/my/archive/path/
     archive-max-filesize=67108864
 
 
-#### 11.1.1 Common parameters
+#### 11.1.1 Common Parameters
 
 1.  `hash-algo-id` – the hash algorithm that is used for hashing in the message log. Possible choices are `SHA-256`, `SHA-384`, `SHA-512`. Defaults to `SHA-512`.
 
+#### 11.1.2 Logging Parameters
 
-#### 11.1.2 Timestamping parameters
+1.  `message-body-logging` - if set to true, the messages are logged in their original form. If false, the message body is emptied of its contents.
+
+2.  `enabled-body-logging-local-producer-subsystems` - when message-body-logging is set to false, this field contains the overrides for the local producer subsystems.
+
+3.  `enabled-body-logging-remote-producer-subsystems` - when message-body-logging is set to false, this field contains the overrides for the remote producer subsystems.
+
+4.  `disabled-body-logging-local-producer-subsystems` - when message-body-logging is set to true, this field contains the overrides for the local producer subsystems.
+  
+5.  `disabled-body-logging-remote-producer-subsystems` - when message-body-logging is set to true, this field contains the overrides for the remote producer subsystems.
+
+6.  `max-loggable-body-size` - the maximum REST message body size that will be written to the messagelog.
+
+7.  `truncated-body-allowed` - if the REST message body size exceeds the max-loggable-body-size, truncate the body (true) or reject the message (false)
+
+8.  `messagelog-encryption-enabled` - if set to true, the message bodies are written to the database in an encrypted format
+
+9.  `messagelog-keystore` - path to the messagelog keystore
+
+10.  `messagelog-keystore-password` - messagelog keystore password
+
+11.  `messagelog-key-id` - messagelog keystore key id
+
+
+#### 11.1.3 Messagelog Encryption
+
+The message bodies can be encrypted (`messagelog-encryption-enabled = true`) when stored to the database. The encryption is symmetric, the used cipher is AES-CTR, and the encryption is performed using Java code.
+
+When encryption is switched on, the implementation expects to find the keystore in the location pointed by `messagelog-keystore`. The keystore should contain an encryption key with the identifier specified in `messagelog-key-id`. The keystore password is specified in `messagelog-keystore-password`.
+
+For example, add the following to `/etc/xroad/conf.d/local.ini`:
+
+```ini
+[message-log]
+messagelog-encryption-enabled=true
+messagelog-keystore=/etc/xroad/messagelog/messagelog.p12
+messagelog-keystore-password=somepassword
+messagelog-key-id=key1
+```
+
+Create the password store and import a key:
+
+```bash
+keytool -keystore /etc/xroad/messagelog/messagelog.p12 -storetype pkcs12 -importpassword -alias key1
+```
+
+Finally, restart `xroad-proxy` service.
+
+To view the encrypted messages at some later stage, use the ASIC web service documented in \[[UG-SIGDOC](#Ref_UG-SIGDOC)\]. The web service performs automatic decryption, where needed.
+
+
+#### 11.1.4 Timestamping Parameters
 
 1.  `timestamp-immediately` – if set to true, the timestamps are created synchronously with the message exchange, i.e., one timestamp is created for a request and another for a response. This is a security policy to guarantee the timestamp at the time of logging the message, but if the timestamping fails, the message exchange fails as well, and if load to the security server increases, then the load to the timestamping service increases as well. The value of this parameter defaults to false for better performance and availability. In case the value of the parameter is false then the timestamping is performed as a periodic background process (the time period is determined in the X-Road governing agency and propagated to the security servers by global configuration) and signatures stored during the time period (see parameter `timestamp-records-limit`) are timestamped in one batch.
 
@@ -1399,28 +1703,98 @@ For example, to configure the parameters `archive-path` and `archive-max-filesiz
 3.  `acceptable-timestamp-failure-period` – time period in seconds, for how long the asynchronous timestamping is allowed to fail before message exchange between security servers is stopped. Set to `0` to disable this check. Defaults to `14400`.
 
 
-#### 11.1.3 Archiving parameters
+#### 11.1.5 Archiving Parameters
 
-1.  `keep-records-for` – time in days for which to keep timestamped and archived records in the database. Defaults to `30`.
+1. `keep-records-for` – time in days for which to keep timestamped and archived records in the database. Defaults to `30`.
+2. `archive-max-filesize` – maximum size for archived files in bytes. Reaching the maximum value triggers the file rotation. Defaults to `33554432` (32 MB).
+3. `archive-interval` – time interval as Cron expression \[[CRON](#Ref_CRON)\] for archiving timestamped records. Defaults to `0 0 0/6 1/1 * ? *` (fire every 6 hours).
+4. `archive-path` – the directory where the timestamped log records are archived. Defaults to `/var/lib/xroad/`.
+5. `clean-interval` – time interval as Cron expression \[[CRON](#Ref_CRON)\] for cleaning archived records from the database. Defaults to `0 0 0/12 1/1 * ? *` (fire every 12 hours).
+6. `archive-transfer-command` – the command executed after the (periodic) archiving process. This enables one to configure an external script to transfer archive files automatically from the security server. Defaults to no operation.
+7. `archive-grouping` - archive file grouping; `none` (default), by `member` or, by `subsystem`.
+8.  `archive-encryption-enabled` - archive file encryption enabled: false (default) or true.
+9.  `archive-gpg-home-directory` - GPG home directory for archive file signing and encryption keyring (default `/etc/xroad/gpghome`).
+10. `archive-encryption-keys-config` - Configuration file for member gpg keys.
+11. `archive-default-encryption-key` - Default archive encryption key id.
 
-2.  `archive-max-filesize` – maximum size for archived files in bytes. Reaching the maximum value triggers the file rotation. Defaults to `33554432` (32 MB).
 
-3.  `archive-interval` – time interval as Cron expression \[[CRON](#Ref_CRON)\] for archiving timestamped records. Defaults to `0 0 0/6 1/1 * ? *` (fire every 6 hours).
+#### 11.1.6 Archive Files
 
-4.  `archive-path` – the directory where the timestamped log records are archived. Defaults to `/var/lib/xroad/`.
+Archive files (ZIP containers) are located in the directory specified by the configuration parameter `archive-path`. File names are in the format `mlog[-grouping]-X-Y-Z.zip[.gpg]`, where X is the timestamp (UTC time in the format `YYYYMMDDHHmmss`) of the first message log record, Y is the timestamp of the last message log record (records are processed in chronological order) and Z is the first 16 characters of the last linking info digest entry. If grouping is enabled, [-grouping] is a (possibly truncated and filename safe) member identifier. If encryption is enabled, the `[.gpg]` suffix is added. Creating archive files is deterministic -- given the same input (grouping, message records, previous archive linking info digest), the output (file name and contents) is the same after possible encryption is removed.
 
-5.  `clean-interval` – time interval as Cron expression \[[CRON](#Ref_CRON)\] for cleaning archived records from the database. Defaults to `0 0 0/12 1/1 * ? *` (fire every 12 hours).
+The most basic example of an archive file name when the encryption and grouping are switched off:
 
-6.  `archive-transfer-command` – the command executed after the (periodic) archiving process. This enables one to configure an external script to transfer archive files automatically from the security server. Defaults to no operation.
+    mlog-20210901100858-20210901100905-95b1f27097524105.zip
 
+When the archive encryption switched on:
+
+    mlog-20210901101923-20210901101926-95b1f27097524105.zip.gpg
+
+Switching on archive grouping by member produces the following:
+
+    mlog-INSTANCE_CLASS_CODE-20210901102251-20210901102254-95b1f27097524105.zip.gpg
+
+Finally, switching to archive grouping by subsystem gives:
+
+    mlog-INSTANCE_CLASS_CODE_CONSUMERSUBSYSTEM-20210901102521-20210901102524-95b1f27097524105.zip.gpg
+    mlog-INSTANCE_CLASS_CODE_PROVIDERSUBSYSTEM-20210901102521-20210901102524-b1f27097524105ac.zip.gpg
+
+
+#### 11.1.7 Archive Encryption and Grouping
+
+Archive files can be encrypted (when `archive-encryption-enabled = true`) using GnuPG ("gpg") which implements the OpenPGP (RFC 4880) specification. Please see e.g. [RFC 4880](https://www.ietf.org/rfc/rfc4880.txt) and [GnuPG](https://gnupg.org/) for more infomation. The encryption is enabled/disabled on a security server level - it's not possible to enable/disable it for specific subsystems only.
+
+By default, the produced archive files contain messages from all the security server's members, but it's possible to group the archives by member or by subsystem if needed. The grouping is controlled by the setting `archive-grouping`. The grouping is enabled/disabled on a security server level - it is either enabled or disabled for all the members and subsystems.
+
+When encryption is enabled, the archiving process expects to find a GnuPG keyring containing the server signing keypair in `archive-gpg-home-directory` (by default this is the same as the backup signing and encryption keypair). This keypair is used to sign the generated archive files, and as a fallback encryption key if no other keys are configured.
+
+The `archive-default-encryption-key` can use used to override the default encryption key id, which is used when `archive-grouping` is `none` or no member gpg key is defined. Changing this parameter requires restarting the xroad-addon-messagelog service.
+
+In case `archive-grouping` is `member` or `subsystem`, gpg keys defined in file `archive-encryption-keys-config` are used (if no key is defined for the member, the default encryption key is used). This file maps member identifiers to gpg key identifiers and has the following format:
+```
+# This is a comment (ignored)
+# One mapping per line (leading, trailing, and around `=` white space is ignored)
+<member identifier> = <key id>
+
+# Escaping (applies only to the member identifier):
+## Member: test/member=class/\=code
+   test/member\=class/\\=code = ABCD....
+## Member #42/CLASS/#123 has two keys:
+   \#42/CLASS/\#123 = ABCD....
+   \#42/CLASS/\#123 = EF12....
+```
+* There can be several mappings (keys) per member (one mapping per line)
+* Lines _starting with_ `#` are ignored
+* Escaping special characters in the _member identifier_ part:
+  * `=` is written as `\=` (a literal `\=` becomes `\\=`)
+  * `#` is written as `\#` (a literal `\#` becomes `\\#`)
+
+Warning. The archiving process fails if a required key is not present in the gpg keyring. Therefore, it is important to verify that the mappings are correct.
+
+For example, generate a keypair for encryption with defaults and no expiration and export the public key:
+```bash
+gpg [--homedir <member gpghome>] --quick-generate-key INSTANCE/memberClass/memberCode default default never
+gpg [--homedir <member gpghome>] --export INSTANCE/memberClass/memberCode >INSTANCE-memberClass-memberCode.pgp
+```
+
+Import the public key to the gpg keyring in `archive-gpg-home-directory` and take note of the key id.
+```bash
+gpg --homedir <archive-gpg-home-directory> --import INSTANCE-memberClass-memberCode.pgp
+```
+
+Add the mapping to `archive-encryption-keys-config` file (mappings can be edited without restarting X-Road services), e.g.:
+```bash
+INSTANCE/memberClass/memberCode = 96F20FF6578A5EF90DFBA18D8C003019508B5637
+```
+
+To decrypt the encrypted archives, use the following syntax:
+```bash
+gpg [--homedir <gpghome>] --decrypt <archive name> --output <output file name>
+```
 
 ### 11.2 Transferring the Archive Files from the Security Server
 
 In order to save hard disk space, it is recommended to transfer archive files periodically from the security server (manually or automatically) to an external location.
-
-Archive files (ZIP containers) are located in the directory specified by the configuration parameter archive-path. File names are in the format `mlog-X-Y-Z.zip`, where X is the timestamp (UTC time in the format `YYYYMMDDHHmmss`) of the first message log record, Y is the timestamp of the last message log record (records are processed in chronological order) and Z is 10 characters long alphanumeric random. An example of an archive file name is:
-
-    mlog-20150504152559-20150504152559-a7JS05XAJC.zip
 
 The message log package provides a helper script `/usr/share/xroad/scripts/archive-http-transporter.sh` for transferring archive files. This script uses the HTTP/HTTPS protocol (the POST method, the form name is file) to transfer archive files to an archiving server.
 
@@ -1442,7 +1816,7 @@ Override the configuration parameter archive-transfer-command (create or edit th
     [message-log]
     archive-transfer-command=/usr/share/xroad/scripts/archive-http-transporter.sh -r http://my-archiving-server/cgi-bin/upload
 
-The message log package contains the CGI script /usr/share/doc/xroad-addon-messagelog/archive-server/demo-upload.pl for a demo archiving server for the purpose of testing or development.
+The message log package contains the CGI script `/usr/share/doc/xroad-addon-messagelog/archive-server/demo-upload.pl` for a demo archiving server for the purpose of testing or development.
 
 
 ### 11.3 Using a Remote Database
@@ -1490,27 +1864,40 @@ The message log database can be located outside of the security server. The foll
 
 ## 12 Audit Log
 
-The security server keeps an audit log. The audit log events are generated by the user interface when the user changes the system’s state or configuration. The user actions are logged regardless of whether the outcome was a success or a failure. The complete list of the audit log events is described in \[[SPEC-AL](#Ref_SPEC-AL)\].
+The security server keeps an audit log. The audit log events are generated by the user interface when the user changes the system's state or configuration. The user actions are logged regardless of whether the outcome was a success or a failure. The complete list of the audit log events is described in \[[SPEC-AL](#Ref_SPEC-AL)\].
 
 Actions that change the system state or configuration but are not carried out using the user interface are not logged (for example, X-Road software installation and upgrade, user creation and permission granting, and changing the configuration files).
 
-An audit log record contains
+An audit log record contains correlation-id, which can be used to link the record to other log messages about the same request.
+
+An audit log record also contains
 
 -   the description of the user action,
 
 -   the date and time of the event,
 
--   the username of the user performing the action, and
+-   the username of the user performing the action
+
+-   the authentication type used for this request (Session, ApiKey or HttpBasicPam)
+    - `Session` – session based authentication (web application)
+    - `ApiKey` - direct API call using API key authentication
+    - `HttpBasicPam` – HTTP basic authentication with PAM login (for api key management API operations)
+
+-   the API url for this request, and
 
 -   the data related to the event.
 
 For example, registering a new client in the security server produces the following log record:
 
-  `2015-07-03T10:21:59+03:00 my-security-server-host INFO [X-Road Proxy UI] 2015-07-03 10:21:59+0300 - {"event":"Register client", "user":"admin1", "data":{"clientIdentifier":{"xRoadInstance":"EE", "memberClass":"COM",  "memberCode":"member1"}, "clientStatus":"registration in progress"}}`
+  `2020-06-03T11:00:51+00:00 my-security-server-host correlation-id: [24b47d04dc6e1c49] INFO  [X-Road Proxy Admin REST API] 2020-06-03T11:00:51.944Z - {"event":"Register client","user":"admin1","auth":"Session","url":"/api/v1/clients/LXD:GOV:M1:audit-test/register","data":{"clientIdentifier":{"xRoadInstance":"LXD","memberClass":"GOV","memberCode":"M1","subsystemCode":"audit-test","clientStatus":"registration in progress"}}}`
 
-The event is present in JSON \[[JSON](#Ref_JSON)\] format, in order to ensure machine processability. The field event represents the description of the event, the field user represents the user name of the performer, and the field data represents data related with the event. The failed action event record contains an additional field reason for the error message. For example:
+The event is present in JSON \[[JSON](#Ref_JSON)\] format, in order to ensure machine processability.
+The field event represents the description of the event, the field user represents the user name of the performer, and the field data represents data related with the event.
+Field auth represents the authentication type, and url represents the API url.
+The failed action event record contains additional fields reason for the error message, and boolean warning to document whether failure was due to an unhandled warning.
+For example:
 
-  `2015-07-03T11:55:39+03:00 my-security-server-host INFO [X-Road Proxy UI] 2015-07-03 11:55:39+0300 - {"event":"Log in to token failed", "user":"admin1", "reason":"PIN incorrect", "data":{"tokenId":"0", "tokenSerialNumber":null, "tokenFriendlyName":"softToken-0"}}`
+  `2020-06-03T10:57:46+00:00 my-security-server-host correlation-id: [49458d51a0bbe9ed] INFO  [X-Road Proxy Admin REST API] 2020-06-03T10:57:46.417Z - {"event":"Log in to token failed","user":"admin1","reason":"org.niis.xroad.restapi.service.TokenService$PinIncorrectException: Signer.PinIncorrect: PIN incorrect","warning":false,"auth":"Session","url":"/api/v1/tokens/0/login","data":{"tokenId":"0","tokenSerialNumber":null,"tokenFriendlyName":"softToken-0"}}`
 
 By default, audit log is located in the file
 
@@ -1544,36 +1931,69 @@ The audit log is rotated monthly by *logrotate*. To configure the audit log rota
 
 In order to save hard disk space and avoid loss of the audit log records during security server crash, it is recommended to archive the audit log files periodically to an external storage or a log server.
 
-The X-Road software does not offer special tools for archiving the audit log. The *rsyslog* can be configured to redirect the audit log to an external location.
+The X-Road software does not offer special tools for archiving the audit log. The `rsyslog` can be configured to redirect the audit log to an external location.
 
 
-## 13 Back up and Restore
+## 13 Back up and restore
 
+It is possible to back up and later restore security server configuration. A backup archive file contains the
+following configuration:
+
+- copy of serverconf database
+- user modifiable configuration files
+- keys and certificates
+  - security server's auth key and certificate
+  - members' sign keys and certificates (that are stored in soft token)
+  - security server's internal TLS key and certificate
+  - security server's UI key and certificate
+- database credentials
+
+Notice that starting from X-Road v7.0, the backup archive file no longer contains the local override file `/etc/xroad/services/local.conf`, but instead `/etc/xroad/services/local.properties` file will be included.
+
+**N.B.** Message log database encryption keys, and message log archives encryption and signing keys are included in the backups only if they are stored under the `/etc/xroad` directory. However, they should not be stored in the `/etc/xroad/gpghome` subdirectory since it is excluded from the backups.
+
+Backups contain sensitive information that must be kept secret (for example, private keys and database credentials).
+In other words, leaking this information could easily lead to full compromise of security server. Therefore, it is
+highly recommended that backup archives are encrypted and stored securely. Should the information still leak for whatever
+reason the security server should be considered as compromised and reinstalled from scratch.
+
+Security server backups are signed and optionally encrypted. The GNU Privacy Guard [GnuPG] is used for encryption and signing.
+Security server's backup encryption key is generated during security server initialisation. In addition to the
+automatically generated backup encryption key, additional public keys can be used to encrypt backups.
 
 ### 13.1 Back up and Restore in the User Interface
 
 **Access rights:** [System Administrator](#xroad-system-administrator)
 
-The backup and restore view can be accessed from the **Management** menu by selecting **Back Up and Restore**.
+The backup and restore view can be accessed from the **Navigation tabs** by selecting **Back Up and Restore**.
 
 To **back up configuration**, follow these steps.
 
-1.  Click **Back Up Configuration**.
+1.  Navigate to **SETTINGS** tab and in the view that opens click **BACKUP AND RESTORE** tab.
 
-2.  A window opens displaying the output of the backup script; click **OK** to close it. The configuration backup file appears in the list of configuration backup files.
+2.  Click **BACK UP CONFIG.**
 
-3.  To save the configuration backup file to the local file system, click **Download** on the configuration file’s row and save the prompted file.
+3.  The configuration backup file appears in the list of configuration backup files.
+
+4.  To save the configuration backup file to the local file system, click **DOWNLOAD** on the configuration file's row.
 
 To **restore configuration**, follow these steps.
 
-1.  Click **Restore** on the appropriate row in the list of configuration backup files and click **Confirm**.
+1.  Click **Restore** on the appropriate row in the list of configuration backup files and click **YES**.
 
-2.  A window opens displaying the output of the restore script; click **OK** to close it.
+2.  A popup notification shows after the restore whether the restoring was successful or not.
 
-To **delete a configuration backup file**, click **Delete** on the appropriate row in the configuration backup file list and then click **Confirm**.
+If something goes wrong while restoring the configuration it is possible to revert back to the old configuration.
+Security Server stores so called pre-restore configuration automatically to `/var/lib/xroad/conf_prerestore_backup.tar`. Either move it to `/var/lib/xroad/backup/` folder and utilize the user interface to restore it or use the command line interaface described in the next chapter.
 
-To **upload a configuration backup file** from the local file system to the security server, click **Upload Backup File**, select a file and click **OK**. The uploaded configuration file appears in the list of configuration files.
+To **delete a configuration backup file**, click **Delete** on the appropriate row in the configuration backup file list and then click **YES**.
 
+To **upload a configuration backup file** from the local file system to the security server, click **UPLOAD BACKUP**,
+select a file and click **YES**. The uploaded configuration file appears in the list of configuration files. Bear in mind
+that only files signed with current security server encryption key can be restored via user interface. All other archives
+can be restored only from command line.
+
+As long as original keypair is intact no additional steps are needed even when backup encryption is turned on.
 
 ### 13.2 Restore from the Command Line
 
@@ -1581,28 +2001,97 @@ To restore configuration from the command line, the following data must be avail
 
 -   The X-Road ID of the security server
 
+To find the X-Road ID of the security server, the following command can be used:
+
+    tar -tf /var/lib/xroad/backup/<security server conf backup file> | head -1
+
 It is expected that the restore command is run by the xroad user.
 
 In order to restore configuration, the following command should be used:
 
     /usr/share/xroad/scripts/restore_xroad_proxy_configuration.sh \
-    -s <security server ID> -f <path + filename>
+    -s <security server ID> -f <path + filename> [-P -N]
 
 For example (all on one line):
 
     /usr/share/xroad/scripts/restore_xroad_proxy_configuration.sh \
     -s AA/GOV/TS1OWNER/TS1 \
-    –f /var/lib/xroad/backup/conf_backup_20140703-110438.tar
+    –f /var/lib/xroad/backup/conf_backup_20140703-110438.gpg
 
-If it is absolutely necessary to restore the system from a backup made on a different security server, the forced mode of the restore command can be used with the –F option. For example (all on one line):
+In case original backup encryption and signing key is lost additional parameters can be specified to skip decryption and/or
+signature verification. Use `-P` command line switch when backup archive is already decrypted externally and `-N` switch to
+skip checking archive signature.
+
+If a backup is restored on a new uninitialized (the initial configuration hasn't been completed) security server, the 
+security server's gpg key must be manually created before restoring the backup:
+
+    /usr/share/xroad/scripts/generate_gpg_keypair.sh /etc/xroad/gpghome <security server ID>
+
+If it is absolutely necessary to restore the system from a backup made on a different security server, the forced mode
+of the restore command can be used with the –F option together with unencrypted backup archive flags. For example (all on one line):
 
     /usr/share/xroad/scripts/restore_xroad_proxy_configuration.sh \
-    -F –f /var/lib/xroad/backup/conf_backup_20140703-110438.tar
+    -F -P –f /var/lib/xroad/backup/conf_backup_20140703-110438.tar
+
+In case backup archives were encrypted they have to be first unencrypted in external safe environment and then securely
+transported to security server filesystem.
 
 ### 13.3 Automatic Backups
 
-By default the Security Server backs up its configuration automatically once every day. Backups older than 30 days are automatically removed from the server. If needed, the automatic backup policies can be adjusted by editing the `/etc/cron.d/xroad-proxy` file.
+By default the Security Server backs up its configuration automatically once every day. Backups older than 30 days are
+automatically removed from the server. If needed, the automatic backup policies can be adjusted by editing the
+`/etc/cron.d/xroad-proxy` file.
 
+### 13.4 Backup Encryption Configuration
+
+Backups are always signed, but backup encryption is initially turned off. To turn encryption on, please override the
+default configuration in the file `/etc/xroad/conf.d/local.ini`, in the `[proxy]` section (add or edit this section).
+
+```ini
+[proxy]
+
+backup-encryption-enabled = true
+backup-encryption-keyids = <keyid1>, <keyid2>, ...
+```
+
+To turn backup encryption on, change the `backup-encryption-enabled` property to true. Additional
+encryption keys can be imported in the `/etc/xroad/gpghome` keyring and key identifiers listed using the `backup-encryption-keyids` parameter. It is recommended to set up at least one additional key, otherwise the backups will be unusable in case security servers private key is lost. It is up to security servers administrator to check that keys used are sufficiently strong, there are no automatic checks.
+
+Warning. All keys listed in `backup-encryption-keyids` must be present in the gpg keyring or backup fails.
+
+Additional keys for backup encryption should be generated and stored outside security server in a secure environment.
+After gpg keypair has been generated, public key can be exported to a file (backupadmin@example.org is the name of the
+key being exported) using this command:
+
+    gpg --output backupadmin.publickey --armor --export backupadmin@example.org
+
+Resulting file `backupadmin.publickey` should be moved to security server and imported to backup gpg keyring. Administrator should make sure that the key has not been changed during transfer, for example by validating the key fingerprint.
+
+Private keys corresponding to additional backup encryption public keys must be handled safely and kept in secret. Any of
+them can be used to decrypt backups and thus mount attacks on the security servers.
+
+### 13.5 Verifying Backup Archive Consistency
+
+During restore security server verifies consistency of backup archives automatically, archives are not checked during upload.
+Also, it is possible to verify the consistency of the archives externally. For verifying the consistency externally,
+security server's public key is needed. When backups are encrypted, then a private key for decrypting archive is also needed.
+GPG uses "sign then encrypt" scheme, so it is not possible to verify encrypted archives without decrypting them.
+
+Automatic backup verification is only possible when original security server keypair is available. Should keypair on the
+security server be lost for whatever reason, automatic verification is no longer possible. Therefore, it is recommended
+to export backup encryption public key and import it into separate secure environment. If backups are encrypted,
+security server public key should be imported to keyrings holding additional encryption keys, so that backups can be
+decrypted and verified in these separate environments.
+
+To export security servers backup encryption public key use the following command:
+
+    gpg --homedir /etc/xroad/gpghome --armor --output server-public-key.gpg --export <instanceIdentifier>/<memberClass>/<memberCode>/<serverCode>
+
+where `<instanceIdentifier>/<memberClass>/<memberCode>/<serverCode>` is the security server id,
+for example, `AA/GOV/TS1OWNER/TS1`.
+
+Resulting file (`server-public-key.gpg`) should then be exported from security server and imported to GPG keystore used
+for backup archive consistency verification.
 
 ## 14 Diagnostics
 
@@ -1611,17 +2100,17 @@ By default the Security Server backs up its configuration automatically once eve
 
 **Access rights:** [System Administrator](#xroad-system-administrator)
 
-Open the **Management** menu and select **Diagnostics**.
+Click on **DIAGNOSTICS** in the **Navigation tabs**.
 
 On this page you can examine the statuses of the following services:
 
  Service              | Status           | Message        | Previous Update          | Next Update
 --------------------- | ---------------- | -------------- | ------------------------ | ------------------------
- Global configuration | Green/yellow/red | Status message | The time of the global configuration client’s last run | The estimated time of the global configuration client’s next run
+ Global configuration | Green/yellow/red | Status message | The time of the global configuration client's last run | The estimated time of the global configuration client's next run
  Timestamping         | Green/yellow/red | Status message | The time of the last timestamping operation            | Not used                                   
  OCSP-responders      | Green/yellow/red | Status message | The time of the last contact with the OCSP-responder   | The latest possible time for the next OCSP-refresh
- 
-To refresh the service statuses click the **Diagnostics** item on the **Management** menu.
+
+To refresh the service statuses, refresh the page.
 
 The status colors indicate the following:
 - **Red indicator** – service cannot be contacted or is not operational
@@ -1745,7 +2234,7 @@ To make a security server communicate with an external operational monitoring da
 
 By default, the operational monitoring daemon listens on localhost. To make the daemon available to security servers on other hosts, the listening address must be set to the IP address that is relevant in the particular network, as described in the previous section.
 
-As advised, the scheme parameter should be set to “https”. For communication over HTTPS, the security server and the operational monitoring daemon must know each other’s TLS certificates to enable the security server to authenticate to the monitoring daemon successfully.
+As advised, the scheme parameter should be set to "https". For communication over HTTPS, the security server and the operational monitoring daemon must know each other's TLS certificates to enable the security server to authenticate to the monitoring daemon successfully.
 
 **NOTE:** If an external operational monitoring daemon is used, the host, scheme (and optionally, port) parameters must be changed at both hosts.
 
@@ -1786,7 +2275,7 @@ The configuration anchor (renamed as `configuration-anchor.xml`) file must be ma
 
 The operational monitoring daemon makes health data available over the JMXMP protocol. The Zabbix monitoring software can be configured to gather that data periodically, using its built in JMX interface type.
 
-By default, the operational monitoring daemon exposes health data over JMXMP on localhost, port 9011, with no authentication configured and TLS enabled (see `/etc/xroad/services/opmonitor.conf`). This configuration has to be customized for external tools such as Zabbix to be able to access the data. Please refer to the documentation at \[[JMX](#Ref_JMX)\] for instructions on configuring access to the JMX interface of the operational monitoring daemon.
+By default, the operational monitoring daemon JMXMP is disabled. JMXMP must be enabled for external tools such as Zabbix to be able to access the data. Please refer to the documentation at \[[JMX](#Ref_JMX)\] for instructions on configuring access to the JMX interface of the operational monitoring daemon.
 
 For Zabbix to be able to gather data over JMX, the Zabbix Java gateway must be installed. See \[[ZABBIX-GATEWAY](#Ref_ZABBIX-GATEWAY)\] for instructions.
 
@@ -1804,16 +2293,16 @@ Environmental monitoring provides details of the security servers such as operat
 
 ### 16.1 Usage via SOAP API
 
-Environmental monitoring provides SOAP API via X-Road message protocol extension. SOAP messages are described in \[[PR-ENVMONMES](#Ref_PR-ENVMONMES)\]. 
+Environmental monitoring provides SOAP API via X-Road message protocol extension. SOAP messages are described in \[[PR-ENVMONMES](#Ref_PR-ENVMONMES)\].
 
 Monitoring extension schema is defined in \[[MONITORING_XSD](#Ref_MONITORING_XSD)\].
 
 
 ### 16.2 Usage via JMX API
 
-Environmental monitoring provides also a standard JMX endpoint which can be accessed with any JMX client (for example Java's jconsole application). See \[[ARC-ENVMON](#Ref_ARC-ENVMON)\] for details. 
+Environmental monitoring provides also a standard JMX endpoint which can be accessed with any JMX client (for example Java's jconsole application). See \[[ARC-ENVMON](#Ref_ARC-ENVMON)\] for details.
 
-JMX is disabled on default. JMX is enabled by adding standard JMX-related options to the executable java process as in example by \[[ZABBIX-JMX](#Ref_ZABBIX-JMX)\]. Monitor process options are defined in security server's path `/etc/xroad/services/monitor.conf`. 
+JMX is disabled on default. JMX is enabled by adding standard JMX-related options to the executable java process as in example by \[[ZABBIX-JMX](#Ref_ZABBIX-JMX)\].
 
 ### 16.3 Limiting environmental monitoring remote data set
 
@@ -1828,15 +2317,14 @@ It is possibility to limit what allowed non-owners can request via environmental
 
 The most important system services of a security server are as follows.
 
- **Service**        | **Purpose**                                   | **Log**
-------------------- | --------------------------------------------- | -----------------------------------------
- `xroad-confclient` | Client process for the global configuration distributor | `/var/log/xroad/configuration_client.log`
- `xroad-jetty `     | Application server running the user interface | `/var/log/xroad/jetty/`
- `xroad-proxy`      | Message exchanger                             | `/var/log/xroad/proxy.log`
- `xroad-signer`     | Manager process for key settings              | `/var/log/xroad/signer.log`
- `nginx`            | Web server that exchanges the services of the user interface's application server and the message exchanger | `/var/log/nginx/`
+ **Service**           | **Purpose**                                             | **Log**
+-------------------    | ------------------------------------------------------  | -----------------------------------------
+ `xroad-confclient`    | Client process for the global configuration distributor | `/var/log/xroad/configuration_client.log`
+ `xroad-proxy`         | Message exchanger                                       | `/var/log/xroad/proxy.log`
+ `xroad-signer`        | Manager process for key settings                        | `/var/log/xroad/signer.log`
+ `xroad-proxy-ui-api`  | Management UI and REST API                              | `/var/log/xroad/proxy_ui_api.log` and <br/>`/var/log/xroad/proxy_ui_api_access.log` 
 
-System services are managed through the *upstart* facility.
+System services are managed through the *systemd* facility.
 
 **To start a service**, issue the following command as a `root` user:
 
@@ -1846,6 +2334,9 @@ System services are managed through the *upstart* facility.
 
     service <service> stop
 
+Services use the [default unit start rate limits](https://www.freedesktop.org/software/systemd/man/systemd-system.conf.html#DefaultStartLimitIntervalSec=).
+An exception to this is `xroad-proxy-ui-api`, which uses a longer start rate limit ([5 starts / 40 seconds](https://github.com/nordic-institute/X-Road/blob/master/src/packages/src/xroad/ubuntu/generic/xroad-proxy-ui-api.service#L5-6))
+to prevent infinite restart-loop in some specific error situations.
 
 ### 17.2 Logging configuration
 
@@ -1879,19 +2370,19 @@ be restarted (in that order) for any setting changes to take effect.
 Below are some examples for `/etc/xroad/conf.d/local.ini`.
 
 To allow federation with all offered X-Road instances:
-```
+```ini
 [configuration-client]
 allowed-federations=all
 ```
 
 To allow federation with specific instances `xe-test` and `ee-test`:
-```
+```ini
 [configuration-client]
 allowed-federations=xe-test,ee-test
 ```
 
 To disable federation, just remove the `allowed-federations` system parameter entirely or use:
-```
+```ini
 [configuration-client]
 allowed-federations=none
 ```
@@ -1899,29 +2390,301 @@ allowed-federations=none
 Please note that if the keyword `all` is present in the comma-separated list, it will override the single allowed
 instances. The keyword `none` will override all other values. This means that the following setting will allow all
 federations:
-```
+```ini
 [configuration-client]
 allowed-federations=xe-test, all, ee-test
 ```
 And the following will allow none:
-```
+```ini
 [configuration-client]
 allowed-federations=xe-test, all, none, ee-test
 ```
 
-## 19 Migrating to Remote Database Host
+## 19 Management REST API
+
+Security server has a REST API that can be used to do all the same server configuration operations that can be done
+using the web UI.
+
+Management REST API is protected with an API key based authentication. To execute REST calls, API keys need to be created.
+
+REST API is protected by TLS. Since server uses self signed certificate, the caller needs to accept this (for example
+with `curl` you might use `--insecure` or `-k` option).
+
+Requests sent to REST API have a *limit for maximum size*. If a too large request is sent
+to REST API, it will not be processed, and http status 413 Payload too large will be returned.
+There is a different limit for binary file uploads, and for other requests.
+
+Limits are
+- 10MB for file uploads
+- 50KB for other requests
+
+REST API is also *rate limited*. Rate limits apply per each calling IP. If the number of calls
+from one IP address exceeds the limit, endpoints return http status 429 Too Many Requests.
+
+Limits are
+- 600 requests per minute
+- 20 requests per second
+
+If the default limits are too restricting (or too loose), they can be overridden with command line arguments. Limits are set with
+application properties
+- `request.sizelimit.regular`
+- `request.sizelimit.binary.upload`
+- `ratelimit.requests.per.second`
+- `ratelimit.requests.per.minute`
+
+Size limit parameters support formats from Formats from [DataSize](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/util/unit/DataSize.html),
+for example `5MB`.
+
+New command line arguments can be added, not replaced, using the configuration file `local.properties`.
+Example of `/etc/xroad/services/local.properties` with modifications:
+
+```properties
+XROAD_PROXY_UI_API_PARAMS=-Dratelimit.requests.per.second=100 -Drequest.sizelimit.binary.upload=1MB
+```
+
+### 19.1 API key management operations
+
+**Access rights:** [System Administrator](#xroad-system-administrator)
+
+An API key is linked to a role or roles, and grants access to the operations that are allowed for that role/roles.
+Separate REST endpoints exist for API key management.
+API key management endpoints are authenticated to with [HTTP basic authentication](https://en.wikipedia.org/wiki/Basic_access_authentication) (username and password)
+or with session authentication (for admin web application).
+Basic authentication access is limited to localhost by default, but this can
+be changed using System Parameters \[[UG-SYSPAR](#Ref_UG-SYSPAR)\].
+
+#### 19.1.1 Creating new API keys
+
+A new API key is created with a `POST` request to `/api/v1/api-keys`. Message body must contain the roles to be
+associated with the key. Server responds with data that contains the actual API key. After this point the key
+cannot be retrieved, as it is not stored in plaintext.
+
+```bash
+curl -X POST -u <user>:<password> https://localhost:4000/api/v1/api-keys --data '["XROAD_SECURITYSERVER_OBSERVER","XROAD_REGISTRATION_OFFICER"]' --header "Content-Type: application/json" -k
+{
+  "roles": [
+    "XROAD_REGISTRATION_OFFICER",
+    "XROAD_SECURITYSERVER_OBSERVER"
+  ],
+  "id": 61,
+  "key": "23bc57cd-b1ba-4702-9657-8d53e335c843"
+}
+
+```
+
+In this example the created key was `23bc57cd-b1ba-4702-9657-8d53e335c843`.
+
+#### 19.1.2 Listing API keys
+
+Existing API keys can be listed with a `GET` request to `/api/v1/api-keys`. This lists all keys, regardless of who has created them.
+
+```bash
+curl -X GET -u <user>:<password> https://localhost:4000/api/v1/api-keys -k
+[
+  {
+    "id": 59,
+    "roles": [
+      "XROAD_REGISTRATION_OFFICER",
+      "XROAD_SECURITYSERVER_OBSERVER",
+      "XROAD_SERVICE_ADMINISTRATOR"
+    ]
+  },
+  {
+    "id": 60,
+...
+
+```
+
+You can also retrieve a single API key with a `GET` request to `/api/v1/api-keys/{id}`.
+
+```bash
+curl -X GET -u <user>:<password> https://localhost:4000/api/v1/api-keys/59 -k
+{
+  "id": 59,
+  "roles": [
+    "XROAD_REGISTRATION_OFFICER",
+    "XROAD_SECURITYSERVER_OBSERVER",
+    "XROAD_SERVICE_ADMINISTRATOR"
+  ]
+}
+
+```
+
+#### 19.1.3 Updating API keys
+
+An existing API key is updated with a `PUT` request to `/api/v1/api-keys/{id}`. Message body must contain the roles to be
+associated with the key. Server responds with data that contains the key id and roles associated with the key.
+
+```bash
+curl -X PUT -u <user>:<password> https://localhost:4000/api/v1/api-keys/60 --data '["XROAD_SECURITYSERVER_OBSERVER","XROAD_REGISTRATION_OFFICER"]' --header "Content-Type: application/json" -k
+{
+  "id": 60,
+  "roles": [
+    "XROAD_REGISTRATION_OFFICER",
+    "XROAD_SECURITYSERVER_OBSERVER"
+  ]
+}
+
+```
+
+#### 19.1.4 Revoking API keys
+
+An API key can be revoked with a `DELETE` request to `/api/v1/api-keys/{id}`. Server responds with `HTTP 200` if
+revocation was successful and `HTTP 404` if key did not exist.
+
+```bash
+curl -X DELETE -u <user>:<password> https://localhost:4000/api/v1/api-keys/60  -k
+
+```
+
+#### 19.1.5 API key caching
+
+API keys are cached in memory. In typical security server configurations this does not create problems.
+However, if you have configured a setup where multiple security servers share the same `serverconf` database,
+and use multiple nodes to access REST API and execute API key management operations, the caches of different nodes
+can become out of sync.
+
+For example, you may revoke an API key from node 1 but node 2 is not aware of this, and still grants access to
+REST API endpoints with this API key.
+
+If you operate such a configuration, you need to target all REST API operations to the same security server node,
+or otherwise ensure that caching will not create problems (for example, always restart REST API modules when API key
+operations are executed).
+
+### 19.2 Executing REST calls
+
+**Access rights:** Depends on the API.
+
+Once a valid API key has been created, it is used by providing an `Authorization: X-Road-ApiKey token=<api key>` HTTP
+header in the REST calls. For example
+
+```bash
+curl --header "Authorization: X-Road-ApiKey token=ff6f55a8-cc63-4e83-aa4c-55f99dc77bbf" "https://localhost:4000/api/v1/clients" -k
+[
+  {
+    "id": "XRD2:GOV:999:foobar",
+    "member_name": Foo Name,
+    "member_class": "GOV",
+    "member_code": "999",
+    "subsystem_code": "SUBS_1",
+    "status": "saved
+...
+```
+
+The available APIs are documented in OpenAPI specification \[[REST_UI-API](#Ref_REST_UI-API)\]. Access rights for different APIs follow the same rules
+as the corresponding UI operations.
+Access to regular APIs is allowed from all IP addresses by default, but this can
+be changed using System Parameters \[[UG-SYSPAR](#Ref_UG-SYSPAR)\].
+
+### 19.3 Correlation ID HTTP header
+
+The REST API endpoints return an **x-road-ui-correlation-id** HTTP header. This header is also logged in `proxy_ui_api.log`, so it
+can be used to find the log messages related to a specific API call.
+
+The correlation ID header is returned for all requests, both successful and failed ones.
+
+For example, these log messages are related to an API call with correlation ID `3d5f193102435242`:
+```
+2019-08-26 13:16:23,611 [https-jsse-nio-4000-exec-10] correlation-id:[3d5f193102435242] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - The HttpSession is currently null, and the HttpSessionSecurityContextRepository is prohibited from creating an HttpSession (because the allowSessionCreation property is false) - SecurityContext thus not stored for next request
+2019-08-26 13:16:23,611 [https-jsse-nio-4000-exec-10] correlation-id:[3d5f193102435242] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.niis.xroad.restapi.exceptions.ConflictException: local group with code koodi6 already added]
+2019-08-26 13:16:23,611 [https-jsse-nio-4000-exec-10] correlation-id:[3d5f193102435242] DEBUG o.s.s.w.a.ExceptionTranslationFilter - Chain processed normally
+```
+
+### 19.4 Validation errors
+
+An error response from the REST API can include validation errors if an unsupported parameter was provided with the request.
+When 
+
+Example request and response of adding a new subsystem with illegal characters:
+```
+POST https://ss1:4100/api/v1/clients
+
+Request body:
+{
+  "client": {
+    "member_class": "ORG",
+    "member_code": "0/1234",
+    "subsystem_code": "Subsystem%Code"
+  },
+  "ignore_warnings": false
+}
+
+Response body:
+{
+  "error": {
+    "code": "validation_failure",
+    "validation_errors": {
+      "clientAdd.client.memberCode": [
+        "NoForwardslashes"
+      ],
+      "clientAdd.client.subsystemCode": [
+        "NoPercents"
+      ]
+    }
+  },
+  "status": 400
+}
+```
+
+In addition to the validation messages declared in [Java Validation API](https://javaee.github.io/javaee-spec/javadocs/javax/validation/constraints/package-summary.html), the following validation errors are possible:
+
+Error             | Explanation
+------------------|-----------
+`NoControlChars`    | The provided string contains [ISO control characters](https://en.wikipedia.org/wiki/Control_character) or zero-width spaces
+`NoColons`          | The provided string contains colons `:`
+`NoSemicolons`      | The provided string contains semicolons `;`
+`NoForwardslashes`  | The provided string contains slashes `/`
+`NoBackslashes`     | The provided string contains backslashes `\`
+`NoPercents`        | The provided string contains percent symbol `%`
+
+### 19.5 Warning responses
+
+Error response from the Management API can include additional warnings that you can ignore if seen necessary. The warnings can be ignored by your decision, by executing the same operation with `ignore_warnings` boolean parameter set to `true`. *Always consider the warning before making the decision to ignore it.* 
+
+An example case:
+1. Client executes a REST request, without `ignore_warnings` parameter, to backend.
+2. Backend notices warnings and responds with error message that contains the warnings. Nothing is updated at this point.
+3. Client determines if warnings can be ignored.
+4. If the warnings can be ignored, client resends the REST request, but with `ignore_warnings` parameter set to `true`.
+5. Backend ignores the warnings and executes the operation.
+
+Error response with warnings always contains the error code `warnings_detected`.
+
+Like errors, warnings contain an identifier (code) and possibly some metadata.
+
+Warning example when trying to register a WSDL that produces non-fatal validation warnings: 
+```json
+{
+  "status": 400,
+  "error": {
+    "code": "warnings_detected"
+  },
+  "warnings": [
+    {
+      "code": "wsdl_validation_warnings",
+      "metadata": [
+        "WSDLValidator Error : Summary: Failures: 0, Warnings: 1 <<< WARNING! Operation 'someService' in PortType: {http://test.x-road.global/some-service}someService.servicePortType has no output message"
+      ]
+    }
+  ]
+}
+```
+
+Note that when you are using the admin UI and you encounter warnings, you will always be provided with a popup window with a `CONTINUE` button in it. When you click the `CONTINUE` button in the popup, the request is sent again but this time warnings will be ignored.
+
+## 20 Migrating to Remote Database Host
 
 Since version `6.22.0` Security Server supports using remote databases. In case you have an already running Security Server with local database, it is possible to migrate it to use remote database host instead. The instructions for this process are listed below.
 
 1. Shutdown X-Road processes.
 
-    ```
+    ```bash
     systemctl stop "xroad*"
     ```
 
 2. Dump the local databases to be migrated. You can find the passwords of users `serverconf`, `messagelog` and `opmonitor` in `/etc/xroad/db.properties`. Notice that the versions of the local PostgreSQL client and remote PostgreSQL server must match. Also take into account that on a busy system the messagelog database can be quite large and therefore dump and restore can take considerable amount of time and disk space.
 
-    ```
+    ```bash
     pg_dump -F t -h 127.0.0.1 -p 5432 -U serverconf -f serverconf.dat serverconf
     pg_dump -F t -h 127.0.0.1 -p 5432 -U messagelog -f messagelog.dat messagelog
     pg_dump -F t -h 127.0.0.1 -p 5432 -U opmonitor_admin -f op-monitor.dat op-monitor
@@ -1929,14 +2692,14 @@ Since version `6.22.0` Security Server supports using remote databases. In case 
 
 3. Shut down and mask local `postgresql` so it won't start when `xroad-proxy` starts.
 
-    ```
+    ```bash
     systemctl stop postgresql
     systemctl mask postgresql
     ```
 
 4. Connect to the remote database server as the superuser `postgres` and create roles, databases and access permissions as follows. Note that the line `GRANT serverconf to postgres` is AWS RDS specific and not necessary if the `postgres` user is a true super-user.
 
-    ```
+    ```bash
     psql -h <remote-db-url> -p <remote-db-port> -U postgres
     CREATE ROLE serverconf LOGIN PASSWORD '<serverconf-password>';
     GRANT serverconf to postgres;
@@ -1958,7 +2721,7 @@ Since version `6.22.0` Security Server supports using remote databases. In case 
 
 5. Restore the database dumps on the remote database host.
 
-    ```
+    ```bash
     pg_restore -h <remote-db-url> -p <remote-db-port> -U serverconf -O -n public -1 -d serverconf serverconf.dat
     pg_restore -h <remote-db-url> -p <remote-db-port> -U messagelog -O -n public -1 -d messagelog messagelog.dat
     pg_restore -h <remote-db-url> -p <remote-db-port> -U opmonitor_admin -O -n public -1 -d op-monitor op-monitor.dat
@@ -1966,7 +2729,7 @@ Since version `6.22.0` Security Server supports using remote databases. In case 
 
 6. Create properties file `/etc/xroad.properties` containing the superuser password.
 
-    ```
+    ```bash
     sudo touch /etc/xroad.properties
     sudo chown root:root /etc/xroad.properties
     sudo chmod 600 /etc/xroad.properties
@@ -1974,7 +2737,7 @@ Since version `6.22.0` Security Server supports using remote databases. In case 
 
 7. Edit `/etc/xroad.properties`.
 
-    ```
+    ```properties
     postgres.connection.password = <postgres-password>
     op-monitor.database.admin_password = <opmonitor_admin-password>
     serverconf.database.initialized = true
@@ -1984,7 +2747,7 @@ Since version `6.22.0` Security Server supports using remote databases. In case 
 
 8. Update `/etc/xroad/db.properties` contents with correct database host URLs and passwords.
 
-    ```
+    ```properties
     serverconf.hibernate.connection.url = jdbc:postgresql://<remote-db-url>:<remote-db-port>/serverconf
     messagelog.hibernate.connection.url = jdbc:postgresql://<remote-db-url>:<remote-db-port>/messagelog
     op-monitor.hibernate.connection.url = jdbc:postgresql://<remote-db-url>:<remote-db-port>/op-monitor
@@ -1995,6 +2758,124 @@ Since version `6.22.0` Security Server supports using remote databases. In case 
 
 9. Start again the X-Road services.
 
-    ```
+    ```bash
     systemctl start "xroad*"
     ```
+
+## 21 Adding command line arguments
+
+If you need to add command line arguments for the Security Server, for example if you wish to increase Java's maximum heap size, you can do it with the properties file `/etc/xroad/services/local.properties`. The file is also included in the backup archive file when taking a backup of the Security Server's configuration.
+
+Example of `/etc/xroad/services/local.properties` with modifications that override the default Java memory parameters:
+
+```properties
+XROAD_PROXY_PARAMS=-Xms150m -Xmx1024m
+```
+
+All possible properties to adjust in this file are
+```
+XROAD_SIGNER_PARAMS
+XROAD_ADDON_PARAMS
+XROAD_CONFCLIENT_PARAM
+XROAD_CONFPROXY_PARAM
+XROAD_JETTY_PARAMS
+XROAD_MONITOR_PARAM
+XROAD_OPMON_PARAM
+XROAD_PROXY_PARAM
+XROAD_PROXY_UI_API_PARAM
+XROAD_SIGNER_CONSOLE_PARAM
+```
+
+## 22 Additional Security Hardening
+
+You may want to harden the security of your X-Road instance by configuring additional security policies in your Security Servers. The security measures that are introduced in this guide are common security policies that can be configured on operating system level.
+
+X-Road uses the Linux Pluggable Authentication Modules (PAM) to authenticate users. This makes it easy to configure the account management to your liking. The example PAM configurations provided in this guide may or may not work on your system depending on your system and existing PAM configurations. Note that editing the PAM configurations will take effect immediately without the need to restart anything.
+
+
+For configuring the following security policies for the X-Road Security Server Admin UI in production, please refer to [The Linux-PAM System Administrator's Guide](http://www.linux-pam.org/Linux-PAM-html/Linux-PAM_SAG.html) for the full documentation on how to configure PAM.
+
+### 22.1 Configuring account lockout
+
+Configuring an account lockout policy in your Security Server Admin UI authentication will provide an extra layer of defence against password guessing attacks, such as brute force attacks. After configuring the account lockout, when trying to log in to the Security Server Admin UI with a locked account, the login screen will display a generic login error without disclosing the reason or any other login information.
+
+The PAM service to configure the account lockout to is `xroad`.
+
+#### 22.1.1 Considerations and risks
+
+After enabling the account lockout for the Security Server, you should be aware that a user can lock out any other user's account if they know the correct username.
+
+#### 22.1.2 Account lockout examples
+
+The example configurations will lock the user's account, preventing login to the Security Server Admin UI for 15 minutes (I.e. 900 seconds) after they provide a wrong password in the Security Server Admin UI login three (3) consecutive times. This configuration also affects the root account.
+
+**Example on Ubuntu**
+
+Create a new configuration `/etc/pam.d/xroad` with the following content:
+```shell
+auth        required          pam_tally2.so deny=3 even_deny_root unlock_time=900 file=/var/lib/xroad/tallylog
+@include    common-auth    
+account     required          pam_tally2.so
+@include    common-account
+password    required          pam_deny.so    
+session     required          pam_deny.so    
+```
+
+**Example on RHEL**
+
+On RHEL systems, the `/etc/pam.d/xroad` file ships with the Security Server installation package so you need to modify the existing file. Replace the `/etc/pam.d/xroad` contents with the following:
+```shell
+#%PAM-1.0
+auth       required     pam_tally2.so deny=3 even_deny_root unlock_time=900 file=/var/lib/xroad/tallylog
+auth       required     pam_unix.so
+account    required     pam_tally2.so
+account    required     pam_unix.so
+password   required     pam_deny.so
+password   required     pam_warn.so
+session    required     pam_deny.so
+```
+
+### 22.2 Configuring password policies
+
+Configuring a password policy in your Security Server Admin UI authentication will provide an additional layer of defence against password guessing attacks, such as password spraying. 
+
+User account passwords cannot be changed directly from the Security Server Admin UI, therefore the password policy must be configured on operating system user account level. The method of adding a new password policy varies significantly depending on your operating system, existing PAM configuration and authentication protocol.
+
+For instruction on how to add password policies, please refer to your operating system's official documentation or customer support. 
+
+#### 22.2.1 Considerations and risks
+
+In a strong password, it is advisable to have at least 16 characters at minimum. You can also add complexity requirements, such as numbers and special characters, but these requirements can make the passwords more difficult for users to remember. Further additional measures could be to add commonly known passwords into a blocklist.
+
+### 22.3 Ensuring User Account Security
+
+Users of the web application are created by creating operating-system-level users. This means that a user can access the web application and the underlying operating system with the same credentials. Therefore, if user accounts in the web application were compromised, the attacker could use those credentials to log into the server via SSH if credential-based logging in is not disabled.
+
+To harden the user account security, make sure that users are not allowed to access the server via SSH by default. The users needing SSH access are granted those rights separately.
+
+Create a user group in which users are allowed to connect to the server via SSH while all other users are denied. Add the following line to `/etc/ssh/sshd_config`:
+
+    AllowGroups <group_to_allow>
+
+Restart the SSH service:
+
+    sudo systemctl restart sshd
+
+It is also recommended to disable SSH password login and allow key-based authentication only. Before this modification, add users' public keys to the server. Edit `/etc/ssh/sshd_config` and add the following lines:
+
+    ChallengeResponseAuthentication no
+    PasswordAuthentication no
+
+Restart the SSH service once again:
+
+    sudo systemctl restart sshd
+
+In addition, the users should be prevented from logging in to the system. This can be achieved by issuing the following command on Ubuntu:
+
+    usermod -s /bin/false user
+
+On RHEL, the corresponding command is:
+
+    usermod -s /sbin/nologin user
+
+The system administrator should also implement a monitoring and alerting system regarding anomalous logins.

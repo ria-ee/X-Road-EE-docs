@@ -15,6 +15,8 @@ Doc. ID:  TA-TERMS
  06.03.2018 | 0.4     | Moved/merged terminology explanations from other X-Road repository MD-documents to this document | Tatu Repo |
  03.01.2019 | 0.5     | Minor changes - typos fixed. | Yamato Kataoka |
  16.04.2019 | 0.6     | Add description of REST services. | Petteri Kivimäki |
+ 02.06.2021 | 0.7     | Add backup encryption related terms. | Andres Allkivi |
+ 25.08.2021 | 0.8     | Update X-Road references from version 6 to 7 | Caro Hautamäki
 
 ## Table of Contents
 
@@ -223,7 +225,7 @@ This document is licensed under the Creative Commons Attribution-ShareAlike 3.0 
 
 **Message log** – a log, where exchanged X-Road messages are logged and provided with batch signature. Records all regular messages passing through the security server into the database. The messages are stored together with their signatures and signatures are timestamped. The purpose of the message log is to provide means to prove the reception of a request/response message to a third party.
 
-**System service log** – a log which is made from a running system service of a security server, for example from xroad-confclient, -jetty, -proxy, signer services.  
+**System service log** – a log which is made from a running system service of a security server, for example from xroad-confclient, -proxy, signer services.  
 
 ### 6.7 Identifiers and codes
 
@@ -324,6 +326,8 @@ This document is licensed under the Creative Commons Attribution-ShareAlike 3.0 
 **CI** - Continuous Integration
 
 **DSL** - Domain Specific Language
+
+**GPG / GnuPG** - The GNU Privacy Guard
 
 **HTTP** - Hypertext Transfer Protocol  
 

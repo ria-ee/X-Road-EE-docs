@@ -18,7 +18,7 @@
     <article class="markdown-body">
 <h1>
 <a id="x-road-environmental-monitoring-architecture" class="anchor" href="#x-road-environmental-monitoring-architecture" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>X-Road: Environmental Monitoring Architecture</h1>
-<p>Version: 1.6<br>
+<p>Version: 1.8<br>
 Doc. ID: ARC-ENVMON</p>
 <table>
 <thead>
@@ -72,6 +72,19 @@ Doc. ID: ARC-ENVMON</p>
 <td>Added numbering, terms document references, removed unnecessary anchors</td>
 <td>Tatu Repo</td>
 </tr>
+<tr>
+<td>20.01.2020</td>
+<td>1.7</td>
+<td>Update XroadProcessLister description</td>
+<td>Jarkko Hyöty</td>
+</tr>
+<tr>
+<td>25.06.2020</td>
+<td>1.8</td>
+<td>Add chapter <a href="#221-jmx-interface">2.2.1 JMX interface</a>
+</td>
+<td>Petteri Kivimäki</td>
+</tr>
 </tbody>
 </table>
 <h1>
@@ -92,7 +105,12 @@ Doc. ID: ARC-ENVMON</p>
 <a href="#2-components">2 Components</a>
 <ul>
 <li><a href="#21-monitoring-metaservice-proxymonitor-add-on">2.1 Monitoring metaservice (proxymonitor add-on)</a></li>
-<li><a href="#22-monitoring-service-xroad-monitor">2.2 Monitoring service (xroad-monitor)</a></li>
+<li>
+<a href="#22-monitoring-service-xroad-monitor">2.2 Monitoring service (xroad-monitor)</a>
+<ul>
+<li><a href="#221-jmx-interface">2.2.1 JMX interface</a></li>
+</ul>
+</li>
 <li><a href="#23-central-monitoring-client">2.3 Central monitoring client</a></li>
 <li><a href="#24-central-monitoring-data-collector">2.4 Central monitoring data collector</a></li>
 <li><a href="#25-central-server-admin-user-interface">2.5 Central server admin user interface</a></li>
@@ -224,7 +242,7 @@ Doc. ID: ARC-ENVMON</p>
 <li>
 <code>XroadProcessLister</code>
 <ul>
-<li>data: list of running xroad processes from command, showing full command with arguments</li>
+<li>data: like ProcessLister, but lists only java processes running as the <code>xroad</code> user and includes full command with arguments</li>
 <li>data is refreshed once per minute</li>
 </ul>
 </li>
@@ -261,8 +279,13 @@ Doc. ID: ARC-ENVMON</p>
 </li>
 </ul>
 <p>Monitoring service is installed as a separate package, with name <code>xroad-monitor</code>. It runs in a separate process.</p>
-<p>The service also publishes the monitoring data via JMX. Local monitoring agents can use this as an alternative way to fetch monitoring data. With default configuration, JMX access is only allowed from localhost.</p>
+<h4>
+<a id="221-jmx-interface" class="anchor" href="#221-jmx-interface" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.2.1 JMX interface</h4>
+<p>The service also publishes the monitoring data via JMX. Local monitoring agents can use this as an alternative way to fetch monitoring data. With the default configuration, JMX is disabled.</p>
 <p><a href="img/monitoring-jmx.png" target="_blank" rel="noopener noreferrer"><img src="img/monitoring-jmx.png" alt="monitoring JMX agent" style="max-width:100%;"></a></p>
+<p>JMX is enabled by adding the required configuration in <code>/etc/xroad/services/local.properties</code> file. The file is opened for editing and changes are made on the <code>XROAD_MONITOR_PARAMS</code> variable value. After the <code>XROAD_MONITOR_PARAMS</code> variable value has been updated, the <code>xroad-monitor</code> service must be restarted.</p>
+<p>The example configuration below enables JMX, binds it to port <code>9999</code> on any available interface with SSL and password authentication enabled:</p>
+<div class="highlight highlight-source-ini"><pre><span class="pl-k">XROAD_MONITOR_PARAMS</span>=-<span class="pl-k">Djava.rmi.server.hostname</span>=0.0.0.0 -<span class="pl-k">Dcom.sun.management.jmxremote.port</span>=9999 -<span class="pl-k">Dcom.sun.management.jmxremote.authenticate</span>=true -<span class="pl-k">Dcom.sun.management.jmxremote.ssl</span>=true</pre></div>
 <h3>
 <a id="23-central-monitoring-client" class="anchor" href="#23-central-monitoring-client" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3 Central monitoring client</h3>
 <p>Central monitoring client is a specific security server, which has been granted access to query monitoring data from other security servers. See <a href="#33-access-control">Access control</a>. The identity of this security server is configured using central server's admin user interface.</p>

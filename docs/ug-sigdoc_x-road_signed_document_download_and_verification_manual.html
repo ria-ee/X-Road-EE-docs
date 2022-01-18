@@ -16,13 +16,7 @@
   </head>
   <body>
     <article class="markdown-body">
-<table>
-<thead>
-<tr>
-<th align="right"><a href="img/eu_regional_development_fund_horizontal_div_15.png" target="_blank" rel="noopener noreferrer"><img src="img/eu_regional_development_fund_horizontal_div_15.png" alt="European Union / European Regional Development Fund / Investing in your future" title="Documents that are tagged with EU/SF logos must keep the logos until 1.1.2022, if it has not stated otherwise in the documentation. If new documentation is created  using EU/SF resources the logos must be tagged appropriately so that the deadline for logos could be found." style="max-width:100%;"></a></th>
-</tr>
-</thead>
-</table>
+<p><a href="img/eu_regional_development_fund_horizontal_div_15.png" target="_blank" rel="noopener noreferrer"><img src="img/eu_regional_development_fund_horizontal_div_15.png" alt="" title="European Union | European Regional Development Fund | Investing in your future" style="max-width:100%;"></a></p>
 <hr>
 <h1>
 <a id="signed-document-download-and-verification-manual" class="anchor" href="#signed-document-download-and-verification-manual" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Signed Document Download and Verification Manual</h1>
@@ -108,6 +102,24 @@ Doc. ID: UG-SIGDOC</p>
 <td>REST support modifications</td>
 <td>Jarkko Hyöty</td>
 </tr>
+<tr>
+<td>25.08.2021</td>
+<td>1.8</td>
+<td>Update X-Road references from version 6 to 7</td>
+<td>Caro Hautamäki</td>
+</tr>
+<tr>
+<td>03.09.2021</td>
+<td>1.9</td>
+<td>Minor updates</td>
+<td>Ilkka Seppälä</td>
+</tr>
+<tr>
+<td>08.10.2021</td>
+<td>1.10</td>
+<td>Updates about encryption</td>
+<td>Jarkko Hyöty</td>
+</tr>
 </tbody>
 </table>
 <h2>
@@ -154,6 +166,8 @@ Doc. ID: UG-SIGDOC</p>
 <ol>
 <li>[PR-SIGDOC]	Freudenthal, M. Profile for High-Perfomance Digital Signature. T-4-23, 2015. <a href="https://cyber.ee/research/reports/" rel="nofollow">https://cyber.ee/research/reports/</a>
 </li>
+<li>[UG-SS] Security Server User Guide. Document ID: <a href="ug-ss_x-road_6_security_server_user_guide.html">UG-SS</a>
+</li>
 </ol>
 <h2>
 <a id="2-signed-document-download-service" class="anchor" href="#2-signed-document-download-service" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2 Signed Document Download Service</h2>
@@ -161,7 +175,7 @@ Doc. ID: UG-SIGDOC</p>
 <pre><code>http://SECURITYSERVER/asic
 </code></pre>
 <p>where <code>SECURITYSERVER</code> is the actual address of the security server.</p>
-<p>Signed documents are available via the service until they are archived and removed from the message log database (by default 30 days). This time period is configurable in the security server (parameter keep-records-for in the configuration file <code>/etc/xroad/conf.d/addons/message-log.ini</code>).</p>
+<p>Signed documents are available via the service until they are archived and removed from the message log database (by default 30 days). This time period is configurable in the security server (messagelog parameter <code>keep-records-for</code>). If messagelog parameter <code>archive-encryption-enabled</code> is true, the messages are returned in encrypted format (OpenPGP/GnuPG, see [UG-SS] for archive encryption details).</p>
 <h3>
 <a id="21-retrieving-signed-documents-of-the-entire-transaction" class="anchor" href="#21-retrieving-signed-documents-of-the-entire-transaction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.1 Retrieving Signed Documents of the Entire Transaction</h3>
 <p>The service requires the identifier of the corresponding message and the X-Road client identifier to determine which signed documents to return. These can be provided with the following mandatory parameters:</p>
@@ -181,22 +195,22 @@ Doc. ID: UG-SIGDOC</p>
 <pre><code>http://sec1.gov/asic?queryId=abc12345&amp;xRoadInstance=EE&amp;memberClass=ENT&amp;memberCode=CLIENT1&amp;subsystemCode=SUB
 </code></pre>
 <p>If a message with the given identifier was indeed exchanged by the security server and by the specified client, the server would respond with a ZIP archive (content-type <code>application/zip</code>, filename <code>queryId.zip</code>), which contains signed documents for all requests and responses that match the specified parameters.</p>
-<p>The signed documents provided by the asic service are named <code>queryId-request-Z.asice</code> and <code>queryId-response-Z.asice</code> for requests and responses, respectively, where <code>queryId</code> is the identifier (URL encoded) of the message and <code>Z</code> is a 10-character random alphanumeric string.</p>
+<p>The signed documents provided by the asic service are named <code>queryId-request-Z.asice[.gpg]</code> and <code>queryId-response-Z.asice.[gpg]</code> for requests and responses, respectively, where <code>queryId</code> is the identifier (URL encoded) of the message and <code>Z</code> is a up to 13-character alphanumeric string. The <code>.gpg</code> suffix is added if the file is encrypted.</p>
 <h3>
 <a id="22-retrieving-a-single-signed-document" class="anchor" href="#22-retrieving-a-single-signed-document" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.2 Retrieving a Single Signed Document</h3>
 <p>Should the user only desire the request or response then additional mutually exclusive parameters are available:</p>
 <ul>
 <li>
-<code>requestOnly</code> – only include signed documents for request messages (response filename  is <code>queryId-request.zip</code>);</li>
+<code>requestOnly</code> – only include signed documents for request messages (response filename  is <code>queryId-request.zip[.gpg]</code>);</li>
 <li>
-<code>responseOnly</code> – only include signed documents for response messages (response filename is <code>queryId-response.zip</code>).</li>
+<code>responseOnly</code> – only include signed documents for response messages (response filename is <code>queryId-response.zip[.gpg]</code>).</li>
 </ul>
-<p>The aforementioned parameters make the service return a ZIP archive, which may contain either one or more signed documents (depending if the provided <code>queryId</code> is unique). If only a single signed document is expected then the request can be further be constrained by adding the following parameter:</p>
+<p>The aforementioned parameters make the service return a (possibly encrypted) ZIP archive, which may contain either one or more signed documents (depending if the provided <code>queryId</code> is unique). If only a single signed document is expected then the request can be further be constrained by adding the following parameter:</p>
 <ul>
 <li>
 <code>unique</code> – specifies that the only a single signed document is expected in the response, must be used in combination with either <code>requestOnly</code> or <code>responseOnly</code> parameter.</li>
 </ul>
-<p>If this parameter is used and, indeed, the query identifier is unique, then the security server responds with a single signed document (content-type <code>application/vnd.etsi.asic-e+zip</code>) which represents the corresponding message.</p>
+<p>If this parameter is used and, indeed, the query identifier is unique, then the security server responds with a single signed document (content-type <code>application/vnd.etsi.asic-e+zip</code>, or <code>application/octet-stream</code> if the archive is encrypted) which represents the corresponding message.</p>
 <h3>
 <a id="23-forcing-missing-timestamps-to-be-created" class="anchor" href="#23-forcing-missing-timestamps-to-be-created" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3 Forcing Missing Timestamps To Be Created</h3>
 <p>If the security server was configured to timestamp messages asynchronously it may be possible that there is no timestamp associated with one or more signatures of the requested documents. In this case the request will fail with an internal error and return an appropriate error message string - "Some message signatures have not been timestamped yet!" (or "Message signature has not been timestamped yet!" if requesting a single document only).</p>

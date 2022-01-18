@@ -1,10 +1,11 @@
-![European Union / European Regional Development Fund / Investing in your future](img/eu_regional_development_fund_horizontal_div_15.png "Documents that are tagged with EU/SF logos must keep the logos until 1.1.2022, if it has not stated otherwise in the documentation. If new documentation is created  using EU/SF resources the logos must be tagged appropriately so that the deadline for logos could be found.") |
+![](img/eu_regional_development_fund_horizontal_div_15.png "European Union | European Regional Development Fund | Investing in your future")
+
 ---
 
 # X-Road: Message Protocol for REST
 **Technical Specification**
 
-Version: 1.0.0  
+Version: 1.0.1  
 Doc. ID: PR-REST
 
 ---
@@ -20,39 +21,54 @@ Doc. ID: PR-REST
 |22.03.2019 | 0.5.0	  | <ul><li>Clarified 1.1 overview</li><li>Clarified 3.2 objectives</li><li>Added to 4.3 chapter "X-Road specific headers returned in the response"</li><li>Clarified the use of X-Road-Id in 4.3</li><li>Removed chapter 5.2 where it was recommended to use \[REST-BEST-PRACTISES\]</li><li>Updated examples in chapters 4.6 and 6</li><li>Updated request hash description in 4.3</li></ul> | Ilkka Seppälä <br /> Petteri Kivimäki <br /> Jarkko Hyöty |
 |22.03.2019 | 0.9.0   | Initial Markdown documentation | Caro Hautamäki |
 |25.04.2019 | 1.0.0   | Update document version number | Jarkko Hyöty |
+|19.05.2020 | 1.0.1   | Added chapter [4.8 Identifier Character Restrictions](#48-identifier-character-restrictions) | Ilkka Seppälä |
+
+## License
+
+This document is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/
 
 ## Table of Contents  
 
 <!-- toc -->
+<!-- vim-markdown-toc GFM -->
 
-- [1 Introduction](#1-introduction)
+* [1 Introduction](#1-introduction)
   * [1.1 Overview](#11-overview)
   * [1.2 REST](#12-rest)
-- [2 Definitions](#2-definitions)
-  * [2.1 Key words](#21-key-words)
+* [2 Definitions](#2-definitions)
+  * [2.1 Key Words](#21-key-words)
   * [2.2 X-Road Terminology](#22-x-road-terminology)
   * [2.3 Versioning](#23-versioning)
   * [2.4 References](#24-references)
-- [3 Scope](#3-scope)
+* [3 Scope](#3-scope)
   * [3.1 Scope and Requirements](#31-scope-and-requirements)
   * [3.2 Objectives](#32-objectives)
-- [4 Message Format](#4-message-format)
+* [4 Message Format](#4-message-format)
   * [4.1 REST Interface](#41-rest-interface)
   * [4.2 URI Sanitation](#42-uri-sanitation)
   * [4.3 Use of HTTP Headers](#43-use-of-http-headers)
   * [4.4 HTTP Redirects](#44-http-redirects)
-  * [4.5 Error handling](#45-error-handdling)
-  * [4.6 Security](#46-security)
-- [5 Services](#5-services)
+  * [4.5 Use of Query Parameters](#45-use-of-query-parameters)
+  * [4.6 Error handling](#46-error-handling)
+    * [Example 1 (Category 1)](#example-1-category-1)
+    * [Example 2 (Category 2)](#example-2-category-2)
+    * [Example 3 (Category 3)](#example-3-category-3)
+    * [Example 4 (Category 4)](#example-4-category-4)
+    * [Example 5 (Tracking the source of error)](#example-5-tracking-the-source-of-error)
+  * [4.7 Security](#47-security)
+  * [4.8 Identifier Character Restrictions](#48-identifier-character-restrictions)
+* [5 Services](#5-services)
   * [5.1 Describing Services](#51-describing-services)
-- [6 Examples](#6-examples)
+* [6 Examples](#6-examples)
   * [6.1 General](#61-general)
   * [6.2 GET Request and Response](#62-get-request-and-response)
   * [6.3 PUT Request and Response](#63-put-request-and-response)
   * [6.4 POST Request and Response](#64-post-request-and-response)
   * [6.5 DELETE Request and Response](#65-delete-request-and-response)
   * [6.6 POST Request with Attachments and Response](#66-post-request-with-attachments-and-response)
-- [Appendix 1 Example Service Definition](#appendix-1-example-service-definition)
+* [Appendix 1 Example Service Definition](#appendix-1-example-service-definition)
+
+<!-- vim-markdown-toc -->
 
 ## 1 Introduction
 ### 1.1 Overview
@@ -183,12 +199,12 @@ for at least a year after releasing the new version.
 HTTP version 1.1 is used by the protocol as described in \[[RFC2616](#Ref_RFC2616)\]. The consumer member/subsystem is specified using HTTP headers. The service to be called is encoded as part of the HTTP/HTTPS request URL. Here is the generic form of the REST service call.
 
 **Request format**
-```
+```http
 {http-request-method} /{protocol-version}/{serviceId}[/path][?query-parameters]
 ```
 
 **HTTP request headers**
-```
+```http
 X-Road-Client: {client}
 ```
 
@@ -204,12 +220,12 @@ X-Road-Client: {client}
 Here is a practical example of an X-Road REST call.
 
 **Request example**
-```
+```http
 GET /r1/INSTANCE/CLASS2/MEMBER2/SUBSYSTEM2/BARSERVICE/v1/bar/zyggy?quu=1
 ```
 
 **HTTP request headers**
-```
+```http
 X-Road-Client: INSTANCE/CLASS1/MEMBER1/SUBSYSTEM1
 ```
 
@@ -252,7 +268,7 @@ Note. HTTP headers are not case-sensitive. `X-Road-Client` and `x-road-client` a
 
 **Mandatory X-Road headers in the request**
 - **X-Road-Client**: Specifies the member/subsystem that is used as a service client - an entity that initiates the service call. The identifier consists of the following parts: `[X-Road instance]/[member class]/[member code]/[subsystem code]`. Including the subsystem code is OPTIONAL. The identifier parts MUST be represented as UTF-8 and encoded using \[[PERCENT-ENCODING](#Ref_PERCENTENC)\].
-  ```  
+  ```http
   X-Road-Client: INSTANCE/CLASS/MEMBER/SUBSYSTEM
   ```
 
@@ -266,7 +282,7 @@ The response contains some X-Road specific headers that are set by the provider 
 - **X-Road-Request-Hash**: For responses, this field contains sha-512 encoded hash of the request message
 - **X-Road-Error**: This header is provided in case there was an error processing the request and it occurred somewhere in X-Road (on the consumer or provider Security Server)
 - **X-Road-Request-Id**: Unique identifier for the request
-  ```
+  ```http
   X-Road-Client: INSTANCE/CLASS/MEMBER/SUBSYSTEM
   X-Road-Service: INSTANCE/CLASS/MEMBER/SUBSYSTEM/PETSTORE
   X-Road-Id: fa2e18a5-c2cb-4d09-b994-f57727f7c3fb
@@ -280,7 +296,7 @@ The response contains some X-Road specific headers that are set by the provider 
   and it MUST be verified by the service client's Security Server
 - The request message SHOULD NOT contain the request hash header.
 - The response message returned by a service provider SHOULD NOT contain the request hash header. If the response message contains the request hash header, the service provider's Security Server MUST ignore the field and replace it with the created field.
-  ``` 
+  ```http
   X-Road-Request-Hash: 14sEri8SmLNy/DJyTob0ZddAskmdRy5ZUyhbr33iLkaA+gLpWcivUH16fzbuIs7hhs2AnA4lJDloyIihXMlVQA== 
   ```
 
@@ -289,7 +305,7 @@ The response contains some X-Road specific headers that are set by the provider 
 - The REST messages originating from the Security Server (e.g. error messages) MUST include the header and indicate the content's type and character encoding with it.
 - If Content-Type header is included in the request message by the consumer information system, it MUST be transported unmodified through X-Road to the provider information system
 - If Content-Type header is included in the response message by the provider information system, it MUST be transported unmodified through X-Road to the consumer information system
-  ```
+  ```http
   Content-Type: application/json; charset=utf-8
   Content-Type: multipart/form-data; boundary=something
   ```
@@ -299,7 +315,7 @@ In case the service consumer does not provide the `Content-Type` header (or some
 **Accept header**
 - It is RECOMMENDED that the service consumer advertises the content types it is able to understand by including the `Accept` header in the request message.
 - If `Accept` header is included in the request message, it MUST be transported unmodified through X-Road to the service provider.
-  ```
+  ```http
   Accept: application/xml
   ```
 
@@ -309,7 +325,7 @@ In case the service consumer does not provide the Accept header, the Security Se
 - **X-Road-Security-Server**: To send the request to a specific Security Server this header needs to be included. It contains the following parts
   - `[X-Road instance]/[member class]/[member code]/[server code]`
 - Other X-Road extension headers are not defined in this document. Rather they are just contracts between information systems and X-Road handles them like any user defined header.
-  ```
+  ```http
   X-Road-Security-Server: INSTANCE/MEMBERCLASS/MEMBERCODE/SERVERCODE
   ```
 
@@ -317,7 +333,7 @@ In case the service consumer does not provide the Accept header, the Security Se
 - **X-Road-Id**: Unique identifier for this message. It is RECOMMENDED to use universally unique identifiers \[[UUID](#Ref_UUID)\]. If `X-Road-Id` is not provided, it SHALL be generated by the consumer Security Server. The provider Security Server SHALL include the `X-Road-Id` header in the response message.
 - **X-Road-UserId**: User whose action initiated the request. The user ID should be prefixed with two-letter ISO country code (e.g., EE12345678901).
 - **X-Road-Issue**: Identifies received application, issue or document that was the cause of the service request. This field may be used by the client information system to connect service requests (and responses) to working procedures.
-  ```
+  ```http
   X-Road-Id: fa2e18a5-c2cb-4d09-b994-f57727f7c3fb
   X-Road-UserId: EE12345678901
   X-Road-Issue: MT324223MSD
@@ -331,14 +347,14 @@ In case the service consumer does not provide the Accept header, the Security Se
 
 **User defined headers**
 - User defined HTTP headers (i.e. the headers not mentioned in \[[LIST-OF-HTTP-HEADERS](#Ref_HTTPHEADERS)\] or this document) MUST be passed to recipient unmodified by X-Road Security Server.
-  ```
+  ```http
   X-Powered-By: PHP/5.2.17
   X-Pingback: https://example.com/xmlrpc.php
   ```
 
 **Cache headers**
 - X-Road does not cache messages. Cache headers MUST be passed as-is and the consumer/provider MAY take advantage of this information.
-  ```
+  ```http
   Cache-Control: no-cache, no-store, must-revalidate
   Pragma: no-cache
   ```
@@ -419,7 +435,7 @@ Response body:
 ```
 
 HTTP headers:
-```
+```http
 Content-Type: application/json;charset=utf-8
 Date: Thu, 21 Mar 2019 09:45:19 GMT
 x-road-id: 5ea48ae9-15c1-465a-be15-9b6ef2c7ef4a
@@ -448,7 +464,7 @@ Response body:
 ```
 
 HTTP headers:
-```
+```http
 Date: Thu, 21 Mar 2019 11:42:03 GMT
 Content-Type: application/json;charset=utf-8
 X-Road-Error: Server.ServerProxy.NetworkError
@@ -473,7 +489,7 @@ Response body:
 ```
 
 HTTP headers:
-```
+```http
 Date: Thu, 21 Mar 2019 11:45:12 GMT
 Content-Type: application/json;charset=utf-8
 X-Road-Error: Client.BadRequest
@@ -498,7 +514,7 @@ Response body:
 ```
 
 HTTP headers:
-```
+```http
 Date: Thu, 21 Mar 2019 11:57:11 GMT
 Content-Type: application/json;charset=utf-8
 X-Road-Error: Server.ServerProxy.DatabaseError
@@ -521,6 +537,28 @@ HTTP 500 can come from the service provider or from the Security Servers.
 Secure REST services should only provide HTTPS endpoints. This concerns both the consumer Security Server and the provider service. HTTPS protects authentication credentials in transit, for example passwords, API keys or JSON Web Tokens. It also allows clients to authenticate the service and guarantees integrity of the transmitted data. 
 
 It is RECOMMENDED to use mutually authenticated client-side certificates in the connections between the Security Server and information systems - both service consumers and service providers, to provide additional protection for highly privileged web services. Security Server MUST support mutually authenticated client-side certificates on both consumer and provider side. Use of JWT tokens as an authentication method between the Security Server and information system is not supported. Instead, sending JWT tokens in HTTP headers from the service consumer to the service provider is supported - X-Road passes the headers unmodified.
+
+### 4.8 Identifier Character Restrictions
+
+X-Road identifiers include, but are not restricted to:
+- Instance id
+- Member class
+- Member code
+- Subsystem code
+- Service code
+- Service version
+- Central service code
+- Security server code
+
+X-Road Message Protocol for REST imposes some restrictions on the characters that can be used in X-Road identifiers. The following characters SHALL NOT be used in the identifier values:
+- Colon `:`
+- Semicolon `;`
+- Slash `/`
+- Backslash `\`
+- Percent `%`
+- Control characters and zero-width spaces
+  - U+0000—U+001F and U+007F—U+009F; includes chars like tab, newline, del etc.
+  - U+200B and U+FEFF
 
 ## 5 Services
 ### 5.1 Describing Services

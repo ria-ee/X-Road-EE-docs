@@ -18,7 +18,7 @@
     <article class="markdown-body">
 <h1>
 <a id="x-road-external-load-balancer-installation-guide" class="anchor" href="#x-road-external-load-balancer-installation-guide" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>X-Road: External Load Balancer Installation Guide</h1>
-<p>Version: 1.4<br>
+<p>Version: 1.11<br>
 Doc. ID: IG-XLB</p>
 <table>
 <thead>
@@ -79,6 +79,48 @@ Doc. ID: IG-XLB</p>
 <td>Remove Ubuntu 14.04 support</td>
 <td>Jarkko Hyöty</td>
 </tr>
+<tr>
+<td>08.10.2020</td>
+<td>1.8</td>
+<td>Added notes about API keys and caching</td>
+<td>Janne Mattila</td>
+</tr>
+<tr>
+<td>19.10.2020</td>
+<td>1.9</td>
+<td>Remove xroad-jetty and nginx mentions and add xroad-proxy-ui-api</td>
+<td>Caro Hautamäki</td>
+</tr>
+<tr>
+<td>19.10.2020</td>
+<td>1.10</td>
+<td>Added information about management REST API permissions</td>
+<td>Petteri Kivimäki</td>
+</tr>
+<tr>
+<td>23.12.2020</td>
+<td>1.11</td>
+<td>Updates for Ubuntu 20.04 support</td>
+<td>Jarkko Hyöty</td>
+</tr>
+<tr>
+<td>02.07.2021</td>
+<td>1.12</td>
+<td>Updates for state sync</td>
+<td>Jarkko Hyöty</td>
+</tr>
+<tr>
+<td>25.08.2021</td>
+<td>1.13</td>
+<td>Update X-Road references from version 6 to 7</td>
+<td>Caro Hautamäki</td>
+</tr>
+<tr>
+<td>17.09.2021</td>
+<td>1.14</td>
+<td>Add note about the proxy health check now also checking global conf validity</td>
+<td>Caro Hautamäki</td>
+</tr>
 </tbody>
 </table>
 <h2>
@@ -98,10 +140,16 @@ Doc. ID: IG-XLB</p>
 <li>
 <a href="#2-overview">2. Overview</a>
 <ul>
-<li><a href="#21-goals-and-assumptions">2.1 Goals and assumptions</a></li>
+<li>
+<a href="#21-goals-and-assumptions">2.1 Goals and assumptions</a>
+<ul>
+<li><a href="#211-basic-assumptions-about-the-load-balanced-environment">2.1.1 Basic assumptions about the load balanced environment</a></li>
+<li><a href="#212-consequences-of-the-selected-implementation-model">2.1.2 Consequences of the selected implementation model</a></li>
+</ul>
+</li>
 <li><a href="#22-communication-with-external-servers-and-services-the-cluster-from-the-point-of-view-of-a-client-or-service">2.2 Communication with external servers and services: The cluster from the point of view of a client or service</a></li>
 <li>
-<a href="#23-state-replication-from-the-master-to-the-slaves">2.3 State replication from the master to the slaves</a>
+<a href="#23-state-replication-from-the-primary-to-the-replicas">2.3 State replication from the primary to the replicas</a>
 <ul>
 <li>
 <a href="#231-replicated-state">2.3.1 Replicated state</a>
@@ -126,8 +174,8 @@ Doc. ID: IG-XLB</p>
 <a href="#3-x-road-installation-and-configuration">3. X-Road Installation and configuration</a>
 <ul>
 <li><a href="#31-prerequisites">3.1 Prerequisites</a></li>
-<li><a href="#32-master-installation">3.2 Master installation</a></li>
-<li><a href="#33-slave-installation">3.3 Slave installation</a></li>
+<li><a href="#32-primary-installation">3.2 primary installation</a></li>
+<li><a href="#33-replica-installation">3.3 Replica installation</a></li>
 <li>
 <a href="#34-health-check-service-configuration">3.4 Health check service configuration</a>
 <ul>
@@ -148,21 +196,21 @@ Doc. ID: IG-XLB</p>
 <li><a href="#422-on-ubuntu">4.2.2 on Ubuntu</a></li>
 </ul>
 </li>
-<li><a href="#43-configuring-the-master-instance-for-replication">4.3 Configuring the master instance for replication</a></li>
-<li><a href="#44-configuring-the-slave-instance-for-replication">4.4 Configuring the slave instance for replication</a></li>
+<li><a href="#43-configuring-the-primary-instance-for-replication">4.3 Configuring the primary instance for replication</a></li>
+<li><a href="#44-configuring-the-replica-instance-for-replication">4.4 Configuring the replica instance for replication</a></li>
 </ul>
 </li>
 <li>
 <a href="#5-configuring-data-replication-with-rsync-over-ssh">5. Configuring data replication with rsync over SSH</a>
 <ul>
-<li><a href="#51-set-up-ssh-between-slaves-and-the-master">5.1 Set up SSH between slaves and the master</a></li>
+<li><a href="#51-set-up-ssh-between-replicas-and-the-primary">5.1 Set up SSH between replicas and the primary</a></li>
 <li>
-<a href="#52-set-up-periodic-configuration-synchronization-on-the-slave-nodes">5.2 Set up periodic configuration synchronization on the slave nodes</a>
+<a href="#52-set-up-periodic-configuration-synchronization-on-the-replica-nodes">5.2 Set up periodic configuration synchronization on the replica nodes</a>
 <ul>
-<li><a href="#521-rhelubuntu-1804-use-systemd-for-configuration-synchronization">5.2.1 RHEL/Ubuntu 18.04: Use systemd for configuration synchronization</a></li>
+<li><a href="#521-use-systemd-for-configuration-synchronization">5.2.1 Use systemd for configuration synchronization</a></li>
 </ul>
 </li>
-<li><a href="#53-set-up-log-rotation-for-the-sync-log-on-the-slave-nodes">5.3 Set up log rotation for the sync log on the slave nodes</a></li>
+<li><a href="#53-set-up-log-rotation-for-the-sync-log-on-the-replica-nodes">5.3 Set up log rotation for the sync log on the replica nodes</a></li>
 </ul>
 </li>
 <li>
@@ -181,8 +229,8 @@ Doc. ID: IG-XLB</p>
 <a href="#72-online-rolling-upgrade">7.2 Online rolling upgrade</a>
 <ul>
 <li><a href="#721-pausing-the-database-and-configuration-synchronization">7.2.1 Pausing the database and configuration synchronization</a></li>
-<li><a href="#722-upgrading-the-master">7.2.2 Upgrading the master</a></li>
-<li><a href="#723-upgrade-a-single-slave-node">7.2.3 Upgrade a single slave node</a></li>
+<li><a href="#722-upgrading-the-primary">7.2.2 Upgrading the primary</a></li>
+<li><a href="#723-upgrade-a-single-replica-node">7.2.3 Upgrade a single replica node</a></li>
 </ul>
 </li>
 </ul>
@@ -217,7 +265,7 @@ functioning principles.</p>
 <tbody>
 <tr>
 <td align="center">[SS-CLUSTER]</td>
-<td align="left"><a href="https://github.com/nordic-institute/X-Road/tree/6.20.0/ansible/ss_cluster">Readme: Security server cluster setup with Ansible</a></td>
+<td align="left"><a href="https://github.com/nordic-institute/X-Road/tree/7.0.1/ansible/ss_cluster">Readme: Security server cluster setup with Ansible</a></td>
 </tr>
 <tr>
 <td align="center">[IG-SS]</td>
@@ -225,7 +273,7 @@ functioning principles.</p>
 </tr>
 <tr>
 <td align="center">[UG-SS]</td>
-<td align="left"><a href="ug-ss_x-road_6_security_server_user_guide.html">X-Road 6 Security Server User Guide</a></td>
+<td align="left"><a href="ug-ss_x-road_6_security_server_user_guide.html">X-Road 7 Security Server User Guide</a></td>
 </tr>
 <tr>
 <td align="center">
@@ -238,7 +286,7 @@ functioning principles.</p>
 <a id="2-overview" class="anchor" href="#2-overview" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2. Overview</h2>
 <p>This document describes the external load balancing support features implemented by X-Road and the steps necessary to
 configure security servers to run as a cluster where each node has an identical configuration, including their keys and
-certificates. X-Road security server configuration changes are handled by a single master server and one or more slave
+certificates. X-Road security server configuration changes are handled by a single primary server and one or more replica
 servers.</p>
 <p>Chapter <a href="#3-x-road-installation-and-configuration">3. X-Road Installation and configuration</a> describes the installation
 on a high level and as a whole. The later chapters cover the details of the different parts of the installation and configuration.
@@ -253,24 +301,25 @@ AWS ALB or Classic Load Balancer, or a hardware appliance). A health check servi
 status, this is described in more detail in section <a href="#34-health-check-service-configuration">3.4 Health check service configuration</a></p>
 <p>The load balancing support is implemented with a few assumptions about the environment that users should be aware of.
 Carefully consider these assumptions before deciding if the supported features are suitable for your needs.</p>
-<p><a name="basic_assumptions"></a>
-<strong>Basic Assumptions about the load balanced environment:</strong></p>
+<h4>
+<a id="211-basic-assumptions-about-the-load-balanced-environment" class="anchor" href="#211-basic-assumptions-about-the-load-balanced-environment" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.1.1 Basic assumptions about the load balanced environment</h4>
 <ul>
 <li>Adding or removing nodes to or from the cluster is infrequent. New nodes need to be added manually and this takes some
 time.</li>
 <li>Changes to the configuration files are relatively infrequent and some downtime in ability to propagate the changes can
 be tolerated.</li>
-<li>The cluster uses a master-slave model and the configuration master is not replicated.</li>
+<li>The cluster uses a primary-replica model and the configuration primary is not replicated.</li>
 </ul>
-<p><strong>Consequences of the selected implementation model:</strong></p>
+<h4>
+<a id="212-consequences-of-the-selected-implementation-model" class="anchor" href="#212-consequences-of-the-selected-implementation-model" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.1.2 Consequences of the selected implementation model</h4>
 <ul>
-<li>Changes to the <code>serverconf</code> database, authorization and signing keys are applied via the configuration master, which is
-a member of the cluster. The replication is one-way from master to slaves and the slaves should treat the configuration
+<li>Changes to the <code>serverconf</code> database, authorization and signing keys are applied via the configuration primary, which is
+a member of the cluster. The replication is one-way from primary to replicas and the replicas should treat the configuration
 as read-only.</li>
-<li>The cluster nodes can continue operation if the master fails but the configuration can not be changed until:
+<li>The cluster nodes can continue operation if the primary fails but the configuration can not be changed until:
 <ul>
-<li>the master comes back online, or</li>
-<li>some other node is manually promoted to be the master.</li>
+<li>the primary comes back online, or</li>
+<li>some other node is manually promoted to be the primary.</li>
 </ul>
 </li>
 <li>If a node fails, the messages being processed by that node are lost.
@@ -281,7 +330,7 @@ Because there potentially is some delay before the failure is noticed, some mess
 </ul>
 </li>
 <li>Configuration updates are asynchronous and the cluster state is eventually consistent.</li>
-<li>If the master node fails or communication is interrupted during a configuration update, each slave should have a valid
+<li>If the primary node fails or communication is interrupted during a configuration update, each replica should have a valid
 configuration, but the cluster state can be inconsistent (some members might have the old configuration while some might
 have received all the changes).</li>
 </ul>
@@ -298,12 +347,12 @@ independently make requests to OCSP and TSA services as well as to the central s
 as needed.</p>
 <p><a href="img/load_balancing_traffic-2.png" target="_blank" rel="noopener noreferrer"><img src="img/load_balancing_traffic-2.png" alt="outbound traffic" style="max-width:100%;"></a></p>
 <h3>
-<a id="23-state-replication-from-the-master-to-the-slaves" class="anchor" href="#23-state-replication-from-the-master-to-the-slaves" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3 State replication from the master to the slaves</h3>
+<a id="23-state-replication-from-the-primary-to-the-replicas" class="anchor" href="#23-state-replication-from-the-primary-to-the-replicas" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3 State replication from the primary to the replicas</h3>
 <p><a href="img/load_balancing_state_replication.png" target="_blank" rel="noopener noreferrer"><img src="img/load_balancing_state_replication.png" alt="state replication" style="max-width:100%;"></a></p>
 <h4>
 <a id="231-replicated-state" class="anchor" href="#231-replicated-state" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3.1 Replicated state</h4>
-<h6>
-<a id="2311-serverconf-database-replication" class="anchor" href="#2311-serverconf-database-replication" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3.1.1 <code>serverconf</code> database replication</h6>
+<h5>
+<a id="2311-serverconf-database-replication" class="anchor" href="#2311-serverconf-database-replication" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3.1.1 <code>serverconf</code> database replication</h5>
 <table>
 <thead>
 <tr>
@@ -323,9 +372,9 @@ as needed.</p>
 <p>The serverconf database replication is done using streaming replication with hot standby. Note that PostgreSQL replication
 is all-or-nothing: it is not possible to exclude databases from the replication. This is why the replicated serverconf and
 non-replicated messagelog databases need to be separated to different instances.</p>
-<h6>
+<h5>
 <a id="2312-key-configuration-and-software-token-replication-from-etcxroadsigner" class="anchor" href="#2312-key-configuration-and-software-token-replication-from-etcxroadsigner" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3.1.2 Key configuration and software token replication from <code>/etc/xroad/signer/*</code>
-</h6>
+</h5>
 <table>
 <thead>
 <tr>
@@ -346,16 +395,17 @@ non-replicated messagelog databases need to be separated to different instances.
 <p>Previously, any external modification to <code>/etc/xroad/signer/keyconf.xml</code> was overwritten by the X-Road signer process if
 it was running. Therefore, replicating the signer configuration without service disruptions would have required taking the
 cluster members offline one-by-one. The load balancing support adds the possibility for external modifications to the
-keyconf.xml to be applied on slave nodes without service disruptions. The actual state replication is done with a scheduled
+keyconf.xml to be applied on replica nodes without service disruptions. The actual state replication is done with a scheduled
 rsync over ssh. This might take a few minutes so a slight delay in propagating the changes must be tolerated by the
 clustered environment. A small delay should usually cause no problems as new keys and certificates are unlikely to be used
 immediately for X-Road messaging. Changes to the configuration are also usually relatively infrequent. These were one of
-the <a href="#basic_assumptions">basic assumptions</a> about the environment. Users should make sure this holds true for them.</p>
-<p>The slave nodes use the <code>keyconf.xml</code> in read-only mode: no changes made from the admin UI are persisted to disk. Slaves
+the <a href="#211-basic-assumptions-about-the-load-balanced-environment">basic assumptions</a> about the environment.
+Users should make sure this holds true for them.</p>
+<p>The replica nodes use the <code>keyconf.xml</code> in read-only mode: no changes made from the admin UI are persisted to disk. replicas
 reload the configuration from disk periodically and apply the changes to their running in-memory configuration.</p>
-<h6>
+<h5>
 <a id="2313-other-server-configuration-parameters-from-etcxroad" class="anchor" href="#2313-other-server-configuration-parameters-from-etcxroad" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3.1.3 Other server configuration parameters from <code>/etc/xroad/*</code>
-</h6>
+</h5>
 <table>
 <thead>
 <tr>
@@ -382,20 +432,20 @@ reload the configuration from disk periodically and apply the changes to their r
 <li>
 <code>globalconf/</code> (syncing globalconf could conflict with <code>confclient</code>)</li>
 <li>
-<code>conf.d/node.ini</code> (specifies node type: master or slave)</li>
+<code>conf.d/node.ini</code> (specifies node type: primary or replica)</li>
 </ul>
 <h4>
 <a id="232-non-replicated-state" class="anchor" href="#232-non-replicated-state" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3.2 Non-replicated state</h4>
-<h6>
-<a id="2321-messagelog-database" class="anchor" href="#2321-messagelog-database" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3.2.1 <code>messagelog</code> database</h6>
+<h5>
+<a id="2321-messagelog-database" class="anchor" href="#2321-messagelog-database" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3.2.1 <code>messagelog</code> database</h5>
 <p>The messagelog database is not replicated. Each node has its own separate messagelog database. <strong>However</strong>, in order to
 support PostgreSQL streaming replication (hot standby mode) for the serverconf data, the serverconf and messagelog
 databases must be separated. This requires modifications to the installation (a separate PostgreSQL instance is needed
 for the messagelog database) and has some implications on the security server resource requirements as a separate
 instance uses some memory.</p>
-<h6>
+<h5>
 <a id="2322-ocsp-responses-from-varcachexroad" class="anchor" href="#2322-ocsp-responses-from-varcachexroad" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3.2.2 OCSP responses from <code>/var/cache/xroad/</code>
-</h6>
+</h5>
 <p>The OCSP responses are currently not replicated. Replicating them could make the cluster more fault tolerant but the
 replication cannot simultaneously create a single point of failure. A distributed cache could be used for the responses.</p>
 <h2>
@@ -405,13 +455,13 @@ replication cannot simultaneously create a single point of failure. A distribute
 your purposes.</p>
 <h3>
 <a id="31-prerequisites" class="anchor" href="#31-prerequisites" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.1 Prerequisites</h3>
-<p>In order to properly set up the data replication, the slave nodes must be able to connect to:</p>
+<p>In order to properly set up the data replication, the replica nodes must be able to connect to:</p>
 <ul>
-<li>the master server using SSH (tcp port 22), and</li>
-<li>the master <code>serverconf</code> database (e.g. tcp port 5433).</li>
+<li>the primary server using SSH (tcp port 22), and</li>
+<li>the primary <code>serverconf</code> database (e.g. tcp port 5433).</li>
 </ul>
 <h3>
-<a id="32-master-installation" class="anchor" href="#32-master-installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.2 Master installation</h3>
+<a id="32-primary-installation" class="anchor" href="#32-primary-installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.2 primary installation</h3>
 <ol>
 <li>
 <p>Install the X-Road security server packages using the normal installation procedure or use an existing standalone node.</p>
@@ -431,8 +481,8 @@ your purposes.</p>
 </ul>
 </li>
 <li>
-<p>If you are using an already configured server as the master, the existing configuration was replicated to the slaves
-in step 3. Otherwise, proceed to configure the master server: install the configuration anchor, set up basic information,
+<p>If you are using an already configured server as the primary, the existing configuration was replicated to the replicas
+in step 3. Otherwise, proceed to configure the primary server: install the configuration anchor, set up basic information,
 create authentication and signing keys and so on. See the security server installation guide [<a href="#13-references">IG-SS</a>]
 for help with the basic setup.</p>
 </li>
@@ -440,24 +490,21 @@ for help with the basic setup.</p>
 <p>Set up the configuration file replication, see section
 <a href="#5-configuring-data-replication-with-rsync-over-ssh">5. Configuring data replication with rsync over SSH</a></p>
 <ul>
-<li>Additionally, <code>rssh</code> shell can be used to to restrict slave access further, but note that it is not available on RHEL.</li>
+<li>Additionally, <code>rssh</code> shell can be used to to restrict replica access further, but note that it is not available on RHEL.</li>
 </ul>
 </li>
 <li>
 <p>Configure the node type as <code>master</code> in <code>/etc/xroad/conf.d/node.ini</code>:</p>
-<pre><code>[node]
-type=master
-</code></pre>
+<div class="highlight highlight-source-ini"><pre><span class="pl-en">[node]</span>
+<span class="pl-k">type</span>=master</pre></div>
 <p>Change the owner and group of the file to <code>xroad:xroad</code> if it is not already.</p>
 </li>
 <li>
 <p>Disable support for client-side pooled connections (HTTP connection persistence) in <code>/etc/xroad/conf.d/local.ini</code></p>
 <ul>
-<li>
-<p>Because the load balancing works at TCP level, disabling persistent HTTP connections is recommended so that the load balancer can evenly distribute the traffic.</p>
-<pre><code>[proxy]
-server-support-clients-pooled-connections=false
-</code></pre>
+<li>Because the load balancing works at TCP level, disabling persistent HTTP connections is recommended so that the load balancer can evenly distribute the traffic.
+<div class="highlight highlight-source-ini"><pre><span class="pl-en">[proxy]</span>
+<span class="pl-k">server-support-clients-pooled-connections</span>=false</pre></div>
 </li>
 </ul>
 </li>
@@ -466,12 +513,13 @@ server-support-clients-pooled-connections=false
 </li>
 </ol>
 <h3>
-<a id="33-slave-installation" class="anchor" href="#33-slave-installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.3 Slave installation</h3>
+<a id="33-replica-installation" class="anchor" href="#33-replica-installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.3 Replica installation</h3>
 <ol>
 <li>
-<p>Install security server packages using the normal installation procedure. <code>nginx</code> or <code>xroad-jetty</code> packages  are not
-required for slave nodes, but the admin graphical user interface (which requires these packages) can be handy for
-diagnostics. It should be noted that changing a slave's configuration via the admin gui is not possible.</p>
+<p>Install security server packages using the normal installation procedure. Alternatively you can also install only the packages
+required for replica nodes. <code>xroad-proxy-ui-api</code> package can be omitted, but the admin graphical user interface
+(which is provided by this package) can be handy for diagnostics. It should be noted that changing a replicas
+configuration via the admin gui is not possible.</p>
 </li>
 <li>
 <p>Stop the xroad services.</p>
@@ -482,18 +530,18 @@ diagnostics. It should be noted that changing a slave's configuration via the ad
 </li>
 <li>
 <p>Change <code>/etc/xroad/db.properties</code> to point to the separate database instance and change password to match the one
-defined in the master database (the password is part of the data that is replicated to the slaves).</p>
+defined in the primary database (the password is part of the data that is replicated to the replicas).</p>
 <ul>
 <li>
 <code>serverconf.hibernate.connection.url</code> : Change the url port number from <code>5432</code> to <code>5433</code> (or the port you specified)</li>
 <li>
-<code>serverconf.hibernate.connection.password</code>: Change to match the master db's password (in plaintext).</li>
+<code>serverconf.hibernate.connection.password</code>: Change to match the primary db's password (in plaintext).</li>
 </ul>
 </li>
 <li>
-<p>Set up SSH between the master and the slave (the slave must be able to access <code>/etc/xroad</code> via ssh)</p>
+<p>Set up SSH between the primary and the replica (the replica must be able to access <code>/etc/xroad</code> via ssh)</p>
 <ul>
-<li>Create an SSH keypair for <code>xroad</code> user and copy the public key to authorized keys of the master node
+<li>Create an SSH keypair for <code>xroad</code> user and copy the public key to authorized keys of the primary node
 (<code>/home/xroad-slave/.ssh/authorized_keys</code>)</li>
 </ul>
 </li>
@@ -501,10 +549,10 @@ defined in the master database (the password is part of the data that is replica
 <p>Set up state synchronization using rsync+ssh. See section
 <a href="#5-configuring-data-replication-with-rsync-over-ssh">5. Configuring data replication with rsync over SSH</a></p>
 <ul>
-<li>Make the inital synchronization between the master and the slave.</li>
+<li>Make the initial synchronization between the primary and the replica.</li>
 </ul>
-<div class="highlight highlight-source-shell"><pre>rsync -e ssh -avz --delete --exclude db.properties --exclude <span class="pl-s"><span class="pl-pds">"</span>/postgresql<span class="pl-pds">"</span></span> --exclude <span class="pl-s"><span class="pl-pds">"</span>/conf.d/node.ini<span class="pl-pds">"</span></span> --exclude <span class="pl-s"><span class="pl-pds">"</span>/nginx<span class="pl-pds">"</span></span> xroad-slave@<span class="pl-k">&lt;</span>master<span class="pl-k">&gt;</span>:/etc/xroad/ /etc/xroad/</pre></div>
-<p>Where <code>&lt;master&gt;</code> is the master server's DNS or IP address.</p>
+<div class="highlight highlight-source-shell"><pre>rsync -e ssh -avz --delete --exclude db.properties --exclude <span class="pl-s"><span class="pl-pds">"</span>/postgresql<span class="pl-pds">"</span></span> --exclude <span class="pl-s"><span class="pl-pds">"</span>/conf.d/node.ini<span class="pl-pds">"</span></span> --exclude <span class="pl-s"><span class="pl-pds">"</span>/gpghome<span class="pl-pds">"</span></span> xroad-slave@<span class="pl-k">&lt;</span>primary<span class="pl-k">&gt;</span>:/etc/xroad/ /etc/xroad/</pre></div>
+<p>Where <code>&lt;primary&gt;</code> is the primary server's DNS or IP address.</p>
 </li>
 <li>
 <p>Configure the node type as <code>slave</code> in <code>/etc/xroad/conf.d/node.ini</code>.</p>
@@ -516,18 +564,33 @@ type=slave</pre></div>
 <p>Start the X-Road services.</p>
 </li>
 <li>
-<p>If you wish to use the slave security server's admin user interface, you need to implement additional user group restrictions. As noted in step 1, changes to the slave node security server configuration must not be made through its admin user interface, as any such changes would be overwritten by the replication. To disable UI editing privileges for all users, remove the following user groups from the slave security server:</p>
+<p>If you wish to use the replica security server's admin user interface, you need to implement additional user group restrictions. As noted in step 1, changes to the replica node security server configuration must not be made through its admin user interface, as any such changes would be overwritten by the replication. To disable UI editing privileges for all users, remove the following user groups from the replica security server:</p>
 <ul>
 <li><code>xroad-security-officer</code></li>
 <li><code>xroad-registration-officer</code></li>
 <li><code>xroad-service-administrator</code></li>
 <li><code>xroad-system-administrator</code></li>
 </ul>
-<p>After removing these groups, the super user created during the security server installation is a member of only one UI privilege group: <code>xroad-securityserver-observer</code>. This group allows read-only access to the admin user interface and provides a safe way to use the UI for checking the configuration status of the slave security server. Since admin UI users are UNIX users that are members of specific privilege groups, more users can be added to the read-only group as necessary. Security server installation scripts detect the node type of existing installations and modify user group creation accordingly so as to not overwrite this configuration step during security server updates.</p>
+<p>After removing these groups, the super user created during the security server installation is a member of only one UI privilege group: <code>xroad-securityserver-observer</code>. This group allows read-only access to the admin user interface and provides a safe way to use the UI for checking the configuration status of the replica security server. Since admin UI users are UNIX users that are members of specific privilege groups, more users can be added to the read-only group as necessary. Security server installation scripts detect the node type of existing installations and modify user group creation accordingly so as to not overwrite this configuration step during security server updates.</p>
 <p>For more information on user groups and their effect on admin user interface privileges in the security server, see the  Security Server User Guide [<a href="#13-references">UG-SS</a>].</p>
+<p>Also, the replica security server's management REST API can be used to read the replica's configuration. However, modifying the replica's configuration using the management REST API is blocked. API keys are replicated from the primary to the replicas, and the keys that are associated with the <code>xroad-securityserver-observer</code> role have read-only access to the replica. The keys that are not associated with the <code>xroad-securityserver-observer</code> role, don't have any access to the replica. See next item for more details.</p>
+<p>For more information on the management REST API, see the  Security Server User Guide [<a href="#13-references">UG-SS</a>].</p>
 </li>
 <li>
-<p>It is possible to use the autologin-package with slave nodes to enable automatic PIN-code insertion, however the autologin-package default implementation stores PIN-codes in plain text and should not be used in production environments. Instructions on how to configure the autologin-package to use a more secure custom PIN-code storing implementation can be found in <a href="ug-autologin_x-road_v6_autologin_user_guide.html">autologin documentation</a></p>
+<p>Note about API keys and caching.
+If API keys have been created for primary node, those keys are replicated to replicas, like everything else from <code>serverconf</code> database is.
+The keys that are associated with the <code>xroad-securityserver-observer</code> role have read-only access to the replica.
+Instead, the keys that are not associated with the <code>xroad-securityserver-observer</code> role, don't have any access to the replica and API calls will fail.
+To avoid this, replica REST API should only be accessed using keys associated with the <code>xroad-securityserver-observer</code> role, and only for operations that read configuration, not updates. </p>
+<p>
+Furthermore, API keys are accessed through a cache that assumes that all updates to keys (e.g. revoking keys, or changing permissions) are done using the same node.
+If API keys are changed on primary, the changes are not reflected on the replica caches until the next time <code>xroad-proxy-ui-api</code> process is restarted.
+To address this issue, you should restart replica nodes' <code>xroad-proxy-ui-api</code> processes after API keys are modified (and database has been replicated to replicas), to ensure correct operation.</p>
+<p>
+Improvements to API key handling in clustered setups will be included in later releases.</p>
+</li>
+<li>
+<p>It is possible to use the autologin-package with replica nodes to enable automatic PIN-code insertion, however the autologin-package default implementation stores PIN-codes in plain text and should not be used in production environments. Instructions on how to configure the autologin-package to use a more secure custom PIN-code storing implementation can be found in <a href="../Utils/ug-autologin_x-road_v6_autologin_user_guide.html">autologin documentation</a></p>
 </li>
 </ol>
 <p>The configuration is now complete. If you do not want to set up the health check service, continue to <a href="#6-verifying-the-setup">chapter 6</a>
@@ -560,14 +623,13 @@ via configuration options.</p>
 </tr>
 </tbody>
 </table>
-<p>Below is a configuration that can be added to  <code>/etc/xroad/conf.d/local.ini</code> on the master that would enable the health check
+<p>Below is a configuration that can be added to  <code>/etc/xroad/conf.d/local.ini</code> on the primary that would enable the health check
 service on all the nodes once the configuration has been replicated. Changes to the settings require restarting the
 <code>xroad-proxy</code> service to take effect. This example enables listening to all available network interfaces (<code>0.0.0.0</code>) on
 port 5588.</p>
-<pre><code>[proxy]
-health-check-interface=0.0.0.0
-health-check-port=5588
-</code></pre>
+<div class="highlight highlight-source-ini"><pre><span class="pl-en">[proxy]</span>
+<span class="pl-k">health-check-interface</span>=0.0.0.0
+<span class="pl-k">health-check-port</span>=5588</pre></div>
 <p>The service can be accessed using plain HTTP. It will return <code>HTTP 200 OK</code> if the proxy should be able to process messages
 and <code>HTTP 500 Internal Server Error</code> otherwise. A short message about the failure reason, if available, is added to the
 body of the response. The service runs as a part of the <code>xroad-proxy</code> service.</p>
@@ -576,6 +638,7 @@ body of the response. The service runs as a part of the <code>xroad-proxy</code>
 <li>The server authentication key is accessible and that the OCSP response for the certificate is <code>good</code>. This requires a
 running <code>xroad-signer</code> service in good condition.</li>
 <li>The <code>serverconf</code> database is accessible.</li>
+<li>The <code>global configuration</code> is valid and not expired.</li>
 </ul>
 <p>Each of these status checks has a separate timeout of 5 seconds. If the status check fails to produce a response in this
 time, it will be considered a health check failure and will cause a <code>HTTP 500</code> response.</p>
@@ -629,60 +692,51 @@ after not having access to it's keys.</p>
 <p>Before testing with an actual load balancer, you can test the health check service with <code>curl</code>, for example.</p>
 <p>Below is an example response from the Health check service when everything is up and running and messages should go through
 this node:</p>
-<pre><code>$ curl -i localhost:5588
+<div class="highlight highlight-source-shell"><pre>$ curl -i localhost:5588
    HTTP/1.1 200 OK
    Content-Length: 0
-   Server: Jetty(8.y.z-SNAPSHOT)
-</code></pre>
+   Server: Jetty(8.y.z-SNAPSHOT)</pre></div>
 <p>And a health check service response on the same node when the service <code>xroad-signer</code> is not running:</p>
-<pre><code>$ curl -i localhost:5588
+<div class="highlight highlight-source-shell"><pre>$ curl -i localhost:5588
 HTTP/1.1 500 Server Error
 Transfer-Encoding: chunked
 Server: Jetty(8.y.z-SNAPSHOT)
 
-Fetching health check response timed out for: Authentication key OCSP status
-</code></pre>
+Fetching health check response timed out for: Authentication key OCSP status</pre></div>
 <p>Continue to <a href="#6-verifying-the-setup">chapter 6</a> to verify the setup.</p>
 <h2>
 <a id="4-database-replication-setup" class="anchor" href="#4-database-replication-setup" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4. Database replication setup</h2>
-<p>For technical details on the PostgreSQL replication, refer to the <a href="https://www.postgresql.org/docs/9.2/static/high-availability.html" rel="nofollow">official documentation</a>.
+<p>For technical details on the PostgreSQL replication, refer to the <a href="https://www.postgresql.org/docs/10/high-availability.html" rel="nofollow">official documentation</a>.
 Note that the versions of PostgreSQL distributed with RHEL and Ubuntu are different. At the time of writing, RHEL 7
-distributes PostgreSQL version 9.2, and Ubuntu 18.04 version 10; the replication configuration is the same
-for all these versions.</p>
+distributes PostgreSQL version 9.2, and RHEL 8 and Ubuntu 18.04 version 10; the replication configuration is the same
+for all these versions. On Ubuntu 20.04 using PostgreSQL 12, the configuration has some differences.</p>
 <h3>
 <a id="41-setting-up-tls-certificates-for-database-authentication" class="anchor" href="#41-setting-up-tls-certificates-for-database-authentication" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.1 Setting up TLS certificates for database authentication</h3>
-<p>This section describes how to create and set up certificate authentication between the slave and master database instances.</p>
+<p>This section describes how to create and set up certificate authentication between the replica and primary database instances.</p>
 <p>For further details on the certificate authentication, see the
-<a href="https://www.postgresql.org/docs/9.2/static/auth-methods.html#AUTH-CERT" rel="nofollow">PostgreSQL documentation</a>.</p>
+<a href="https://www.postgresql.org/docs/10/auth-methods.html#AUTH-CERT" rel="nofollow">PostgreSQL documentation</a>.</p>
 <ol>
 <li>
 <p>Generate the Certificate Authority key and a self-signed certificate for the root-of-trust:</p>
-<pre><code>openssl req -new -x509 -days 7300 -nodes -sha256 -out ca.crt -keyout ca.key -subj '/O=cluster/CN=CA'
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>openssl req -new -x509 -days 7300 -nodes -sha256 -out ca.crt -keyout ca.key -subj <span class="pl-s"><span class="pl-pds">'</span>/O=cluster/CN=CA<span class="pl-pds">'</span></span></pre></div>
 <p>The subject name does not really matter here. Remember to keep the <code>ca.key</code> file in a safe place.</p>
-<blockquote>
-<p>Alternatively, an existing internal CA can be used for managing the certificates. A sub-CA should be created as the
-database cluster root-of-trust and use that for issuing the slave and master certificates.</p>
-</blockquote>
+<p>Alternatively, an existing internal CA can be used for managing the certificates. A sub-CA should be created as the database cluster
+root-of-trust and used for issuing the replica and primary certificates.</p>
 </li>
 <li>
-<p>Generate keys and certificates signed by the CA for each postgresql instance, including the master. Do not use the CA
+<p>Generate keys and certificates signed by the CA for each postgresql instance, including the primary. Do not use the CA
 certificate and key as the database certificate and key.</p>
 <p>Generate a key and the Certificate Signing Request for it:</p>
-<pre><code>openssl req -new -nodes -days 7300 -keyout server.key -out server.csr -subj "/O=cluster/CN=&lt;nodename&gt;"
-</code></pre>
-<p><strong>Note:</strong> The <code>&lt;nodename&gt;</code> (the subject common name) will be used for identifying the cluster nodes. For slave nodes,
-it needs to match the replication user name that is added to the master database and the username that the slave node
-database uses to connect to the master. For example, in a system with one master and two slaves, the names of the nodes
-could be <code>master</code>, <code>slave1</code> and <code>slave2</code>. Other parts of the subject name do not matter and can be named as is
+<div class="highlight highlight-source-shell"><pre>openssl req -new -nodes -days 7300 -keyout server.key -out server.csr -subj <span class="pl-s"><span class="pl-pds">"</span>/O=cluster/CN=&lt;nodename&gt;<span class="pl-pds">"</span></span></pre></div>
+<p><strong>Note:</strong> The <code>&lt;nodename&gt;</code> (the subject common name) will be used for identifying the cluster nodes. For replica nodes,
+it needs to match the replication user name that is added to the primary database and the username that the replica node
+database uses to connect to the primary. For example, in a system with one primary and two replicas, the names of the nodes
+could be <code>primary</code>, <code>replica1</code> and <code>replica2</code>. Other parts of the subject name do not matter and can be named as is
 convenient.</p>
-<p>For more information on adding the replication user name to the master database, see chapter
-<a href="#43-configuring-the-master-instance-for-replication">4.3 Configuring the master instance for replication</a>.
-Configuring the username into <code>recovery.conf</code> on the slave nodes is detailed in chapter
-<a href="#44-configuring-the-slave-instance-for-replication">4.4 Configuring the slave instance for replication</a>).</p>
+<p>For more information on adding the replication user name to the primary database, see chapter <a href="#43-configuring-the-primary-instance-for-replication">4.3 Configuring the primary instance for replication</a>.</p>
+<p>Configuring the username on the replica nodes is detailed in chapter <a href="#44-configuring-the-replica-instance-for-replication">4.4 Configuring the replica instance for replication</a>).</p>
 <p>Sign the CSR with the CA, creating a certificate:</p>
-<pre><code>openssl x509 -req -in server.csr -CAcreateserial -CA ca.crt -CAkey ca.key -days 7300 -out server.crt
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>openssl x509 -req -in server.csr -CAcreateserial -CA ca.crt -CAkey ca.key -days 7300 -out server.crt</pre></div>
 <p>Repeat the above steps for each node.</p>
 </li>
 <li>
@@ -702,52 +756,56 @@ sudo chmod 400 /etc/xroad/postgresql/<span class="pl-k">*</span></pre></div>
 <h4>
 <a id="421-on-rhel" class="anchor" href="#421-on-rhel" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.2.1 on RHEL</h4>
 <p>Create a new <code>systemctl</code> service unit for the new database. As root, execute the following command:</p>
-<pre><code>cat &lt;&lt;EOF &gt;/etc/systemd/system/postgresql-serverconf.service
-.include /lib/systemd/system/postgresql.service
-[Service]
-Environment=PGPORT=5433
-Environment=PGDATA=/var/lib/pgsql/serverconf
-EOF
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>cat <span class="pl-s"><span class="pl-k">&lt;&lt;</span><span class="pl-k">EOF</span> &gt;/etc/systemd/system/postgresql-serverconf.service</span>
+<span class="pl-s">.include /lib/systemd/system/postgresql.service</span>
+<span class="pl-s">[Service]</span>
+<span class="pl-s">Environment=PGPORT=5433</span>
+<span class="pl-s">Environment=PGDATA=/var/lib/pgsql/serverconf</span>
+<span class="pl-s"><span class="pl-k">EOF</span></span></pre></div>
 <p>Create the database and configure SELinux:</p>
-<pre><code>PGSETUP_INITDB_OPTIONS="--auth-local=peer --auth-host=md5" postgresql-setup initdb postgresql-serverconf
+<div class="highlight highlight-source-shell"><pre>PGSETUP_INITDB_OPTIONS=<span class="pl-s"><span class="pl-pds">"</span>--auth-local=peer --auth-host=md5<span class="pl-pds">"</span></span> postgresql-setup initdb postgresql-serverconf
 semanage port -a -t postgresql_port_t -p tcp 5433
-systemctl enable postgresql-serverconf
-</code></pre>
+systemctl <span class="pl-c1">enable</span> postgresql-serverconf</pre></div>
 <h4>
 <a id="422-on-ubuntu" class="anchor" href="#422-on-ubuntu" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.2.2 on Ubuntu</h4>
-<div class="highlight highlight-source-shell"><pre>sudo -u postgres pg_createcluster -p 5433 9.3 serverconf</pre></div>
-<p>In the above command, <code>9.3</code> is the postgresql major version. Use <code>pg_lsclusters</code> to find out what version(s) are available.</p>
-<p><strong>PostgreSQL configuration location:</strong></p>
-<blockquote>
-<p>On RHEL, PostgreSQL config files are located in the <code>PGDATA</code> directory <code>/var/lib/pgql/serverconf</code>.
-Ubuntu keeps the config in <code>/etc/postgresql/&lt;version&gt;/&lt;cluster name&gt;</code>, e.g. <code>/etc/postgresql/9.3/serverconf</code></p>
-</blockquote>
+<div class="highlight highlight-source-shell"><pre>sudo -u postgres pg_createcluster -p 5433 10 serverconf</pre></div>
+<p>In the above command, <code>10</code> is the postgresql major version. Use <code>pg_lsclusters</code> to find out what version(s) are available.</p>
 <h3>
-<a id="43-configuring-the-master-instance-for-replication" class="anchor" href="#43-configuring-the-master-instance-for-replication" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.3 Configuring the master instance for replication</h3>
+<a id="43-configuring-the-primary-instance-for-replication" class="anchor" href="#43-configuring-the-primary-instance-for-replication" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.3 Configuring the primary instance for replication</h3>
 <p>Edit <code>postgresql.conf</code> and set the following options:</p>
-<pre><code>ssl = on
-ssl_ca_file   = '/etc/xroad/postgresql/ca.crt'
-ssl_cert_file = '/etc/xroad/postgresql/server.crt'
-ssl_key_file  = '/etc/xroad/postgresql/server.key'
+<blockquote>
+<p>On RHEL, PostgreSQL config files are located in the <code>PGDATA</code> directory <code>/var/lib/pgql/serverconf</code>.<br>
+Ubuntu keeps the config in <code>/etc/postgresql/&lt;version&gt;/&lt;cluster name&gt;</code>, e.g. <code>/etc/postgresql/10/serverconf</code>)</p>
+</blockquote>
+<div class="highlight highlight-source-ini"><pre><span class="pl-k">ssl</span> = on
+<span class="pl-k">ssl_ca_file</span>   = <span class="pl-s"><span class="pl-pds">'</span>/etc/xroad/postgresql/ca.crt<span class="pl-pds">'</span></span>
+<span class="pl-k">ssl_cert_file</span> = <span class="pl-s"><span class="pl-pds">'</span>/etc/xroad/postgresql/server.crt<span class="pl-pds">'</span></span>
+<span class="pl-k">ssl_key_file</span>  = <span class="pl-s"><span class="pl-pds">'</span>/etc/xroad/postgresql/server.key<span class="pl-pds">'</span></span>
 
-listen_addresses = '*'    # (default is localhost. Alternatively: localhost, &lt;IP of the interface the slaves connect to&gt;")
-wal_level = hot_standby
-max_wal_senders   = 3   # should be ~ number of slaves plus some small number. Here, we assume there are two slaves.
-wal_keep_segments = 8   # keep some wal segments so that slaves that are offline can catch up.
-</code></pre>
+<span class="pl-k">listen_addresses</span>  = <span class="pl-s"><span class="pl-pds">'</span>*<span class="pl-pds">'</span></span>  <span class="pl-c"><span class="pl-c">#</span> (default is localhost. Alternatively: localhost, &lt;IP of the interface the replicas connect to&gt;")</span>
+
+<span class="pl-c"><span class="pl-c">#</span> PostgreSQL 9.2 (RHEL 7)</span>
+<span class="pl-k">wal_level</span> = hot_standby
+
+<span class="pl-c"><span class="pl-c">#</span> PostgreSQL &gt;=10 (RHEL 8, Ubuntu 18.04, Ubuntu 20.04)</span>
+<span class="pl-k">wal_level</span> = replica
+
+<span class="pl-k">max_wal_senders</span>   = 3   <span class="pl-c"><span class="pl-c">#</span> should be ~ number of replicas plus some small number. Here, we assume there are two replicas.</span>
+<span class="pl-k">wal_keep_segments</span> = 8   <span class="pl-c"><span class="pl-c">#</span> keep some wal segments so that replicas that are offline can catch up.</span></pre></div>
 <p>For more information about the streaming replication configuration options,
-see the <a href="https://www.postgresql.org/docs/9.2/static/runtime-config-replication.html" rel="nofollow">PostgreSQL documentation</a>.</p>
+see the <a href="https://www.postgresql.org/docs/10/runtime-config-replication.html" rel="nofollow">PostgreSQL documentation</a>.</p>
 <p>Edit <code>pg_hba.conf</code> and enable connections to the replication pseudo database using client certificates. See chapter
 <a href="#41-setting-up-tls-certificates-for-database-authentication">4.1</a> for the authentication setup.</p>
 <pre><code>hostssl     replication     +slavenode  samenet     cert
 </code></pre>
-<p><strong>Note:</strong> The CN field in the certificate subject must match a replication user name in postgresql. See the <a href="https://www.postgresql.org/docs/9.3/static/auth-pg-hba-conf.html" rel="nofollow">PostgreSQL
-documentation</a> for more details.</p>
-<p>The <code>samenet</code> above assumes that the slaves will be in the same subnet as the master.</p>
-<p>Start the master instance:</p>
+<p><strong>Note:</strong> The CN field in the certificate subject must match a replication user name in postgresql.
+See the <a href="https://www.postgresql.org/docs/10/auth-pg-hba-conf.html" rel="nofollow">PostgreSQL documentation</a> for more details.</p>
+<p>The <code>samenet</code> above assumes that the replicas will be in the same subnet as the primary.</p>
+<p>Start the primary instance:</p>
 <p><strong>Ubuntu 18.04:</strong></p>
 <div class="highlight highlight-source-shell"><pre>systemctl start postgresql@10-serverconf</pre></div>
+<p><strong>Ubuntu 20.04:</strong></p>
+<div class="highlight highlight-source-shell"><pre>systemctl start postgresql@12-serverconf</pre></div>
 <p><strong>RHEL:</strong></p>
 <div class="highlight highlight-source-shell"><pre>systemctl start postgresql-serverconf</pre></div>
 <p>Create the replication user(s) with password authentication disabled:</p>
@@ -757,10 +815,10 @@ sudo -u postgres psql -p 5433 -c <span class="pl-s"><span class="pl-pds">"</span
 <div class="highlight highlight-source-shell"><pre>sudo -u postgres psql -p 5433 -c <span class="pl-s"><span class="pl-pds">"</span>CREATE USER serverconf PASSWORD '&lt;password&gt;'<span class="pl-pds">"</span></span><span class="pl-k">;</span></pre></div>
 <p>Copy the <code>serverconf</code> database from the default instance to the new instance:</p>
 <div class="highlight highlight-source-shell"><pre>sudo -u postgres pg_dump -C serverconf <span class="pl-k">|</span> sudo -u postgres psql -p 5433 -f -</pre></div>
-<p>To avoid confusion, the <em>old</em> <code>serverconf</code> database on the master should be renamed, or even deleted.</p>
+<p>To avoid confusion, the <em>old</em> <code>serverconf</code> database on the primary should be renamed, or even deleted.</p>
 <div class="highlight highlight-source-shell"><pre>sudo -u postgres psql -p 5432 -c <span class="pl-s"><span class="pl-pds">"</span>ALTER DATABASE serverconf RENAME TO serverconf_old<span class="pl-pds">"</span></span><span class="pl-k">;</span></pre></div>
 <h3>
-<a id="44-configuring-the-slave-instance-for-replication" class="anchor" href="#44-configuring-the-slave-instance-for-replication" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.4 Configuring the slave instance for replication</h3>
+<a id="44-configuring-the-replica-instance-for-replication" class="anchor" href="#44-configuring-the-replica-instance-for-replication" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.4 Configuring the replica instance for replication</h3>
 <p>Prerequisites:</p>
 <ul>
 <li>A separate postgresql instance has been created.</li>
@@ -778,46 +836,53 @@ sudo -u postgres psql -p 5433 -c <span class="pl-s"><span class="pl-pds">"</span
 <p>Clear the data directory:</p>
 <div class="highlight highlight-source-shell"><pre> rm -rf <span class="pl-k">*</span></pre></div>
 <p>Then, do a base backup with <code>pg_basebackup</code>:</p>
-<div class="highlight highlight-source-shell"><pre>sudo -u postgres PGSSLMODE=verify-ca PGSSLROOTCERT=/etc/xroad/postgresql/ca.crt PGSSLCERT=/etc/xroad/postgresql/server.crt PGSSLKEY=/etc/xroad/postgresql/server.key pg_basebackup -h <span class="pl-k">&lt;</span>master<span class="pl-k">&gt;</span> -p 5433 -U <span class="pl-k">&lt;</span>nodename<span class="pl-k">&gt;</span> -D <span class="pl-c1">.</span></pre></div>
-<p>Where <code>&lt;master&gt;</code> is the DNS or IP address of the master node and <code>&lt;nodename&gt;</code> is the node name (the replication user name added to the master database).</p>
+<div class="highlight highlight-source-shell"><pre>sudo -u postgres PGSSLMODE=verify-ca PGSSLROOTCERT=/etc/xroad/postgresql/ca.crt PGSSLCERT=/etc/xroad/postgresql/server.crt PGSSLKEY=/etc/xroad/postgresql/server.key pg_basebackup -h <span class="pl-k">&lt;</span>primary<span class="pl-k">&gt;</span> -p 5433 -U <span class="pl-k">&lt;</span>nodename<span class="pl-k">&gt;</span> -D <span class="pl-c1">.</span></pre></div>
+<p>Where <code>&lt;primary&gt;</code> is the DNS or IP address of the primary node and <code>&lt;nodename&gt;</code> is the node name (the replication user name added to the primary database).</p>
 <p><strong>Note:</strong> This warning by <code>pg_basebackup</code> can be ignored:</p>
 <pre><code>NOTICE: WAL archiving is not enabled; you must ensure that all required WAL segments are copied through other means to complete the backup
 </code></pre>
-<p>Next, add the following <code>recovery.conf</code> to the data directory:</p>
-<pre><code>standby_mode = 'on'
-primary_conninfo = 'host=&lt;master&gt; port=5433 user=&lt;nodename&gt; sslmode=verify-ca sslcert=/etc/xroad/postgresql/server.crt sslkey=/etc/xroad/postgresql/server.key sslrootcert=/etc/xroad/postgresql/ca.crt'
-trigger_file = '/var/lib/xroad/postgresql.trigger'
-</code></pre>
-<p>Where, as above, <code>&lt;master&gt;</code> is the DNS or IP address of the master node and <code>&lt;nodename&gt;</code> is the node name (the replication user name added to the master database).</p>
-<p>Then set the owner of the <code>recovery.conf</code> to <code>postgres:postgres</code>, mode <code>0600</code>.</p>
+<p>On <em>RHEL 7/8 or Ubuntu 18.04 (PostgreSQL &lt;12)</em>, add the following <code>recovery.conf</code> to the data directory. Set the owner of the file to <code>postgres:postgres</code>, mode <code>0600</code>.</p>
+<div class="highlight highlight-source-ini"><pre><span class="pl-k">standby_mode</span> = <span class="pl-s"><span class="pl-pds">'</span>on<span class="pl-pds">'</span></span>
+<span class="pl-k">primary_conninfo</span> = <span class="pl-s"><span class="pl-pds">'</span>host=&lt;primary&gt; port=5433 user=&lt;nodename&gt; sslmode=verify-ca sslcert=/etc/xroad/postgresql/server.crt sslkey=/etc/xroad/postgresql/server.key sslrootcert=/etc/xroad/postgresql/ca.crt<span class="pl-pds">'</span></span>
+<span class="pl-k">trigger_file</span> = <span class="pl-s"><span class="pl-pds">'</span>/var/lib/xroad/postgresql.trigger<span class="pl-pds">'</span></span></pre></div>
+<p>Where, as above, <code>&lt;primary&gt;</code> is the DNS or IP address of the primary node and <code>&lt;nodename&gt;</code> is the node name (the replication user name added to the primary database).</p>
+<p>On <em>Ubuntu 20.04 (PostgreSQL &gt;=12)</em>, create an empty <code>standby.signal</code> file in the data directory. Set the owner of the file to <code>postgres:postgres</code>, mode <code>0600</code>.</p>
 <p>Next, modify <code>postgresql.conf</code>:</p>
-<pre><code>ssl = on
-ssl_ca_file   = '/etc/xroad/postgresql/ca.crt'
-ssl_cert_file = '/etc/xroad/postgresql/server.crt'
-ssl_key_file  = '/etc/xroad/postgresql/server.key'
+<blockquote>
+<p>On RHEL, PostgreSQL config files are located in the <code>PGDATA</code> directory <code>/var/lib/pgql/serverconf</code>.<br>
+Ubuntu keeps the config in <code>/etc/postgresql/&lt;version&gt;/&lt;cluster name&gt;</code>, e.g. <code>/etc/postgresql/10/serverconf</code>)</p>
+</blockquote>
+<div class="highlight highlight-source-ini"><pre><span class="pl-k">ssl</span> = on
+<span class="pl-k">ssl_ca_file</span>   = <span class="pl-s"><span class="pl-pds">'</span>/etc/xroad/postgresql/ca.crt<span class="pl-pds">'</span></span>
+<span class="pl-k">ssl_cert_file</span> = <span class="pl-s"><span class="pl-pds">'</span>/etc/xroad/postgresql/server.crt<span class="pl-pds">'</span></span>
+<span class="pl-k">ssl_key_file</span>  = <span class="pl-s"><span class="pl-pds">'</span>/etc/xroad/postgresql/server.key<span class="pl-pds">'</span></span>
 
-listen_addresses = localhost
+<span class="pl-k">listen_addresses</span> = localhost
 
-# no need to send WAL logs
-# wal_level = minimal
-# max_wal_senders = 0
-# wal_keep_segments = 0
+<span class="pl-c"><span class="pl-c">#</span> no need to send WAL logs</span>
+<span class="pl-c"><span class="pl-c">#</span> wal_level = minimal</span>
+<span class="pl-c"><span class="pl-c">#</span> max_wal_senders = 0</span>
+<span class="pl-c"><span class="pl-c">#</span> wal_keep_segments = 0</span>
 
-hot_standby = on
-hot_standby_feedback = on
-</code></pre>
-<p>Notice that on RHEL, during <code>pg_basebackup</code> the <code>postgresql.conf</code> was copied from the master node so the WAL sender
+<span class="pl-k">hot_standby</span> = on
+<span class="pl-k">hot_standby_feedback</span> = on</pre></div>
+<p><em>On Ubuntu 20.04 (PostgreSQL 12) only</em>, add the primary_conninfo to postgresql.conf:</p>
+<div class="highlight highlight-source-ini"><pre><span class="pl-k">primary_conninfo</span> = <span class="pl-s"><span class="pl-pds">'</span>host=&lt;primary&gt; port=5433 user=&lt;nodename&gt; sslmode=verify-ca sslcert=/etc/xroad/postgresql/server.crt sslkey=/etc/xroad/postgresql/server.key sslrootcert=/etc/xroad/postgresql/ca.crt<span class="pl-pds">'</span></span></pre></div>
+<p>Where, as above, <code>&lt;primary&gt;</code> is the DNS or IP address of the primary node and <code>&lt;nodename&gt;</code> is the node name (the replication user name added to the primary database).</p>
+<p>Notice that on RHEL, during <code>pg_basebackup</code> the <code>postgresql.conf</code> was copied from the primary node so the WAL sender
 parameters should be disabled. Also check that <code>listen_addresses</code> is localhost-only.</p>
 <p>Finally, start the database instance</p>
 <p><strong>RHEL:</strong></p>
 <div class="highlight highlight-source-shell"><pre>systemctl start postgresql-serverconf</pre></div>
 <p><strong>Ubuntu 18.04:</strong></p>
 <div class="highlight highlight-source-shell"><pre>systemctl start postgresql@10-serverconf</pre></div>
+<p><strong>Ubuntu 20.04:</strong></p>
+<div class="highlight highlight-source-shell"><pre>systemctl start postgresql@12-serverconf</pre></div>
 <h2>
 <a id="5-configuring-data-replication-with-rsync-over-ssh" class="anchor" href="#5-configuring-data-replication-with-rsync-over-ssh" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5. Configuring data replication with rsync over SSH</h2>
 <h3>
-<a id="51-set-up-ssh-between-slaves-and-the-master" class="anchor" href="#51-set-up-ssh-between-slaves-and-the-master" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.1 Set up SSH between slaves and the master</h3>
-<p>On the master, set up a system user that can read <code>/etc/xroad</code>. A system user has their password disabled and can not log
+<a id="51-set-up-ssh-between-replicas-and-the-primary" class="anchor" href="#51-set-up-ssh-between-replicas-and-the-primary" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.1 Set up SSH between replicas and the primary</h3>
+<p>On the primary, set up a system user that can read <code>/etc/xroad</code>. A system user has their password disabled and can not log
 in normally.</p>
 <p><strong>Ubuntu:</strong></p>
 <div class="highlight highlight-source-shell"><pre>adduser --system --shell /bin/bash --ingroup xroad xroad-slave</pre></div>
@@ -826,21 +891,19 @@ in normally.</p>
 <p>Create an <code>.ssh</code> folder and the authorized keys file:</p>
 <div class="highlight highlight-source-shell"><pre>sudo mkdir -m 755 -p /home/xroad-slave/.ssh <span class="pl-k">&amp;&amp;</span> sudo touch /home/xroad-slave/.ssh/authorized_keys</pre></div>
 <p><strong>Warning:</strong>  The owner of the file should be <code>root</code> and <code>xroad-slave</code> should not have write permission to the file.</p>
-<p>On the slave nodes, create an ssh key (<code>ssh-keygen</code>) without a passphrase for the <code>xroad</code> user and add the public keys in
-the <code>/home/xroad-slave/.ssh/authorized_keys</code> of the master node. To finish, from slave nodes, connect to the master host
+<p>On the replica nodes, create an ssh key (<code>ssh-keygen</code>) without a passphrase for the <code>xroad</code> user and add the public keys in
+the <code>/home/xroad-slave/.ssh/authorized_keys</code> of the primary node. To finish, from replica nodes, connect to the primary host
 using <code>ssh</code> and accept the host key.</p>
 <h3>
-<a id="52-set-up-periodic-configuration-synchronization-on-the-slave-nodes" class="anchor" href="#52-set-up-periodic-configuration-synchronization-on-the-slave-nodes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.2 Set up periodic configuration synchronization on the slave nodes</h3>
-<p>The following configuration, which will be set up on the slave nodes will synchronize the configuration in <code>/etc/xroad</code>
-periodically (once per minute) and before the services are started. That means that during boot, if the master server is
-available, the configuration will be synchronized before the <code>xroad-proxy</code> service is started. If the master node is down,
+<a id="52-set-up-periodic-configuration-synchronization-on-the-replica-nodes" class="anchor" href="#52-set-up-periodic-configuration-synchronization-on-the-replica-nodes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.2 Set up periodic configuration synchronization on the replica nodes</h3>
+<p>The following configuration, which will be set up on the replica nodes will synchronize the configuration in <code>/etc/xroad</code>
+periodically (once per minute) and before the services are started. That means that during boot, if the primary server is
+available, the configuration will be synchronized before the <code>xroad-proxy</code> service is started. If the primary node is down,
 there will be a small delay before the services are started.</p>
-<blockquote>
 <p>Note that only modifications to the signer keyconf will be applied when the system is running. Changes to any other
 configuration files,  like <code>local.ini</code>, require restarting the services, which is not automatic.</p>
-</blockquote>
 <h4>
-<a id="521-rhelubuntu-1804-use-systemd-for-configuration-synchronization" class="anchor" href="#521-rhelubuntu-1804-use-systemd-for-configuration-synchronization" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.2.1 RHEL/Ubuntu 18.04: Use systemd for configuration synchronization</h4>
+<a id="521-use-systemd-for-configuration-synchronization" class="anchor" href="#521-use-systemd-for-configuration-synchronization" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.2.1 Use systemd for configuration synchronization</h4>
 <p>First, add <code>xroad-sync</code> as a <code>systemd</code> service.</p>
 <p>Create a new file <code>/etc/systemd/system/xroad-sync.service</code>:</p>
 <pre><code>[Unit]
@@ -849,22 +912,22 @@ After=network.target
 Before=xroad-proxy.service
 Before=xroad-signer.service
 Before=xroad-confclient.service
-Before=xroad-jetty.service
+Before=xroad-proxy-ui-api.service
 [Service]
 User=xroad
 Group=xroad
 Type=oneshot
 Environment=XROAD_USER=xroad-slave
-Environment=MASTER=&lt;master_host&gt;
+Environment=MASTER=&lt;primary_host&gt;
 
 ExecStartPre=/usr/bin/test ! -f /var/tmp/xroad/sync-disabled
 
-ExecStart=/usr/bin/rsync -e "ssh -o ConnectTimeout=5 " -aqz --timeout=10 --delete-delay --exclude db.properties --exclude "/conf.d/node.ini" --exclude "*.tmp" --exclude "/postgresql" --exclude "/nginx" --exclude "/globalconf" --exclude "/jetty" --delay-updates --log-file=/var/log/xroad/slave-sync.log ${XROAD_USER}@${MASTER}:/etc/xroad/ /etc/xroad/
+ExecStart=/usr/bin/rsync -e "ssh -o ConnectTimeout=5 " -aqz --timeout=10 --delete-delay --exclude db.properties --exclude "/conf.d/node.ini" --exclude "*.tmp" --exclude "/postgresql" --exclude "/globalconf" --exclude "/gpghome" --delay-updates --log-file=/var/log/xroad/slave-sync.log ${XROAD_USER}@${MASTER}:/etc/xroad/ /etc/xroad/
 [Install]
 WantedBy=multi-user.target
 WantedBy=xroad-proxy.service
 </code></pre>
-<p>Where <code>&lt;master_host&gt;</code> is the DNS name or IP address of the master node.</p>
+<p>Where <code>&lt;primary_host&gt;</code> is the DNS name or IP address of the primary node.</p>
 <p>The service will log <code>rsync</code> events to <code>/var/log/xroad/slave-sync.log</code>.</p>
 <p>Then, add a timer for periodic updates.</p>
 <p>Create a new file <code>/etc/systemd/system/xroad-sync.timer</code>:</p>
@@ -877,15 +940,13 @@ OnUnitActiveSec=60
 WantedBy=timers.target
 </code></pre>
 <p>RHEL only: Configure SELinux to allow <code>rsync</code> to be run as a <code>systemd</code> service</p>
-<pre><code>setsebool -P rsync_client 1
-setsebool -P rsync_full_access 1
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>setsebool -P rsync_client 1
+setsebool -P rsync_full_access 1</pre></div>
 <p>Finally, enable the services:</p>
-<pre><code>systemctl enable xroad-sync.timer xroad-sync.service
-systemctl start xroad-sync.timer
-</code></pre>
-<p><strong>A note about the <code>rsync</code> options:</strong></p>
+<div class="highlight highlight-source-shell"><pre>systemctl <span class="pl-c1">enable</span> xroad-sync.timer xroad-sync.service
+systemctl start xroad-sync.timer</pre></div>
 <blockquote>
+<p><strong>About the <code>rsync</code> options</strong></p>
 <ul>
 <li>
 <code>--delay-updates</code> and <code>--delete-delay</code> make the sync more atomic by delaying modifications until data has been
@@ -896,10 +957,10 @@ a network connection fails.</li>
 </ul>
 </blockquote>
 <h3>
-<a id="53-set-up-log-rotation-for-the-sync-log-on-the-slave-nodes" class="anchor" href="#53-set-up-log-rotation-for-the-sync-log-on-the-slave-nodes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.3 Set up log rotation for the sync log on the slave nodes</h3>
-<p>The configuration synchronization will log events to <code>/var/log/xroad/slave-sync.log</code> on the slave nodes. The following
+<a id="53-set-up-log-rotation-for-the-sync-log-on-the-replica-nodes" class="anchor" href="#53-set-up-log-rotation-for-the-sync-log-on-the-replica-nodes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.3 Set up log rotation for the sync log on the replica nodes</h3>
+<p>The configuration synchronization will log events to <code>/var/log/xroad/slave-sync.log</code> on the replica nodes. The following
 configuration example rotates those logs daily and keeps them for 7 days which should be enough for troubleshooting.</p>
-<p>Create a new file <code>/etc/logrotate.d/xroad-slave-sync</code> on the slave nodes:</p>
+<p>Create a new file <code>/etc/logrotate.d/xroad-slave-sync</code> on the replica nodes:</p>
 <pre><code>/var/log/xroad/slave-sync.log {
         daily
         rotate 7
@@ -916,9 +977,9 @@ connection to an X-Road instance test environment.</p>
 <h3>
 <a id="61-verifying-rsyncssh-replication" class="anchor" href="#61-verifying-rsyncssh-replication" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.1 Verifying rsync+ssh replication</h3>
 <p>To test the configuration file replication, a new file can be added to <code>/etc/xroad/</code> or <code>/etc/xroad/signer/</code> on the
-master node and verify it has been replicated to the slave nodes in a few minutes. Make sure the file is owned by
+primary node and verify it has been replicated to the replica nodes in a few minutes. Make sure the file is owned by
 the group <code>xroad</code>.</p>
-<p>Alternatively, check the sync log <code>/var/log/xroad/slave-sync.log</code> on the slave nodes and verify it lists successful
+<p>Alternatively, check the sync log <code>/var/log/xroad/slave-sync.log</code> on the replica nodes and verify it lists successful
 transfers. A transfer of an added test file called <code>sync.testfile</code> to <code>/etc/xroad/signer/</code> might look like this:</p>
 <pre><code>2017/03/10 11:42:01 [10505] receiving file list
 2017/03/10 11:42:01 [10507] .d..t...... signer/
@@ -928,10 +989,10 @@ transfers. A transfer of an added test file called <code>sync.testfile</code> to
 </code></pre>
 <h3>
 <a id="62-verifying-database-replication" class="anchor" href="#62-verifying-database-replication" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.2 Verifying database replication</h3>
-<p>To see if the database replication is working, connect to the new <code>serverconf</code> instance on the master node and verify
-that the slave nodes are listed.</p>
+<p>To see if the database replication is working, connect to the new <code>serverconf</code> instance on the primary node and verify
+that the replica nodes are listed.</p>
 <div class="highlight highlight-source-shell"><pre>sudo -u postgres psql -p 5433 -c <span class="pl-s"><span class="pl-pds">"</span>select * from pg_stat_replication;<span class="pl-pds">"</span></span></pre></div>
-<p>A successful replication with two slave nodes could look like this:</p>
+<p>A successful replication with two replica nodes could look like this:</p>
 <table>
 <thead>
 <tr>
@@ -989,21 +1050,21 @@ that the slave nodes are listed.</p>
 </tr>
 </tbody>
 </table>
-<p>For more information on the <code>pg_stat_replication</code> view, see the <a href="https://www.postgresql.org/docs/9.2/static/monitoring-stats.html#PG-STAT-REPLICATION-VIEW" rel="nofollow">PostgreSQL documentation</a>.</p>
+<p>For more information on the <code>pg_stat_replication</code> view, see the <a href="https://www.postgresql.org/docs/10/monitoring-stats.html#PG-STAT-REPLICATION-VIEW" rel="nofollow">PostgreSQL documentation</a>.</p>
 <h3>
 <a id="63-verifying-replication-from-the-admin-user-interface" class="anchor" href="#63-verifying-replication-from-the-admin-user-interface" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.3 Verifying replication from the admin user interface</h3>
 <p>Verifying the cluster setup via the admin interface requires the cluster to be part of an existing X-Road instance like
 <code>FI-DEV</code> or <code>FI-TEST</code> or using a custom, configured X-Road environment with at least a central server and the security
 server cluster behind a load balancer.</p>
 <p>To test the configuration file replication from the admin user interface, a key can be created in the admin interface of the
-master node. In addition, a certificate signing request can be created for the key in the UI, downloaded, signed by an
+primary node. In addition, a certificate signing request can be created for the key in the UI, downloaded, signed by an
 external CA and then uploaded back to the admin UI. For help on these tasks, see the  Security Server User Guide
 [<a href="#13-references">UG-SS</a>].</p>
-<p>The keys and certificate changes should be propagated to the slave nodes in a few minutes.</p>
+<p>The keys and certificate changes should be propagated to the replica nodes in a few minutes.</p>
 <p>The <code>serverconf</code> database replication can also be tested on the admin UI once the basic configuration, as mentioned in
 <a href="#3-x-road-installation-and-configuration">3. X-Road Installation and configuration</a> is done. A new subsystem can be added
-to the master node. A registration request can be sent to the central server, but it is not required. The added subsystem
-should appear on the slave nodes immediately.</p>
+to the primary node. A registration request can be sent to the central server, but it is not required. The added subsystem
+should appear on the replica nodes immediately.</p>
 <h2>
 <a id="7-upgrading-a-clustered-x-road-security-server-installation" class="anchor" href="#7-upgrading-a-clustered-x-road-security-server-installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>7. Upgrading a clustered X-Road security server installation</h2>
 <p>This chapter briefly discusses ways of upgrading the X-Road software in a clustered environment. The offline option will
@@ -1012,12 +1073,12 @@ disrupt message delivery while the online option should allow upgrades with mini
 <a id="71-offline-upgrade" class="anchor" href="#71-offline-upgrade" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>7.1 Offline upgrade</h3>
 <p>If the X-Road security server cluster can be shut down for an offline upgrade, the procedure remains fairly simple:</p>
 <ol>
-<li>Stop the X-Road services (<code>xroad-proxy</code>, <code>xroad-signer</code>, <code>xroad-confclient</code>, <code>xroad-jetty</code> and <code>xroad-monitor</code>) on all
+<li>Stop the X-Road services (<code>xroad-proxy</code>, <code>xroad-signer</code>, <code>xroad-confclient</code>, <code>xroad-proxy-ui-api</code> and <code>xroad-monitor</code>) on all
 the nodes. You can read more about the services in the Security Server User Guide
 [<a href="#13-references">UG-SS</a>] chapter on <a href="ug-ss_x-road_6_security_server_user_guide.html#161-system-services">System services</a>.</li>
-<li>Upgrade the packages on the master node to the new software version.</li>
+<li>Upgrade the packages on the primary node to the new software version.</li>
 <li>Let any database and configuration changes propagate to the cluster members.</li>
-<li>Upgrade the packages on the slave nodes.</li>
+<li>Upgrade the packages on the replica nodes.</li>
 <li>Start the X-Road services.</li>
 </ol>
 <h3>
@@ -1025,11 +1086,11 @@ the nodes. You can read more about the services in the Security Server User Guid
 <p>It is possible to upgrade the software in a cluster to a new version with minimal service disruption.</p>
 <p>The steps are in more detail below, but in short, the procedure is:</p>
 <ol>
-<li>Pause the database and configuration synchronization on the slave nodes. Pausing the synchronization ensures that
-potentially incompatible changes are not propagated to slaves before they are upgraded.</li>
-<li>Set the master node to maintenance mode or manually disable it from the external load balancer, upgrade the software,
+<li>Pause the database and configuration synchronization on the replica nodes. Pausing the synchronization ensures that
+potentially incompatible changes are not propagated to replicas before they are upgraded.</li>
+<li>Set the primary node to maintenance mode or manually disable it from the external load balancer, upgrade the software,
 then resume operation.</li>
-<li>One by one, set a slave node to maintenance mode or manually disable it from the external load balancer, re-enable
+<li>One by one, set a replica node to maintenance mode or manually disable it from the external load balancer, re-enable
 synchronization, upgrade it, then resume operation.</li>
 </ol>
 <h4>
@@ -1044,106 +1105,97 @@ sudo -u postgres psql -p 5433 -c <span class="pl-s"><span class="pl-pds">'</span
 sudo -u postgres psql -p 5433 -c <span class="pl-s"><span class="pl-pds">'</span>select pg_wal_replay_pause();<span class="pl-pds">'</span></span></pre></div>
 </li>
 <li>
-<p>Disable the configuration synchronization on the slave nodes:</p>
-<pre><code>sudo -u xroad touch /var/tmp/xroad/sync-disabled
-</code></pre>
+<p>Disable the configuration synchronization on the replica nodes:</p>
+<div class="highlight highlight-source-shell"><pre>sudo -u xroad touch /var/tmp/xroad/sync-disabled</pre></div>
 <p><strong>Note:</strong> Check that the synchronization service is configured to honor the <code>sync-disabled</code> flag. See the chapter on
-<a href="#52-set-up-periodic-configuration-synchronization-on-the-slave-nodes">Setting up periodic configuration synchronization on the slave nodes</a>
+<a href="#52-set-up-periodic-configuration-synchronization-on-the-replica-nodes">Setting up periodic configuration synchronization on the replica nodes</a>
 for more details.</p>
 </li>
 </ol>
 <h4>
-<a id="722-upgrading-the-master" class="anchor" href="#722-upgrading-the-master" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>7.2.2 Upgrading the master</h4>
+<a id="722-upgrading-the-primary" class="anchor" href="#722-upgrading-the-primary" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>7.2.2 Upgrading the primary</h4>
 <ol>
 <li>
-<p><a name="master-upgrade-step-1">Either</a> use the health check maintenance mode or manually disable the master node from your external load balancer.
+<p><a name="primary-upgrade-step-1">Either</a> use the health check maintenance mode or manually disable the primary node from your external load balancer.
 A disabled node on the load balancer should be handled gracefully so that in-flight requests are allowed to finish while
 new requests are routed to other nodes (<em>connection draining</em>).</p>
 <p>You can read more about the health check maintenance mode in the chapter about the
 <a href="#34-health-check-service-configuration">health check service configuration</a>.</p>
-<p>In short, to enable the maintenance mode, on the master node, call the proxy admin port (default port <code>5566</code>) with:</p>
+<p>In short, to enable the maintenance mode, on the primary node, call the proxy admin port (default port <code>5566</code>) with:</p>
 <div class="highlight highlight-source-shell"><pre>curl http://localhost:5566/maintenance<span class="pl-k">?</span>targetState=true</pre></div>
 <p>The admin port should respond with:</p>
 <pre><code>Maintenance mode set: false =&gt; true
 </code></pre>
 </li>
 <li>
-<p><a name="master-upgrade-step-2">Check</a> that the master is no longer processing requests and stop the X-Road services
-(<code>xroad-proxy</code>, <code>xroad-signer</code>, <code>xroad-confclient</code>, <code>xroad-jetty</code>, <code>xroad-monitor</code>) on the master node. You can read
+<p><a name="primary-upgrade-step-2">Check</a> that the primary is no longer processing requests and stop the X-Road services
+(<code>xroad-proxy</code>, <code>xroad-signer</code>, <code>xroad-confclient</code>, <code>xroad-monitor</code>, <code>xroad-proxy-ui-api</code>) on the primary node. You can read
 more about the services in the Security Server User Guide
 [<a href="#13-references">UG-SS</a>] chapter on <a href="ug-ss_x-road_6_security_server_user_guide.html#161-system-services">System services</a>.</p>
 <p>To ensure that the node is no longer processing requests, you can monitor <code>/var/log/xroad/proxy.log</code> to verify that
 no more requests are arriving or check that there are no connections to the port 5500 with:</p>
-<pre><code>watch -n1 ss -tn state established sport = :5500 or dport = :5500
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>watch -n1 ss -tn state established sport = :5500 or dport = :5500</pre></div>
 </li>
 <li>
-<p>Upgrade the packages on the master node to the new software version.</p>
+<p>Upgrade the packages on the primary node to the new software version.</p>
 </li>
 <li>
-<p>Start the X-Road services and wait until the master node is healthy.</p>
+<p>Start the X-Road services and wait until the primary node is healthy.</p>
 </li>
 <li>
-<p><a name="master-upgrade-step-5">a)</a> If the maintenance mode was enabled, the maintenance status from the health check
+<p><a name="primary-upgrade-step-5">a)</a> If the maintenance mode was enabled, the maintenance status from the health check
 port was cleared on startup of the <code>xroad-proxy</code> service. The health check should start returning a <code>200 OK</code> status
 as soon as security server can process messages.</p>
-<p>b) If the master node was disabled manually from the external load balancer, verify that the master node is working
+<p>b) If the primary node was disabled manually from the external load balancer, verify that the primary node is working
 and enable it from the load balancer. To check if a node is healthy, you can use the health check service:</p>
-<pre><code>curl -i http://localhost:&lt;health-check-port&gt;
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>curl -i http://localhost:<span class="pl-k">&lt;</span>health-check-port<span class="pl-k">&gt;</span></pre></div>
 <p>See <a href="#34-health-check-service-configuration">3.4 Health check service configuration</a> for more details.</p>
 </li>
 </ol>
 <h4>
-<a id="723-upgrade-a-single-slave-node" class="anchor" href="#723-upgrade-a-single-slave-node" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>7.2.3 Upgrade a single slave node</h4>
-<p>Repeat this process for each slave node, one by one.</p>
+<a id="723-upgrade-a-single-replica-node" class="anchor" href="#723-upgrade-a-single-replica-node" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>7.2.3 Upgrade a single replica node</h4>
+<p>Repeat this process for each replica node, one by one.</p>
 <ol>
 <li>
-<p>Gracefully disable the slave node from the load balancer, either manually or using the health check maintenance mode.
-See <a href="#master-upgrade-step-1">step 1 from the master update instructions</a> for more details.</p>
+<p>Gracefully disable the replica node from the load balancer, either manually or using the health check maintenance mode.
+See <a href="#primary-upgrade-step-1">step 1 from the primary update instructions</a> for more details.</p>
 </li>
 <li>
-<p>Stop the X-Road services once the slave has stopped processing requests. See <a href="#master-upgrade-step-2">step 2 from the master update instructions</a>
+<p>Stop the X-Road services once the replica has stopped processing requests. See <a href="#primary-upgrade-step-2">step 2 from the primary update instructions</a>
 for more details.</p>
 </li>
 <li>
-<p>Enable database synchronization on the slave:</p>
-<pre><code>#PostgreSQL version &lt; 10
-sudo -u postgres psql -p 5433 -c 'select pg_xlog_replay_resume()'
-</code></pre>
-<pre><code>#PostgreSQL version &gt;= 10
-sudo -u postgres psql -p 5433 -c 'select pg_wal_replay_resume()'
-</code></pre>
+<p>Enable database synchronization on the replica:</p>
+<div class="highlight highlight-source-shell"><pre><span class="pl-c"><span class="pl-c">#</span>PostgreSQL version &lt; 10</span>
+sudo -u postgres psql -p 5433 -c <span class="pl-s"><span class="pl-pds">'</span>select pg_xlog_replay_resume()<span class="pl-pds">'</span></span></pre></div>
+<div class="highlight highlight-source-shell"><pre><span class="pl-c"><span class="pl-c">#</span>PostgreSQL version &gt;= 10</span>
+sudo -u postgres psql -p 5433 -c <span class="pl-s"><span class="pl-pds">'</span>select pg_wal_replay_resume()<span class="pl-pds">'</span></span></pre></div>
 <p>Note that the above command assumes that the <code>serverconf</code> database is running in port <code>5433</code>.</p>
 <p><strong>Note:</strong> Before proceeding, make sure that the database is up to date. The following should return <code>t</code>:</p>
-<pre><code>#PostgreSQL &lt; 10
-sudo -u postgres psql -p 5433 -c 'select pg_last_xlog_replay_location() = pg_last_xlog_receive_location()'
-</code></pre>
-<pre><code>#PostgreSQL &gt;= 10
-sudo -u postgres psql -p 5433 -c 'select pg_last_wal_replay_lsn() = pg_last_wal_receive_lsn()'
-</code></pre>
+<div class="highlight highlight-source-shell"><pre><span class="pl-c"><span class="pl-c">#</span>PostgreSQL &lt; 10</span>
+sudo -u postgres psql -p 5433 -c <span class="pl-s"><span class="pl-pds">'</span>select pg_last_xlog_replay_location() = pg_last_xlog_receive_location()<span class="pl-pds">'</span></span></pre></div>
+<div class="highlight highlight-source-shell"><pre><span class="pl-c"><span class="pl-c">#</span>PostgreSQL &gt;= 10</span>
+sudo -u postgres psql -p 5433 -c <span class="pl-s"><span class="pl-pds">'</span>select pg_last_wal_replay_lsn() = pg_last_wal_receive_lsn()<span class="pl-pds">'</span></span></pre></div>
 </li>
 <li>
-<p>Upgrade the packages on the slave node to the new software version.</p>
+<p>Upgrade the packages on the replica node to the new software version.</p>
 </li>
 <li>
-<p>Enable the shared configuration synchronization on the slave node:</p>
-<pre><code>sudo rm /var/tmp/xroad/sync-disabled
-</code></pre>
+<p>Enable the shared configuration synchronization on the replica node:</p>
+<div class="highlight highlight-source-shell"><pre>sudo rm /var/tmp/xroad/sync-disabled</pre></div>
 </li>
 <li>
-<p>Wait for the master node configuration changes to propagate to the slave node.</p>
+<p>Wait for the primary node configuration changes to propagate to the replica node.</p>
 <p>The configuration synchronization can be forced, if necessary.</p>
-<pre><code>service xroad-sync start
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>service xroad-sync start</pre></div>
 </li>
 <li>
-<p>Restart the X-Road services and wait until the slave node is healthy.</p>
+<p>Restart the X-Road services and wait until the replica node is healthy.</p>
 </li>
 <li>
-<p>After the node is healthy, enable the slave node in the load balancer if you manually disabled it. If using the
+<p>After the node is healthy, enable the replica node in the load balancer if you manually disabled it. If using the
 maintenance mode, it was cleared on <code>xroad-proxy</code> service restart. See
-<a href="#master-upgrade-step-5">step 5 from the master update instructions</a> for more details.</p>
+<a href="#primary-upgrade-step-5">step 5 from the primary update instructions</a> for more details.</p>
 </li>
 </ol>
     </article>

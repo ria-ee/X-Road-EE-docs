@@ -16,12 +16,12 @@
   </head>
   <body>
     <article class="markdown-body">
-<h2>
-<a id="-" class="anchor" href="#-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="img/eu_regional_development_fund_horizontal_div_15.png" target="_blank" rel="noopener noreferrer"><img src="img/eu_regional_development_fund_horizontal_div_15.png" alt="European Union / European Regional Development Fund / Investing in your future" title="Documents that are tagged with EU/SF logos must keep the logos until 1.1.2022, if it has not stated otherwise in the documentation. If new documentation is created  using EU/SF resources the logos must be tagged appropriately so that the deadline for logos could be found." style="max-width:100%;"></a> |</h2>
+<p><a href="img/eu_regional_development_fund_horizontal_div_15.png" target="_blank" rel="noopener noreferrer"><img src="img/eu_regional_development_fund_horizontal_div_15.png" alt="" title="European Union | European Regional Development Fund | Investing in your future" style="max-width:100%;"></a></p>
+<hr>
 <h1>
 <a id="x-road-message-protocol-for-rest" class="anchor" href="#x-road-message-protocol-for-rest" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>X-Road: Message Protocol for REST</h1>
 <p><strong>Technical Specification</strong></p>
-<p>Version: 1.0.0<br>
+<p>Version: 1.0.1<br>
 Doc. ID: PR-REST</p>
 <hr>
 <h2>
@@ -120,10 +120,21 @@ Doc. ID: PR-REST</p>
 <td align="left">Update document version number</td>
 <td align="left">Jarkko Hyöty</td>
 </tr>
+<tr>
+<td align="left">19.05.2020</td>
+<td align="left">1.0.1</td>
+<td align="left">Added chapter <a href="#48-identifier-character-restrictions">4.8 Identifier Character Restrictions</a>
+</td>
+<td align="left">Ilkka Seppälä</td>
+</tr>
 </tbody>
 </table>
 <h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
+<p>This document is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="nofollow">http://creativecommons.org/licenses/by-sa/3.0/</a></p>
+<h2>
 <a id="table-of-contents" class="anchor" href="#table-of-contents" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Table of Contents</h2>
+
 
 <ul>
 <li>
@@ -136,7 +147,7 @@ Doc. ID: PR-REST</p>
 <li>
 <a href="#2-definitions">2 Definitions</a>
 <ul>
-<li><a href="#21-key-words">2.1 Key words</a></li>
+<li><a href="#21-key-words">2.1 Key Words</a></li>
 <li><a href="#22-x-road-terminology">2.2 X-Road Terminology</a></li>
 <li><a href="#23-versioning">2.3 Versioning</a></li>
 <li><a href="#24-references">2.4 References</a></li>
@@ -156,8 +167,19 @@ Doc. ID: PR-REST</p>
 <li><a href="#42-uri-sanitation">4.2 URI Sanitation</a></li>
 <li><a href="#43-use-of-http-headers">4.3 Use of HTTP Headers</a></li>
 <li><a href="#44-http-redirects">4.4 HTTP Redirects</a></li>
-<li><a href="#45-error-handdling">4.5 Error handling</a></li>
-<li><a href="#46-security">4.6 Security</a></li>
+<li><a href="#45-use-of-query-parameters">4.5 Use of Query Parameters</a></li>
+<li>
+<a href="#46-error-handling">4.6 Error handling</a>
+<ul>
+<li><a href="#example-1-category-1">Example 1 (Category 1)</a></li>
+<li><a href="#example-2-category-2">Example 2 (Category 2)</a></li>
+<li><a href="#example-3-category-3">Example 3 (Category 3)</a></li>
+<li><a href="#example-4-category-4">Example 4 (Category 4)</a></li>
+<li><a href="#example-5-tracking-the-source-of-error">Example 5 (Tracking the source of error)</a></li>
+</ul>
+</li>
+<li><a href="#47-security">4.7 Security</a></li>
+<li><a href="#48-identifier-character-restrictions">4.8 Identifier Character Restrictions</a></li>
 </ul>
 </li>
 <li>
@@ -179,6 +201,7 @@ Doc. ID: PR-REST</p>
 </li>
 <li><a href="#appendix-1-example-service-definition">Appendix 1 Example Service Definition</a></li>
 </ul>
+
 <h2>
 <a id="1-introduction" class="anchor" href="#1-introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1 Introduction</h2>
 <h3>
@@ -287,11 +310,9 @@ for at least a year after releasing the new version.</p>
 <a id="41-rest-interface" class="anchor" href="#41-rest-interface" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.1 REST Interface</h3>
 <p>HTTP version 1.1 is used by the protocol as described in [<a href="#Ref_RFC2616">RFC2616</a>]. The consumer member/subsystem is specified using HTTP headers. The service to be called is encoded as part of the HTTP/HTTPS request URL. Here is the generic form of the REST service call.</p>
 <p><strong>Request format</strong></p>
-<pre><code>{http-request-method} /{protocol-version}/{serviceId}[/path][?query-parameters]
-</code></pre>
+<div class="highlight highlight-source-httpspec"><pre>{<span class="pl-ii">http-request-method</span>} <span class="pl-ii">/{protocol-version}/{serviceId}[/path][?query-parameters]</span></pre></div>
 <p><strong>HTTP request headers</strong></p>
-<pre><code>X-Road-Client: {client}
-</code></pre>
+<div class="highlight highlight-source-httpspec"><pre><span class="pl-s"><span class="pl-v">X-Road-Client:</span> {client}</span></pre></div>
 <ul>
 <li>
 <strong>{http-request-method}</strong> can be one of the request methods defined in [<a href="#Ref_RFC7231">RFC7231</a>]. For example <code>GET</code>, <code>POST</code>, <code>PUT</code> and <code>DELETE</code>.</li>
@@ -314,11 +335,9 @@ for at least a year after releasing the new version.</p>
 </ul>
 <p>Here is a practical example of an X-Road REST call.</p>
 <p><strong>Request example</strong></p>
-<pre><code>GET /r1/INSTANCE/CLASS2/MEMBER2/SUBSYSTEM2/BARSERVICE/v1/bar/zyggy?quu=1
-</code></pre>
+<div class="highlight highlight-source-httpspec"><pre><span class="pl-k">GET</span><span class="pl-c1"> /r1/INSTANCE/CLASS2/MEMBER2/SUBSYSTEM2/BARSERVICE/v1/bar/zyggy?quu=1</span></pre></div>
 <p><strong>HTTP request headers</strong></p>
-<pre><code>X-Road-Client: INSTANCE/CLASS1/MEMBER1/SUBSYSTEM1
-</code></pre>
+<div class="highlight highlight-source-httpspec"><pre><span class="pl-s"><span class="pl-v">X-Road-Client:</span> INSTANCE/CLASS1/MEMBER1/SUBSYSTEM1</span></pre></div>
 <p>Breakdown of the request URI:</p>
 <ul>
 <li>
@@ -361,8 +380,7 @@ for at least a year after releasing the new version.</p>
 <ul>
 <li>
 <strong>X-Road-Client</strong>: Specifies the member/subsystem that is used as a service client - an entity that initiates the service call. The identifier consists of the following parts: <code>[X-Road instance]/[member class]/[member code]/[subsystem code]</code>. Including the subsystem code is OPTIONAL. The identifier parts MUST be represented as UTF-8 and encoded using [<a href="#Ref_PERCENTENC">PERCENT-ENCODING</a>].
-<pre><code>X-Road-Client: INSTANCE/CLASS/MEMBER/SUBSYSTEM
-</code></pre>
+<div class="highlight highlight-source-httpspec"><pre><span class="pl-s"><span class="pl-v">X-Road-Client:</span> INSTANCE/CLASS/MEMBER/SUBSYSTEM</span></pre></div>
 </li>
 </ul>
 <p><strong>X-Road specific headers returned in the response</strong></p>
@@ -380,12 +398,11 @@ for at least a year after releasing the new version.</p>
 <strong>X-Road-Error</strong>: This header is provided in case there was an error processing the request and it occurred somewhere in X-Road (on the consumer or provider Security Server)</li>
 <li>
 <strong>X-Road-Request-Id</strong>: Unique identifier for the request
-<pre><code>X-Road-Client: INSTANCE/CLASS/MEMBER/SUBSYSTEM
-X-Road-Service: INSTANCE/CLASS/MEMBER/SUBSYSTEM/PETSTORE
-X-Road-Id: fa2e18a5-c2cb-4d09-b994-f57727f7c3fb
-X-Road-Request-Hash: 4c519cf0-0e5e-4ccf-b72b-8ed6fe289e6e
-X-Road-Request-Id: f92591a3-6bf0-49b1-987b-0dd78c034cc3
-</code></pre>
+<div class="highlight highlight-source-httpspec"><pre><span class="pl-s"><span class="pl-v">X-Road-Client:</span> INSTANCE/CLASS/MEMBER/SUBSYSTEM</span>
+<span class="pl-s"><span class="pl-v">X-Road-Service:</span> INSTANCE/CLASS/MEMBER/SUBSYSTEM/PETSTORE</span>
+<span class="pl-s"><span class="pl-v">X-Road-Id:</span> fa2e18a5-c2cb-4d09-b994-f57727f7c3fb</span>
+<span class="pl-s"><span class="pl-v">X-Road-Request-Hash:</span> 4c519cf0-0e5e-4ccf-b72b-8ed6fe289e6e</span>
+<span class="pl-s"><span class="pl-v">X-Road-Request-Id:</span> f92591a3-6bf0-49b1-987b-0dd78c034cc3</span></pre></div>
 </li>
 </ul>
 <p><strong>Request hash header</strong></p>
@@ -396,8 +413,7 @@ X-Road-Request-Id: f92591a3-6bf0-49b1-987b-0dd78c034cc3
 and it MUST be verified by the service client's Security Server</li>
 <li>The request message SHOULD NOT contain the request hash header.</li>
 <li>The response message returned by a service provider SHOULD NOT contain the request hash header. If the response message contains the request hash header, the service provider's Security Server MUST ignore the field and replace it with the created field.
-<pre><code>X-Road-Request-Hash: 14sEri8SmLNy/DJyTob0ZddAskmdRy5ZUyhbr33iLkaA+gLpWcivUH16fzbuIs7hhs2AnA4lJDloyIihXMlVQA== 
-</code></pre>
+<div class="highlight highlight-source-httpspec"><pre><span class="pl-s"><span class="pl-v">X-Road-Request-Hash:</span> 14sEri8SmLNy/DJyTob0ZddAskmdRy5ZUyhbr33iLkaA+gLpWcivUH16fzbuIs7hhs2AnA4lJDloyIihXMlVQA== </span></pre></div>
 </li>
 </ul>
 <p><strong>Content-Type header</strong></p>
@@ -406,9 +422,8 @@ and it MUST be verified by the service client's Security Server</li>
 <li>The REST messages originating from the Security Server (e.g. error messages) MUST include the header and indicate the content's type and character encoding with it.</li>
 <li>If Content-Type header is included in the request message by the consumer information system, it MUST be transported unmodified through X-Road to the provider information system</li>
 <li>If Content-Type header is included in the response message by the provider information system, it MUST be transported unmodified through X-Road to the consumer information system
-<pre><code>Content-Type: application/json; charset=utf-8
-Content-Type: multipart/form-data; boundary=something
-</code></pre>
+<div class="highlight highlight-source-httpspec"><pre><span class="pl-s"><span class="pl-v">Content-Type:</span> application/json; charset=utf-8</span>
+<span class="pl-s"><span class="pl-v">Content-Type:</span> multipart/form-data; boundary=something</span></pre></div>
 </li>
 </ul>
 <p>In case the service consumer does not provide the <code>Content-Type</code> header (or some of its components), the request message is anyhow passed to the provider service which can decide what to do with it.</p>
@@ -416,8 +431,7 @@ Content-Type: multipart/form-data; boundary=something
 <ul>
 <li>It is RECOMMENDED that the service consumer advertises the content types it is able to understand by including the <code>Accept</code> header in the request message.</li>
 <li>If <code>Accept</code> header is included in the request message, it MUST be transported unmodified through X-Road to the service provider.
-<pre><code>Accept: application/xml
-</code></pre>
+<div class="highlight highlight-source-httpspec"><pre><span class="pl-s"><span class="pl-v">Accept:</span> application/xml</span></pre></div>
 </li>
 </ul>
 <p>In case the service consumer does not provide the Accept header, the Security Server MUST use the default content-type <code>application/json</code>.</p>
@@ -430,8 +444,7 @@ Content-Type: multipart/form-data; boundary=something
 </ul>
 </li>
 <li>Other X-Road extension headers are not defined in this document. Rather they are just contracts between information systems and X-Road handles them like any user defined header.
-<pre><code>X-Road-Security-Server: INSTANCE/MEMBERCLASS/MEMBERCODE/SERVERCODE
-</code></pre>
+<div class="highlight highlight-source-httpspec"><pre><span class="pl-s"><span class="pl-v">X-Road-Security-Server:</span> INSTANCE/MEMBERCLASS/MEMBERCODE/SERVERCODE</span></pre></div>
 </li>
 </ul>
 <p><strong>Optional X-Road headers</strong></p>
@@ -442,10 +455,9 @@ Content-Type: multipart/form-data; boundary=something
 <strong>X-Road-UserId</strong>: User whose action initiated the request. The user ID should be prefixed with two-letter ISO country code (e.g., EE12345678901).</li>
 <li>
 <strong>X-Road-Issue</strong>: Identifies received application, issue or document that was the cause of the service request. This field may be used by the client information system to connect service requests (and responses) to working procedures.
-<pre><code>X-Road-Id: fa2e18a5-c2cb-4d09-b994-f57727f7c3fb
-X-Road-UserId: EE12345678901
-X-Road-Issue: MT324223MSD
-</code></pre>
+<div class="highlight highlight-source-httpspec"><pre><span class="pl-s"><span class="pl-v">X-Road-Id:</span> fa2e18a5-c2cb-4d09-b994-f57727f7c3fb</span>
+<span class="pl-s"><span class="pl-v">X-Road-UserId:</span> EE12345678901</span>
+<span class="pl-s"><span class="pl-v">X-Road-Issue:</span> MT324223MSD</span></pre></div>
 </li>
 </ul>
 <p><strong>X-Road error header</strong></p>
@@ -458,17 +470,15 @@ X-Road-Issue: MT324223MSD
 <p><strong>User defined headers</strong></p>
 <ul>
 <li>User defined HTTP headers (i.e. the headers not mentioned in [<a href="#Ref_HTTPHEADERS">LIST-OF-HTTP-HEADERS</a>] or this document) MUST be passed to recipient unmodified by X-Road Security Server.
-<pre><code>X-Powered-By: PHP/5.2.17
-X-Pingback: https://example.com/xmlrpc.php
-</code></pre>
+<div class="highlight highlight-source-httpspec"><pre><span class="pl-s"><span class="pl-v">X-Powered-By:</span> PHP/5.2.17</span>
+<span class="pl-s"><span class="pl-v">X-Pingback:</span> https://example.com/xmlrpc.php</span></pre></div>
 </li>
 </ul>
 <p><strong>Cache headers</strong></p>
 <ul>
 <li>X-Road does not cache messages. Cache headers MUST be passed as-is and the consumer/provider MAY take advantage of this information.
-<pre><code>Cache-Control: no-cache, no-store, must-revalidate
-Pragma: no-cache
-</code></pre>
+<div class="highlight highlight-source-httpspec"><pre><span class="pl-s"><span class="pl-v">Cache-Control:</span> no-cache, no-store, must-revalidate</span>
+<span class="pl-s"><span class="pl-v">Pragma:</span> no-cache</span></pre></div>
 </li>
 </ul>
 <p><strong>Cross-origin resource sharing</strong></p>
@@ -540,22 +550,21 @@ Pragma: no-cache
 </code></pre>
 <p>Response body:</p>
 <div class="highlight highlight-source-json"><pre>{
-  <span class="pl-s"><span class="pl-pds">"</span>timestamp<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>2019-03-21T09:45:19.904Z<span class="pl-pds">"</span></span>,
-  <span class="pl-s"><span class="pl-pds">"</span>status<span class="pl-pds">"</span></span>:<span class="pl-c1">405</span>,
-  <span class="pl-s"><span class="pl-pds">"</span>error<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>Method Not Allowed<span class="pl-pds">"</span></span>,
-  <span class="pl-s"><span class="pl-pds">"</span>message<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>Request method 'PUT' not supported<span class="pl-pds">"</span></span>,
-  <span class="pl-s"><span class="pl-pds">"</span>path<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>/v3/pet/findByStatus<span class="pl-pds">"</span></span>
+  <span class="pl-ent">"timestamp"</span>:<span class="pl-s"><span class="pl-pds">"</span>2019-03-21T09:45:19.904Z<span class="pl-pds">"</span></span>,
+  <span class="pl-ent">"status"</span>:<span class="pl-c1">405</span>,
+  <span class="pl-ent">"error"</span>:<span class="pl-s"><span class="pl-pds">"</span>Method Not Allowed<span class="pl-pds">"</span></span>,
+  <span class="pl-ent">"message"</span>:<span class="pl-s"><span class="pl-pds">"</span>Request method 'PUT' not supported<span class="pl-pds">"</span></span>,
+  <span class="pl-ent">"path"</span>:<span class="pl-s"><span class="pl-pds">"</span>/v3/pet/findByStatus<span class="pl-pds">"</span></span>
 }</pre></div>
 <p>HTTP headers:</p>
-<pre><code>Content-Type: application/json;charset=utf-8
-Date: Thu, 21 Mar 2019 09:45:19 GMT
-x-road-id: 5ea48ae9-15c1-465a-be15-9b6ef2c7ef4a
-x-road-client: DEV/COM/222/TESTCLIENT
-x-road-service: DEV/COM/222/TESTSERVICE/petstore
-x-road-request-id: f92591a3-6bf0-49b1-987b-0dd78c034cc3
-x-road-request-hash: yFOLGuJ0zmLhZSgwp3ooSBQbR9ejSvTc6p6FvBmcSEB2tDD6bxpjiv8sHORxqz4MMgEADH7IcARNprLfEwudNw==
-Content-Length: 159
-</code></pre>
+<div class="highlight highlight-source-httpspec"><pre><span class="pl-s"><span class="pl-v">Content-Type:</span> application/json;charset=utf-8</span>
+<span class="pl-s"><span class="pl-v">Date:</span> Thu, 21 Mar 2019 09:45:19 GMT</span>
+<span class="pl-s"><span class="pl-v">x-road-id:</span> 5ea48ae9-15c1-465a-be15-9b6ef2c7ef4a</span>
+<span class="pl-s"><span class="pl-v">x-road-client:</span> DEV/COM/222/TESTCLIENT</span>
+<span class="pl-s"><span class="pl-v">x-road-service:</span> DEV/COM/222/TESTSERVICE/petstore</span>
+<span class="pl-s"><span class="pl-v">x-road-request-id:</span> f92591a3-6bf0-49b1-987b-0dd78c034cc3</span>
+<span class="pl-s"><span class="pl-v">x-road-request-hash:</span> yFOLGuJ0zmLhZSgwp3ooSBQbR9ejSvTc6p6FvBmcSEB2tDD6bxpjiv8sHORxqz4MMgEADH7IcARNprLfEwudNw==</span>
+<span class="pl-s"><span class="pl-v">Content-Length:</span> 159</span></pre></div>
 <h4>
 <a id="example-2-category-2" class="anchor" href="#example-2-category-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example 2 (Category 2)</h4>
 <p>Everything worked in the Security Server's perspective, but the service timed out. The status code, response body and HTTP headers are returned by the Security Server.</p>
@@ -564,16 +573,15 @@ Content-Length: 159
 </code></pre>
 <p>Response body:</p>
 <div class="highlight highlight-source-json"><pre>{
-  <span class="pl-s"><span class="pl-pds">"</span>type<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>Server.ServerProxy.NetworkError<span class="pl-pds">"</span></span>,
-  <span class="pl-s"><span class="pl-pds">"</span>message<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>Connect to 10.139.178.1:8080 [/10.139.178.1] failed: Connection timed out (Connection timed out)<span class="pl-pds">"</span></span>,
-  <span class="pl-s"><span class="pl-pds">"</span>detail<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>9bc95b6e-2f1d-4a41-a7e6-11eda7d734d5<span class="pl-pds">"</span></span>
+  <span class="pl-ent">"type"</span>:<span class="pl-s"><span class="pl-pds">"</span>Server.ServerProxy.NetworkError<span class="pl-pds">"</span></span>,
+  <span class="pl-ent">"message"</span>:<span class="pl-s"><span class="pl-pds">"</span>Connect to 10.139.178.1:8080 [/10.139.178.1] failed: Connection timed out (Connection timed out)<span class="pl-pds">"</span></span>,
+  <span class="pl-ent">"detail"</span>:<span class="pl-s"><span class="pl-pds">"</span>9bc95b6e-2f1d-4a41-a7e6-11eda7d734d5<span class="pl-pds">"</span></span>
 }</pre></div>
 <p>HTTP headers:</p>
-<pre><code>Date: Thu, 21 Mar 2019 11:42:03 GMT
-Content-Type: application/json;charset=utf-8
-X-Road-Error: Server.ServerProxy.NetworkError
-Content-Length: 199
-</code></pre>
+<div class="highlight highlight-source-httpspec"><pre><span class="pl-s"><span class="pl-v">Date:</span> Thu, 21 Mar 2019 11:42:03 GMT</span>
+<span class="pl-s"><span class="pl-v">Content-Type:</span> application/json;charset=utf-8</span>
+<span class="pl-s"><span class="pl-v">X-Road-Error:</span> Server.ServerProxy.NetworkError</span>
+<span class="pl-s"><span class="pl-v">Content-Length:</span> 199</span></pre></div>
 <h4>
 <a id="example-3-category-3" class="anchor" href="#example-3-category-3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example 3 (Category 3)</h4>
 <p>The consumer information system sends a request that doesn't conform to the X-Road Message Protocol for REST. The status code, response body and HTTP headers are returned by the Security Server.</p>
@@ -582,16 +590,15 @@ Content-Length: 199
 </code></pre>
 <p>Response body:</p>
 <div class="highlight highlight-source-json"><pre>{
-  <span class="pl-s"><span class="pl-pds">"</span>type<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Client.BadRequest<span class="pl-pds">"</span></span>,
-  <span class="pl-s"><span class="pl-pds">"</span>message<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Error parsing the client's REST request. Please that the request format corresponds to the X-Road Message Protocol for REST (r1).<span class="pl-pds">"</span></span>,
-  <span class="pl-s"><span class="pl-pds">"</span>detail<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>018cbcae-537e-421b-b6f6-2608dc97bd90<span class="pl-pds">"</span></span>
+  <span class="pl-ent">"type"</span>: <span class="pl-s"><span class="pl-pds">"</span>Client.BadRequest<span class="pl-pds">"</span></span>,
+  <span class="pl-ent">"message"</span>: <span class="pl-s"><span class="pl-pds">"</span>Error parsing the client's REST request. Please that the request format corresponds to the X-Road Message Protocol for REST (r1).<span class="pl-pds">"</span></span>,
+  <span class="pl-ent">"detail"</span>: <span class="pl-s"><span class="pl-pds">"</span>018cbcae-537e-421b-b6f6-2608dc97bd90<span class="pl-pds">"</span></span>
 }</pre></div>
 <p>HTTP headers:</p>
-<pre><code>Date: Thu, 21 Mar 2019 11:45:12 GMT
-Content-Type: application/json;charset=utf-8
-X-Road-Error: Client.BadRequest
-Content-Length: 167
-</code></pre>
+<div class="highlight highlight-source-httpspec"><pre><span class="pl-s"><span class="pl-v">Date:</span> Thu, 21 Mar 2019 11:45:12 GMT</span>
+<span class="pl-s"><span class="pl-v">Content-Type:</span> application/json;charset=utf-8</span>
+<span class="pl-s"><span class="pl-v">X-Road-Error:</span> Client.BadRequest</span>
+<span class="pl-s"><span class="pl-v">Content-Length:</span> 167</span></pre></div>
 <h4>
 <a id="example-4-category-4" class="anchor" href="#example-4-category-4" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example 4 (Category 4)</h4>
 <p>Error occurred on the provider Security Server. The status code, response body and HTTP headers are returned by the Security Server.</p>
@@ -600,16 +607,15 @@ Content-Length: 167
 </code></pre>
 <p>Response body:</p>
 <div class="highlight highlight-source-json"><pre>{
-  <span class="pl-s"><span class="pl-pds">"</span>type<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>Server.ServerProxy.DatabaseError<span class="pl-pds">"</span></span>,
-  <span class="pl-s"><span class="pl-pds">"</span>message<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>Error accessing database (serverconf)<span class="pl-pds">"</span></span>,
-  <span class="pl-s"><span class="pl-pds">"</span>detail<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>3c4d0f08-440f-417f-b935-bc801e103d51<span class="pl-pds">"</span></span>
+  <span class="pl-ent">"type"</span>:<span class="pl-s"><span class="pl-pds">"</span>Server.ServerProxy.DatabaseError<span class="pl-pds">"</span></span>,
+  <span class="pl-ent">"message"</span>:<span class="pl-s"><span class="pl-pds">"</span>Error accessing database (serverconf)<span class="pl-pds">"</span></span>,
+  <span class="pl-ent">"detail"</span>:<span class="pl-s"><span class="pl-pds">"</span>3c4d0f08-440f-417f-b935-bc801e103d51<span class="pl-pds">"</span></span>
 }</pre></div>
 <p>HTTP headers:</p>
-<pre><code>Date: Thu, 21 Mar 2019 11:57:11 GMT
-Content-Type: application/json;charset=utf-8
-X-Road-Error: Server.ServerProxy.DatabaseError
-Content-Length: 141
-</code></pre>
+<div class="highlight highlight-source-httpspec"><pre><span class="pl-s"><span class="pl-v">Date:</span> Thu, 21 Mar 2019 11:57:11 GMT</span>
+<span class="pl-s"><span class="pl-v">Content-Type:</span> application/json;charset=utf-8</span>
+<span class="pl-s"><span class="pl-v">X-Road-Error:</span> Server.ServerProxy.DatabaseError</span>
+<span class="pl-s"><span class="pl-v">Content-Length:</span> 141</span></pre></div>
 <h4>
 <a id="example-5-tracking-the-source-of-error" class="anchor" href="#example-5-tracking-the-source-of-error" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example 5 (Tracking the source of error)</h4>
 <p>When an error occurs it is important to be able to track the component that is causing the error. One of the most confusing error responses can be HTTP 500 Internal Error.</p>
@@ -620,6 +626,38 @@ Content-Length: 141
 <a id="47-security" class="anchor" href="#47-security" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.7 Security</h3>
 <p>Secure REST services should only provide HTTPS endpoints. This concerns both the consumer Security Server and the provider service. HTTPS protects authentication credentials in transit, for example passwords, API keys or JSON Web Tokens. It also allows clients to authenticate the service and guarantees integrity of the transmitted data.</p>
 <p>It is RECOMMENDED to use mutually authenticated client-side certificates in the connections between the Security Server and information systems - both service consumers and service providers, to provide additional protection for highly privileged web services. Security Server MUST support mutually authenticated client-side certificates on both consumer and provider side. Use of JWT tokens as an authentication method between the Security Server and information system is not supported. Instead, sending JWT tokens in HTTP headers from the service consumer to the service provider is supported - X-Road passes the headers unmodified.</p>
+<h3>
+<a id="48-identifier-character-restrictions" class="anchor" href="#48-identifier-character-restrictions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.8 Identifier Character Restrictions</h3>
+<p>X-Road identifiers include, but are not restricted to:</p>
+<ul>
+<li>Instance id</li>
+<li>Member class</li>
+<li>Member code</li>
+<li>Subsystem code</li>
+<li>Service code</li>
+<li>Service version</li>
+<li>Central service code</li>
+<li>Security server code</li>
+</ul>
+<p>X-Road Message Protocol for REST imposes some restrictions on the characters that can be used in X-Road identifiers. The following characters SHALL NOT be used in the identifier values:</p>
+<ul>
+<li>Colon <code>:</code>
+</li>
+<li>Semicolon <code>;</code>
+</li>
+<li>Slash <code>/</code>
+</li>
+<li>Backslash <code>\</code>
+</li>
+<li>Percent <code>%</code>
+</li>
+<li>Control characters and zero-width spaces
+<ul>
+<li>U+0000—U+001F and U+007F—U+009F; includes chars like tab, newline, del etc.</li>
+<li>U+200B and U+FEFF</li>
+</ul>
+</li>
+</ul>
 <h2>
 <a id="5-services" class="anchor" href="#5-services" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5 Services</h2>
 <h3>
@@ -659,11 +697,11 @@ Content-Length: 141
 <div class="highlight highlight-source-shell"><pre>curl -X GET <span class="pl-s"><span class="pl-pds">"</span>https://{securityserver}/r1/{serviceId}/v2/pets/1124<span class="pl-pds">"</span></span> -H <span class="pl-s"><span class="pl-pds">"</span>accept: application/json<span class="pl-pds">"</span></span> -H <span class="pl-s"><span class="pl-pds">"</span>X-Road-Client: {client}<span class="pl-pds">"</span></span></pre></div>
 <p>Service response</p>
 <div class="highlight highlight-source-json"><pre>{
-  <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-c1">1124</span>,
-  <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Siddu<span class="pl-pds">"</span></span>,
-  <span class="pl-s"><span class="pl-pds">"</span>photoUrls<span class="pl-pds">"</span></span>: [],
-  <span class="pl-s"><span class="pl-pds">"</span>tags<span class="pl-pds">"</span></span>: [],
-  <span class="pl-s"><span class="pl-pds">"</span>status<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Offline<span class="pl-pds">"</span></span>
+  <span class="pl-ent">"id"</span>: <span class="pl-c1">1124</span>,
+  <span class="pl-ent">"name"</span>: <span class="pl-s"><span class="pl-pds">"</span>Siddu<span class="pl-pds">"</span></span>,
+  <span class="pl-ent">"photoUrls"</span>: [],
+  <span class="pl-ent">"tags"</span>: [],
+  <span class="pl-ent">"status"</span>: <span class="pl-s"><span class="pl-pds">"</span>Offline<span class="pl-pds">"</span></span>
 }</pre></div>
 <p>Service response code</p>
 <pre><code>200
@@ -705,22 +743,22 @@ Content-Length: 1148
 <div class="highlight highlight-source-shell"><pre>curl -X PUT <span class="pl-s"><span class="pl-pds">"</span>https://{securityserver}/r1/{serviceId}/v2/pets/5657082955040009<span class="pl-pds">"</span></span> -H <span class="pl-s"><span class="pl-pds">"</span>accept: application/json<span class="pl-pds">"</span></span> -H <span class="pl-s"><span class="pl-pds">"</span>Content-Type: application/json<span class="pl-pds">"</span></span>  -H <span class="pl-s"><span class="pl-pds">"</span>X-Road-Client: {client}<span class="pl-pds">"</span></span> -d <span class="pl-s"><span class="pl-pds">'</span>{ "id": 0, "category": { "id": 0, "name": "string" }, "name": "doggie", "photoUrls": [ "string" ], "tags": [ { "id": 0, "name": "string" } ], "status": "available"}<span class="pl-pds">'</span></span></pre></div>
 <p>Service response</p>
 <div class="highlight highlight-source-json"><pre>{
-  <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-c1">5657082955040009</span>,
-  <span class="pl-s"><span class="pl-pds">"</span>category<span class="pl-pds">"</span></span>: {
-    <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-c1">0</span>,
-    <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>string<span class="pl-pds">"</span></span>
+  <span class="pl-ent">"id"</span>: <span class="pl-c1">5657082955040009</span>,
+  <span class="pl-ent">"category"</span>: {
+    <span class="pl-ent">"id"</span>: <span class="pl-c1">0</span>,
+    <span class="pl-ent">"name"</span>: <span class="pl-s"><span class="pl-pds">"</span>string<span class="pl-pds">"</span></span>
   },
-  <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>doggie<span class="pl-pds">"</span></span>,
-  <span class="pl-s"><span class="pl-pds">"</span>photoUrls<span class="pl-pds">"</span></span>: [
+  <span class="pl-ent">"name"</span>: <span class="pl-s"><span class="pl-pds">"</span>doggie<span class="pl-pds">"</span></span>,
+  <span class="pl-ent">"photoUrls"</span>: [
     <span class="pl-s"><span class="pl-pds">"</span>string<span class="pl-pds">"</span></span>
   ],
-  <span class="pl-s"><span class="pl-pds">"</span>tags<span class="pl-pds">"</span></span>: [
+  <span class="pl-ent">"tags"</span>: [
     {
-      <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-c1">0</span>,
-      <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>string<span class="pl-pds">"</span></span>
+      <span class="pl-ent">"id"</span>: <span class="pl-c1">0</span>,
+      <span class="pl-ent">"name"</span>: <span class="pl-s"><span class="pl-pds">"</span>string<span class="pl-pds">"</span></span>
     }
   ],
-  <span class="pl-s"><span class="pl-pds">"</span>status<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>available<span class="pl-pds">"</span></span>
+  <span class="pl-ent">"status"</span>: <span class="pl-s"><span class="pl-pds">"</span>available<span class="pl-pds">"</span></span>
 }</pre></div>
 <p>Service response code</p>
 <pre><code>200
@@ -761,22 +799,22 @@ Content-Length: 0
 <div class="highlight highlight-source-shell"><pre>curl -X POST <span class="pl-s"><span class="pl-pds">"</span>https://{securityserver}/r1/{serviceId}/v2/pets<span class="pl-pds">"</span></span> -H <span class="pl-s"><span class="pl-pds">"</span>accept: application/json<span class="pl-pds">"</span></span> -H <span class="pl-s"><span class="pl-pds">"</span>Content-Type: application/json<span class="pl-pds">"</span></span> -H <span class="pl-s"><span class="pl-pds">"</span>X-Road-Client: {client}<span class="pl-pds">"</span></span> -d <span class="pl-s"><span class="pl-pds">'</span>{ "id": 0, "category": { "id": 0, "name": "string" }, "name": "doggie", "photoUrls": [ "string" ], "tags": [ { "id": 0, "name": "string" } ], "status": "available"}<span class="pl-pds">'</span></span></pre></div>
 <p>Service response</p>
 <div class="highlight highlight-source-json"><pre>{
-  <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-c1">5657082955040122</span>,
-  <span class="pl-s"><span class="pl-pds">"</span>category<span class="pl-pds">"</span></span>: {
-    <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-c1">0</span>,
-    <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>string<span class="pl-pds">"</span></span>
+  <span class="pl-ent">"id"</span>: <span class="pl-c1">5657082955040122</span>,
+  <span class="pl-ent">"category"</span>: {
+    <span class="pl-ent">"id"</span>: <span class="pl-c1">0</span>,
+    <span class="pl-ent">"name"</span>: <span class="pl-s"><span class="pl-pds">"</span>string<span class="pl-pds">"</span></span>
   },
-  <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>doggie<span class="pl-pds">"</span></span>,
-  <span class="pl-s"><span class="pl-pds">"</span>photoUrls<span class="pl-pds">"</span></span>: [
+  <span class="pl-ent">"name"</span>: <span class="pl-s"><span class="pl-pds">"</span>doggie<span class="pl-pds">"</span></span>,
+  <span class="pl-ent">"photoUrls"</span>: [
     <span class="pl-s"><span class="pl-pds">"</span>string<span class="pl-pds">"</span></span>
   ],
-  <span class="pl-s"><span class="pl-pds">"</span>tags<span class="pl-pds">"</span></span>: [
+  <span class="pl-ent">"tags"</span>: [
     {
-      <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-c1">0</span>,
-      <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>string<span class="pl-pds">"</span></span>
+      <span class="pl-ent">"id"</span>: <span class="pl-c1">0</span>,
+      <span class="pl-ent">"name"</span>: <span class="pl-s"><span class="pl-pds">"</span>string<span class="pl-pds">"</span></span>
     }
   ],
-  <span class="pl-s"><span class="pl-pds">"</span>status<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>available<span class="pl-pds">"</span></span>
+  <span class="pl-ent">"status"</span>: <span class="pl-s"><span class="pl-pds">"</span>available<span class="pl-pds">"</span></span>
 }</pre></div>
 <p>Service response code</p>
 <pre><code>200
@@ -856,9 +894,9 @@ Content-Length: 0
 <div class="highlight highlight-source-shell"><pre>curl -X POST <span class="pl-s"><span class="pl-pds">"</span>https://{securityserver}/r1/{serviceId}/v2/pets/1124/images<span class="pl-pds">"</span></span> -H <span class="pl-s"><span class="pl-pds">"</span>accept: application/json<span class="pl-pds">"</span></span> -H <span class="pl-s"><span class="pl-pds">"</span>Content-Type: multipart/form-data<span class="pl-pds">"</span></span> -H <span class="pl-s"><span class="pl-pds">"</span>X-Road-client: {client}<span class="pl-pds">"</span></span> -F <span class="pl-s"><span class="pl-pds">"</span>file=@A-fluffy-cat-looking-funny-surprised-or-concerned.jpg;type=image/jpeg<span class="pl-pds">"</span></span></pre></div>
 <p>Service response</p>
 <div class="highlight highlight-source-json"><pre>{
-  <span class="pl-s"><span class="pl-pds">"</span>code<span class="pl-pds">"</span></span>:<span class="pl-c1">200</span>,
-  <span class="pl-s"><span class="pl-pds">"</span>type<span class="pl-pds">"</span></span>:<span class="pl-c1">null</span>,
-  <span class="pl-s"><span class="pl-pds">"</span>message<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>additionalMetadata: null<span class="pl-cce">\n</span>File uploaded to ./file, 170025 bytes<span class="pl-pds">"</span></span>
+  <span class="pl-ent">"code"</span>:<span class="pl-c1">200</span>,
+  <span class="pl-ent">"type"</span>:<span class="pl-c1">null</span>,
+  <span class="pl-ent">"message"</span>:<span class="pl-s"><span class="pl-pds">"</span>additionalMetadata: null<span class="pl-cce">\n</span>File uploaded to ./file, 170025 bytes<span class="pl-pds">"</span></span>
 }</pre></div>
 <p>Service response code</p>
 <pre><code>200
