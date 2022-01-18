@@ -122,7 +122,7 @@ Internet Engineering Task Force, 1997.
 [PR-TARGETSS](pr-targetss_security_server_targeting_extension_for_the_x-road_protocol.md)\.
 
 12. <a name="Ref_PR-SECTOKEN" class="anchor"></a>\[PR-SECTOKEN\] Security token extension for the X-Road message protocol. Document ID:
-[PR-SECTOKEN](https://github.com/nordic-institute/X-Road/blob/6.20.0/doc/Protocols/SecurityTokenExtension/pr-sectoken_security_token_extension_for_the_x-road_protocol.md)\.
+[PR-SECTOKEN](https://github.com/nordic-institute/X-Road/blob/7.0.1/doc/Protocols/SecurityTokenExtension/pr-sectoken_security_token_extension_for_the_x-road_protocol.md)\.
 
 13. <a id="Ref_TERMS" class="anchor"></a>\[TA-TERMS\] X-Road Terms and Abbreviations. Document ID: [TA-TERMS](terms_x-road_docs.md).
 

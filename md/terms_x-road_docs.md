@@ -15,6 +15,8 @@ Doc. ID:  TA-TERMS
  06.03.2018 | 0.4     | Moved/merged terminology explanations from other X-Road repository MD-documents to this document | Tatu Repo |
  03.01.2019 | 0.5     | Minor changes - typos fixed. | Yamato Kataoka |
  16.04.2019 | 0.6     | Add description of REST services. | Petteri Kivimäki |
+ 02.06.2021 | 0.7     | Add backup encryption related terms. | Andres Allkivi |
+ 25.08.2021 | 0.8     | Update X-Road references from version 6 to 7 | Caro Hautamäki
 
 ## Table of Contents
 
@@ -324,6 +326,8 @@ This document is licensed under the Creative Commons Attribution-ShareAlike 3.0 
 **CI** - Continuous Integration
 
 **DSL** - Domain Specific Language
+
+**GPG / GnuPG** - The GNU Privacy Guard
 
 **HTTP** - Hypertext Transfer Protocol  
 
