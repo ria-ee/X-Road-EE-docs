@@ -534,158 +534,151 @@ following MIME message parts (see <a href="#Messtransport_message">Figure 4</a>)
 <p>All the example messages only contain the relevant HTTP headers (content-type) and the headers of the MIME parts. The contents of the MIME parts are omitted for brevity.</p>
 <h3>
 <a id="41-response-to-ocsp-downloading-request" class="anchor" href="#41-response-to-ocsp-downloading-request" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.1 Response to OCSP Downloading Request</h3>
-<pre><code>Content-Type: multipart/related; charset=UTF-8; boundary=jetty625909216ic7gfi1u 
+<div class="highlight highlight-source-httpspec"><pre><span class="pl-s"><span class="pl-v">Content-Type:</span> multipart/related; charset=UTF-8; boundary=jetty625909216ic7gfi1u </span>
 
---jetty625909216ic7gfi1u 
-Content-Type: application/ocsp-response 
+<span class="pl-ii">--jetty625909216ic7gfi1u </span>
+<span class="pl-s"><span class="pl-v">Content-Type:</span> application/ocsp-response </span>
 
-...bytes of the ASN.1-encoded OCSP response...
---jetty625909216ic7gfi1u--
-</code></pre>
+<span class="pl-ii">...bytes of the ASN.1-encoded OCSP response...</span>
+<span class="pl-ii">--jetty625909216ic7gfi1u--</span></pre></div>
 <h3>
 <a id="42-simple-soap-request" class="anchor" href="#42-simple-soap-request" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.2 Simple SOAP Request</h3>
-<pre><code>Content-Type: multipart/mixed; charset=UTF-8; boundary=xtop1357783211hcn1yiro 
+<div class="highlight highlight-source-httpspec"><pre><span class="pl-s"><span class="pl-v">Content-Type:</span> multipart/mixed; charset=UTF-8; boundary=xtop1357783211hcn1yiro </span>
 
---xtop1357783211hcn1yiro 
-Content-Type: application/ocsp-response 
+<span class="pl-ii">--xtop1357783211hcn1yiro </span>
+<span class="pl-s"><span class="pl-v">Content-Type:</span> application/ocsp-response </span>
 
-...ocsp response...
---xtop1357783211hcn1yiro 
-Content-Type: text/xml ; charset=UTF-8
+<span class="pl-ii">...ocsp response...</span>
+<span class="pl-ii">--xtop1357783211hcn1yiro </span>
+<span class="pl-s"><span class="pl-v">Content-Type:</span> text/xml ; charset=UTF-8</span>
 
-...request SOAP...
---xtop1357783211hcn1yiro 
-Content-Type: signature/bdoc-1.0/ts 
+<span class="pl-ii">...request SOAP...</span>
+<span class="pl-ii">--xtop1357783211hcn1yiro </span>
+<span class="pl-s"><span class="pl-v">Content-Type:</span> signature/bdoc-1.0/ts </span>
 
-...signature XML...
---xtop1357783211hcn1yiro--
-</code></pre>
+<span class="pl-ii">...signature XML...</span>
+<span class="pl-ii">--xtop1357783211hcn1yiro--</span></pre></div>
 <h3>
 <a id="43-simple-soap-response" class="anchor" href="#43-simple-soap-response" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.3 Simple SOAP Response</h3>
-<pre><code>Content-Type: multipart/mixed; charset=UTF-8; boundary=xatt569125687hcu8vfma
+<div class="highlight highlight-source-httpspec"><pre><span class="pl-s"><span class="pl-v">Content-Type:</span> multipart/mixed; charset=UTF-8; boundary=xatt569125687hcu8vfma</span>
 
---xatt569125687hcu8vfma
-Content-Type: text/xml ; charset=UTF-8
+<span class="pl-ii">--xatt569125687hcu8vfma</span>
+<span class="pl-s"><span class="pl-v">Content-Type:</span> text/xml ; charset=UTF-8</span>
 
-...response SOAP...
---xatt569125687hcu8vfma
-Content-Type: signature/bdoc-1.0/ts 
+<span class="pl-ii">...response SOAP...</span>
+<span class="pl-ii">--xatt569125687hcu8vfma</span>
+<span class="pl-s"><span class="pl-v">Content-Type:</span> signature/bdoc-1.0/ts </span>
 
-...signature XML...
---xatt569125687hcu8vfma--
-</code></pre>
+<span class="pl-ii">...signature XML...</span>
+<span class="pl-ii">--xatt569125687hcu8vfma--</span></pre></div>
 <h3>
 <a id="44-soap-request-with-attachments" class="anchor" href="#44-soap-request-with-attachments" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.4 SOAP Request with Attachments</h3>
-<pre><code>Content-Type: multipart/mixed; charset=UTF-8; boundary=xtop1357783211hcn1yiro
+<div class="highlight highlight-source-httpspec"><pre><span class="pl-s"><span class="pl-v">Content-Type:</span> multipart/mixed; charset=UTF-8; boundary=xtop1357783211hcn1yiro</span>
  
---xtop1357783211hcn1yiro 
-Content-Type: application/ocsp-response 
+<span class="pl-ii">--xtop1357783211hcn1yiro </span>
+<span class="pl-s"><span class="pl-v">Content-Type:</span> application/ocsp-response </span>
 
-...ocsp response...
---xtop1357783211hcn1yiro
-Content-Type: text/xml; charset=UTF-8
+<span class="pl-ii">...ocsp response...</span>
+<span class="pl-ii">--xtop1357783211hcn1yiro</span>
+<span class="pl-s"><span class="pl-v">Content-Type:</span> text/xml; charset=UTF-8</span>
 
-...request SOAP...
---xtop1357783211hcn1yiro 
-Content-Type: multipart/mixed; charset=UTF-8; boundary=xtop569125687h3h10du0 
+<span class="pl-ii">...request SOAP...</span>
+<span class="pl-ii">--xtop1357783211hcn1yiro </span>
+<span class="pl-s"><span class="pl-v">Content-Type:</span> multipart/mixed; charset=UTF-8; boundary=xtop569125687h3h10du0 </span>
 
---xtop569125687h3h10du0
-Content-Type: text/plain; charset=UTF-8
-Content-Location: attachment.txt
+<span class="pl-ii">--xtop569125687h3h10du0</span>
+<span class="pl-s"><span class="pl-v">Content-Type:</span> text/plain; charset=UTF-8</span>
+<span class="pl-s"><span class="pl-v">Content-Location:</span> attachment.txt</span>
  
-...attachment data...
---xtop569125687h3h10du0 
-Content-Type: application/octet-stream
-Content-Transfer-Encoding: base64
-Content-Id: &lt;data.bin&gt;
+<span class="pl-ii">...attachment data...</span>
+<span class="pl-ii">--xtop569125687h3h10du0 </span>
+<span class="pl-s"><span class="pl-v">Content-Type:</span> application/octet-stream</span>
+<span class="pl-s"><span class="pl-v">Content-Transfer-Encoding:</span> base64</span>
+<span class="pl-s"><span class="pl-v">Content-Id:</span> &lt;data.bin&gt;</span>
 
-...attachment data...
---xtop569125687h3h10du0 --
+<span class="pl-ii">...attachment data...</span>
+<span class="pl-ii">--xtop569125687h3h10du0 --</span>
 
---xtop1357783211hcn1yiro 
-Content-Type: application/hash-chain-result
+<span class="pl-ii">--xtop1357783211hcn1yiro </span>
+<span class="pl-s"><span class="pl-v">Content-Type:</span> application/hash-chain-result</span>
 
-...hash chain result XML...
---xtop1357783211hcn1yiro 
-Content-Type: application/hash-chain
+<span class="pl-ii">...hash chain result XML...</span>
+<span class="pl-ii">--xtop1357783211hcn1yiro </span>
+<span class="pl-s"><span class="pl-v">Content-Type:</span> application/hash-chain</span>
 
-...hash chain XML...
---xtop1357783211hcn1yiro 
-Content-Type: signature/bdoc-1.0/ts 
+<span class="pl-ii">...hash chain XML...</span>
+<span class="pl-ii">--xtop1357783211hcn1yiro </span>
+<span class="pl-s"><span class="pl-v">Content-Type:</span> signature/bdoc-1.0/ts </span>
 
-...signature XML...
---xtop1357783211hcn1yiro--
-</code></pre>
+<span class="pl-ii">...signature XML...</span>
+<span class="pl-ii">--xtop1357783211hcn1yiro--</span></pre></div>
 <h3>
 <a id="45-soap-response-with-fault-as-last-part" class="anchor" href="#45-soap-response-with-fault-as-last-part" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.5 SOAP Response with Fault as Last Part</h3>
-<pre><code>Content-Type: multipart/mixed; charset=UTF-8; boundary=xatt569125687hcu8vfma
+<div class="highlight highlight-source-httpspec"><pre><span class="pl-s"><span class="pl-v">Content-Type:</span> multipart/mixed; charset=UTF-8; boundary=xatt569125687hcu8vfma</span>
 
---xatt569125687hcu8vfma
-Content-Type: text/xml; charset=UTF-8
+<span class="pl-ii">--xatt569125687hcu8vfma</span>
+<span class="pl-s"><span class="pl-v">Content-Type:</span> text/xml; charset=UTF-8</span>
 
-...response SOAP...
---xatt569125687hcu8vfma
-Content-Type: text/xml; charset=UTF-8
+<span class="pl-ii">...response SOAP...</span>
+<span class="pl-ii">--xatt569125687hcu8vfma</span>
+<span class="pl-s"><span class="pl-v">Content-Type:</span> text/xml; charset=UTF-8</span>
 
-...SOAP fault...
---xatt569125687hcu8vfma--
-</code></pre>
+<span class="pl-ii">...SOAP fault...</span>
+<span class="pl-ii">--xatt569125687hcu8vfma--</span></pre></div>
 <h3>
 <a id="46-rest-request" class="anchor" href="#46-rest-request" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.6 REST Request</h3>
-<pre><code>Content-Type: multipart/mixed; charset=UTF-8; boundary=xtopVuvPTiuLRQanuYKzamfNZBOlxZclEe
+<div class="highlight highlight-source-httpspec"><pre><span class="pl-s"><span class="pl-v">Content-Type:</span> multipart/mixed; charset=UTF-8; boundary=xtopVuvPTiuLRQanuYKzamfNZBOlxZclEe</span>
 
---xtopVuvPTiuLRQanuYKzamfNZBOlxZclEe
-content-type: application/ocsp-response
+<span class="pl-ii">--xtopVuvPTiuLRQanuYKzamfNZBOlxZclEe</span>
+<span class="pl-s"><span class="pl-v">content-type:</span> application/ocsp-response</span>
 
-...ocsp response...
---xtopVuvPTiuLRQanuYKzamfNZBOlxZclEe
-content-type: application/x-road-rest-request
+<span class="pl-ii">...ocsp response...</span>
+<span class="pl-ii">--xtopVuvPTiuLRQanuYKzamfNZBOlxZclEe</span>
+<span class="pl-s"><span class="pl-v">content-type:</span> application/x-road-rest-request</span>
 
-...REST request header...
---xtopVuvPTiuLRQanuYKzamfNZBOlxZclEe
-content-type: application/x-road-rest-body
+<span class="pl-ii">...REST request header...</span>
+<span class="pl-ii">--xtopVuvPTiuLRQanuYKzamfNZBOlxZclEe</span>
+<span class="pl-s"><span class="pl-v">content-type:</span> application/x-road-rest-body</span>
 
-...REST request body...
---xtopVuvPTiuLRQanuYKzamfNZBOlxZclEe
-content-type: application/hash-chain-result
+<span class="pl-ii">...REST request body...</span>
+<span class="pl-ii">--xtopVuvPTiuLRQanuYKzamfNZBOlxZclEe</span>
+<span class="pl-s"><span class="pl-v">content-type:</span> application/hash-chain-result</span>
 
-...hash chain result XML...
---xtopVuvPTiuLRQanuYKzamfNZBOlxZclEe
-content-type: application/hash-chain
+<span class="pl-ii">...hash chain result XML...</span>
+<span class="pl-ii">--xtopVuvPTiuLRQanuYKzamfNZBOlxZclEe</span>
+<span class="pl-s"><span class="pl-v">content-type:</span> application/hash-chain</span>
 
-...hash chain XML...
---xtopVuvPTiuLRQanuYKzamfNZBOlxZclEe
-content-type: signature/bdoc-1.0/ts
+<span class="pl-ii">...hash chain XML...</span>
+<span class="pl-ii">--xtopVuvPTiuLRQanuYKzamfNZBOlxZclEe</span>
+<span class="pl-s"><span class="pl-v">content-type:</span> signature/bdoc-1.0/ts</span>
 
-...signature XML...
---xtopVuvPTiuLRQanuYKzamfNZBOlxZclEe--
-</code></pre>
+<span class="pl-ii">...signature XML...</span>
+<span class="pl-ii">--xtopVuvPTiuLRQanuYKzamfNZBOlxZclEe--</span></pre></div>
 <h3>
 <a id="47-rest-response" class="anchor" href="#47-rest-response" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.7 REST Response</h3>
-<pre><code>Content-Type: multipart/mixed; charset=UTF-8; boundary=xtoptrgBinKkBvoijBRQYWabkZvkECcuIH
+<div class="highlight highlight-source-httpspec"><pre><span class="pl-s"><span class="pl-v">Content-Type:</span> multipart/mixed; charset=UTF-8; boundary=xtoptrgBinKkBvoijBRQYWabkZvkECcuIH</span>
 
---xtoptrgBinKkBvoijBRQYWabkZvkECcuIH
-content-type: application/x-road-rest-response
+<span class="pl-ii">--xtoptrgBinKkBvoijBRQYWabkZvkECcuIH</span>
+<span class="pl-s"><span class="pl-v">content-type:</span> application/x-road-rest-response</span>
 
-...REST response header...
---xtoptrgBinKkBvoijBRQYWabkZvkECcuIH
-content-type: application/x-road-rest-body
+<span class="pl-ii">...REST response header...</span>
+<span class="pl-ii">--xtoptrgBinKkBvoijBRQYWabkZvkECcuIH</span>
+<span class="pl-s"><span class="pl-v">content-type:</span> application/x-road-rest-body</span>
 
-...REST response body...
---xtoptrgBinKkBvoijBRQYWabkZvkECcuIH
-content-type: application/hash-chain-result
+<span class="pl-ii">...REST response body...</span>
+<span class="pl-ii">--xtoptrgBinKkBvoijBRQYWabkZvkECcuIH</span>
+<span class="pl-s"><span class="pl-v">content-type:</span> application/hash-chain-result</span>
 
-...hash chain result XML...
---xtoptrgBinKkBvoijBRQYWabkZvkECcuIH
-content-type: application/hash-chain
+<span class="pl-ii">...hash chain result XML...</span>
+<span class="pl-ii">--xtoptrgBinKkBvoijBRQYWabkZvkECcuIH</span>
+<span class="pl-s"><span class="pl-v">content-type:</span> application/hash-chain</span>
 
-...hash chain XML...
---xtoptrgBinKkBvoijBRQYWabkZvkECcuIH
-content-type: signature/bdoc-1.0/ts
+<span class="pl-ii">...hash chain XML...</span>
+<span class="pl-ii">--xtoptrgBinKkBvoijBRQYWabkZvkECcuIH</span>
+<span class="pl-s"><span class="pl-v">content-type:</span> signature/bdoc-1.0/ts</span>
 
-...signature XML...
---xtoptrgBinKkBvoijBRQYWabkZvkECcuIH--
-</code></pre>
+<span class="pl-ii">...signature XML...</span>
+<span class="pl-ii">--xtoptrgBinKkBvoijBRQYWabkZvkECcuIH--</span></pre></div>
     </article>
   </body>
 </html>

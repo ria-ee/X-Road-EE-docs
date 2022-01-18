@@ -25,7 +25,7 @@
 </table>
 <h1>
 <a id="x-road-system-parameters-user-guide" class="anchor" href="#x-road-system-parameters-user-guide" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>X-Road: System Parameters User Guide</h1>
-<p>Version: 2.58
+<p>Version: 2.64<br>
 Doc. ID: UG-SYSPAR</p>
 <table>
 <thead>
@@ -429,6 +429,45 @@ Doc. ID: UG-SYSPAR</p>
 </td>
 <td>Jarkko Hyöty</td>
 </tr>
+<tr>
+<td>11.02.2021</td>
+<td>2.59</td>
+<td>Add new parameter <em>auto-update-timestamp-service-url</em>
+</td>
+<td>Ilkka Seppälä</td>
+</tr>
+<tr>
+<td>01.06.2021</td>
+<td>2.60</td>
+<td>Add new parameter <em>messagelog.archive-grouping</em>
+</td>
+<td>Jarkko Hyöty</td>
+</tr>
+<tr>
+<td>04.08.2021</td>
+<td>2.61</td>
+<td>Add new parameters for messagelog archive encryption</td>
+<td>Jarkko Hyöty</td>
+</tr>
+<tr>
+<td>25.08.2021</td>
+<td>2.62</td>
+<td>Update X-Road references from version 6 to 7</td>
+<td>Caro Hautamäki</td>
+</tr>
+<tr>
+<td>31.08.2021</td>
+<td>2.63</td>
+<td>Update messagelog and proxy parameters</td>
+<td>Ilkka Seppälä</td>
+</tr>
+<tr>
+<td>05.10.2021</td>
+<td>2.64</td>
+<td>Added a new chapter about custom command line arguments <a href="#6-adding-command-line-arguments">6</a>
+</td>
+<td>Caro Hautamäki</td>
+</tr>
 </tbody>
 </table>
 <h2>
@@ -499,6 +538,13 @@ Doc. ID: UG-SYSPAR</p>
 <li><a href="#52-signer-parameters-signer">5.2 Signer parameters: <code>[signer]</code></a></li>
 </ul>
 </li>
+<li>
+<a href="#6-adding-command-line-arguments">6 Adding command line arguments</a>
+<ul>
+<li><a href="#61-the-configuration-file">6.1 The configuration file</a></li>
+<li><a href="#62-legacy-configuration-file-support-in-x-road-v7">6.2 Legacy configuration file support in X-Road v7</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -520,7 +566,7 @@ Please note the term 'vanilla' in the documentation. In X-Road context vanilla m
 <a id="Ref_INI"></a>[INI] INI file, <a href="http://en.wikipedia.org/wiki/INI_file" rel="nofollow">http://en.wikipedia.org/wiki/INI_file</a>.</li>
 <li>
 <a id="Ref_CRON"></a>[CRON] Quartz Scheduler
-CRON expression, <a href="http://www.quartz-scheduler.org/documentation/quartz-2.1.x/tutorials/crontrigger.html" rel="nofollow">http://www.quartz-scheduler.org/documentation/quartz-2.1.x/tutorials/crontrigger.html</a>.</li>
+CRON expression, <a href="http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/tutorial-lesson-06.html" rel="nofollow">http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/tutorial-lesson-06.html</a>.</li>
 <li>
 <a id="Ref_PR-MESS"></a>[PR-MESS] <a href="pr-mess_x-road_message_protocol.html">X-Road Message Protocol v. 4.0</a>.</li>
 <li>
@@ -537,6 +583,9 @@ CRON expression, <a href="http://www.quartz-scheduler.org/documentation/quartz-2
 <a id="Ref_PR-REST"></a>[PR-REST] <a href="pr-rest_x-road_message_protocol_for_rest.html">X-Road Message Protocol for REST v. 1.0</a>.</li>
 <li>
 <a id="Ref_IG-CSHA"></a>[IG-CSHA] X-Road 6. Central Server High Availability Installation Guide. Document ID: <a href="ig-csha_x-road_6_ha_installation_guide.html">IG-CSHA</a>
+</li>
+<li>
+<a id="Ref_UG_SS">[UG-SS]</a> X-Road 7. Security Server User Guide. Document ID: <a href="ug-ss_x-road_6_security_server_user_guide.html">UG-SS</a>
 </li>
 </ol>
 <h2>
@@ -735,21 +784,21 @@ server-listen-port=20000
 <td>/etc/xroad/jetty/clientproxy.xml</td>
 <td></td>
 <td></td>
-<td>Absolute filename of the Jetty configuration file for the service client's security server. For more information about configuring Jetty server, see <a href="https://wiki.eclipse.org/Jetty/Reference/jetty.xml%5C_usage" rel="nofollow">https://wiki.eclipse.org/Jetty/Reference/jetty.xml\_usage</a>.</td>
+<td>Absolute filename of the Jetty configuration file for the service client's security server. For more information about configuring Jetty server, see <a href="https://www.eclipse.org/jetty/documentation/jetty-9/index.html" rel="nofollow">https://www.eclipse.org/jetty/documentation/jetty-9/index.html</a>.</td>
 </tr>
 <tr>
 <td>jetty-serverproxy-configuration-file</td>
 <td>/etc/xroad/jetty/serverproxy.xml</td>
 <td></td>
 <td></td>
-<td>Absolute filename of the Jetty configuration file for the service provider's security server. For more information about configuring Jetty server, see <a href="https://wiki.eclipse.org/Jetty/Reference/jetty.xml%5C_usage" rel="nofollow">https://wiki.eclipse.org/Jetty/Reference/jetty.xml\_usage</a>.</td>
+<td>Absolute filename of the Jetty configuration file for the service provider's security server. For more information about configuring Jetty server, see <a href="https://www.eclipse.org/jetty/documentation/jetty-9/index.html" rel="nofollow">https://www.eclipse.org/jetty/documentation/jetty-9/index.html</a>.</td>
 </tr>
 <tr>
 <td>jetty-ocsp-responder-configuration-file</td>
 <td>/etc/xroad/jetty/ocsp-responder.xml</td>
 <td></td>
 <td></td>
-<td>Absolute filename of the Jetty configuration file for the OCSP responder of the service provider's security server. For more information about configuring Jetty server, see <a href="https://wiki.eclipse.org/Jetty/Reference/jetty.xml%5C_usage" rel="nofollow">https://wiki.eclipse.org/Jetty/Reference/jetty.xml\_usage</a>.</td>
+<td>Absolute filename of the Jetty configuration file for the OCSP responder of the service provider's security server. For more information about configuring Jetty server, see <a href="https://www.eclipse.org/jetty/documentation/jetty-9/index.html" rel="nofollow">https://www.eclipse.org/jetty/documentation/jetty-9/index.html</a>.</td>
 </tr>
 <tr>
 <td>ssl-enabled</td>
@@ -962,6 +1011,20 @@ server-listen-port=20000
 <td></td>
 <td></td>
 <td>Whether to reject a request when client information system certificate is expired or not yet valid.</td>
+</tr>
+<tr>
+<td>backup-encryption-enabled</td>
+<td>false</td>
+<td></td>
+<td></td>
+<td>Whether to encrypt security server backup files using server's OpenPGP key.</td>
+</tr>
+<tr>
+<td>backup-encryption-keyids</td>
+<td></td>
+<td></td>
+<td></td>
+<td>Comma-separated list of additional recipient OpenPGP key identifiers.</td>
 </tr>
 </tbody>
 </table>
@@ -1309,6 +1372,76 @@ to use for example MySQL as a data store for REST API module.</p>
 <td></td>
 <td>Maximun number of log records to remove in one transaction.</td>
 </tr>
+<tr>
+<td>archive-grouping</td>
+<td>none</td>
+<td></td>
+<td></td>
+<td>Archive file grouping, one of 'none', 'member' (group by member), 'subsystem' (group by subsystem).</td>
+</tr>
+<tr>
+<td>archive-transfer-command</td>
+<td></td>
+<td></td>
+<td></td>
+<td>A command that is executed after the (periodic) archiving process e.g. to transfer archive files automatically from the security server. Defaults to no operation.</td>
+</tr>
+<tr>
+<td>archive-encryption-enabled</td>
+<td>false</td>
+<td></td>
+<td></td>
+<td>If true, archive files are encrypted using OpenPGP (GnuPG)</td>
+</tr>
+<tr>
+<td>archive-gpg-home-directory</td>
+<td>/etc/xroad/gpghome</td>
+<td></td>
+<td></td>
+<td>GPG home for archive file signing (and default encryption) keys</td>
+</tr>
+<tr>
+<td>archive-encryption-keys-config</td>
+<td></td>
+<td></td>
+<td></td>
+<td>Configuration file for member identifier to OpenPGP key id mapping. Per-member keys can be used when grouping is by 'member' or 'subsystem' (subsystems use the member's key). See [<a href="#Ref_UG_SS">UG-SS</a>] for details.</td>
+</tr>
+<tr>
+<td>archive-default-encryption-key</td>
+<td></td>
+<td></td>
+<td></td>
+<td>Default OpenPGP key id for archive encryption (if not defined, the primary encryption key is used)</td>
+</tr>
+<tr>
+<td>messagelog-encryption-enabled</td>
+<td>false</td>
+<td></td>
+<td></td>
+<td>If true, message bodies are stored to the database in an encrypted format</td>
+</tr>
+<tr>
+<td>messagelog-keystore</td>
+<td></td>
+<td></td>
+<td></td>
+<td>Path to the keystore containing the key used in messagelog encryption</td>
+</tr>
+<tr>
+<td>messagelog-keystore-password</td>
+<td></td>
+<td></td>
+<td></td>
+<td>Messagelog keystore password</td>
+</tr>
+<tr>
+<td>messagelog-key-id</td>
+<td></td>
+<td></td>
+<td></td>
+<td>Identifier of the messagelog encryption key</td>
+</tr>
 </tbody>
 </table>
 <h4>
@@ -1406,10 +1539,15 @@ the message log.</p>
 <td>SHA-512</td>
 <td>Signature digest algorithm used for generating authentication certificate registration request.<br>Possible values are<br>-   SHA-256,<br>-   SHA-384,<br>-   SHA-512.</td>
 </tr>
+<tr>
+<td>auto-update-timestamp-service-url</td>
+<td>false</td>
+<td>If enabled, makes the security server update the timestamping service URLs when they are changed on the central server. In case there are multiple timestamping services with the same name, the update will not be done and a warning is logged instead.</td>
+</tr>
 </tbody>
 </table>
 <p>Configurable SSL connection parameters are those
-Spring Boot's common application properties
+<a href="https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html" rel="nofollow">Spring Boot's common application properties</a>
 that start with <code>server.ssl</code>.</p>
 <p>ssl.properties can be used to override any <code>server.ssl.*</code> property, also those that do not have default values. However, the result of merging default properties
 and overridden / new properties needs to be a functional combination.</p>
@@ -1619,7 +1757,7 @@ with some additional limitations on configurability (see details in proxy chapte
 <td>confSignCertHashAlgoUri</td>
 <td>string</td>
 <td><a href="http://www.w3.org/2001/04/xmlenc#sha512" rel="nofollow">http://www.w3.org/2001/04/xmlenc#sha512</a></td>
-<td>URI of the algorithm used for calculating the hash value of the certificate used to sign the global configuration.<br>Possible values are<br><a href="http://www.w3.org/2001/04/xmlenc%5C#sha256" rel="nofollow">http://www.w3.org/2001/04/xmlenc\#sha256</a>,<br><a href="http://www.w3.org/2001/04/xmlenc%5C#sha512" rel="nofollow">http://www.w3.org/2001/04/xmlenc\#sha512</a>.</td>
+<td>URI of the algorithm used for calculating the hash value of the certificate used to sign the global configuration.<br>Possible values are<br><a href="http://www.w3.org/2001/04/xmlenc#sha256" rel="nofollow">http://www.w3.org/2001/04/xmlenc#sha256</a>,<br><a href="http://www.w3.org/2001/04/xmlenc#sha512" rel="nofollow">http://www.w3.org/2001/04/xmlenc#sha512</a>.</td>
 </tr>
 <tr>
 <td>ocspFreshnessSeconds</td>
@@ -1749,6 +1887,76 @@ TLS_DHE_RSA_WITH_AES_256_CBC_SHA256</p>
 <p>(see <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/security/SunProviders.html#SunJSSEProvider" rel="nofollow"><em>https://docs.oracle.com/javase/8/docs/technotes/guides/security/SunProviders.html#SunJSSEProvider</em></a> for possible values)</p>
 <p>Note. OpenJDK 8 on RHEL 7 supports ECDHE key agreement protocol starting from RHEL 7.3. In RHEL 7 versions prior to RHEL 7.3 only DHE cipher suites are supported.</p>
 </blockquote>
+<h2>
+<a id="6-adding-command-line-arguments" class="anchor" href="#6-adding-command-line-arguments" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6 Adding command line arguments</h2>
+<p>Sometimes you may need to provide command line arguments for Security Server, Central Server or Configuration Proxy, in order to override some parameters. For example if you wish to increase Java's maximum heap size, you can do it with the properties file <code>/etc/xroad/services/local.properties</code>. The file is also included in the backup archive file when taking a configuration backup of either Central Server or Security Server.</p>
+<h3>
+<a id="61-the-configuration-file" class="anchor" href="#61-the-configuration-file" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.1 The configuration file</h3>
+<p>The file <code>/etc/xroad/services/local.properties</code> replaces the file <code>/etc/xroad/services/local.conf</code> starting from X-Road version 7.</p>
+<p>The <code>local.properties</code> file's contents consists of key-value pairs such as <code>XROAD_SIGNER_PARAMS=-XX:MaxMetaspaceSize=100m</code>. Notice that you cannot use quotes in the values. If you have multiple values for one key, use space to separate the values e.g. <code>XROAD_SIGNER_PARAMS=-Xmx100m -XX:MaxMetaspaceSize=100m</code>. Also notice that with <code>local.properties</code> you can only add new parameters and override old ones – you cannot remove existing default parameters.</p>
+<p>Example of <code>/etc/xroad/services/local.properties</code> with modifications that override the default Java memory parameters for Security Server:</p>
+<div class="highlight highlight-source-ini"><pre><span class="pl-k">XROAD_PROXY_PARAMS</span>=-Xms200m -Xmx1024m</pre></div>
+<p>Example of <code>/etc/xroad/services/local.properties</code> with modifications that override the default Java memory parameters for Central Server:</p>
+<div class="highlight highlight-source-ini"><pre><span class="pl-k">XROAD_JETTY_PARAMS</span>=-Xms200m -Xmx1024m</pre></div>
+<p>All possible properties to adjust in this file:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>XROAD_PARAMS</td>
+<td>Parameters for all processes</td>
+</tr>
+<tr>
+<td>XROAD_SIGNER_PARAMS</td>
+<td>Parameters for the Signer</td>
+</tr>
+<tr>
+<td>XROAD_ADDON_PARAMS</td>
+<td>Parameters for all addons</td>
+</tr>
+<tr>
+<td>XROAD_CONFCLIENT_PARAMS</td>
+<td>Parameters for the Configuration Client</td>
+</tr>
+<tr>
+<td>XROAD_CONFPROXY_PARAMS</td>
+<td>Parameters for the Configuration Proxy</td>
+</tr>
+<tr>
+<td>XROAD_JETTY_PARAMS</td>
+<td>Parameters for the Central Server</td>
+</tr>
+<tr>
+<td>XROAD_MONITOR_PARAMS</td>
+<td>Parameters for the Environmental Monitor</td>
+</tr>
+<tr>
+<td>XROAD_OPMON_PARAMS</td>
+<td>Parameters for the Operational Monitor</td>
+</tr>
+<tr>
+<td>XROAD_PROXY_PARAMS</td>
+<td>Parameters for the Security Server</td>
+</tr>
+<tr>
+<td>XROAD_PROXY_UI_API_PARAMS</td>
+<td>Parameters for the Security Server's admin API</td>
+</tr>
+<tr>
+<td>XROAD_SIGNER_CONSOLE_PARAMS</td>
+<td>Parameters for the Signer Console</td>
+</tr>
+</tbody>
+</table>
+<h3>
+<a id="62-legacy-configuration-file-support-in-x-road-v7" class="anchor" href="#62-legacy-configuration-file-support-in-x-road-v7" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.2 Legacy configuration file support in X-Road v7</h3>
+<p>If you have upgraded from X-Road version 6 to version 7, you might still be using <code>local.conf</code> script file with legacy parameters (non <em>XROAD_</em> prefixed parameters), which is considered deprecated in X-Road version 7. The legacy file <code>local.conf</code> <strong>will not</strong> be included in the configuration backups anymore – the new file <code>local.properties</code> will be included instead, therefore it is strongly recommended migrating to the new <code>local.properties</code> file.</p>
+<p>The legacy file <code>local.conf</code> will still be supported along with the legacy parameters. It is possible for both files to exist side-by-side. In this case the values from <code>local.properties</code> are appended first and then the <code>local.conf</code> file gets executed as a script afterwards. Notice that if your <code>local.conf</code> script contains new <em>XROAD_</em> prefixed parameters and old legacy parameters, the new <em>XROAD_</em> prefixed parameters will always be preferred.</p>
     </article>
   </body>
 </html>

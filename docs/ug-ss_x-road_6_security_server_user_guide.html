@@ -25,8 +25,8 @@
 </table>
 <h1>
 <a id="security-server-user-guide-" class="anchor" href="#security-server-user-guide-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SECURITY SERVER USER GUIDE </h1>
-<p><strong>X-ROAD 6</strong></p>
-<p>Version: 2.55<br>
+<p><strong>X-ROAD 7</strong></p>
+<p>Version: 2.68
 Doc. ID: UG-SS</p>
 <hr>
 <h2>
@@ -501,6 +501,86 @@ Doc. ID: UG-SS</p>
 </td>
 <td>Karl Talumäe</td>
 </tr>
+<tr>
+<td>31.05.2021</td>
+<td>2.56</td>
+<td>Added information about backup archive contents and encryption</td>
+<td>Andres Allkivi</td>
+</tr>
+<tr>
+<td>23.06.2021</td>
+<td>2.57</td>
+<td>Fix incorrect link in Chapter <a href="#31-configuring-the-signing-key-and-certificate-for-the-security-server-owner">3.1</a>
+</td>
+<td>Petteri Kivimäki</td>
+</tr>
+<tr>
+<td>11.08.2021</td>
+<td>2.58</td>
+<td>Minor updates to backup archive contents and encryption</td>
+<td>Petteri Kivimäki</td>
+</tr>
+<tr>
+<td>13.08.2021</td>
+<td>2.59</td>
+<td>Add documentation about message log archive grouping and encryption</td>
+<td>Jarkko Hyöty</td>
+</tr>
+<tr>
+<td>25.08.2021</td>
+<td>2.60</td>
+<td>Update X-Road references from version 6 to 7</td>
+<td>Caro Hautamäki</td>
+</tr>
+<tr>
+<td>31.08.2021</td>
+<td>2.61</td>
+<td>Describe new messagelog and message archive functionality</td>
+<td>Ilkka Seppälä</td>
+</tr>
+<tr>
+<td>13.09.2021</td>
+<td>2.62</td>
+<td>Added a new chapter about custom command line arguments <a href="#21-adding-command-line-arguments">21</a>
+</td>
+<td>Caro Hautamäki</td>
+</tr>
+<tr>
+<td>22.09.2021</td>
+<td>2.63</td>
+<td>Update backup encryption instructions</td>
+<td>Jarkko Hyöty</td>
+</tr>
+<tr>
+<td>05.10.2021</td>
+<td>2.64</td>
+<td>Moved the chapter about command line arguments to the system parameters document</td>
+<td>Caro Hautamäki</td>
+</tr>
+<tr>
+<td>24.11.2021</td>
+<td>2.65</td>
+<td>Updated anchors to match correct sections</td>
+<td>Raido Kaju</td>
+</tr>
+<tr>
+<td>30.11.2021</td>
+<td>2.66</td>
+<td>Added chapter about configuring account lockouts</td>
+<td>Caro Hautamäki</td>
+</tr>
+<tr>
+<td>09.12.2021</td>
+<td>2.67</td>
+<td>Added instructions for ensuring user account security</td>
+<td>Ilkka Seppälä</td>
+</tr>
+<tr>
+<td>09.12.2021</td>
+<td>2.68</td>
+<td>Updated chapter <a href="#22-additional-security-hardening">22</a> and added information about password policies</td>
+<td>Caro Hautamäki</td>
+</tr>
 </tbody>
 </table>
 <h2>
@@ -521,7 +601,12 @@ Doc. ID: UG-SS</p>
 <a href="#2-user-management">2 User Management</a>
 <ul>
 <li><a href="#21-user-roles">2.1 User Roles</a></li>
-<li><a href="#22-managing-the-users">2.2 Managing the Users</a></li>
+<li>
+<a href="#22-managing-the-users">2.2 Managing the Users</a>
+<ul>
+<li><a href="#221-adding-and-removing-users">2.2.1 Adding and Removing Users</a></li>
+</ul>
+</li>
 <li>
 <a href="#23-managing-api-keys">2.3 Managing API Keys</a>
 <ul>
@@ -565,18 +650,19 @@ Doc. ID: UG-SS</p>
 <ul>
 <li><a href="#41-security-server-client-states">4.1 Security Server Client States</a></li>
 <li><a href="#42-adding-a-security-server-client">4.2 Adding a Security Server Client</a></li>
-<li><a href="#43-configuring-a-signing-key-and-certificate-for-a-security-server-client">4.3 Configuring a Signing Key and Certificate for a Security Server Client</a></li>
+<li><a href="#43-adding-a-security-server-member-subsystem">4.3 Adding a Security Server Member Subsystem</a></li>
+<li><a href="#44-configuring-a-signing-key-and-certificate-for-a-security-server-client">4.4 Configuring a Signing Key and Certificate for a Security Server Client</a></li>
 <li>
-<a href="#44-registering-a-security-server-client-in-the-x-road-governing-authority">4.4 Registering a Security Server Client in the X-Road Governing Authority</a>
+<a href="#45-registering-a-security-server-client-in-the-x-road-governing-authority">4.5 Registering a Security Server Client in the X-Road Governing Authority</a>
 <ul>
-<li><a href="#441-registering-a-security-server-client">4.4.1 Registering a Security Server Client</a></li>
+<li><a href="#451-registering-a-security-server-client">4.5.1 Registering a Security Server Client</a></li>
 </ul>
 </li>
 <li>
-<a href="#45-deleting-a-client-from-the-security-server">4.5 Deleting a Client from the Security Server</a>
+<a href="#46-deleting-a-client-from-the-security-server">4.6 Deleting a Client from the Security Server</a>
 <ul>
-<li><a href="#451-unregistering-a-client">4.5.1 Unregistering a Client</a></li>
-<li><a href="#452-deleting-a-client">4.5.2 Deleting a Client</a></li>
+<li><a href="#461-unregistering-a-client">4.6.1 Unregistering a Client</a></li>
+<li><a href="#462-deleting-a-client">4.6.2 Deleting a Client</a></li>
 </ul>
 </li>
 </ul>
@@ -656,9 +742,13 @@ Doc. ID: UG-SS</p>
 <li>
 <a href="#111-changing-the-configuration-of-the-message-log">11.1 Changing the Configuration of the Message Log</a>
 <ul>
-<li><a href="#1111-common-parameters">11.1.1 Common parameters</a></li>
-<li><a href="#1112-timestamping-parameters">11.1.2 Timestamping parameters</a></li>
-<li><a href="#1113-archiving-parameters">11.1.3 Archiving parameters</a></li>
+<li><a href="#1111-common-parameters">11.1.1 Common Parameters</a></li>
+<li><a href="#1112-logging-parameters">11.1.2 Logging Parameters</a></li>
+<li><a href="#1113-messagelog-encryption">11.1.3 Messagelog Encryption</a></li>
+<li><a href="#1114-timestamping-parameters">11.1.4 Timestamping Parameters</a></li>
+<li><a href="#1115-archiving-parameters">11.1.5 Archiving Parameters</a></li>
+<li><a href="#1116-archive-files">11.1.6 Archive Files</a></li>
+<li><a href="#1117-archive-encryption-and-grouping">11.1.7 Archive Encryption and Grouping</a></li>
 </ul>
 </li>
 <li><a href="#112-transferring-the-archive-files-from-the-security-server">11.2 Transferring the Archive Files from the Security Server</a></li>
@@ -673,11 +763,13 @@ Doc. ID: UG-SS</p>
 </ul>
 </li>
 <li>
-<a href="#13-back-up-and-restore">13 Back up and Restore</a>
+<a href="#13-back-up-and-restore">13 Back up and restore</a>
 <ul>
 <li><a href="#131-back-up-and-restore-in-the-user-interface">13.1 Back up and Restore in the User Interface</a></li>
 <li><a href="#132-restore-from-the-command-line">13.2 Restore from the Command Line</a></li>
 <li><a href="#133-automatic-backups">13.3 Automatic Backups</a></li>
+<li><a href="#134-backup-encryption-configuration">13.4 Backup Encryption Configuration</a></li>
+<li><a href="#135-verifying-backup-archive-consistency">13.5 Verifying Backup Archive Consistency</a></li>
 </ul>
 </li>
 <li>
@@ -745,6 +837,26 @@ Doc. ID: UG-SS</p>
 </ul>
 </li>
 <li><a href="#20-migrating-to-remote-database-host">20 Migrating to Remote Database Host</a></li>
+<li><a href="#21-adding-command-line-arguments">21 Adding command line arguments</a></li>
+<li>
+<a href="#22-additional-security-hardening">22 Additional Security Hardening</a>
+<ul>
+<li>
+<a href="#221-configuring-account-lockout">22.1 Configuring account lockout</a>
+<ul>
+<li><a href="#2211-considerations-and-risks">22.1.1 Considerations and risks</a></li>
+<li><a href="#2212-account-lockout-examples">22.1.2 Account lockout examples</a></li>
+</ul>
+</li>
+<li>
+<a href="#222-configuring-password-policies">22.2 Configuring password policies</a>
+<ul>
+<li><a href="#2221-considerations-and-risks">22.2.1 Considerations and risks</a></li>
+</ul>
+</li>
+<li><a href="#223-ensuring-user-account-security">22.3 Ensuring User Account Security</a></li>
+</ul>
+</li>
 </ul>
 
 
@@ -753,7 +865,7 @@ Doc. ID: UG-SS</p>
 <p>This document is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="nofollow">http://creativecommons.org/licenses/by-sa/3.0/</a></p>
 <h2>
 <a id="1-introduction" class="anchor" href="#1-introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1 Introduction</h2>
-<p>This document describes the management and maintenance of an X-Road version 6 security server.</p>
+<p>This document describes the management and maintenance of an X-Road version 7 security server.</p>
 <h3>
 <a id="11-the-x-road-security-server" class="anchor" href="#11-the-x-road-security-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.1 The X-Road Security Server</h3>
 <p>The main function of a security server is to mediate requests in a way that preserves their evidential value.</p>
@@ -791,7 +903,7 @@ Doc. ID: UG-SS</p>
 </li>
 <li>
 <p><a id="Ref_CRON"></a>[CRON] Quartz Scheduler CRON expression,<br>
-<a href="http://www.quartz-scheduler.org/generated/2.2.1/html/qs-all/#page/Quartz_Scheduler_Documentation_Set%2Fco-trg_crontriggers.html" rel="nofollow">http://www.quartz-scheduler.org/generated/2.2.1/html/qs-all/#page/Quartz_Scheduler_Documentation_Set%2Fco-trg_crontriggers.html</a></p>
+<a href="http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/tutorial-lesson-06.html" rel="nofollow">http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/tutorial-lesson-06.html</a></p>
 </li>
 <li>
 <p><a id="Ref_INI"></a>[INI] INI file,<br>
@@ -863,6 +975,12 @@ Doc. ID: UG-SS</p>
 <li>
 <p><a id="Ref_REST_UI-API"></a>[REST_UI-API] X-Road Security Server Admin API OpenAPI Specification, <a href="https://github.com/nordic-institute/X-Road/blob/develop/src/proxy-ui-api/src/main/resources/openapi-definition.yaml">https://github.com/nordic-institute/X-Road/blob/develop/src/proxy-ui-api/src/main/resources/openapi-definition.yaml</a>.</p>
 </li>
+<li>
+<p><a id="Ref_GnuPG"></a>[GnuPG] The GNU Privacy Guard, <a href="https://gnupg.org" rel="nofollow">https://gnupg.org</a>.</p>
+</li>
+<li>
+<p><a id="Ref_UG-SIGDOC"></a>[UG-SIGDOC] X-Road: Signed Document Download and Verification Manual. Document ID: <a href="../Manuals/ug-sigdoc_x-road_signed_document_download_and_verification_manual.html">UG-SIGDOC</a>.</p>
+</li>
 </ol>
 <h2>
 <a id="2-user-management" class="anchor" href="#2-user-management" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2 User Management</h2>
@@ -892,7 +1010,9 @@ Doc. ID: UG-SS</p>
 <p>If the logged-in user does not have a permission to carry out a particular task, the button that would initiate the action is hidden (and neither is it possible to run the task using its corresponding keyboard combinations or mouse actions). Only the permitted data and actions are visible and available to the user.</p>
 <h3>
 <a id="22-managing-the-users" class="anchor" href="#22-managing-the-users" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.2 Managing the Users</h3>
-<p>User management is carried out on command line in root user permissions.</p>
+<p>User management is carried out on the command line in root user permissions.</p>
+<h4>
+<a id="221-adding-and-removing-users" class="anchor" href="#221-adding-and-removing-users" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.2.1 Adding and Removing Users</h4>
 <p>To add a new user, enter the command:</p>
 <pre><code>adduser username
 </code></pre>
@@ -903,10 +1023,10 @@ adduser username xroad-service-administrator
 adduser username xroad-system-administrator
 adduser username xroad-securityserver-observer
 </code></pre>
-<p>To remove a user permission, remove the user from the corresponding system group, for example:</p>
+<p>To remove user permission, remove the user from the corresponding system group, for example:</p>
 <pre><code>deluser username xroad-security-officer
 </code></pre>
-<p>Modified user permissions are applied only after user does a new log in.</p>
+<p>Modified user permissions are applied only after a user does a new login.</p>
 <p>To remove a user, enter:</p>
 <pre><code>deluser username
 </code></pre>
@@ -987,8 +1107,8 @@ adduser username xroad-securityserver-observer
 <h3>
 <a id="31-configuring-the-signing-key-and-certificate-for-the-security-server-owner" class="anchor" href="#31-configuring-the-signing-key-and-certificate-for-the-security-server-owner" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.1 Configuring the Signing Key and Certificate for the Security Server Owner</h3>
 <p>The signing keys used by the security servers for signing X-Road messages can be stored on software or hardware based (a Hardware Security Module or a smartcard) security tokens, according to the security policy of the X-Road instance.</p>
-<p>Depending on the certification policy, the signing keys are generated either in the security server or by the certification service provider. Sections <a href="#311-generating-a-signing-key">3.1.1</a> to <a href="#313-importing-a-certificate-from-the-local-file-system">3.1.3</a> describe the actions necessary to configure the signing key and certificate in case the key is generated in the security server. Section <a href="#314-importing-a-certificate-from-a-security-token">3.1.4</a> describes the importing of the signing key and certificate in case the key is generated by the certification service provider.</p>
-<p>The <strong>background colors</strong> of the devices, keys and certificate are explained in Section <a href="#51-availability-states-of-security-tokens-keys-and-certificates">5.1</a>.</p>
+<p>Depending on the certification policy, the signing keys are generated either in the security server or by the certification service provider. Sections <a href="#311-generating-a-signing-key-and-certificate-signing-request">3.1.1</a> and <a href="#312-importing-a-certificate-from-the-local-file-system">3.1.2</a> describe the actions necessary to configure the signing key and certificate in case the key is generated in the security server. Section <a href="#313-importing-a-certificate-from-a-security-token">3.1.3</a> describes the importing of the signing key and certificate in case the key is generated by the certification service provider.</p>
+<p>The <strong>background colors</strong> of the devices, keys and certificate are explained in Section <a href="#51-availability-states-of-security-tokens">5.1</a>.</p>
 <h4>
 <a id="311-generating-a-signing-key-and-certificate-signing-request" class="anchor" href="#311-generating-a-signing-key-and-certificate-signing-request" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.1.1 Generating a Signing Key and Certificate Signing Request</h4>
 <p><strong>Access rights:</strong></p>
@@ -1100,7 +1220,7 @@ adduser username xroad-securityserver-observer
 </ol>
 <h3>
 <a id="32-configuring-the-authentication-key-and-certificate-for-the-security-server" class="anchor" href="#32-configuring-the-authentication-key-and-certificate-for-the-security-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.2 Configuring the Authentication Key and Certificate for the Security Server</h3>
-<p>The <strong>background colors</strong> of the devices, keys and certificate are explained in Section <a href="#51-availability-states-of-security-tokens-keys-and-certificates">5.1</a>.</p>
+<p>The <strong>background colors</strong> of the devices, keys and certificate are explained in Section <a href="#51-availability-states-of-security-tokens">5.1</a>.</p>
 <h4>
 <a id="321-generating-an-authentication-key" class="anchor" href="#321-generating-an-authentication-key" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.2.1 Generating an Authentication Key</h4>
 <p><strong>Access rights</strong></p>
@@ -1278,10 +1398,10 @@ adduser username xroad-securityserver-observer
 <p>A new member must be added to the security server (see <a href="#42-adding-a-security-server-client">4.2</a>). If needed, specify the token on which the member is configured</p>
 </li>
 <li>
-<p>If not yet available, a Signing Key and Certificate must be configured for the new member (see <a href="#43-configuring-a-signing-key-and-certificate-for-a-security-server-client">4.3</a>).</p>
+<p>If not yet available, a Signing Key and Certificate must be configured for the new member (see <a href="#44-configuring-a-signing-key-and-certificate-for-a-security-server-client">4.4</a>).</p>
 </li>
 <li>
-<p>The new member must be registered in the X-Road Governing Authority (see <a href="#44-registering-a-security-server-client-in-the-x-road-governing-authority">4.3</a>).</p>
+<p>The new member must be registered in the X-Road Governing Authority (see <a href="#45-registering-a-security-server-client-in-the-x-road-governing-authority">4.5</a>).</p>
 </li>
 <li>
 <p>The security server owner change request must be submitted from the security server. To submit an owner change request follow these steps.</p>
@@ -1315,10 +1435,10 @@ adduser username xroad-securityserver-observer
 <p><a href="img/ug-ss_saved.png" target="_blank" rel="noopener noreferrer"><img src="img/ug-ss_saved.png" alt="" style="max-width:100%;"></a> <strong>Saved</strong> – the client's information has been entered and saved into the security server's configuration (see <a href="#42-adding-a-security-server-client">4.2</a>), but the association between the client and the security server is not registered in the X-Road governing authority. (If the association is registered in the central server prior to the entry of data, the client will move to the "Registered" state upon data entry.) From this state, the client can move to the following states:</p>
 <ul>
 <li>
-<p>"Registration in progress", if a registration request for the client is submitted from the security server (see <a href="#441-registering-a-security-server-client">4.4.1</a>);</p>
+<p>"Registration in progress", if a registration request for the client is submitted from the security server (see <a href="#451-registering-a-security-server-client">4.5.1</a>);</p>
 </li>
 <li>
-<p>"Deleted", if the client's information is deleted from the security server configuration (see <a href="#452-deleting-a-client">4.5.2</a>).</p>
+<p>"Deleted", if the client's information is deleted from the security server configuration (see <a href="#462-deleting-a-client">4.6.2</a>).</p>
 </li>
 </ul>
 <p><a href="img/ug-ss_registration_in_progress.png" target="_blank" rel="noopener noreferrer"><img src="img/ug-ss_registration_in_progress.png" alt="" style="max-width:100%;"></a> <strong>Registration in progress</strong> – a registration request for the client is submitted from the security server to the central server, but the association between the client and the security server is not yet approved by the X-Road governing authority. From this state, the client can move to the following states:</p>
@@ -1327,7 +1447,7 @@ adduser username xroad-securityserver-observer
 <p>"Registered", if the association between the client and the security server is approved by the X-Road governing authority (see <a href="#441-registering-a-security-server-client">4.4.1</a>);</p>
 </li>
 <li>
-<p>"Deletion in progress", if a client deletion request is submitted from the security server (see <a href="#451-unregistering-a-client">4.5.1</a>).</p>
+<p>"Deletion in progress", if a client deletion request is submitted from the security server (see <a href="#461-unregistering-a-client">4.6.1</a>).</p>
 </li>
 </ul>
 <p><a href="img/ug-ss_registered.png" target="_blank" rel="noopener noreferrer"><img src="img/ug-ss_registered.png" alt="" style="max-width:100%;"></a> <strong>Registered</strong> – the association between the client and the security server has been approved in the X-Road governing authority. In this state, the client can provide and use X-Road services (assuming all other prerequisites are fulfilled). From this state, the client can move to the following states:</p>
@@ -1336,7 +1456,7 @@ adduser username xroad-securityserver-observer
 <p>"Global error", if the association between the client and the security server has been revoked by the X-Road governing authority;</p>
 </li>
 <li>
-<p>"Deletion in progress", if a client deletion request is submitted from the security server (see <a href="#451-unregistering-a-client">4.5.1</a>).</p>
+<p>"Deletion in progress", if a client deletion request is submitted from the security server (see <a href="#461-unregistering-a-client">4.6.1</a>).</p>
 </li>
 </ul>
 <p><a href="img/ug-ss_global_error.png" target="_blank" rel="noopener noreferrer"><img src="img/ug-ss_global_error.png" alt="" style="max-width:100%;"></a> <strong>Global error</strong> – the association between the client and the security server has been revoked in the central server. From this state, the client can move to the following states:</p>
@@ -1345,12 +1465,12 @@ adduser username xroad-securityserver-observer
 <p>"Registered", if the association between the client and the security server has been restored in the central server (e.g., the association between the client and the security server was lost due to an error);</p>
 </li>
 <li>
-<p>"Deleted", if the client's information is deleted from the security server's configuration (see <a href="#452-deleting-a-client">4.5.2</a>).</p>
+<p>"Deleted", if the client's information is deleted from the security server's configuration (see <a href="#452-deleting-a-client">4.6.2</a>).</p>
 </li>
 </ul>
 <p><a href="img/ug-ss_deletion_in_progress.png" target="_blank" rel="noopener noreferrer"><img src="img/ug-ss_deletion_in_progress.png" alt="" style="max-width:100%;"></a> <strong>Deletion in progress</strong> – a client deletion request has been submitted from the security server. From this state, the client can move to the following state:</p>
 <ul>
-<li>"Deleted", if the client's information is deleted from the security server's configuration (see <a href="#452-deleting-a-client">4.5.2</a>).</li>
+<li>"Deleted", if the client's information is deleted from the security server's configuration (see <a href="#452-deleting-a-client">4.6.2</a>).</li>
 </ul>
 <p><strong>Deleted</strong> – the client's information has been deleted from the security server's configuration.</p>
 <h3>
@@ -1413,10 +1533,10 @@ adduser username xroad-securityserver-observer
 <p>To register a security server client in the X-Road governing authority, the following actions must be completed.</p>
 <ul>
 <li>
-<p>A signing key and certificate must be configured for the member that owns the subsystem to be registered as a the security server client (see <a href="#43-configuring-a-signing-key-and-certificate-for-a-security-server-client">4.3</a>).</p>
+<p>A signing key and certificate must be configured for the member that owns the subsystem to be registered as a the security server client (see <a href="#44-configuring-a-signing-key-and-certificate-for-a-security-server-client">4.4</a>).</p>
 </li>
 <li>
-<p>The security server client registration request must be submitted from the security server (see <a href="#441-registering-a-security-server-client">4.4.1</a>).</p>
+<p>The security server client registration request must be submitted from the security server (see <a href="#451-registering-a-security-server-client">4.5.1</a>).</p>
 </li>
 <li>
 <p>A request for registering the client must be submitted to the X-Road governing authority according to the organizational procedures of the X-Road instance.</p>
@@ -1466,7 +1586,7 @@ adduser username xroad-securityserver-observer
 <h4>
 <a id="462-deleting-a-client" class="anchor" href="#462-deleting-a-client" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.6.2 Deleting a Client</h4>
 <p><strong>Access rights:</strong> <a href="#xroad-registration-officer">Registration Officer</a></p>
-<p>A security server client can be deleted if its state is "Saved", "Global error" or "Deletion in progress". Clients that are in states "Registered" or "Registration in progress" need to be unregistered before they can be deleted (see Section <a href="#451-unregistering-a-client">4.5.1</a>).</p>
+<p>A security server client can be deleted if its state is "Saved", "Global error" or "Deletion in progress". Clients that are in states "Registered" or "Registration in progress" need to be unregistered before they can be deleted (see Section <a href="#461-unregistering-a-client">4.6.1</a>).</p>
 <p>To delete a client, follow these steps.</p>
 <ol>
 <li>
@@ -1480,7 +1600,7 @@ adduser username xroad-securityserver-observer
 <a id="5-security-tokens-keys-and-certificates" class="anchor" href="#5-security-tokens-keys-and-certificates" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5 Security Tokens, Keys, and Certificates</h2>
 <h3>
 <a id="51-availability-states-of-security-tokens" class="anchor" href="#51-availability-states-of-security-tokens" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.1 Availability States of Security Tokens</h3>
-<p><strong>Notice that the colors are a new feature introduced in the upcoming version 6.25.0</strong></p>
+<p><strong>Notice that the colors were introduced in version 6.25.0</strong></p>
 <p>To display the availability of tokens, the following colors and labels are used in the "Keys and Certificates" view.</p>
 <ul>
 <li>
@@ -1502,7 +1622,7 @@ adduser username xroad-securityserver-observer
 <p><strong>Caution:</strong> The key device's and key's information is automatically saved to the configuration when a certificate associated with either of them is imported to the security server, or when a certificate signing request is generated for the key. Similarly, the key device's and key's information is deleted from the security server configuration automatically upon the deletion of the last associated certificate and/or certificate signing request.</p>
 <h3>
 <a id="52-registration-states-of-certificates" class="anchor" href="#52-registration-states-of-certificates" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.2 Registration States of Certificates</h3>
-<p>Registration states indicate if and how a certificate can be used in the X-Road system. In the "Keys and Certificates" view, a certificate's registration states (except "Deleted") are displayed in the "Status" column.</p>
+<p>Registration states indicate if and how a certificate can be used in the X-Road system. In the "Keys and Certificates" view, a certificate's registration states (except "Deleted"  for certificates stored on soft token key) are displayed in the "Status" column.</p>
 <h4>
 <a id="521-registration-states-of-the-signing-certificate" class="anchor" href="#521-registration-states-of-the-signing-certificate" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.2.1 Registration States of the Signing Certificate</h4>
 <p>A security server signing certificate can be in one of the following registration states.</p>
@@ -1511,7 +1631,7 @@ adduser username xroad-securityserver-observer
 <p><strong>Registered</strong> – the certificate has been imported to the security server and saved to its configuration. A signing certificate in a "Registered" state can be used for signing X-Road messages.</p>
 </li>
 <li>
-<p><strong>Deleted</strong> – the certificate has been deleted from the server configuration. If the certificate is in the "Deleted" state and stored on a soft token key, the certificate will not be displayed in the table. If the certificate is in the "Deleted" state and stored on a hardware key device connected to the security server, the certificate status will be displayed with a <strong>red circle</strong> and a hyphen <strong>-</strong>.</p>
+<p><strong>Deleted</strong> – the certificate has been deleted from the server configuration. If the certificate is in the "Deleted" state and stored on a soft token key, the certificate will not be displayed in the table. If the certificate is in the "Deleted" state and stored on a hardware key device connected to the security server, the certificate status will be displayed with a <strong>red circle</strong> and a text <strong>ONLY IN TOKEN</strong>.</p>
 </li>
 </ul>
 <h4>
@@ -1647,7 +1767,7 @@ adduser username xroad-securityserver-observer
 <p>if the certificate is saved in the server configuration, then the deletion <strong>deletes the certificate from server configuration</strong>, but not from the security token;</p>
 </li>
 <li>
-<p>if the certificate is not saved in the server configuration (certificate's status has a red circle and status "-" (a hyphen)), then the deletion deletes the certificate from the security token (assuming the token supports this operation).</p>
+<p>if the certificate is not saved in the server configuration (certificate's status has a red circle and status is "STORED IN TOKEN"), then the deletion deletes the certificate from the security token (assuming the token supports this operation).</p>
 </li>
 </ul>
 <p><strong>To delete a certificate, follow these steps.</strong></p>
@@ -1688,15 +1808,6 @@ adduser username xroad-securityserver-observer
 </li>
 <li>
 <p>For keys without a role: <a href="#xroad-security-officer">Security Officer</a>, <a href="#xroad-registration-officer">Registration Officer</a></p>
-</li>
-</ul>
-<p><strong>The deletion of keys works on two levels:</strong></p>
-<ul>
-<li>
-<p>if the key is saved in the server configuration, then the deletion <strong>deletes the key</strong> (and associated certificates) <strong>from server configuration</strong>, but not from the security token;</p>
-</li>
-<li>
-<p>if the key is not saved in the server configuration (certificate's status has a red circle and status "-" (a hyphen)), then the deletion <strong>deletes the key from the security token</strong> (assuming the token supports this operation).</p>
 </li>
 </ul>
 <p>To delete a key, follow these steps.</p>
@@ -2307,7 +2418,6 @@ If the HTTPS protocol was selected, select the <strong>Verify TLS certificate</s
 <li>
 <p>In the opening view, click <strong>IMPORT CERT.</strong> and point to the file to be imported.</p>
 <p>The imported certificate must be in PEM-format to be accepted. Certificate chains are supported; concatenate possible intermediate certificate(s) to the server certificate before importing the file.</p>
-<p>Note that the Internal TLS Key and Certificate are cached by default for 60 seconds (default cache period for serverconf) so generating a new key and importing a new certificate might affect providing services from the security server for the caching period. The caching period can be changed with System Parameters [<a href="#Ref_UG-SYSPAR">UG-SYSPAR</a>]</p>
 </li>
 </ol>
 <p><em>To export the security server's internal TLS certificate</em>, follow these steps.</p>
@@ -2359,11 +2469,30 @@ If the HTTPS protocol was selected, select the <strong>Verify TLS certificate</s
 </ul>
 <h2>
 <a id="11-message-log" class="anchor" href="#11-message-log" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>11 Message Log</h2>
-<p>The purpose of the message log is to provide means to prove the reception of a regular request or response message to a third party. Messages exchanged between security servers are signed and encrypted. For every regular request and response, the security server produces a complete signed and timestamped document (Associated Signature Container [<a href="#Ref_ASiC">ASiC</a>]).</p>
-<p>Message log data is stored to the database of the security server during message exchange. According to the configuration (see <a href="#111-changing-the-configuration-of-the-message-log">11.1</a>), the timestamping of the signatures of the exchanged messages is either synchronous to the message exchange process or is done asynchronously using the time period set by the X-Road governing agency.</p>
+<p>The purpose of the message log is to provide means to prove the reception of a regular request or response message to a third party. The security server supports three options for configuring message log:</p>
+<ul>
+<li>Full logging
+<ul>
+<li>The whole message including both message body and metadata is logged. The log records can be verified afterwards and they can be used as evidence.</li>
+</ul>
+</li>
+<li>Metadata logging
+<ul>
+<li>Only metadata is logged while message body is not logged. Verifying the log records afterwards is not possible and they cannot be used as evidence.</li>
+</ul>
+</li>
+<li>No message logging
+<ul>
+<li>Message logging is fully disabled, neither message body nor metadata is logged. No log records are generated.</li>
+</ul>
+</li>
+</ul>
+<p>Full logging and metadata logging can be configured on security server and subsystem level. When the security server level configuration is used, the same configuration is applied to all the subsystems. Instead, when the subsystem level configuration is used, the configuration is applied to specific subsystems only. In addition, combining the security server and subsystem level configurations is also possible, e.g., set metadata logging on the security server level and enable full logging for specific subsystems only. Instead, message logging is fully disabled on a security server level. Therefore, a subsystem that requires full or metadata logging should not be registered on the same security server with a subsystem that requires fully disabling message logging.</p>
+<p>Regardless of how logging is configured, messages exchanged between security servers are always signed and encrypted. Also, when full logging or metadata logging is enabled, the security server produces a signed and timestamped document (Associated Signature Container [ASiC]) for regular requests and responses.</p>
+<p>Message log data is stored to the database of the security server during message exchange. When storing messages to the database, the message body can be optionally encrypted, but by default the encryption is switched off. According to the configuration (<a href="#1114-timestamping-parameters">11.1.4 Timestamping Parameters</a>), the timestamping of the signatures of the exchanged messages is either synchronous to the message exchange process or is done asynchronously using the time period set by the X-Road governing agency. In case message logging is fully disabled, timestamping doesn't occur at all.</p>
 <p>In case of synchronous timestamping, the timestamping is an integral part of the message exchange process (one timestamp is taken for the request and another for the response). If the timestamping fails, the message exchange fails as well and the security server responds with an error message.</p>
-<p>In case of asynchronous timestamping, all the messages (maximum limit is determined in the configuration, see <a href="#111-changing-the-configuration-of-the-message-log">11.1</a>) stored in the message log since the last periodical timestamping event are timestamped with a single (batch) timestamp. By default, the security server uses asynchronous timestamping for better performance and availability.</p>
-<p>The security server periodically composes signed (and timestamped) documents from the message log data and archives them in the local file system. Archive files are ZIP containers containing one or more signed documents and a special linking information file for additional integrity verification purpose.</p>
+<p>In case of asynchronous timestamping, all the messages (maximum limit is determined in the configuration, see <a href="#1114-timestamping-parameters">11.1.4 Timestamping Parameters</a>) stored in the message log since the last periodical timestamping event are timestamped with a single (batch) timestamp. By default, the security server uses asynchronous timestamping for better performance and availability.</p>
+<p>The security server periodically composes signed (and timestamped) documents from the (optionally encrypted) message log data and archives them in the local file system. Archive files are ZIP containers containing one or more signed documents and a special linking information file for additional integrity verification purpose. Message log archive encryption and grouping can be enabled and configured separately. By default, both are disabled. Message grouping can be configured by member or subsystem. By default, all archive files go to the same default group. Grouping and encryption are enabled/disabled on a security server level - they are either enabled or disabled for all the members and subsystems. It's not possible to enable/disable neither of them for selected members or subsystems only.</p>
 <h3>
 <a id="111-changing-the-configuration-of-the-message-log" class="anchor" href="#111-changing-the-configuration-of-the-message-log" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>11.1 Changing the Configuration of the Message Log</h3>
 <p>Configuration parameters are defined in INI files [<a href="#Ref_INI">INI</a>], where each section contains the parameters for a particular security server component. The default message log configuration is located in the file</p>
@@ -2375,17 +2504,68 @@ If the HTTPS protocol was selected, select the <strong>Verify TLS certificate</s
 <p>Create the <code>[message-log]</code> section (if not present) in the file. Below the start of the section, list the values of the parameters, one per line.</p>
 <p>For example, to configure the parameters <code>archive-path</code> and <code>archive-max-filesize</code>, the following lines must be added to the configuration file:</p>
 <pre><code>[message-log]
-archive-path=/my/arhcive/path/
+archive-path=/my/archive/path/
 archive-max-filesize=67108864
 </code></pre>
 <h4>
-<a id="1111-common-parameters" class="anchor" href="#1111-common-parameters" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>11.1.1 Common parameters</h4>
+<a id="1111-common-parameters" class="anchor" href="#1111-common-parameters" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>11.1.1 Common Parameters</h4>
 <ol>
 <li>
 <code>hash-algo-id</code> – the hash algorithm that is used for hashing in the message log. Possible choices are <code>SHA-256</code>, <code>SHA-384</code>, <code>SHA-512</code>. Defaults to <code>SHA-512</code>.</li>
 </ol>
 <h4>
-<a id="1112-timestamping-parameters" class="anchor" href="#1112-timestamping-parameters" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>11.1.2 Timestamping parameters</h4>
+<a id="1112-logging-parameters" class="anchor" href="#1112-logging-parameters" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>11.1.2 Logging Parameters</h4>
+<ol>
+<li>
+<p><code>message-body-logging</code> - if set to true, the messages are logged in their original form. If false, the message body is emptied of its contents.</p>
+</li>
+<li>
+<p><code>enabled-body-logging-local-producer-subsystems</code> - when message-body-logging is set to false, this field contains the overrides for the local producer subsystems.</p>
+</li>
+<li>
+<p><code>enabled-body-logging-remote-producer-subsystems</code> - when message-body-logging is set to false, this field contains the overrides for the remote producer subsystems.</p>
+</li>
+<li>
+<p><code>disabled-body-logging-local-producer-subsystems</code> - when message-body-logging is set to true, this field contains the overrides for the local producer subsystems.</p>
+</li>
+<li>
+<p><code>disabled-body-logging-remote-producer-subsystems</code> - when message-body-logging is set to true, this field contains the overrides for the remote producer subsystems.</p>
+</li>
+<li>
+<p><code>max-loggable-body-size</code> - the maximum REST message body size that will be written to the messagelog.</p>
+</li>
+<li>
+<p><code>truncated-body-allowed</code> - if the REST message body size exceeds the max-loggable-body-size, truncate the body (true) or reject the message (false)</p>
+</li>
+<li>
+<p><code>messagelog-encryption-enabled</code> - if set to true, the message bodies are written to the database in an encrypted format</p>
+</li>
+<li>
+<p><code>messagelog-keystore</code> - path to the messagelog keystore</p>
+</li>
+<li>
+<p><code>messagelog-keystore-password</code> - messagelog keystore password</p>
+</li>
+<li>
+<p><code>messagelog-key-id</code> - messagelog keystore key id</p>
+</li>
+</ol>
+<h4>
+<a id="1113-messagelog-encryption" class="anchor" href="#1113-messagelog-encryption" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>11.1.3 Messagelog Encryption</h4>
+<p>The message bodies can be encrypted (<code>messagelog-encryption-enabled = true</code>) when stored to the database. The encryption is symmetric, the used cipher is AES-CTR, and the encryption is performed using Java code.</p>
+<p>When encryption is switched on, the implementation expects to find the keystore in the location pointed by <code>messagelog-keystore</code>. The keystore should contain an encryption key with the identifier specified in <code>messagelog-key-id</code>. The keystore password is specified in <code>messagelog-keystore-password</code>.</p>
+<p>For example, add the following to <code>/etc/xroad/conf.d/local.ini</code>:</p>
+<div class="highlight highlight-source-ini"><pre><span class="pl-en">[message-log]</span>
+<span class="pl-k">messagelog-encryption-enabled</span>=true
+<span class="pl-k">messagelog-keystore</span>=/etc/xroad/messagelog/messagelog.p12
+<span class="pl-k">messagelog-keystore-password</span>=somepassword
+<span class="pl-k">messagelog-key-id</span>=key1</pre></div>
+<p>Create the password store and import a key:</p>
+<div class="highlight highlight-source-shell"><pre>keytool -keystore /etc/xroad/messagelog/messagelog.p12 -storetype pkcs12 -importpassword -alias key1</pre></div>
+<p>Finally, restart <code>xroad-proxy</code> service.</p>
+<p>To view the encrypted messages at some later stage, use the ASIC web service documented in [<a href="#Ref_UG-SIGDOC">UG-SIGDOC</a>]. The web service performs automatic decryption, where needed.</p>
+<h4>
+<a id="1114-timestamping-parameters" class="anchor" href="#1114-timestamping-parameters" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>11.1.4 Timestamping Parameters</h4>
 <ol>
 <li>
 <p><code>timestamp-immediately</code> – if set to true, the timestamps are created synchronously with the message exchange, i.e., one timestamp is created for a request and another for a response. This is a security policy to guarantee the timestamp at the time of logging the message, but if the timestamping fails, the message exchange fails as well, and if load to the security server increases, then the load to the timestamping service increases as well. The value of this parameter defaults to false for better performance and availability. In case the value of the parameter is false then the timestamping is performed as a periodic background process (the time period is determined in the X-Road governing agency and propagated to the security servers by global configuration) and signatures stored during the time period (see parameter <code>timestamp-records-limit</code>) are timestamped in one batch.</p>
@@ -2398,33 +2578,90 @@ archive-max-filesize=67108864
 </li>
 </ol>
 <h4>
-<a id="1113-archiving-parameters" class="anchor" href="#1113-archiving-parameters" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>11.1.3 Archiving parameters</h4>
+<a id="1115-archiving-parameters" class="anchor" href="#1115-archiving-parameters" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>11.1.5 Archiving Parameters</h4>
 <ol>
 <li>
-<p><code>keep-records-for</code> – time in days for which to keep timestamped and archived records in the database. Defaults to <code>30</code>.</p>
-</li>
+<code>keep-records-for</code> – time in days for which to keep timestamped and archived records in the database. Defaults to <code>30</code>.</li>
 <li>
-<p><code>archive-max-filesize</code> – maximum size for archived files in bytes. Reaching the maximum value triggers the file rotation. Defaults to <code>33554432</code> (32 MB).</p>
-</li>
+<code>archive-max-filesize</code> – maximum size for archived files in bytes. Reaching the maximum value triggers the file rotation. Defaults to <code>33554432</code> (32 MB).</li>
 <li>
-<p><code>archive-interval</code> – time interval as Cron expression [<a href="#Ref_CRON">CRON</a>] for archiving timestamped records. Defaults to <code>0 0 0/6 1/1 * ? *</code> (fire every 6 hours).</p>
-</li>
+<code>archive-interval</code> – time interval as Cron expression [<a href="#Ref_CRON">CRON</a>] for archiving timestamped records. Defaults to <code>0 0 0/6 1/1 * ? *</code> (fire every 6 hours).</li>
 <li>
-<p><code>archive-path</code> – the directory where the timestamped log records are archived. Defaults to <code>/var/lib/xroad/</code>.</p>
-</li>
+<code>archive-path</code> – the directory where the timestamped log records are archived. Defaults to <code>/var/lib/xroad/</code>.</li>
 <li>
-<p><code>clean-interval</code> – time interval as Cron expression [<a href="#Ref_CRON">CRON</a>] for cleaning archived records from the database. Defaults to <code>0 0 0/12 1/1 * ? *</code> (fire every 12 hours).</p>
-</li>
+<code>clean-interval</code> – time interval as Cron expression [<a href="#Ref_CRON">CRON</a>] for cleaning archived records from the database. Defaults to <code>0 0 0/12 1/1 * ? *</code> (fire every 12 hours).</li>
 <li>
-<p><code>archive-transfer-command</code> – the command executed after the (periodic) archiving process. This enables one to configure an external script to transfer archive files automatically from the security server. Defaults to no operation.</p>
-</li>
+<code>archive-transfer-command</code> – the command executed after the (periodic) archiving process. This enables one to configure an external script to transfer archive files automatically from the security server. Defaults to no operation.</li>
+<li>
+<code>archive-grouping</code> - archive file grouping; <code>none</code> (default), by <code>member</code> or, by <code>subsystem</code>.</li>
+<li>
+<code>archive-encryption-enabled</code> - archive file encryption enabled: false (default) or true.</li>
+<li>
+<code>archive-gpg-home-directory</code> - GPG home directory for archive file signing and encryption keyring (default <code>/etc/xroad/gpghome</code>).</li>
+<li>
+<code>archive-encryption-keys-config</code> - Configuration file for member gpg keys.</li>
+<li>
+<code>archive-default-encryption-key</code> - Default archive encryption key id.</li>
 </ol>
+<h4>
+<a id="1116-archive-files" class="anchor" href="#1116-archive-files" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>11.1.6 Archive Files</h4>
+<p>Archive files (ZIP containers) are located in the directory specified by the configuration parameter <code>archive-path</code>. File names are in the format <code>mlog[-grouping]-X-Y-Z.zip[.gpg]</code>, where X is the timestamp (UTC time in the format <code>YYYYMMDDHHmmss</code>) of the first message log record, Y is the timestamp of the last message log record (records are processed in chronological order) and Z is the first 16 characters of the last linking info digest entry. If grouping is enabled, [-grouping] is a (possibly truncated and filename safe) member identifier. If encryption is enabled, the <code>[.gpg]</code> suffix is added. Creating archive files is deterministic -- given the same input (grouping, message records, previous archive linking info digest), the output (file name and contents) is the same after possible encryption is removed.</p>
+<p>The most basic example of an archive file name when the encryption and grouping are switched off:</p>
+<pre><code>mlog-20210901100858-20210901100905-95b1f27097524105.zip
+</code></pre>
+<p>When the archive encryption switched on:</p>
+<pre><code>mlog-20210901101923-20210901101926-95b1f27097524105.zip.gpg
+</code></pre>
+<p>Switching on archive grouping by member produces the following:</p>
+<pre><code>mlog-INSTANCE_CLASS_CODE-20210901102251-20210901102254-95b1f27097524105.zip.gpg
+</code></pre>
+<p>Finally, switching to archive grouping by subsystem gives:</p>
+<pre><code>mlog-INSTANCE_CLASS_CODE_CONSUMERSUBSYSTEM-20210901102521-20210901102524-95b1f27097524105.zip.gpg
+mlog-INSTANCE_CLASS_CODE_PROVIDERSUBSYSTEM-20210901102521-20210901102524-b1f27097524105ac.zip.gpg
+</code></pre>
+<h4>
+<a id="1117-archive-encryption-and-grouping" class="anchor" href="#1117-archive-encryption-and-grouping" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>11.1.7 Archive Encryption and Grouping</h4>
+<p>Archive files can be encrypted (when <code>archive-encryption-enabled = true</code>) using GnuPG ("gpg") which implements the OpenPGP (RFC 4880) specification. Please see e.g. <a href="https://www.ietf.org/rfc/rfc4880.txt" rel="nofollow">RFC 4880</a> and <a href="https://gnupg.org/" rel="nofollow">GnuPG</a> for more infomation. The encryption is enabled/disabled on a security server level - it's not possible to enable/disable it for specific subsystems only.</p>
+<p>By default, the produced archive files contain messages from all the security server's members, but it's possible to group the archives by member or by subsystem if needed. The grouping is controlled by the setting <code>archive-grouping</code>. The grouping is enabled/disabled on a security server level - it is either enabled or disabled for all the members and subsystems.</p>
+<p>When encryption is enabled, the archiving process expects to find a GnuPG keyring containing the server signing keypair in <code>archive-gpg-home-directory</code> (by default this is the same as the backup signing and encryption keypair). This keypair is used to sign the generated archive files, and as a fallback encryption key if no other keys are configured.</p>
+<p>The <code>archive-default-encryption-key</code> can use used to override the default encryption key id, which is used when <code>archive-grouping</code> is <code>none</code> or no member gpg key is defined. Changing this parameter requires restarting the xroad-addon-messagelog service.</p>
+<p>In case <code>archive-grouping</code> is <code>member</code> or <code>subsystem</code>, gpg keys defined in file <code>archive-encryption-keys-config</code> are used (if no key is defined for the member, the default encryption key is used). This file maps member identifiers to gpg key identifiers and has the following format:</p>
+<pre><code># This is a comment (ignored)
+# One mapping per line (leading, trailing, and around `=` white space is ignored)
+&lt;member identifier&gt; = &lt;key id&gt;
+
+# Escaping (applies only to the member identifier):
+## Member: test/member=class/\=code
+   test/member\=class/\\=code = ABCD....
+## Member #42/CLASS/#123 has two keys:
+   \#42/CLASS/\#123 = ABCD....
+   \#42/CLASS/\#123 = EF12....
+</code></pre>
+<ul>
+<li>There can be several mappings (keys) per member (one mapping per line)</li>
+<li>Lines <em>starting with</em> <code>#</code> are ignored</li>
+<li>Escaping special characters in the <em>member identifier</em> part:
+<ul>
+<li>
+<code>=</code> is written as <code>\=</code> (a literal <code>\=</code> becomes <code>\\=</code>)</li>
+<li>
+<code>#</code> is written as <code>\#</code> (a literal <code>\#</code> becomes <code>\\#</code>)</li>
+</ul>
+</li>
+</ul>
+<p>Warning. The archiving process fails if a required key is not present in the gpg keyring. Therefore, it is important to verify that the mappings are correct.</p>
+<p>For example, generate a keypair for encryption with defaults and no expiration and export the public key:</p>
+<div class="highlight highlight-source-shell"><pre>gpg [--homedir <span class="pl-k">&lt;</span>member gpghome<span class="pl-k">&gt;</span>] --quick-generate-key INSTANCE/memberClass/memberCode default default never
+gpg [--homedir <span class="pl-k">&lt;</span>member gpghome<span class="pl-k">&gt;</span>] --export INSTANCE/memberClass/memberCode <span class="pl-k">&gt;</span>INSTANCE-memberClass-memberCode.pgp</pre></div>
+<p>Import the public key to the gpg keyring in <code>archive-gpg-home-directory</code> and take note of the key id.</p>
+<div class="highlight highlight-source-shell"><pre>gpg --homedir <span class="pl-k">&lt;</span>archive-gpg-home-directory<span class="pl-k">&gt;</span> --import INSTANCE-memberClass-memberCode.pgp</pre></div>
+<p>Add the mapping to <code>archive-encryption-keys-config</code> file (mappings can be edited without restarting X-Road services), e.g.:</p>
+<div class="highlight highlight-source-shell"><pre>INSTANCE/memberClass/memberCode = 96F20FF6578A5EF90DFBA18D8C003019508B5637</pre></div>
+<p>To decrypt the encrypted archives, use the following syntax:</p>
+<div class="highlight highlight-source-shell"><pre>gpg [--homedir <span class="pl-k">&lt;</span>gpghome<span class="pl-k">&gt;</span>] --decrypt <span class="pl-k">&lt;</span>archive name<span class="pl-k">&gt;</span> --output <span class="pl-k">&lt;</span>output file name<span class="pl-k">&gt;</span></pre></div>
 <h3>
 <a id="112-transferring-the-archive-files-from-the-security-server" class="anchor" href="#112-transferring-the-archive-files-from-the-security-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>11.2 Transferring the Archive Files from the Security Server</h3>
 <p>In order to save hard disk space, it is recommended to transfer archive files periodically from the security server (manually or automatically) to an external location.</p>
-<p>Archive files (ZIP containers) are located in the directory specified by the configuration parameter archive-path. File names are in the format <code>mlog-X-Y-Z.zip</code>, where X is the timestamp (UTC time in the format <code>YYYYMMDDHHmmss</code>) of the first message log record, Y is the timestamp of the last message log record (records are processed in chronological order) and Z is 10 characters long alphanumeric random. An example of an archive file name is:</p>
-<pre><code>mlog-20150504152559-20150504152559-a7JS05XAJC.zip
-</code></pre>
 <p>The message log package provides a helper script <code>/usr/share/xroad/scripts/archive-http-transporter.sh</code> for transferring archive files. This script uses the HTTP/HTTPS protocol (the POST method, the form name is file) to transfer archive files to an archiving server.</p>
 <p>Usage of the script:</p>
 <table>
@@ -2466,7 +2703,7 @@ archive-max-filesize=67108864
 <pre><code>[message-log]
 archive-transfer-command=/usr/share/xroad/scripts/archive-http-transporter.sh -r http://my-archiving-server/cgi-bin/upload
 </code></pre>
-<p>The message log package contains the CGI script /usr/share/doc/xroad-addon-messagelog/archive-server/demo-upload.pl for a demo archiving server for the purpose of testing or development.</p>
+<p>The message log package contains the CGI script <code>/usr/share/doc/xroad-addon-messagelog/archive-server/demo-upload.pl</code> for a demo archiving server for the purpose of testing or development.</p>
 <h3>
 <a id="113-using-a-remote-database" class="anchor" href="#113-using-a-remote-database" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>11.3 Using a Remote Database</h3>
 <p>The message log database can be located outside of the security server. The following guide describes how to configure and populate a remote database schema for the message log. It is assumed that access to the database from the security server has been configured. For detailed information about the configuration of database connections, refer to [<a href="#Ref_JDBC">JDBC</a>].</p>
@@ -2580,9 +2817,33 @@ For example:</p>
 <h3>
 <a id="122-archiving-the-audit-log" class="anchor" href="#122-archiving-the-audit-log" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>12.2 Archiving the Audit Log</h3>
 <p>In order to save hard disk space and avoid loss of the audit log records during security server crash, it is recommended to archive the audit log files periodically to an external storage or a log server.</p>
-<p>The X-Road software does not offer special tools for archiving the audit log. The <em>rsyslog</em> can be configured to redirect the audit log to an external location.</p>
+<p>The X-Road software does not offer special tools for archiving the audit log. The <code>rsyslog</code> can be configured to redirect the audit log to an external location.</p>
 <h2>
-<a id="13-back-up-and-restore" class="anchor" href="#13-back-up-and-restore" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>13 Back up and Restore</h2>
+<a id="13-back-up-and-restore" class="anchor" href="#13-back-up-and-restore" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>13 Back up and restore</h2>
+<p>It is possible to back up and later restore security server configuration. A backup archive file contains the
+following configuration:</p>
+<ul>
+<li>copy of serverconf database</li>
+<li>user modifiable configuration files</li>
+<li>keys and certificates
+<ul>
+<li>security server's auth key and certificate</li>
+<li>members' sign keys and certificates (that are stored in soft token)</li>
+<li>security server's internal TLS key and certificate</li>
+<li>security server's UI key and certificate</li>
+</ul>
+</li>
+<li>database credentials</li>
+</ul>
+<p>Notice that starting from X-Road v7.0, the backup archive file no longer contains the local override file <code>/etc/xroad/services/local.conf</code>, but instead <code>/etc/xroad/services/local.properties</code> file will be included.</p>
+<p><strong>N.B.</strong> Message log database encryption keys, and message log archives encryption and signing keys are included in the backups only if they are stored under the <code>/etc/xroad</code> directory. However, they should not be stored in the <code>/etc/xroad/gpghome</code> subdirectory since it is excluded from the backups.</p>
+<p>Backups contain sensitive information that must be kept secret (for example, private keys and database credentials).
+In other words, leaking this information could easily lead to full compromise of security server. Therefore, it is
+highly recommended that backup archives are encrypted and stored securely. Should the information still leak for whatever
+reason the security server should be considered as compromised and reinstalled from scratch.</p>
+<p>Security server backups are signed and optionally encrypted. The GNU Privacy Guard [GnuPG] is used for encryption and signing.
+Security server's backup encryption key is generated during security server initialisation. In addition to the
+automatically generated backup encryption key, additional public keys can be used to encrypt backups.</p>
 <h3>
 <a id="131-back-up-and-restore-in-the-user-interface" class="anchor" href="#131-back-up-and-restore-in-the-user-interface" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>13.1 Back up and Restore in the User Interface</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-system-administrator">System Administrator</a></p>
@@ -2611,9 +2872,14 @@ For example:</p>
 <p>A popup notification shows after the restore whether the restoring was successful or not.</p>
 </li>
 </ol>
-<p>If something goes wrong while restoring the configuration it is possible to revert back to the old configuration. Security Server stores so called pre-restore configuration automatically to <code>/var/lib/xroad/conf_prerestore_backup.tar</code>. Either move it to <code>/var/lib/xroad/backup/</code> folder and utilize the user interface to restore it or use the command line interaface described in the next chapter.</p>
+<p>If something goes wrong while restoring the configuration it is possible to revert back to the old configuration.
+Security Server stores so called pre-restore configuration automatically to <code>/var/lib/xroad/conf_prerestore_backup.tar</code>. Either move it to <code>/var/lib/xroad/backup/</code> folder and utilize the user interface to restore it or use the command line interaface described in the next chapter.</p>
 <p>To <strong>delete a configuration backup file</strong>, click <strong>Delete</strong> on the appropriate row in the configuration backup file list and then click <strong>YES</strong>.</p>
-<p>To <strong>upload a configuration backup file</strong> from the local file system to the security server, click <strong>UPLOAD BACKUP</strong>, select a file and click <strong>YES</strong>. The uploaded configuration file appears in the list of configuration files.</p>
+<p>To <strong>upload a configuration backup file</strong> from the local file system to the security server, click <strong>UPLOAD BACKUP</strong>,
+select a file and click <strong>YES</strong>. The uploaded configuration file appears in the list of configuration files. Bear in mind
+that only files signed with current security server encryption key can be restored via user interface. All other archives
+can be restored only from command line.</p>
+<p>As long as original keypair is intact no additional steps are needed even when backup encryption is turned on.</p>
 <h3>
 <a id="132-restore-from-the-command-line" class="anchor" href="#132-restore-from-the-command-line" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>13.2 Restore from the Command Line</h3>
 <p>To restore configuration from the command line, the following data must be available:</p>
@@ -2626,20 +2892,69 @@ For example:</p>
 <p>It is expected that the restore command is run by the xroad user.</p>
 <p>In order to restore configuration, the following command should be used:</p>
 <pre><code>/usr/share/xroad/scripts/restore_xroad_proxy_configuration.sh \
--s &lt;security server ID&gt; -f &lt;path + filename&gt;
+-s &lt;security server ID&gt; -f &lt;path + filename&gt; [-P -N]
 </code></pre>
 <p>For example (all on one line):</p>
 <pre><code>/usr/share/xroad/scripts/restore_xroad_proxy_configuration.sh \
 -s AA/GOV/TS1OWNER/TS1 \
-–f /var/lib/xroad/backup/conf_backup_20140703-110438.tar
+–f /var/lib/xroad/backup/conf_backup_20140703-110438.gpg
 </code></pre>
-<p>If it is absolutely necessary to restore the system from a backup made on a different security server, the forced mode of the restore command can be used with the –F option. For example (all on one line):</p>
+<p>In case original backup encryption and signing key is lost additional parameters can be specified to skip decryption and/or
+signature verification. Use <code>-P</code> command line switch when backup archive is already decrypted externally and <code>-N</code> switch to
+skip checking archive signature.</p>
+<p>If a backup is restored on a new uninitialized (the initial configuration hasn't been completed) security server, the
+security server's gpg key must be manually created before restoring the backup:</p>
+<pre><code>/usr/share/xroad/scripts/generate_gpg_keypair.sh /etc/xroad/gpghome &lt;security server ID&gt;
+</code></pre>
+<p>If it is absolutely necessary to restore the system from a backup made on a different security server, the forced mode
+of the restore command can be used with the –F option together with unencrypted backup archive flags. For example (all on one line):</p>
 <pre><code>/usr/share/xroad/scripts/restore_xroad_proxy_configuration.sh \
--F –f /var/lib/xroad/backup/conf_backup_20140703-110438.tar
+-F -P –f /var/lib/xroad/backup/conf_backup_20140703-110438.tar
 </code></pre>
+<p>In case backup archives were encrypted they have to be first unencrypted in external safe environment and then securely
+transported to security server filesystem.</p>
 <h3>
 <a id="133-automatic-backups" class="anchor" href="#133-automatic-backups" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>13.3 Automatic Backups</h3>
-<p>By default the Security Server backs up its configuration automatically once every day. Backups older than 30 days are automatically removed from the server. If needed, the automatic backup policies can be adjusted by editing the <code>/etc/cron.d/xroad-proxy</code> file.</p>
+<p>By default the Security Server backs up its configuration automatically once every day. Backups older than 30 days are
+automatically removed from the server. If needed, the automatic backup policies can be adjusted by editing the
+<code>/etc/cron.d/xroad-proxy</code> file.</p>
+<h3>
+<a id="134-backup-encryption-configuration" class="anchor" href="#134-backup-encryption-configuration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>13.4 Backup Encryption Configuration</h3>
+<p>Backups are always signed, but backup encryption is initially turned off. To turn encryption on, please override the
+default configuration in the file <code>/etc/xroad/conf.d/local.ini</code>, in the <code>[proxy]</code> section (add or edit this section).</p>
+<div class="highlight highlight-source-ini"><pre><span class="pl-en">[proxy]</span>
+
+<span class="pl-k">backup-encryption-enabled</span> = true
+<span class="pl-k">backup-encryption-keyids</span> = &lt;keyid1&gt;, &lt;keyid2&gt;, ...</pre></div>
+<p>To turn backup encryption on, change the <code>backup-encryption-enabled</code> property to true. Additional
+encryption keys can be imported in the <code>/etc/xroad/gpghome</code> keyring and key identifiers listed using the <code>backup-encryption-keyids</code> parameter. It is recommended to set up at least one additional key, otherwise the backups will be unusable in case security servers private key is lost. It is up to security servers administrator to check that keys used are sufficiently strong, there are no automatic checks.</p>
+<p>Warning. All keys listed in <code>backup-encryption-keyids</code> must be present in the gpg keyring or backup fails.</p>
+<p>Additional keys for backup encryption should be generated and stored outside security server in a secure environment.
+After gpg keypair has been generated, public key can be exported to a file (<a href="mailto:backupadmin@example.org">backupadmin@example.org</a> is the name of the
+key being exported) using this command:</p>
+<pre><code>gpg --output backupadmin.publickey --armor --export backupadmin@example.org
+</code></pre>
+<p>Resulting file <code>backupadmin.publickey</code> should be moved to security server and imported to backup gpg keyring. Administrator should make sure that the key has not been changed during transfer, for example by validating the key fingerprint.</p>
+<p>Private keys corresponding to additional backup encryption public keys must be handled safely and kept in secret. Any of
+them can be used to decrypt backups and thus mount attacks on the security servers.</p>
+<h3>
+<a id="135-verifying-backup-archive-consistency" class="anchor" href="#135-verifying-backup-archive-consistency" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>13.5 Verifying Backup Archive Consistency</h3>
+<p>During restore security server verifies consistency of backup archives automatically, archives are not checked during upload.
+Also, it is possible to verify the consistency of the archives externally. For verifying the consistency externally,
+security server's public key is needed. When backups are encrypted, then a private key for decrypting archive is also needed.
+GPG uses "sign then encrypt" scheme, so it is not possible to verify encrypted archives without decrypting them.</p>
+<p>Automatic backup verification is only possible when original security server keypair is available. Should keypair on the
+security server be lost for whatever reason, automatic verification is no longer possible. Therefore, it is recommended
+to export backup encryption public key and import it into separate secure environment. If backups are encrypted,
+security server public key should be imported to keyrings holding additional encryption keys, so that backups can be
+decrypted and verified in these separate environments.</p>
+<p>To export security servers backup encryption public key use the following command:</p>
+<pre><code>gpg --homedir /etc/xroad/gpghome --armor --output server-public-key.gpg --export &lt;instanceIdentifier&gt;/&lt;memberClass&gt;/&lt;memberCode&gt;/&lt;serverCode&gt;
+</code></pre>
+<p>where <code>&lt;instanceIdentifier&gt;/&lt;memberClass&gt;/&lt;memberCode&gt;/&lt;serverCode&gt;</code> is the security server id,
+for example, <code>AA/GOV/TS1OWNER/TS1</code>.</p>
+<p>Resulting file (<code>server-public-key.gpg</code>) should then be exported from security server and imported to GPG keystore used
+for backup archive consistency verification.</p>
 <h2>
 <a id="14-diagnostics" class="anchor" href="#14-diagnostics" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>14 Diagnostics</h2>
 <h3>
@@ -2857,7 +3172,7 @@ tls-certificate = &lt;path/to/external/daemon/tls/cert&gt;
 <pre><code>service &lt;service&gt; stop
 </code></pre>
 <p>Services use the <a href="https://www.freedesktop.org/software/systemd/man/systemd-system.conf.html#DefaultStartLimitIntervalSec=" rel="nofollow">default unit start rate limits</a>.
-An exception to this is <code>xroad-proxy-ui-api</code>, which uses a longer start rate limit (<a href="../../src/packages/src/xroad/ubuntu/bionic/debian/xroad-proxy-ui-api.service">5 starts / 40 seconds</a>)
+An exception to this is <code>xroad-proxy-ui-api</code>, which uses a longer start rate limit (<a href="https://github.com/nordic-institute/X-Road/blob/master/src/packages/src/xroad/ubuntu/generic/xroad-proxy-ui-api.service#L5-6">5 starts / 40 seconds</a>)
 to prevent infinite restart-loop in some specific error situations.</p>
 <h3>
 <a id="172-logging-configuration" class="anchor" href="#172-logging-configuration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>17.2 Logging configuration</h3>
@@ -2887,27 +3202,22 @@ the system parameter entirely or set the value to <code>none</code>. X-Road serv
 be restarted (in that order) for any setting changes to take effect.</p>
 <p>Below are some examples for <code>/etc/xroad/conf.d/local.ini</code>.</p>
 <p>To allow federation with all offered X-Road instances:</p>
-<pre><code>[configuration-client]
-allowed-federations=all
-</code></pre>
+<div class="highlight highlight-source-ini"><pre><span class="pl-en">[configuration-client]</span>
+<span class="pl-k">allowed-federations</span>=all</pre></div>
 <p>To allow federation with specific instances <code>xe-test</code> and <code>ee-test</code>:</p>
-<pre><code>[configuration-client]
-allowed-federations=xe-test,ee-test
-</code></pre>
+<div class="highlight highlight-source-ini"><pre><span class="pl-en">[configuration-client]</span>
+<span class="pl-k">allowed-federations</span>=xe-test,ee-test</pre></div>
 <p>To disable federation, just remove the <code>allowed-federations</code> system parameter entirely or use:</p>
-<pre><code>[configuration-client]
-allowed-federations=none
-</code></pre>
+<div class="highlight highlight-source-ini"><pre><span class="pl-en">[configuration-client]</span>
+<span class="pl-k">allowed-federations</span>=none</pre></div>
 <p>Please note that if the keyword <code>all</code> is present in the comma-separated list, it will override the single allowed
 instances. The keyword <code>none</code> will override all other values. This means that the following setting will allow all
 federations:</p>
-<pre><code>[configuration-client]
-allowed-federations=xe-test, all, ee-test
-</code></pre>
+<div class="highlight highlight-source-ini"><pre><span class="pl-en">[configuration-client]</span>
+<span class="pl-k">allowed-federations</span>=xe-test, all, ee-test</pre></div>
 <p>And the following will allow none:</p>
-<pre><code>[configuration-client]
-allowed-federations=xe-test, all, none, ee-test
-</code></pre>
+<div class="highlight highlight-source-ini"><pre><span class="pl-en">[configuration-client]</span>
+<span class="pl-k">allowed-federations</span>=xe-test, all, none, ee-test</pre></div>
 <h2>
 <a id="19-management-rest-api" class="anchor" href="#19-management-rest-api" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>19 Management REST API</h2>
 <p>Security server has a REST API that can be used to do all the same server configuration operations that can be done
@@ -2940,11 +3250,9 @@ application properties</p>
 </ul>
 <p>Size limit parameters support formats from Formats from <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/util/unit/DataSize.html" rel="nofollow">DataSize</a>,
 for example <code>5MB</code>.</p>
-<p>Command line arguments can be modified using configuration file <code>local.conf</code>.
-Example from <code>/etc/xroad/services/local.conf</code> with modifications:</p>
-<pre><code>PROXY_UI_API_PARAMS=" $PROXY_UI_API_PARAMS -Dratelimit.requests.per.second=100"
-PROXY_UI_API_PARAMS=" $PROXY_UI_API_PARAMS -Drequest.sizelimit.binary.upload=1MB"
-</code></pre>
+<p>New command line arguments can be added, not replaced, using the configuration file <code>local.properties</code>.
+Example of <code>/etc/xroad/services/local.properties</code> with modifications:</p>
+<div class="highlight highlight-source-ini"><pre><span class="pl-k">XROAD_PROXY_UI_API_PARAMS</span>=-<span class="pl-k">Dratelimit.requests.per.second</span>=100 -<span class="pl-k">Drequest.sizelimit.binary.upload</span>=1MB</pre></div>
 <h3>
 <a id="191-api-key-management-operations" class="anchor" href="#191-api-key-management-operations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>19.1 API key management operations</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-system-administrator">System Administrator</a></p>
@@ -2959,69 +3267,64 @@ be changed using System Parameters [<a href="#Ref_UG-SYSPAR">UG-SYSPAR</a>].</p>
 <p>A new API key is created with a <code>POST</code> request to <code>/api/v1/api-keys</code>. Message body must contain the roles to be
 associated with the key. Server responds with data that contains the actual API key. After this point the key
 cannot be retrieved, as it is not stored in plaintext.</p>
-<pre><code>curl -X POST -u &lt;user&gt;:&lt;password&gt; https://localhost:4000/api/v1/api-keys --data '["XROAD_SECURITYSERVER_OBSERVER","XROAD_REGISTRATION_OFFICER"]' --header "Content-Type: application/json" -k
+<div class="highlight highlight-source-shell"><pre>curl -X POST -u <span class="pl-k">&lt;</span>user<span class="pl-k">&gt;</span>:<span class="pl-k">&lt;</span>password<span class="pl-k">&gt;</span> https://localhost:4000/api/v1/api-keys --data <span class="pl-s"><span class="pl-pds">'</span>["XROAD_SECURITYSERVER_OBSERVER","XROAD_REGISTRATION_OFFICER"]<span class="pl-pds">'</span></span> --header <span class="pl-s"><span class="pl-pds">"</span>Content-Type: application/json<span class="pl-pds">"</span></span> -k
 {
-  "roles": [
-    "XROAD_REGISTRATION_OFFICER",
-    "XROAD_SECURITYSERVER_OBSERVER"
+  <span class="pl-s"><span class="pl-pds">"</span>roles<span class="pl-pds">"</span></span>: [
+    <span class="pl-s"><span class="pl-pds">"</span>XROAD_REGISTRATION_OFFICER<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>XROAD_SECURITYSERVER_OBSERVER<span class="pl-pds">"</span></span>
   ],
-  "id": 61,
-  "key": "23bc57cd-b1ba-4702-9657-8d53e335c843"
+  <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: 61,
+  <span class="pl-s"><span class="pl-pds">"</span>key<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>23bc57cd-b1ba-4702-9657-8d53e335c843<span class="pl-pds">"</span></span>
 }
-
-</code></pre>
+</pre></div>
 <p>In this example the created key was <code>23bc57cd-b1ba-4702-9657-8d53e335c843</code>.</p>
 <h4>
 <a id="1912-listing-api-keys" class="anchor" href="#1912-listing-api-keys" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>19.1.2 Listing API keys</h4>
 <p>Existing API keys can be listed with a <code>GET</code> request to <code>/api/v1/api-keys</code>. This lists all keys, regardless of who has created them.</p>
-<pre><code>curl -X GET -u &lt;user&gt;:&lt;password&gt; https://localhost:4000/api/v1/api-keys -k
+<div class="highlight highlight-source-shell"><pre>curl -X GET -u <span class="pl-k">&lt;</span>user<span class="pl-k">&gt;</span>:<span class="pl-k">&lt;</span>password<span class="pl-k">&gt;</span> https://localhost:4000/api/v1/api-keys -k
 [
   {
-    "id": 59,
-    "roles": [
-      "XROAD_REGISTRATION_OFFICER",
-      "XROAD_SECURITYSERVER_OBSERVER",
-      "XROAD_SERVICE_ADMINISTRATOR"
+    <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: 59,
+    <span class="pl-s"><span class="pl-pds">"</span>roles<span class="pl-pds">"</span></span>: [
+      <span class="pl-s"><span class="pl-pds">"</span>XROAD_REGISTRATION_OFFICER<span class="pl-pds">"</span></span>,
+      <span class="pl-s"><span class="pl-pds">"</span>XROAD_SECURITYSERVER_OBSERVER<span class="pl-pds">"</span></span>,
+      <span class="pl-s"><span class="pl-pds">"</span>XROAD_SERVICE_ADMINISTRATOR<span class="pl-pds">"</span></span>
     ]
   },
   {
-    "id": 60,
+    <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: 60,
 ...
-
-</code></pre>
+</pre></div>
 <p>You can also retrieve a single API key with a <code>GET</code> request to <code>/api/v1/api-keys/{id}</code>.</p>
-<pre><code>curl -X GET -u &lt;user&gt;:&lt;password&gt; https://localhost:4000/api/v1/api-keys/59 -k
+<div class="highlight highlight-source-shell"><pre>curl -X GET -u <span class="pl-k">&lt;</span>user<span class="pl-k">&gt;</span>:<span class="pl-k">&lt;</span>password<span class="pl-k">&gt;</span> https://localhost:4000/api/v1/api-keys/59 -k
 {
-  "id": 59,
-  "roles": [
-    "XROAD_REGISTRATION_OFFICER",
-    "XROAD_SECURITYSERVER_OBSERVER",
-    "XROAD_SERVICE_ADMINISTRATOR"
+  <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: 59,
+  <span class="pl-s"><span class="pl-pds">"</span>roles<span class="pl-pds">"</span></span>: [
+    <span class="pl-s"><span class="pl-pds">"</span>XROAD_REGISTRATION_OFFICER<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>XROAD_SECURITYSERVER_OBSERVER<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>XROAD_SERVICE_ADMINISTRATOR<span class="pl-pds">"</span></span>
   ]
 }
-
-</code></pre>
+</pre></div>
 <h4>
 <a id="1913-updating-api-keys" class="anchor" href="#1913-updating-api-keys" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>19.1.3 Updating API keys</h4>
 <p>An existing API key is updated with a <code>PUT</code> request to <code>/api/v1/api-keys/{id}</code>. Message body must contain the roles to be
 associated with the key. Server responds with data that contains the key id and roles associated with the key.</p>
-<pre><code>curl -X PUT -u &lt;user&gt;:&lt;password&gt; https://localhost:4000/api/v1/api-keys/60 --data '["XROAD_SECURITYSERVER_OBSERVER","XROAD_REGISTRATION_OFFICER"]' --header "Content-Type: application/json" -k
+<div class="highlight highlight-source-shell"><pre>curl -X PUT -u <span class="pl-k">&lt;</span>user<span class="pl-k">&gt;</span>:<span class="pl-k">&lt;</span>password<span class="pl-k">&gt;</span> https://localhost:4000/api/v1/api-keys/60 --data <span class="pl-s"><span class="pl-pds">'</span>["XROAD_SECURITYSERVER_OBSERVER","XROAD_REGISTRATION_OFFICER"]<span class="pl-pds">'</span></span> --header <span class="pl-s"><span class="pl-pds">"</span>Content-Type: application/json<span class="pl-pds">"</span></span> -k
 {
-  "id": 60,
-  "roles": [
-    "XROAD_REGISTRATION_OFFICER",
-    "XROAD_SECURITYSERVER_OBSERVER"
+  <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: 60,
+  <span class="pl-s"><span class="pl-pds">"</span>roles<span class="pl-pds">"</span></span>: [
+    <span class="pl-s"><span class="pl-pds">"</span>XROAD_REGISTRATION_OFFICER<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>XROAD_SECURITYSERVER_OBSERVER<span class="pl-pds">"</span></span>
   ]
 }
-
-</code></pre>
+</pre></div>
 <h4>
 <a id="1914-revoking-api-keys" class="anchor" href="#1914-revoking-api-keys" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>19.1.4 Revoking API keys</h4>
 <p>An API key can be revoked with a <code>DELETE</code> request to <code>/api/v1/api-keys/{id}</code>. Server responds with <code>HTTP 200</code> if
 revocation was successful and <code>HTTP 404</code> if key did not exist.</p>
-<pre><code>curl -X DELETE -u &lt;user&gt;:&lt;password&gt; https://localhost:4000/api/v1/api-keys/60  -k
-
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>curl -X DELETE -u <span class="pl-k">&lt;</span>user<span class="pl-k">&gt;</span>:<span class="pl-k">&lt;</span>password<span class="pl-k">&gt;</span> https://localhost:4000/api/v1/api-keys/60  -k
+</pre></div>
 <h4>
 <a id="1915-api-key-caching" class="anchor" href="#1915-api-key-caching" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>19.1.5 API key caching</h4>
 <p>API keys are cached in memory. In typical security server configurations this does not create problems.
@@ -3038,17 +3341,16 @@ operations are executed).</p>
 <p><strong>Access rights:</strong> Depends on the API.</p>
 <p>Once a valid API key has been created, it is used by providing an <code>Authorization: X-Road-ApiKey token=&lt;api key&gt;</code> HTTP
 header in the REST calls. For example</p>
-<pre><code>curl --header "Authorization: X-Road-ApiKey token=ff6f55a8-cc63-4e83-aa4c-55f99dc77bbf" "https://localhost:4000/api/v1/clients" -k
+<div class="highlight highlight-source-shell"><pre>curl --header <span class="pl-s"><span class="pl-pds">"</span>Authorization: X-Road-ApiKey token=ff6f55a8-cc63-4e83-aa4c-55f99dc77bbf<span class="pl-pds">"</span></span> <span class="pl-s"><span class="pl-pds">"</span>https://localhost:4000/api/v1/clients<span class="pl-pds">"</span></span> -k
 [
   {
-    "id": "XRD2:GOV:999:foobar",
-    "member_name": Foo Name,
-    "member_class": "GOV",
-    "member_code": "999",
-    "subsystem_code": "SUBS_1",
-    "status": "saved
-...
-</code></pre>
+    <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>XRD2:GOV:999:foobar<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>member_name<span class="pl-pds">"</span></span>: Foo Name,
+    <span class="pl-s"><span class="pl-pds">"</span>member_class<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>GOV<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>member_code<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>999<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>subsystem_code<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>SUBS_1<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>status<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>saved</span>
+<span class="pl-s">...</span></pre></div>
 <p>The available APIs are documented in OpenAPI specification [<a href="#Ref_REST_UI-API">REST_UI-API</a>]. Access rights for different APIs follow the same rules
 as the corresponding UI operations.
 Access to regular APIs is allowed from all IP addresses by default, but this can
@@ -3150,21 +3452,20 @@ Response body:
 <p>Error response with warnings always contains the error code <code>warnings_detected</code>.</p>
 <p>Like errors, warnings contain an identifier (code) and possibly some metadata.</p>
 <p>Warning example when trying to register a WSDL that produces non-fatal validation warnings:</p>
-<pre><code>{
-  "status": 400,
-  "error": {
-    "code": "warnings_detected"
+<div class="highlight highlight-source-json"><pre>{
+  <span class="pl-ent">"status"</span>: <span class="pl-c1">400</span>,
+  <span class="pl-ent">"error"</span>: {
+    <span class="pl-ent">"code"</span>: <span class="pl-s"><span class="pl-pds">"</span>warnings_detected<span class="pl-pds">"</span></span>
   },
-  "warnings": [
+  <span class="pl-ent">"warnings"</span>: [
     {
-      "code": "wsdl_validation_warnings",
-      "metadata": [
-        "WSDLValidator Error : Summary: Failures: 0, Warnings: 1 &lt;&lt;&lt; WARNING! Operation 'someService' in PortType: {http://test.x-road.global/some-service}someService.servicePortType has no output message"
+      <span class="pl-ent">"code"</span>: <span class="pl-s"><span class="pl-pds">"</span>wsdl_validation_warnings<span class="pl-pds">"</span></span>,
+      <span class="pl-ent">"metadata"</span>: [
+        <span class="pl-s"><span class="pl-pds">"</span>WSDLValidator Error : Summary: Failures: 0, Warnings: 1 &lt;&lt;&lt; WARNING! Operation 'someService' in PortType: {http://test.x-road.global/some-service}someService.servicePortType has no output message<span class="pl-pds">"</span></span>
       ]
     }
   ]
-}
-</code></pre>
+}</pre></div>
 <p>Note that when you are using the admin UI and you encounter warnings, you will always be provided with a popup window with a <code>CONTINUE</code> button in it. When you click the <code>CONTINUE</code> button in the popup, the request is sent again but this time warnings will be ignored.</p>
 <h2>
 <a id="20-migrating-to-remote-database-host" class="anchor" href="#20-migrating-to-remote-database-host" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>20 Migrating to Remote Database Host</h2>
@@ -3172,82 +3473,155 @@ Response body:
 <ol>
 <li>
 <p>Shutdown X-Road processes.</p>
-<pre><code>systemctl stop "xroad*"
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>systemctl stop <span class="pl-s"><span class="pl-pds">"</span>xroad*<span class="pl-pds">"</span></span></pre></div>
 </li>
 <li>
 <p>Dump the local databases to be migrated. You can find the passwords of users <code>serverconf</code>, <code>messagelog</code> and <code>opmonitor</code> in <code>/etc/xroad/db.properties</code>. Notice that the versions of the local PostgreSQL client and remote PostgreSQL server must match. Also take into account that on a busy system the messagelog database can be quite large and therefore dump and restore can take considerable amount of time and disk space.</p>
-<pre><code>pg_dump -F t -h 127.0.0.1 -p 5432 -U serverconf -f serverconf.dat serverconf
+<div class="highlight highlight-source-shell"><pre>pg_dump -F t -h 127.0.0.1 -p 5432 -U serverconf -f serverconf.dat serverconf
 pg_dump -F t -h 127.0.0.1 -p 5432 -U messagelog -f messagelog.dat messagelog
-pg_dump -F t -h 127.0.0.1 -p 5432 -U opmonitor_admin -f op-monitor.dat op-monitor
-</code></pre>
+pg_dump -F t -h 127.0.0.1 -p 5432 -U opmonitor_admin -f op-monitor.dat op-monitor</pre></div>
 </li>
 <li>
 <p>Shut down and mask local <code>postgresql</code> so it won't start when <code>xroad-proxy</code> starts.</p>
-<pre><code>systemctl stop postgresql
-systemctl mask postgresql
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>systemctl stop postgresql
+systemctl mask postgresql</pre></div>
 </li>
 <li>
 <p>Connect to the remote database server as the superuser <code>postgres</code> and create roles, databases and access permissions as follows. Note that the line <code>GRANT serverconf to postgres</code> is AWS RDS specific and not necessary if the <code>postgres</code> user is a true super-user.</p>
-<pre><code>psql -h &lt;remote-db-url&gt; -p &lt;remote-db-port&gt; -U postgres
-CREATE ROLE serverconf LOGIN PASSWORD '&lt;serverconf-password&gt;';
-GRANT serverconf to postgres;
-CREATE DATABASE serverconf OWNER serverconf ENCODING 'UTF-8';
-\c serverconf
-CREATE EXTENSION IF NOT EXISTS hstore;
-\c postgres
+<div class="highlight highlight-source-shell"><pre>psql -h <span class="pl-k">&lt;</span>remote-db-url<span class="pl-k">&gt;</span> -p <span class="pl-k">&lt;</span>remote-db-port<span class="pl-k">&gt;</span> -U postgres
+CREATE ROLE serverconf LOGIN PASSWORD <span class="pl-s"><span class="pl-pds">'</span>&lt;serverconf-password&gt;<span class="pl-pds">'</span></span><span class="pl-k">;</span>
+GRANT serverconf to postgres<span class="pl-k">;</span>
+CREATE DATABASE serverconf OWNER serverconf ENCODING <span class="pl-s"><span class="pl-pds">'</span>UTF-8<span class="pl-pds">'</span></span><span class="pl-k">;</span>
+<span class="pl-cce">\c</span> serverconf
+CREATE EXTENSION IF NOT EXISTS hstore<span class="pl-k">;</span>
+<span class="pl-cce">\c</span> postgres
 
-CREATE ROLE messagelog LOGIN PASSWORD '&lt;messagelog-password&gt;';
-GRANT messagelog to postgres;
-CREATE DATABASE messagelog OWNER messagelog ENCODING 'UTF-8';
+CREATE ROLE messagelog LOGIN PASSWORD <span class="pl-s"><span class="pl-pds">'</span>&lt;messagelog-password&gt;<span class="pl-pds">'</span></span><span class="pl-k">;</span>
+GRANT messagelog to postgres<span class="pl-k">;</span>
+CREATE DATABASE messagelog OWNER messagelog ENCODING <span class="pl-s"><span class="pl-pds">'</span>UTF-8<span class="pl-pds">'</span></span><span class="pl-k">;</span>
 
-CREATE ROLE opmonitor_admin LOGIN PASSWORD '&lt;opmonitor_admin-password&gt;';
-CREATE ROLE opmonitor LOGIN PASSWORD '&lt;opmonitor-password&gt;';
-GRANT opmonitor_admin to postgres;
-CREATE DATABASE "op-monitor" OWNER opmonitor_admin ENCODING "UTF-8";
-grant usage on schema public to opmonitor;
-</code></pre>
+CREATE ROLE opmonitor_admin LOGIN PASSWORD <span class="pl-s"><span class="pl-pds">'</span>&lt;opmonitor_admin-password&gt;<span class="pl-pds">'</span></span><span class="pl-k">;</span>
+CREATE ROLE opmonitor LOGIN PASSWORD <span class="pl-s"><span class="pl-pds">'</span>&lt;opmonitor-password&gt;<span class="pl-pds">'</span></span><span class="pl-k">;</span>
+GRANT opmonitor_admin to postgres<span class="pl-k">;</span>
+CREATE DATABASE <span class="pl-s"><span class="pl-pds">"</span>op-monitor<span class="pl-pds">"</span></span> OWNER opmonitor_admin ENCODING <span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span><span class="pl-k">;</span>
+grant usage on schema public to opmonitor<span class="pl-k">;</span></pre></div>
 </li>
 <li>
 <p>Restore the database dumps on the remote database host.</p>
-<pre><code>pg_restore -h &lt;remote-db-url&gt; -p &lt;remote-db-port&gt; -U serverconf -O -n public -1 -d serverconf serverconf.dat
-pg_restore -h &lt;remote-db-url&gt; -p &lt;remote-db-port&gt; -U messagelog -O -n public -1 -d messagelog messagelog.dat
-pg_restore -h &lt;remote-db-url&gt; -p &lt;remote-db-port&gt; -U opmonitor_admin -O -n public -1 -d op-monitor op-monitor.dat
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>pg_restore -h <span class="pl-k">&lt;</span>remote-db-url<span class="pl-k">&gt;</span> -p <span class="pl-k">&lt;</span>remote-db-port<span class="pl-k">&gt;</span> -U serverconf -O -n public -1 -d serverconf serverconf.dat
+pg_restore -h <span class="pl-k">&lt;</span>remote-db-url<span class="pl-k">&gt;</span> -p <span class="pl-k">&lt;</span>remote-db-port<span class="pl-k">&gt;</span> -U messagelog -O -n public -1 -d messagelog messagelog.dat
+pg_restore -h <span class="pl-k">&lt;</span>remote-db-url<span class="pl-k">&gt;</span> -p <span class="pl-k">&lt;</span>remote-db-port<span class="pl-k">&gt;</span> -U opmonitor_admin -O -n public -1 -d op-monitor op-monitor.dat</pre></div>
 </li>
 <li>
 <p>Create properties file <code>/etc/xroad.properties</code> containing the superuser password.</p>
-<pre><code>sudo touch /etc/xroad.properties
+<div class="highlight highlight-source-shell"><pre>sudo touch /etc/xroad.properties
 sudo chown root:root /etc/xroad.properties
-sudo chmod 600 /etc/xroad.properties
-</code></pre>
+sudo chmod 600 /etc/xroad.properties</pre></div>
 </li>
 <li>
 <p>Edit <code>/etc/xroad.properties</code>.</p>
-<pre><code>postgres.connection.password = &lt;postgres-password&gt;
-op-monitor.database.admin_password = &lt;opmonitor_admin-password&gt;
-serverconf.database.initialized = true
-messagelog.database.initialized = true
-op-monitor.database.initialized = true
-</code></pre>
+<div class="highlight highlight-source-ini"><pre><span class="pl-k">postgres.connection.password</span> = &lt;postgres-password&gt;
+<span class="pl-k">op-monitor.database.admin_password</span> = &lt;opmonitor_admin-password&gt;
+<span class="pl-k">serverconf.database.initialized</span> = true
+<span class="pl-k">messagelog.database.initialized</span> = true
+<span class="pl-k">op-monitor.database.initialized</span> = true</pre></div>
 </li>
 <li>
 <p>Update <code>/etc/xroad/db.properties</code> contents with correct database host URLs and passwords.</p>
-<pre><code>serverconf.hibernate.connection.url = jdbc:postgresql://&lt;remote-db-url&gt;:&lt;remote-db-port&gt;/serverconf
-messagelog.hibernate.connection.url = jdbc:postgresql://&lt;remote-db-url&gt;:&lt;remote-db-port&gt;/messagelog
-op-monitor.hibernate.connection.url = jdbc:postgresql://&lt;remote-db-url&gt;:&lt;remote-db-port&gt;/op-monitor
-serverconf.hibernate.connection.password = &lt;serverconf-password&gt;
-messagelog.hibernate.connection.password = &lt;messagelog-password&gt;
-op-monitor.hibernate.connection.password = &lt;opmonitor-password&gt;
-</code></pre>
+<div class="highlight highlight-source-ini"><pre><span class="pl-k">serverconf.hibernate.connection.url</span> = jdbc:postgresql://&lt;remote-db-url&gt;:&lt;remote-db-port&gt;/serverconf
+<span class="pl-k">messagelog.hibernate.connection.url</span> = jdbc:postgresql://&lt;remote-db-url&gt;:&lt;remote-db-port&gt;/messagelog
+<span class="pl-k">op-monitor.hibernate.connection.url</span> = jdbc:postgresql://&lt;remote-db-url&gt;:&lt;remote-db-port&gt;/op-monitor
+<span class="pl-k">serverconf.hibernate.connection.password</span> = &lt;serverconf-password&gt;
+<span class="pl-k">messagelog.hibernate.connection.password</span> = &lt;messagelog-password&gt;
+<span class="pl-k">op-monitor.hibernate.connection.password</span> = &lt;opmonitor-password&gt;</pre></div>
 </li>
 <li>
 <p>Start again the X-Road services.</p>
-<pre><code>systemctl start "xroad*"
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>systemctl start <span class="pl-s"><span class="pl-pds">"</span>xroad*<span class="pl-pds">"</span></span></pre></div>
 </li>
 </ol>
+<h2>
+<a id="21-adding-command-line-arguments" class="anchor" href="#21-adding-command-line-arguments" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>21 Adding command line arguments</h2>
+<p>If you need to add command line arguments for the Security Server, for example if you wish to increase Java's maximum heap size, you can do it with the properties file <code>/etc/xroad/services/local.properties</code>. The file is also included in the backup archive file when taking a backup of the Security Server's configuration.</p>
+<p>Example of <code>/etc/xroad/services/local.properties</code> with modifications that override the default Java memory parameters:</p>
+<div class="highlight highlight-source-ini"><pre><span class="pl-k">XROAD_PROXY_PARAMS</span>=-Xms150m -Xmx1024m</pre></div>
+<p>All possible properties to adjust in this file are</p>
+<pre><code>XROAD_SIGNER_PARAMS
+XROAD_ADDON_PARAMS
+XROAD_CONFCLIENT_PARAM
+XROAD_CONFPROXY_PARAM
+XROAD_JETTY_PARAMS
+XROAD_MONITOR_PARAM
+XROAD_OPMON_PARAM
+XROAD_PROXY_PARAM
+XROAD_PROXY_UI_API_PARAM
+XROAD_SIGNER_CONSOLE_PARAM
+</code></pre>
+<h2>
+<a id="22-additional-security-hardening" class="anchor" href="#22-additional-security-hardening" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>22 Additional Security Hardening</h2>
+<p>You may want to harden the security of your X-Road instance by configuring additional security policies in your Security Servers. The security measures that are introduced in this guide are common security policies that can be configured on operating system level.</p>
+<p>X-Road uses the Linux Pluggable Authentication Modules (PAM) to authenticate users. This makes it easy to configure the account management to your liking. The example PAM configurations provided in this guide may or may not work on your system depending on your system and existing PAM configurations. Note that editing the PAM configurations will take effect immediately without the need to restart anything.</p>
+<p>For configuring the following security policies for the X-Road Security Server Admin UI in production, please refer to <a href="http://www.linux-pam.org/Linux-PAM-html/Linux-PAM_SAG.html" rel="nofollow">The Linux-PAM System Administrator's Guide</a> for the full documentation on how to configure PAM.</p>
+<h3>
+<a id="221-configuring-account-lockout" class="anchor" href="#221-configuring-account-lockout" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>22.1 Configuring account lockout</h3>
+<p>Configuring an account lockout policy in your Security Server Admin UI authentication will provide an extra layer of defence against password guessing attacks, such as brute force attacks. After configuring the account lockout, when trying to log in to the Security Server Admin UI with a locked account, the login screen will display a generic login error without disclosing the reason or any other login information.</p>
+<p>The PAM service to configure the account lockout to is <code>xroad</code>.</p>
+<h4>
+<a id="2211-considerations-and-risks" class="anchor" href="#2211-considerations-and-risks" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>22.1.1 Considerations and risks</h4>
+<p>After enabling the account lockout for the Security Server, you should be aware that a user can lock out any other user's account if they know the correct username.</p>
+<h4>
+<a id="2212-account-lockout-examples" class="anchor" href="#2212-account-lockout-examples" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>22.1.2 Account lockout examples</h4>
+<p>The example configurations will lock the user's account, preventing login to the Security Server Admin UI for 15 minutes (I.e. 900 seconds) after they provide a wrong password in the Security Server Admin UI login three (3) consecutive times. This configuration also affects the root account.</p>
+<p><strong>Example on Ubuntu</strong></p>
+<p>Create a new configuration <code>/etc/pam.d/xroad</code> with the following content:</p>
+<div class="highlight highlight-source-shell"><pre>auth        required          pam_tally2.so deny=3 even_deny_root unlock_time=900 file=/var/lib/xroad/tallylog
+@include    common-auth    
+account     required          pam_tally2.so
+@include    common-account
+password    required          pam_deny.so    
+session     required          pam_deny.so    </pre></div>
+<p><strong>Example on RHEL</strong></p>
+<p>On RHEL systems, the <code>/etc/pam.d/xroad</code> file ships with the Security Server installation package so you need to modify the existing file. Replace the <code>/etc/pam.d/xroad</code> contents with the following:</p>
+<div class="highlight highlight-source-shell"><pre><span class="pl-c"><span class="pl-c">#</span>%PAM-1.0</span>
+auth       required     pam_tally2.so deny=3 even_deny_root unlock_time=900 file=/var/lib/xroad/tallylog
+auth       required     pam_unix.so
+account    required     pam_tally2.so
+account    required     pam_unix.so
+password   required     pam_deny.so
+password   required     pam_warn.so
+session    required     pam_deny.so</pre></div>
+<h3>
+<a id="222-configuring-password-policies" class="anchor" href="#222-configuring-password-policies" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>22.2 Configuring password policies</h3>
+<p>Configuring a password policy in your Security Server Admin UI authentication will provide an additional layer of defence against password guessing attacks, such as password spraying.</p>
+<p>User account passwords cannot be changed directly from the Security Server Admin UI, therefore the password policy must be configured on operating system user account level. The method of adding a new password policy varies significantly depending on your operating system, existing PAM configuration and authentication protocol.</p>
+<p>For instruction on how to add password policies, please refer to your operating system's official documentation or customer support.</p>
+<h4>
+<a id="2221-considerations-and-risks" class="anchor" href="#2221-considerations-and-risks" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>22.2.1 Considerations and risks</h4>
+<p>In a strong password, it is advisable to have at least 16 characters at minimum. You can also add complexity requirements, such as numbers and special characters, but these requirements can make the passwords more difficult for users to remember. Further additional measures could be to add commonly known passwords into a blocklist.</p>
+<h3>
+<a id="223-ensuring-user-account-security" class="anchor" href="#223-ensuring-user-account-security" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>22.3 Ensuring User Account Security</h3>
+<p>Users of the web application are created by creating operating-system-level users. This means that a user can access the web application and the underlying operating system with the same credentials. Therefore, if user accounts in the web application were compromised, the attacker could use those credentials to log into the server via SSH if credential-based logging in is not disabled.</p>
+<p>To harden the user account security, make sure that users are not allowed to access the server via SSH by default. The users needing SSH access are granted those rights separately.</p>
+<p>Create a user group in which users are allowed to connect to the server via SSH while all other users are denied. Add the following line to <code>/etc/ssh/sshd_config</code>:</p>
+<pre><code>AllowGroups &lt;group_to_allow&gt;
+</code></pre>
+<p>Restart the SSH service:</p>
+<pre><code>sudo systemctl restart sshd
+</code></pre>
+<p>It is also recommended to disable SSH password login and allow key-based authentication only. Before this modification, add users' public keys to the server. Edit <code>/etc/ssh/sshd_config</code> and add the following lines:</p>
+<pre><code>ChallengeResponseAuthentication no
+PasswordAuthentication no
+</code></pre>
+<p>Restart the SSH service once again:</p>
+<pre><code>sudo systemctl restart sshd
+</code></pre>
+<p>In addition, the users should be prevented from logging in to the system. This can be achieved by issuing the following command on Ubuntu:</p>
+<pre><code>usermod -s /bin/false user
+</code></pre>
+<p>On RHEL, the corresponding command is:</p>
+<pre><code>usermod -s /sbin/nologin user
+</code></pre>
+<p>The system administrator should also implement a monitoring and alerting system regarding anomalous logins.</p>
     </article>
   </body>
 </html>

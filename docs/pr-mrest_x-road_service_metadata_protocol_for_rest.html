@@ -21,7 +21,7 @@
 <h1>
 <a id="x-road-service-metadata-protocol-for-rest-" class="anchor" href="#x-road-service-metadata-protocol-for-rest-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>X-Road: Service Metadata Protocol for REST </h1>
 <p><strong>Technical Specification</strong></p>
-<p>Version: 0.4<br>
+<p>Version: 0.5<br>
 Doc. ID: PR-MREST</p>
 <hr>
 <h2>
@@ -58,6 +58,12 @@ Doc. ID: PR-MREST</p>
 <td>07.11.2019</td>
 <td>0.4</td>
 <td>Clarify getOpenAPI description</td>
+<td>Ilkka Seppälä</td>
+</tr>
+<tr>
+<td>05.10.2021</td>
+<td>0.5</td>
+<td>Update listMethods and allowedMethods</td>
 <td>Ilkka Seppälä</td>
 </tr>
 </tbody>
@@ -123,24 +129,22 @@ Doc. ID: PR-MREST</p>
 Note. The listCentralServices metaservice ignores the Accept header and returns an XML response (the REST interface does not support central services).</p>
 <h2>
 <a id="4-retrieving-list-of-services" class="anchor" href="#4-retrieving-list-of-services" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4 Retrieving List of Services</h2>
-<p>X-Road provides two methods for getting the list of services offered by an X-Road client:</p>
+<p>X-Road provides two methods for getting the list of services and service endpoints offered by an X-Road client:</p>
 <ul>
 <li>
-<p><code>listMethods</code> lists all REST services offered by a service provider.</p>
+<p><code>listMethods</code> lists all REST services and service endpoints offered by a service provider.</p>
 </li>
 <li>
-<p><code>allowedMethods</code> lists all REST services offered by a service provider that the caller has permission to invoke.</p>
+<p><code>allowedMethods</code> lists all REST services and service endpoints offered by a service provider that the caller has permission to invoke. Notice that the endpoints may contain wildcards and the amount of concrete endpoints may actually be larger. Generally, fetching the OpenAPI service description is the preferred method for discovering service endpoints.</p>
 </li>
 </ul>
 <p>Both methods are invoked as regular X-Road REST services (see specification [<a href="#Ref_PR-REST">PR-REST</a>] for details on the X-Road REST protocol).</p>
 <p>The serviceId MUST contain the identifier of the target service provider and the value of the serviceCode element MUST be either <code>listMethods</code> or <code>allowedMethods</code>.</p>
 <p>Request example</p>
-<pre><code>GET /r1/INSTANCE/CLASS2/MEMBER2/SUBSYSTEM2/listMethods
-</code></pre>
+<div class="highlight highlight-source-httpspec"><pre><span class="pl-k">GET</span><span class="pl-c1"> /r1/INSTANCE/CLASS2/MEMBER2/SUBSYSTEM2/listMethods</span></pre></div>
 <p>HTTP request headers</p>
-<pre><code>X-Road-Client: INSTANCE/CLASS1/MEMBER1/SUBSYSTEM1
-</code></pre>
-<p>The body of the response message MUST contain a list of services provided by the service provider (in case of listMethods) or open to the given client (in case of allowedMethods). The response SHALL NOT contain names of the metainfo services.</p>
+<div class="highlight highlight-source-httpspec"><pre><span class="pl-s"><span class="pl-v">X-Road-Client:</span> INSTANCE/CLASS1/MEMBER1/SUBSYSTEM1</span></pre></div>
+<p>The body of the response message MUST contain a list of services and service endpoints provided by the service provider (in case of listMethods) or open to the given client (in case of allowedMethods). The response SHALL NOT contain names of the metainfo services.</p>
 <p>Annex <a href="#annex-a-service-descriptions-for-rest-metadata-services">A</a> contains the OpenAPI description of the REST metadata services.</p>
 <p>Annexes <a href="#c1-listmethods-response">B.1</a> and <a href="#c2-allowedmethods-response">B.2</a> contain example response messages for services, respectively.</p>
 <h2>
@@ -154,11 +158,9 @@ Note. The listCentralServices metaservice ignores the Accept header and returns 
 <p>The serviceId MUST contain the identifier of the target service provider and the value of the serviceCode element MUST be <code>getOpenAPI</code>.</p>
 <p>The query parameters must contain <code>serviceCode=xxx</code> where xxx is the service code of the REST service we want to get the service description from.</p>
 <p>Request example</p>
-<pre><code>GET /r1/INSTANCE/CLASS2/MEMBER2/SUBSYSTEM2/getOpenAPI?serviceCode=listFirms
-</code></pre>
+<div class="highlight highlight-source-httpspec"><pre><span class="pl-k">GET</span><span class="pl-c1"> /r1/INSTANCE/CLASS2/MEMBER2/SUBSYSTEM2/getOpenAPI?serviceCode=listFirms</span></pre></div>
 <p>HTTP request headers</p>
-<pre><code>X-Road-Client: INSTANCE/CLASS1/MEMBER1/SUBSYSTEM1
-</code></pre>
+<div class="highlight highlight-source-httpspec"><pre><span class="pl-s"><span class="pl-v">X-Road-Client:</span> INSTANCE/CLASS1/MEMBER1/SUBSYSTEM1</span></pre></div>
 <p>Note that fetching the OpenAPI service description respects the "Verify TLS Certificate" setting of the service.</p>
 <p>The body of the response MUST contain the OpenAPI service description of the REST service indicated by the query parameters.</p>
 <p>Annex <a href="#annex-a-service-descriptions-for-rest-metadata-services">A</a> contains the OpenAPI description of the REST metadata services.</p>
@@ -168,7 +170,7 @@ Note. The listCentralServices metaservice ignores the Accept header and returns 
 <div class="highlight highlight-source-yaml"><pre><span class="pl-ent">openapi</span>: <span class="pl-s">3.0.0</span>
 <span class="pl-ent">info</span>:
   <span class="pl-ent">title</span>: <span class="pl-s">X-Road Service Metadata API for REST</span>
-  <span class="pl-ent">version</span>: <span class="pl-s"><span class="pl-pds">'</span>0.2<span class="pl-pds">'</span></span>
+  <span class="pl-ent">version</span>: <span class="pl-s"><span class="pl-pds">'</span>0.3<span class="pl-pds">'</span></span>
 <span class="pl-ent">servers</span>:
   - <span class="pl-ent">url</span>: <span class="pl-s">https://{securityserver}/r1</span>
     <span class="pl-ent">variables</span>:
@@ -185,7 +187,7 @@ Note. The listCentralServices metaservice ignores the Accept header and returns 
     <span class="pl-ent">get</span>:
       <span class="pl-ent">tags</span>:
         - <span class="pl-s">metaservices</span>
-      <span class="pl-ent">summary</span>: <span class="pl-s">List REST services for a service provider</span>
+      <span class="pl-ent">summary</span>: <span class="pl-s">List REST services and endpoints for a service provider</span>
       <span class="pl-ent">operationId</span>: <span class="pl-s">listMethods</span>
       <span class="pl-ent">parameters</span>:
         - <span class="pl-ent">name</span>: <span class="pl-s">serviceId</span>
@@ -198,11 +200,11 @@ Note. The listCentralServices metaservice ignores the Accept header and returns 
             <span class="pl-ent">type</span>: <span class="pl-s">string</span>
       <span class="pl-ent">responses</span>:
         <span class="pl-s"><span class="pl-pds">'</span><span class="pl-ent">200</span><span class="pl-pds">'</span></span>:
-          <span class="pl-ent">description</span>: <span class="pl-s">List of REST services</span>
+          <span class="pl-ent">description</span>: <span class="pl-s">List of REST services and endpoints for a service provider</span>
           <span class="pl-ent">content</span>:
             <span class="pl-ent">application/json</span>:
               <span class="pl-ent">schema</span>:
-                <span class="pl-ent">$ref</span>: <span class="pl-s"><span class="pl-pds">'</span>#/components/schemas/methodList<span class="pl-pds">'</span></span>
+                <span class="pl-ent">$ref</span>: <span class="pl-s"><span class="pl-pds">'</span>#/components/schemas/restServiceDetailsListType<span class="pl-pds">'</span></span>
   <span class="pl-ent">/{xRoadInstance}/{memberClass}/{memberCode}/{subsystemCode}/allowedMethods</span>:
     <span class="pl-ent">parameters</span>:
       - <span class="pl-ent">$ref</span>: <span class="pl-s"><span class="pl-pds">'</span>#/components/parameters/xRoadInstance<span class="pl-pds">'</span></span>
@@ -212,7 +214,7 @@ Note. The listCentralServices metaservice ignores the Accept header and returns 
     <span class="pl-ent">get</span>:
       <span class="pl-ent">tags</span>:
         - <span class="pl-s">metaservices</span>
-      <span class="pl-ent">summary</span>: <span class="pl-s">List of allowed REST services for a service provider</span>
+      <span class="pl-ent">summary</span>: <span class="pl-s">List of allowed REST services and endpoints for a service provider</span>
       <span class="pl-ent">operationId</span>: <span class="pl-s">allowedMethods</span>
       <span class="pl-ent">parameters</span>:
         - <span class="pl-ent">name</span>: <span class="pl-s">serviceId</span>
@@ -225,11 +227,11 @@ Note. The listCentralServices metaservice ignores the Accept header and returns 
             <span class="pl-ent">type</span>: <span class="pl-s">string</span>
       <span class="pl-ent">responses</span>:
         <span class="pl-s"><span class="pl-pds">'</span><span class="pl-ent">200</span><span class="pl-pds">'</span></span>:
-          <span class="pl-ent">description</span>: <span class="pl-s">List of allowed REST services</span>
+          <span class="pl-ent">description</span>: <span class="pl-s">List of allowed REST services and endpoints for a service provider</span>
           <span class="pl-ent">content</span>:
             <span class="pl-ent">application/json</span>:
               <span class="pl-ent">schema</span>:
-                <span class="pl-ent">$ref</span>: <span class="pl-s"><span class="pl-pds">'</span>#/components/schemas/methodList<span class="pl-pds">'</span></span>
+                <span class="pl-ent">$ref</span>: <span class="pl-s"><span class="pl-pds">'</span>#/components/schemas/restServiceDetailsListType<span class="pl-pds">'</span></span>
   <span class="pl-ent">/{xRoadInstance}/{memberClass}/{memberCode}/{subsystemCode}/getOpenAPI</span>:
     <span class="pl-ent">get</span>:
       <span class="pl-ent">tags</span>:
@@ -247,7 +249,7 @@ Note. The listCentralServices metaservice ignores the Accept header and returns 
             <span class="pl-ent">type</span>: <span class="pl-s">string</span>
       <span class="pl-ent">responses</span>:
         <span class="pl-s"><span class="pl-pds">'</span><span class="pl-ent">200</span><span class="pl-pds">'</span></span>:
-        <span class="pl-ent">description</span>: <span class="pl-s">OpenAPI description of the specified REST service</span>
+          <span class="pl-ent">description</span>: <span class="pl-s">OpenAPI description of the specified REST service</span>
           <span class="pl-ent">content</span>:
             <span class="pl-ent">application/json</span>:
               <span class="pl-ent">schema</span>:
@@ -256,9 +258,9 @@ Note. The listCentralServices metaservice ignores the Accept header and returns 
               <span class="pl-ent">schema</span>:
                 <span class="pl-ent">type</span>: <span class="pl-s">string</span>
         <span class="pl-s"><span class="pl-pds">'</span><span class="pl-ent">400</span><span class="pl-pds">'</span></span>:
-        <span class="pl-ent">description</span>: <span class="pl-s">Error in request</span>
+          <span class="pl-ent">description</span>: <span class="pl-s">Error in request</span>
         <span class="pl-s"><span class="pl-pds">'</span><span class="pl-ent">500</span><span class="pl-pds">'</span></span>:
-        <span class="pl-ent">description</span>: <span class="pl-s">Internal error</span>
+          <span class="pl-ent">description</span>: <span class="pl-s">Internal error</span>
 <span class="pl-ent">components</span>:
   <span class="pl-ent">parameters</span>:
     <span class="pl-ent">xRoadInstance</span>:
@@ -286,17 +288,17 @@ Note. The listCentralServices metaservice ignores the Accept header and returns 
       <span class="pl-ent">schema</span>:
         <span class="pl-ent">type</span>: <span class="pl-s">string</span>
   <span class="pl-ent">schemas</span>:
-    <span class="pl-ent">methodList</span>:
+    <span class="pl-ent">restServiceDetailsListType</span>:
       <span class="pl-ent">type</span>: <span class="pl-s">object</span>
       <span class="pl-ent">properties</span>:
         <span class="pl-ent">member</span>:
           <span class="pl-ent">type</span>: <span class="pl-s">array</span>
           <span class="pl-ent">items</span>:
-            <span class="pl-ent">$ref</span>: <span class="pl-s"><span class="pl-pds">'</span>#/components/schemas/serviceId<span class="pl-pds">'</span></span>
-    <span class="pl-ent">serviceId</span>:
+            <span class="pl-ent">$ref</span>: <span class="pl-s"><span class="pl-pds">'</span>#/components/schemas/xroadRestServiceDetailsType<span class="pl-pds">'</span></span>
+    <span class="pl-ent">xroadRestServiceDetailsType</span>:
       <span class="pl-ent">type</span>: <span class="pl-s">object</span>
       <span class="pl-ent">properties</span>:
-        <span class="pl-ent">type</span>:
+        <span class="pl-ent">objectType</span>:
           <span class="pl-ent">type</span>: <span class="pl-s">object</span>
           <span class="pl-ent">properties</span>:
             <span class="pl-ent">object_type</span>:
@@ -310,17 +312,33 @@ Note. The listCentralServices metaservice ignores the Accept header and returns 
                 - <span class="pl-s">SERVICE</span>
                 - <span class="pl-s">CENTRALSERVICE</span>
                 - <span class="pl-s">LOCALGROUP</span>
+        <span class="pl-ent">serviceType</span>:
+          <span class="pl-ent">type</span>: <span class="pl-s">string</span>
         <span class="pl-ent">xRoadInstance</span>:
           <span class="pl-ent">type</span>: <span class="pl-s">string</span>
         <span class="pl-ent">memberClass</span>:
           <span class="pl-ent">type</span>: <span class="pl-s">string</span>
         <span class="pl-ent">memberCode</span>:
           <span class="pl-ent">type</span>: <span class="pl-s">string</span>
-        <span class="pl-ent">serviceVersion</span>:
-          <span class="pl-ent">type</span>: <span class="pl-s">string</span>
         <span class="pl-ent">subsystemCode</span>:
           <span class="pl-ent">type</span>: <span class="pl-s">string</span>
         <span class="pl-ent">serviceCode</span>:
+          <span class="pl-ent">type</span>: <span class="pl-s">string</span>
+        <span class="pl-ent">serviceVersion</span>:
+          <span class="pl-ent">type</span>: <span class="pl-s">string</span>
+        <span class="pl-ent">endpointList</span>:
+          <span class="pl-ent">type</span>: <span class="pl-s">object</span>
+          <span class="pl-ent">properties</span>:
+            <span class="pl-ent">member</span>:
+              <span class="pl-ent">type</span>: <span class="pl-s">array</span>
+              <span class="pl-ent">items</span>:
+                <span class="pl-ent">$ref</span>: <span class="pl-s"><span class="pl-pds">'</span>#/components/schemas/endpoint<span class="pl-pds">'</span></span>
+    <span class="pl-ent">endpoint</span>:
+      <span class="pl-ent">type</span>: <span class="pl-s">object</span>
+      <span class="pl-ent">properties</span>:
+        <span class="pl-ent">method</span>:
+          <span class="pl-ent">type</span>: <span class="pl-s">string</span>
+        <span class="pl-ent">path</span>:
           <span class="pl-ent">type</span>: <span class="pl-s">string</span></pre></div>
 <h2>
 <a id="annex-b-example-messages" class="anchor" href="#annex-b-example-messages" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Annex B Example Messages</h2>
@@ -328,22 +346,116 @@ Note. The listCentralServices metaservice ignores the Accept header and returns 
 <a id="b1-listmethods-response" class="anchor" href="#b1-listmethods-response" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>B.1 listMethods Response</h3>
 <p><code>curl -H "accept: application/json" -H "X-Road-Client:INSTANCE/CLASS1/MEMBER1/SUBSYSTEM1" "https://SECURITYSERVER:443/r1/INSTANCE/CLASS2/MEMBER2/SUBSYSTEM2/listMethods"</code></p>
 <div class="highlight highlight-source-json"><pre>{
-    <span class="pl-s"><span class="pl-pds">"</span>service<span class="pl-pds">"</span></span>: [
+    <span class="pl-ent">"service"</span>: [
         {
-            <span class="pl-s"><span class="pl-pds">"</span>member_class<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>CLASS2<span class="pl-pds">"</span></span>,
-            <span class="pl-s"><span class="pl-pds">"</span>member_code<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>MEMBER2<span class="pl-pds">"</span></span>,
-            <span class="pl-s"><span class="pl-pds">"</span>object_type<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>SERVICE<span class="pl-pds">"</span></span>,
-            <span class="pl-s"><span class="pl-pds">"</span>service_code<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>payloadgen<span class="pl-pds">"</span></span>,
-            <span class="pl-s"><span class="pl-pds">"</span>subsystem_code<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>SUBSYSTEM2<span class="pl-pds">"</span></span>,
-            <span class="pl-s"><span class="pl-pds">"</span>xroad_instance<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>INSTANCE<span class="pl-pds">"</span></span>
+            <span class="pl-ent">"member_class"</span>: <span class="pl-s"><span class="pl-pds">"</span>CLASS2<span class="pl-pds">"</span></span>,
+            <span class="pl-ent">"member_code"</span>: <span class="pl-s"><span class="pl-pds">"</span>MEMBER2<span class="pl-pds">"</span></span>,
+            <span class="pl-ent">"object_type"</span>: <span class="pl-s"><span class="pl-pds">"</span>SERVICE<span class="pl-pds">"</span></span>,
+            <span class="pl-ent">"service_code"</span>: <span class="pl-s"><span class="pl-pds">"</span>payloadgen<span class="pl-pds">"</span></span>,
+            <span class="pl-ent">"service_type"</span>: <span class="pl-s"><span class="pl-pds">"</span>OPENAPI<span class="pl-pds">"</span></span>,
+            <span class="pl-ent">"subsystem_code"</span>: <span class="pl-s"><span class="pl-pds">"</span>SUBSYSTEM2<span class="pl-pds">"</span></span>,
+            <span class="pl-ent">"xroad_instance"</span>: <span class="pl-s"><span class="pl-pds">"</span>INSTANCE<span class="pl-pds">"</span></span>,
+            <span class="pl-ent">"endpoint_list"</span>: [
+              {
+                <span class="pl-ent">"method"</span>: <span class="pl-s"><span class="pl-pds">"</span>PUT<span class="pl-pds">"</span></span>,
+                <span class="pl-ent">"path"</span>: <span class="pl-s"><span class="pl-pds">"</span>/pet<span class="pl-pds">"</span></span>
+              },
+              {
+                <span class="pl-ent">"method"</span>: <span class="pl-s"><span class="pl-pds">"</span>POST<span class="pl-pds">"</span></span>,
+                <span class="pl-ent">"path"</span>: <span class="pl-s"><span class="pl-pds">"</span>/pet<span class="pl-pds">"</span></span>
+              },
+              {
+                <span class="pl-ent">"method"</span>: <span class="pl-s"><span class="pl-pds">"</span>GET<span class="pl-pds">"</span></span>,
+                <span class="pl-ent">"path"</span>: <span class="pl-s"><span class="pl-pds">"</span>/pet/findByStatus<span class="pl-pds">"</span></span>
+              },
+              {
+                <span class="pl-ent">"method"</span>: <span class="pl-s"><span class="pl-pds">"</span>GET<span class="pl-pds">"</span></span>,
+                <span class="pl-ent">"path"</span>: <span class="pl-s"><span class="pl-pds">"</span>/pet/findByTags<span class="pl-pds">"</span></span>
+              },
+              {
+                <span class="pl-ent">"method"</span>: <span class="pl-s"><span class="pl-pds">"</span>GET<span class="pl-pds">"</span></span>,
+                <span class="pl-ent">"path"</span>: <span class="pl-s"><span class="pl-pds">"</span>/pet/*<span class="pl-pds">"</span></span>
+              },
+              {
+                <span class="pl-ent">"method"</span>: <span class="pl-s"><span class="pl-pds">"</span>POST<span class="pl-pds">"</span></span>,
+                <span class="pl-ent">"path"</span>: <span class="pl-s"><span class="pl-pds">"</span>/pet/*<span class="pl-pds">"</span></span>
+              },
+              {
+                <span class="pl-ent">"method"</span>: <span class="pl-s"><span class="pl-pds">"</span>DELETE<span class="pl-pds">"</span></span>,
+                <span class="pl-ent">"path"</span>: <span class="pl-s"><span class="pl-pds">"</span>/pet/*<span class="pl-pds">"</span></span>
+              },
+              {
+                <span class="pl-ent">"method"</span>: <span class="pl-s"><span class="pl-pds">"</span>POST<span class="pl-pds">"</span></span>,
+                <span class="pl-ent">"path"</span>: <span class="pl-s"><span class="pl-pds">"</span>/pet/*/uploadImage<span class="pl-pds">"</span></span>
+              },
+              {
+                <span class="pl-ent">"method"</span>: <span class="pl-s"><span class="pl-pds">"</span>GET<span class="pl-pds">"</span></span>,
+                <span class="pl-ent">"path"</span>: <span class="pl-s"><span class="pl-pds">"</span>/store/inventory<span class="pl-pds">"</span></span>
+              },
+              {
+                <span class="pl-ent">"method"</span>: <span class="pl-s"><span class="pl-pds">"</span>POST<span class="pl-pds">"</span></span>,
+                <span class="pl-ent">"path"</span>: <span class="pl-s"><span class="pl-pds">"</span>/store/order<span class="pl-pds">"</span></span>
+              },
+              {
+                <span class="pl-ent">"method"</span>: <span class="pl-s"><span class="pl-pds">"</span>GET<span class="pl-pds">"</span></span>,
+                <span class="pl-ent">"path"</span>: <span class="pl-s"><span class="pl-pds">"</span>/store/order/*<span class="pl-pds">"</span></span>
+              },
+              {
+                <span class="pl-ent">"method"</span>: <span class="pl-s"><span class="pl-pds">"</span>DELETE<span class="pl-pds">"</span></span>,
+                <span class="pl-ent">"path"</span>: <span class="pl-s"><span class="pl-pds">"</span>/store/order/*<span class="pl-pds">"</span></span>
+              },
+              {
+                <span class="pl-ent">"method"</span>: <span class="pl-s"><span class="pl-pds">"</span>POST<span class="pl-pds">"</span></span>,
+                <span class="pl-ent">"path"</span>: <span class="pl-s"><span class="pl-pds">"</span>/user<span class="pl-pds">"</span></span>
+              },
+              {
+                <span class="pl-ent">"method"</span>: <span class="pl-s"><span class="pl-pds">"</span>POST<span class="pl-pds">"</span></span>,
+                <span class="pl-ent">"path"</span>: <span class="pl-s"><span class="pl-pds">"</span>/user/createWithList<span class="pl-pds">"</span></span>
+              },
+              {
+                <span class="pl-ent">"method"</span>: <span class="pl-s"><span class="pl-pds">"</span>GET<span class="pl-pds">"</span></span>,
+                <span class="pl-ent">"path"</span>: <span class="pl-s"><span class="pl-pds">"</span>/user/login<span class="pl-pds">"</span></span>
+              },
+              {
+                <span class="pl-ent">"method"</span>: <span class="pl-s"><span class="pl-pds">"</span>GET<span class="pl-pds">"</span></span>,
+                <span class="pl-ent">"path"</span>: <span class="pl-s"><span class="pl-pds">"</span>/user/logout<span class="pl-pds">"</span></span>
+              },
+              {
+                <span class="pl-ent">"method"</span>: <span class="pl-s"><span class="pl-pds">"</span>GET<span class="pl-pds">"</span></span>,
+                <span class="pl-ent">"path"</span>: <span class="pl-s"><span class="pl-pds">"</span>/user/*<span class="pl-pds">"</span></span>
+              },
+              {
+                <span class="pl-ent">"method"</span>: <span class="pl-s"><span class="pl-pds">"</span>PUT<span class="pl-pds">"</span></span>,
+                <span class="pl-ent">"path"</span>: <span class="pl-s"><span class="pl-pds">"</span>/user/*<span class="pl-pds">"</span></span>
+              },
+              {
+                <span class="pl-ent">"method"</span>: <span class="pl-s"><span class="pl-pds">"</span>DELETE<span class="pl-pds">"</span></span>,
+                <span class="pl-ent">"path"</span>: <span class="pl-s"><span class="pl-pds">"</span>/user/*<span class="pl-pds">"</span></span>
+              }
+            ]
         },
         {
-            <span class="pl-s"><span class="pl-pds">"</span>member_class<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>CLASS2<span class="pl-pds">"</span></span>,
-            <span class="pl-s"><span class="pl-pds">"</span>member_code<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>MEMBER2<span class="pl-pds">"</span></span>,
-            <span class="pl-s"><span class="pl-pds">"</span>object_type<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>SERVICE<span class="pl-pds">"</span></span>,
-            <span class="pl-s"><span class="pl-pds">"</span>service_code<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>kore<span class="pl-pds">"</span></span>,
-            <span class="pl-s"><span class="pl-pds">"</span>subsystem_code<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>SUBSYSTEM2<span class="pl-pds">"</span></span>,
-            <span class="pl-s"><span class="pl-pds">"</span>xroad_instance<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>INSTANCE<span class="pl-pds">"</span></span>
+            <span class="pl-ent">"member_class"</span>: <span class="pl-s"><span class="pl-pds">"</span>CLASS2<span class="pl-pds">"</span></span>,
+            <span class="pl-ent">"member_code"</span>: <span class="pl-s"><span class="pl-pds">"</span>MEMBER2<span class="pl-pds">"</span></span>,
+            <span class="pl-ent">"object_type"</span>: <span class="pl-s"><span class="pl-pds">"</span>SERVICE<span class="pl-pds">"</span></span>,
+            <span class="pl-ent">"service_code"</span>: <span class="pl-s"><span class="pl-pds">"</span>kore<span class="pl-pds">"</span></span>,
+            <span class="pl-ent">"service_type"</span>: <span class="pl-s"><span class="pl-pds">"</span>REST<span class="pl-pds">"</span></span>,
+            <span class="pl-ent">"subsystem_code"</span>: <span class="pl-s"><span class="pl-pds">"</span>SUBSYSTEM2<span class="pl-pds">"</span></span>,
+            <span class="pl-ent">"xroad_instance"</span>: <span class="pl-s"><span class="pl-pds">"</span>INSTANCE<span class="pl-pds">"</span></span>,
+            <span class="pl-ent">"endpoint_list"</span>: [
+              {
+                <span class="pl-ent">"method"</span>: <span class="pl-s"><span class="pl-pds">"</span>GET<span class="pl-pds">"</span></span>,
+                <span class="pl-ent">"path"</span>: <span class="pl-s"><span class="pl-pds">"</span>/school<span class="pl-pds">"</span></span>
+              },
+              {
+                <span class="pl-ent">"method"</span>: <span class="pl-s"><span class="pl-pds">"</span>PUT<span class="pl-pds">"</span></span>,
+                <span class="pl-ent">"path"</span>: <span class="pl-s"><span class="pl-pds">"</span>/school<span class="pl-pds">"</span></span>
+              },
+              {
+                <span class="pl-ent">"method"</span>: <span class="pl-s"><span class="pl-pds">"</span>POST<span class="pl-pds">"</span></span>,
+                <span class="pl-ent">"path"</span>: <span class="pl-s"><span class="pl-pds">"</span>/school<span class="pl-pds">"</span></span>
+              }
+            ]
         }
     ]
 }</pre></div>
@@ -351,14 +463,29 @@ Note. The listCentralServices metaservice ignores the Accept header and returns 
 <a id="b2-allowedmethods-response" class="anchor" href="#b2-allowedmethods-response" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>B.2 allowedMethods Response</h3>
 <p><code>curl -H "accept: application/json" -H "X-Road-Client:INSTANCE/CLASS1/MEMBER1/SUBSYSTEM1" "https://SECURITYSERVER:443/r1/INSTANCE/CLASS2/MEMBER2/SUBSYSTEM2/allowedMethods"</code></p>
 <div class="highlight highlight-source-json"><pre>{
-    <span class="pl-s"><span class="pl-pds">"</span>service<span class="pl-pds">"</span></span>: [
+    <span class="pl-ent">"service"</span>: [
         {
-            <span class="pl-s"><span class="pl-pds">"</span>member_class<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>CLASS2<span class="pl-pds">"</span></span>,
-            <span class="pl-s"><span class="pl-pds">"</span>member_code<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>MEMBER2<span class="pl-pds">"</span></span>,
-            <span class="pl-s"><span class="pl-pds">"</span>object_type<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>SERVICE<span class="pl-pds">"</span></span>,
-            <span class="pl-s"><span class="pl-pds">"</span>service_code<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>payloadgen<span class="pl-pds">"</span></span>,
-            <span class="pl-s"><span class="pl-pds">"</span>subsystem_code<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>SUBSYSTEM2<span class="pl-pds">"</span></span>,
-            <span class="pl-s"><span class="pl-pds">"</span>xroad_instance<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>INSTANCE<span class="pl-pds">"</span></span>
+            <span class="pl-ent">"member_class"</span>: <span class="pl-s"><span class="pl-pds">"</span>CLASS2<span class="pl-pds">"</span></span>,
+            <span class="pl-ent">"member_code"</span>: <span class="pl-s"><span class="pl-pds">"</span>MEMBER2<span class="pl-pds">"</span></span>,
+            <span class="pl-ent">"object_type"</span>: <span class="pl-s"><span class="pl-pds">"</span>SERVICE<span class="pl-pds">"</span></span>,
+            <span class="pl-ent">"service_code"</span>: <span class="pl-s"><span class="pl-pds">"</span>payloadgen<span class="pl-pds">"</span></span>,
+            <span class="pl-ent">"service_type"</span>: <span class="pl-s"><span class="pl-pds">"</span>OPENAPI<span class="pl-pds">"</span></span>,
+            <span class="pl-ent">"subsystem_code"</span>: <span class="pl-s"><span class="pl-pds">"</span>SUBSYSTEM2<span class="pl-pds">"</span></span>,
+            <span class="pl-ent">"xroad_instance"</span>: <span class="pl-s"><span class="pl-pds">"</span>INSTANCE<span class="pl-pds">"</span></span>,
+            <span class="pl-ent">"endpoint_list"</span>: [
+              {
+                <span class="pl-ent">"method"</span>: <span class="pl-s"><span class="pl-pds">"</span>GET<span class="pl-pds">"</span></span>,
+                <span class="pl-ent">"path"</span>: <span class="pl-s"><span class="pl-pds">"</span>/pet/findByStatus<span class="pl-pds">"</span></span>
+              },
+              {
+                <span class="pl-ent">"method"</span>: <span class="pl-s"><span class="pl-pds">"</span>GET<span class="pl-pds">"</span></span>,
+                <span class="pl-ent">"path"</span>: <span class="pl-s"><span class="pl-pds">"</span>/pet/findByTags<span class="pl-pds">"</span></span>
+              },
+              {
+                <span class="pl-ent">"method"</span>: <span class="pl-s"><span class="pl-pds">"</span>GET<span class="pl-pds">"</span></span>,
+                <span class="pl-ent">"path"</span>: <span class="pl-s"><span class="pl-pds">"</span>/pet/*<span class="pl-pds">"</span></span>
+              }
+            ]
         }
     ]
 }</pre></div>

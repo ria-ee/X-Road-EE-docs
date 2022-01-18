@@ -685,43 +685,43 @@ the provider security server.</p>
 <a id="json-response" class="anchor" href="#json-response" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>JSON Response</h4>
 <p><code>curl -H "Accept: application/json" http://SECURITYSERVER/listClients</code></p>
 <div class="highlight highlight-source-json"><pre>{
-  <span class="pl-s"><span class="pl-pds">"</span>member<span class="pl-pds">"</span></span>: [
+  <span class="pl-ent">"member"</span>: [
     {
-      <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: {
-        <span class="pl-s"><span class="pl-pds">"</span>member_class<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>GOV<span class="pl-pds">"</span></span>,
-        <span class="pl-s"><span class="pl-pds">"</span>member_code<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>TS1OWNER<span class="pl-pds">"</span></span>,
-        <span class="pl-s"><span class="pl-pds">"</span>object_type<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>MEMBER<span class="pl-pds">"</span></span>,
-        <span class="pl-s"><span class="pl-pds">"</span>xroad_instance<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>AA<span class="pl-pds">"</span></span>
+      <span class="pl-ent">"id"</span>: {
+        <span class="pl-ent">"member_class"</span>: <span class="pl-s"><span class="pl-pds">"</span>GOV<span class="pl-pds">"</span></span>,
+        <span class="pl-ent">"member_code"</span>: <span class="pl-s"><span class="pl-pds">"</span>TS1OWNER<span class="pl-pds">"</span></span>,
+        <span class="pl-ent">"object_type"</span>: <span class="pl-s"><span class="pl-pds">"</span>MEMBER<span class="pl-pds">"</span></span>,
+        <span class="pl-ent">"xroad_instance"</span>: <span class="pl-s"><span class="pl-pds">"</span>AA<span class="pl-pds">"</span></span>
       },
-      <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>TS1 Owner<span class="pl-pds">"</span></span>
+      <span class="pl-ent">"name"</span>: <span class="pl-s"><span class="pl-pds">"</span>TS1 Owner<span class="pl-pds">"</span></span>
     },
     {
-      <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: {
-        <span class="pl-s"><span class="pl-pds">"</span>member_class<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>GOV<span class="pl-pds">"</span></span>,
-        <span class="pl-s"><span class="pl-pds">"</span>member_code<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>TS2OWNER<span class="pl-pds">"</span></span>,
-        <span class="pl-s"><span class="pl-pds">"</span>object_type<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>MEMBER<span class="pl-pds">"</span></span>,
-        <span class="pl-s"><span class="pl-pds">"</span>xroad_instance<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>AA<span class="pl-pds">"</span></span>
+      <span class="pl-ent">"id"</span>: {
+        <span class="pl-ent">"member_class"</span>: <span class="pl-s"><span class="pl-pds">"</span>GOV<span class="pl-pds">"</span></span>,
+        <span class="pl-ent">"member_code"</span>: <span class="pl-s"><span class="pl-pds">"</span>TS2OWNER<span class="pl-pds">"</span></span>,
+        <span class="pl-ent">"object_type"</span>: <span class="pl-s"><span class="pl-pds">"</span>MEMBER<span class="pl-pds">"</span></span>,
+        <span class="pl-ent">"xroad_instance"</span>: <span class="pl-s"><span class="pl-pds">"</span>AA<span class="pl-pds">"</span></span>
       },
-      <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>TS2 Owner<span class="pl-pds">"</span></span>
+      <span class="pl-ent">"name"</span>: <span class="pl-s"><span class="pl-pds">"</span>TS2 Owner<span class="pl-pds">"</span></span>
     },
     {
-      <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: {
-        <span class="pl-s"><span class="pl-pds">"</span>member_class<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>ENT<span class="pl-pds">"</span></span>,
-        <span class="pl-s"><span class="pl-pds">"</span>member_code<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>CLIENT1<span class="pl-pds">"</span></span>,
-        <span class="pl-s"><span class="pl-pds">"</span>object_type<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>MEMBER<span class="pl-pds">"</span></span>,
-        <span class="pl-s"><span class="pl-pds">"</span>xroad_instance<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>AA<span class="pl-pds">"</span></span>
+      <span class="pl-ent">"id"</span>: {
+        <span class="pl-ent">"member_class"</span>: <span class="pl-s"><span class="pl-pds">"</span>ENT<span class="pl-pds">"</span></span>,
+        <span class="pl-ent">"member_code"</span>: <span class="pl-s"><span class="pl-pds">"</span>CLIENT1<span class="pl-pds">"</span></span>,
+        <span class="pl-ent">"object_type"</span>: <span class="pl-s"><span class="pl-pds">"</span>MEMBER<span class="pl-pds">"</span></span>,
+        <span class="pl-ent">"xroad_instance"</span>: <span class="pl-s"><span class="pl-pds">"</span>AA<span class="pl-pds">"</span></span>
       },
-      <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Client One<span class="pl-pds">"</span></span>
+      <span class="pl-ent">"name"</span>: <span class="pl-s"><span class="pl-pds">"</span>Client One<span class="pl-pds">"</span></span>
     },
     {
-      <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: {
-        <span class="pl-s"><span class="pl-pds">"</span>member_class<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>ENT<span class="pl-pds">"</span></span>,
-        <span class="pl-s"><span class="pl-pds">"</span>member_code<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>CLIENT1<span class="pl-pds">"</span></span>,
-        <span class="pl-s"><span class="pl-pds">"</span>subsystem_code<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>sub<span class="pl-pds">"</span></span>,
-        <span class="pl-s"><span class="pl-pds">"</span>object_type<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>SUBSYSTEM<span class="pl-pds">"</span></span>,
-        <span class="pl-s"><span class="pl-pds">"</span>xroad_instance<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>AA<span class="pl-pds">"</span></span>
+      <span class="pl-ent">"id"</span>: {
+        <span class="pl-ent">"member_class"</span>: <span class="pl-s"><span class="pl-pds">"</span>ENT<span class="pl-pds">"</span></span>,
+        <span class="pl-ent">"member_code"</span>: <span class="pl-s"><span class="pl-pds">"</span>CLIENT1<span class="pl-pds">"</span></span>,
+        <span class="pl-ent">"subsystem_code"</span>: <span class="pl-s"><span class="pl-pds">"</span>sub<span class="pl-pds">"</span></span>,
+        <span class="pl-ent">"object_type"</span>: <span class="pl-s"><span class="pl-pds">"</span>SUBSYSTEM<span class="pl-pds">"</span></span>,
+        <span class="pl-ent">"xroad_instance"</span>: <span class="pl-s"><span class="pl-pds">"</span>AA<span class="pl-pds">"</span></span>
       },
-      <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Client One<span class="pl-pds">"</span></span>
+      <span class="pl-ent">"name"</span>: <span class="pl-s"><span class="pl-pds">"</span>Client One<span class="pl-pds">"</span></span>
     }
   ]
 }</pre></div>

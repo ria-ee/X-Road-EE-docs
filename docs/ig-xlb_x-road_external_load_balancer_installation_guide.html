@@ -103,6 +103,24 @@ Doc. ID: IG-XLB</p>
 <td>Updates for Ubuntu 20.04 support</td>
 <td>Jarkko Hyöty</td>
 </tr>
+<tr>
+<td>02.07.2021</td>
+<td>1.12</td>
+<td>Updates for state sync</td>
+<td>Jarkko Hyöty</td>
+</tr>
+<tr>
+<td>25.08.2021</td>
+<td>1.13</td>
+<td>Update X-Road references from version 6 to 7</td>
+<td>Caro Hautamäki</td>
+</tr>
+<tr>
+<td>17.09.2021</td>
+<td>1.14</td>
+<td>Add note about the proxy health check now also checking global conf validity</td>
+<td>Caro Hautamäki</td>
+</tr>
 </tbody>
 </table>
 <h2>
@@ -156,7 +174,7 @@ Doc. ID: IG-XLB</p>
 <a href="#3-x-road-installation-and-configuration">3. X-Road Installation and configuration</a>
 <ul>
 <li><a href="#31-prerequisites">3.1 Prerequisites</a></li>
-<li><a href="#32-primary-installation">3.2 Primary installation</a></li>
+<li><a href="#32-primary-installation">3.2 primary installation</a></li>
 <li><a href="#33-replica-installation">3.3 Replica installation</a></li>
 <li>
 <a href="#34-health-check-service-configuration">3.4 Health check service configuration</a>
@@ -247,7 +265,7 @@ functioning principles.</p>
 <tbody>
 <tr>
 <td align="center">[SS-CLUSTER]</td>
-<td align="left"><a href="https://github.com/nordic-institute/X-Road/tree/6.20.0/ansible/ss_cluster">Readme: Security server cluster setup with Ansible</a></td>
+<td align="left"><a href="https://github.com/nordic-institute/X-Road/tree/7.0.1/ansible/ss_cluster">Readme: Security server cluster setup with Ansible</a></td>
 </tr>
 <tr>
 <td align="center">[IG-SS]</td>
@@ -255,7 +273,7 @@ functioning principles.</p>
 </tr>
 <tr>
 <td align="center">[UG-SS]</td>
-<td align="left"><a href="ug-ss_x-road_6_security_server_user_guide.html">X-Road 6 Security Server User Guide</a></td>
+<td align="left"><a href="ug-ss_x-road_6_security_server_user_guide.html">X-Road 7 Security Server User Guide</a></td>
 </tr>
 <tr>
 <td align="center">
@@ -477,18 +495,16 @@ for help with the basic setup.</p>
 </li>
 <li>
 <p>Configure the node type as <code>master</code> in <code>/etc/xroad/conf.d/node.ini</code>:</p>
-<pre><code>[node]
-type=master
-</code></pre>
+<div class="highlight highlight-source-ini"><pre><span class="pl-en">[node]</span>
+<span class="pl-k">type</span>=master</pre></div>
 <p>Change the owner and group of the file to <code>xroad:xroad</code> if it is not already.</p>
 </li>
 <li>
 <p>Disable support for client-side pooled connections (HTTP connection persistence) in <code>/etc/xroad/conf.d/local.ini</code></p>
 <ul>
 <li>Because the load balancing works at TCP level, disabling persistent HTTP connections is recommended so that the load balancer can evenly distribute the traffic.
-<pre><code>[proxy]
-server-support-clients-pooled-connections=false
-</code></pre>
+<div class="highlight highlight-source-ini"><pre><span class="pl-en">[proxy]</span>
+<span class="pl-k">server-support-clients-pooled-connections</span>=false</pre></div>
 </li>
 </ul>
 </li>
@@ -535,7 +551,7 @@ defined in the primary database (the password is part of the data that is replic
 <ul>
 <li>Make the initial synchronization between the primary and the replica.</li>
 </ul>
-<div class="highlight highlight-source-shell"><pre>rsync -e ssh -avz --delete --exclude db.properties --exclude <span class="pl-s"><span class="pl-pds">"</span>/postgresql<span class="pl-pds">"</span></span> --exclude <span class="pl-s"><span class="pl-pds">"</span>/conf.d/node.ini<span class="pl-pds">"</span></span> xroad-slave@<span class="pl-k">&lt;</span>primary<span class="pl-k">&gt;</span>:/etc/xroad/ /etc/xroad/</pre></div>
+<div class="highlight highlight-source-shell"><pre>rsync -e ssh -avz --delete --exclude db.properties --exclude <span class="pl-s"><span class="pl-pds">"</span>/postgresql<span class="pl-pds">"</span></span> --exclude <span class="pl-s"><span class="pl-pds">"</span>/conf.d/node.ini<span class="pl-pds">"</span></span> --exclude <span class="pl-s"><span class="pl-pds">"</span>/gpghome<span class="pl-pds">"</span></span> xroad-slave@<span class="pl-k">&lt;</span>primary<span class="pl-k">&gt;</span>:/etc/xroad/ /etc/xroad/</pre></div>
 <p>Where <code>&lt;primary&gt;</code> is the primary server's DNS or IP address.</p>
 </li>
 <li>
@@ -611,10 +627,9 @@ via configuration options.</p>
 service on all the nodes once the configuration has been replicated. Changes to the settings require restarting the
 <code>xroad-proxy</code> service to take effect. This example enables listening to all available network interfaces (<code>0.0.0.0</code>) on
 port 5588.</p>
-<pre><code>[proxy]
-health-check-interface=0.0.0.0
-health-check-port=5588
-</code></pre>
+<div class="highlight highlight-source-ini"><pre><span class="pl-en">[proxy]</span>
+<span class="pl-k">health-check-interface</span>=0.0.0.0
+<span class="pl-k">health-check-port</span>=5588</pre></div>
 <p>The service can be accessed using plain HTTP. It will return <code>HTTP 200 OK</code> if the proxy should be able to process messages
 and <code>HTTP 500 Internal Server Error</code> otherwise. A short message about the failure reason, if available, is added to the
 body of the response. The service runs as a part of the <code>xroad-proxy</code> service.</p>
@@ -623,6 +638,7 @@ body of the response. The service runs as a part of the <code>xroad-proxy</code>
 <li>The server authentication key is accessible and that the OCSP response for the certificate is <code>good</code>. This requires a
 running <code>xroad-signer</code> service in good condition.</li>
 <li>The <code>serverconf</code> database is accessible.</li>
+<li>The <code>global configuration</code> is valid and not expired.</li>
 </ul>
 <p>Each of these status checks has a separate timeout of 5 seconds. If the status check fails to produce a response in this
 time, it will be considered a health check failure and will cause a <code>HTTP 500</code> response.</p>
@@ -676,19 +692,17 @@ after not having access to it's keys.</p>
 <p>Before testing with an actual load balancer, you can test the health check service with <code>curl</code>, for example.</p>
 <p>Below is an example response from the Health check service when everything is up and running and messages should go through
 this node:</p>
-<pre><code>$ curl -i localhost:5588
+<div class="highlight highlight-source-shell"><pre>$ curl -i localhost:5588
    HTTP/1.1 200 OK
    Content-Length: 0
-   Server: Jetty(8.y.z-SNAPSHOT)
-</code></pre>
+   Server: Jetty(8.y.z-SNAPSHOT)</pre></div>
 <p>And a health check service response on the same node when the service <code>xroad-signer</code> is not running:</p>
-<pre><code>$ curl -i localhost:5588
+<div class="highlight highlight-source-shell"><pre>$ curl -i localhost:5588
 HTTP/1.1 500 Server Error
 Transfer-Encoding: chunked
 Server: Jetty(8.y.z-SNAPSHOT)
 
-Fetching health check response timed out for: Authentication key OCSP status
-</code></pre>
+Fetching health check response timed out for: Authentication key OCSP status</pre></div>
 <p>Continue to <a href="#6-verifying-the-setup">chapter 6</a> to verify the setup.</p>
 <h2>
 <a id="4-database-replication-setup" class="anchor" href="#4-database-replication-setup" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4. Database replication setup</h2>
@@ -704,8 +718,7 @@ for all these versions. On Ubuntu 20.04 using PostgreSQL 12, the configuration h
 <ol>
 <li>
 <p>Generate the Certificate Authority key and a self-signed certificate for the root-of-trust:</p>
-<pre><code>openssl req -new -x509 -days 7300 -nodes -sha256 -out ca.crt -keyout ca.key -subj '/O=cluster/CN=CA'
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>openssl req -new -x509 -days 7300 -nodes -sha256 -out ca.crt -keyout ca.key -subj <span class="pl-s"><span class="pl-pds">'</span>/O=cluster/CN=CA<span class="pl-pds">'</span></span></pre></div>
 <p>The subject name does not really matter here. Remember to keep the <code>ca.key</code> file in a safe place.</p>
 <p>Alternatively, an existing internal CA can be used for managing the certificates. A sub-CA should be created as the database cluster
 root-of-trust and used for issuing the replica and primary certificates.</p>
@@ -714,8 +727,7 @@ root-of-trust and used for issuing the replica and primary certificates.</p>
 <p>Generate keys and certificates signed by the CA for each postgresql instance, including the primary. Do not use the CA
 certificate and key as the database certificate and key.</p>
 <p>Generate a key and the Certificate Signing Request for it:</p>
-<pre><code>openssl req -new -nodes -days 7300 -keyout server.key -out server.csr -subj "/O=cluster/CN=&lt;nodename&gt;"
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>openssl req -new -nodes -days 7300 -keyout server.key -out server.csr -subj <span class="pl-s"><span class="pl-pds">"</span>/O=cluster/CN=&lt;nodename&gt;<span class="pl-pds">"</span></span></pre></div>
 <p><strong>Note:</strong> The <code>&lt;nodename&gt;</code> (the subject common name) will be used for identifying the cluster nodes. For replica nodes,
 it needs to match the replication user name that is added to the primary database and the username that the replica node
 database uses to connect to the primary. For example, in a system with one primary and two replicas, the names of the nodes
@@ -724,8 +736,7 @@ convenient.</p>
 <p>For more information on adding the replication user name to the primary database, see chapter <a href="#43-configuring-the-primary-instance-for-replication">4.3 Configuring the primary instance for replication</a>.</p>
 <p>Configuring the username on the replica nodes is detailed in chapter <a href="#44-configuring-the-replica-instance-for-replication">4.4 Configuring the replica instance for replication</a>).</p>
 <p>Sign the CSR with the CA, creating a certificate:</p>
-<pre><code>openssl x509 -req -in server.csr -CAcreateserial -CA ca.crt -CAkey ca.key -days 7300 -out server.crt
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>openssl x509 -req -in server.csr -CAcreateserial -CA ca.crt -CAkey ca.key -days 7300 -out server.crt</pre></div>
 <p>Repeat the above steps for each node.</p>
 </li>
 <li>
@@ -745,18 +756,16 @@ sudo chmod 400 /etc/xroad/postgresql/<span class="pl-k">*</span></pre></div>
 <h4>
 <a id="421-on-rhel" class="anchor" href="#421-on-rhel" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.2.1 on RHEL</h4>
 <p>Create a new <code>systemctl</code> service unit for the new database. As root, execute the following command:</p>
-<pre><code>cat &lt;&lt;EOF &gt;/etc/systemd/system/postgresql-serverconf.service
-.include /lib/systemd/system/postgresql.service
-[Service]
-Environment=PGPORT=5433
-Environment=PGDATA=/var/lib/pgsql/serverconf
-EOF
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>cat <span class="pl-s"><span class="pl-k">&lt;&lt;</span><span class="pl-k">EOF</span> &gt;/etc/systemd/system/postgresql-serverconf.service</span>
+<span class="pl-s">.include /lib/systemd/system/postgresql.service</span>
+<span class="pl-s">[Service]</span>
+<span class="pl-s">Environment=PGPORT=5433</span>
+<span class="pl-s">Environment=PGDATA=/var/lib/pgsql/serverconf</span>
+<span class="pl-s"><span class="pl-k">EOF</span></span></pre></div>
 <p>Create the database and configure SELinux:</p>
-<pre><code>PGSETUP_INITDB_OPTIONS="--auth-local=peer --auth-host=md5" postgresql-setup initdb postgresql-serverconf
+<div class="highlight highlight-source-shell"><pre>PGSETUP_INITDB_OPTIONS=<span class="pl-s"><span class="pl-pds">"</span>--auth-local=peer --auth-host=md5<span class="pl-pds">"</span></span> postgresql-setup initdb postgresql-serverconf
 semanage port -a -t postgresql_port_t -p tcp 5433
-systemctl enable postgresql-serverconf
-</code></pre>
+systemctl <span class="pl-c1">enable</span> postgresql-serverconf</pre></div>
 <h4>
 <a id="422-on-ubuntu" class="anchor" href="#422-on-ubuntu" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.2.2 on Ubuntu</h4>
 <div class="highlight highlight-source-shell"><pre>sudo -u postgres pg_createcluster -p 5433 10 serverconf</pre></div>
@@ -768,22 +777,21 @@ systemctl enable postgresql-serverconf
 <p>On RHEL, PostgreSQL config files are located in the <code>PGDATA</code> directory <code>/var/lib/pgql/serverconf</code>.<br>
 Ubuntu keeps the config in <code>/etc/postgresql/&lt;version&gt;/&lt;cluster name&gt;</code>, e.g. <code>/etc/postgresql/10/serverconf</code>)</p>
 </blockquote>
-<pre><code>ssl = on
-ssl_ca_file   = '/etc/xroad/postgresql/ca.crt'
-ssl_cert_file = '/etc/xroad/postgresql/server.crt'
-ssl_key_file  = '/etc/xroad/postgresql/server.key'
+<div class="highlight highlight-source-ini"><pre><span class="pl-k">ssl</span> = on
+<span class="pl-k">ssl_ca_file</span>   = <span class="pl-s"><span class="pl-pds">'</span>/etc/xroad/postgresql/ca.crt<span class="pl-pds">'</span></span>
+<span class="pl-k">ssl_cert_file</span> = <span class="pl-s"><span class="pl-pds">'</span>/etc/xroad/postgresql/server.crt<span class="pl-pds">'</span></span>
+<span class="pl-k">ssl_key_file</span>  = <span class="pl-s"><span class="pl-pds">'</span>/etc/xroad/postgresql/server.key<span class="pl-pds">'</span></span>
 
-listen_addresses  = '*'  # (default is localhost. Alternatively: localhost, &lt;IP of the interface the replicas connect to&gt;")
+<span class="pl-k">listen_addresses</span>  = <span class="pl-s"><span class="pl-pds">'</span>*<span class="pl-pds">'</span></span>  <span class="pl-c"><span class="pl-c">#</span> (default is localhost. Alternatively: localhost, &lt;IP of the interface the replicas connect to&gt;")</span>
 
-# PostgreSQL 9.2 (RHEL 7)
-wal_level = hot_standby
+<span class="pl-c"><span class="pl-c">#</span> PostgreSQL 9.2 (RHEL 7)</span>
+<span class="pl-k">wal_level</span> = hot_standby
 
-# PostgreSQL &gt;=10 (RHEL 8, Ubuntu 18.04, Ubuntu 20.04)
-wal_level = replica
+<span class="pl-c"><span class="pl-c">#</span> PostgreSQL &gt;=10 (RHEL 8, Ubuntu 18.04, Ubuntu 20.04)</span>
+<span class="pl-k">wal_level</span> = replica
 
-max_wal_senders   = 3   # should be ~ number of replicas plus some small number. Here, we assume there are two replicas.
-wal_keep_segments = 8   # keep some wal segments so that replicas that are offline can catch up.
-</code></pre>
+<span class="pl-k">max_wal_senders</span>   = 3   <span class="pl-c"><span class="pl-c">#</span> should be ~ number of replicas plus some small number. Here, we assume there are two replicas.</span>
+<span class="pl-k">wal_keep_segments</span> = 8   <span class="pl-c"><span class="pl-c">#</span> keep some wal segments so that replicas that are offline can catch up.</span></pre></div>
 <p>For more information about the streaming replication configuration options,
 see the <a href="https://www.postgresql.org/docs/10/runtime-config-replication.html" rel="nofollow">PostgreSQL documentation</a>.</p>
 <p>Edit <code>pg_hba.conf</code> and enable connections to the replication pseudo database using client certificates. See chapter
@@ -834,10 +842,9 @@ sudo -u postgres psql -p 5433 -c <span class="pl-s"><span class="pl-pds">"</span
 <pre><code>NOTICE: WAL archiving is not enabled; you must ensure that all required WAL segments are copied through other means to complete the backup
 </code></pre>
 <p>On <em>RHEL 7/8 or Ubuntu 18.04 (PostgreSQL &lt;12)</em>, add the following <code>recovery.conf</code> to the data directory. Set the owner of the file to <code>postgres:postgres</code>, mode <code>0600</code>.</p>
-<pre><code>standby_mode = 'on'
-primary_conninfo = 'host=&lt;primary&gt; port=5433 user=&lt;nodename&gt; sslmode=verify-ca sslcert=/etc/xroad/postgresql/server.crt sslkey=/etc/xroad/postgresql/server.key sslrootcert=/etc/xroad/postgresql/ca.crt'
-trigger_file = '/var/lib/xroad/postgresql.trigger'
-</code></pre>
+<div class="highlight highlight-source-ini"><pre><span class="pl-k">standby_mode</span> = <span class="pl-s"><span class="pl-pds">'</span>on<span class="pl-pds">'</span></span>
+<span class="pl-k">primary_conninfo</span> = <span class="pl-s"><span class="pl-pds">'</span>host=&lt;primary&gt; port=5433 user=&lt;nodename&gt; sslmode=verify-ca sslcert=/etc/xroad/postgresql/server.crt sslkey=/etc/xroad/postgresql/server.key sslrootcert=/etc/xroad/postgresql/ca.crt<span class="pl-pds">'</span></span>
+<span class="pl-k">trigger_file</span> = <span class="pl-s"><span class="pl-pds">'</span>/var/lib/xroad/postgresql.trigger<span class="pl-pds">'</span></span></pre></div>
 <p>Where, as above, <code>&lt;primary&gt;</code> is the DNS or IP address of the primary node and <code>&lt;nodename&gt;</code> is the node name (the replication user name added to the primary database).</p>
 <p>On <em>Ubuntu 20.04 (PostgreSQL &gt;=12)</em>, create an empty <code>standby.signal</code> file in the data directory. Set the owner of the file to <code>postgres:postgres</code>, mode <code>0600</code>.</p>
 <p>Next, modify <code>postgresql.conf</code>:</p>
@@ -845,24 +852,22 @@ trigger_file = '/var/lib/xroad/postgresql.trigger'
 <p>On RHEL, PostgreSQL config files are located in the <code>PGDATA</code> directory <code>/var/lib/pgql/serverconf</code>.<br>
 Ubuntu keeps the config in <code>/etc/postgresql/&lt;version&gt;/&lt;cluster name&gt;</code>, e.g. <code>/etc/postgresql/10/serverconf</code>)</p>
 </blockquote>
-<pre><code>ssl = on
-ssl_ca_file   = '/etc/xroad/postgresql/ca.crt'
-ssl_cert_file = '/etc/xroad/postgresql/server.crt'
-ssl_key_file  = '/etc/xroad/postgresql/server.key'
+<div class="highlight highlight-source-ini"><pre><span class="pl-k">ssl</span> = on
+<span class="pl-k">ssl_ca_file</span>   = <span class="pl-s"><span class="pl-pds">'</span>/etc/xroad/postgresql/ca.crt<span class="pl-pds">'</span></span>
+<span class="pl-k">ssl_cert_file</span> = <span class="pl-s"><span class="pl-pds">'</span>/etc/xroad/postgresql/server.crt<span class="pl-pds">'</span></span>
+<span class="pl-k">ssl_key_file</span>  = <span class="pl-s"><span class="pl-pds">'</span>/etc/xroad/postgresql/server.key<span class="pl-pds">'</span></span>
 
-listen_addresses = localhost
+<span class="pl-k">listen_addresses</span> = localhost
 
-# no need to send WAL logs
-# wal_level = minimal
-# max_wal_senders = 0
-# wal_keep_segments = 0
+<span class="pl-c"><span class="pl-c">#</span> no need to send WAL logs</span>
+<span class="pl-c"><span class="pl-c">#</span> wal_level = minimal</span>
+<span class="pl-c"><span class="pl-c">#</span> max_wal_senders = 0</span>
+<span class="pl-c"><span class="pl-c">#</span> wal_keep_segments = 0</span>
 
-hot_standby = on
-hot_standby_feedback = on
-</code></pre>
+<span class="pl-k">hot_standby</span> = on
+<span class="pl-k">hot_standby_feedback</span> = on</pre></div>
 <p><em>On Ubuntu 20.04 (PostgreSQL 12) only</em>, add the primary_conninfo to postgresql.conf:</p>
-<pre><code>primary_conninfo = 'host=&lt;primary&gt; port=5433 user=&lt;nodename&gt; sslmode=verify-ca sslcert=/etc/xroad/postgresql/server.crt sslkey=/etc/xroad/postgresql/server.key sslrootcert=/etc/xroad/postgresql/ca.crt'
-</code></pre>
+<div class="highlight highlight-source-ini"><pre><span class="pl-k">primary_conninfo</span> = <span class="pl-s"><span class="pl-pds">'</span>host=&lt;primary&gt; port=5433 user=&lt;nodename&gt; sslmode=verify-ca sslcert=/etc/xroad/postgresql/server.crt sslkey=/etc/xroad/postgresql/server.key sslrootcert=/etc/xroad/postgresql/ca.crt<span class="pl-pds">'</span></span></pre></div>
 <p>Where, as above, <code>&lt;primary&gt;</code> is the DNS or IP address of the primary node and <code>&lt;nodename&gt;</code> is the node name (the replication user name added to the primary database).</p>
 <p>Notice that on RHEL, during <code>pg_basebackup</code> the <code>postgresql.conf</code> was copied from the primary node so the WAL sender
 parameters should be disabled. Also check that <code>listen_addresses</code> is localhost-only.</p>
@@ -917,7 +922,7 @@ Environment=MASTER=&lt;primary_host&gt;
 
 ExecStartPre=/usr/bin/test ! -f /var/tmp/xroad/sync-disabled
 
-ExecStart=/usr/bin/rsync -e "ssh -o ConnectTimeout=5 " -aqz --timeout=10 --delete-delay --exclude db.properties --exclude "/conf.d/node.ini" --exclude "*.tmp" --exclude "/postgresql" --exclude "/globalconf" --delay-updates --log-file=/var/log/xroad/slave-sync.log ${XROAD_USER}@${MASTER}:/etc/xroad/ /etc/xroad/
+ExecStart=/usr/bin/rsync -e "ssh -o ConnectTimeout=5 " -aqz --timeout=10 --delete-delay --exclude db.properties --exclude "/conf.d/node.ini" --exclude "*.tmp" --exclude "/postgresql" --exclude "/globalconf" --exclude "/gpghome" --delay-updates --log-file=/var/log/xroad/slave-sync.log ${XROAD_USER}@${MASTER}:/etc/xroad/ /etc/xroad/
 [Install]
 WantedBy=multi-user.target
 WantedBy=xroad-proxy.service
@@ -935,13 +940,11 @@ OnUnitActiveSec=60
 WantedBy=timers.target
 </code></pre>
 <p>RHEL only: Configure SELinux to allow <code>rsync</code> to be run as a <code>systemd</code> service</p>
-<pre><code>setsebool -P rsync_client 1
-setsebool -P rsync_full_access 1
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>setsebool -P rsync_client 1
+setsebool -P rsync_full_access 1</pre></div>
 <p>Finally, enable the services:</p>
-<pre><code>systemctl enable xroad-sync.timer xroad-sync.service
-systemctl start xroad-sync.timer
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>systemctl <span class="pl-c1">enable</span> xroad-sync.timer xroad-sync.service
+systemctl start xroad-sync.timer</pre></div>
 <blockquote>
 <p><strong>About the <code>rsync</code> options</strong></p>
 <ul>
@@ -1073,7 +1076,7 @@ disrupt message delivery while the online option should allow upgrades with mini
 <li>Stop the X-Road services (<code>xroad-proxy</code>, <code>xroad-signer</code>, <code>xroad-confclient</code>, <code>xroad-proxy-ui-api</code> and <code>xroad-monitor</code>) on all
 the nodes. You can read more about the services in the Security Server User Guide
 [<a href="#13-references">UG-SS</a>] chapter on <a href="ug-ss_x-road_6_security_server_user_guide.html#161-system-services">System services</a>.</li>
-<li>Upgrade the packages on the master node to the new software version.</li>
+<li>Upgrade the packages on the primary node to the new software version.</li>
 <li>Let any database and configuration changes propagate to the cluster members.</li>
 <li>Upgrade the packages on the replica nodes.</li>
 <li>Start the X-Road services.</li>
@@ -1103,8 +1106,7 @@ sudo -u postgres psql -p 5433 -c <span class="pl-s"><span class="pl-pds">'</span
 </li>
 <li>
 <p>Disable the configuration synchronization on the replica nodes:</p>
-<pre><code>sudo -u xroad touch /var/tmp/xroad/sync-disabled
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>sudo -u xroad touch /var/tmp/xroad/sync-disabled</pre></div>
 <p><strong>Note:</strong> Check that the synchronization service is configured to honor the <code>sync-disabled</code> flag. See the chapter on
 <a href="#52-set-up-periodic-configuration-synchronization-on-the-replica-nodes">Setting up periodic configuration synchronization on the replica nodes</a>
 for more details.</p>
@@ -1132,8 +1134,7 @@ more about the services in the Security Server User Guide
 [<a href="#13-references">UG-SS</a>] chapter on <a href="ug-ss_x-road_6_security_server_user_guide.html#161-system-services">System services</a>.</p>
 <p>To ensure that the node is no longer processing requests, you can monitor <code>/var/log/xroad/proxy.log</code> to verify that
 no more requests are arriving or check that there are no connections to the port 5500 with:</p>
-<pre><code>watch -n1 ss -tn state established sport = :5500 or dport = :5500
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>watch -n1 ss -tn state established sport = :5500 or dport = :5500</pre></div>
 </li>
 <li>
 <p>Upgrade the packages on the primary node to the new software version.</p>
@@ -1147,8 +1148,7 @@ port was cleared on startup of the <code>xroad-proxy</code> service. The health 
 as soon as security server can process messages.</p>
 <p>b) If the primary node was disabled manually from the external load balancer, verify that the primary node is working
 and enable it from the load balancer. To check if a node is healthy, you can use the health check service:</p>
-<pre><code>curl -i http://localhost:&lt;health-check-port&gt;
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>curl -i http://localhost:<span class="pl-k">&lt;</span>health-check-port<span class="pl-k">&gt;</span></pre></div>
 <p>See <a href="#34-health-check-service-configuration">3.4 Health check service configuration</a> for more details.</p>
 </li>
 </ol>
@@ -1166,34 +1166,28 @@ for more details.</p>
 </li>
 <li>
 <p>Enable database synchronization on the replica:</p>
-<pre><code>#PostgreSQL version &lt; 10
-sudo -u postgres psql -p 5433 -c 'select pg_xlog_replay_resume()'
-</code></pre>
-<pre><code>#PostgreSQL version &gt;= 10
-sudo -u postgres psql -p 5433 -c 'select pg_wal_replay_resume()'
-</code></pre>
+<div class="highlight highlight-source-shell"><pre><span class="pl-c"><span class="pl-c">#</span>PostgreSQL version &lt; 10</span>
+sudo -u postgres psql -p 5433 -c <span class="pl-s"><span class="pl-pds">'</span>select pg_xlog_replay_resume()<span class="pl-pds">'</span></span></pre></div>
+<div class="highlight highlight-source-shell"><pre><span class="pl-c"><span class="pl-c">#</span>PostgreSQL version &gt;= 10</span>
+sudo -u postgres psql -p 5433 -c <span class="pl-s"><span class="pl-pds">'</span>select pg_wal_replay_resume()<span class="pl-pds">'</span></span></pre></div>
 <p>Note that the above command assumes that the <code>serverconf</code> database is running in port <code>5433</code>.</p>
 <p><strong>Note:</strong> Before proceeding, make sure that the database is up to date. The following should return <code>t</code>:</p>
-<pre><code>#PostgreSQL &lt; 10
-sudo -u postgres psql -p 5433 -c 'select pg_last_xlog_replay_location() = pg_last_xlog_receive_location()'
-</code></pre>
-<pre><code>#PostgreSQL &gt;= 10
-sudo -u postgres psql -p 5433 -c 'select pg_last_wal_replay_lsn() = pg_last_wal_receive_lsn()'
-</code></pre>
+<div class="highlight highlight-source-shell"><pre><span class="pl-c"><span class="pl-c">#</span>PostgreSQL &lt; 10</span>
+sudo -u postgres psql -p 5433 -c <span class="pl-s"><span class="pl-pds">'</span>select pg_last_xlog_replay_location() = pg_last_xlog_receive_location()<span class="pl-pds">'</span></span></pre></div>
+<div class="highlight highlight-source-shell"><pre><span class="pl-c"><span class="pl-c">#</span>PostgreSQL &gt;= 10</span>
+sudo -u postgres psql -p 5433 -c <span class="pl-s"><span class="pl-pds">'</span>select pg_last_wal_replay_lsn() = pg_last_wal_receive_lsn()<span class="pl-pds">'</span></span></pre></div>
 </li>
 <li>
 <p>Upgrade the packages on the replica node to the new software version.</p>
 </li>
 <li>
 <p>Enable the shared configuration synchronization on the replica node:</p>
-<pre><code>sudo rm /var/tmp/xroad/sync-disabled
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>sudo rm /var/tmp/xroad/sync-disabled</pre></div>
 </li>
 <li>
 <p>Wait for the primary node configuration changes to propagate to the replica node.</p>
 <p>The configuration synchronization can be forced, if necessary.</p>
-<pre><code>service xroad-sync start
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>service xroad-sync start</pre></div>
 </li>
 <li>
 <p>Restart the X-Road services and wait until the replica node is healthy.</p>

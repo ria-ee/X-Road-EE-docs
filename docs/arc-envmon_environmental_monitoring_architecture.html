@@ -283,14 +283,9 @@ Doc. ID: ARC-ENVMON</p>
 <a id="221-jmx-interface" class="anchor" href="#221-jmx-interface" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.2.1 JMX interface</h4>
 <p>The service also publishes the monitoring data via JMX. Local monitoring agents can use this as an alternative way to fetch monitoring data. With the default configuration, JMX is disabled.</p>
 <p><a href="img/monitoring-jmx.png" target="_blank" rel="noopener noreferrer"><img src="img/monitoring-jmx.png" alt="monitoring JMX agent" style="max-width:100%;"></a></p>
-<p>JMX is enabled by adding the required configuration in <code>/etc/xroad/services/local.conf</code> file. The file is opened for editing and changes are made on the <code>MONITOR_PARAMS</code> variable value. After the <code>MONITOR_PARAMS</code> variable value has been updated, the <code>xroad-monitor</code> service must be restarted.</p>
+<p>JMX is enabled by adding the required configuration in <code>/etc/xroad/services/local.properties</code> file. The file is opened for editing and changes are made on the <code>XROAD_MONITOR_PARAMS</code> variable value. After the <code>XROAD_MONITOR_PARAMS</code> variable value has been updated, the <code>xroad-monitor</code> service must be restarted.</p>
 <p>The example configuration below enables JMX, binds it to port <code>9999</code> on any available interface with SSL and password authentication enabled:</p>
-<pre><code>MONITOR_PARAMS="$MONITOR_PARAMS \
--Djava.rmi.server.hostname=0.0.0.0 \
--Dcom.sun.management.jmxremote.port=9999 \
--Dcom.sun.management.jmxremote.authenticate=true \
--Dcom.sun.management.jmxremote.ssl=true "
-</code></pre>
+<div class="highlight highlight-source-ini"><pre><span class="pl-k">XROAD_MONITOR_PARAMS</span>=-<span class="pl-k">Djava.rmi.server.hostname</span>=0.0.0.0 -<span class="pl-k">Dcom.sun.management.jmxremote.port</span>=9999 -<span class="pl-k">Dcom.sun.management.jmxremote.authenticate</span>=true -<span class="pl-k">Dcom.sun.management.jmxremote.ssl</span>=true</pre></div>
 <h3>
 <a id="23-central-monitoring-client" class="anchor" href="#23-central-monitoring-client" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3 Central monitoring client</h3>
 <p>Central monitoring client is a specific security server, which has been granted access to query monitoring data from other security servers. See <a href="#33-access-control">Access control</a>. The identity of this security server is configured using central server's admin user interface.</p>
