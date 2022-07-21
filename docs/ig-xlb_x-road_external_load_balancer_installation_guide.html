@@ -18,7 +18,7 @@
     <article class="markdown-body">
 <h1>
 <a id="x-road-external-load-balancer-installation-guide" class="anchor" href="#x-road-external-load-balancer-installation-guide" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>X-Road: External Load Balancer Installation Guide</h1>
-<p>Version: 1.11<br>
+<p>Version: 1.14<br>
 Doc. ID: IG-XLB</p>
 <table>
 <thead>
@@ -269,11 +269,11 @@ functioning principles.</p>
 </tr>
 <tr>
 <td align="center">[IG-SS]</td>
-<td align="left"><a href="ig-ss_x-road_v6_security_server_installation_guide.html">X-Road: Security Server Installation Guide</a></td>
+<td align="left"><a href="ig-ss_x-road_v7_security_server_installation_guide.html">X-Road: Security Server Installation Guide</a></td>
 </tr>
 <tr>
 <td align="center">[UG-SS]</td>
-<td align="left"><a href="ug-ss_x-road_6_security_server_user_guide.html">X-Road 7 Security Server User Guide</a></td>
+<td align="left"><a href="ug-ss_x-road_7_security_server_user_guide.html">X-Road 7 Security Server User Guide</a></td>
 </tr>
 <tr>
 <td align="center">
@@ -1075,7 +1075,7 @@ disrupt message delivery while the online option should allow upgrades with mini
 <ol>
 <li>Stop the X-Road services (<code>xroad-proxy</code>, <code>xroad-signer</code>, <code>xroad-confclient</code>, <code>xroad-proxy-ui-api</code> and <code>xroad-monitor</code>) on all
 the nodes. You can read more about the services in the Security Server User Guide
-[<a href="#13-references">UG-SS</a>] chapter on <a href="ug-ss_x-road_6_security_server_user_guide.html#161-system-services">System services</a>.</li>
+[<a href="#13-references">UG-SS</a>] chapter on <a href="ug-ss_x-road_7_security_server_user_guide.html#161-system-services">System services</a>.</li>
 <li>Upgrade the packages on the primary node to the new software version.</li>
 <li>Let any database and configuration changes propagate to the cluster members.</li>
 <li>Upgrade the packages on the replica nodes.</li>
@@ -1131,7 +1131,7 @@ new requests are routed to other nodes (<em>connection draining</em>).</p>
 <p><a name="primary-upgrade-step-2">Check</a> that the primary is no longer processing requests and stop the X-Road services
 (<code>xroad-proxy</code>, <code>xroad-signer</code>, <code>xroad-confclient</code>, <code>xroad-monitor</code>, <code>xroad-proxy-ui-api</code>) on the primary node. You can read
 more about the services in the Security Server User Guide
-[<a href="#13-references">UG-SS</a>] chapter on <a href="ug-ss_x-road_6_security_server_user_guide.html#161-system-services">System services</a>.</p>
+[<a href="#13-references">UG-SS</a>] chapter on <a href="ug-ss_x-road_7_security_server_user_guide.html#161-system-services">System services</a>.</p>
 <p>To ensure that the node is no longer processing requests, you can monitor <code>/var/log/xroad/proxy.log</code> to verify that
 no more requests are arriving or check that there are no connections to the port 5500 with:</p>
 <div class="highlight highlight-source-shell"><pre>watch -n1 ss -tn state established sport = :5500 or dport = :5500</pre></div>

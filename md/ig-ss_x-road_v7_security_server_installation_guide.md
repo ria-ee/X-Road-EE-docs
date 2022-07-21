@@ -1,4 +1,5 @@
-| ![European Union / European Regional Development Fund / Investing in your future](img/eu_regional_development_fund_horizontal_div_15.png "Documents that are tagged with EU/SF logos must keep the logos until 1.1.2022, if it has not stated otherwise in the documentation. If new documentation is created  using EU/SF resources the logos must be tagged appropriately so that the deadline for logos could be found.") |
+
+| ![European Union / European Regional Development Fund / Investing in your future](img/eu_rdf_75_en.png "Documents that are tagged with EU/SF logos must keep the logos until 1.1.2022, if it has not stated otherwise in the documentation. If new documentation is created  using EU/SF resources the logos must be tagged appropriately so that the deadline for logos could be found.") |
 | -------------------------: |
 
 # Security Server Installation Guide for Ubuntu <!-- omit in toc -->
@@ -43,9 +44,7 @@ Doc. ID: IG-SS
  14.10.2018 | 2.13    | Update package repository address | Petteri Kivimäki
  25.10.2018 | 2.14    | Add RHEL7 as supported platform, update section 2.2 Reference data | Petteri Kivimäki
  15.11.2018 | 2.15    | Add Ubuntu 18 installation instructions | Jarkko Hyöty
- 12.12.2018 | 2.12.5  | Added managment security servers' IPs | Jan Raik
- 03.01.2019 | 2.12.6  | Updated repository key | Jan Raik
- 28.01.2019 | 2.16    | Update port 2080 documentation | Petteri Kivimäki
+ 28.01.2018 | 2.16    | Update port 2080 documentation | Petteri Kivimäki
  30.05.2019 | 2.17    | Added package installation instructions on chapter "[2.4 Preparing OS](#24-preparing-os)" | Raul Martinez
  11.09.2019 | 2.18    | Remove Ubuntu 14.04 from supported platforms | Jarkko Hyöty
  20.09.2019 | 2.19    | Add instructions for using remote databases | Ilkka Seppälä
@@ -76,7 +75,6 @@ Doc. ID: IG-SS
 ## License
 
 This document is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/
-
 
 ## Table of Contents <!-- omit in toc -->
 
@@ -145,12 +143,12 @@ See X-Road terms and abbreviations documentation \[[TA-TERMS](#Ref_TERMS)\].
 
 ### 1.3 References
 
-1.  <a id="Ref_UG-SS" class="anchor"></a>\[UG-SS\] Cybernetica AS. X-Road 7. Security Server User Guide. Document ID: [UG-SS](ug-ss_x-road_6_security_server_user_guide.md)
+1.  <a id="Ref_UG-SS" class="anchor"></a>\[UG-SS\] Cybernetica AS. X-Road 7. Security Server User Guide. Document ID: [UG-SS](ug-ss_x-road_7_security_server_user_guide.md)
 
-2.  <a id="Ref_TERMS" class="anchor"></a>\[TA-TERMS\] X-Road Terms and Abbreviations. Document ID: [TA-TERMS](/terms_x-road_docs.md).
+2.  <a id="Ref_TERMS" class="anchor"></a>\[TA-TERMS\] X-Road Terms and Abbreviations. Document ID: [TA-TERMS](../terms_x-road_docs.md).
 
 3. <a name="Ref_UG-SYSPAR" class="anchor"></a>\[UG-SYSPAR\] X-Road: System Parameters User Guide. Document ID:
-[UG-SYSPAR](ug-syspar_x-road_v6_system_parameters.md).
+[UG-SYSPAR](ug-syspar_x-road_v7_system_parameters.md).
 
 4. <a name="Ref_IG-XLB" class="anchor"></a>\[IG-XLB\] X-Road: External Load Balancer Installation Guide. Document ID:
 [IG-XLB](LoadBalancing/ig-xlb_x-road_external_load_balancer_installation_guide.md).
@@ -163,7 +161,7 @@ See X-Road terms and abbreviations documentation \[[TA-TERMS](#Ref_TERMS)\].
 
 There are multiple alternatives how the security server can be deployed. The options are described in [Annex C Deployment Options](#annex-c-deployment-options).
 
-The security server runs on the following platforms:
+The security server is officially supported on the following platforms:
 
 * Ubuntu Server 18.04 or 20.04 Long-Term Support (LTS) operating system on a x86-64 platform.
 * Red Hat Enterprise Linux (RHEL) 7 and 8 (x86-64).

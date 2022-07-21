@@ -26,7 +26,7 @@
 <h1>
 <a id="security-server-user-guide-" class="anchor" href="#security-server-user-guide-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SECURITY SERVER USER GUIDE </h1>
 <p><strong>X-ROAD 7</strong></p>
-<p>Version: 2.68
+<p>Version: 2.71
 Doc. ID: UG-SS</p>
 <hr>
 <h2>
@@ -581,6 +581,24 @@ Doc. ID: UG-SS</p>
 <td>Updated chapter <a href="#22-additional-security-hardening">22</a> and added information about password policies</td>
 <td>Caro Hautamäki</td>
 </tr>
+<tr>
+<td>13.04.2022</td>
+<td>2.69</td>
+<td>Updated max loggable body size parameter name to correct one</td>
+<td>Raido Kaju</td>
+</tr>
+<tr>
+<td>03.05.2022</td>
+<td>2.70</td>
+<td>Minor updates to system services</td>
+<td>Petteri Kivimäki</td>
+</tr>
+<tr>
+<td>17.05.2022</td>
+<td>2.71</td>
+<td>Updates to Diagnostics section, minor updates to backup encryption, message log database encryption and archive encryption and grouping</td>
+<td>Petteri Kivimäki</td>
+</tr>
 </tbody>
 </table>
 <h2>
@@ -744,7 +762,7 @@ Doc. ID: UG-SS</p>
 <ul>
 <li><a href="#1111-common-parameters">11.1.1 Common Parameters</a></li>
 <li><a href="#1112-logging-parameters">11.1.2 Logging Parameters</a></li>
-<li><a href="#1113-messagelog-encryption">11.1.3 Messagelog Encryption</a></li>
+<li><a href="#1113-message-log-encryption">11.1.3 Message Log Encryption</a></li>
 <li><a href="#1114-timestamping-parameters">11.1.4 Timestamping Parameters</a></li>
 <li><a href="#1115-archiving-parameters">11.1.5 Archiving Parameters</a></li>
 <li><a href="#1116-archive-files">11.1.6 Archive Files</a></li>
@@ -776,6 +794,8 @@ Doc. ID: UG-SS</p>
 <a href="#14-diagnostics">14 Diagnostics</a>
 <ul>
 <li><a href="#141-examine-security-server-services-status-information">14.1 Examine security server services status information</a></li>
+<li><a href="#142-examine-security-server-java-version-information">14.2 Examine security server Java version information</a></li>
+<li><a href="#143-examine-security-server-encryption-status-information">14.3 Examine security server encryption status information</a></li>
 </ul>
 </li>
 <li>
@@ -933,7 +953,7 @@ Doc. ID: UG-SS</p>
 <p><a id="Ref_UG-OPMONSYSPAR"></a>[UG-OPMONSYSPAR] Cybernetica AS. X-Road: Operational Monitoring System Parameters. Document ID: <a href="ug-opmonsyspar_x-road_operational_monitoring_system_parameters.html">PR-OPMONSYSPAR</a></p>
 </li>
 <li>
-<p><a id="Ref_IG-SS"></a>[IG-SS] Cybernetica AS. X-Road: Security Server Installation Guide. Document ID: <a href="ig-ss_x-road_v6_security_server_installation_guide.html">IG-SS</a></p>
+<p><a id="Ref_IG-SS"></a>[IG-SS] Cybernetica AS. X-Road: Security Server Installation Guide. Document ID: <a href="ig-ss_x-road_v7_security_server_installation_guide.html">IG-SS</a></p>
 </li>
 <li>
 <p><a id="Ref_JMX"></a>[JMX] Monitoring and Management Using JMX Technology,<br>
@@ -964,13 +984,13 @@ Doc. ID: UG-SS</p>
 <p><a id="Ref_TERMS"></a>[TA-TERMS] X-Road Terms and Abbreviations. Document ID: <a href="terms_x-road_docs.html">TA-TERMS</a>.</p>
 </li>
 <li>
-<p><a id="Ref_PR-META"></a>[PR-META] X-Road: Service Metadata Protocol. Document ID: <a href="../Protocols/pr-meta_x-road_service_metadata_protocol.html">PR-META</a>.</p>
+<p><a id="Ref_PR-META"></a>[PR-META] X-Road: Service Metadata Protocol. Document ID: <a href="pr-meta_x-road_service_metadata_protocol.html">PR-META</a>.</p>
 </li>
 <li>
-<p><a id="Ref_PR-MREST"></a>[PR-MREST] X-Road: Service Metadata Protocol for REST. Document ID: <a href="../Protocols/pr-mrest_x-road_service_metadata_protocol_for_rest.html">PR-MREST</a>.</p>
+<p><a id="Ref_PR-MREST"></a>[PR-MREST] X-Road: Service Metadata Protocol for REST. Document ID: <a href="pr-mrest_x-road_service_metadata_protocol_for_rest.html">PR-MREST</a>.</p>
 </li>
 <li>
-<p><a id="Ref_UG-SYSPAR"></a>[UG-SYSPAR] X-Road: System Parameters User Guide. Document ID: <a href="../Manuals/ug-syspar_x-road_v6_system_parameters.html">UG-SYSPAR</a>.</p>
+<p><a id="Ref_UG-SYSPAR"></a>[UG-SYSPAR] X-Road: System Parameters User Guide. Document ID: <a href="ug-syspar_x-road_v6_system_parameters.html">UG-SYSPAR</a>.</p>
 </li>
 <li>
 <p><a id="Ref_REST_UI-API"></a>[REST_UI-API] X-Road Security Server Admin API OpenAPI Specification, <a href="https://github.com/nordic-institute/X-Road/blob/develop/src/proxy-ui-api/src/main/resources/openapi-definition.yaml">https://github.com/nordic-institute/X-Road/blob/develop/src/proxy-ui-api/src/main/resources/openapi-definition.yaml</a>.</p>
@@ -979,7 +999,7 @@ Doc. ID: UG-SS</p>
 <p><a id="Ref_GnuPG"></a>[GnuPG] The GNU Privacy Guard, <a href="https://gnupg.org" rel="nofollow">https://gnupg.org</a>.</p>
 </li>
 <li>
-<p><a id="Ref_UG-SIGDOC"></a>[UG-SIGDOC] X-Road: Signed Document Download and Verification Manual. Document ID: <a href="../Manuals/ug-sigdoc_x-road_signed_document_download_and_verification_manual.html">UG-SIGDOC</a>.</p>
+<p><a id="Ref_UG-SIGDOC"></a>[UG-SIGDOC] X-Road: Signed Document Download and Verification Manual. Document ID: <a href="ug-sigdoc_x-road_signed_document_download_and_verification_manual.html">UG-SIGDOC</a>.</p>
 </li>
 </ol>
 <h2>
@@ -2532,10 +2552,10 @@ archive-max-filesize=67108864
 <p><code>disabled-body-logging-remote-producer-subsystems</code> - when message-body-logging is set to true, this field contains the overrides for the remote producer subsystems.</p>
 </li>
 <li>
-<p><code>max-loggable-body-size</code> - the maximum REST message body size that will be written to the messagelog.</p>
+<p><code>max-loggable-message-body-size</code> - the maximum REST message body size that will be written to the messagelog.</p>
 </li>
 <li>
-<p><code>truncated-body-allowed</code> - if the REST message body size exceeds the max-loggable-body-size, truncate the body (true) or reject the message (false)</p>
+<p><code>truncated-body-allowed</code> - if the REST message body size exceeds the max-loggable-message-body-size truncate the body (true) or reject the message (false)</p>
 </li>
 <li>
 <p><code>messagelog-encryption-enabled</code> - if set to true, the message bodies are written to the database in an encrypted format</p>
@@ -2551,9 +2571,10 @@ archive-max-filesize=67108864
 </li>
 </ol>
 <h4>
-<a id="1113-messagelog-encryption" class="anchor" href="#1113-messagelog-encryption" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>11.1.3 Messagelog Encryption</h4>
-<p>The message bodies can be encrypted (<code>messagelog-encryption-enabled = true</code>) when stored to the database. The encryption is symmetric, the used cipher is AES-CTR, and the encryption is performed using Java code.</p>
-<p>When encryption is switched on, the implementation expects to find the keystore in the location pointed by <code>messagelog-keystore</code>. The keystore should contain an encryption key with the identifier specified in <code>messagelog-key-id</code>. The keystore password is specified in <code>messagelog-keystore-password</code>.</p>
+<a id="1113-message-log-encryption" class="anchor" href="#1113-message-log-encryption" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>11.1.3 Message Log Encryption</h4>
+<p>The message bodies can be encrypted (<code>messagelog-encryption-enabled = true</code>) when stored to the database. By default, the encryption is disabled. Also, the encryption is fully transparent to all the external interfaces, e.g., the signed document download service. The encryption is symmetric, the used cipher is AES-CTR, and the encryption is performed using Java code.</p>
+<p>In the message log database, there are two separate columns for plaintext (<code>message</code>) and encrypted (<code>ciphermessage</code>) message body. The message body is always stored in one of the two columns depending on the configuration. Instead, the other column that is not used is left empty. When message log database encryption is enabled/disabled, the change doesn't affect already existing records in the database. For example, when message log database encryption is enabled, all the records created after the configuration change will be encrypted and stored in the <code>ciphermessage</code> column. Instead, all the records stored before the change will remain in plaintext in the <code>message</code> column.</p>
+<p>When encryption is switched on, the implementation expects to find the keystore in the location pointed by <code>messagelog-keystore</code>. The keystore should contain an encryption key with the identifier/alias specified in <code>messagelog-key-id</code>. The keystore password is specified in <code>messagelog-keystore-password</code>.</p>
 <p>For example, add the following to <code>/etc/xroad/conf.d/local.ini</code>:</p>
 <div class="highlight highlight-source-ini"><pre><span class="pl-en">[message-log]</span>
 <span class="pl-k">messagelog-encryption-enabled</span>=true
@@ -2623,8 +2644,9 @@ mlog-INSTANCE_CLASS_CODE_PROVIDERSUBSYSTEM-20210901102521-20210901102524-b1f2709
 <a id="1117-archive-encryption-and-grouping" class="anchor" href="#1117-archive-encryption-and-grouping" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>11.1.7 Archive Encryption and Grouping</h4>
 <p>Archive files can be encrypted (when <code>archive-encryption-enabled = true</code>) using GnuPG ("gpg") which implements the OpenPGP (RFC 4880) specification. Please see e.g. <a href="https://www.ietf.org/rfc/rfc4880.txt" rel="nofollow">RFC 4880</a> and <a href="https://gnupg.org/" rel="nofollow">GnuPG</a> for more infomation. The encryption is enabled/disabled on a security server level - it's not possible to enable/disable it for specific subsystems only.</p>
 <p>By default, the produced archive files contain messages from all the security server's members, but it's possible to group the archives by member or by subsystem if needed. The grouping is controlled by the setting <code>archive-grouping</code>. The grouping is enabled/disabled on a security server level - it is either enabled or disabled for all the members and subsystems.</p>
-<p>When encryption is enabled, the archiving process expects to find a GnuPG keyring containing the server signing keypair in <code>archive-gpg-home-directory</code> (by default this is the same as the backup signing and encryption keypair). This keypair is used to sign the generated archive files, and as a fallback encryption key if no other keys are configured.</p>
-<p>The <code>archive-default-encryption-key</code> can use used to override the default encryption key id, which is used when <code>archive-grouping</code> is <code>none</code> or no member gpg key is defined. Changing this parameter requires restarting the xroad-addon-messagelog service.</p>
+<p>Message log archive encryption and grouping can be configured separately. For example, the archives can be encrypted but not grouped (or vice versa). By default, both features are disabled.</p>
+<p>When encryption is enabled, the archiving process expects to find a GnuPG keyring containing the server signing keypair in <code>archive-gpg-home-directory</code> (by default <code>/etc/xroad/gpghome</code>). When the default value is used the server signing keypair is the same as the backup signing and encryption keypair. This keypair is used to sign the generated archive files, and as a fallback encryption key if no other keys are configured.</p>
+<p>The <code>archive-default-encryption-key</code> can be used to override the default encryption key id, which is used when <code>archive-grouping</code> is <code>none</code> or no member gpg key is defined. Changing this parameter requires restarting the xroad-addon-messagelog service.</p>
 <p>In case <code>archive-grouping</code> is <code>member</code> or <code>subsystem</code>, gpg keys defined in file <code>archive-encryption-keys-config</code> are used (if no key is defined for the member, the default encryption key is used). This file maps member identifiers to gpg key identifiers and has the following format:</p>
 <pre><code># This is a comment (ignored)
 # One mapping per line (leading, trailing, and around `=` white space is ignored)
@@ -2650,13 +2672,22 @@ mlog-INSTANCE_CLASS_CODE_PROVIDERSUBSYSTEM-20210901102521-20210901102524-b1f2709
 </li>
 </ul>
 <p>Warning. The archiving process fails if a required key is not present in the gpg keyring. Therefore, it is important to verify that the mappings are correct.</p>
-<p>For example, generate a keypair for encryption with defaults and no expiration and export the public key:</p>
+<p><strong>Configuration example</strong></p>
+<p>Generate a keypair for encryption with defaults and no expiration and export the public key:</p>
 <div class="highlight highlight-source-shell"><pre>gpg [--homedir <span class="pl-k">&lt;</span>member gpghome<span class="pl-k">&gt;</span>] --quick-generate-key INSTANCE/memberClass/memberCode default default never
 gpg [--homedir <span class="pl-k">&lt;</span>member gpghome<span class="pl-k">&gt;</span>] --export INSTANCE/memberClass/memberCode <span class="pl-k">&gt;</span>INSTANCE-memberClass-memberCode.pgp</pre></div>
 <p>Import the public key to the gpg keyring in <code>archive-gpg-home-directory</code> and take note of the key id.</p>
 <div class="highlight highlight-source-shell"><pre>gpg --homedir <span class="pl-k">&lt;</span>archive-gpg-home-directory<span class="pl-k">&gt;</span> --import INSTANCE-memberClass-memberCode.pgp</pre></div>
+<p>Edit the key and add ultimate trust.</p>
+<div class="highlight highlight-source-shell"><pre>gpg --homedir <span class="pl-k">&lt;</span>archive-gpg-home-directory<span class="pl-k">&gt;</span> --edit-key <span class="pl-k">&lt;</span>key id<span class="pl-k">&gt;</span></pre></div>
+<p>At the <code>gpg&gt;</code> prompt, type <code>trust</code>, then type <code>5</code> for ultimate trust, then <code>y</code> to confirm, then <code>quit</code>.</p>
 <p>Add the mapping to <code>archive-encryption-keys-config</code> file (mappings can be edited without restarting X-Road services), e.g.:</p>
 <div class="highlight highlight-source-shell"><pre>INSTANCE/memberClass/memberCode = 96F20FF6578A5EF90DFBA18D8C003019508B5637</pre></div>
+<p>Add the mapping file location (<code>archive-encryption-keys-config</code>) and grouping level (<code>archive-grouping</code>) to <code>/etc/xroad/conf.d/local.ini</code> file (editing the file requires restarting X-Road services), e.g.:</p>
+<div class="highlight highlight-source-shell"><pre>[message-log]
+archive-encryption-enabled = <span class="pl-c1">true</span>
+archive-grouping = member
+archive-encryption-keys-config = /etc/xroad/messagelog/archive-encryption-mapping.ini</pre></div>
 <p>To decrypt the encrypted archives, use the following syntax:</p>
 <div class="highlight highlight-source-shell"><pre>gpg [--homedir <span class="pl-k">&lt;</span>gpghome<span class="pl-k">&gt;</span>] --decrypt <span class="pl-k">&lt;</span>archive name<span class="pl-k">&gt;</span> --output <span class="pl-k">&lt;</span>output file name<span class="pl-k">&gt;</span></pre></div>
 <h3>
@@ -2937,6 +2968,21 @@ key being exported) using this command:</p>
 <p>Resulting file <code>backupadmin.publickey</code> should be moved to security server and imported to backup gpg keyring. Administrator should make sure that the key has not been changed during transfer, for example by validating the key fingerprint.</p>
 <p>Private keys corresponding to additional backup encryption public keys must be handled safely and kept in secret. Any of
 them can be used to decrypt backups and thus mount attacks on the security servers.</p>
+<p><strong>Configuration example</strong></p>
+<p>Generate a keypair for encryption with defaults and no expiration and export the public key:</p>
+<div class="highlight highlight-source-shell"><pre>gpg [--homedir <span class="pl-k">&lt;</span>admin gpghome<span class="pl-k">&gt;</span>] --quick-generate-key backupadmin@example.org default default never
+gpg [--homedir <span class="pl-k">&lt;</span>admin gpghome<span class="pl-k">&gt;</span>] --export backupadmin@example.org <span class="pl-k">&gt;</span>backupadmin@example.org.pgp</pre></div>
+<p>Import the public key to the gpg keyring in <code>/etc/xroad/gpghome</code> directory and take note of the key id.</p>
+<div class="highlight highlight-source-shell"><pre>gpg --homedir /etc/xroad/gpghome --import backupadmin@example.org.pgp</pre></div>
+<p>Edit the key and add ultimate trust.</p>
+<div class="highlight highlight-source-shell"><pre>gpg --homedir /etc/xroad/gpghome/ --edit-key <span class="pl-k">&lt;</span>key id<span class="pl-k">&gt;</span></pre></div>
+<p>At the <code>gpg&gt;</code> prompt, type <code>trust</code>, then type <code>5</code> for ultimate trust, then <code>y</code> to confirm, then <code>quit</code>.</p>
+<p>Add the key id to <code>/etc/xroad/conf.d/local.ini</code> file (editing the file requires restarting X-Road services), e.g.:</p>
+<div class="highlight highlight-source-shell"><pre>[proxy]
+backup-encryption-enabled = <span class="pl-c1">true</span>
+backup-encryption-keyids = 96F20FF6578A5EF90DFBA18D8C003019508B5637</pre></div>
+<p>To decrypt the encrypted backups, use the following syntax:</p>
+<div class="highlight highlight-source-shell"><pre>gpg --homedir /etc/xroad/gpghome --decrypt <span class="pl-k">&lt;</span>backup name<span class="pl-k">&gt;</span> --output <span class="pl-k">&lt;</span>output file name<span class="pl-k">&gt;</span> </pre></div>
 <h3>
 <a id="135-verifying-backup-archive-consistency" class="anchor" href="#135-verifying-backup-archive-consistency" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>13.5 Verifying Backup Archive Consistency</h3>
 <p>During restore security server verifies consistency of backup archives automatically, archives are not checked during upload.
@@ -2957,11 +3003,29 @@ for example, <code>AA/GOV/TS1OWNER/TS1</code>.</p>
 for backup archive consistency verification.</p>
 <h2>
 <a id="14-diagnostics" class="anchor" href="#14-diagnostics" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>14 Diagnostics</h2>
-<h3>
-<a id="141-examine-security-server-services-status-information" class="anchor" href="#141-examine-security-server-services-status-information" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>14.1 Examine security server services status information</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-system-administrator">System Administrator</a></p>
 <p>Click on <strong>DIAGNOSTICS</strong> in the <strong>Navigation tabs</strong>.</p>
-<p>On this page you can examine the statuses of the following services:</p>
+<p>On the Diagnostics page you can view the status information of:</p>
+<ul>
+<li>security server services;
+<ul>
+<li>global configuration client;</li>
+<li>timestamping operation;</li>
+<li>downloading OCSP responses from the OCSP-responder;</li>
+</ul>
+</li>
+<li>security server Java version;</li>
+<li>security server encryption configuration;
+<ul>
+<li>backup encryption;</li>
+<li>message log archive encryption and grouping;</li>
+<li>message log database encryption.</li>
+</ul>
+</li>
+</ul>
+<h3>
+<a id="141-examine-security-server-services-status-information" class="anchor" href="#141-examine-security-server-services-status-information" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>14.1 Examine security server services status information</h3>
+<p>Security server services status information covers the following services:</p>
 <table>
 <thead>
 <tr>
@@ -3008,6 +3072,90 @@ for backup archive consistency verification.</p>
 </ul>
 <p>The status message offers more detailed information on the current status.</p>
 <p>If a section of the diagnostics view appears empty, it means that there either is no configured service available or that checking the service status has failed. If sections are empty, try refreshing the diagnostics view or check the service configuration.</p>
+<h3>
+<a id="142-examine-security-server-java-version-information" class="anchor" href="#142-examine-security-server-java-version-information" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>14.2 Examine security server Java version information</h3>
+<p>Security server Java version information provides the following details:</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Status</td>
+<td>Green/red</td>
+</tr>
+<tr>
+<td>Message</td>
+<td>Status message</td>
+</tr>
+<tr>
+<td>Vendor name</td>
+<td>Vendor name of Java that the security server is using</td>
+</tr>
+<tr>
+<td>Java version</td>
+<td>Java version number that the security server is using</td>
+</tr>
+<tr>
+<td>Earliest supported version</td>
+<td>Earliest supported Java version number</td>
+</tr>
+<tr>
+<td>Latest supported version</td>
+<td>Latest supported Java version number</td>
+</tr>
+</tbody>
+</table>
+<p>To refresh the status, refresh the page.</p>
+<p>The status colors indicate the following:</p>
+<ul>
+<li>
+<strong>Red indicator</strong> – security server's java version number isn't supported</li>
+<li>
+<strong>Green indicator</strong> – security server's java version number is supported</li>
+</ul>
+<h3>
+<a id="143-examine-security-server-encryption-status-information" class="anchor" href="#143-examine-security-server-encryption-status-information" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>14.3 Examine security server encryption status information</h3>
+<p><strong>Backup encryption status</strong></p>
+<p>The status shows is the backup encryption <code>enabled</code> or <code>disabled</code>. The Configured key ID list contains all the additional encryption keys that are present in the configuration. If the list is empty, only the system generated default encryption key is used. When the backup encryption is <code>disabled</code>, the list is always empty.</p>
+<p>The status colors indicate the following:</p>
+<ul>
+<li>
+<strong>Red indicator</strong> – there's an error with checking the backup encryption status</li>
+<li>
+<strong>Yellow indicator</strong> – backup encryption is disabled</li>
+<li>
+<strong>Green indicator</strong> – backup encryption is enabled</li>
+</ul>
+<p><strong>Message log archive encryption status</strong></p>
+<p>The status shows is the message log archive encryption <code>enabled</code> or <code>disabled</code>. The Grouping rule shows the grouping level (<code>NONE</code>, <code>MEMBER</code>, <code>SUBSYSTEM</code>) of the message log archives.</p>
+<p>The list of Member Identifier / Key ID pairs includes a list of members using the security server and the encryption key(s) associated with the member when the grouping level is <code>MEMBER</code> or <code>SUBSYSTEM</code>. When the grouping level is <code>NONE</code>, the list is always empty. If no member-specific key is associated with a member, there's a warning icon in the Key ID column. If the Key ID is missing and there's only the warning icon in the Key ID column, the member is using the system generated default encryption key. Instead, if the warning icon is after the Key ID, the member is using the user generated default encryption key (defined using the <code>archive-default-encryption-key</code> property). It's strongly recommended to use user generated member-specific encryption keys.</p>
+<p>Each member can have multiple member-specific encryption keys configured. If multiple keys are configured for a single member, the key IDs are presented as a comma separated list.</p>
+<p>The status colors indicate the following:</p>
+<ul>
+<li>
+<strong>Red indicator</strong> – there's an error with checking the message log archive encryption status</li>
+<li>
+<strong>Yellow indicator</strong> – message log archive encryption is disabled</li>
+<li>
+<strong>Green indicator</strong> – message log archive encryption is enabled</li>
+<li>
+</li>
+</ul>
+<p><strong>Message log database encryption status</strong></p>
+<p>The status shows is the message log database encryption <code>enabled</code> or <code>disabled</code>.</p>
+<p>The status colors indicate the following:</p>
+<ul>
+<li>
+<strong>Red indicator</strong> – there's an error with checking the message log database encryption status</li>
+<li>
+<strong>Yellow indicator</strong> – message log database encryption is disabled</li>
+<li>
+<strong>Green indicator</strong> – message log database encryption is enabled</li>
+</ul>
 <h2>
 <a id="15-operational-monitoring" class="anchor" href="#15-operational-monitoring" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>15 Operational Monitoring</h2>
 <p><strong>Operational monitoring data</strong> contains data about request exchange (such as the ID-s of the client and the service, various attributes of the message read from the message header, request and response timestamps, SOAP sizes etc.) of the X-Road security server(s).</p>
@@ -3141,6 +3289,11 @@ tls-certificate = &lt;path/to/external/daemon/tls/cert&gt;
 </thead>
 <tbody>
 <tr>
+<td><code>xroad-addon-messagelog</code></td>
+<td>Message log archiving and cleaning of the message logs</td>
+<td><code>/var/log/xroad/messagelog-archiver.log</code></td>
+</tr>
+<tr>
 <td><code>xroad-confclient</code></td>
 <td>Client process for the global configuration distributor</td>
 <td><code>/var/log/xroad/configuration_client.log</code></td>
@@ -3161,6 +3314,16 @@ tls-certificate = &lt;path/to/external/daemon/tls/cert&gt;
 <td>
 <code>/var/log/xroad/proxy_ui_api.log</code> and <br><code>/var/log/xroad/proxy_ui_api_access.log</code>
 </td>
+</tr>
+<tr>
+<td><code>xroad-monitor</code></td>
+<td>Environmental monitoring</td>
+<td><code>/var/log/xroad/monitor.log</code></td>
+</tr>
+<tr>
+<td><code>xroad-opmonitor</code></td>
+<td>Operational monitoring</td>
+<td><code>/var/log/xroad/op-monitor.log</code></td>
 </tr>
 </tbody>
 </table>

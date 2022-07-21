@@ -1,5 +1,5 @@
 
-| ![European Union / European Regional Development Fund / Investing in your future](img/eu_rdf_75_en.png "Documents that are tagged with EU/SF logos must keep the logos until 1.1.2022, if it has not stated otherwise in the documentation. If new documentation is created  using EU/SF resources the logos must be tagged appropriately so that the deadline for logos could be found.") |
+| ![European Union / European Regional Development Fund / Investing in your future](../img/eu_rdf_75_en.png "Documents that are tagged with EU/SF logos must keep the logos until 1.1.2022, if it has not stated otherwise in the documentation. If new documentation is created  using EU/SF resources the logos must be tagged appropriately so that the deadline for logos could be found.") |
 | -------------------------: |
 
 # X-Road: Operational Monitoring System Parameters
@@ -43,8 +43,8 @@ See X-Road terms and abbreviations documentation \[[TA-TERMS](#Ref_TERMS)\].
 
 ### 1.2 References
 
-<a name="UG-SYSPAR"></a>**UG-SYSPAR** -- Cybernetica AS. X-Road: System Parameters. Document ID: [UG-SYSPAR](ug-syspar_x-road_v6_system_parameters.md).  
-<a name="UG-SS"></a>**UG-SS** -- Cybernetica AS. X-Road: Security Server User Guide. Document ID: [UG-SS](ug-ss_x-road_6_security_server_user_guide.md).  
+<a name="UG-SYSPAR"></a>**UG-SYSPAR** -- Cybernetica AS. X-Road: System Parameters. Document ID: [UG-SYSPAR](ug-syspar_x-road_v7_system_parameters.md).  
+<a name="UG-SS"></a>**UG-SS** -- Cybernetica AS. X-Road: Security Server User Guide. Document ID: [UG-SS](ug-ss_x-road_7_security_server_user_guide.md).  
 <a name="CRON"></a>**CRON** -- Quartz Scheduler Cron Trigger Tutorial,  http://www.quartz-scheduler.org/documentation/quartz-2.2.x/tutorials/crontrigger.html  
 <a name="Ref_TERMS" class="anchor"></a>**TA-TERMS** -- X-Road Terms and Abbreviations. Document ID: [TA-TERMS](terms_x-road_docs.md).
 

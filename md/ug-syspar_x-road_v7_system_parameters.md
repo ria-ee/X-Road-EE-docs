@@ -1,9 +1,6 @@
-| ![European Union / European Regional Development Fund / Investing in your future](img/eu_regional_development_fund_horizontal_div_15.png "Documents that are tagged with EU/SF logos must keep the logos until 1.1.2022, if it has not stated otherwise in the documentation. If new documentation is created  using EU/SF resources the logos must be tagged appropriately so that the deadline for logos could be found.") |
-| -------------------------: |
-
 # X-Road: System Parameters User Guide
 
-Version: 2.64  
+Version: 2.66  
 Doc. ID: UG-SYSPAR
 
 | Date       | Version  | Description                                                                  | Author             |
@@ -77,6 +74,8 @@ Doc. ID: UG-SYSPAR
 | 25.08.2021 | 2.62     | Update X-Road references from version 6 to 7 | Caro Hautamäki |
 | 31.08.2021 | 2.63     | Update messagelog and proxy parameters | Ilkka Seppälä |
 | 05.10.2021 | 2.64     | Added a new chapter about custom command line arguments [6](#6-adding-command-line-arguments) | Caro Hautamäki
+| 13.04.2022 | 2.65     | Corrected message logging max body size parameter name | Raido Kaju
+| 28.04.2022 | 2.66     | Updated *max-loggable-message-body-size* property EE-package value. | Ričardas Bučiūnas
 
 ## Table of Contents
 
@@ -134,18 +133,17 @@ See X-Road terms and abbreviations documentation \[[TA-TERMS](#Ref_TERMS)\].
 
 ### 1.2 References
 
-1.  <a id="Ref_INI"></a>\[INI\] INI file, [http://en.wikipedia.org/wiki/INI_file](http://en.wikipedia.org/wiki/INI_file).
-2.  <a id="Ref_CRON"></a>\[CRON\] Quartz Scheduler
+1. <a id="Ref_INI"></a>\[INI\] INI file, [http://en.wikipedia.org/wiki/INI_file](http://en.wikipedia.org/wiki/INI_file).
+2. <a id="Ref_CRON"></a>\[CRON\] Quartz Scheduler
     CRON expression, [http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/tutorial-lesson-06.html](http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/tutorial-lesson-06.html).
 3. <a id="Ref_PR-MESS"></a>\[PR-MESS\] [X-Road Message Protocol v. 4.0](pr-mess_x-road_message_protocol.md).
-4.  <a id="Ref_PR-TARGETSS"></a>\[PR-TARGETSS\] [Security Server Targeting Extension for the X-Road Message Protocol](pr-targetss_security_server_targeting_extension_for_the_x-road_protocol.md).
-5.  <a id="Ref_PR-SECTOKEN"></a>\[PR-SECTOKEN\] [Security Token Extension for the X-Road Message Protocol](https://github.com/nordic-institute/X-Road/blob/6.20.0/doc/Protocols/SecurityTokenExtension/pr-sectoken_security_token_extension_for_the_x-road_protocol.md).
-6.  <a id="Ref_TERMS" class="anchor"></a>\[TA-TERMS\] [X-Road Terms and Abbreviations](terms_x-road_docs.md).
-7.  <a id="Ref_CRONMAN"></a>\[CRONMAN\] [http://linux.die.net/man/8/cron](http://linux.die.net/man/8/cron).
-8.  <a id="Ref_CRONHOW"></a>\[CRONHOW\] Cron format specifications [https://help.ubuntu.com/community/CronHowto](https://help.ubuntu.com/community/CronHowto).
-9.  <a id="Ref_PR-REST"></a>\[PR-REST\] [X-Road Message Protocol for REST v. 1.0](pr-rest_x-road_message_protocol_for_rest.md).
-10. <a id="Ref_IG-CSHA" class="anchor"></a>\[IG-CSHA\] X-Road 6. Central Server High Availability Installation Guide. Document ID: [IG-CSHA](ig-csha_x-road_6_ha_installation_guide.md)
-11. <a id="Ref_UG_SS" class="anchor">\[UG-SS\]</a> X-Road 7. Security Server User Guide. Document ID: [UG-SS](ug-ss_x-road_6_security_server_user_guide.md)
+4. <a id="Ref_PR-TARGETSS"></a>\[PR-TARGETSS\] [Security Server Targeting Extension for the X-Road Message Protocol](pr-targetss_security_server_targeting_extension_for_the_x-road_protocol.md).
+5. <a id="Ref_PR-SECTOKEN"></a>\[PR-SECTOKEN\] [Security Token Extension for the X-Road Message Protocol](https://github.com/nordic-institute/X-Road/blob/6.20.0/doc/Protocols/SecurityTokenExtension/pr-sectoken_security_token_extension_for_the_x-road_protocol.md).
+6. <a id="Ref_TERMS" class="anchor"></a>\[TA-TERMS\] [X-Road Terms and Abbreviations](terms_x-road_docs.md).
+7. <a id="Ref_CRONMAN"></a>\[CRONMAN\] [http://linux.die.net/man/8/cron](http://linux.die.net/man/8/cron).
+8. <a id="Ref_CRONHOW"></a>\[CRONHOW\] Cron format specifications [https://help.ubuntu.com/community/CronHowto](https://help.ubuntu.com/community/CronHowto).
+9. <a id="Ref_PR-REST"></a>\[PR-REST\] [X-Road Message Protocol for REST v. 1.0](pr-rest_x-road_message_protocol_for_rest.md).
+10. <a id="Ref_UG_SS" class="anchor">\[UG-SS\]</a> X-Road 7. Security Server User Guide. Document ID: [UG-SS](ug-ss_x-road_7_security_server_user_guide.md)
 
 ## 2 Changing the System Parameter Values
 
@@ -357,7 +355,7 @@ Proxy-ui has been removed in version 6.24 and it's parameters are not used anymo
 | timestamper-client-read-timeout                  | 60000                                      |   |   | The timestamper client read timeout in milliseconds. A timeout of zero is interpreted as an infinite timeout. |
 | timestamp-retry-delay                            | 60                                         |   |   | Time-stamp retry delay in seconds when batch time-stamping fails. After failing to batch time-stamp, the timestamper waits for the time period defined by "timestamp-retry-delay" before trying again. This is repeated until fetching a time-stamp succeeds. After successfully fetching a time-stamp, the timestamper returns to normal time-stamping schedule. If the value of "timestamp-retry-delay" is higher than the value of the central server system parameter "timeStampingIntervalSeconds", the value of "timeStampingIntervalSeconds" is used. If the value of "timestamp-retry-delay" is zero, the value of "timeStampingIntervalSeconds" is used. |
 | archive-transaction-batch                        | 10000                                      |   |   | Size of transaction batch for archiving messagelog. This size is not exact because it will always make sure that last archived batch includes timestamp also (this might mean that it will go over transaction size). |
-| max-loggable-body-size                           | 10485760 (10 MiB)                          |   |   | Maximum loggable REST message body size |
+| max-loggable-message-body-size                   | 10485760 (10 MiB)                          |   | 20971520 (20MiB)      | Maximum loggable REST message body size |
 | truncated-body-allowed                           | false                                      |   |   | If the REST message body exceeds the maximum loggable body size, truncate the body in the log (true) or reject the message (false). |
 | clean-transaction-batch                          | 10000                                      |   |   | Maximun number of log records to remove in one transaction. |
 | archive-grouping                                 | none                                       |   |   | Archive file grouping, one of 'none', 'member' (group by member), 'subsystem' (group by subsystem).
@@ -463,7 +461,6 @@ For instructions on how to change the parameter values, see section [Changing th
 | auto-approve-auth-cert-reg-requests | false                       | True if automatic approval of auth cert registration requests is enabled for this X-Road instance. Automatic approval is applied to existing members only. |
 | auto-approve-client-reg-requests | false                          | True if automatic approval of client registration requests is enabled for this X-Road instance. Automatic approval is applied to existing members only. In addition, automatic approval is applied only if the client registration request has been signed by the member owning the subsystem to be registered as a security server client. |
 | auto-approve-owner-change-requests | false                        | True if automatic approval of owner change requests is enabled for this X-Road instance. Automatic approval is applied to existing members only. |
-| ha-node-name            |                                         | Central server HA node name. See [IG-CSHA](#Ref_IG-CSHA) before modifying this parameter. |
 
 #### 4.1.3 Signer parameters: `[signer]`
 
