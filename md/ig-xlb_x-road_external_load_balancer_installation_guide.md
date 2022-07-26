@@ -1,6 +1,6 @@
 # X-Road: External Load Balancer Installation Guide
 
-Version: 1.11  
+Version: 1.14  
 Doc. ID: IG-XLB
 
 
@@ -101,8 +101,8 @@ See X-Road terms and abbreviations documentation \[[TA-TERMS](#Ref_TERMS)\].
 | Document Id    | Document                                                                                                                       |
 |:--------------:|:-------------------------------------------------------------------------------------------------------------------------------|
 | \[SS-CLUSTER\] | [Readme: Security server cluster setup with Ansible](https://github.com/nordic-institute/X-Road/tree/7.0.1/ansible/ss_cluster) |
-| \[IG-SS\] | [X-Road: Security Server Installation Guide](ig-ss_x-road_v6_security_server_installation_guide.md)                            |
-| \[UG-SS\] | [X-Road 7 Security Server User Guide](ug-ss_x-road_6_security_server_user_guide.md)                                            |
+| \[IG-SS\] | [X-Road: Security Server Installation Guide](ig-ss_x-road_v7_security_server_installation_guide.md)                            |
+| \[UG-SS\] | [X-Road 7 Security Server User Guide](ug-ss_x-road_7_security_server_user_guide.md)                                            |
 | <a name="Ref_TERMS"></a>\[TA-TERMS\] | [X-Road Terms and Abbreviations](terms_x-road_docs.md)                                                                         
 
 ## 2. Overview
@@ -883,7 +883,7 @@ disrupt message delivery while the online option should allow upgrades with mini
 If the X-Road security server cluster can be shut down for an offline upgrade, the procedure remains fairly simple:
 1. Stop the X-Road services (`xroad-proxy`, `xroad-signer`, `xroad-confclient`, `xroad-proxy-ui-api` and `xroad-monitor`) on all
    the nodes. You can read more about the services in the Security Server User Guide
-\[[UG-SS](#13-references)\] chapter on [System services](ug-ss_x-road_6_security_server_user_guide.md#161-system-services).
+\[[UG-SS](#13-references)\] chapter on [System services](ug-ss_x-road_7_security_server_user_guide.md#161-system-services).
 2. Upgrade the packages on the primary node to the new software version.
 3. Let any database and configuration changes propagate to the cluster members.
 4. Upgrade the packages on the replica nodes.
@@ -946,7 +946,7 @@ The steps are in more detail below, but in short, the procedure is:
 2. <a name="primary-upgrade-step-2">Check</a> that the primary is no longer processing requests and stop the X-Road services
    (`xroad-proxy`, `xroad-signer`, `xroad-confclient`, `xroad-monitor`, `xroad-proxy-ui-api`) on the primary node. You can read
    more about the services in the Security Server User Guide
-   \[[UG-SS](#13-references)\] chapter on [System services](ug-ss_x-road_6_security_server_user_guide.md#161-system-services).
+   \[[UG-SS](#13-references)\] chapter on [System services](ug-ss_x-road_7_security_server_user_guide.md#161-system-services).
 
    To ensure that the node is no longer processing requests, you can monitor `/var/log/xroad/proxy.log` to verify that
    no more requests are arriving or check that there are no connections to the port 5500 with:

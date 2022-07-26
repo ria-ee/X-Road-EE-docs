@@ -16,16 +16,9 @@
   </head>
   <body>
     <article class="markdown-body">
-<table>
-<thead>
-<tr>
-<th align="right"><a href="img/eu_regional_development_fund_horizontal_div_15.png" target="_blank" rel="noopener noreferrer"><img src="img/eu_regional_development_fund_horizontal_div_15.png" alt="European Union / European Regional Development Fund / Investing in your future" title="Documents that are tagged with EU/SF logos must keep the logos until 1.1.2022, if it has not stated otherwise in the documentation. If new documentation is created  using EU/SF resources the logos must be tagged appropriately so that the deadline for logos could be found." style="max-width:100%;"></a></th>
-</tr>
-</thead>
-</table>
 <h1>
 <a id="x-road-system-parameters-user-guide" class="anchor" href="#x-road-system-parameters-user-guide" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>X-Road: System Parameters User Guide</h1>
-<p>Version: 2.64<br>
+<p>Version: 2.66<br>
 Doc. ID: UG-SYSPAR</p>
 <table>
 <thead>
@@ -468,6 +461,18 @@ Doc. ID: UG-SYSPAR</p>
 </td>
 <td>Caro Hautamäki</td>
 </tr>
+<tr>
+<td>13.04.2022</td>
+<td>2.65</td>
+<td>Corrected message logging max body size parameter name</td>
+<td>Raido Kaju</td>
+</tr>
+<tr>
+<td>28.04.2022</td>
+<td>2.66</td>
+<td>Updated <em>max-loggable-message-body-size</em> property EE-package value.</td>
+<td>Ričardas Bučiūnas</td>
+</tr>
 </tbody>
 </table>
 <h2>
@@ -582,10 +587,7 @@ CRON expression, <a href="http://www.quartz-scheduler.org/documentation/quartz-2
 <li>
 <a id="Ref_PR-REST"></a>[PR-REST] <a href="pr-rest_x-road_message_protocol_for_rest.html">X-Road Message Protocol for REST v. 1.0</a>.</li>
 <li>
-<a id="Ref_IG-CSHA"></a>[IG-CSHA] X-Road 6. Central Server High Availability Installation Guide. Document ID: <a href="ig-csha_x-road_6_ha_installation_guide.html">IG-CSHA</a>
-</li>
-<li>
-<a id="Ref_UG_SS">[UG-SS]</a> X-Road 7. Security Server User Guide. Document ID: <a href="ug-ss_x-road_6_security_server_user_guide.html">UG-SS</a>
+<a id="Ref_UG_SS">[UG-SS]</a> X-Road 7. Security Server User Guide. Document ID: <a href="ug-ss_x-road_7_security_server_user_guide.html">UG-SS</a>
 </li>
 </ol>
 <h2>
@@ -1352,10 +1354,10 @@ to use for example MySQL as a data store for REST API module.</p>
 <td> Size of transaction batch for archiving messagelog. This size is not exact because it will always make sure that last archived batch includes timestamp also (this might mean that it will go over transaction size).</td>
 </tr>
 <tr>
-<td>max-loggable-body-size</td>
+<td>max-loggable-message-body-size</td>
 <td>10485760 (10 MiB)</td>
 <td></td>
-<td></td>
+<td>20971520 (20MiB)</td>
 <td>Maximum loggable REST message body size</td>
 </tr>
 <tr>
@@ -1684,11 +1686,6 @@ with some additional limitations on configurability (see details in proxy chapte
 <td>auto-approve-owner-change-requests</td>
 <td>false</td>
 <td>True if automatic approval of owner change requests is enabled for this X-Road instance. Automatic approval is applied to existing members only.</td>
-</tr>
-<tr>
-<td>ha-node-name</td>
-<td></td>
-<td>Central server HA node name. See <a href="#Ref_IG-CSHA">IG-CSHA</a> before modifying this parameter.</td>
 </tr>
 </tbody>
 </table>

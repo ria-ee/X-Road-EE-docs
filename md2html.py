@@ -65,12 +65,12 @@ def md2html(htmltitle, infile, outfile):
     outf.close()    
 
 
-md2html("X-Road: Security Server Installation Guide", "md/ig-ss_x-road_v6_security_server_installation_guide.md", "docs/ig-ss_x-road_v6_security_server_installation_guide.html")
+md2html("X-Road: Security Server Installation Guide", "md/ig-ss_x-road_v7_security_server_installation_guide.md", "docs/ig-ss_x-road_v7_security_server_installation_guide.html")
 md2html("X-Road: Protocol for Downloading Configuration", "md/pr-gconf_x-road_protocol_for_downloading_configuration.md", "docs/pr-gconf_x-road_protocol_for_downloading_configuration.html")
 md2html("X-Road: Message Protocol v4.0", "md/pr-mess_x-road_message_protocol.md", "docs/pr-mess_x-road_message_protocol.html")
 md2html("X-Road: Security Server Targeting Extension for the X-Road Message Protocol", "md/pr-targetss_security_server_targeting_extension_for_the_x-road_protocol.md", "docs/pr-targetss_security_server_targeting_extension_for_the_x-road_protocol.html")
-md2html("X-Road: Security Server User Guide", "md/ug-ss_x-road_6_security_server_user_guide.md", "docs/ug-ss_x-road_6_security_server_user_guide.html")
-md2html("X-Road: System Parameters User Guide", "md/ug-syspar_x-road_v6_system_parameters.md", "docs/ug-syspar_x-road_v6_system_parameters.html")
+md2html("X-Road: Security Server User Guide", "md/ug-ss_x-road_7_security_server_user_guide.md", "docs/ug-ss_x-road_7_security_server_user_guide.html")
+md2html("X-Road: System Parameters User Guide", "md/ug-syspar_x-road_v7_system_parameters.md", "docs/ug-syspar_x-road_v7_system_parameters.html")
 md2html("X-Road: Environmental Monitoring Architecture", "md/arc-envmon_environmental_monitoring_architecture.md", "docs/arc-envmon_environmental_monitoring_architecture.html")
 md2html("X-Road: External Load Balancer Installation Guide", "md/ig-xlb_x-road_external_load_balancer_installation_guide.md", "docs/ig-xlb_x-road_external_load_balancer_installation_guide.html")
 md2html("X-Road: Environmental Monitoring Messages", "md/pr-envmonmes_environmental_monitoring_messages.md", "docs/pr-envmonmes_environmental_monitoring_messages.html")
@@ -84,5 +84,5 @@ md2html("X-Road: Third Party Representation Extension", "md/pr-third_party_repre
 md2html("X-Road: Signed Document Download and Verification Manual", "md/ug-sigdoc_x-road_signed_document_download_and_verification_manual.md", "docs/ug-sigdoc_x-road_signed_document_download_and_verification_manual.html")
 md2html("X-Road: Message Transport Protocol", "md/pr-messtransp_x-road_message_transport_protocol.md", "docs/pr-messtransp_x-road_message_transport_protocol.html")
 md2html("X-Road: Message Protocol for REST", "md/pr-rest_x-road_message_protocol_for_rest.md", "docs/pr-rest_x-road_message_protocol_for_rest.html")
-md2html("X-Road: Autologin User Guide", "md/ug-autologin_x-road_v6_autologin_user_guide.md", "docs/ug-autologin_x-road_v6_autologin_user_guide.html")
+md2html("X-Road: Autologin User Guide", "md/ug-autologin_x-road_v7_autologin_user_guide.md", "docs/ug-autologin_x-road_v7_autologin_user_guide.html")
 md2html("X-Road: Service Metadata Protocol for REST", "md/pr-mrest_x-road_service_metadata_protocol_for_rest.md", "docs/pr-mrest_x-road_service_metadata_protocol_for_rest.html")

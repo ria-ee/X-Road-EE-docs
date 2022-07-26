@@ -1,8 +1,8 @@
 # X-Road Terms and Abbreviations
 
-**X-ROAD 6**
+**X-ROAD 7**
 
-Version: 0.6  
+Version: 0.8  
 Doc. ID:  TA-TERMS
 
 ## Version history
@@ -350,3 +350,4 @@ This document is licensed under the Creative Commons Attribution-ShareAlike 3.0 
 **SDK** - Software Development Kit
 
 **SOAP** - Simple Object Access Protocol  
+

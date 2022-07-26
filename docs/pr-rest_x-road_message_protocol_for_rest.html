@@ -21,7 +21,7 @@
 <h1>
 <a id="x-road-message-protocol-for-rest" class="anchor" href="#x-road-message-protocol-for-rest" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>X-Road: Message Protocol for REST</h1>
 <p><strong>Technical Specification</strong></p>
-<p>Version: 1.0.1<br>
+<p>Version: 1.0.2<br>
 Doc. ID: PR-REST</p>
 <hr>
 <h2>
@@ -126,6 +126,15 @@ Doc. ID: PR-REST</p>
 <td align="left">Added chapter <a href="#48-identifier-character-restrictions">4.8 Identifier Character Restrictions</a>
 </td>
 <td align="left">Ilkka Seppälä</td>
+</tr>
+<tr>
+<td align="left">27.05.2022</td>
+<td align="left">1.0.2</td>
+<td align="left"><ul>
+<li>Added <code>X-Road-Represented-Party</code> extension header to 4.3</li>
+<li>Updated <code>X-Road-Client</code> header description in 4.3</li>
+</ul></td>
+<td align="left">Petteri Kivimäki</td>
 </tr>
 </tbody>
 </table>
@@ -380,6 +389,9 @@ for at least a year after releasing the new version.</p>
 <ul>
 <li>
 <strong>X-Road-Client</strong>: Specifies the member/subsystem that is used as a service client - an entity that initiates the service call. The identifier consists of the following parts: <code>[X-Road instance]/[member class]/[member code]/[subsystem code]</code>. Including the subsystem code is OPTIONAL. The identifier parts MUST be represented as UTF-8 and encoded using [<a href="#Ref_PERCENTENC">PERCENT-ENCODING</a>].
+<ul>
+<li>The service client MUST NOT generate multiple <code>X-Road-Client</code> headers in the request. If multiple <code>X-Road-Client</code> headers are present in the request, the Security Server SHOULD use the last defined header as the initiator of the service call.</li>
+</ul>
 <div class="highlight highlight-source-httpspec"><pre><span class="pl-s"><span class="pl-v">X-Road-Client:</span> INSTANCE/CLASS/MEMBER/SUBSYSTEM</span></pre></div>
 </li>
 </ul>
@@ -443,8 +455,20 @@ and it MUST be verified by the service client's Security Server</li>
 <li><code>[X-Road instance]/[member class]/[member code]/[server code]</code></li>
 </ul>
 </li>
+<li>
+<strong>X-Road-Represented-Party</strong>: The purpose of this header is to allow sending of additional information to the X-Road service providers in case when service client represents third party while issuing a query. The query is initiated by a third party and the results are also forwarded to that third party, but the request itself is signed by a client identified by the <code>X-Road-Client</code> header. It contains the following parts:
+<ul>
+<li><code>[member class]/[member code]</code></li>
+<li>Including the member class is OPTIONAL. If the member class is omitted, also the separator <code>/</code> must be omitted:
+<ul>
+<li><code>[member code]</code></li>
+</ul>
+</li>
+</ul>
+</li>
 <li>Other X-Road extension headers are not defined in this document. Rather they are just contracts between information systems and X-Road handles them like any user defined header.
-<div class="highlight highlight-source-httpspec"><pre><span class="pl-s"><span class="pl-v">X-Road-Security-Server:</span> INSTANCE/MEMBERCLASS/MEMBERCODE/SERVERCODE</span></pre></div>
+<div class="highlight highlight-source-httpspec"><pre><span class="pl-s"><span class="pl-v">X-Road-Security-Server:</span> INSTANCE/MEMBERCLASS/MEMBERCODE/SERVERCODE</span>
+<span class="pl-s"><span class="pl-v">X-Road-Represented-Party:</span> MEMBERCLASS/MEMBERCODE</span></pre></div>
 </li>
 </ul>
 <p><strong>Optional X-Road headers</strong></p>
