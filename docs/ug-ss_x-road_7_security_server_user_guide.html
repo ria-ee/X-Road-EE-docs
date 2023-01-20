@@ -19,18 +19,18 @@
 <table>
 <thead>
 <tr>
-<th align="right"><a href="img/eu_rdf_75_en.png" target="_blank" rel="noopener noreferrer"><img src="img/eu_rdf_75_en.png" alt="European Union / European Regional Development Fund / Investing in your future" title="Documents that are tagged with EU/SF logos must keep the logos until 1.1.2022, if it has not stated otherwise in the documentation. If new documentation is created  using EU/SF resources the logos must be tagged appropriately so that the deadline for logos could be found." style="max-width:100%;"></a></th>
+<th align="right"><a target="_blank" rel="noopener noreferrer" href="img/eu_rdf_75_en.png"><img src="img/eu_rdf_75_en.png" alt="European Union / European Regional Development Fund / Investing in your future" title="Documents that are tagged with EU/SF logos must keep the logos until 1.1.2022, if it has not stated otherwise in the documentation. If new documentation is created  using EU/SF resources the logos must be tagged appropriately so that the deadline for logos could be found." style="max-width: 100%;"></a></th>
 </tr>
 </thead>
 </table>
-<h1>
-<a id="security-server-user-guide-" class="anchor" href="#security-server-user-guide-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SECURITY SERVER USER GUIDE </h1>
+<h1><a id="security-server-user-guide-" class="anchor" aria-hidden="true" href="#security-server-user-guide-"><span aria-hidden="true" class="octicon octicon-link"></span></a>SECURITY SERVER USER GUIDE 
+</h1>
 <p><strong>X-ROAD 7</strong></p>
-<p>Version: 2.71
+<p>Version: 2.72
 Doc. ID: UG-SS</p>
 <hr>
-<h2>
-<a id="version-history-" class="anchor" href="#version-history-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version history </h2>
+<h2><a id="version-history-" class="anchor" aria-hidden="true" href="#version-history-"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version history 
+</h2>
 <table>
 <thead>
 <tr>
@@ -599,10 +599,16 @@ Doc. ID: UG-SS</p>
 <td>Updates to Diagnostics section, minor updates to backup encryption, message log database encryption and archive encryption and grouping</td>
 <td>Petteri Kivimäki</td>
 </tr>
+<tr>
+<td>13.07.2022</td>
+<td>2.72</td>
+<td>Updated chapter <a href="#21-adding-command-line-arguments">21</a> and added <code>XROAD_MESSAGELOG_ARCHIVER_PARAMS</code> argument</td>
+<td>Petteri Kivimäki</td>
+</tr>
 </tbody>
 </table>
-<h2>
-<a id="table-of-contents-" class="anchor" href="#table-of-contents-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Table of Contents </h2>
+<h2><a id="table-of-contents-" class="anchor" aria-hidden="true" href="#table-of-contents-"><span aria-hidden="true" class="octicon octicon-link"></span></a>Table of Contents 
+</h2>
 
 
 <ul>
@@ -880,14 +886,11 @@ Doc. ID: UG-SS</p>
 </ul>
 
 
-<h2>
-<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
+<h2><a id="license" class="anchor" aria-hidden="true" href="#license"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
 <p>This document is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="nofollow">http://creativecommons.org/licenses/by-sa/3.0/</a></p>
-<h2>
-<a id="1-introduction" class="anchor" href="#1-introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1 Introduction</h2>
+<h2><a id="1-introduction" class="anchor" aria-hidden="true" href="#1-introduction"><span aria-hidden="true" class="octicon octicon-link"></span></a>1 Introduction</h2>
 <p>This document describes the management and maintenance of an X-Road version 7 security server.</p>
-<h3>
-<a id="11-the-x-road-security-server" class="anchor" href="#11-the-x-road-security-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.1 The X-Road Security Server</h3>
+<h3><a id="11-the-x-road-security-server" class="anchor" aria-hidden="true" href="#11-the-x-road-security-server"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.1 The X-Road Security Server</h3>
 <p>The main function of a security server is to mediate requests in a way that preserves their evidential value.</p>
 <p>The security server is connected to the public Internet from one side and to the information system within the organization's internal network from the other side. In a sense, the security server can be seen as a specialized application-level firewall that supports the SOAP and REST protocols; hence, it should be set up in parallel with the organization's firewall, which mediates other protocols.</p>
 <p>The security server is equipped with the functionality needed to secure the message exchange between a client and a service provider.</p>
@@ -912,11 +915,9 @@ Doc. ID: UG-SS</p>
 </li>
 </ul>
 <p>The security server also depends on a central server, which provides the global configuration.</p>
-<h3>
-<a id="12-terms-and-abbreviations" class="anchor" href="#12-terms-and-abbreviations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.2 Terms and abbreviations</h3>
+<h3><a id="12-terms-and-abbreviations" class="anchor" aria-hidden="true" href="#12-terms-and-abbreviations"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.2 Terms and abbreviations</h3>
 <p>See X-Road terms and abbreviations documentation [<a href="#Ref_TERMS">TA-TERMS</a>].</p>
-<h3>
-<a id="13-references" class="anchor" href="#13-references" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.3 References</h3>
+<h3><a id="13-references" class="anchor" aria-hidden="true" href="#13-references"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.3 References</h3>
 <ol>
 <li>
 <p><a id="Ref_ASiC"></a>[ASiC] ETSI TS 102 918, Electronic Signatures and Infrastructures (ESI); Associated Signature Containers (ASiC)</p>
@@ -1002,10 +1003,8 @@ Doc. ID: UG-SS</p>
 <p><a id="Ref_UG-SIGDOC"></a>[UG-SIGDOC] X-Road: Signed Document Download and Verification Manual. Document ID: <a href="ug-sigdoc_x-road_signed_document_download_and_verification_manual.html">UG-SIGDOC</a>.</p>
 </li>
 </ol>
-<h2>
-<a id="2-user-management" class="anchor" href="#2-user-management" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2 User Management</h2>
-<h3>
-<a id="21-user-roles" class="anchor" href="#21-user-roles" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.1 User Roles</h3>
+<h2><a id="2-user-management" class="anchor" aria-hidden="true" href="#2-user-management"><span aria-hidden="true" class="octicon octicon-link"></span></a>2 User Management</h2>
+<h3><a id="21-user-roles" class="anchor" aria-hidden="true" href="#21-user-roles"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.1 User Roles</h3>
 <p>Security servers support the following user roles:</p>
 <ul>
 <li>
@@ -1028,11 +1027,9 @@ Doc. ID: UG-SS</p>
 <p>Henceforth each applicable section of the guide indicates, which user role is required to perform a particular action. For example:</p>
 <p><strong>Access rights:</strong> <a href="#xroad-security-officer">Security Officer</a></p>
 <p>If the logged-in user does not have a permission to carry out a particular task, the button that would initiate the action is hidden (and neither is it possible to run the task using its corresponding keyboard combinations or mouse actions). Only the permitted data and actions are visible and available to the user.</p>
-<h3>
-<a id="22-managing-the-users" class="anchor" href="#22-managing-the-users" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.2 Managing the Users</h3>
+<h3><a id="22-managing-the-users" class="anchor" aria-hidden="true" href="#22-managing-the-users"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.2 Managing the Users</h3>
 <p>User management is carried out on the command line in root user permissions.</p>
-<h4>
-<a id="221-adding-and-removing-users" class="anchor" href="#221-adding-and-removing-users" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.2.1 Adding and Removing Users</h4>
+<h4><a id="221-adding-and-removing-users" class="anchor" aria-hidden="true" href="#221-adding-and-removing-users"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.2.1 Adding and Removing Users</h4>
 <p>To add a new user, enter the command:</p>
 <pre><code>adduser username
 </code></pre>
@@ -1050,11 +1047,9 @@ adduser username xroad-securityserver-observer
 <p>To remove a user, enter:</p>
 <pre><code>deluser username
 </code></pre>
-<h3>
-<a id="23-managing-api-keys" class="anchor" href="#23-managing-api-keys" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3 Managing API Keys</h3>
+<h3><a id="23-managing-api-keys" class="anchor" aria-hidden="true" href="#23-managing-api-keys"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3 Managing API Keys</h3>
 <p>API keys are used to authenticate API calls to Security Server's management REST API. API keys are associated with roles that define the permissions granted to the API key. If the API key is lost, it can be revoked.</p>
-<h4>
-<a id="231-creating-a-new-api-key" class="anchor" href="#231-creating-a-new-api-key" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3.1 Creating a new API key</h4>
+<h4><a id="231-creating-a-new-api-key" class="anchor" aria-hidden="true" href="#231-creating-a-new-api-key"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3.1 Creating a new API key</h4>
 <p><strong>Access rights</strong></p>
 <ul>
 <li>All activities: <a href="#xroad-system-administrator">System Administrator</a>
@@ -1082,8 +1077,7 @@ adduser username xroad-securityserver-observer
 </ol>
 </li>
 </ol>
-<h4>
-<a id="232-editing-the-roles-of-an-api-key" class="anchor" href="#232-editing-the-roles-of-an-api-key" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3.2 Editing the roles of an API key</h4>
+<h4><a id="232-editing-the-roles-of-an-api-key" class="anchor" aria-hidden="true" href="#232-editing-the-roles-of-an-api-key"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3.2 Editing the roles of an API key</h4>
 <p><strong>Access rights</strong></p>
 <ul>
 <li>All activities: <a href="#xroad-system-administrator">System Administrator</a>
@@ -1103,8 +1097,7 @@ adduser username xroad-securityserver-observer
 </ol>
 </li>
 </ol>
-<h4>
-<a id="233-revoking-an-api-key" class="anchor" href="#233-revoking-an-api-key" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3.3 Revoking an API key</h4>
+<h4><a id="233-revoking-an-api-key" class="anchor" aria-hidden="true" href="#233-revoking-an-api-key"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3.3 Revoking an API key</h4>
 <p><strong>Access rights</strong></p>
 <ul>
 <li>All activities: <a href="#xroad-system-administrator">System Administrator</a>
@@ -1121,16 +1114,13 @@ adduser username xroad-securityserver-observer
 <p>In the opening view, in the API key list, locate the API key you want to revoke and click <strong>Revoke Key</strong> at the end of the API key row. In the dialog that opens click <strong>YES</strong>.</p>
 </li>
 </ol>
-<h2>
-<a id="3-security-server-registration" class="anchor" href="#3-security-server-registration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3 Security Server Registration</h2>
+<h2><a id="3-security-server-registration" class="anchor" aria-hidden="true" href="#3-security-server-registration"><span aria-hidden="true" class="octicon octicon-link"></span></a>3 Security Server Registration</h2>
 <p>To use a security server for mediating (exchanging) messages, the security server and its owner must be certified by a certification service provider approved by the X-Road governing authority, and the security server has to be registered in the X-Road governing authority.</p>
-<h3>
-<a id="31-configuring-the-signing-key-and-certificate-for-the-security-server-owner" class="anchor" href="#31-configuring-the-signing-key-and-certificate-for-the-security-server-owner" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.1 Configuring the Signing Key and Certificate for the Security Server Owner</h3>
+<h3><a id="31-configuring-the-signing-key-and-certificate-for-the-security-server-owner" class="anchor" aria-hidden="true" href="#31-configuring-the-signing-key-and-certificate-for-the-security-server-owner"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.1 Configuring the Signing Key and Certificate for the Security Server Owner</h3>
 <p>The signing keys used by the security servers for signing X-Road messages can be stored on software or hardware based (a Hardware Security Module or a smartcard) security tokens, according to the security policy of the X-Road instance.</p>
 <p>Depending on the certification policy, the signing keys are generated either in the security server or by the certification service provider. Sections <a href="#311-generating-a-signing-key-and-certificate-signing-request">3.1.1</a> and <a href="#312-importing-a-certificate-from-the-local-file-system">3.1.2</a> describe the actions necessary to configure the signing key and certificate in case the key is generated in the security server. Section <a href="#313-importing-a-certificate-from-a-security-token">3.1.3</a> describes the importing of the signing key and certificate in case the key is generated by the certification service provider.</p>
 <p>The <strong>background colors</strong> of the devices, keys and certificate are explained in Section <a href="#51-availability-states-of-security-tokens">5.1</a>.</p>
-<h4>
-<a id="311-generating-a-signing-key-and-certificate-signing-request" class="anchor" href="#311-generating-a-signing-key-and-certificate-signing-request" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.1.1 Generating a Signing Key and Certificate Signing Request</h4>
+<h4><a id="311-generating-a-signing-key-and-certificate-signing-request" class="anchor" aria-hidden="true" href="#311-generating-a-signing-key-and-certificate-signing-request"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.1.1 Generating a Signing Key and Certificate Signing Request</h4>
 <p><strong>Access rights:</strong></p>
 <ul>
 <li>
@@ -1199,8 +1189,7 @@ adduser username xroad-securityserver-observer
 </ol>
 <p>After the generation of the CSR, a "Request" record is added under the key's row in the table, indicating that a certificate signing request has been created for this key. The record is added even if the request file was not saved to the local file system.</p>
 <p><strong>To certify the signing key, transmit the certificate signing request to the approved certification service provider and accept the signing certificate created from the certificate signing request.</strong></p>
-<h4>
-<a id="312-importing-a-certificate-from-the-local-file-system" class="anchor" href="#312-importing-a-certificate-from-the-local-file-system" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.1.2 Importing a Certificate from the Local File System</h4>
+<h4><a id="312-importing-a-certificate-from-the-local-file-system" class="anchor" aria-hidden="true" href="#312-importing-a-certificate-from-the-local-file-system"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.1.2 Importing a Certificate from the Local File System</h4>
 <p><strong>Access rights:</strong> <a href="#xroad-security-officer">Security Officer</a>, <a href="#xroad-registration-officer">Registration Officer</a></p>
 <p>To import the signing certificate to the security server, follow these steps.</p>
 <ol>
@@ -1217,8 +1206,7 @@ adduser username xroad-securityserver-observer
 <p>Locate the certificate file from the local file system and click <strong>OK</strong>. After importing the certificate, the "Request" record under the signing key's row is replaced with the information from the imported certificate. By default, the signing certificate is imported in the "Registered" state.</p>
 </li>
 </ol>
-<h4>
-<a id="313-importing-a-certificate-from-a-security-token" class="anchor" href="#313-importing-a-certificate-from-a-security-token" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.1.3 Importing a Certificate from a Security Token</h4>
+<h4><a id="313-importing-a-certificate-from-a-security-token" class="anchor" aria-hidden="true" href="#313-importing-a-certificate-from-a-security-token"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.1.3 Importing a Certificate from a Security Token</h4>
 <p><strong>Access rights:</strong> <a href="#xroad-security-officer">Security Officer</a>, <a href="#xroad-registration-officer">Registration Officer</a></p>
 <p>To import a certificate from a security token, follow these steps.</p>
 <ol>
@@ -1238,11 +1226,9 @@ adduser username xroad-securityserver-observer
 <p>Click the <strong>Import</strong> button on the row of the certificate. By default, the certificate is imported in the "Registered" state.</p>
 </li>
 </ol>
-<h3>
-<a id="32-configuring-the-authentication-key-and-certificate-for-the-security-server" class="anchor" href="#32-configuring-the-authentication-key-and-certificate-for-the-security-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.2 Configuring the Authentication Key and Certificate for the Security Server</h3>
+<h3><a id="32-configuring-the-authentication-key-and-certificate-for-the-security-server" class="anchor" aria-hidden="true" href="#32-configuring-the-authentication-key-and-certificate-for-the-security-server"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.2 Configuring the Authentication Key and Certificate for the Security Server</h3>
 <p>The <strong>background colors</strong> of the devices, keys and certificate are explained in Section <a href="#51-availability-states-of-security-tokens">5.1</a>.</p>
-<h4>
-<a id="321-generating-an-authentication-key" class="anchor" href="#321-generating-an-authentication-key" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.2.1 Generating an Authentication Key</h4>
+<h4><a id="321-generating-an-authentication-key" class="anchor" aria-hidden="true" href="#321-generating-an-authentication-key"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.2.1 Generating an Authentication Key</h4>
 <p><strong>Access rights</strong></p>
 <ul>
 <li>
@@ -1303,8 +1289,7 @@ adduser username xroad-securityserver-observer
 </ol>
 </li>
 </ol>
-<h4>
-<a id="322-generating-a-certificate-signing-request-for-an-authentication-key" class="anchor" href="#322-generating-a-certificate-signing-request-for-an-authentication-key" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.2.2 Generating a Certificate Signing Request for an Authentication Key</h4>
+<h4><a id="322-generating-a-certificate-signing-request-for-an-authentication-key" class="anchor" aria-hidden="true" href="#322-generating-a-certificate-signing-request-for-an-authentication-key"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.2.2 Generating a Certificate Signing Request for an Authentication Key</h4>
 <p><strong>Access rights:</strong> <a href="#xroad-security-officer">Security Officer</a></p>
 <p>To generate a certificate signing request (CSR) for the authentication key, follow these steps.</p>
 <ol>
@@ -1333,8 +1318,7 @@ adduser username xroad-securityserver-observer
 </ol>
 <p>After the generation of the CSR, a "Request" record is added under the key's row in the table, indicating that a certificate signing request has been created for this key. The record is added even if the request file was not saved to the local file system.</p>
 <p><strong>To certify the authentication key, transmit the certificate signing request to the approved certification service provider and accept the authentication certificate created from the certificate signing request.</strong></p>
-<h4>
-<a id="323-importing-an-authentication-certificate-from-the-local-file-system" class="anchor" href="#323-importing-an-authentication-certificate-from-the-local-file-system" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.2.3 Importing an Authentication Certificate from the Local File System</h4>
+<h4><a id="323-importing-an-authentication-certificate-from-the-local-file-system" class="anchor" aria-hidden="true" href="#323-importing-an-authentication-certificate-from-the-local-file-system"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.2.3 Importing an Authentication Certificate from the Local File System</h4>
 <p><strong>Access rights:</strong> <a href="#xroad-security-officer">Security Officer</a></p>
 <p>To import the authentication certificate to the security server, follow these steps.</p>
 <ol>
@@ -1351,8 +1335,7 @@ adduser username xroad-securityserver-observer
 <p>Locate the certificate file from the local file system and click <strong>OK</strong>. After importing the certificate, the "Request" record under the authentication key's row is replaced with the information from the imported certificate. By default, the certificate is imported in the "Saved" (see Section <a href="#522-registration-states-of-the-authentication-certificate">5.2.2</a>) and "Disabled" states (see Section <a href="#53-validity-states-of-certificates">5.3</a>).</p>
 </li>
 </ol>
-<h3>
-<a id="33-registering-the-security-server-in-the-x-road-governing-authority" class="anchor" href="#33-registering-the-security-server-in-the-x-road-governing-authority" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.3 Registering the Security Server in the X-Road Governing Authority</h3>
+<h3><a id="33-registering-the-security-server-in-the-x-road-governing-authority" class="anchor" aria-hidden="true" href="#33-registering-the-security-server-in-the-x-road-governing-authority"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.3 Registering the Security Server in the X-Road Governing Authority</h3>
 <p>To register the security server in the X-Road governing authority, the following actions must be completed.</p>
 <ul>
 <li>
@@ -1365,8 +1348,7 @@ adduser username xroad-securityserver-observer
 <p>The registration request must be approved by the X-Road governing authority.</p>
 </li>
 </ul>
-<h4>
-<a id="331-registering-an-authentication-certificate" class="anchor" href="#331-registering-an-authentication-certificate" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.3.1 Registering an Authentication Certificate</h4>
+<h4><a id="331-registering-an-authentication-certificate" class="anchor" aria-hidden="true" href="#331-registering-an-authentication-certificate"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.3.1 Registering an Authentication Certificate</h4>
 <p><strong>Access rights:</strong> <a href="#xroad-security-officer">Security Officer</a></p>
 <p>The security server's registration request is signed in the security server with the server owner's signing key and the server's authentication key. Therefore, ensure that the corresponding certificates are imported to the security server and are in a usable state (the tokens holding the keys are in logged in state and the OCSP status of the certificates is "good").</p>
 <p>To submit an authentication certificate registration request, follow these steps.</p>
@@ -1386,8 +1368,7 @@ adduser username xroad-securityserver-observer
 </ol>
 <p>On submitting the request, the message "Certificate registration request successful" is displayed, and the authentication certificate's state is set to "Registration in process".</p>
 <p>After the X-Road governing authority has accepted the registration, the registration state of the authentication certificate is set to "Registered" and the registration process is completed.</p>
-<h3>
-<a id="34-changing-the-security-server-owner" class="anchor" href="#34-changing-the-security-server-owner" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.4 Changing the Security Server Owner</h3>
+<h3><a id="34-changing-the-security-server-owner" class="anchor" aria-hidden="true" href="#34-changing-the-security-server-owner"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.4 Changing the Security Server Owner</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-registration-officer">Registration Officer</a></p>
 <p>To change the security server owner, two registered Owner members must be available. If a registered member is already available, jump directly to step 3.</p>
 <p>To add a new member and change it to Owner member, the following actions must be completed.</p>
@@ -1444,15 +1425,13 @@ adduser username xroad-securityserver-observer
 <p>New Authentication Key and Certificate should be configured for the new security server owner (see <a href="#32-configuring-the-authentication-key-and-certificate-for-the-security-server">3.2</a>).</p>
 </li>
 </ul>
-<h2>
-<a id="4-security-server-clients" class="anchor" href="#4-security-server-clients" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4 Security Server Clients</h2>
+<h2><a id="4-security-server-clients" class="anchor" aria-hidden="true" href="#4-security-server-clients"><span aria-hidden="true" class="octicon octicon-link"></span></a>4 Security Server Clients</h2>
 <p><strong>Important: to use or provide X-Road services, a security server client needs to be certified by a certification service provider approved by the X-Road governing authority, and the association between the client and the security server used by the client must be registered at the X-Road governing authority.</strong></p>
 <p><strong>This section does not address managing the owner to a security server.</strong> The owner's information has been already added to the security server upon the installation, and registered upon the security server's registration. The owner's registration status can be looked up by selecting <strong>CLIENTS</strong> on the main menu. In the list the item with text "(Owner)" after the name is security server's owner. Before the registration of the security server, the owner is in the "Saved" state and after the completion of the registration process, in the "Registered" state.</p>
 <p>The registration of the security server's owner does not extend to the owner's subsystems. The subsystems must be registered as individual clients.</p>
-<h3>
-<a id="41-security-server-client-states" class="anchor" href="#41-security-server-client-states" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.1 Security Server Client States</h3>
+<h3><a id="41-security-server-client-states" class="anchor" aria-hidden="true" href="#41-security-server-client-states"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.1 Security Server Client States</h3>
 <p>The security server distinguishes between the following client states.</p>
-<p><a href="img/ug-ss_saved.png" target="_blank" rel="noopener noreferrer"><img src="img/ug-ss_saved.png" alt="" style="max-width:100%;"></a> <strong>Saved</strong> – the client's information has been entered and saved into the security server's configuration (see <a href="#42-adding-a-security-server-client">4.2</a>), but the association between the client and the security server is not registered in the X-Road governing authority. (If the association is registered in the central server prior to the entry of data, the client will move to the "Registered" state upon data entry.) From this state, the client can move to the following states:</p>
+<p><a target="_blank" rel="noopener noreferrer" href="img/ug-ss_saved.png"><img src="img/ug-ss_saved.png" alt="" style="max-width: 100%;"></a> <strong>Saved</strong> – the client's information has been entered and saved into the security server's configuration (see <a href="#42-adding-a-security-server-client">4.2</a>), but the association between the client and the security server is not registered in the X-Road governing authority. (If the association is registered in the central server prior to the entry of data, the client will move to the "Registered" state upon data entry.) From this state, the client can move to the following states:</p>
 <ul>
 <li>
 <p>"Registration in progress", if a registration request for the client is submitted from the security server (see <a href="#451-registering-a-security-server-client">4.5.1</a>);</p>
@@ -1461,7 +1440,7 @@ adduser username xroad-securityserver-observer
 <p>"Deleted", if the client's information is deleted from the security server configuration (see <a href="#462-deleting-a-client">4.6.2</a>).</p>
 </li>
 </ul>
-<p><a href="img/ug-ss_registration_in_progress.png" target="_blank" rel="noopener noreferrer"><img src="img/ug-ss_registration_in_progress.png" alt="" style="max-width:100%;"></a> <strong>Registration in progress</strong> – a registration request for the client is submitted from the security server to the central server, but the association between the client and the security server is not yet approved by the X-Road governing authority. From this state, the client can move to the following states:</p>
+<p><a target="_blank" rel="noopener noreferrer" href="img/ug-ss_registration_in_progress.png"><img src="img/ug-ss_registration_in_progress.png" alt="" style="max-width: 100%;"></a> <strong>Registration in progress</strong> – a registration request for the client is submitted from the security server to the central server, but the association between the client and the security server is not yet approved by the X-Road governing authority. From this state, the client can move to the following states:</p>
 <ul>
 <li>
 <p>"Registered", if the association between the client and the security server is approved by the X-Road governing authority (see <a href="#441-registering-a-security-server-client">4.4.1</a>);</p>
@@ -1470,7 +1449,7 @@ adduser username xroad-securityserver-observer
 <p>"Deletion in progress", if a client deletion request is submitted from the security server (see <a href="#461-unregistering-a-client">4.6.1</a>).</p>
 </li>
 </ul>
-<p><a href="img/ug-ss_registered.png" target="_blank" rel="noopener noreferrer"><img src="img/ug-ss_registered.png" alt="" style="max-width:100%;"></a> <strong>Registered</strong> – the association between the client and the security server has been approved in the X-Road governing authority. In this state, the client can provide and use X-Road services (assuming all other prerequisites are fulfilled). From this state, the client can move to the following states:</p>
+<p><a target="_blank" rel="noopener noreferrer" href="img/ug-ss_registered.png"><img src="img/ug-ss_registered.png" alt="" style="max-width: 100%;"></a> <strong>Registered</strong> – the association between the client and the security server has been approved in the X-Road governing authority. In this state, the client can provide and use X-Road services (assuming all other prerequisites are fulfilled). From this state, the client can move to the following states:</p>
 <ul>
 <li>
 <p>"Global error", if the association between the client and the security server has been revoked by the X-Road governing authority;</p>
@@ -1479,7 +1458,7 @@ adduser username xroad-securityserver-observer
 <p>"Deletion in progress", if a client deletion request is submitted from the security server (see <a href="#461-unregistering-a-client">4.6.1</a>).</p>
 </li>
 </ul>
-<p><a href="img/ug-ss_global_error.png" target="_blank" rel="noopener noreferrer"><img src="img/ug-ss_global_error.png" alt="" style="max-width:100%;"></a> <strong>Global error</strong> – the association between the client and the security server has been revoked in the central server. From this state, the client can move to the following states:</p>
+<p><a target="_blank" rel="noopener noreferrer" href="img/ug-ss_global_error.png"><img src="img/ug-ss_global_error.png" alt="" style="max-width: 100%;"></a> <strong>Global error</strong> – the association between the client and the security server has been revoked in the central server. From this state, the client can move to the following states:</p>
 <ul>
 <li>
 <p>"Registered", if the association between the client and the security server has been restored in the central server (e.g., the association between the client and the security server was lost due to an error);</p>
@@ -1488,13 +1467,12 @@ adduser username xroad-securityserver-observer
 <p>"Deleted", if the client's information is deleted from the security server's configuration (see <a href="#452-deleting-a-client">4.6.2</a>).</p>
 </li>
 </ul>
-<p><a href="img/ug-ss_deletion_in_progress.png" target="_blank" rel="noopener noreferrer"><img src="img/ug-ss_deletion_in_progress.png" alt="" style="max-width:100%;"></a> <strong>Deletion in progress</strong> – a client deletion request has been submitted from the security server. From this state, the client can move to the following state:</p>
+<p><a target="_blank" rel="noopener noreferrer" href="img/ug-ss_deletion_in_progress.png"><img src="img/ug-ss_deletion_in_progress.png" alt="" style="max-width: 100%;"></a> <strong>Deletion in progress</strong> – a client deletion request has been submitted from the security server. From this state, the client can move to the following state:</p>
 <ul>
 <li>"Deleted", if the client's information is deleted from the security server's configuration (see <a href="#452-deleting-a-client">4.6.2</a>).</li>
 </ul>
 <p><strong>Deleted</strong> – the client's information has been deleted from the security server's configuration.</p>
-<h3>
-<a id="42-adding-a-security-server-client" class="anchor" href="#42-adding-a-security-server-client" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.2 Adding a Security Server Client</h3>
+<h3><a id="42-adding-a-security-server-client" class="anchor" aria-hidden="true" href="#42-adding-a-security-server-client"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.2 Adding a Security Server Client</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-registration-officer">Registration Officer</a></p>
 <p>Follow these steps.</p>
 <ol>
@@ -1526,8 +1504,7 @@ adduser username xroad-securityserver-observer
 </li>
 </ol>
 <p>The new client is added to the list of security server clients in the "Saved" state.</p>
-<h3>
-<a id="43-adding-a-security-server-member-subsystem" class="anchor" href="#43-adding-a-security-server-member-subsystem" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.3 Adding a Security Server Member Subsystem</h3>
+<h3><a id="43-adding-a-security-server-member-subsystem" class="anchor" aria-hidden="true" href="#43-adding-a-security-server-member-subsystem"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.3 Adding a Security Server Member Subsystem</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-registration-officer">Registration Officer</a></p>
 <p>Follow these steps.</p>
 <ol>
@@ -1542,14 +1519,12 @@ adduser username xroad-securityserver-observer
 </li>
 </ol>
 <p>The new subsystem is added to the list of security server clients in the "Saved" state.</p>
-<h3>
-<a id="44-configuring-a-signing-key-and-certificate-for-a-security-server-client" class="anchor" href="#44-configuring-a-signing-key-and-certificate-for-a-security-server-client" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.4 Configuring a Signing Key and Certificate for a Security Server Client</h3>
+<h3><a id="44-configuring-a-signing-key-and-certificate-for-a-security-server-client" class="anchor" aria-hidden="true" href="#44-configuring-a-signing-key-and-certificate-for-a-security-server-client"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.4 Configuring a Signing Key and Certificate for a Security Server Client</h3>
 <p>A signing key and certificate must be configured for the security server client to sign messages exchanged over the X-Road. In addition, a signing key and certificate are required for registering a security server client.</p>
 <p>Certificates are not issued to subsystems; therefore, the certificate of the subsystem's owner (that is, an X-Road member) is used for the subsystem.</p>
 <p>All particular X-Road member's subsystems that are registered in the same security server use the same signing certificate for signing messages. Hence, if the security server already contains the member's signing certificate, it is not necessary to configure a new signing key and/or certificate when adding a subsystem of that member.</p>
 <p>The process of configuring the signing key and certificate for a security server client is the same as for the security server owner. The process is described in Section <a href="#31-configuring-the-signing-key-and-certificate-for-the-security-server-owner">3.1</a>.</p>
-<h3>
-<a id="45-registering-a-security-server-client-in-the-x-road-governing-authority" class="anchor" href="#45-registering-a-security-server-client-in-the-x-road-governing-authority" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.5 Registering a Security Server Client in the X-Road Governing Authority</h3>
+<h3><a id="45-registering-a-security-server-client-in-the-x-road-governing-authority" class="anchor" aria-hidden="true" href="#45-registering-a-security-server-client-in-the-x-road-governing-authority"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.5 Registering a Security Server Client in the X-Road Governing Authority</h3>
 <p>To register a security server client in the X-Road governing authority, the following actions must be completed.</p>
 <ul>
 <li>
@@ -1565,8 +1540,7 @@ adduser username xroad-securityserver-observer
 <p>The registration request must be approved by the X-Road governing authority.</p>
 </li>
 </ul>
-<h4>
-<a id="451-registering-a-security-server-client" class="anchor" href="#451-registering-a-security-server-client" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.5.1 Registering a Security Server Client</h4>
+<h4><a id="451-registering-a-security-server-client" class="anchor" aria-hidden="true" href="#451-registering-a-security-server-client"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.5.1 Registering a Security Server Client</h4>
 <p><strong>Access rights:</strong> <a href="#xroad-registration-officer">Registration Officer</a></p>
 <p>To submit a client registration request follow these steps.</p>
 <ol>
@@ -1582,13 +1556,11 @@ adduser username xroad-securityserver-observer
 </ol>
 <p>On submitting the request, the message "Request sent" is displayed, and the client's state is set to "Registration in process".</p>
 <p>After the X-Road governing authority has accepted the registration, the state of the client is set to "Registered" and the registration process is completed.</p>
-<h3>
-<a id="46-deleting-a-client-from-the-security-server" class="anchor" href="#46-deleting-a-client-from-the-security-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.6 Deleting a Client from the Security Server</h3>
+<h3><a id="46-deleting-a-client-from-the-security-server" class="anchor" aria-hidden="true" href="#46-deleting-a-client-from-the-security-server"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.6 Deleting a Client from the Security Server</h3>
 <p>If a client is deleted from the security server, all the information related to the client is deleted from the server as well – that is, the WSDLs, services, access rights, and, if necessary, the certificates.</p>
 <p>When one of the clients is deleted, it is not advisable to delete the signing certificate if the certificate is used by other clients registered to the security server, e.g., other subsystems belonging the same X-Road member as the deleted subsystem.</p>
 <p>A client registered or submitted for registration in the X-Road governing authority (indicated by the "Registered" or "Registration in progress" state) must be unregistered before it can be deleted. The unregistering event sends a security server client deletion request from the security server to the central server.</p>
-<h4>
-<a id="461-unregistering-a-client" class="anchor" href="#461-unregistering-a-client" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.6.1 Unregistering a Client</h4>
+<h4><a id="461-unregistering-a-client" class="anchor" aria-hidden="true" href="#461-unregistering-a-client"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.6.1 Unregistering a Client</h4>
 <p><strong>Access rights:</strong> <a href="#xroad-registration-officer">Registration Officer</a></p>
 <p>To unregister a client, follow these steps.</p>
 <ol>
@@ -1603,8 +1575,7 @@ adduser username xroad-securityserver-observer
 </li>
 </ol>
 <p><em>Note:</em> It is possible to unregister a registered client from the central server without sending a deletion request through the security server. In this case, the security server's administrator responsible for the client must transmit a request containing information about the client to be unregistered to the central server's administrator. If the client has been deleted from the central server without a prior deletion request from the security server, the client is shown in the "Global error" state in the security server.</p>
-<h4>
-<a id="462-deleting-a-client" class="anchor" href="#462-deleting-a-client" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.6.2 Deleting a Client</h4>
+<h4><a id="462-deleting-a-client" class="anchor" aria-hidden="true" href="#462-deleting-a-client"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.6.2 Deleting a Client</h4>
 <p><strong>Access rights:</strong> <a href="#xroad-registration-officer">Registration Officer</a></p>
 <p>A security server client can be deleted if its state is "Saved", "Global error" or "Deletion in progress". Clients that are in states "Registered" or "Registration in progress" need to be unregistered before they can be deleted (see Section <a href="#461-unregistering-a-client">4.6.1</a>).</p>
 <p>To delete a client, follow these steps.</p>
@@ -1616,10 +1587,8 @@ adduser username xroad-securityserver-observer
 <p>In the window that opens, click <strong>DELETE</strong> and then click <strong>YES</strong>. If there are no users for the signature key nor for the certificate associated then an option is presented to delete the client's certificates. To delete the certificates, click <strong>YES</strong> again.</p>
 </li>
 </ol>
-<h2>
-<a id="5-security-tokens-keys-and-certificates" class="anchor" href="#5-security-tokens-keys-and-certificates" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5 Security Tokens, Keys, and Certificates</h2>
-<h3>
-<a id="51-availability-states-of-security-tokens" class="anchor" href="#51-availability-states-of-security-tokens" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.1 Availability States of Security Tokens</h3>
+<h2><a id="5-security-tokens-keys-and-certificates" class="anchor" aria-hidden="true" href="#5-security-tokens-keys-and-certificates"><span aria-hidden="true" class="octicon octicon-link"></span></a>5 Security Tokens, Keys, and Certificates</h2>
+<h3><a id="51-availability-states-of-security-tokens" class="anchor" aria-hidden="true" href="#51-availability-states-of-security-tokens"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.1 Availability States of Security Tokens</h3>
 <p><strong>Notice that the colors were introduced in version 6.25.0</strong></p>
 <p>To display the availability of tokens, the following colors and labels are used in the "Keys and Certificates" view.</p>
 <ul>
@@ -1640,11 +1609,9 @@ adduser username xroad-securityserver-observer
 </li>
 </ul>
 <p><strong>Caution:</strong> The key device's and key's information is automatically saved to the configuration when a certificate associated with either of them is imported to the security server, or when a certificate signing request is generated for the key. Similarly, the key device's and key's information is deleted from the security server configuration automatically upon the deletion of the last associated certificate and/or certificate signing request.</p>
-<h3>
-<a id="52-registration-states-of-certificates" class="anchor" href="#52-registration-states-of-certificates" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.2 Registration States of Certificates</h3>
+<h3><a id="52-registration-states-of-certificates" class="anchor" aria-hidden="true" href="#52-registration-states-of-certificates"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.2 Registration States of Certificates</h3>
 <p>Registration states indicate if and how a certificate can be used in the X-Road system. In the "Keys and Certificates" view, a certificate's registration states (except "Deleted"  for certificates stored on soft token key) are displayed in the "Status" column.</p>
-<h4>
-<a id="521-registration-states-of-the-signing-certificate" class="anchor" href="#521-registration-states-of-the-signing-certificate" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.2.1 Registration States of the Signing Certificate</h4>
+<h4><a id="521-registration-states-of-the-signing-certificate" class="anchor" aria-hidden="true" href="#521-registration-states-of-the-signing-certificate"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.2.1 Registration States of the Signing Certificate</h4>
 <p>A security server signing certificate can be in one of the following registration states.</p>
 <ul>
 <li>
@@ -1654,8 +1621,7 @@ adduser username xroad-securityserver-observer
 <p><strong>Deleted</strong> – the certificate has been deleted from the server configuration. If the certificate is in the "Deleted" state and stored on a soft token key, the certificate will not be displayed in the table. If the certificate is in the "Deleted" state and stored on a hardware key device connected to the security server, the certificate status will be displayed with a <strong>red circle</strong> and a text <strong>ONLY IN TOKEN</strong>.</p>
 </li>
 </ul>
-<h4>
-<a id="522-registration-states-of-the-authentication-certificate" class="anchor" href="#522-registration-states-of-the-authentication-certificate" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.2.2 Registration States of the Authentication Certificate</h4>
+<h4><a id="522-registration-states-of-the-authentication-certificate" class="anchor" aria-hidden="true" href="#522-registration-states-of-the-authentication-certificate"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.2.2 Registration States of the Authentication Certificate</h4>
 <p>A security server authentication certificate can be in one of the following registration states.</p>
 <p><strong>Saved</strong> – the certificate has been imported to the security server and saved to its configuration, but the certificate has not been submitted for registration. From this state, the certificate can move to the following states:</p>
 <ul>
@@ -1694,8 +1660,7 @@ adduser username xroad-securityserver-observer
 </li>
 </ul>
 <p><strong>Deletion in progress</strong> – an authentication certificate registration request has been created for the certificate and sent to the central server. From this state, the certificate can be deleted. If the certificate has been deleted from the security server configuration, it will not be displayed in the table anymore.</p>
-<h3>
-<a id="53-validity-states-of-certificates" class="anchor" href="#53-validity-states-of-certificates" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.3 Validity States of Certificates</h3>
+<h3><a id="53-validity-states-of-certificates" class="anchor" aria-hidden="true" href="#53-validity-states-of-certificates"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.3 Validity States of Certificates</h3>
 <p>Validity states indicate if and how a certificate can be used independent of the X-Road system. In the "Keys and Certificates" view, the certificate's validity states are displayed in the "OCSP" column. Validity states (except "Disabled") are displayed for certificates that are in the "Registered" registration state.</p>
 <p>A security server certificate can be in one of the following validity states.</p>
 <ul>
@@ -1718,8 +1683,7 @@ adduser username xroad-securityserver-observer
 <p><strong>Disabled</strong> – the user has marked the certificate as disabled. The certificate is not active and OCSP queries are not performed about it.</p>
 </li>
 </ul>
-<h3>
-<a id="54-activating-and-disabling-the-certificates" class="anchor" href="#54-activating-and-disabling-the-certificates" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.4 Activating and Disabling the Certificates</h3>
+<h3><a id="54-activating-and-disabling-the-certificates" class="anchor" aria-hidden="true" href="#54-activating-and-disabling-the-certificates"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.4 Activating and Disabling the Certificates</h3>
 <p><strong>Access rights</strong></p>
 <ul>
 <li>
@@ -1743,16 +1707,13 @@ adduser username xroad-securityserver-observer
 <p>3.1 In the opening <strong>Certificate</strong> dialog, click <strong>Activate</strong>. To deactivate a certificate, click <strong>DISABLE</strong> in the <strong>Certificate</strong> dialog.</p>
 </li>
 </ol>
-<h3>
-<a id="55-configuring-and-registering-an-authentication-key-and-certificate" class="anchor" href="#55-configuring-and-registering-an-authentication-key-and-certificate" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.5 Configuring and Registering an Authentication key and Certificate</h3>
+<h3><a id="55-configuring-and-registering-an-authentication-key-and-certificate" class="anchor" aria-hidden="true" href="#55-configuring-and-registering-an-authentication-key-and-certificate"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.5 Configuring and Registering an Authentication key and Certificate</h3>
 <p>A Security server can have multiple authentication keys and certificates (e.g., during authentication key change).</p>
 <p>The process of configuring another authentication key and certificate is described in Section <a href="#32-configuring-the-authentication-key-and-certificate-for-the-security-server">3.2</a>.</p>
 <p>The process of registering an authentication certificate is described in Section <a href="#331-registering-an-authentication-certificate">3.3.1</a>.</p>
-<h3>
-<a id="56-deleting-a-certificate" class="anchor" href="#56-deleting-a-certificate" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.6 Deleting a Certificate</h3>
+<h3><a id="56-deleting-a-certificate" class="anchor" aria-hidden="true" href="#56-deleting-a-certificate"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.6 Deleting a Certificate</h3>
 <p>An authentication certificate registered or submitted for registration in the X-Road governing authority (indicated by the "Registered" or "Registration in progress" state) must be unregistered before it can be deleted. The unregistering event sends an authentication certificate deletion request from the security server to the central server.</p>
-<h4>
-<a id="561-unregistering-an-authentication-certificate" class="anchor" href="#561-unregistering-an-authentication-certificate" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.6.1 Unregistering an Authentication Certificate</h4>
+<h4><a id="561-unregistering-an-authentication-certificate" class="anchor" aria-hidden="true" href="#561-unregistering-an-authentication-certificate"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.6.1 Unregistering an Authentication Certificate</h4>
 <p><strong>Access rights:</strong> <a href="#xroad-security-officer">Security Officer</a></p>
 <p>To unregister an authentication certificate, follow these steps.</p>
 <ol>
@@ -1769,8 +1730,7 @@ adduser username xroad-securityserver-observer
 </li>
 </ol>
 <p>A registered authentication certificate can be deleted from the central server without sending a deletion request through the security server. In this case, the security server's administrator must transmit a request containing information about the authentication certificate to be deleted to the central server's administrator. If the authentication certificate has been deleted from the central server without a deletion request from the security server, the certificate is shown in the "Global error" state in the security server.</p>
-<h4>
-<a id="562-deleting-a-certificate-or-a-certificate-signing-request-notice" class="anchor" href="#562-deleting-a-certificate-or-a-certificate-signing-request-notice" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.6.2 Deleting a Certificate or a certificate Signing Request notice</h4>
+<h4><a id="562-deleting-a-certificate-or-a-certificate-signing-request-notice" class="anchor" aria-hidden="true" href="#562-deleting-a-certificate-or-a-certificate-signing-request-notice"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.6.2 Deleting a Certificate or a certificate Signing Request notice</h4>
 <p><strong>Access rights</strong></p>
 <ul>
 <li>
@@ -1815,8 +1775,7 @@ adduser username xroad-securityserver-observer
 <p>At the end of the desired CSR row click <strong>Delete CSR</strong>. Confirm the deletion by clicking <strong>YES</strong>.</p>
 </li>
 </ol>
-<h3>
-<a id="57-deleting-a-key" class="anchor" href="#57-deleting-a-key" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.7 Deleting a Key</h3>
+<h3><a id="57-deleting-a-key" class="anchor" aria-hidden="true" href="#57-deleting-a-key"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.7 Deleting a Key</h3>
 <p><strong>Warning:</strong> Deleting a key from the server configuration also deletes all certificates (and certificate signing request notices) associated with the key.</p>
 <p><strong>Access rights</strong></p>
 <ul>
@@ -1843,8 +1802,7 @@ adduser username xroad-securityserver-observer
 <p>3.1 In the opening <strong>Key</strong> dialog, click <strong>DELETE</strong>. Confirm the deletion of the key (and its associated certificates) by clicking <strong>YES</strong>.</p>
 </li>
 </ol>
-<h2>
-<a id="6-x-road-services" class="anchor" href="#6-x-road-services" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6 X-Road Services</h2>
+<h2><a id="6-x-road-services" class="anchor" aria-hidden="true" href="#6-x-road-services"><span aria-hidden="true" class="octicon octicon-link"></span></a>6 X-Road Services</h2>
 <p>X-Road supports both SOAP and REST services. The services are managed on two levels:</p>
 <ul>
 <li>
@@ -1854,11 +1812,9 @@ adduser username xroad-securityserver-observer
 <p>the service address, internal network connection method, and the service timeout values are configured at the service level for SOAP services and at the API level for REST / OpenAPI 3 services. In addition, for SOAP / WSDL, it is easy to extend the configuration of one service to all the other services.</p>
 </li>
 </ul>
-<h3>
-<a id="61-adding-a-service-description" class="anchor" href="#61-adding-a-service-description" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.1 Adding a service description</h3>
+<h3><a id="61-adding-a-service-description" class="anchor" aria-hidden="true" href="#61-adding-a-service-description"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.1 Adding a service description</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-service-administrator">Service Administrator</a></p>
-<h4>
-<a id="611-soap" class="anchor" href="#611-soap" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.1.1 SOAP</h4>
+<h4><a id="611-soap" class="anchor" aria-hidden="true" href="#611-soap"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.1.1 SOAP</h4>
 <p>When a new WSDL file is added, the security server reads service information from it and displays the information in the table of services. The service code, title and address are read from the WSDL.</p>
 <p><strong>To add a WSDL</strong>, follow these steps.</p>
 <ol>
@@ -1873,8 +1829,7 @@ adduser username xroad-securityserver-observer
 <ul>
 <li>click the caret next to the WSDL service url to expand the list.</li>
 </ul>
-<h4>
-<a id="612-rest" class="anchor" href="#612-rest" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.1.2 REST</h4>
+<h4><a id="612-rest" class="anchor" aria-hidden="true" href="#612-rest"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.1.2 REST</h4>
 <p>After a new REST service is added, the security server displays text "REST" and url for that service.</p>
 <p><strong>To add a REST service</strong>, follow these steps.</p>
 <ol>
@@ -1892,8 +1847,7 @@ adduser username xroad-securityserver-observer
 <ul>
 <li>click the caret on the REST service description row to expand the service details.</li>
 </ul>
-<h3>
-<a id="62-refreshing-a-service-description" class="anchor" href="#62-refreshing-a-service-description" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.2 Refreshing a service description</h3>
+<h3><a id="62-refreshing-a-service-description" class="anchor" aria-hidden="true" href="#62-refreshing-a-service-description"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.2 Refreshing a service description</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-service-administrator">Service Administrator</a></p>
 <p>Upon refreshing, the security server reloads the service description file from the service description URL to the security server and checks the service information in the reloaded file against existing services. If the composition of services in the new service description has changed compared to the current version, a warning is displayed and you can either continue with the refresh or cancel.</p>
 <p>To refresh the service description, follow these steps.</p>
@@ -1909,8 +1863,7 @@ adduser username xroad-securityserver-observer
 </li>
 </ol>
 <p>When the service description is refreshed, the existing services' settings are not overwritten.</p>
-<h3>
-<a id="63-enabling-and-disabling-a-service-description" class="anchor" href="#63-enabling-and-disabling-a-service-description" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.3 Enabling and Disabling a service description</h3>
+<h3><a id="63-enabling-and-disabling-a-service-description" class="anchor" aria-hidden="true" href="#63-enabling-and-disabling-a-service-description"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.3 Enabling and Disabling a service description</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-service-administrator">Service Administrator</a></p>
 <p>A disabled service description is displayed in the services' list with a disabled switch icon on the same row.</p>
 <p>Services described by a disabled service description cannot be accessed by the service clients – if an attempt is made to access the service, an error message is returned, containing the information entered by the security server's administrator when the service description was disabled.</p>
@@ -1925,8 +1878,7 @@ adduser username xroad-securityserver-observer
 </li>
 </ol>
 <p>(3.) If the service was disabled a popup will appear. In the popup, enter a Disable notice which is shown to clients who try to access any of the services in the service description, and click <strong>OK</strong>.</p>
-<h3>
-<a id="64-changing-the-address-of-a-service-description" class="anchor" href="#64-changing-the-address-of-a-service-description" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.4 Changing the Address of a service description</h3>
+<h3><a id="64-changing-the-address-of-a-service-description" class="anchor" aria-hidden="true" href="#64-changing-the-address-of-a-service-description"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.4 Changing the Address of a service description</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-service-administrator">Service Administrator</a></p>
 <p>To change the service description address, follow these steps.</p>
 <ol>
@@ -1940,8 +1892,7 @@ adduser username xroad-securityserver-observer
 <p>In the dialog that opens you can edit the URL for all types of services and for REST services the service code can also be changed. Click <strong>SAVE</strong>. The service information updates accordingly (see section <a href="#62-refreshing-a-service-description">6.2</a>).</p>
 </li>
 </ol>
-<h3>
-<a id="65-deleting-a-service-description" class="anchor" href="#65-deleting-a-service-description" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.5 Deleting a service description</h3>
+<h3><a id="65-deleting-a-service-description" class="anchor" aria-hidden="true" href="#65-deleting-a-service-description"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.5 Deleting a service description</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-service-administrator">Service Administrator</a></p>
 <p>When a service description is deleted, all information related to the services described in the service description, including access rights, are deleted.</p>
 <p>To delete a service description, follow these steps.</p>
@@ -1956,8 +1907,7 @@ adduser username xroad-securityserver-observer
 <p>Click <strong>DELETE</strong> and confirm the deletion by clicking <strong>YES</strong> in the dialog that opens.</p>
 </li>
 </ol>
-<h3>
-<a id="66-changing-the-parameters-of-a-service" class="anchor" href="#66-changing-the-parameters-of-a-service" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.6 Changing the Parameters of a Service</h3>
+<h3><a id="66-changing-the-parameters-of-a-service" class="anchor" aria-hidden="true" href="#66-changing-the-parameters-of-a-service"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.6 Changing the Parameters of a Service</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-service-administrator">Service Administrator</a></p>
 <p>Service parameters are</p>
 <ul>
@@ -1987,8 +1937,7 @@ adduser username xroad-securityserver-observer
 <p>In the view that opens, configure the service parameters. To apply the selected parameter to all services described in the same service description, select the checkbox adjacent to this parameter in the <strong>Apply to All in WSDL</strong> column. To apply the configured parameters, click <strong>SAVE</strong>.</p>
 </li>
 </ol>
-<h3>
-<a id="67-managing-rest-endpoints" class="anchor" href="#67-managing-rest-endpoints" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.7 Managing REST Endpoints</h3>
+<h3><a id="67-managing-rest-endpoints" class="anchor" aria-hidden="true" href="#67-managing-rest-endpoints"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.7 Managing REST Endpoints</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-service-administrator">Service Administrator</a></p>
 <p>REST type service descriptions can contain API endpoints. The purpose of the endpoints is more fine-grained access control. More about that in chapter <a href="#7-access-rights">7 Access Rights</a>.</p>
 <p>When URL type of the REST service is an OpenAPI 3 description, endpoints are parsed from the service description automatically. These endpoints cannot be manually updated or deleted. Additionally manual endpoints can be added as needed. When URL type is REST API base path, all the endpoints need to be created manually. Manually created endpoints can also be edited and deleted as needed.</p>
@@ -2007,8 +1956,7 @@ adduser username xroad-securityserver-observer
 <p>In the dialog that opens fill in the HTTP Request method and path for the endpoint and click <strong>ADD</strong></p>
 </li>
 </ol>
-<h2>
-<a id="7-access-rights" class="anchor" href="#7-access-rights" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>7 Access Rights</h2>
+<h2><a id="7-access-rights" class="anchor" aria-hidden="true" href="#7-access-rights"><span aria-hidden="true" class="octicon octicon-link"></span></a>7 Access Rights</h2>
 <p>Access rights can be granted to the following access right subjects.</p>
 <ul>
 <li>
@@ -2036,8 +1984,7 @@ adduser username xroad-securityserver-observer
 <li>endpoint level</li>
 </ul>
 <p>In general, a REST service usually has multiple endpoints. When access rights are defined on the service level, they apply to all the endpoints of the REST service. Instead, defining access rights on the endpoint level gives access to specific endpoint(s) only. The service level access rights support both service-based and service client-based access rights management. The endpoint level access rights support only service based access rights management.</p>
-<h3>
-<a id="71-changing-the-access-rights-of-a-service" class="anchor" href="#71-changing-the-access-rights-of-a-service" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>7.1 Changing the Access Rights of a Service</h3>
+<h3><a id="71-changing-the-access-rights-of-a-service" class="anchor" aria-hidden="true" href="#71-changing-the-access-rights-of-a-service"><span aria-hidden="true" class="octicon octicon-link"></span></a>7.1 Changing the Access Rights of a Service</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-service-administrator">Service Administrator</a></p>
 <p>To change the access rights to a <strong>service</strong>, follow these steps.</p>
 <ol>
@@ -2075,8 +2022,7 @@ adduser username xroad-securityserver-observer
 <p>To remove endpoint access rights subjects, click <strong>Remove</strong> button on the respective row in the access rights table and click <strong>YES</strong> in the confirmation dialog. To clear the access rights list (that is, remove all subjects), click <strong>REMOVE ALL</strong> and click <strong>YES</strong> in the confirmation dialog.</p>
 </li>
 </ol>
-<h3>
-<a id="72-adding-a-service-client" class="anchor" href="#72-adding-a-service-client" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>7.2 Adding a Service Client</h3>
+<h3><a id="72-adding-a-service-client" class="anchor" aria-hidden="true" href="#72-adding-a-service-client"><span aria-hidden="true" class="octicon octicon-link"></span></a>7.2 Adding a Service Client</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-service-administrator">Service Administrator</a></p>
 <p>The service client view (<strong>CLIENTS</strong> -&gt; <strong>SERVICE CLIENTS</strong>) displays all the service level access rights subjects of the services mediated by this security server client. In other words, if an X-Road subsystem or group has been granted a service level access right to a service of this client, then the subject is shown in this view. Subjects that have been granted an endpoint level access right to a REST service, are not shown in the view.</p>
 <p>To add a service client, follow these steps.</p>
@@ -2097,8 +2043,7 @@ adduser username xroad-securityserver-observer
 </li>
 </ol>
 <p>The subject is added to the list of service clients, after which the service clients view is displayed.</p>
-<h3>
-<a id="73-changing-the-access-rights-of-a-service-client" class="anchor" href="#73-changing-the-access-rights-of-a-service-client" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>7.3 Changing the Access Rights of a Service Client</h3>
+<h3><a id="73-changing-the-access-rights-of-a-service-client" class="anchor" aria-hidden="true" href="#73-changing-the-access-rights-of-a-service-client"><span aria-hidden="true" class="octicon octicon-link"></span></a>7.3 Changing the Access Rights of a Service Client</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-service-administrator">Service Administrator</a></p>
 <p>To change the service client's access rights, follow these steps.</p>
 <ol>
@@ -2126,11 +2071,9 @@ adduser username xroad-securityserver-observer
 </ul>
 </li>
 </ol>
-<h2>
-<a id="8-local-access-right-groups" class="anchor" href="#8-local-access-right-groups" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>8 Local Access Right Groups</h2>
+<h2><a id="8-local-access-right-groups" class="anchor" aria-hidden="true" href="#8-local-access-right-groups"><span aria-hidden="true" class="octicon octicon-link"></span></a>8 Local Access Right Groups</h2>
 <p>A local access rights group can be created for a security server client in order to facilitate the management of service access rights for a group of X-Road subsystems that use the same services. The access rights granted for a group apply for all the members of the group. Local groups are client-based, that is, a local group can only be used to manage the service access rights of one security server client in one security server.</p>
-<h3>
-<a id="81-adding-a-local-group" class="anchor" href="#81-adding-a-local-group" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>8.1 Adding a Local Group</h3>
+<h3><a id="81-adding-a-local-group" class="anchor" aria-hidden="true" href="#81-adding-a-local-group"><span aria-hidden="true" class="octicon octicon-link"></span></a>8.1 Adding a Local Group</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-service-administrator">Service Administrator</a></p>
 <p>To create a local group for a security server client, follow these steps.</p>
 <ol>
@@ -2141,8 +2084,7 @@ adduser username xroad-securityserver-observer
 <p>To create a new group, click <strong>ADD GROUP</strong>. In the view that opens, enter the code and description for the new group and click <strong>ADD</strong>.</p>
 </li>
 </ol>
-<h3>
-<a id="82-displaying-and-changing-the-members-of-a-local-group" class="anchor" href="#82-displaying-and-changing-the-members-of-a-local-group" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>8.2 Displaying and Changing the Members of a Local Group</h3>
+<h3><a id="82-displaying-and-changing-the-members-of-a-local-group" class="anchor" aria-hidden="true" href="#82-displaying-and-changing-the-members-of-a-local-group"><span aria-hidden="true" class="octicon octicon-link"></span></a>8.2 Displaying and Changing the Members of a Local Group</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-service-administrator">Service Administrator</a></p>
 <p>To <strong>view the members</strong> of a local group, follow these steps.</p>
 <ol>
@@ -2163,8 +2105,7 @@ adduser username xroad-securityserver-observer
 </li>
 </ol>
 <p>To <strong>remove members</strong> from a local group, click <strong>Remove</strong> on the corresponding row on group you wish to be deleted in the group's detail view and then click <strong>YES</strong> in the confirmation dialog. To remove all group members from the group, click <strong>REMOVE ALL</strong> and then click <strong>YES</strong> in the confirmation dialog.</p>
-<h3>
-<a id="83-changing-the-description-of-a-local-group" class="anchor" href="#83-changing-the-description-of-a-local-group" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>8.3 Changing the description of a Local Group</h3>
+<h3><a id="83-changing-the-description-of-a-local-group" class="anchor" aria-hidden="true" href="#83-changing-the-description-of-a-local-group"><span aria-hidden="true" class="octicon octicon-link"></span></a>8.3 Changing the description of a Local Group</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-service-administrator">Service Administrator</a></p>
 <p>To change the description of a local group, follow these steps.</p>
 <ol>
@@ -2178,8 +2119,7 @@ adduser username xroad-securityserver-observer
 <p>In the group´s detail view change the description. The description is saved when the input field loses focus.</p>
 </li>
 </ol>
-<h3>
-<a id="84-deleting-a-local-group" class="anchor" href="#84-deleting-a-local-group" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>8.4 Deleting a Local Group</h3>
+<h3><a id="84-deleting-a-local-group" class="anchor" aria-hidden="true" href="#84-deleting-a-local-group"><span aria-hidden="true" class="octicon octicon-link"></span></a>8.4 Deleting a Local Group</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-service-administrator">Service Administrator</a></p>
 <p><strong>Warning:</strong> When a local group is deleted, all the group members' access rights, which were granted through belonging to the group, are revoked.</p>
 <p>To delete a local group, follow these steps.</p>
@@ -2194,8 +2134,7 @@ adduser username xroad-securityserver-observer
 <p>In the group detail view, click <strong>DELETE</strong> and confirm the deletion by clicking <strong>YES</strong> in the dialog that opens.</p>
 </li>
 </ol>
-<h2>
-<a id="9-communication-with-the-client-information-systems" class="anchor" href="#9-communication-with-the-client-information-systems" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>9 Communication with the Client Information Systems</h2>
+<h2><a id="9-communication-with-the-client-information-systems" class="anchor" aria-hidden="true" href="#9-communication-with-the-client-information-systems"><span aria-hidden="true" class="octicon octicon-link"></span></a>9 Communication with the Client Information Systems</h2>
 <p><strong>Access rights:</strong> <a href="#xroad-registration-officer">Registration Officer</a>, <a href="#xroad-service-administrator">Service Administrator</a></p>
 <p>A security server can use either the HTTP, HTTPS, or HTTPS NOAUTH protocol to communicate with information system servers which provide and use services.</p>
 <ul>
@@ -2306,8 +2245,7 @@ If the HTTPS protocol was selected, select the <strong>Verify TLS certificate</s
 <p>Click <strong>Export</strong> at the end of a certificate row in the "Security Server certificate" table and save the prompted file to the local file system.</p>
 </li>
 </ol>
-<h2>
-<a id="10-system-parameters" class="anchor" href="#10-system-parameters" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>10 System Parameters</h2>
+<h2><a id="10-system-parameters" class="anchor" aria-hidden="true" href="#10-system-parameters"><span aria-hidden="true" class="octicon octicon-link"></span></a>10 System Parameters</h2>
 <p>The security server system parameters are:</p>
 <ul>
 <li>
@@ -2323,8 +2261,7 @@ If the HTTPS protocol was selected, select the <strong>Verify TLS certificate</s
 <p><strong>The internal TLS key and certificate.</strong> The internal TLS certificate is used to establish a TLS connection with the security server client's information system if the "HTTPS" connection method is chosen for the client's servers.</p>
 </li>
 </ul>
-<h3>
-<a id="101-managing-the-configuration-anchor" class="anchor" href="#101-managing-the-configuration-anchor" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>10.1 Managing the Configuration Anchor</h3>
+<h3><a id="101-managing-the-configuration-anchor" class="anchor" aria-hidden="true" href="#101-managing-the-configuration-anchor"><span aria-hidden="true" class="octicon octicon-link"></span></a>10.1 Managing the Configuration Anchor</h3>
 <p><strong>Access rights</strong></p>
 <ul>
 <li>
@@ -2364,8 +2301,7 @@ If the HTTPS protocol was selected, select the <strong>Verify TLS certificate</s
 <p>On the <strong>Configuration Anchor</strong> section, click <strong>DOWNLOAD</strong> and save the prompted file.</p>
 </li>
 </ol>
-<h3>
-<a id="102-managing-the-timestamping-services" class="anchor" href="#102-managing-the-timestamping-services" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>10.2 Managing the Timestamping Services</h3>
+<h3><a id="102-managing-the-timestamping-services" class="anchor" aria-hidden="true" href="#102-managing-the-timestamping-services"><span aria-hidden="true" class="octicon octicon-link"></span></a>10.2 Managing the Timestamping Services</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-security-officer">Security Officer</a></p>
 <p>To add a timestamping service, follow these steps.</p>
 <ol>
@@ -2395,8 +2331,7 @@ If the HTTPS protocol was selected, select the <strong>Verify TLS certificate</s
 </li>
 </ol>
 <p><em>Note</em>: If more than one timestamping service is configured, the security server will try to get a timestamp from the topmost service in the table, moving down to the next service if the try was unsuccessful. The failover covers both connection and timestamp response verification issues. For example, security server is not able to establish a connection to a timestamping service because of a misconfigured firewall, or verification of a timestamp response fails because of the sign certificate of the timestamping service is changed.</p>
-<h3>
-<a id="103-changing-the-internal-tls-key-and-certificate" class="anchor" href="#103-changing-the-internal-tls-key-and-certificate" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>10.3 Changing the Internal TLS Key and Certificate</h3>
+<h3><a id="103-changing-the-internal-tls-key-and-certificate" class="anchor" aria-hidden="true" href="#103-changing-the-internal-tls-key-and-certificate"><span aria-hidden="true" class="octicon octicon-link"></span></a>10.3 Changing the Internal TLS Key and Certificate</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-security-officer">Security Officer</a>, <a href="#xroad-system-administrator">System Administrator</a></p>
 <p><em>To change the security server's internal TLS key and certificate</em>, follow these steps.</p>
 <ol>
@@ -2465,8 +2400,7 @@ If the HTTPS protocol was selected, select the <strong>Verify TLS certificate</s
 <p>In the "TLS Key and Certificate" section, click on the certificate hash.</p>
 </li>
 </ol>
-<h3>
-<a id="104-approved-certificate-authorities" class="anchor" href="#104-approved-certificate-authorities" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>10.4 Approved Certificate Authorities</h3>
+<h3><a id="104-approved-certificate-authorities" class="anchor" aria-hidden="true" href="#104-approved-certificate-authorities"><span aria-hidden="true" class="octicon octicon-link"></span></a>10.4 Approved Certificate Authorities</h3>
 <p><em>To list the approved certificate authorities</em>, follow these steps.</p>
 <ol>
 <li>
@@ -2487,8 +2421,7 @@ If the HTTPS protocol was selected, select the <strong>Verify TLS certificate</s
 </li>
 <li>Certificate expiration date.</li>
 </ul>
-<h2>
-<a id="11-message-log" class="anchor" href="#11-message-log" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>11 Message Log</h2>
+<h2><a id="11-message-log" class="anchor" aria-hidden="true" href="#11-message-log"><span aria-hidden="true" class="octicon octicon-link"></span></a>11 Message Log</h2>
 <p>The purpose of the message log is to provide means to prove the reception of a regular request or response message to a third party. The security server supports three options for configuring message log:</p>
 <ul>
 <li>Full logging
@@ -2513,8 +2446,7 @@ If the HTTPS protocol was selected, select the <strong>Verify TLS certificate</s
 <p>In case of synchronous timestamping, the timestamping is an integral part of the message exchange process (one timestamp is taken for the request and another for the response). If the timestamping fails, the message exchange fails as well and the security server responds with an error message.</p>
 <p>In case of asynchronous timestamping, all the messages (maximum limit is determined in the configuration, see <a href="#1114-timestamping-parameters">11.1.4 Timestamping Parameters</a>) stored in the message log since the last periodical timestamping event are timestamped with a single (batch) timestamp. By default, the security server uses asynchronous timestamping for better performance and availability.</p>
 <p>The security server periodically composes signed (and timestamped) documents from the (optionally encrypted) message log data and archives them in the local file system. Archive files are ZIP containers containing one or more signed documents and a special linking information file for additional integrity verification purpose. Message log archive encryption and grouping can be enabled and configured separately. By default, both are disabled. Message grouping can be configured by member or subsystem. By default, all archive files go to the same default group. Grouping and encryption are enabled/disabled on a security server level - they are either enabled or disabled for all the members and subsystems. It's not possible to enable/disable neither of them for selected members or subsystems only.</p>
-<h3>
-<a id="111-changing-the-configuration-of-the-message-log" class="anchor" href="#111-changing-the-configuration-of-the-message-log" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>11.1 Changing the Configuration of the Message Log</h3>
+<h3><a id="111-changing-the-configuration-of-the-message-log" class="anchor" aria-hidden="true" href="#111-changing-the-configuration-of-the-message-log"><span aria-hidden="true" class="octicon octicon-link"></span></a>11.1 Changing the Configuration of the Message Log</h3>
 <p>Configuration parameters are defined in INI files [<a href="#Ref_INI">INI</a>], where each section contains the parameters for a particular security server component. The default message log configuration is located in the file</p>
 <pre><code>/etc/xroad/conf.d/addons/message-log.ini
 </code></pre>
@@ -2527,14 +2459,12 @@ If the HTTPS protocol was selected, select the <strong>Verify TLS certificate</s
 archive-path=/my/archive/path/
 archive-max-filesize=67108864
 </code></pre>
-<h4>
-<a id="1111-common-parameters" class="anchor" href="#1111-common-parameters" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>11.1.1 Common Parameters</h4>
+<h4><a id="1111-common-parameters" class="anchor" aria-hidden="true" href="#1111-common-parameters"><span aria-hidden="true" class="octicon octicon-link"></span></a>11.1.1 Common Parameters</h4>
 <ol>
 <li>
 <code>hash-algo-id</code> – the hash algorithm that is used for hashing in the message log. Possible choices are <code>SHA-256</code>, <code>SHA-384</code>, <code>SHA-512</code>. Defaults to <code>SHA-512</code>.</li>
 </ol>
-<h4>
-<a id="1112-logging-parameters" class="anchor" href="#1112-logging-parameters" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>11.1.2 Logging Parameters</h4>
+<h4><a id="1112-logging-parameters" class="anchor" aria-hidden="true" href="#1112-logging-parameters"><span aria-hidden="true" class="octicon octicon-link"></span></a>11.1.2 Logging Parameters</h4>
 <ol>
 <li>
 <p><code>message-body-logging</code> - if set to true, the messages are logged in their original form. If false, the message body is emptied of its contents.</p>
@@ -2570,8 +2500,7 @@ archive-max-filesize=67108864
 <p><code>messagelog-key-id</code> - messagelog keystore key id</p>
 </li>
 </ol>
-<h4>
-<a id="1113-message-log-encryption" class="anchor" href="#1113-message-log-encryption" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>11.1.3 Message Log Encryption</h4>
+<h4><a id="1113-message-log-encryption" class="anchor" aria-hidden="true" href="#1113-message-log-encryption"><span aria-hidden="true" class="octicon octicon-link"></span></a>11.1.3 Message Log Encryption</h4>
 <p>The message bodies can be encrypted (<code>messagelog-encryption-enabled = true</code>) when stored to the database. By default, the encryption is disabled. Also, the encryption is fully transparent to all the external interfaces, e.g., the signed document download service. The encryption is symmetric, the used cipher is AES-CTR, and the encryption is performed using Java code.</p>
 <p>In the message log database, there are two separate columns for plaintext (<code>message</code>) and encrypted (<code>ciphermessage</code>) message body. The message body is always stored in one of the two columns depending on the configuration. Instead, the other column that is not used is left empty. When message log database encryption is enabled/disabled, the change doesn't affect already existing records in the database. For example, when message log database encryption is enabled, all the records created after the configuration change will be encrypted and stored in the <code>ciphermessage</code> column. Instead, all the records stored before the change will remain in plaintext in the <code>message</code> column.</p>
 <p>When encryption is switched on, the implementation expects to find the keystore in the location pointed by <code>messagelog-keystore</code>. The keystore should contain an encryption key with the identifier/alias specified in <code>messagelog-key-id</code>. The keystore password is specified in <code>messagelog-keystore-password</code>.</p>
@@ -2585,8 +2514,7 @@ archive-max-filesize=67108864
 <div class="highlight highlight-source-shell"><pre>keytool -keystore /etc/xroad/messagelog/messagelog.p12 -storetype pkcs12 -importpassword -alias key1</pre></div>
 <p>Finally, restart <code>xroad-proxy</code> service.</p>
 <p>To view the encrypted messages at some later stage, use the ASIC web service documented in [<a href="#Ref_UG-SIGDOC">UG-SIGDOC</a>]. The web service performs automatic decryption, where needed.</p>
-<h4>
-<a id="1114-timestamping-parameters" class="anchor" href="#1114-timestamping-parameters" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>11.1.4 Timestamping Parameters</h4>
+<h4><a id="1114-timestamping-parameters" class="anchor" aria-hidden="true" href="#1114-timestamping-parameters"><span aria-hidden="true" class="octicon octicon-link"></span></a>11.1.4 Timestamping Parameters</h4>
 <ol>
 <li>
 <p><code>timestamp-immediately</code> – if set to true, the timestamps are created synchronously with the message exchange, i.e., one timestamp is created for a request and another for a response. This is a security policy to guarantee the timestamp at the time of logging the message, but if the timestamping fails, the message exchange fails as well, and if load to the security server increases, then the load to the timestamping service increases as well. The value of this parameter defaults to false for better performance and availability. In case the value of the parameter is false then the timestamping is performed as a periodic background process (the time period is determined in the X-Road governing agency and propagated to the security servers by global configuration) and signatures stored during the time period (see parameter <code>timestamp-records-limit</code>) are timestamped in one batch.</p>
@@ -2598,8 +2526,7 @@ archive-max-filesize=67108864
 <p><code>acceptable-timestamp-failure-period</code> – time period in seconds, for how long the asynchronous timestamping is allowed to fail before message exchange between security servers is stopped. Set to <code>0</code> to disable this check. Defaults to <code>14400</code>.</p>
 </li>
 </ol>
-<h4>
-<a id="1115-archiving-parameters" class="anchor" href="#1115-archiving-parameters" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>11.1.5 Archiving Parameters</h4>
+<h4><a id="1115-archiving-parameters" class="anchor" aria-hidden="true" href="#1115-archiving-parameters"><span aria-hidden="true" class="octicon octicon-link"></span></a>11.1.5 Archiving Parameters</h4>
 <ol>
 <li>
 <code>keep-records-for</code> – time in days for which to keep timestamped and archived records in the database. Defaults to <code>30</code>.</li>
@@ -2624,8 +2551,7 @@ archive-max-filesize=67108864
 <li>
 <code>archive-default-encryption-key</code> - Default archive encryption key id.</li>
 </ol>
-<h4>
-<a id="1116-archive-files" class="anchor" href="#1116-archive-files" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>11.1.6 Archive Files</h4>
+<h4><a id="1116-archive-files" class="anchor" aria-hidden="true" href="#1116-archive-files"><span aria-hidden="true" class="octicon octicon-link"></span></a>11.1.6 Archive Files</h4>
 <p>Archive files (ZIP containers) are located in the directory specified by the configuration parameter <code>archive-path</code>. File names are in the format <code>mlog[-grouping]-X-Y-Z.zip[.gpg]</code>, where X is the timestamp (UTC time in the format <code>YYYYMMDDHHmmss</code>) of the first message log record, Y is the timestamp of the last message log record (records are processed in chronological order) and Z is the first 16 characters of the last linking info digest entry. If grouping is enabled, [-grouping] is a (possibly truncated and filename safe) member identifier. If encryption is enabled, the <code>[.gpg]</code> suffix is added. Creating archive files is deterministic -- given the same input (grouping, message records, previous archive linking info digest), the output (file name and contents) is the same after possible encryption is removed.</p>
 <p>The most basic example of an archive file name when the encryption and grouping are switched off:</p>
 <pre><code>mlog-20210901100858-20210901100905-95b1f27097524105.zip
@@ -2640,8 +2566,7 @@ archive-max-filesize=67108864
 <pre><code>mlog-INSTANCE_CLASS_CODE_CONSUMERSUBSYSTEM-20210901102521-20210901102524-95b1f27097524105.zip.gpg
 mlog-INSTANCE_CLASS_CODE_PROVIDERSUBSYSTEM-20210901102521-20210901102524-b1f27097524105ac.zip.gpg
 </code></pre>
-<h4>
-<a id="1117-archive-encryption-and-grouping" class="anchor" href="#1117-archive-encryption-and-grouping" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>11.1.7 Archive Encryption and Grouping</h4>
+<h4><a id="1117-archive-encryption-and-grouping" class="anchor" aria-hidden="true" href="#1117-archive-encryption-and-grouping"><span aria-hidden="true" class="octicon octicon-link"></span></a>11.1.7 Archive Encryption and Grouping</h4>
 <p>Archive files can be encrypted (when <code>archive-encryption-enabled = true</code>) using GnuPG ("gpg") which implements the OpenPGP (RFC 4880) specification. Please see e.g. <a href="https://www.ietf.org/rfc/rfc4880.txt" rel="nofollow">RFC 4880</a> and <a href="https://gnupg.org/" rel="nofollow">GnuPG</a> for more infomation. The encryption is enabled/disabled on a security server level - it's not possible to enable/disable it for specific subsystems only.</p>
 <p>By default, the produced archive files contain messages from all the security server's members, but it's possible to group the archives by member or by subsystem if needed. The grouping is controlled by the setting <code>archive-grouping</code>. The grouping is enabled/disabled on a security server level - it is either enabled or disabled for all the members and subsystems.</p>
 <p>Message log archive encryption and grouping can be configured separately. For example, the archives can be encrypted but not grouped (or vice versa). By default, both features are disabled.</p>
@@ -2690,8 +2615,7 @@ archive-grouping = member
 archive-encryption-keys-config = /etc/xroad/messagelog/archive-encryption-mapping.ini</pre></div>
 <p>To decrypt the encrypted archives, use the following syntax:</p>
 <div class="highlight highlight-source-shell"><pre>gpg [--homedir <span class="pl-k">&lt;</span>gpghome<span class="pl-k">&gt;</span>] --decrypt <span class="pl-k">&lt;</span>archive name<span class="pl-k">&gt;</span> --output <span class="pl-k">&lt;</span>output file name<span class="pl-k">&gt;</span></pre></div>
-<h3>
-<a id="112-transferring-the-archive-files-from-the-security-server" class="anchor" href="#112-transferring-the-archive-files-from-the-security-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>11.2 Transferring the Archive Files from the Security Server</h3>
+<h3><a id="112-transferring-the-archive-files-from-the-security-server" class="anchor" aria-hidden="true" href="#112-transferring-the-archive-files-from-the-security-server"><span aria-hidden="true" class="octicon octicon-link"></span></a>11.2 Transferring the Archive Files from the Security Server</h3>
 <p>In order to save hard disk space, it is recommended to transfer archive files periodically from the security server (manually or automatically) to an external location.</p>
 <p>The message log package provides a helper script <code>/usr/share/xroad/scripts/archive-http-transporter.sh</code> for transferring archive files. This script uses the HTTP/HTTPS protocol (the POST method, the form name is file) to transfer archive files to an archiving server.</p>
 <p>Usage of the script:</p>
@@ -2735,8 +2659,7 @@ archive-encryption-keys-config = /etc/xroad/messagelog/archive-encryption-mappin
 archive-transfer-command=/usr/share/xroad/scripts/archive-http-transporter.sh -r http://my-archiving-server/cgi-bin/upload
 </code></pre>
 <p>The message log package contains the CGI script <code>/usr/share/doc/xroad-addon-messagelog/archive-server/demo-upload.pl</code> for a demo archiving server for the purpose of testing or development.</p>
-<h3>
-<a id="113-using-a-remote-database" class="anchor" href="#113-using-a-remote-database" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>11.3 Using a Remote Database</h3>
+<h3><a id="113-using-a-remote-database" class="anchor" aria-hidden="true" href="#113-using-a-remote-database"><span aria-hidden="true" class="octicon octicon-link"></span></a>11.3 Using a Remote Database</h3>
 <p>The message log database can be located outside of the security server. The following guide describes how to configure and populate a remote database schema for the message log. It is assumed that access to the database from the security server has been configured. For detailed information about the configuration of database connections, refer to [<a href="#Ref_JDBC">JDBC</a>].</p>
 <ol>
 <li>
@@ -2783,8 +2706,7 @@ RHEL: <code>yum reinstall xroad-addon-messagelog</code></p>
 <p><code>service xroad-proxy start</code></p>
 </li>
 </ol>
-<h2>
-<a id="12-audit-log" class="anchor" href="#12-audit-log" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>12 Audit Log</h2>
+<h2><a id="12-audit-log" class="anchor" aria-hidden="true" href="#12-audit-log"><span aria-hidden="true" class="octicon octicon-link"></span></a>12 Audit Log</h2>
 <p>The security server keeps an audit log. The audit log events are generated by the user interface when the user changes the system's state or configuration. The user actions are logged regardless of whether the outcome was a success or a failure. The complete list of the audit log events is described in [<a href="#Ref_SPEC-AL">SPEC-AL</a>].</p>
 <p>Actions that change the system state or configuration but are not carried out using the user interface are not logged (for example, X-Road software installation and upgrade, user creation and permission granting, and changing the configuration files).</p>
 <p>An audit log record contains correlation-id, which can be used to link the record to other log messages about the same request.</p>
@@ -2828,8 +2750,7 @@ For example:</p>
 <p>By default, audit log is located in the file</p>
 <pre><code>/var/log/xroad/audit.log
 </code></pre>
-<h3>
-<a id="121-changing-the-configuration-of-the-audit-log" class="anchor" href="#121-changing-the-configuration-of-the-audit-log" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>12.1 Changing the Configuration of the Audit Log</h3>
+<h3><a id="121-changing-the-configuration-of-the-audit-log" class="anchor" aria-hidden="true" href="#121-changing-the-configuration-of-the-audit-log"><span aria-hidden="true" class="octicon octicon-link"></span></a>12.1 Changing the Configuration of the Audit Log</h3>
 <p>The X-Road software writes the audit log to the <em>syslog</em> (<em>rsyslog</em>) using UDP interface (default port is 514). Corresponding configuration is located in the file</p>
 <pre><code>/etc/rsyslog.d/90-udp.conf
 </code></pre>
@@ -2845,12 +2766,10 @@ For example:</p>
 <p>The audit log is rotated monthly by <em>logrotate</em>. To configure the audit log rotation, edit the <em>logrotate</em> configuration file</p>
 <pre><code>/etc/logrotate.d/xroad-proxy
 </code></pre>
-<h3>
-<a id="122-archiving-the-audit-log" class="anchor" href="#122-archiving-the-audit-log" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>12.2 Archiving the Audit Log</h3>
+<h3><a id="122-archiving-the-audit-log" class="anchor" aria-hidden="true" href="#122-archiving-the-audit-log"><span aria-hidden="true" class="octicon octicon-link"></span></a>12.2 Archiving the Audit Log</h3>
 <p>In order to save hard disk space and avoid loss of the audit log records during security server crash, it is recommended to archive the audit log files periodically to an external storage or a log server.</p>
 <p>The X-Road software does not offer special tools for archiving the audit log. The <code>rsyslog</code> can be configured to redirect the audit log to an external location.</p>
-<h2>
-<a id="13-back-up-and-restore" class="anchor" href="#13-back-up-and-restore" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>13 Back up and restore</h2>
+<h2><a id="13-back-up-and-restore" class="anchor" aria-hidden="true" href="#13-back-up-and-restore"><span aria-hidden="true" class="octicon octicon-link"></span></a>13 Back up and restore</h2>
 <p>It is possible to back up and later restore security server configuration. A backup archive file contains the
 following configuration:</p>
 <ul>
@@ -2875,8 +2794,7 @@ reason the security server should be considered as compromised and reinstalled f
 <p>Security server backups are signed and optionally encrypted. The GNU Privacy Guard [GnuPG] is used for encryption and signing.
 Security server's backup encryption key is generated during security server initialisation. In addition to the
 automatically generated backup encryption key, additional public keys can be used to encrypt backups.</p>
-<h3>
-<a id="131-back-up-and-restore-in-the-user-interface" class="anchor" href="#131-back-up-and-restore-in-the-user-interface" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>13.1 Back up and Restore in the User Interface</h3>
+<h3><a id="131-back-up-and-restore-in-the-user-interface" class="anchor" aria-hidden="true" href="#131-back-up-and-restore-in-the-user-interface"><span aria-hidden="true" class="octicon octicon-link"></span></a>13.1 Back up and Restore in the User Interface</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-system-administrator">System Administrator</a></p>
 <p>The backup and restore view can be accessed from the <strong>Navigation tabs</strong> by selecting <strong>Back Up and Restore</strong>.</p>
 <p>To <strong>back up configuration</strong>, follow these steps.</p>
@@ -2911,8 +2829,7 @@ select a file and click <strong>YES</strong>. The uploaded configuration file ap
 that only files signed with current security server encryption key can be restored via user interface. All other archives
 can be restored only from command line.</p>
 <p>As long as original keypair is intact no additional steps are needed even when backup encryption is turned on.</p>
-<h3>
-<a id="132-restore-from-the-command-line" class="anchor" href="#132-restore-from-the-command-line" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>13.2 Restore from the Command Line</h3>
+<h3><a id="132-restore-from-the-command-line" class="anchor" aria-hidden="true" href="#132-restore-from-the-command-line"><span aria-hidden="true" class="octicon octicon-link"></span></a>13.2 Restore from the Command Line</h3>
 <p>To restore configuration from the command line, the following data must be available:</p>
 <ul>
 <li>The X-Road ID of the security server</li>
@@ -2944,13 +2861,11 @@ of the restore command can be used with the –F option together with unencrypte
 </code></pre>
 <p>In case backup archives were encrypted they have to be first unencrypted in external safe environment and then securely
 transported to security server filesystem.</p>
-<h3>
-<a id="133-automatic-backups" class="anchor" href="#133-automatic-backups" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>13.3 Automatic Backups</h3>
+<h3><a id="133-automatic-backups" class="anchor" aria-hidden="true" href="#133-automatic-backups"><span aria-hidden="true" class="octicon octicon-link"></span></a>13.3 Automatic Backups</h3>
 <p>By default the Security Server backs up its configuration automatically once every day. Backups older than 30 days are
 automatically removed from the server. If needed, the automatic backup policies can be adjusted by editing the
 <code>/etc/cron.d/xroad-proxy</code> file.</p>
-<h3>
-<a id="134-backup-encryption-configuration" class="anchor" href="#134-backup-encryption-configuration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>13.4 Backup Encryption Configuration</h3>
+<h3><a id="134-backup-encryption-configuration" class="anchor" aria-hidden="true" href="#134-backup-encryption-configuration"><span aria-hidden="true" class="octicon octicon-link"></span></a>13.4 Backup Encryption Configuration</h3>
 <p>Backups are always signed, but backup encryption is initially turned off. To turn encryption on, please override the
 default configuration in the file <code>/etc/xroad/conf.d/local.ini</code>, in the <code>[proxy]</code> section (add or edit this section).</p>
 <div class="highlight highlight-source-ini"><pre><span class="pl-en">[proxy]</span>
@@ -2983,8 +2898,7 @@ backup-encryption-enabled = <span class="pl-c1">true</span>
 backup-encryption-keyids = 96F20FF6578A5EF90DFBA18D8C003019508B5637</pre></div>
 <p>To decrypt the encrypted backups, use the following syntax:</p>
 <div class="highlight highlight-source-shell"><pre>gpg --homedir /etc/xroad/gpghome --decrypt <span class="pl-k">&lt;</span>backup name<span class="pl-k">&gt;</span> --output <span class="pl-k">&lt;</span>output file name<span class="pl-k">&gt;</span> </pre></div>
-<h3>
-<a id="135-verifying-backup-archive-consistency" class="anchor" href="#135-verifying-backup-archive-consistency" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>13.5 Verifying Backup Archive Consistency</h3>
+<h3><a id="135-verifying-backup-archive-consistency" class="anchor" aria-hidden="true" href="#135-verifying-backup-archive-consistency"><span aria-hidden="true" class="octicon octicon-link"></span></a>13.5 Verifying Backup Archive Consistency</h3>
 <p>During restore security server verifies consistency of backup archives automatically, archives are not checked during upload.
 Also, it is possible to verify the consistency of the archives externally. For verifying the consistency externally,
 security server's public key is needed. When backups are encrypted, then a private key for decrypting archive is also needed.
@@ -3001,8 +2915,7 @@ decrypted and verified in these separate environments.</p>
 for example, <code>AA/GOV/TS1OWNER/TS1</code>.</p>
 <p>Resulting file (<code>server-public-key.gpg</code>) should then be exported from security server and imported to GPG keystore used
 for backup archive consistency verification.</p>
-<h2>
-<a id="14-diagnostics" class="anchor" href="#14-diagnostics" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>14 Diagnostics</h2>
+<h2><a id="14-diagnostics" class="anchor" aria-hidden="true" href="#14-diagnostics"><span aria-hidden="true" class="octicon octicon-link"></span></a>14 Diagnostics</h2>
 <p><strong>Access rights:</strong> <a href="#xroad-system-administrator">System Administrator</a></p>
 <p>Click on <strong>DIAGNOSTICS</strong> in the <strong>Navigation tabs</strong>.</p>
 <p>On the Diagnostics page you can view the status information of:</p>
@@ -3023,8 +2936,7 @@ for backup archive consistency verification.</p>
 </ul>
 </li>
 </ul>
-<h3>
-<a id="141-examine-security-server-services-status-information" class="anchor" href="#141-examine-security-server-services-status-information" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>14.1 Examine security server services status information</h3>
+<h3><a id="141-examine-security-server-services-status-information" class="anchor" aria-hidden="true" href="#141-examine-security-server-services-status-information"><span aria-hidden="true" class="octicon octicon-link"></span></a>14.1 Examine security server services status information</h3>
 <p>Security server services status information covers the following services:</p>
 <table>
 <thead>
@@ -3072,8 +2984,7 @@ for backup archive consistency verification.</p>
 </ul>
 <p>The status message offers more detailed information on the current status.</p>
 <p>If a section of the diagnostics view appears empty, it means that there either is no configured service available or that checking the service status has failed. If sections are empty, try refreshing the diagnostics view or check the service configuration.</p>
-<h3>
-<a id="142-examine-security-server-java-version-information" class="anchor" href="#142-examine-security-server-java-version-information" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>14.2 Examine security server Java version information</h3>
+<h3><a id="142-examine-security-server-java-version-information" class="anchor" aria-hidden="true" href="#142-examine-security-server-java-version-information"><span aria-hidden="true" class="octicon octicon-link"></span></a>14.2 Examine security server Java version information</h3>
 <p>Security server Java version information provides the following details:</p>
 <table>
 <thead>
@@ -3117,8 +3028,7 @@ for backup archive consistency verification.</p>
 <li>
 <strong>Green indicator</strong> – security server's java version number is supported</li>
 </ul>
-<h3>
-<a id="143-examine-security-server-encryption-status-information" class="anchor" href="#143-examine-security-server-encryption-status-information" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>14.3 Examine security server encryption status information</h3>
+<h3><a id="143-examine-security-server-encryption-status-information" class="anchor" aria-hidden="true" href="#143-examine-security-server-encryption-status-information"><span aria-hidden="true" class="octicon octicon-link"></span></a>14.3 Examine security server encryption status information</h3>
 <p><strong>Backup encryption status</strong></p>
 <p>The status shows is the backup encryption <code>enabled</code> or <code>disabled</code>. The Configured key ID list contains all the additional encryption keys that are present in the configuration. If the list is empty, only the system generated default encryption key is used. When the backup encryption is <code>disabled</code>, the list is always empty.</p>
 <p>The status colors indicate the following:</p>
@@ -3143,8 +3053,7 @@ for backup archive consistency verification.</p>
 <li>
 <strong>Green indicator</strong> – message log archive encryption is enabled</li>
 <li>
-</li>
-</ul>
+</li></ul>
 <p><strong>Message log database encryption status</strong></p>
 <p>The status shows is the message log database encryption <code>enabled</code> or <code>disabled</code>.</p>
 <p>The status colors indicate the following:</p>
@@ -3156,22 +3065,19 @@ for backup archive consistency verification.</p>
 <li>
 <strong>Green indicator</strong> – message log database encryption is enabled</li>
 </ul>
-<h2>
-<a id="15-operational-monitoring" class="anchor" href="#15-operational-monitoring" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>15 Operational Monitoring</h2>
+<h2><a id="15-operational-monitoring" class="anchor" aria-hidden="true" href="#15-operational-monitoring"><span aria-hidden="true" class="octicon octicon-link"></span></a>15 Operational Monitoring</h2>
 <p><strong>Operational monitoring data</strong> contains data about request exchange (such as the ID-s of the client and the service, various attributes of the message read from the message header, request and response timestamps, SOAP sizes etc.) of the X-Road security server(s).</p>
 <p><strong>The operational monitoring daemon</strong> collects and shares operational monitoring data of the X-Road security server(s) as part of request exchange, shares this data, calculates and shares health statistics (the timestamps and number of successful/unsuccessful requests, various metrics of the duration and the SOAP message size of the requests, etc.). The data fields that are stored and shared are described in [<a href="#Ref_PR-OPMON">PR-OPMON</a>].</p>
 <p>The security server caches operational monitoring data in the <strong>operational monitoring buffer</strong>. One operational data record is created for each request during the message exchange. Security server forwards operational data cached in the operational monitoring buffer to the operational monitoring daemon. Successfully forwarded records are removed from the operational monitoring buffer.</p>
 <p>The operational monitoring daemon makes operational and health data available to the owner of the security server, regular clients and the central monitoring client via the security server. Local health data are available for external monitoring systems (e.g. Zabbix) over the JMXMP interface described in [<a href="#Ref_PR-OPMONJMX">PR-OPMONJMX</a>].</p>
 <p>The owner of the security server and the central monitoring client are able to query the records of all clients. For a regular client, only the records associated with that client are available. The internal IP of the security server is included in the response only for the owner of the security server and central monitoring client.</p>
 <p><strong>NOTE:</strong> All the commands in the following sections must be carried out using root permissions.</p>
-<h3>
-<a id="151-operational-monitoring-buffer" class="anchor" href="#151-operational-monitoring-buffer" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>15.1 Operational Monitoring Buffer</h3>
+<h3><a id="151-operational-monitoring-buffer" class="anchor" aria-hidden="true" href="#151-operational-monitoring-buffer"><span aria-hidden="true" class="octicon octicon-link"></span></a>15.1 Operational Monitoring Buffer</h3>
 <p>In general, the operational monitoring buffer is an internal component of the security server and thus being not directly used by the end user.</p>
 <p>The configuration parameters available for configuring the operational monitoring buffer have been documented in [<a href="#Ref_UG-OPMONSYSPAR">UG-OPMONSYSPAR</a>].</p>
 <p>The default values of the parameters have been chosen to be sufficient under expected average load using the minimum hardware recommended.</p>
 <p>All overrides to the default configuration values must be made in the file <code>/etc/xroad/conf.d/local.ini</code>, in the <code>[op-monitor-buffer]</code> section.</p>
-<h4>
-<a id="1511-stopping-the-collecting-of-operational-data" class="anchor" href="#1511-stopping-the-collecting-of-operational-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>15.1.1 Stopping the Collecting of Operational Data</h4>
+<h4><a id="1511-stopping-the-collecting-of-operational-data" class="anchor" aria-hidden="true" href="#1511-stopping-the-collecting-of-operational-data"><span aria-hidden="true" class="octicon octicon-link"></span></a>15.1.1 Stopping the Collecting of Operational Data</h4>
 <p>If, for any reason, operational data should not be collected and forwarded to the operational monitoring daemon, the parameter size can be set to 0:</p>
 <pre><code>[op-monitor-buffer]
 size = 0
@@ -3185,24 +3091,20 @@ size = 0
 <p>For the service to stay stopped after reboot the following command should be run:</p>
 <pre><code>echo manual &gt; /etc/init/xroad-opmonitor.override
 </code></pre>
-<h3>
-<a id="152-operational-monitoring-daemon" class="anchor" href="#152-operational-monitoring-daemon" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>15.2 Operational Monitoring Daemon</h3>
+<h3><a id="152-operational-monitoring-daemon" class="anchor" aria-hidden="true" href="#152-operational-monitoring-daemon"><span aria-hidden="true" class="octicon octicon-link"></span></a>15.2 Operational Monitoring Daemon</h3>
 <p>The configuration parameters available for configuring the operational monitoring daemon have been documented in [<a href="#Ref_UG-OPMONSYSPAR">UG-OPMONSYSPAR</a>].</p>
 <p>Similarly to the operational monitoring buffer, the default values of the parameters have been chosen to be sufficient under expected average load using the minimum recommended hardware.</p>
 <p>All overrides to the default configuration values must be made in the file <code>/etc/xroad/conf.d/local.ini</code>, in the <code>[op-monitor]</code> section.</p>
 <p>In the following sections, some parameters are described which may be required to be changed more likely.</p>
-<h4>
-<a id="1521-configuring-the-health-statistics-period" class="anchor" href="#1521-configuring-the-health-statistics-period" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>15.2.1 Configuring the Health Statistics Period</h4>
+<h4><a id="1521-configuring-the-health-statistics-period" class="anchor" aria-hidden="true" href="#1521-configuring-the-health-statistics-period"><span aria-hidden="true" class="octicon octicon-link"></span></a>15.2.1 Configuring the Health Statistics Period</h4>
 <p>By default, health statistics are provided for a period of 600 seconds (10 minutes). This means that if no request exchange has taken place for 10 minutes, all the statistical metrics are reset. Please refer to [<a href="#Ref_PR-OPMON">PR-OPMON</a>] for a detailed overview of the health metrics available.</p>
 <p>To change the health statistics period, the value of the parameter health-statistics-period-seconds should be set or edited in the <code>[op-monitor]</code>
 section of the file <code>/etc/xroad/conf.d/local.ini</code>.</p>
-<h4>
-<a id="1522-configuring-the-parameters-related-to-database-cleanup" class="anchor" href="#1522-configuring-the-parameters-related-to-database-cleanup" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>15.2.2 Configuring the Parameters Related to Database Cleanup</h4>
+<h4><a id="1522-configuring-the-parameters-related-to-database-cleanup" class="anchor" aria-hidden="true" href="#1522-configuring-the-parameters-related-to-database-cleanup"><span aria-hidden="true" class="octicon octicon-link"></span></a>15.2.2 Configuring the Parameters Related to Database Cleanup</h4>
 <p>Depending on the load and resources of the system, it may be necessary to change the interval of the removal of old database records.</p>
 <p>The following parameters must be placed in the <code>[op-monitor]</code> section of the file <code>/etc/xroad/conf.d/local.ini</code>.</p>
 <p>The parameter <code>keep-records-for-days</code> should be edited, for instance if the disk fills up before cleanup occurs, or alternatively, if the default period of 7 days is too short. The parameter <code>clean-interval</code> (a Cron expression [<a href="#Ref_CRON">CRON</a>]) defines how often the system checks whether cleanup should be done. If the default period of 12 hours is too long or short it should be edited according to your needs.</p>
-<h4>
-<a id="1523-configuring-the-parameters-related-to-the-http-endpoint-of-the-operational-monitoring-daemon" class="anchor" href="#1523-configuring-the-parameters-related-to-the-http-endpoint-of-the-operational-monitoring-daemon" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>15.2.3 Configuring the Parameters related to the HTTP Endpoint of the Operational Monitoring Daemon</h4>
+<h4><a id="1523-configuring-the-parameters-related-to-the-http-endpoint-of-the-operational-monitoring-daemon" class="anchor" aria-hidden="true" href="#1523-configuring-the-parameters-related-to-the-http-endpoint-of-the-operational-monitoring-daemon"><span aria-hidden="true" class="octicon octicon-link"></span></a>15.2.3 Configuring the Parameters related to the HTTP Endpoint of the Operational Monitoring Daemon</h4>
 <p>For configuring the endpoint of the operational monitoring daemon, the following parameters are available in the <code>[op-monitor]</code> section of the configuration:</p>
 <p><strong>host</strong> – listening host of the daemon (by default the value is set to <em>localhost</em>).</p>
 <p><strong>port</strong> – listening port (by default the value is set to <em>2080</em>).</p>
@@ -3211,8 +3113,7 @@ section of the file <code>/etc/xroad/conf.d/local.ini</code>.</p>
 <pre><code>service xroad-proxy restart
 service xroad-opmonitor restart
 </code></pre>
-<h4>
-<a id="1524-installing-an-external-operational-monitoring-daemon" class="anchor" href="#1524-installing-an-external-operational-monitoring-daemon" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>15.2.4 Installing an External Operational Monitoring Daemon</h4>
+<h4><a id="1524-installing-an-external-operational-monitoring-daemon" class="anchor" aria-hidden="true" href="#1524-installing-an-external-operational-monitoring-daemon"><span aria-hidden="true" class="octicon octicon-link"></span></a>15.2.4 Installing an External Operational Monitoring Daemon</h4>
 <p>Technically, the operational monitoring daemon can be installed on a separate host from the security server. It is possible to configure several security servers to use that external operational monitoring daemon, but this setup is correct <em>only</em> if the security servers are identical clones installed behind a load balancer.</p>
 <p><strong>NOTE:</strong> The setup of clustered security servers is not officially supported yet and has been implemented for future compatibility.</p>
 <p><strong>NOTE:</strong> It is <strong>strongly advised</strong> to use HTTPS for requests between a security server and the associated external operational monitoring daemon.</p>
@@ -3222,8 +3123,7 @@ service xroad-opmonitor restart
 xroad-signer
 xroad-opmonitor
 </code></pre>
-<h4>
-<a id="1525-configuring-an-external-operational-monitoring-daemon-and-the-corresponding-security-server" class="anchor" href="#1525-configuring-an-external-operational-monitoring-daemon-and-the-corresponding-security-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>15.2.5 Configuring an External Operational Monitoring Daemon and the Corresponding Security Server</h4>
+<h4><a id="1525-configuring-an-external-operational-monitoring-daemon-and-the-corresponding-security-server" class="anchor" aria-hidden="true" href="#1525-configuring-an-external-operational-monitoring-daemon-and-the-corresponding-security-server"><span aria-hidden="true" class="octicon octicon-link"></span></a>15.2.5 Configuring an External Operational Monitoring Daemon and the Corresponding Security Server</h4>
 <p>To make a security server communicate with an external operational monitoring daemon, it is necessary to configure both the daemon and the security server.</p>
 <p>By default, the operational monitoring daemon listens on localhost. To make the daemon available to security servers on other hosts, the listening address must be set to the IP address that is relevant in the particular network, as described in the previous section.</p>
 <p>As advised, the scheme parameter should be set to "https". For communication over HTTPS, the security server and the operational monitoring daemon must know each other's TLS certificates to enable the security server to authenticate to the monitoring daemon successfully.</p>
@@ -3251,33 +3151,26 @@ tls-certificate = &lt;path/to/external/daemon/tls/cert&gt;
 <pre><code>echo manual &gt; /etc/init/xroad-opmonitor.override
 </code></pre>
 <p>The configuration anchor (renamed as <code>configuration-anchor.xml</code>) file must be manually copied into the directory <code>/etc/xroad</code> of the external monitoring daemon in order for configuration client to be able to download the global configuration (by default configuration download interval is 60 seconds). The system user xroad must have permissions to read this file.</p>
-<h4>
-<a id="1526-monitoring-health-data-over-jmxmp" class="anchor" href="#1526-monitoring-health-data-over-jmxmp" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>15.2.6 Monitoring Health Data over JMXMP</h4>
+<h4><a id="1526-monitoring-health-data-over-jmxmp" class="anchor" aria-hidden="true" href="#1526-monitoring-health-data-over-jmxmp"><span aria-hidden="true" class="octicon octicon-link"></span></a>15.2.6 Monitoring Health Data over JMXMP</h4>
 <p>The operational monitoring daemon makes health data available over the JMXMP protocol. The Zabbix monitoring software can be configured to gather that data periodically, using its built in JMX interface type.</p>
 <p>By default, the operational monitoring daemon JMXMP is disabled. JMXMP must be enabled for external tools such as Zabbix to be able to access the data. Please refer to the documentation at [<a href="#Ref_JMX">JMX</a>] for instructions on configuring access to the JMX interface of the operational monitoring daemon.</p>
 <p>For Zabbix to be able to gather data over JMX, the Zabbix Java gateway must be installed. See [<a href="#Ref_ZABBIX-GATEWAY">ZABBIX-GATEWAY</a>] for instructions.</p>
 <p>The JMX interface must be configured to each host item in Zabbix, for which health data needs to be obtained. See [<a href="#Ref_ZABBIX-JMX">ZABBIX-JMX</a>] for instructions.</p>
 <p>Please refer to [<a href="#Ref_PR-OPMONJMX">PR-OPMONJMX</a>] for a specification of the names and attributes of the JMX objects exposed by the operational monitoring daemon.</p>
 <p>The xroad-opmonitor package comes with sample host data that can be imported to Zabbix, containing a JMX interface, applications related to sample services and health data items under these services. Also, a script is provided for importing health data related applications and items to several hosts using the Zabbix API. Please find the example files in the directory <code>/usr/share/doc/xroad-opmonitor/examples/zabbix/</code>. Please refer to [<a href="#Ref_ZABBIX-API">ZABBIX-API</a>] for information on the Zabbix API.</p>
-<h2>
-<a id="16-environmental-monitoring" class="anchor" href="#16-environmental-monitoring" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>16 Environmental Monitoring</h2>
+<h2><a id="16-environmental-monitoring" class="anchor" aria-hidden="true" href="#16-environmental-monitoring"><span aria-hidden="true" class="octicon octicon-link"></span></a>16 Environmental Monitoring</h2>
 <p>Environmental monitoring provides details of the security servers such as operating system, memory, disk space, CPU load, running processes and installed packages, etc.</p>
-<h3>
-<a id="161-usage-via-soap-api" class="anchor" href="#161-usage-via-soap-api" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>16.1 Usage via SOAP API</h3>
+<h3><a id="161-usage-via-soap-api" class="anchor" aria-hidden="true" href="#161-usage-via-soap-api"><span aria-hidden="true" class="octicon octicon-link"></span></a>16.1 Usage via SOAP API</h3>
 <p>Environmental monitoring provides SOAP API via X-Road message protocol extension. SOAP messages are described in [<a href="#Ref_PR-ENVMONMES">PR-ENVMONMES</a>].</p>
 <p>Monitoring extension schema is defined in [<a href="#Ref_MONITORING_XSD">MONITORING_XSD</a>].</p>
-<h3>
-<a id="162-usage-via-jmx-api" class="anchor" href="#162-usage-via-jmx-api" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>16.2 Usage via JMX API</h3>
+<h3><a id="162-usage-via-jmx-api" class="anchor" aria-hidden="true" href="#162-usage-via-jmx-api"><span aria-hidden="true" class="octicon octicon-link"></span></a>16.2 Usage via JMX API</h3>
 <p>Environmental monitoring provides also a standard JMX endpoint which can be accessed with any JMX client (for example Java's jconsole application). See [<a href="#Ref_ARC-ENVMON">ARC-ENVMON</a>] for details.</p>
 <p>JMX is disabled on default. JMX is enabled by adding standard JMX-related options to the executable java process as in example by [<a href="#Ref_ZABBIX-JMX">ZABBIX-JMX</a>].</p>
-<h3>
-<a id="163-limiting-environmental-monitoring-remote-data-set" class="anchor" href="#163-limiting-environmental-monitoring-remote-data-set" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>16.3 Limiting environmental monitoring remote data set</h3>
+<h3><a id="163-limiting-environmental-monitoring-remote-data-set" class="anchor" aria-hidden="true" href="#163-limiting-environmental-monitoring-remote-data-set"><span aria-hidden="true" class="octicon octicon-link"></span></a>16.3 Limiting environmental monitoring remote data set</h3>
 <p>It is possibility to limit what allowed non-owners can request via environmental monotiring data request by changing monitor-env limit-remote-data-set parameter. By changing flag to be true non-owners who are allowed to query environmental monitoring data will get only certificate, operating system and xroad version information. This parameters is set by default false. Security server owner will always get full data set as requested.</p>
-<h2>
-<a id="17-logs-and-system-services" class="anchor" href="#17-logs-and-system-services" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>17 Logs and System Services</h2>
+<h2><a id="17-logs-and-system-services" class="anchor" aria-hidden="true" href="#17-logs-and-system-services"><span aria-hidden="true" class="octicon octicon-link"></span></a>17 Logs and System Services</h2>
 <p><strong>To read logs</strong>, a user must have root user's rights or belong to the <code>xroad</code> and/or <code>adm</code> system group.</p>
-<h3>
-<a id="171-system-services" class="anchor" href="#171-system-services" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>17.1 System Services</h3>
+<h3><a id="171-system-services" class="anchor" aria-hidden="true" href="#171-system-services"><span aria-hidden="true" class="octicon octicon-link"></span></a>17.1 System Services</h3>
 <p>The most important system services of a security server are as follows.</p>
 <table>
 <thead>
@@ -3337,8 +3230,7 @@ tls-certificate = &lt;path/to/external/daemon/tls/cert&gt;
 <p>Services use the <a href="https://www.freedesktop.org/software/systemd/man/systemd-system.conf.html#DefaultStartLimitIntervalSec=" rel="nofollow">default unit start rate limits</a>.
 An exception to this is <code>xroad-proxy-ui-api</code>, which uses a longer start rate limit (<a href="https://github.com/nordic-institute/X-Road/blob/master/src/packages/src/xroad/ubuntu/generic/xroad-proxy-ui-api.service#L5-6">5 starts / 40 seconds</a>)
 to prevent infinite restart-loop in some specific error situations.</p>
-<h3>
-<a id="172-logging-configuration" class="anchor" href="#172-logging-configuration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>17.2 Logging configuration</h3>
+<h3><a id="172-logging-configuration" class="anchor" aria-hidden="true" href="#172-logging-configuration"><span aria-hidden="true" class="octicon octicon-link"></span></a>17.2 Logging configuration</h3>
 <p>For logging, the <strong>Logback</strong> system is used. Logback configuration files are stored in the directory <code>/etc/xroad/conf.d/</code>.</p>
 <p>Default settings for logging are the following:</p>
 <ul>
@@ -3349,11 +3241,9 @@ to prevent infinite restart-loop in some specific error situations.</p>
 <p>rolling policy: whenever the file size reaches 100 MB.</p>
 </li>
 </ul>
-<h3>
-<a id="173-fault-detail-uuid" class="anchor" href="#173-fault-detail-uuid" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>17.3 Fault Detail UUID</h3>
+<h3><a id="173-fault-detail-uuid" class="anchor" aria-hidden="true" href="#173-fault-detail-uuid"><span aria-hidden="true" class="octicon octicon-link"></span></a>17.3 Fault Detail UUID</h3>
 <p>In case a security server encounters an error condition during the message exchange, the security server returns a SOAP Fault message [<a href="#Ref_PR-MESS">PR-MESS</a>] containing a UUID (a universally unique identifier, e.g. <code>1328e974-4fe5-412c-a4c4-f1ac36f20b14</code>) as the fault detail to the service client's information system. The UUID can be used to find the details of the occurred error from the <code>xroad-proxy</code> log.</p>
-<h2>
-<a id="18-federation" class="anchor" href="#18-federation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>18 Federation</h2>
+<h2><a id="18-federation" class="anchor" aria-hidden="true" href="#18-federation"><span aria-hidden="true" class="octicon octicon-link"></span></a>18 Federation</h2>
 <p>Federation allows security servers of two different X-Road instances to exchange messages with each other. The instances
 are federated at the central server level. After this, security servers can be configured to opt-in to the federation.
 By default, federation is disabled and configuration data for other X-Road instances will not be downloaded.</p>
@@ -3381,8 +3271,7 @@ federations:</p>
 <p>And the following will allow none:</p>
 <div class="highlight highlight-source-ini"><pre><span class="pl-en">[configuration-client]</span>
 <span class="pl-k">allowed-federations</span>=xe-test, all, none, ee-test</pre></div>
-<h2>
-<a id="19-management-rest-api" class="anchor" href="#19-management-rest-api" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>19 Management REST API</h2>
+<h2><a id="19-management-rest-api" class="anchor" aria-hidden="true" href="#19-management-rest-api"><span aria-hidden="true" class="octicon octicon-link"></span></a>19 Management REST API</h2>
 <p>Security server has a REST API that can be used to do all the same server configuration operations that can be done
 using the web UI.</p>
 <p>Management REST API is protected with an API key based authentication. To execute REST calls, API keys need to be created.</p>
@@ -3416,8 +3305,7 @@ for example <code>5MB</code>.</p>
 <p>New command line arguments can be added, not replaced, using the configuration file <code>local.properties</code>.
 Example of <code>/etc/xroad/services/local.properties</code> with modifications:</p>
 <div class="highlight highlight-source-ini"><pre><span class="pl-k">XROAD_PROXY_UI_API_PARAMS</span>=-<span class="pl-k">Dratelimit.requests.per.second</span>=100 -<span class="pl-k">Drequest.sizelimit.binary.upload</span>=1MB</pre></div>
-<h3>
-<a id="191-api-key-management-operations" class="anchor" href="#191-api-key-management-operations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>19.1 API key management operations</h3>
+<h3><a id="191-api-key-management-operations" class="anchor" aria-hidden="true" href="#191-api-key-management-operations"><span aria-hidden="true" class="octicon octicon-link"></span></a>19.1 API key management operations</h3>
 <p><strong>Access rights:</strong> <a href="#xroad-system-administrator">System Administrator</a></p>
 <p>An API key is linked to a role or roles, and grants access to the operations that are allowed for that role/roles.
 Separate REST endpoints exist for API key management.
@@ -3425,8 +3313,7 @@ API key management endpoints are authenticated to with <a href="https://en.wikip
 or with session authentication (for admin web application).
 Basic authentication access is limited to localhost by default, but this can
 be changed using System Parameters [<a href="#Ref_UG-SYSPAR">UG-SYSPAR</a>].</p>
-<h4>
-<a id="1911-creating-new-api-keys" class="anchor" href="#1911-creating-new-api-keys" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>19.1.1 Creating new API keys</h4>
+<h4><a id="1911-creating-new-api-keys" class="anchor" aria-hidden="true" href="#1911-creating-new-api-keys"><span aria-hidden="true" class="octicon octicon-link"></span></a>19.1.1 Creating new API keys</h4>
 <p>A new API key is created with a <code>POST</code> request to <code>/api/v1/api-keys</code>. Message body must contain the roles to be
 associated with the key. Server responds with data that contains the actual API key. After this point the key
 cannot be retrieved, as it is not stored in plaintext.</p>
@@ -3441,8 +3328,7 @@ cannot be retrieved, as it is not stored in plaintext.</p>
 }
 </pre></div>
 <p>In this example the created key was <code>23bc57cd-b1ba-4702-9657-8d53e335c843</code>.</p>
-<h4>
-<a id="1912-listing-api-keys" class="anchor" href="#1912-listing-api-keys" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>19.1.2 Listing API keys</h4>
+<h4><a id="1912-listing-api-keys" class="anchor" aria-hidden="true" href="#1912-listing-api-keys"><span aria-hidden="true" class="octicon octicon-link"></span></a>19.1.2 Listing API keys</h4>
 <p>Existing API keys can be listed with a <code>GET</code> request to <code>/api/v1/api-keys</code>. This lists all keys, regardless of who has created them.</p>
 <div class="highlight highlight-source-shell"><pre>curl -X GET -u <span class="pl-k">&lt;</span>user<span class="pl-k">&gt;</span>:<span class="pl-k">&lt;</span>password<span class="pl-k">&gt;</span> https://localhost:4000/api/v1/api-keys -k
 [
@@ -3469,8 +3355,7 @@ cannot be retrieved, as it is not stored in plaintext.</p>
   ]
 }
 </pre></div>
-<h4>
-<a id="1913-updating-api-keys" class="anchor" href="#1913-updating-api-keys" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>19.1.3 Updating API keys</h4>
+<h4><a id="1913-updating-api-keys" class="anchor" aria-hidden="true" href="#1913-updating-api-keys"><span aria-hidden="true" class="octicon octicon-link"></span></a>19.1.3 Updating API keys</h4>
 <p>An existing API key is updated with a <code>PUT</code> request to <code>/api/v1/api-keys/{id}</code>. Message body must contain the roles to be
 associated with the key. Server responds with data that contains the key id and roles associated with the key.</p>
 <div class="highlight highlight-source-shell"><pre>curl -X PUT -u <span class="pl-k">&lt;</span>user<span class="pl-k">&gt;</span>:<span class="pl-k">&lt;</span>password<span class="pl-k">&gt;</span> https://localhost:4000/api/v1/api-keys/60 --data <span class="pl-s"><span class="pl-pds">'</span>["XROAD_SECURITYSERVER_OBSERVER","XROAD_REGISTRATION_OFFICER"]<span class="pl-pds">'</span></span> --header <span class="pl-s"><span class="pl-pds">"</span>Content-Type: application/json<span class="pl-pds">"</span></span> -k
@@ -3482,14 +3367,12 @@ associated with the key. Server responds with data that contains the key id and 
   ]
 }
 </pre></div>
-<h4>
-<a id="1914-revoking-api-keys" class="anchor" href="#1914-revoking-api-keys" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>19.1.4 Revoking API keys</h4>
+<h4><a id="1914-revoking-api-keys" class="anchor" aria-hidden="true" href="#1914-revoking-api-keys"><span aria-hidden="true" class="octicon octicon-link"></span></a>19.1.4 Revoking API keys</h4>
 <p>An API key can be revoked with a <code>DELETE</code> request to <code>/api/v1/api-keys/{id}</code>. Server responds with <code>HTTP 200</code> if
 revocation was successful and <code>HTTP 404</code> if key did not exist.</p>
 <div class="highlight highlight-source-shell"><pre>curl -X DELETE -u <span class="pl-k">&lt;</span>user<span class="pl-k">&gt;</span>:<span class="pl-k">&lt;</span>password<span class="pl-k">&gt;</span> https://localhost:4000/api/v1/api-keys/60  -k
 </pre></div>
-<h4>
-<a id="1915-api-key-caching" class="anchor" href="#1915-api-key-caching" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>19.1.5 API key caching</h4>
+<h4><a id="1915-api-key-caching" class="anchor" aria-hidden="true" href="#1915-api-key-caching"><span aria-hidden="true" class="octicon octicon-link"></span></a>19.1.5 API key caching</h4>
 <p>API keys are cached in memory. In typical security server configurations this does not create problems.
 However, if you have configured a setup where multiple security servers share the same <code>serverconf</code> database,
 and use multiple nodes to access REST API and execute API key management operations, the caches of different nodes
@@ -3499,8 +3382,7 @@ REST API endpoints with this API key.</p>
 <p>If you operate such a configuration, you need to target all REST API operations to the same security server node,
 or otherwise ensure that caching will not create problems (for example, always restart REST API modules when API key
 operations are executed).</p>
-<h3>
-<a id="192-executing-rest-calls" class="anchor" href="#192-executing-rest-calls" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>19.2 Executing REST calls</h3>
+<h3><a id="192-executing-rest-calls" class="anchor" aria-hidden="true" href="#192-executing-rest-calls"><span aria-hidden="true" class="octicon octicon-link"></span></a>19.2 Executing REST calls</h3>
 <p><strong>Access rights:</strong> Depends on the API.</p>
 <p>Once a valid API key has been created, it is used by providing an <code>Authorization: X-Road-ApiKey token=&lt;api key&gt;</code> HTTP
 header in the REST calls. For example</p>
@@ -3518,8 +3400,7 @@ header in the REST calls. For example</p>
 as the corresponding UI operations.
 Access to regular APIs is allowed from all IP addresses by default, but this can
 be changed using System Parameters [<a href="#Ref_UG-SYSPAR">UG-SYSPAR</a>].</p>
-<h3>
-<a id="193-correlation-id-http-header" class="anchor" href="#193-correlation-id-http-header" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>19.3 Correlation ID HTTP header</h3>
+<h3><a id="193-correlation-id-http-header" class="anchor" aria-hidden="true" href="#193-correlation-id-http-header"><span aria-hidden="true" class="octicon octicon-link"></span></a>19.3 Correlation ID HTTP header</h3>
 <p>The REST API endpoints return an <strong>x-road-ui-correlation-id</strong> HTTP header. This header is also logged in <code>proxy_ui_api.log</code>, so it
 can be used to find the log messages related to a specific API call.</p>
 <p>The correlation ID header is returned for all requests, both successful and failed ones.</p>
@@ -3528,8 +3409,7 @@ can be used to find the log messages related to a specific API call.</p>
 2019-08-26 13:16:23,611 [https-jsse-nio-4000-exec-10] correlation-id:[3d5f193102435242] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.niis.xroad.restapi.exceptions.ConflictException: local group with code koodi6 already added]
 2019-08-26 13:16:23,611 [https-jsse-nio-4000-exec-10] correlation-id:[3d5f193102435242] DEBUG o.s.s.w.a.ExceptionTranslationFilter - Chain processed normally
 </code></pre>
-<h3>
-<a id="194-validation-errors" class="anchor" href="#194-validation-errors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>19.4 Validation errors</h3>
+<h3><a id="194-validation-errors" class="anchor" aria-hidden="true" href="#194-validation-errors"><span aria-hidden="true" class="octicon octicon-link"></span></a>19.4 Validation errors</h3>
 <p>An error response from the REST API can include validation errors if an unsupported parameter was provided with the request.
 When</p>
 <p>Example request and response of adding a new subsystem with illegal characters:</p>
@@ -3601,8 +3481,7 @@ Response body:
 </tr>
 </tbody>
 </table>
-<h3>
-<a id="195-warning-responses" class="anchor" href="#195-warning-responses" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>19.5 Warning responses</h3>
+<h3><a id="195-warning-responses" class="anchor" aria-hidden="true" href="#195-warning-responses"><span aria-hidden="true" class="octicon octicon-link"></span></a>19.5 Warning responses</h3>
 <p>Error response from the Management API can include additional warnings that you can ignore if seen necessary. The warnings can be ignored by your decision, by executing the same operation with <code>ignore_warnings</code> boolean parameter set to <code>true</code>. <em>Always consider the warning before making the decision to ignore it.</em></p>
 <p>An example case:</p>
 <ol>
@@ -3630,8 +3509,7 @@ Response body:
   ]
 }</pre></div>
 <p>Note that when you are using the admin UI and you encounter warnings, you will always be provided with a popup window with a <code>CONTINUE</code> button in it. When you click the <code>CONTINUE</code> button in the popup, the request is sent again but this time warnings will be ignored.</p>
-<h2>
-<a id="20-migrating-to-remote-database-host" class="anchor" href="#20-migrating-to-remote-database-host" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>20 Migrating to Remote Database Host</h2>
+<h2><a id="20-migrating-to-remote-database-host" class="anchor" aria-hidden="true" href="#20-migrating-to-remote-database-host"><span aria-hidden="true" class="octicon octicon-link"></span></a>20 Migrating to Remote Database Host</h2>
 <p>Since version <code>6.22.0</code> Security Server supports using remote databases. In case you have an already running Security Server with local database, it is possible to migrate it to use remote database host instead. The instructions for this process are listed below.</p>
 <ol>
 <li>
@@ -3703,37 +3581,33 @@ sudo chmod 600 /etc/xroad.properties</pre></div>
 <div class="highlight highlight-source-shell"><pre>systemctl start <span class="pl-s"><span class="pl-pds">"</span>xroad*<span class="pl-pds">"</span></span></pre></div>
 </li>
 </ol>
-<h2>
-<a id="21-adding-command-line-arguments" class="anchor" href="#21-adding-command-line-arguments" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>21 Adding command line arguments</h2>
+<h2><a id="21-adding-command-line-arguments" class="anchor" aria-hidden="true" href="#21-adding-command-line-arguments"><span aria-hidden="true" class="octicon octicon-link"></span></a>21 Adding command line arguments</h2>
 <p>If you need to add command line arguments for the Security Server, for example if you wish to increase Java's maximum heap size, you can do it with the properties file <code>/etc/xroad/services/local.properties</code>. The file is also included in the backup archive file when taking a backup of the Security Server's configuration.</p>
 <p>Example of <code>/etc/xroad/services/local.properties</code> with modifications that override the default Java memory parameters:</p>
 <div class="highlight highlight-source-ini"><pre><span class="pl-k">XROAD_PROXY_PARAMS</span>=-Xms150m -Xmx1024m</pre></div>
-<p>All possible properties to adjust in this file are</p>
+<p>All possible properties to adjust in this file are:</p>
 <pre><code>XROAD_SIGNER_PARAMS
 XROAD_ADDON_PARAMS
-XROAD_CONFCLIENT_PARAM
-XROAD_CONFPROXY_PARAM
+XROAD_CONFCLIENT_PARAMS
+XROAD_CONFPROXY_PARAMS
 XROAD_JETTY_PARAMS
-XROAD_MONITOR_PARAM
-XROAD_OPMON_PARAM
-XROAD_PROXY_PARAM
-XROAD_PROXY_UI_API_PARAM
-XROAD_SIGNER_CONSOLE_PARAM
+XROAD_MESSAGELOG_ARCHIVER_PARAMS
+XROAD_MONITOR_PARAMS
+XROAD_OPMON_PARAMS
+XROAD_PROXY_PARAMS
+XROAD_PROXY_UI_API_PARAMS
+XROAD_SIGNER_CONSOLE_PARAMS
 </code></pre>
-<h2>
-<a id="22-additional-security-hardening" class="anchor" href="#22-additional-security-hardening" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>22 Additional Security Hardening</h2>
+<h2><a id="22-additional-security-hardening" class="anchor" aria-hidden="true" href="#22-additional-security-hardening"><span aria-hidden="true" class="octicon octicon-link"></span></a>22 Additional Security Hardening</h2>
 <p>You may want to harden the security of your X-Road instance by configuring additional security policies in your Security Servers. The security measures that are introduced in this guide are common security policies that can be configured on operating system level.</p>
 <p>X-Road uses the Linux Pluggable Authentication Modules (PAM) to authenticate users. This makes it easy to configure the account management to your liking. The example PAM configurations provided in this guide may or may not work on your system depending on your system and existing PAM configurations. Note that editing the PAM configurations will take effect immediately without the need to restart anything.</p>
 <p>For configuring the following security policies for the X-Road Security Server Admin UI in production, please refer to <a href="http://www.linux-pam.org/Linux-PAM-html/Linux-PAM_SAG.html" rel="nofollow">The Linux-PAM System Administrator's Guide</a> for the full documentation on how to configure PAM.</p>
-<h3>
-<a id="221-configuring-account-lockout" class="anchor" href="#221-configuring-account-lockout" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>22.1 Configuring account lockout</h3>
+<h3><a id="221-configuring-account-lockout" class="anchor" aria-hidden="true" href="#221-configuring-account-lockout"><span aria-hidden="true" class="octicon octicon-link"></span></a>22.1 Configuring account lockout</h3>
 <p>Configuring an account lockout policy in your Security Server Admin UI authentication will provide an extra layer of defence against password guessing attacks, such as brute force attacks. After configuring the account lockout, when trying to log in to the Security Server Admin UI with a locked account, the login screen will display a generic login error without disclosing the reason or any other login information.</p>
 <p>The PAM service to configure the account lockout to is <code>xroad</code>.</p>
-<h4>
-<a id="2211-considerations-and-risks" class="anchor" href="#2211-considerations-and-risks" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>22.1.1 Considerations and risks</h4>
+<h4><a id="2211-considerations-and-risks" class="anchor" aria-hidden="true" href="#2211-considerations-and-risks"><span aria-hidden="true" class="octicon octicon-link"></span></a>22.1.1 Considerations and risks</h4>
 <p>After enabling the account lockout for the Security Server, you should be aware that a user can lock out any other user's account if they know the correct username.</p>
-<h4>
-<a id="2212-account-lockout-examples" class="anchor" href="#2212-account-lockout-examples" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>22.1.2 Account lockout examples</h4>
+<h4><a id="2212-account-lockout-examples" class="anchor" aria-hidden="true" href="#2212-account-lockout-examples"><span aria-hidden="true" class="octicon octicon-link"></span></a>22.1.2 Account lockout examples</h4>
 <p>The example configurations will lock the user's account, preventing login to the Security Server Admin UI for 15 minutes (I.e. 900 seconds) after they provide a wrong password in the Security Server Admin UI login three (3) consecutive times. This configuration also affects the root account.</p>
 <p><strong>Example on Ubuntu</strong></p>
 <p>Create a new configuration <code>/etc/pam.d/xroad</code> with the following content:</p>
@@ -3753,16 +3627,13 @@ account    required     pam_unix.so
 password   required     pam_deny.so
 password   required     pam_warn.so
 session    required     pam_deny.so</pre></div>
-<h3>
-<a id="222-configuring-password-policies" class="anchor" href="#222-configuring-password-policies" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>22.2 Configuring password policies</h3>
+<h3><a id="222-configuring-password-policies" class="anchor" aria-hidden="true" href="#222-configuring-password-policies"><span aria-hidden="true" class="octicon octicon-link"></span></a>22.2 Configuring password policies</h3>
 <p>Configuring a password policy in your Security Server Admin UI authentication will provide an additional layer of defence against password guessing attacks, such as password spraying.</p>
 <p>User account passwords cannot be changed directly from the Security Server Admin UI, therefore the password policy must be configured on operating system user account level. The method of adding a new password policy varies significantly depending on your operating system, existing PAM configuration and authentication protocol.</p>
 <p>For instruction on how to add password policies, please refer to your operating system's official documentation or customer support.</p>
-<h4>
-<a id="2221-considerations-and-risks" class="anchor" href="#2221-considerations-and-risks" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>22.2.1 Considerations and risks</h4>
+<h4><a id="2221-considerations-and-risks" class="anchor" aria-hidden="true" href="#2221-considerations-and-risks"><span aria-hidden="true" class="octicon octicon-link"></span></a>22.2.1 Considerations and risks</h4>
 <p>In a strong password, it is advisable to have at least 16 characters at minimum. You can also add complexity requirements, such as numbers and special characters, but these requirements can make the passwords more difficult for users to remember. Further additional measures could be to add commonly known passwords into a blocklist.</p>
-<h3>
-<a id="223-ensuring-user-account-security" class="anchor" href="#223-ensuring-user-account-security" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>22.3 Ensuring User Account Security</h3>
+<h3><a id="223-ensuring-user-account-security" class="anchor" aria-hidden="true" href="#223-ensuring-user-account-security"><span aria-hidden="true" class="octicon octicon-link"></span></a>22.3 Ensuring User Account Security</h3>
 <p>Users of the web application are created by creating operating-system-level users. This means that a user can access the web application and the underlying operating system with the same credentials. Therefore, if user accounts in the web application were compromised, the attacker could use those credentials to log into the server via SSH if credential-based logging in is not disabled.</p>
 <p>To harden the user account security, make sure that users are not allowed to access the server via SSH by default. The users needing SSH access are granted those rights separately.</p>
 <p>Create a user group in which users are allowed to connect to the server via SSH while all other users are denied. Add the following line to <code>/etc/ssh/sshd_config</code>:</p>

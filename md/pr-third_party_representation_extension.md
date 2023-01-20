@@ -1,16 +1,15 @@
-# X-Road: Third Party Representation Extension
+# Third Party Representation Extension for the X-Road Message Protocol
 
-**Technical Specification**
-
-Version: 1.0.2  
+Version: 1.1  
 Doc. ID: PR-THIRDPARTY
 
 ## Version history
 
-| Date       | Version     | Description                                                                  | Author             |
-|------------|-------------|------------------------------------------------------------------------------|--------------------|
-|            | 1.0.1       | Initial version                                                              |                    |
-| 11.06.2018 | 1.0.2       | Converted to MD and updated references                                       | Jürgen Šuvalov     |
+| Date       | Version | Description                                                               | Author           |
+|------------|---------|---------------------------------------------------------------------------|------------------|
+|            | 1.0.1   | Initial version                                                           |                  |
+| 11.06.2018 | 1.0.2   | Converted to MD and updated references                                    | Jürgen Šuvalov   |
+| 17.06.2022 | 1.1     | Copy from `ria-ee/X-Road-EE-docs` to `nordic-institute/X-Road` repository | Petteri Kivimäki |
 
 ## Table of Contents
 
@@ -21,9 +20,12 @@ Doc. ID: PR-THIRDPARTY
     - [Table of Contents](#table-of-contents)
     - [License](#license)
     - [1 Introduction](#1-introduction)
+      - [1.1 Terms and abbreviations](#11-terms-and-abbreviations)
+      - [1.2 References](#12-references)
     - [2 Format of Messages](#2-format-of-messages)
-        - [2.1 Represented Parties](#21-represented-parties)
-        - [2.2 Message Headers](#22-message-headers)
+      - [2.1 Schema Header](#21-schema-header)
+      - [2.2 Represented Parties](#22-represented-parties)
+      - [2.3 Message Headers](#23-message-headers)
     - [Annex A XML Schema for Representation](#annex-a-xml-schema-for-representation)
     - [Annex B Example WSDL](#annex-b-example-wsdl)
     - [Annex C Example Messages](#annex-c-example-messages)
@@ -37,42 +39,55 @@ This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unpo
 
 ## 1 Introduction
 
-This specification describes an extension of X-Road protocol for adapter server messaging v4
-(https://github.com/nordic-institute/X-Road/blob/master/doc/Protocols/pr-mess_x-road_message_protocol.md).
+This specification describes an extension to the X-Road Message Protocol 4.0 \[[PR-MESS](#Ref_PR-MESS)\].
 
-The purpose of that extension is to allow sending of additional information to the X-Road service providers in case when service client represents third party while issuing a query. The query is initiated by a third party and the results are also forwarded to that third party, but the request itself is signed by service client.
+The purpose of this extension is to allow sending of additional information to the X-Road service providers in case when service client represents third party while issuing a query. The query is initiated by a third party and the results are also forwarded to that third party, but the request itself is signed by service client.
 
 The described scenario can be used by MISP and other portals that offer X-Road services to various types of institutions. These institutions may not be X-Road members and even may not be eligible for becoming ones, but the service agreements between service providers and service clients may allow service clients to forward data received from X-Road services to these institutions.
 
-This specification describes third party representation extension version 1.0.
+### 1.1 Terms and abbreviations
+
+See X-Road terms and abbreviations documentation \[[TA-TERMS](#Ref_TERMS)\]
+
+### 1.2 References
+
+| Document ID||
+| ------------- |-------------|
+| <a name="Ref_PR-MESS"></a>\[PR-MESS\] | [X-Road: Message Protocol v4.0](pr-mess_x-road_message_protocol.md)
+| <a name="Ref_TERMS"></a>\[TA-TERMS\] | [X-Road Terms and Abbreviations](terms_x-road_docs.md)
 
 ## 2 Format of Messages
 
-### 2.1 Represented Parties
+This section describes XML-based data formats for expressing the represented parties. The data structures and elements defined in this section are in the namespace `http://x-road.eu/xsd/representation.xsd`. The schema file can be found at [`http://x-road.eu/xsd/representation.xsd`](http://x-road.eu/xsd/representation.xsd). The XML Schema for this extension is also listed in the section [Annex A XML Schema for Representation](#annex-a-xml-schema-for-representation).
 
-This section describes XML-based data formats for expressing the represented parties. The data structures and elements defined in this section will be located under namespace http://x-road.eu/xsd/representation.xsd. The complete XML Schema is shown in [Annex A XML Schema for Representation](#annex-a-xml-schema-for-representation).
+### 2.1 Schema Header
 
 The following listing shows the header of the schema definition.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-elementFormDefault="qualified"
-targetNamespace="http://x-road.eu/xsd/representation.xsd"
-xmlns="http://x-road.eu/xsd/representation.xsd">
+    elementFormDefault="qualified"
+    targetNamespace="http://x-road.eu/xsd/representation.xsd"
+    xmlns="http://x-road.eu/xsd/representation.xsd">
+
+</xs:schema>
 ```
-The `XRoadRepresentedPartyType` complex type is used to describe represented parties. It consists of two elements – `partyClass` and `partyCode` from which only `partyCode` is mandatory and other can be used for additional information.
+
+### 2.2 Represented Parties
+
+The `XRoadRepresentedPartyType` complex type is used to describe represented parties. It consists of two elements: `partyClass` and `partyCode`. The `partyCode` element is mandatory and the `partyClass` element is optional.
 
 ```xml
 <xs:complexType name="XRoadRepresentedPartyType">
-<xs:sequence>
-<xs:element minOccurs="0" ref="partyClass"/>
-<xs:element minOccurs="1" ref="partyCode"/>
-</xs:sequence>
+    <xs:sequence>
+        <xs:element minOccurs="0" ref="partyClass"/>
+        <xs:element minOccurs="1" ref="partyCode"/>
+    </xs:sequence>
 </xs:complexType>
 ```
 
-Next, we define the elements used in the `XRoadRepresentedPartyType`. Element `partyClass` is similar to the element `memberClass` described in the X-Road protocol for adapter server messaging, but can additionally identify institutions that can not become members of X-Road.
+Next, the elements used in the `XRoadRepresentedPartyType` are defined. Element `partyClass` is similar to the element `memberClass` described in the X-Road Message Protocol 4.0 \[[PR-MESS](#Ref_PR-MESS)\], but can additionally identify institutions that can not become members of X-Road.
 
 Element `partyCode` is used to uniquely identify represented parties.
 
@@ -81,22 +96,22 @@ Element `partyCode` is used to uniquely identify represented parties.
 <xs:element name="partyCode" type="xs:string"/>
 ```
 
-Finally we define the `representedParty` element.
+Finally, the `representedParty` element is defined.
 
 ```xml
 <xs:element name="representedParty" type="XRoadRepresentedPartyType"/>
 ```
 
-### 2.2 Message Headers
+### 2.3 Message Headers
 
-This section describes additional SOAP headers that are used by the X-Road system. The header fields are described in [Table 1](#Ref_Supported_header_fields).
+This section describes the additional SOAP headers that are added by this extension. The header fields are described in [Table 1](#Ref_Supported_header_fields).
 
 <a name="Ref_Supported_header_fields" class="anchor"></a>
 Table 1. Supported header fields
 
- Field           | Type                                      | Mandatory /Optional | Description
+Field           | Type                                      | Mandatory /Optional | Description
 ---------------- | ----------------------------------------- | ----------- | --------------------------------------------------------
- representedParty| XRoadRepresentedPartyType                 | O           | Identifies a party that is being represented in a service request
+representedParty| XRoadRepresentedPartyType                 | O           | Identifies a party that is being represented in a service request
 
 
 ## Annex A XML Schema for Representation

@@ -6,15 +6,15 @@
 
 **X-ROAD 7**
 
-Version: 2.41  
+Version: 2.43  
 Doc. ID: IG-SS
 
 ---
 
 ## Version history <!-- omit in toc -->
 
- Date       | Version | Description                                                     | Author
- ---------- | ------- | --------------------------------------------------------------- | --------------------
+ Date      | Version | Description                                                     | Author
+ --------- | ------- | --------------------------------------------------------------- | --------------------
  01.12.2014 | 1.0     | Initial version                                                 |
  19.01.2015 | 1.1     | License information added                                       |
  18.03.2015 | 1.2     | Meta-package for security server added. Legacy securelog module removed |
@@ -71,6 +71,7 @@ Doc. ID: IG-SS
  26.08.2021 | 2.40    | Add instructions how to disable the messagelog addon before installing, add section [2.7 Disable the Messagelog Addon before Installation (optional)](#27-disable-the-messagelog-addon-before-installation-optional) | Caro Hautamäki
  03.08.2021 | 2.41    | Minor fixes | Ilkka Seppälä
  06.09.2021 | 2.42    | Update list of running services | Jarkko Hyöty
+ 26.09.2022 | 2.43    | Remove Ubuntu 18.04 support  
 
 ## License
 
@@ -163,7 +164,7 @@ There are multiple alternatives how the security server can be deployed. The opt
 
 The security server is officially supported on the following platforms:
 
-* Ubuntu Server 18.04 or 20.04 Long-Term Support (LTS) operating system on a x86-64 platform.
+* Ubuntu Server 20.04 or 22.04 Long-Term Support (LTS) operating system on a x86-64 platform.
 * Red Hat Enterprise Linux (RHEL) 7 and 8 (x86-64).
 
 NB: RIA provides support only for Security Servers which are installed on the Ubuntu operating system.
@@ -183,7 +184,7 @@ The software can be installed both on physical and virtualized hardware (of the 
  1.0    | Ubuntu 18.04, Ubuntu 20.04 (x86-64)<br>3 GB RAM, 3 GB free disk space | Minimum requirements without the `monitoring` and `op-monitoring` add-ons. With the add-ons minimum of 4 GB of RAM is required.
  1.1    | http://x-tee.ee/packages/live/xroad                                                                                  | X-Road stable package repository
  &nbsp; | http://x-tee.ee/packages/test/xroad                                                                                  | X-Road test package repository
- 1.2    | https://x-tee.ee/packages/xroad_repo.gpg                                                                             | The repository key
+ 1.2    | https://x-tee.ee/packages/live/xroad/xroad.pub                                                                             | The repository key
  1.3    |                                                                                                                      | Account name in the user interface
  1.4    | **Inbound ports from external network** | Ports for inbound connections from the external network to the security server
  &nbsp; | TCP 5500                                                                                                             | Message exchange between security servers. Recommended to use IP filtering (**whitelisting only [RIA IP's](#231-ria-ips-for-whitelisting) and partners**).
@@ -255,7 +256,7 @@ Minimum recommended hardware parameters:
 
 Requirements to software and settings:
 
-* an installed and configured Ubuntu 18.04 LTS or 20.04 LTS x86-64 operating system;
+* an installed and configured Ubuntu 20.04 LTS or 22.04 LTS x86-64 operating system;
 * if the security server is separated from other networks by a firewall and/or NAT, the necessary connections to and from the security server are allowed (**reference data: 1.4; 1.5; 1.6; 1.7**). The enabling of auxiliary services which are necessary for the functioning and management of the operating system (such as DNS, NTP, and SSH) stay outside the scope of this guide;
 * if the security server has a private IP address, a corresponding NAT record must be created in the firewall (**reference data: 1.9**).
 
@@ -285,12 +286,12 @@ Requirements to software and settings:
 
 Add the X-Road repository’s signing key to the list of trusted keys (**reference data: 1.2**):
 ```bash
-curl http://x-tee.ee/packages/live/xroad/repo.gpg | sudo apt-key add -
+wget -O -  https://x-tee.ee/packages/live/xroad/xroad.pub | apt-key add -
 ```
 
 Add X-Road package repository (**reference data: 1.1**)
 ```bash
-sudo apt-add-repository -y "deb http://x-tee.ee/packages/live/xroad bionic main"
+echo "deb http://x-tee.ee/packages/live/xroad $(lsb_release -sc)-current main" > /etc/apt/sources.list.d/xroad.list
 ```
 
 Update package repository metadata:
