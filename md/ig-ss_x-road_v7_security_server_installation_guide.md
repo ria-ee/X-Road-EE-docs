@@ -240,9 +240,9 @@ It is strongly recommended to protect the security server from unwanted access u
  #### 2.3.1 RIA IP's for Whitelisting
  Type | **EE - production** | **ee-test**	| **ee-dev**
 -------------------------- | --------------------| -------------- | -------------
- Central Server 			| 213.184.41.178 <br> 213.184.41.186 <br> 213.184.41.190 | 195.80.127.40 <br> 195.80.127.43 | 195.80.109.140
- Central Monitoring Server 	| 195.80.123.159 | 195.80.123.164 | 195.80.123.169
- Management Security Server 			| 213.184.41.177 <br> 213.184.41.185 <br> 213.184.41.189 |195.80.127.37 | 195.80.109.139
+ Central Server 			| cs1.ee.x-tee.ee <br> cs2.ee.x-tee.ee <br> cs3.ee.x-tee.ee | cs1.test.x-tee.ee <br> cs2.test.x-tee.ee <br> cs3.test.x-tee.ee | cs1.dev.x-tee.ee <br> cs2.dev.x-tee.ee <br> cs3.dev.x-tee.ee
+ Central Monitoring Server 	| mon.ee.x-tee.ee | mon.test.x-tee.ee | mon.dev.x-tee.ee
+ Management Security Server 			| ht1.ee.x-tee.ee <br> ht2.ee.x-tee.ee <br> ht3.ee.x-tee.ee | ht1.test.x-tee.ee <br> ht2.test.x-tee.ee <br> ht3.test.x-tee.ee | ht1.dev.x-tee.ee <br> ht2.dev.x-tee.ee <br> ht3.dev.x-tee.ee
 
 ### 2.3 Requirements for the Security Server
 
