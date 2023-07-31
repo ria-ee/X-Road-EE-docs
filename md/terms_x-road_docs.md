@@ -2,7 +2,7 @@
 
 **X-ROAD 7**
 
-Version: 0.8  
+Version: 0.9  
 Doc. ID:  TA-TERMS
 
 ## Version history
@@ -17,7 +17,7 @@ Doc. ID:  TA-TERMS
  16.04.2019 | 0.6     | Add description of REST services. | Petteri Kivimäki |
  02.06.2021 | 0.7     | Add backup encryption related terms. | Andres Allkivi |
  25.08.2021 | 0.8     | Update X-Road references from version 6 to 7 | Caro Hautamäki
-
+| 17.04.2023  | 0.9     | Remove central services support                                                                                                                                  | Justas Samuolis  |
 ## Table of Contents
 
 <!-- toc -->
@@ -173,8 +173,6 @@ This document is licensed under the Creative Commons Attribution-ShareAlike 3.0 
 
 #### 6.4.1 Service and message
 
-**Central service** – dataservice, in case of which the name of service provider is defined by the governing authority. The reason for such alias-name may be the need to assure the service provision (when the service provider changes) without a need to change access rights.
-
 **Dataservice** – web-service executed by a member of X-Road, in order to enable access to the resources of information system of X-Road dataservice provider. The predefined request-response, sent by the information system of a member to the information system of another member and receiving agreed data in response.
 
 **Management service** – services provided by the X-Road governing organization to manage security servers and security server clients. Management services are implemented as standard X-Road services following X-Road message protocol.
@@ -228,8 +226,6 @@ This document is licensed under the Creative Commons Attribution-ShareAlike 3.0 
 **System service log** – a log which is made from a running system service of a security server, for example from xroad-confclient, -proxy, signer services.  
 
 ### 6.7 Identifiers and codes
-
-**Central service identifier** – identifier, that uniquely identifies service in X-Road network without having a reference for service provider. Central service identifier consists of X-Road instance identifier and central service code.
 
 **Global access group identifier** – identifier, that uniquely identifies access group in X-Road Network. Global access group identifier consists of X-Road instance identifier and global group code.
 

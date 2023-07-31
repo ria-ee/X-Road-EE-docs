@@ -6,7 +6,7 @@
 
 **X-ROAD 7**
 
-Version: 2.72 
+Version: 2.76
 Doc. ID: UG-SS
 
 ---
@@ -106,7 +106,9 @@ Doc. ID: UG-SS
  03.05.2022 | 2.70   | Minor updates to system services                                                                                                                                                                                                                                                                                                                                                                            | Petteri Kivimäki
  17.05.2022 | 2.71   | Updates to Diagnostics section, minor updates to backup encryption, message log database encryption and archive encryption and grouping                                                                                                                                                                                                                                                                     | Petteri Kivimäki
  13.07.2022 | 2.72   | Updated chapter [21](#21-adding-command-line-arguments) and added `XROAD_MESSAGELOG_ARCHIVER_PARAMS` argument                                                                                                                                                                                                                                                                                               | Petteri Kivimäki
-
+| 30.01.2023 | 2.74    | Updated chapter [13.3 Automatic Backups](#133-automatic-backups) to reflect recent configuration changes.                                                                                                                                                                                                                                                                                                   | Ričardas Bučiūnas |
+| 01.06.2023 | 2.75    | Update references                                                                                                                                                                                                                                                                                                                                                                                           | Petteri Kivimäki  |
+| 31.05.2023 | 2.76    | Updated chapter [19.1.5 API key caching](#1915-api-key-caching) with additional configuration suggestions.                                                                                                                                                                                                                                                                                                  | Ričardas Bučiūnas |
 ## Table of Contents <!-- omit in toc -->
 
 <!-- toc -->
@@ -178,7 +180,11 @@ Doc. ID: UG-SS
   * [8.2 Displaying and Changing the Members of a Local Group](#82-displaying-and-changing-the-members-of-a-local-group)
   * [8.3 Changing the description of a Local Group](#83-changing-the-description-of-a-local-group)
   * [8.4 Deleting a Local Group](#84-deleting-a-local-group)
-* [9 Communication with the Client Information Systems](#9-communication-with-the-client-information-systems)
+* [9 Communication with Information Systems](#9-communication-with-information-systems)
+  * [9.1 Communication with Service Consumer Information Systems](#91-communication-with-service-consumer-information-systems)
+  * [9.2 Communication with Service Provider Information Systems](#92-communication-with-service-provider-information-systems)
+  * [9.3 Managing Information System TLS Certificates](#93-managing-information-system-tls-certificates)
+
 * [10 System Parameters](#10-system-parameters)
   * [10.1 Managing the Configuration Anchor](#101-managing-the-configuration-anchor)
   * [10.2 Managing the Timestamping Services](#102-managing-the-timestamping-services)
@@ -1383,52 +1389,67 @@ To delete a local group, follow these steps.
 3.  In the group detail view, click **DELETE** and confirm the deletion by clicking **YES** in the dialog that opens.
 
 
-## 9 Communication with the Client Information Systems
+## 9 Communication with Information Systems
 
 **Access rights:** [Registration Officer](#xroad-registration-officer), [Service Administrator](#xroad-service-administrator)
 
-A security server can use either the HTTP, HTTPS, or HTTPS NOAUTH protocol to communicate with information system servers which provide and use services.
 
--   The HTTP protocol should be used if the information system server and the security server communicate in a private network segment where no other computers are connected to. Furthermore, the information system server must not allow interactive log-in.
+### 9.1 Communication with Service Consumer Information Systems
 
--   The HTTPS protocol (**default for new clients**) should be used if it is not possible to provide a separate network segment for the communication between the information system server and the security server. In that case, cryptographic methods are used to protect their communication against potential eavesdropping and interception. Before HTTPS can be used, internal TLS certificates must be created for the information system server(s) and uploaded to the security server.
+A security server can be configured to require either the HTTP, HTTPS, or HTTPS with Client Authentication (i.e. HTTP over mTLS) protocol from the consumer role information systems for communication.
 
--   The HTTPS NOAUTH protocol should be used if you want the security server to skip the verification of the information system TLS certificate.
+- HTTP protocol should be used if the consumer information system and the security server communicate in a private network segment where no other computers are connected to. Furthermore, the information system must not allow interactive log-in.
 
-   *Note:* If the HTTP connection method is selected, but the information system connects to the security server over HTTPS, then the connection is accepted, but the client's internal TLS certificate is not verified (same behavior as with HTTPS NOAUTH).
+
+- HTTPS NOAUTH - a.k.a plain HTTPS protocol should be used if it is not possible to provide a separate network segment for the communication between the information system and the security server. In that case, cryptographic methods are used to protect their communication against potential eavesdropping and interception.
+
+
+- HTTPS - a.k.a. HTTPS with Client Authentication protocol (**default for new clients**) should be used to protect against unauthorised communication in addition to potential eavesdropping and interception. Before HTTPS can be used, internal TLS certificates must be created for the information systems and uploaded to the security server.
 
 **By default the connection type for all the security server clients is set to HTTPS to prevent unauthorised use of the clients.**
 
 **It is strongly recommended to keep the connection type of the security server owner as HTTPS to prevent security server clients from making operational monitoring data requests as a security server owner.**
 
-To set the connection method for internal network servers in the **service consumer role**, follow these steps.
+To set the connection method for information systems in the **service consumer role**, follow these steps:
 
-1.  In the **Navigation tabs**, select **CLIENTS**, select a security server owner or a client from the table
+1. In the **Navigation tabs**, select **CLIENTS**, select a security server owner or a client from the table
 
-2.  In the view that opens, select the **INTERNAL SERVERS** tab
+2. In the view that opens, select the **INTERNAL SERVERS** tab
  
-3.  On the **Connection type** drop-down, select the connection method. The changes will be saved immediately on selecting the new method and a "Connection type updated" message is displayed.
+3. On the **Connection type** drop-down, select the connection method between HTTP, HTTPS NOAUTH or HTTPS. The changes will be saved immediately on selecting the new method and a "Connection type updated" message is displayed.
+
+
+   **Note:** If the HTTP connection method is selected, but the information system connects to the security server over HTTPS, then the connection is accepted, but the client's internal TLS certificate is not verified (same behavior as with HTTPS NOAUTH).
+
+   **Note:** If HTTPS NOAUTH method is selected keep in mind that the consumer information system must trust the security server's TLS certificate. This can be achieved by exporting security server's internal TLS certificate into information system's truststore (see section [9.3](#93-managing-information-system-tls-certificates)).
+
+   **Note:** If HTTPS method is selected then additionally the client information system's TLS certificate must be trusted. In order to accomplish that the certificate must be added into security server's **Information System TLS certificate** list (see section [9.3](#93-managing-information-system-tls-certificates)).
 
 Depending on the configured connection method, the request URL for information system is **`http://SECURITYSERVER/`** or **`https://SECURITYSERVER/`**. When making the request, the address `SECURITYSERVER` must be replaced with the actual address of the security server.
 
-The connection method for internal network servers in the **service provider role** is determined by the protocol in the URL. To change the connection method, follow these steps.
+### 9.2 Communication with Service Provider Information Systems
 
-1.  In the **Navigation tabs**, select **CLIENTS**, select a security server owner or a client from the table
 
-2.  In the view that opens, select the **SERVICES** tab
+The connection method for information systems in the **service provider role** is determined by the protocol in the URL. To change the connection method, follow these steps.
+
+1.  In the **Navigation tabs**, select **CLIENTS**, select a security server owner or a client from the table.
+
+2.  In the view that opens, select the **SERVICES** tab.
     
-3.  Click the caret next to the desired service description to show all services related to it
+3.  Click the caret next to the desired service description to show all services related to it.
 
 4.  Click on a service code in the table.
     
-5.  In the view that opens, change the protocol in the service URL to HTTP, HTTPS or HTTPS NO AUTH.
-    If the HTTPS protocol was selected, select the **Verify TLS certificate** checkbox if needed (see section [6.6](#66-changing-the-parameters-of-a-service)). According to the service parameters, the connection with the internal network server is created using one the following protocols:
+5.  In the view that opens, change the protocol (a.k.a. scheme) part in the Service URL to either **http://** or **https://**.
 
--   HTTP – the service/adapter URL begins with "**http:**//...".
+- HTTP – the service/adapter URL begins with "**http:**//...".
 
--   HTTPS – the service/adapter URL begins with "**https**://" and the **Verify TLS certificate** checkbox is selected.
+- HTTPS – the service/adapter URL begins with "**https**://".
+  - If **Verify TLS certificate** checkbox is left unchecked it means that service provider information system's TLS certificate is not verified and trusted by default.
+  - If **Verify TLS certificate** checkbox is checked it means that service provider information system's TLS certificate is verified. In order to make the information system's TLS certificate trusted, it must be added into security server's **Information System TLS certificate** list (see section [9.3](#93-managing-information-system-tls-certificates)).
+  - When the service provider information system needs to verify the Security Server's internal TLS certificate, the certificate must be first exported and then imported into the service provider information system's truststore (see section [9.3](#93-managing-information-system-tls-certificates)).
 
--   HTTPS NO AUTH – the service/adapter URL begins with "**https**://" and the **Verify TLS certificate** checkbox is not selected.
+### 9.3 Managing Information System TLS Certificates
 
 To add an internal TLS certificate for a security server owner or security server client (for HTTPS connections), follow these steps.
 
@@ -2066,8 +2087,19 @@ transported to security server filesystem.
 ### 13.3 Automatic Backups
 
 By default the Security Server backs up its configuration automatically once every day. Backups older than 30 days are
-automatically removed from the server. If needed, the automatic backup policies can be adjusted by editing the
+automatically removed from the server. If needed, backup removal policies can be adjusted by editing the
 `/etc/cron.d/xroad-proxy` file.
+
+Automatic backup schedule can be adjusted  in the file `/etc/xroad/conf.d/local.ini`, 
+in the `[configuration-client]` section (add or edit this section).
+
+```ini
+[configuration-client]
+proxy-configuration-backup-cron=* 15 3 * * ?
+```
+
+**Note:** In cases where automatic backup is not required (ex: extensions which rely on configuration-client) 
+it is suggested to disable it by using cron expression that will never trigger. For example `* * * * * ? 2099`
 
 ### 13.4 Backup Encryption Configuration
 
@@ -2558,6 +2590,8 @@ application properties
 - `ratelimit.requests.per.second`
 - `ratelimit.requests.per.minute`
 
+**Note:** These properties have been deprecated since 7.3.0, please use `request-sizelimit-*` & `rate-limit-requests-per-*` [proxy-ui-api parameters](ug-syspar_x-road_v6_system_parameters.md#39-management-rest-api-parameters-proxy-ui-api) instead
+
 Size limit parameters support formats from Formats from [DataSize](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/util/unit/DataSize.html),
 for example `5MB`.
 
@@ -2665,17 +2699,16 @@ curl -X DELETE -u <user>:<password> https://localhost:4000/api/v1/api-keys/60  -
 
 #### 19.1.5 API key caching
 
-API keys are cached in memory. In typical security server configurations this does not create problems.
-However, if you have configured a setup where multiple security servers share the same `serverconf` database,
-and use multiple nodes to access REST API and execute API key management operations, the caches of different nodes
-can become out of sync.
+API keys are cached in memory, which is typically not a problem in standard Security Server configurations.
+However, if you have multiple Security Servers configured to share the same `serverconf` database
+and use multiple nodes to access the REST API and execute API key management operations, the caches of different nodes can become out of sync.
 
-For example, you may revoke an API key from node 1 but node 2 is not aware of this, and still grants access to
-REST API endpoints with this API key.
+For instance, revoking an API key from `node 1` may not be recognized by `node 2`, which can still grant access to REST API endpoints with the revoked API key. To address this issue, there are a few potential solutions:
 
-If you operate such a configuration, you need to target all REST API operations to the same security server node,
-or otherwise ensure that caching will not create problems (for example, always restart REST API modules when API key
-operations are executed).
+- **Option A:** Consider decreasing [time-to-live](ug-syspar_x-road_v6_system_parameters.md#39-management-rest-api-parameters-proxy-ui-api) value for API key cache from the default of **60 seconds** to a more lenient value. Doing so will reduce the risk of stale values being returned, thus improving security.
+- **Option B:** Direct all REST API operations to the same Security Server node.
+- **Option C:** Always restart REST API modules when API key operations are executed.
+- **Option D:** Disable Api key cache. (See [proxy-ui-api parameters](ug-syspar_x-road_v6_system_parameters.md#39-management-rest-api-parameters-proxy-ui-api) for more details). This option will degrade API throughput and should only be used when other options do not work.
 
 ### 19.2 Executing REST calls
 
@@ -2808,11 +2841,11 @@ Since version `6.22.0` Security Server supports using remote databases. In case 
     systemctl stop "xroad*"
     ```
 
-2. Dump the local databases to be migrated. You can find the passwords of users `serverconf`, `messagelog` and `opmonitor` in `/etc/xroad/db.properties`. Notice that the versions of the local PostgreSQL client and remote PostgreSQL server must match. Also take into account that on a busy system the messagelog database can be quite large and therefore dump and restore can take considerable amount of time and disk space.
+2. Dump the local databases to be migrated. You can find the passwords of users `serverconf_admin`, `messagelog_admin` and `opmonitor_admin` in `/etc/xroad.properties`.Notice that the versions of the local PostgreSQL client and remote PostgreSQL server must match. Also take into account that on a busy system the messagelog database can be quite large and therefore dump and restore can take considerable amount of time and disk space. Notice that the versions of the local PostgreSQL client and remote PostgreSQL server must match. Also take into account that on a busy system the messagelog database can be quite large and therefore dump and restore can take considerable amount of time and disk space.
 
     ```bash
-    pg_dump -F t -h 127.0.0.1 -p 5432 -U serverconf -f serverconf.dat serverconf
-    pg_dump -F t -h 127.0.0.1 -p 5432 -U messagelog -f messagelog.dat messagelog
+    pg_dump -F t -h 127.0.0.1 -p 5432 -U serverconf_admin -f serverconf.dat serverconf
+    pg_dump -F t -h 127.0.0.1 -p 5432 -U messagelog_admin -f messagelog.dat messagelog
     pg_dump -F t -h 127.0.0.1 -p 5432 -U opmonitor_admin -f op-monitor.dat op-monitor
     ```
 
@@ -2823,34 +2856,84 @@ Since version `6.22.0` Security Server supports using remote databases. In case 
     systemctl mask postgresql
     ```
 
-4. Connect to the remote database server as the superuser `postgres` and create roles, databases and access permissions as follows. Note that the line `GRANT serverconf to postgres` is AWS RDS specific and not necessary if the `postgres` user is a true super-user.
+4. Connect to the remote database server as the superuser `postgres` and create roles, databases and access permissions as follows.
+
+    **serverconf** (required)
+    ```bash
+    psql -h <remote-db-url> -p <remote-db-port> -U postgres
+    CREATE DATABASE serverconf ENCODING 'UTF8';
+    REVOKE ALL ON DATABASE serverconf FROM PUBLIC;
+    CREATE ROLE serverconf_admin LOGIN PASSWORD '<serverconf_admin password>';
+    GRANT serverconf_admin to <superuser>;
+    GRANT CREATE,TEMPORARY,CONNECT ON DATABASE serverconf TO serverconf_admin;
+    \c serverconf
+    CREATE EXTENSION hstore;
+    CREATE SCHEMA serverconf AUTHORIZATION serverconf_admin;
+    REVOKE ALL ON SCHEMA public FROM PUBLIC;
+    GRANT USAGE ON SCHEMA public to serverconf_admin;
+    CREATE ROLE serverconf LOGIN PASSWORD '<serverconf password>';
+    GRANT serverconf to <superuser>;
+    GRANT TEMPORARY,CONNECT ON DATABASE serverconf TO serverconf;
+    GRANT USAGE ON SCHEMA public to serverconf;
+    GRANT USAGE ON SCHEMA serverconf TO serverconf;
+    GRANT SELECT,UPDATE,INSERT,DELETE ON ALL TABLES IN SCHEMA serverconf TO serverconf;
+    GRANT SELECT,UPDATE ON ALL SEQUENCES IN SCHEMA serverconf TO serverconf;
+    GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA serverconf to serverconf;
+    ```
+
+    **messagelog** (required by xroad-addon-messagelog)
+    ```bash
+    psql -h <remote-db-url> -p <remote-db-port> -U postgres
+    CREATE DATABASE messagelog ENCODING 'UTF8';
+    REVOKE ALL ON DATABASE messagelog FROM PUBLIC;
+    CREATE ROLE messagelog_admin LOGIN PASSWORD '<messagelog_admin password>';
+    GRANT messagelog_admin to <superuser>;
+    GRANT CREATE,TEMPORARY,CONNECT ON DATABASE messagelog TO messagelog_admin;
+    \c messagelog
+    CREATE SCHEMA messagelog AUTHORIZATION messagelog_admin;
+    REVOKE ALL ON SCHEMA public FROM PUBLIC;
+    GRANT USAGE ON SCHEMA public to messagelog_admin;
+    CREATE ROLE messagelog LOGIN PASSWORD '<messagelog password>';
+    GRANT messagelog to <superuser>;
+    GRANT TEMPORARY,CONNECT ON DATABASE messagelog TO messagelog;
+    GRANT USAGE ON SCHEMA public to messagelog;
+    GRANT USAGE ON SCHEMA messagelog TO messagelog;
+    GRANT SELECT,UPDATE,INSERT,DELETE ON ALL TABLES IN SCHEMA messagelog TO messagelog;
+    GRANT SELECT,UPDATE ON ALL SEQUENCES IN SCHEMA messagelog TO messagelog;
+    GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA messagelog to messagelog;
+    ```
+
+    **op-monitor** (optional, required by xroad-opmonitor)
+
+    If operational monitoring is going to be installed, run additionally the following commands. Again, the database and role names can be customized to suit your environment.
 
     ```bash
     psql -h <remote-db-url> -p <remote-db-port> -U postgres
-    CREATE ROLE serverconf LOGIN PASSWORD '<serverconf-password>';
-    GRANT serverconf to postgres;
-    CREATE DATABASE serverconf OWNER serverconf ENCODING 'UTF-8';
-    \c serverconf
-    CREATE EXTENSION IF NOT EXISTS hstore;
-    \c postgres
-
-    CREATE ROLE messagelog LOGIN PASSWORD '<messagelog-password>';
-    GRANT messagelog to postgres;
-    CREATE DATABASE messagelog OWNER messagelog ENCODING 'UTF-8';
-
-    CREATE ROLE opmonitor_admin LOGIN PASSWORD '<opmonitor_admin-password>';
-    CREATE ROLE opmonitor LOGIN PASSWORD '<opmonitor-password>';
-    GRANT opmonitor_admin to postgres;
-    CREATE DATABASE "op-monitor" OWNER opmonitor_admin ENCODING "UTF-8";
-    grant usage on schema public to opmonitor;
+    CREATE DATABASE "op-monitor" ENCODING 'UTF8';
+    REVOKE ALL ON DATABASE "op-monitor" FROM PUBLIC;
+    CREATE ROLE opmonitor_admin LOGIN PASSWORD '<opmonitor_admin password>';
+    GRANT opmonitor_admin to <superuser>;
+    GRANT CREATE,TEMPORARY,CONNECT ON DATABASE "op-monitor" TO opmonitor_admin;
+    \c "op-monitor"
+    CREATE SCHEMA opmonitor AUTHORIZATION opmonitor_admin;
+    REVOKE ALL ON SCHEMA public FROM PUBLIC;
+    GRANT USAGE ON SCHEMA public to opmonitor_admin;
+    CREATE ROLE opmonitor LOGIN PASSWORD '<opmonitor password>';
+    GRANT opmonitor to <superuser>;
+    GRANT TEMPORARY,CONNECT ON DATABASE "op-monitor" TO opmonitor;
+    GRANT USAGE ON SCHEMA public to opmonitor;
+    GRANT USAGE ON SCHEMA opmonitor TO opmonitor;
+    GRANT SELECT,UPDATE,INSERT,DELETE ON ALL TABLES IN SCHEMA opmonitor TO opmonitor;
+    GRANT SELECT,UPDATE ON ALL SEQUENCES IN SCHEMA opmonitor TO opmonitor;
+    GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA opmonitor to opmonitor;
     ```
 
 5. Restore the database dumps on the remote database host.
 
     ```bash
-    pg_restore -h <remote-db-url> -p <remote-db-port> -U serverconf -O -n public -1 -d serverconf serverconf.dat
-    pg_restore -h <remote-db-url> -p <remote-db-port> -U messagelog -O -n public -1 -d messagelog messagelog.dat
-    pg_restore -h <remote-db-url> -p <remote-db-port> -U opmonitor_admin -O -n public -1 -d op-monitor op-monitor.dat
+    pg_restore -h <remote-db-url> -p <remote-db-port> -U serverconf_admin -O -n serverconf -1 -d serverconf serverconf.dat
+    pg_restore -h <remote-db-url> -p <remote-db-port> -U messagelog_admin -O -n messagelog -1 -d messagelog messagelog.dat
+    pg_restore -h <remote-db-url> -p <remote-db-port> -U opmonitor_admin -O -n opmonitor -1 -d op-monitor op-monitor.dat
     ```
 
 6. Create properties file `/etc/xroad.properties` containing the superuser password.
@@ -2864,22 +2947,31 @@ Since version `6.22.0` Security Server supports using remote databases. In case 
 7. Edit `/etc/xroad.properties`.
 
     ```properties
-    postgres.connection.password = <postgres-password>
-    op-monitor.database.admin_password = <opmonitor_admin-password>
-    serverconf.database.initialized = true
-    messagelog.database.initialized = true
-    op-monitor.database.initialized = true
+    serverconf.database.admin_user = serverconf_admin
+    serverconf.database.admin_password = <serverconf_admin password>
+    messagelog.database.admin_user = messagelog_admin
+    messagelog.database.admin_password = messagelog_admin password>
+    op-monitor.database.admin_user = opmonitor_admin
+    op-monitor.database.admin_password = <opmonitor_admin password>
     ```
 
 8. Update `/etc/xroad/db.properties` contents with correct database host URLs and passwords.
 
     ```properties
-    serverconf.hibernate.connection.url = jdbc:postgresql://<remote-db-url>:<remote-db-port>/serverconf
-    messagelog.hibernate.connection.url = jdbc:postgresql://<remote-db-url>:<remote-db-port>/messagelog
-    op-monitor.hibernate.connection.url = jdbc:postgresql://<remote-db-url>:<remote-db-port>/op-monitor
-    serverconf.hibernate.connection.password = <serverconf-password>
-    messagelog.hibernate.connection.password = <messagelog-password>
-    op-monitor.hibernate.connection.password = <opmonitor-password>
+    serverconf.hibernate.connection.url = jdbc:postgresql://<database host>:<port>/serverconf
+    serverconf.hibernate.connection.username = serverconf
+    serverconf.hibernate.connection.password = <serverconf password>
+    serverconf.hibernate.hikari.dataSource.currentSchema = serverconf,public
+
+    messagelog.hibernate.connection.url = jdbc:postgresql://<database host>:<port>/messagelog
+    messagelog.hibernate.connection.username = messagelog
+    messagelog.hibernate.connection.password = <messagelog password>
+    messagelog.hibernate.hikari.dataSource.currentSchema = messagelog,public
+
+    op-monitor.hibernate.connection.url = jdbc:postgresql://<database host>:<port>/op-monitor
+    op-monitor.hibernate.connection.username = opmonitor
+    op-monitor.hibernate.connection.password = <opmonitor password>
+    op-monitor.hibernate.hikari.dataSource.currentSchema = opmonitor,public
     ```
 
 9. Start again the X-Road services.

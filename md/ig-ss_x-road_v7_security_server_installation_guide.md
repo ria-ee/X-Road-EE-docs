@@ -73,6 +73,11 @@ Doc. ID: IG-SS
  06.09.2021 | 2.42    | Update list of running services | Jarkko Hyöty
  26.09.2022 | 2.43    | Remove Ubuntu 18.04 support  
 
+| 19.04.2023 | 2.30    | Removed unused properties from db.properties                                                                                                                                                  | Mikk-Erik Bachmann |
+| 05.05.2023 | 2.31    | Minor updates                                                                                                                                                                                 | Justas Samuolis    |
+| 23.05.2023 | 2.32    | Backup Encryption Configuration                                                                                                                                                               | Eneli Reimets      |
+| 31.05.2023 | 2.33    | Add Central Server network diagram                                                                                                                                                            | Petteri Kivimäki |
+| 28.06.2023 | 2.34    | Update database properties to the new Spring datasource version                                                                                                                               | Raido Kaju       |
 ## License
 
 This document is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/
