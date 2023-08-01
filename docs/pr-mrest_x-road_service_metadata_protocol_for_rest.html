@@ -21,7 +21,7 @@
 <h1><a id="x-road-service-metadata-protocol-for-rest-" class="anchor" aria-hidden="true" href="#x-road-service-metadata-protocol-for-rest-"><span aria-hidden="true" class="octicon octicon-link"></span></a>X-Road: Service Metadata Protocol for REST 
 </h1>
 <p><strong>Technical Specification</strong></p>
-<p>Version: 0.5<br>
+<p>Version: 0.7<br>
 Doc. ID: PR-MREST</p>
 <hr>
 <h2><a id="version-history-" class="anchor" aria-hidden="true" href="#version-history-"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version history 
@@ -66,6 +66,18 @@ Doc. ID: PR-MREST</p>
 <td>Update listMethods and allowedMethods</td>
 <td>Ilkka Seppälä</td>
 </tr>
+<tr>
+<td>17.04.2023</td>
+<td>0.6</td>
+<td>Remove central services support</td>
+<td>Justas Samuolis</td>
+</tr>
+<tr>
+<td>10.05.2023</td>
+<td>0.7</td>
+<td>Security Categories removed.</td>
+<td>Justas Samuolis</td>
+</tr>
 </tbody>
 </table>
 <h2><a id="table-of-contents-" class="anchor" aria-hidden="true" href="#table-of-contents-"><span aria-hidden="true" class="octicon octicon-link"></span></a>Table of Contents 
@@ -80,9 +92,8 @@ Doc. ID: PR-MREST</p>
 </ul>
 </li>
 <li><a href="#2-retrieving-list-of-service-providers">2 Retrieving List of Service Providers</a></li>
-<li><a href="#3-retrieving-list-of-central-services">3 Retrieving List of Central Services</a></li>
-<li><a href="#4-retrieving-list-of-services">4 Retrieving List of Services</a></li>
-<li><a href="#5-retrieving-the-openapi-description-of-a-service">5 Retrieving the OpenAPI description of a Service</a></li>
+<li><a href="#4-retrieving-list-of-services">3 Retrieving List of Services</a></li>
+<li><a href="#5-retrieving-the-openapi-description-of-a-service">4 Retrieving the OpenAPI description of a Service</a></li>
 <li><a href="#annex-a-service-descriptions-for-rest-metadata-services">Annex A Service Descriptions for REST Metadata Services</a></li>
 <li>
 <a href="#annex-b-example-messages">Annex B Example Messages</a>
@@ -125,11 +136,6 @@ ID: <a href="../terms_x-road_docs.html">TA-TERMS</a>.</li>
 <p>For retrieving the list of service providers listClients metaservice is used. It can be invoked with simple HTTP GET to
 right URL. Service output format is controlled with Accept header. The details of listClients are described in
 [<a href="#Ref_PR-META">PR-META</a>].</p>
-<h2><a id="3-retrieving-list-of-central-services" class="anchor" aria-hidden="true" href="#3-retrieving-list-of-central-services"><span aria-hidden="true" class="octicon octicon-link"></span></a>3 Retrieving List of Central Services</h2>
-<p>For retrieving the list of central services listCentralServices metaservice is used. It can be invoked with simple HTTP
-GET to right URL. The details of listCentralServices are described in [<a href="#Ref_PR-META">PR-META</a>].
-Note. The listCentralServices metaservice ignores the Accept header and returns an XML response (the REST interface does
-not support central services).</p>
 <h2><a id="4-retrieving-list-of-services" class="anchor" aria-hidden="true" href="#4-retrieving-list-of-services"><span aria-hidden="true" class="octicon octicon-link"></span></a>4 Retrieving List of Services</h2>
 <p>X-Road provides two methods for getting the list of services and service endpoints offered by an X-Road client:</p>
 <ul>
@@ -327,9 +333,7 @@ metadata services.</p>
                 - <span class="pl-s">SUBSYSTEM</span>
                 - <span class="pl-s">SERVER</span>
                 - <span class="pl-s">GLOBALGROUP</span>
-                - <span class="pl-s">SECURITYCATEGORY</span>
                 - <span class="pl-s">SERVICE</span>
-                - <span class="pl-s">CENTRALSERVICE</span>
                 - <span class="pl-s">LOCALGROUP</span>
         <span class="pl-ent">serviceType</span>:
           <span class="pl-ent">type</span>: <span class="pl-s">string</span>

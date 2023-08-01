@@ -20,7 +20,7 @@
 <hr>
 <h1><a id="x-road-message-protocol-for-rest" class="anchor" aria-hidden="true" href="#x-road-message-protocol-for-rest"><span aria-hidden="true" class="octicon octicon-link"></span></a>X-Road: Message Protocol for REST</h1>
 <p><strong>Technical Specification</strong></p>
-<p>Version: 1.0.2<br>
+<p>Version: 1.0.3<br>
 Doc. ID: PR-REST</p>
 <hr>
 <h2><a id="version-history" class="anchor" aria-hidden="true" href="#version-history"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version history</h2>
@@ -133,6 +133,12 @@ Doc. ID: PR-REST</p>
 <li>Updated <code>X-Road-Client</code> header description in 4.3</li>
 </ul></td>
 <td align="left">Petteri Kivimäki</td>
+</tr>
+<tr>
+<td align="left">15.06.2023</td>
+<td align="left">1.0.3</td>
+<td align="left">Stricter identifier character restrictions</td>
+<td align="left">Madis Loitmaa</td>
 </tr>
 </tbody>
 </table>
@@ -778,24 +784,14 @@ supported - X-Road passes the headers unmodified.</p>
 <li>Central service code</li>
 <li>Security server code</li>
 </ul>
-<p>X-Road Message Protocol for REST imposes some restrictions on the characters that can be used in X-Road identifiers. The
-following characters SHALL NOT be used in the identifier values:</p>
+<p>X-Road Message Protocol for REST imposes some restrictions on the characters that can be used in X-Road identifiers.
+Only the following characters MUST be used in the identifier values:</p>
 <ul>
-<li>Colon <code>:</code>
+<li>Letters <code>A...Z</code> and <code>a...z</code>
 </li>
-<li>Semicolon <code>;</code>
+<li>Numbers <code>0...9</code>
 </li>
-<li>Slash <code>/</code>
-</li>
-<li>Backslash <code>\</code>
-</li>
-<li>Percent <code>%</code>
-</li>
-<li>Control characters and zero-width spaces
-<ul>
-<li>U+0000—U+001F and U+007F—U+009F; includes chars like tab, newline, del etc.</li>
-<li>U+200B and U+FEFF</li>
-</ul>
+<li>Symbols <code>'()+,-.=?</code>
 </li>
 </ul>
 <h2><a id="5-services" class="anchor" aria-hidden="true" href="#5-services"><span aria-hidden="true" class="octicon octicon-link"></span></a>5 Services</h2>

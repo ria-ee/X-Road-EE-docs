@@ -26,7 +26,7 @@
 <h1><a id="x-road-operational-monitoring-protocol-" class="anchor" aria-hidden="true" href="#x-road-operational-monitoring-protocol-"><span aria-hidden="true" class="octicon octicon-link"></span></a>X-Road: Operational Monitoring Protocol 
 </h1>
 <p><strong>Technical Specification</strong></p>
-<p>Version: 1.0<br>
+<p>Version: 1.2<br>
 Doc. ID: PR-OPMON</p>
 <table>
 <thead>
@@ -79,6 +79,18 @@ Doc. ID: PR-OPMON</p>
 <td>1.0</td>
 <td>Update the protocol to the next major version</td>
 <td>Ilkka Seppälä</td>
+</tr>
+<tr>
+<td>10.05.2023</td>
+<td>1.1</td>
+<td>Security Categories removed.</td>
+<td>Justas Samuolis</td>
+</tr>
+<tr>
+<td>01.06.2023</td>
+<td>1.2</td>
+<td>Update references</td>
+<td>Petteri Kivimäki</td>
 </tr>
 </tbody>
 </table>
@@ -464,7 +476,6 @@ This element MAY contain XML element <em>filterCriteria</em> to determine a clie
                     &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">ref</span>=<span class="pl-s"><span class="pl-pds">"</span>groupCode<span class="pl-pds">"</span></span>/&gt;
                     &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">ref</span>=<span class="pl-s"><span class="pl-pds">"</span>serviceCode<span class="pl-pds">"</span></span>/&gt;
                     &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">ref</span>=<span class="pl-s"><span class="pl-pds">"</span>serviceVersion<span class="pl-pds">"</span></span>/&gt;
-                    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">ref</span>=<span class="pl-s"><span class="pl-pds">"</span>securityCategoryCode<span class="pl-pds">"</span></span>/&gt;
                     &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">ref</span>=<span class="pl-s"><span class="pl-pds">"</span>serverCode<span class="pl-pds">"</span></span>/&gt;
                 &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
                 &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">attribute</span> <span class="pl-e">ref</span>=<span class="pl-s"><span class="pl-pds">"</span>objectType<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>required<span class="pl-pds">"</span></span>/&gt;
@@ -480,9 +491,7 @@ This element MAY contain XML element <em>filterCriteria</em> to determine a clie
                     &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">enumeration</span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>SERVER<span class="pl-pds">"</span></span>/&gt;
                     &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">enumeration</span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>GLOBALGROUP<span class="pl-pds">"</span></span>/&gt;
                     &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">enumeration</span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>LOCALGROUP<span class="pl-pds">"</span></span>/&gt;
-                    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">enumeration</span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>SECURITYCATEGORY<span class="pl-pds">"</span></span>/&gt;
                     &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">enumeration</span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>SERVICE<span class="pl-pds">"</span></span>/&gt;
-                    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">enumeration</span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>CENTRALSERVICE<span class="pl-pds">"</span></span>/&gt;
                 &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">restriction</span>&gt;
             &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">simpleType</span>&gt;
             &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>xRoadInstance<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>xs:string<span class="pl-pds">"</span></span>&gt;
@@ -533,13 +542,6 @@ This element MAY contain XML element <em>filterCriteria</em> to determine a clie
                     &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">documentation</span>&gt;Version of the service.&lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">documentation</span>&gt;
                 &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">annotation</span>&gt;
             &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span>&gt;
-            &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>securityCategoryCode<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>xs:string<span class="pl-pds">"</span></span>&gt;
-                &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">annotation</span>&gt;
-                    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">documentation</span>&gt;Code that uniquely identifies security
-                        category in a given X-Road instance.
-                    &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">documentation</span>&gt;
-                &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">annotation</span>&gt;
-            &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span>&gt;
             &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>serverCode<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>xs:string<span class="pl-pds">"</span></span>&gt;
                 &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">annotation</span>&gt;
                     &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">documentation</span>&gt;Code that uniquely identifies security
@@ -574,30 +576,6 @@ This element MAY contain XML element <em>filterCriteria</em> to determine a clie
                         &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
                         &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">attribute</span> <span class="pl-e">ref</span>=<span class="pl-s"><span class="pl-pds">"</span>objectType<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>required<span class="pl-pds">"</span></span>
                                 <span class="pl-e">fixed</span>=<span class="pl-s"><span class="pl-pds">"</span>SERVICE<span class="pl-pds">"</span></span>/&gt;
-                    &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">restriction</span>&gt;
-                &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexContent</span>&gt;
-            &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
-            &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>XRoadSecurityCategoryIdentifierType<span class="pl-pds">"</span></span>&gt;
-                &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexContent</span>&gt;
-                    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">restriction</span> <span class="pl-e">base</span>=<span class="pl-s"><span class="pl-pds">"</span>XRoadIdentifierType<span class="pl-pds">"</span></span>&gt;
-                        &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
-                            &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">ref</span>=<span class="pl-s"><span class="pl-pds">"</span>xRoadInstance<span class="pl-pds">"</span></span>/&gt;
-                            &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">ref</span>=<span class="pl-s"><span class="pl-pds">"</span>securityCategoryCode<span class="pl-pds">"</span></span>/&gt;
-                        &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
-                        &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">attribute</span> <span class="pl-e">ref</span>=<span class="pl-s"><span class="pl-pds">"</span>objectType<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>required<span class="pl-pds">"</span></span>
-                                <span class="pl-e">fixed</span>=<span class="pl-s"><span class="pl-pds">"</span>SECURITYCATEGORY<span class="pl-pds">"</span></span>/&gt;
-                    &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">restriction</span>&gt;
-                &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexContent</span>&gt;
-            &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
-            &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>XRoadCentralServiceIdentifierType<span class="pl-pds">"</span></span>&gt;
-                &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexContent</span>&gt;
-                    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">restriction</span> <span class="pl-e">base</span>=<span class="pl-s"><span class="pl-pds">"</span>XRoadIdentifierType<span class="pl-pds">"</span></span>&gt;
-                        &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
-                            &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">ref</span>=<span class="pl-s"><span class="pl-pds">"</span>xRoadInstance<span class="pl-pds">"</span></span>/&gt;
-                            &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">ref</span>=<span class="pl-s"><span class="pl-pds">"</span>serviceCode<span class="pl-pds">"</span></span>/&gt;
-                        &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
-                        &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">attribute</span> <span class="pl-e">ref</span>=<span class="pl-s"><span class="pl-pds">"</span>objectType<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>required<span class="pl-pds">"</span></span>
-                                <span class="pl-e">fixed</span>=<span class="pl-s"><span class="pl-pds">"</span>CENTRALSERVICE<span class="pl-pds">"</span></span>/&gt;
                     &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">restriction</span>&gt;
                 &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexContent</span>&gt;
             &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;

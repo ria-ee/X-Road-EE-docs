@@ -21,7 +21,7 @@
 <h1><a id="x-road-service-metadata-protocol-" class="anchor" aria-hidden="true" href="#x-road-service-metadata-protocol-"><span aria-hidden="true" class="octicon octicon-link"></span></a>X-Road: Service Metadata Protocol 
 </h1>
 <p><strong>Technical Specification</strong></p>
-<p>Version: 2.11<br>
+<p>Version: 2.13<br>
 Doc. ID: PR-META</p>
 <hr>
 <h2><a id="version-history-" class="anchor" aria-hidden="true" href="#version-history-"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version history 
@@ -132,6 +132,18 @@ Doc. ID: PR-META</p>
 <td>Remove getWsdl HTTP GET-request description</td>
 <td>Petteri Kivimäki</td>
 </tr>
+<tr>
+<td>17.04.2023</td>
+<td>2.12</td>
+<td>Remove central services support</td>
+<td>Justas Samuolis</td>
+</tr>
+<tr>
+<td>01.06.2023</td>
+<td>2.13</td>
+<td>Update references</td>
+<td>Petteri Kivimäki</td>
+</tr>
 </tbody>
 </table>
 <h2><a id="table-of-contents-" class="anchor" aria-hidden="true" href="#table-of-contents-"><span aria-hidden="true" class="octicon octicon-link"></span></a>Table of Contents 
@@ -148,10 +160,9 @@ Doc. ID: PR-META</p>
 </ul>
 </li>
 <li><a href="#2-retrieving-list-of-service-providers">2 Retrieving List of Service Providers</a></li>
-<li><a href="#3-retrieving-list-of-central-services">3 Retrieving List of Central Services</a></li>
-<li><a href="#4-retrieving-list-of-services">4 Retrieving List of Services</a></li>
+<li><a href="#4-retrieving-list-of-services">3 Retrieving List of Services</a></li>
 <li>
-<a href="#5-retrieving-the-wsdl-of-a-service">5 Retrieving the WSDL of a Service</a>
+<a href="#5-retrieving-the-wsdl-of-a-service">4 Retrieving the WSDL of a Service</a>
 <ul>
 <li><a href="#wsdl-information-modifications">WSDL-information modifications</a></li>
 </ul>
@@ -174,14 +185,13 @@ Doc. ID: PR-META</p>
 <li><a href="#json-response">JSON Response</a></li>
 </ul>
 </li>
-<li><a href="#c2-listcentralservices-response">C.2 listCentralServices Response</a></li>
-<li><a href="#c3-listmethods-request">C.3 listMethods Request</a></li>
-<li><a href="#c4-listmethods-response">C.4 listMethods Response</a></li>
-<li><a href="#c5-allowedmethods-request">C.5 allowedMethods Request</a></li>
-<li><a href="#c6-allowedmethods-response">C.6 allowedMethods Response</a></li>
-<li><a href="#c7-getwsdl-request">C.7 getWsdl Request</a></li>
-<li><a href="#c8-getwsdl-response">C.8 getWsdl Response</a></li>
-<li><a href="#c9-getwsdl-response-attachment">C.9 getWsdl Response attachment</a></li>
+<li><a href="#c3-listmethods-request">C.2 listMethods Request</a></li>
+<li><a href="#c4-listmethods-response">C.3 listMethods Response</a></li>
+<li><a href="#c5-allowedmethods-request">C.4 allowedMethods Request</a></li>
+<li><a href="#c6-allowedmethods-response">C.5 allowedMethods Response</a></li>
+<li><a href="#c7-getwsdl-request">C.6 getWsdl Request</a></li>
+<li><a href="#c8-getwsdl-response">C.7 getWsdl Response</a></li>
+<li><a href="#c9-getwsdl-response-attachment">C.8 getWsdl Response attachment</a></li>
 </ul>
 </li>
 </ul>
@@ -193,7 +203,7 @@ Doc. ID: PR-META</p>
 <p>This specification describes methods that can be used by X-Road participants to discover what services are available to them and download the WSDL files describing these services. The X-Road service metadata protocol is intended to support portals and other software that can discover the available services and then automatically generate user interfaces based on their descriptions. In order to accomplish this, the portal can use the following steps.</p>
 <ol>
 <li>
-<p>Download a list of X-Road members and subsystems (see Section <a href="#2-retrieving-list-of-service-providers">2</a>). This results in a list of (potential) service provides who can be further be queried. Alternatively, the portal can download a list of central services (see Section <a href="#3-retrieving-list-of-central-services">3</a>) defined in the X-Road central server.</p>
+<p>Download a list of X-Road members and subsystems (see Section <a href="#2-retrieving-list-of-service-providers">2</a>). This results in a list of (potential) service provides who can be further be queried.</p>
 </li>
 <li>
 <p>Connect to the service provider and acquire a list of services offered by this provider (see Section <a href="#4-retrieving-list-of-services">4</a>). This service has two forms: <code>listMethods</code> returns a list of services provided by a given service provider, <code>allowedMethods</code> constrains the returned list by only including services that are allowed for the client.</p>
@@ -202,8 +212,8 @@ Doc. ID: PR-META</p>
 <p>Download the description of the service in WSDL format (see Section <a href="#5-retrieving-the-wsdl-of-a-service">5</a>).</p>
 </li>
 </ol>
-<p>This specification is based on the X-Road protocol [<a href="#Ref_PR-MESS">PR-MESS</a>]. The X-Road protocol specification also defines important concepts used in this text (for example, central service and X-Road identifier). Because this protocol uses HTTP and X-Road protocol as transport mechanisms, the details of message transport and error conditions are not described in this specification.</p>
-<p>Chapters <a href="#2-retrieving-list-of-service-providers">2</a>, <a href="#3-retrieving-list-of-central-services">3</a>, <a href="#4-retrieving-list-of-services">4</a> and <a href="#5-retrieving-the-wsdl-of-a-service">5</a> together with annexes <a href="#annex-a-xml-schema-for-messages">A</a> and <a href="#annex-b-listmethods-allowedmethods-and-getwsdl-service-descriptions">B</a> contain normative information. All the other sections are informative in nature. All the references are normative.</p>
+<p>This specification is based on the X-Road protocol [<a href="#Ref_PR-MESS">PR-MESS</a>]. The X-Road protocol specification also defines important concepts used in this text (for example X-Road identifier). Because this protocol uses HTTP and X-Road protocol as transport mechanisms, the details of message transport and error conditions are not described in this specification.</p>
+<p>Chapters <a href="#2-retrieving-list-of-service-providers">2</a>, <a href="#4-retrieving-list-of-services">3</a> and <a href="#5-retrieving-the-wsdl-of-a-service">4</a> together with annexes <a href="#annex-a-xml-schema-for-messages">A</a> and <a href="#annex-b-listmethods-allowedmethods-and-getwsdl-service-descriptions">B</a> contain normative information. All the other sections are informative in nature. All the references are normative.</p>
 <p>This specification does not include option for partially implementing the protocol – the conformant implementation must implement the entire specification.</p>
 <p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document (in uppercase, as shown) are to be interpreted as described in [<a href="#Ref_RFC2119">RFC2119</a>].</p>
 <h3><a id="11-terms-and-abbreviations" class="anchor" aria-hidden="true" href="#11-terms-and-abbreviations"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.1 Terms and abbreviations</h3>
@@ -211,7 +221,7 @@ Doc. ID: PR-META</p>
 <h3><a id="12-references" class="anchor" aria-hidden="true" href="#12-references"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.2 References</h3>
 <ol>
 <li>
-<a name="Ref_PR-MESS"></a>[PR-MESS] Cybernetica AS. X-Road: Message Protocol v4.0. Document ID:
+<a name="Ref_PR-MESS"></a>[PR-MESS] X-Road: Message Protocol v4.0. Document ID:
 <a href="pr-mess_x-road_message_protocol.html">PR-MESS</a>.</li>
 <li>
 <a name="Ref_RFC2119"></a>[RFC2119] Key words for use in RFCs to Indicate Requirement Levels, Internet Engineering Task Force, 1997,
@@ -219,9 +229,9 @@ Doc. ID: PR-META</p>
 </li>
 <li>
 <a name="Ref_UG-SYSPAR"></a>[UG-SYSPAR] X-Road: System Parameters User Guide. Document ID:
-<a href="ug-syspar_x-road_v7_system_parameters.html">UG-SYSPAAR</a>.</li>
+<a href="../Manuals/ug-syspar_x-road_v6_system_parameters.html">UG-SYSPAAR</a>.</li>
 <li>
-<a id="Ref_TERMS"></a>[TA-TERMS] X-Road Terms and Abbreviations. Document ID: <a href="terms_x-road_docs.html">TA-TERMS</a>.</li>
+<a id="Ref_TERMS"></a>[TA-TERMS] X-Road Terms and Abbreviations. Document ID: <a href="../terms_x-road_docs.html">TA-TERMS</a>.</li>
 </ol>
 <h2><a id="2-retrieving-list-of-service-providers" class="anchor" aria-hidden="true" href="#2-retrieving-list-of-service-providers"><span aria-hidden="true" class="octicon octicon-link"></span></a>2 Retrieving List of Service Providers</h2>
 <p>Security server clients can retrieve a list of all the potential service providers (i.e., members and subsystems) of an X-Road instance. This can be accomplished by making a HTTP GET request to the security server. The request URL is <code>http://SECURITYSERVER/listClients</code> or <code>https://SECURITYSERVER/listClients</code> depending on whether the HTTPS protocol is configured for interaction between the security server and the information system. When making the request, the address <code>SECURITYSERVER</code> must be replaced with the actual address of the security server.
@@ -234,32 +244,7 @@ In addition, it is possible to retrieve a list of clients in other, federated X-
 <p>It is possible to control the response content type using HTTP <code>Accept</code> header. If the header value is <code>application/json</code>, the security server must produce an application/json response, as defined in Annex B, <a href="#openapi-definition">OpenAPI definition</a>. Otherwise, security server MUST respond with content-type <code>text/xml</code> and the response MUST contain the <code>clientList</code> XML element defined in Annex <a href="#annex-a-xml-schema-for-messages">A</a>).</p>
 <p>Annex <a href="#c1-listclients-response">C.1</a> contains an example XML and JSON response messages</p>
 <p>The X-Road client identifier has a hierarchical structure consisting of X-Road instance, member class, member and (optionally) subsystem codes. See specification [<a href="#Ref_PR-MESS">PR-MESS</a>] for explanation and specification of identifiers.</p>
-<h2><a id="3-retrieving-list-of-central-services" class="anchor" aria-hidden="true" href="#3-retrieving-list-of-central-services"><span aria-hidden="true" class="octicon octicon-link"></span></a>3 Retrieving List of Central Services</h2>
-<p>Security server clients can retrieve a list of all central services defined in an X-Road instance. This can be accomplished by making a HTTP GET request to the security server.
-The request URL is <code>http://SECURITYSERVER/listCentralServices</code> or <code>https://SECURITYSERVER/listCentralServices</code> depending on whether the HTTPS protocol is configured for interaction between the security server and the information system.
-When making the request, the address <code>SECURITYSERVER</code> must be replaced with the actual address of the security server.</p>
-<p>In addition, it is possible to retrieve a list of central services in other, federated X-Road instances by adding the following HTTP parameter:</p>
-<ul>
-<li>
-<code>xRoadInstance</code> – code that identifies the X-Road instance.</li>
-</ul>
-<p>Thus, in order to retrieve a list of central services defined in X-Road instance <code>AA</code>, the
-request URL is <code>http://SECURITYSERVER/listCentralServices?xRoadInstance=AA</code>.</p>
-<p>Security server MUST respond with content-type <code>text/xml</code> and the response MUST contain the
-<code>centralServiceList</code> XML element defined below
-(full XML schema appears in Annex <a href="#annex-a-xml-schema-for-messages">A</a>).
-Annex <a href="#c2-listcentralservices-response">C.2</a> contains an example response message.</p>
-<div class="highlight highlight-text-xml"><pre>    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>centralServiceList<span class="pl-pds">"</span></span>
-        <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>CentralServiceListType<span class="pl-pds">"</span></span>/&gt;
-    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>CentralServiceListType<span class="pl-pds">"</span></span>&gt;
-        &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
-            &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">maxOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>unbounded<span class="pl-pds">"</span></span> <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span>
-                <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>centralService<span class="pl-pds">"</span></span>
-                <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>id:XRoadCentralServiceIdentifierType<span class="pl-pds">"</span></span>/&gt;
-        &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
-    &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;</pre></div>
-<p>The <code>XRoadCentralServiceIdentifierType</code> represents a globally unique identifier of a central service consisting of a unique code identifying the X-Road instance and a code for the central service (unique within the given instance). See specification [<a href="#Ref_PR-MESS">PR-MESS</a>] for explanation and specification of identifiers.</p>
-<h2><a id="4-retrieving-list-of-services" class="anchor" aria-hidden="true" href="#4-retrieving-list-of-services"><span aria-hidden="true" class="octicon octicon-link"></span></a>4 Retrieving List of Services</h2>
+<h2><a id="3-retrieving-list-of-services" class="anchor" aria-hidden="true" href="#3-retrieving-list-of-services"><span aria-hidden="true" class="octicon octicon-link"></span></a>3 Retrieving List of Services</h2>
 <p>X-Road provides two methods for getting the list of SOAP services offered by an X-Road client:</p>
 <ul>
 <li>
@@ -284,7 +269,7 @@ Annexes <a href="#c4-listmethods-response">C.4</a> and <a href="#c6-allowedmetho
                 <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>service<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>id:XRoadServiceIdentifierType<span class="pl-pds">"</span></span>/&gt;
         &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
     &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;</pre></div>
-<h2><a id="5-retrieving-the-wsdl-of-a-service" class="anchor" aria-hidden="true" href="#5-retrieving-the-wsdl-of-a-service"><span aria-hidden="true" class="octicon octicon-link"></span></a>5 Retrieving the WSDL of a Service</h2>
+<h2><a id="4-retrieving-the-wsdl-of-a-service" class="anchor" aria-hidden="true" href="#4-retrieving-the-wsdl-of-a-service"><span aria-hidden="true" class="octicon octicon-link"></span></a>4 Retrieving the WSDL of a Service</h2>
 <p>Service clients are able to download WSDL-files that contain the definition of a given service by using the <code>getWsdl</code> method. The method is invoked as regular X-Road SOAP service (see specification [<a href="#Ref_PR-MESS">PR-MESS</a>] for details on the X-Road SOAP protocol). The connection type settings of the client subsystem is used when the method is invoked. In addition, the following aspects should be noted:</p>
 <ul>
 <li>WSDL is retrieved as a SOAP-attachment</li>
@@ -326,13 +311,6 @@ the provider security server.</p>
                     <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>member<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>ClientType<span class="pl-pds">"</span></span>/&gt;
         &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
     &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
-    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>CentralServiceListType<span class="pl-pds">"</span></span>&gt;
-        &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
-            &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">maxOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>unbounded<span class="pl-pds">"</span></span> <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span>
-                    <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>centralService<span class="pl-pds">"</span></span>
-                    <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>id:XRoadCentralServiceIdentifierType<span class="pl-pds">"</span></span>/&gt;
-        &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
-    &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
     &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>ClientType<span class="pl-pds">"</span></span>&gt;
         &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
             &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>id:XRoadClientIdentifierType<span class="pl-pds">"</span></span>/&gt;
@@ -340,7 +318,6 @@ the provider security server.</p>
         &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
     &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
     &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>clientList<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>ClientListType<span class="pl-pds">"</span></span>/&gt;
-    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>centralServiceList<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>CentralServiceListType<span class="pl-pds">"</span></span>/&gt;
 &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">schema</span>&gt;</pre></div>
 <h2><a id="annex-b-listmethods-allowedmethods-and-getwsdl-service-descriptions" class="anchor" aria-hidden="true" href="#annex-b-listmethods-allowedmethods-and-getwsdl-service-descriptions"><span aria-hidden="true" class="octicon octicon-link"></span></a>Annex B listMethods, allowedMethods, and getWsdl service descriptions</h2>
 <h3><a id="wsdl" class="anchor" aria-hidden="true" href="#wsdl"><span aria-hidden="true" class="octicon octicon-link"></span></a>WSDL</h3>
@@ -614,7 +591,6 @@ the provider security server.</p>
                 - <span class="pl-s">GLOBALGROUP</span>
                 - <span class="pl-s">LOCALGROUP</span>
                 - <span class="pl-s">SERVICE</span>
-                - <span class="pl-s">CENTRALSERVICE</span>
             <span class="pl-ent">xroad_instance</span>:
               <span class="pl-ent">type</span>: <span class="pl-s">string</span>
             <span class="pl-ent">member_class</span>:
@@ -708,17 +684,7 @@ the provider security server.</p>
     }
   ]
 }</pre></div>
-<h3><a id="c2-listcentralservices-response" class="anchor" aria-hidden="true" href="#c2-listcentralservices-response"><span aria-hidden="true" class="octicon octicon-link"></span></a>C.2 listCentralServices Response</h3>
-<div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span><span class="pl-e"> standalone</span>=<span class="pl-s"><span class="pl-pds">"</span>yes<span class="pl-pds">"</span></span>?&gt;
-&lt;<span class="pl-ent">ns2</span><span class="pl-ent">:</span><span class="pl-ent">centralServiceList</span>
-        <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">ns1</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/identifiers<span class="pl-pds">"</span></span>
-        <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">ns2</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>&gt;
-    &lt;<span class="pl-ent">ns2</span><span class="pl-ent">:</span><span class="pl-ent">centralService</span> <span class="pl-e">ns1</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>CENTRALSERVICE<span class="pl-pds">"</span></span>&gt;
-        &lt;<span class="pl-ent">ns1</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;AA&lt;/<span class="pl-ent">ns1</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
-        &lt;<span class="pl-ent">ns1</span><span class="pl-ent">:</span><span class="pl-ent">serviceCode</span>&gt;random&lt;/<span class="pl-ent">ns1</span><span class="pl-ent">:</span><span class="pl-ent">serviceCode</span>&gt;
-    &lt;/<span class="pl-ent">ns2</span><span class="pl-ent">:</span><span class="pl-ent">centralService</span>&gt;
-&lt;/<span class="pl-ent">ns2</span><span class="pl-ent">:</span><span class="pl-ent">centralServiceList</span>&gt;</pre></div>
-<h3><a id="c3-listmethods-request" class="anchor" aria-hidden="true" href="#c3-listmethods-request"><span aria-hidden="true" class="octicon octicon-link"></span></a>C.3 listMethods Request</h3>
+<h3><a id="c2-listmethods-request" class="anchor" aria-hidden="true" href="#c2-listmethods-request"><span aria-hidden="true" class="octicon octicon-link"></span></a>C.2 listMethods Request</h3>
 <div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>utf-8<span class="pl-pds">"</span></span>?&gt;
 &lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>
         <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">SOAP-ENV</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.xmlsoap.org/soap/envelope/<span class="pl-pds">"</span></span>
@@ -744,7 +710,7 @@ the provider security server.</p>
         &lt;<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">listMethods</span>/&gt;
     &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
 &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>&gt;</pre></div>
-<h3><a id="c4-listmethods-response" class="anchor" aria-hidden="true" href="#c4-listmethods-response"><span aria-hidden="true" class="octicon octicon-link"></span></a>C.4 listMethods Response</h3>
+<h3><a id="c3-listmethods-response" class="anchor" aria-hidden="true" href="#c3-listmethods-response"><span aria-hidden="true" class="octicon octicon-link"></span></a>C.3 listMethods Response</h3>
 <div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>utf-8<span class="pl-pds">"</span></span>?&gt;
 &lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>
         <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">SOAP-ENV</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.xmlsoap.org/soap/envelope/<span class="pl-pds">"</span></span>
@@ -791,7 +757,7 @@ the provider security server.</p>
         &lt;/<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">listMethodsResponse</span>&gt;
     &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
 &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>&gt;</pre></div>
-<h3><a id="c5-allowedmethods-request" class="anchor" aria-hidden="true" href="#c5-allowedmethods-request"><span aria-hidden="true" class="octicon octicon-link"></span></a>C.5 allowedMethods Request</h3>
+<h3><a id="c4-allowedmethods-request" class="anchor" aria-hidden="true" href="#c4-allowedmethods-request"><span aria-hidden="true" class="octicon octicon-link"></span></a>C.4 allowedMethods Request</h3>
 <div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>utf-8<span class="pl-pds">"</span></span>?&gt;
 &lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>
         <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">SOAP-ENV</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.xmlsoap.org/soap/envelope/<span class="pl-pds">"</span></span>
@@ -817,7 +783,7 @@ the provider security server.</p>
         &lt;<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">allowedMethods</span>/&gt;
     &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
 &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>&gt;</pre></div>
-<h3><a id="c6-allowedmethods-response" class="anchor" aria-hidden="true" href="#c6-allowedmethods-response"><span aria-hidden="true" class="octicon octicon-link"></span></a>C.6 allowedMethods Response</h3>
+<h3><a id="c5-allowedmethods-response" class="anchor" aria-hidden="true" href="#c5-allowedmethods-response"><span aria-hidden="true" class="octicon octicon-link"></span></a>C.5 allowedMethods Response</h3>
 <div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>utf-8<span class="pl-pds">"</span></span>?&gt;
 &lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>
         <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">SOAP-ENV</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.xmlsoap.org/soap/envelope/<span class="pl-pds">"</span></span>
@@ -856,7 +822,7 @@ the provider security server.</p>
         &lt;/<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">allowedMethodsResponse</span>&gt;
     &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
 &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>&gt;</pre></div>
-<h3><a id="c7-getwsdl-request" class="anchor" aria-hidden="true" href="#c7-getwsdl-request"><span aria-hidden="true" class="octicon octicon-link"></span></a>C.7 getWsdl Request</h3>
+<h3><a id="c6-getwsdl-request" class="anchor" aria-hidden="true" href="#c6-getwsdl-request"><span aria-hidden="true" class="octicon octicon-link"></span></a>C.6 getWsdl Request</h3>
 <div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">soapenv</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span> <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">soapenv</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.xmlsoap.org/soap/envelope/<span class="pl-pds">"</span></span> <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">xro</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>
                   <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">iden</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/identifiers<span class="pl-pds">"</span></span>&gt;
     &lt;<span class="pl-ent">soapenv</span><span class="pl-ent">:</span><span class="pl-ent">Header</span>&gt;
@@ -886,7 +852,7 @@ the provider security server.</p>
         &lt;/<span class="pl-ent">xro</span><span class="pl-ent">:</span><span class="pl-ent">getWsdl</span>&gt;
     &lt;/<span class="pl-ent">soapenv</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
 &lt;/<span class="pl-ent">soapenv</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>&gt;</pre></div>
-<h3><a id="c8-getwsdl-response" class="anchor" aria-hidden="true" href="#c8-getwsdl-response"><span aria-hidden="true" class="octicon octicon-link"></span></a>C.8 getWsdl Response</h3>
+<h3><a id="c7-getwsdl-response" class="anchor" aria-hidden="true" href="#c7-getwsdl-response"><span aria-hidden="true" class="octicon octicon-link"></span></a>C.7 getWsdl Response</h3>
 <div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">soapenv</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span> <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">soapenv</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.xmlsoap.org/soap/envelope/<span class="pl-pds">"</span></span>
                   <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">iden</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/identifiers<span class="pl-pds">"</span></span>
                   <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">xro</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>&gt;
@@ -920,7 +886,7 @@ the provider security server.</p>
         &lt;/<span class="pl-ent">xro</span><span class="pl-ent">:</span><span class="pl-ent">getWsdlResponse</span>&gt;
     &lt;/<span class="pl-ent">soapenv</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
 &lt;/<span class="pl-ent">soapenv</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>&gt;</pre></div>
-<h3><a id="c9-getwsdl-response-attachment" class="anchor" aria-hidden="true" href="#c9-getwsdl-response-attachment"><span aria-hidden="true" class="octicon octicon-link"></span></a>C.9 getWsdl Response attachment</h3>
+<h3><a id="c8-getwsdl-response-attachment" class="anchor" aria-hidden="true" href="#c8-getwsdl-response-attachment"><span aria-hidden="true" class="octicon octicon-link"></span></a>C.8 getWsdl Response attachment</h3>
 <div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">definitions</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>testService<span class="pl-pds">"</span></span> <span class="pl-e">targetNamespace</span>=<span class="pl-s"><span class="pl-pds">"</span>http://test.x-road.fi/producer<span class="pl-pds">"</span></span>&gt;
     &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">types</span>&gt;
         &lt;<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">schema</span> <span class="pl-e">elementFormDefault</span>=<span class="pl-s"><span class="pl-pds">"</span>qualified<span class="pl-pds">"</span></span>

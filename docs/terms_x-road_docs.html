@@ -18,7 +18,7 @@
     <article class="markdown-body">
 <h1><a id="x-road-terms-and-abbreviations" class="anchor" aria-hidden="true" href="#x-road-terms-and-abbreviations"><span aria-hidden="true" class="octicon octicon-link"></span></a>X-Road Terms and Abbreviations</h1>
 <p><strong>X-ROAD 7</strong></p>
-<p>Version: 0.8<br>
+<p>Version: 0.9<br>
 Doc. ID:  TA-TERMS</p>
 <h2><a id="version-history" class="anchor" aria-hidden="true" href="#version-history"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version history</h2>
 <table>
@@ -78,6 +78,12 @@ Doc. ID:  TA-TERMS</p>
 <td>0.8</td>
 <td>Update X-Road references from version 6 to 7</td>
 <td>Caro Hautamäki</td>
+</tr>
+<tr>
+<td>17.04.2023</td>
+<td>0.9</td>
+<td>Remove central services support</td>
+<td>Justas Samuolis</td>
 </tr>
 </tbody>
 </table>
@@ -198,7 +204,6 @@ Doc. ID:  TA-TERMS</p>
 </ul>
 <h3><a id="64-elements-of-x-road-software" class="anchor" aria-hidden="true" href="#64-elements-of-x-road-software"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.4 Elements of X-Road software</h3>
 <h4><a id="641-service-and-message" class="anchor" aria-hidden="true" href="#641-service-and-message"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.4.1 Service and message</h4>
-<p><strong>Central service</strong> – dataservice, in case of which the name of service provider is defined by the governing authority. The reason for such alias-name may be the need to assure the service provision (when the service provider changes) without a need to change access rights.</p>
 <p><strong>Dataservice</strong> – web-service executed by a member of X-Road, in order to enable access to the resources of information system of X-Road dataservice provider. The predefined request-response, sent by the information system of a member to the information system of another member and receiving agreed data in response.</p>
 <p><strong>Management service</strong> – services provided by the X-Road governing organization to manage security servers and security server clients. Management services are implemented as standard X-Road services following X-Road message protocol.</p>
 <p><strong>Message</strong> – Data set meeting profile description and service description required by X-Road governing authority. Messages are divided into requests and responses. SOAP message consists of headers and a SOAP body that contains service specific content. REST message consists of HTTP verb, path, query parameters, HTTP headers and message body.</p>
@@ -237,7 +242,6 @@ Doc. ID:  TA-TERMS</p>
 <p><strong>Message log</strong> – a log, where exchanged X-Road messages are logged and provided with batch signature. Records all regular messages passing through the security server into the database. The messages are stored together with their signatures and signatures are timestamped. The purpose of the message log is to provide means to prove the reception of a request/response message to a third party.</p>
 <p><strong>System service log</strong> – a log which is made from a running system service of a security server, for example from xroad-confclient, -proxy, signer services.</p>
 <h3><a id="67-identifiers-and-codes" class="anchor" aria-hidden="true" href="#67-identifiers-and-codes"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.7 Identifiers and codes</h3>
-<p><strong>Central service identifier</strong> – identifier, that uniquely identifies service in X-Road network without having a reference for service provider. Central service identifier consists of X-Road instance identifier and central service code.</p>
 <p><strong>Global access group identifier</strong> – identifier, that uniquely identifies access group in X-Road Network. Global access group identifier consists of X-Road instance identifier and global group code.</p>
 <p><strong>Local access group identifier</strong> – identifier, that uniquely identifies access group for a security server client. Global access group identifier consists of X-Road instance identifier and global group code.</p>
 <p><strong>Member class</strong> – identifier, that is identified by the X-Road governing authority and that uniquely identifies members with similar characteristics. All members with the same member class must be uniquely identifiable by their member codes.</p>
