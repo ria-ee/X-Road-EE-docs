@@ -6,7 +6,7 @@
 
 **Technical Specification**
 
-Version: 0.5  
+Version: 0.7  
 Doc. ID: PR-MREST
 
 ---
@@ -20,7 +20,8 @@ Doc. ID: PR-MREST
 | 09.10.2019 | 0.3     | Clarify the listCentralServices response type | Jarkko Hyöty  |
 | 07.11.2019 | 0.4     | Clarify getOpenAPI description                | Ilkka Seppälä |
 | 05.10.2021 | 0.5     | Update listMethods and allowedMethods         | Ilkka Seppälä |
-
+| 17.04.2023 | 0.6     | Remove central services support               | Justas Samuolis  |
+| 10.05.2023 | 0.7     | Security Categories removed.                  | Justas Samuolis  |
 ## Table of Contents <!-- omit in toc -->
 
 - [License](#license)
@@ -28,9 +29,8 @@ Doc. ID: PR-MREST
     - [1.1 Terms and abbreviations](#11-terms-and-abbreviations)
     - [1.2 References](#12-references)
 - [2 Retrieving List of Service Providers](#2-retrieving-list-of-service-providers)
-- [3 Retrieving List of Central Services](#3-retrieving-list-of-central-services)
-- [4 Retrieving List of Services](#4-retrieving-list-of-services)
-- [5 Retrieving the OpenAPI description of a Service](#5-retrieving-the-openapi-description-of-a-service)
+- [3 Retrieving List of Services](#4-retrieving-list-of-services)
+- [4 Retrieving the OpenAPI description of a Service](#5-retrieving-the-openapi-description-of-a-service)
 - [Annex A Service Descriptions for REST Metadata Services](#annex-a-service-descriptions-for-rest-metadata-services)
 - [Annex B Example Messages](#annex-b-example-messages)
     - [B.1 listMethods Response](#b1-listmethods-response)
@@ -73,13 +73,6 @@ See X-Road terms and abbreviations documentation \[[TA-TERMS](#Ref_TERMS)\].
 For retrieving the list of service providers listClients metaservice is used. It can be invoked with simple HTTP GET to
 right URL. Service output format is controlled with Accept header. The details of listClients are described in
 \[[PR-META](#Ref_PR-META)\].
-
-## 3 Retrieving List of Central Services
-
-For retrieving the list of central services listCentralServices metaservice is used. It can be invoked with simple HTTP
-GET to right URL. The details of listCentralServices are described in \[[PR-META](#Ref_PR-META)\].
-Note. The listCentralServices metaservice ignores the Accept header and returns an XML response (the REST interface does
-not support central services).
 
 ## 4 Retrieving List of Services
 
@@ -306,9 +299,7 @@ components:
                 - SUBSYSTEM
                 - SERVER
                 - GLOBALGROUP
-                - SECURITYCATEGORY
                 - SERVICE
-                - CENTRALSERVICE
                 - LOCALGROUP
         serviceType:
           type: string

@@ -6,7 +6,7 @@
 
 # User Guide
 
-Version: 0.5  
+Version: 0.6  
 Doc ID: UG-OPMONSYSPAR
 
 | Date       | Version | Description                                                                  | Author             |
@@ -15,6 +15,7 @@ Doc ID: UG-OPMONSYSPAR
 | 23.01.2017 | 0.3     | Added license text, table of contents and version history                    | Sami Kallio        |
 | 17.03.2017 | 0.4     | Added new parameters *op-monitor-buffer.connection-timeout-seconds* and *op-monitor-service.connection-timeout-seconds* | Kristo Heero       |
 | 05.03.2018 | 0.5     | Added reference to terms and abbreviations doc | Tatu Repo | 
+| 01.06.2023 | 0.6     | Update references                                                                                                       | Petteri Kivimäki |
 
 ## Table of Contents
 

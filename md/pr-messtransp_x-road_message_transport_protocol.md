@@ -5,8 +5,8 @@
 # X-Road: Message Transport Protocol
 **Technical Specification**
 
-Version: 2.5  
-22.10.2020  
+Version: 2.6  
+01.06.2023  
 Doc. ID: PR-MESSTRANSP
 
 ---
@@ -30,6 +30,8 @@ Date       | Version | Description                                              
 04.03.2019 | 2.4	 | Converted into Markdown	                                                                        | Caro Hautamäki
 22.10.2020 | 2.5	 | Added REST message protocol                                                                      | Janne Mattila
  
+01.06.2023 | 2.6     | Update references                                                                                 | Petteri Kivimäki
+
 ## Table of Contents
 
 <!-- toc -->

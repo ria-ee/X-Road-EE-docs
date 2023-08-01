@@ -1,6 +1,6 @@
 # X-Road: Environmental Monitoring Architecture
 
-Version: 1.8  
+Version: 1.9  
 Doc. ID: ARC-ENVMON
 
 | Date       | Version  | Description                                                                  | Author             |
