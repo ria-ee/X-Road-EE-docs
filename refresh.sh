@@ -30,7 +30,7 @@ do
     for PATTERN in $(cat "$INFILE")
     do
       pattern_name=${PATTERN##*/}
-      sed -i "s@(.*$pattern_name.md)@($pattern_name.md)@g" ${DIR}/${file_name}.md
+      sed --debug -i "s@(.*$pattern_name.md)@($pattern_name.md)@g" ${DIR}/${file_name}.md
     done
 done
 echo "Link fixed"
