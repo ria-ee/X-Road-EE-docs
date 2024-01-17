@@ -22,6 +22,21 @@ jobs:
           git add .
           git commit -m "generated"
           git push
+              steps:
+      - uses: actions/checkout@v4
+      - run: |
+          rm -r prev_files
+          chmod +x generate_diff.sh
+          ./refresh.sh $PREV_VERSION $VERSION_TO_REFRESH
+          cp -r img v_$VERSION_TO_REFRESH/md
+          cp monitoring.xsd v_$VERSION_TO_REFRESH/md
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "generated"
+          git push
+
+    
 
       
       
