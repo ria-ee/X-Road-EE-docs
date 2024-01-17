@@ -35,5 +35,8 @@ done
 for LINE in $(cat "$INFILE")
 do
   file_name=${LINE##*/}
-  diff v_$1/md/${file_name}.md prev_files/${file_name}.md >> diff_$1.md
+  diff v_$1/md/${file_name}.md v_$2/${file_name}.md >> diff_$1_$2.md
 done
+
+
+
