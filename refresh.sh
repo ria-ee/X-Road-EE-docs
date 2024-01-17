@@ -5,8 +5,9 @@ INFILE=pages_v1.txt
 
 # Make empty dir for new docs
 DIR=v_$1/md
-if [ ! -d ${DIR} ]; then 
-  mkdir ${DIR}
+if [ -d ${DIR} ]
+then 
+  mv ${DIR} prev_files
 fi
 
 # Download files from EE and NIIS repo
@@ -28,4 +29,11 @@ do
       pattern_name=${PATTERN##*/}
       sed -i "s@(.*$pattern_name.md)@($pattern_name.md)@g" ${DIR}/${file_name}.md
     done
+done
+
+## Prev and new version  diff
+for LINE in $(cat "$INFILE")
+do
+  file_name=${LINE##*/}
+  diff v_$1/md/${file_name}.md prev_files/${file_name}.md >> diff_$1.md
 done
