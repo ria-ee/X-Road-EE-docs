@@ -33,14 +33,6 @@ do
       sed --debug -i "s@(.*$pattern_name.md)@($pattern_name.md)@g" ${DIR}/${file_name}.md
     done
 done
-echo "Link fixed"
-echo "Version differences"
-## Prev and new version  diff
-for LINE in $(cat "$INFILE")
-do
-  file_name=${LINE##*/}
-  diff v_$1/md/${file_name}.md v_$2/md/${file_name}.md >> diff_$1_$2.md
-done
 
 
 
