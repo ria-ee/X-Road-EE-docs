@@ -12,6 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: |
+          rm -r prev_files
           chmod +x refresh.sh
           ./refresh.sh $PREV_VERSION $VERSION_TO_REFRESH
           cp -r img v_$VERSION_TO_REFRESH/md
