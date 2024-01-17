@@ -27,7 +27,7 @@ jobs:
       - run: |
           rm -r prev_files
           chmod +x generate_diff.sh
-          ./refresh.sh $PREV_VERSION $VERSION_TO_REFRESH
+          ./generate_diff.sh $PREV_VERSION $VERSION_TO_REFRESH
           cp -r img v_$VERSION_TO_REFRESH/md
           cp monitoring.xsd v_$VERSION_TO_REFRESH/md
           git config user.name github-actions
