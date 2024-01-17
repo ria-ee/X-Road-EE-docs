@@ -5,7 +5,7 @@ INFILE=pages_v1.txt
 
 # Make empty dir for new docs
 DIR=v_$1/md
-if [ ! -d ${DIR} ] 
+if [ ! -d ${DIR} ]; then 
   mkdir ${DIR}
 fi
 
