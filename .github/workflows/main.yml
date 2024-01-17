@@ -3,7 +3,7 @@ name: refresh documentation
 on: [push]
 
 env:
-  VERSION_TO_REFRESH: 7.3.2
+  VERSION_TO_REFRESH: 7.4.0
 
 jobs:
   download-files:
@@ -14,6 +14,8 @@ jobs:
           chmod +x refresh.sh
           ./refresh.sh $VERSION_TO_REFRESH
           cp -r md/img v_$VERSION_TO_REFRESH/md
+          cp -r md/img .
+          cp md/monitoring.xsd .
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add .
