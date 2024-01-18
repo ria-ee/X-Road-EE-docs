@@ -11,8 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: $VERSION_TO_REFRESH
       - run: |
-          git checkout $VERSION_TO_REFRESH
           chmod +x refresh.sh
           ./refresh.sh $PREV_VERSION $VERSION_TO_REFRESH
           git config user.name github-actions
