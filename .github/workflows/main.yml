@@ -21,8 +21,8 @@ jobs:
           git push
 
       - run: |
-          chmod +x test.sh $VERSION_TO_REFRESH
-          ./test.sh
+          chmod +x test.sh 
+          ./test.sh $VERSION_TO_REFRESH
           git add .
           git commit -m "test_$VERSION_TO_REFRESH"
           git push
