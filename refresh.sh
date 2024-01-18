@@ -45,9 +45,8 @@ do
     then
         echo "${file_name}.md didn't change"
     else
-       diff -u "md/${file_name}.md" "${DIR}/${file_name}.md" >> diff_$1.md
-       echo "*********************************************************************************" >> diff_$1.md
-       echo "${file_name} differences" >> diff_$1.md
+       echo "************${file_name}*******************" >> diff_$1.md
+       diff "md/${file_name}.md" "${DIR}/${file_name}.md" >> diff_$1.md
     fi
 done
 
