@@ -45,7 +45,7 @@ do
     then
         echo "${file_name}.md didn't change"
     else
-        diff -a -y --suppress-common-lines <(echo NIIS; cat ${DIR}/${file_name}.md) <(echo EE.txt; cat md/${file_name}.md) | sed 2i============================================================================= >> diff_$1.md
+        diff -a -y --suppress-common-lines <(echo ${file_name} NIIS; cat ${DIR}/${file_name}.md) <(echo EE.txt; cat md/${file_name}.md) | sed 2i============================================================================= >> diff_$1.md
     fi
 done
 
