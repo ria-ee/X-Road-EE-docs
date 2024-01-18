@@ -7,10 +7,6 @@ ig-ss_x-road_v6_security_server_installation_guide: *NIIS*    |	*EE*
 							      >	| 13.08.2018 | 2.12.4  | Package name fix		
 							      <
 							      >	    - [2.3.1 RIA IP's for Whitelisting](#231-ria-ips-for-whit
-1.  <a id="Ref_UG-SS" class="anchor"></a>\[UG-SS\] Cybernetic |	1.  <a id="Ref_UG-SS" class="anchor"></a>\[UG-SS\] Cybernetic
-2.  <a id="Ref_TERMS" class="anchor"></a>\[TA-TERMS\] X-Road  |	2.  <a id="Ref_TERMS" class="anchor"></a>\[TA-TERMS\] X-Road 
-[UG-SYSPAR](ug-syspar_x-road_v6_system_parameters.md).	      |	[UG-SYSPAR](ug-syspar_x-road_v7_system_parameters.md).
-[IG-XLB](ig-xlb_x-road_external_load_balancer_installation_gu |	[IG-XLB](LoadBalancing/ig-xlb_x-road_external_load_balancer_i
 * Red Hat Enterprise Linux (RHEL) 7 and 8 (x86-64). See [IG-S |	* Red Hat Enterprise Linux (RHEL) 7 and 8 (x86-64).
 							      >
 							      >	NB: RIA provides support only for Security Servers which are 
@@ -148,24 +144,10 @@ apt upgrade xroad-securityserver			      <
 ```							      <
 ug-syspar_x-road_v6_system_parameters: *NIIS*		      |	*EE*
 ========================================================================================
-1.  <a id="Ref_INI"></a>\[INI\] INI file, [http://en.wikipedi |	1. <a id="Ref_INI"></a>\[INI\] INI file, [http://en.wikipedia
-2.  <a id="Ref_CRON"></a>\[CRON\] Quartz Scheduler	      |	2. <a id="Ref_CRON"></a>\[CRON\] Quartz Scheduler
-3.  <a id="Ref_PR-MESS"></a>\[PR-MESS\] [X-Road Message Proto |	3. <a id="Ref_PR-MESS"></a>\[PR-MESS\] [X-Road Message Protoc
-4.  <a id="Ref_PR-TARGETSS"></a>\[PR-TARGETSS\] [Security Ser |	4. <a id="Ref_PR-TARGETSS"></a>\[PR-TARGETSS\] [Security Serv
-5.  <a id="Ref_PR-SECTOKEN"></a>\[PR-SECTOKEN\] [Security Tok |	5. <a id="Ref_PR-SECTOKEN"></a>\[PR-SECTOKEN\] [Security Toke
-6.  <a id="Ref_TERMS" class="anchor"></a>\[TA-TERMS\] [X-Road |	6. <a id="Ref_TERMS" class="anchor"></a>\[TA-TERMS\] [X-Road 
-7.  <a id="Ref_CRONMAN"></a>\[CRONMAN\] [http://linux.die.net |	7. <a id="Ref_CRONMAN"></a>\[CRONMAN\] [http://linux.die.net/
-8.  <a id="Ref_CRONHOW"></a>\[CRONHOW\] Cron format specifica |	8. <a id="Ref_CRONHOW"></a>\[CRONHOW\] Cron format specificat
-9.  <a id="Ref_PR-REST"></a>\[PR-REST\] [X-Road Message Proto |	9. <a id="Ref_PR-REST"></a>\[PR-REST\] [X-Road Message Protoc
-10. <a id="Ref_IG-CSHA" class="anchor"></a>\[IG-CSHA\] X-Road |	10. <a id="Ref_UG_SS" class="anchor">\[UG-SS\]</a> X-Road 7. 
-11. <a id="Ref_UG_SS" class="anchor">\[UG-SS\]</a> X-Road 7.  <
+5.  <a id="Ref_PR-SECTOKEN"></a>\[PR-SECTOKEN\] [Security Tok |	5.  <a id="Ref_PR-SECTOKEN"></a>\[PR-SECTOKEN\] [Security Tok
 ig-xlb_x-road_external_load_balancer_installation_guide: *NII |	*EE*
 ========================================================================================
-| Document Id    |  Document                                  |	| Document Id    | Document                                  
-|:--------------:|:------------------------------------------ |	|:--------------:|:------------------------------------------
 | \[SS-CLUSTER\] | [Readme: Security server cluster setup wit |	| \[SS-CLUSTER\] | [Readme: Security server cluster setup wit
-| \[IG-SS\] | [X-Road: Security Server Installation Guide](ig |	| \[IG-SS\] | [X-Road: Security Server Installation Guide](ig
-| \[UG-SS\] | [X-Road 7 Security Server User Guide](ug-ss_x-r |	| \[UG-SS\] | [X-Road 7 Security Server User Guide](ug-ss_x-r
 | <a name="Ref_TERMS"></a>\[TA-TERMS\] | [X-Road Terms and Ab |	| <a name="Ref_TERMS"></a>\[TA-TERMS\] | [X-Road Terms and Ab
 							      >	   * `xroad-security-officer`
 11. It is possible to use the autologin-package with secondar |	11. It is possible to use the autologin-package with secondar
@@ -182,9 +164,6 @@ ug-ss_x-road_6_security_server_user_guide: *NIIS*	      |	*EE*
 16. <a id="Ref_ARC-ENVMON" class="anchor"></a>\[ARC-ENVMON\]  |	16. <a id="Ref_ARC-ENVMON" class="anchor"></a>\[ARC-ENVMON\] 
 17. <a id="Ref_PR-ENVMONMES" class="anchor"></a>\[PR-ENVMONME |	17. <a id="Ref_PR-ENVMONMES" class="anchor"></a>\[PR-ENVMONME
 18. <a id="Ref_MONITORING_XSD" class="anchor"></a>\[MONITORIN |	18. <a id="Ref_MONITORING_XSD" class="anchor"></a>\[MONITORIN
-ug-sigdoc_x-road_signed_document_download_and_verification_ma |	*EE*
-========================================================================================
-2.  [UG-SS] Security Server User Guide. Document ID: [UG-SS]( |	2.  [UG-SS] Security Server User Guide. Document ID: [UG-SS](
 pr-meta_x-road_service_metadata_protocol: *NIIS*	      |	*EE*
 ========================================================================================
 [UG-SYSPAAR](ug-syspar_x-road_v6_system_parameters.md).	      |	[UG-SYSPAAR](ug-syspar_x-road_v7_system_parameters.md).
