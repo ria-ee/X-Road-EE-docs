@@ -1,4 +1,4 @@
-NIIS							      |	EE.txt
+ig-ss_x-road_v6_security_server_installation_guide NIIS	      |	EE.txt
 =============================================================================
 | Date       | Version | Description                          |	 Date      | Version | Description                           
 |------------|---------|------------------------------------- |	 --------- | ------- | --------------------------------------
@@ -199,7 +199,7 @@ Finally, we can upgrade to our target version 7.3.x as follow <
 ```bash							      <
 apt upgrade xroad-securityserver			      <
 ```							      <
-NIIS							      |	EE.txt
+ug-syspar_x-road_v6_system_parameters NIIS		      |	EE.txt
 =============================================================================
 1.  <a id="Ref_INI"></a>\[INI\] INI file, [http://en.wikipedi |	1. <a id="Ref_INI"></a>\[INI\] INI file, [http://en.wikipedia
 2.  <a id="Ref_CRON"></a>\[CRON\] Quartz Scheduler	      |	2. <a id="Ref_CRON"></a>\[CRON\] Quartz Scheduler
@@ -212,7 +212,7 @@ NIIS							      |	EE.txt
 9.  <a id="Ref_PR-REST"></a>\[PR-REST\] [X-Road Message Proto |	9. <a id="Ref_PR-REST"></a>\[PR-REST\] [X-Road Message Protoc
 10. <a id="Ref_IG-CSHA" class="anchor"></a>\[IG-CSHA\] X-Road |	10. <a id="Ref_UG_SS" class="anchor">\[UG-SS\]</a> X-Road 7. 
 11. <a id="Ref_UG_SS" class="anchor">\[UG-SS\]</a> X-Road 7.  <
-NIIS							      |	EE.txt
+ig-xlb_x-road_external_load_balancer_installation_guide NIIS  |	EE.txt
 =============================================================================
 | Document Id    |  Document                                  |	| Document Id    | Document                                  
 |:--------------:|:------------------------------------------ |	|:--------------:|:------------------------------------------
@@ -224,7 +224,7 @@ NIIS							      |	EE.txt
 11. It is possible to use the autologin-package with secondar |	11. It is possible to use the autologin-package with secondar
 \[[UG-SS](#13-references)\] chapter on [System services](../u |	\[[UG-SS](#13-references)\] chapter on [System services](ug-s
    \[[UG-SS](#13-references)\] chapter on [System services](. |	   \[[UG-SS](#13-references)\] chapter on [System services](u
-NIIS							      |	EE.txt
+ug-ss_x-road_6_security_server_user_guide NIIS		      |	EE.txt
 =============================================================================
 							      >	22.01.2018 | 2.16.1  | Added NEE member class info [4.2](#42-
 7.  <a id="Ref_SPEC-AL" class="anchor"></a>\[SPEC-AL\] Cybern |	7.  <a id="Ref_SPEC-AL" class="anchor"></a>\[SPEC-AL\] Cybern
@@ -235,388 +235,19 @@ NIIS							      |	EE.txt
 16. <a id="Ref_ARC-ENVMON" class="anchor"></a>\[ARC-ENVMON\]  |	16. <a id="Ref_ARC-ENVMON" class="anchor"></a>\[ARC-ENVMON\] 
 17. <a id="Ref_PR-ENVMONMES" class="anchor"></a>\[PR-ENVMONME |	17. <a id="Ref_PR-ENVMONMES" class="anchor"></a>\[PR-ENVMONME
 18. <a id="Ref_MONITORING_XSD" class="anchor"></a>\[MONITORIN |	18. <a id="Ref_MONITORING_XSD" class="anchor"></a>\[MONITORIN
-NIIS							      |	EE.txt
-=============================================================================
-							      <
-| ![European Union / European Regional Development Fund / Inv <
-| -------------------------: |				      <
-							      <
-# SIGNER CONSOLE USER GUIDE <!-- omit in toc -->	      <
-							      <
-**X-ROAD 7**						      <
-							      <
-Version: 2.8  						      <
-Doc. ID: UG-SC						      <
-							      <
----							      <
-							      <
-							      <
-## Version history <!-- omit in toc -->			      <
-							      <
- Date       | Version | Description                           <
- ---------- | ------- | ------------------------------------- <
- 20.11.2014 | 0.1     | First draft                           <
- 20.11.2014 | 0.2     | Some improvements done                <
- 01.12.2014 | 1.0     | Minor corrections done                <
- 19.01.2015 | 1.1     | License information added             <
- 02.04.2015 | 1.2     | "sdsb" changed to "xroad"             <
- 30.06.2015 | 1.3     | Minor corrections done                <
- 09.09.2015 | 2.0     | Editorial changes made                <
- 14.09.2015 | 2.1     | Audit log added                       <
- 20.09.2015 | 2.2     | Editorial changes made                <
- 06.09.2015 | 2.3     | Added certificate request format argu <
- 03.11.2015 | 2.4     | Added label parameter for key generat <
- 10.12.2015 | 2.5     | Editorial changes made                <
- 26.02.2021 | 2.6     | Convert documentation to markdown | C <
- 01.03.2021 | 2.7     | Added [2.4.19 update-software-token-p <
- 25.08.2021 | 2.8     | Update X-Road references from version <
-							      <
- 							      <
-## Table of Contents <!-- omit in toc -->		      <
-							      <
-<!-- toc -->						      <
-<!-- vim-markdown-toc GFM -->				      <
-							      <
-- [License](#license)					      <
-- [1 Introduction](#1-introduction)			      <
-  - [1.1 References](#11-references)			      <
-- [2 Using the Signer console](#2-using-the-signer-console)   <
-  - [2.1 Signer console options](#21-signer-console-options)  <
-  - [2.2 Starting as interactive shell](#22-starting-as-inter <
-  - [2.3 Executing single commands](#23-executing-single-comm <
-  - [2.4 Available commands](#24-available-commands)	      <
-    - [2.4.1 list-tokens](#241-list-tokens)		      <
-    - [2.4.2 list-keys](#242-list-keys)			      <
-    - [2.4.3 list-certs](#243-list-certs)		      <
-    - [2.4.4 set-token-friendly-name](#244-set-token-friendly <
-    - [2.4.5 set-key-friendly-name](#245-set-key-friendly-nam <
-    - [2.4.6 get-member-certs](#246-get-member-certs)	      <
-    - [2.4.7 activate-certificate](#247-activate-certificate) <
-    - [2.4.8 deactivate-certificate](#248-deactivate-certific <
-    - [2.4.9 delete-key](#249-delete-key)		      <
-    - [2.4.10 delete-certificate](#2410-delete-certificate)   <
-    - [2.4.11 delete-certificate-request](#2411-delete-certif <
-    - [2.4.12 import-certificate](#2412-import-certificate)   <
-    - [2.4.13 login-token](#2413-login-token)		      <
-    - [2.4.14 logout-token](#2414-logout-token)		      <
-    - [2.4.15 init-software-token](#2415-init-software-token) <
-    - [2.4.16 sign](#2416-sign)				      <
-    - [2.4.17 generate-key](#2417-generate-key)		      <
-    - [2.4.18 generate-cert-request](#2418-generate-cert-requ <
-    - [2.4.19 update-software-token-pin](#2419-update-softwar <
-- [3 Example: Certificate Import](#3-example-certificate-impo <
-- [4 Audit log](#4-audit-log)				      <
-							      <
-<!-- vim-markdown-toc -->				      <
-<!-- tocstop -->					      <
-							      <
-## License						      <
-							      <
-This document is licensed under the Creative Commons Attribut <
-							      <
-## 1 Introduction					      <
-							      <
-The purpose of this document is to explain how to manage keys <
-							      <
-*Signer* is an X-Road component whose primary purpose is to p <
-							      <
-*Signer console* is a command line utility for interacting wi <
-							      <
-### 1.1 References					      <
-							      <
-1.  <a id="Ref_SPEC-AL" class="anchor"></a>\[SPEC-AL\] Cybern <
-							      <
-2.  <a id="Ref_JSON" class="anchor"></a>\[JSON\] Introducing  <
-							      <
-## 2 Using the Signer console				      <
-							      <
-### 2.1 Signer console options				      <
-							      <
-Signer console accepts the following options:		      <
-- `-h` or `-help` displays list of supported commands	      <
-- `-v` or `-verbose` displays more detailed execution output  <
-							      <
-### 2.2 Starting as interactive shell			      <
-							      <
-To start the signer console as an interactive shell, type     <
-```bash							      <
-sudo -u xroad -i signer-console [<options>]		      <
-```							      <
-							      <
-### 2.3 Executing single commands			      <
-							      <
-To execute a single command, type			      <
-```bash							      <
-sudo -u xroad -i signer-console [<options>] <command> [<comma <
-```							      <
-							      <
-### 2.4 Available commands				      <
-							      <
-This section gives an overview of all available commands in s <
-							      <
-A command may have one or more arguments, and may or may not  <
-							      <
-#### 2.4.1 list-tokens					      <
-							      <
-**Description:** Lists all tokens.			      <
-							      <
-**Arguments:** (none)					      <
-							      <
-**Output:** List of all tokens, each line representing the fo <
-```							      <
-<id> (<status>, <read only|writable>, <available|unavailable> <
-```							      <
-							      <
-#### 2.4.2 list-keys					      <
-							      <
-**Description:** Lists all keys on all tokens.		      <
-							      <
-**Arguments:** (none)					      <
-							      <
-**Output:** List of keys on all tokens, each line representin <
-```							      <
-<id> (<usage>, <available|unavailable>)			      <
-```							      <
-							      <
-#### 2.4.3 list-certs					      <
-							      <
-**Description:** Lists all certificates and certificate reque <
-							      <
-**Arguments:** (none)					      <
-							      <
-**Output:** List of certificates and certificate requests on  <
-```							      <
-<id> (<status>, <client id>)				      <
-```							      <
-							      <
-#### 2.4.4 set-token-friendly-name			      <
-							      <
-**Description:** Sets friendly name to the specified token.   <
-							      <
-**Arguments:**						      <
-* ***token id***: the identifier of the token. Use *[list-tok <
-* ***friendly name***: the name to set.			      <
-							      <
-**Output:** (none)					      <
-							      <
-#### 2.4.5 set-key-friendly-name			      <
-							      <
-**Description:** Sets friendly name to the specified key.     <
-							      <
-**Arguments:**						      <
-* ***key id***: the identifier of the key. Use *[list-keys](# <
-* ***friendly name***: the name to set.			      <
-							      <
-**Output:** (none)					      <
-							      <
-#### 2.4.6 get-member-certs				      <
-							      <
-**Description:** Returns certificates of a member.	      <
-							      <
-**Arguments:**						      <
-* ***member id***: the identifier of the member, entered as ` <
-							      <
-**Output:** List of certificates of the specified member.     <
-							      <
-#### 2.4.7 activate-certificate				      <
-							      <
-**Description:** Activates the specified certificate.	      <
-							      <
-**Arguments:**						      <
-* ***certificate id***: the identifier of the certificate. Us <
-							      <
-**Output:** (none)					      <
-							      <
-#### 2.4.8 deactivate-certificate			      <
-							      <
-**Description:** Deactivates the specified certificate.	      <
-							      <
-**Arguments:**						      <
-* ***certificate id***: the identifier of the certificate. Us <
-							      <
-**Output:** (none)					      <
-							      <
-#### 2.4.9 delete-key					      <
-							      <
-**Description:** Deletes the specified key and all associated <
-							      <
-**Arguments:**						      <
-* ***key id***: the identifier of the key. Use *[list-keys](# <
-							      <
-**Output:** (none)					      <
-							      <
-#### 2.4.10 delete-certificate				      <
-							      <
-**Description:** Deletes the specified certificate from Signe <
-							      <
-**Arguments:**						      <
-* ***certificate id***: the identifier of the certificate. Us <
-							      <
-**Output:** (none)					      <
-							      <
-#### 2.4.11 delete-certificate-request			      <
-							      <
-**Description:** Lists all tokens.			      <
-							      <
-**Arguments:**						      <
-* ***certificate request id***: the identifier of the certifi <
-							      <
-**Output:** (none)					      <
-							      <
-#### 2.4.12 import-certificate				      <
-							      <
-**Description:** Imports a certificate from the specified fil <
-							      <
-**Arguments:**						      <
-* ***file***: the relative or absolute file name of the certi <
-* ***member id***: the identifier of the member constructed f <
-							      <
-**Output:** Identifier of the key to which the certificate wa <
-							      <
-#### 2.4.13 login-token					      <
-							      <
-**Description:** Log in to the specified token.		      <
-							      <
-**Arguments:**						      <
-* ***token id***: the identifier of the token. Use *[list-tok <
-							      <
-**Output:** (none)					      <
-							      <
-#### 2.4.14 logout-token				      <
-							      <
-**Description:** Log out of the specified token		      <
-							      <
-**Arguments:**						      <
-* ***token id***: the identifier of the token. Use *[list-tok <
-							      <
-**Output:** (none)					      <
-							      <
-#### 2.4.15 init-software-token				      <
-							      <
-**Description:** Initialize the software token. A PIN is prom <
-							      <
-**Arguments:** (none)					      <
-							      <
-**Output:** (none)					      <
-							      <
-#### 2.4.16 sign					      <
-							      <
-**Description:** Sign the specified character data using the  <
-							      <
-**Arguments:**						      <
-* ***key id***: the identifier of the key. Use *[list-keys](# <
-* ***data***: character data to be signed as string	      <
-							      <
-**Output:** signature byte array			      <
-							      <
-#### 2.4.17 generate-key				      <
-							      <
-**Description:** Generates a key on the specified token.      <
-							      <
-**Arguments:**						      <
-* ***token id***: the identifier of the token. Use *[list-tok <
-* ***label***: the label of the key is set for SSCD devices.  <
-							      <
-**Output:** The id of the generated key.		      <
-							      <
-#### 2.4.18 generate-cert-request			      <
-							      <
-**Description:** Generates a certificate request under the sp <
-							      <
-**Arguments:**						      <
-* ***key id***: the identifier of the key. Use *[list-keys](# <
-* ***member id***: the identifier of the member that matches  <
-* ***usage***: key usage – either `s` (sign) or `a` (authenti <
-* ***subject name***: the subject distinguished name, entered <
-* ***format***: the format of the generated certificate reque <
-							      <
-**Output:** Name of the file where the certificate request wa <
-							      <
-#### 2.4.19 update-software-token-pin			      <
-							      <
-**Description:** Updates the software token's PIN code. First <
-							      <
-**Arguments:** (none)					      <
-							      <
-**Output:** (none)					      <
-							      <
-## 3 Example: Certificate Import			      <
-							      <
-The following usage example shows how to initialize a softwar <
-							      <
-1.  Initialize the software token			      <
-    ```bash						      <
-    signer-console init-software-token			      <
-    ```							      <
-    A PIN is prompted, this will be used to log in to the sof <
-							      <
-2.  Log in to the software token			      <
-    ```bash						      <
-    signer-console login-token 0			      <
-    ```							      <
-    Note, that the identifier of software token is always `0` <
-							      <
-3.  Generate a new key on the software token:		      <
-    ```bash						      <
-    signer-console generate-key 0			      <
-    ```							      <
-    Output is key id: 					      <
-    `F30D41B745FC072028956A3E9695416247248595`		      <
-							      <
-4.  Create a certificate request:			      <
-    ```bash						      <
-    signer-console generate-cert-request F30D41B745FC07202895 <
-    ```							      <
-    Output:						      <
-    `Saved to file F30D41B745FC072028956A3E9695416247248595.c <
-							      <
-5.  Send the CSR to the Certificate Authority and get the cer <
-6.  Import the new certificate to signer		      <
-    ```bash						      <
-    signer-console import-certificate <PEM file> "SAVED" \"FO <
-    ```							      <
-							      <
-## 4 Audit log						      <
-							      <
-User actions events that are made by the signer-console utili <
-							      <
-An audit log record contains				      <
-* the description of the user action,			      <
-* the date and time of the event,			      <
-* the user name of the user performing the action, and	      <
-* the data related to the event.			      <
-							      <
-For example, logging in to the token produces the following l <
-```							      <
-2015-09-14T17:41:28+03:00 my-server-host INFO  [X-Road Signer <
-```							      <
-							      <
-The event is present in \[[JSON](#Ref_JSON)\] format, in orde <
-							      <
-For example:						      <
-```							      <
-2015-09-14T17:43:07+03:00 my-server-host INFO  [X-Road Signer <
-```							      <
-							      <
-By default, in the X-Road security server and central server, <
-`/var/log/xroad/audit.log`				      <
-							      <
-NIIS							      |	EE.txt
+ug-sigdoc_x-road_signed_document_download_and_verification_ma |	EE.txt
 =============================================================================
 2.  [UG-SS] Security Server User Guide. Document ID: [UG-SS]( |	2.  [UG-SS] Security Server User Guide. Document ID: [UG-SS](
-NIIS							      |	EE.txt
+pr-meta_x-road_service_metadata_protocol NIIS		      |	EE.txt
 =============================================================================
 [UG-SYSPAAR](ug-syspar_x-road_v6_system_parameters.md).	      |	[UG-SYSPAAR](ug-syspar_x-road_v7_system_parameters.md).
-NIIS							      |	EE.txt
-=============================================================================
-   ID: [TA-TERMS](terms_x-road_docs.md).		      |	   ID: [TA-TERMS](../terms_x-road_docs.md).
-NIIS							      |	EE.txt
+pr-mserv_x-road_protocol_for_management_services NIIS	      |	EE.txt
 =============================================================================
 - <a name="Ref_DM-CS"></a>[DM-CS] X-Road: Central Server Data |	- <a name="Ref_DM-CS"></a>[DM-CS] X-Road: Central Server Data
-NIIS							      |	EE.txt
+pr-mess_x-road_message_protocol NIIS			      |	EE.txt
 =============================================================================
 [PR-SECTOKEN](./SecurityTokenExtension/pr-sectoken_security_t |	[PR-SECTOKEN](https://github.com/nordic-institute/X-Road/blob
-NIIS							      |	EE.txt
+pr-third_party_representation_extension_for_the_x-road_protoc |	EE.txt
 =============================================================================
 # Third Party Representation Extension for the X-Road Message <
 							      <
@@ -968,7 +599,7 @@ only up to 1000 random numbers.</xrd:techNotes>		      <
     </SOAP-ENV:Body>					      <
 </SOAP-ENV:Envelope>					      <
 ```							      <
-NIIS							      |	EE.txt
+pr-opmon_x-road_operational_monitoring_protocol_Y-1096-2 NIIS |	EE.txt
 =============================================================================
 							      <
 | ![European Union / European Regional Development Fund / Inv <
@@ -2386,7 +2017,7 @@ content-id: <operational-monitoring-data.json.gz>	      <
   </SOAP-ENV:Body>					      <
 </SOAP-ENV:Envelope>					      <
 ```							      <
-NIIS							      |	EE.txt
+pr-opmonjmx_x-road_operational_monitoring_jmx_protocol_Y-1096 |	EE.txt
 =============================================================================
 							      <
 | ![European Union / European Regional Development Fund / Inv <
@@ -2533,7 +2164,7 @@ For each service mediated during the configured statistics pe <
 * `metrics:name=responseSoapSize(<service ID>)`  	      <
 							      <
 where `<service ID>` will be replaced by the full ID of the s <
-NIIS							      |	EE.txt
+ug-opmonsyspar_x-road_operational_monitoring_system_parameter |	EE.txt
 =============================================================================
 							      <
 | ![European Union / European Regional Development Fund / Inv <
@@ -2618,7 +2249,7 @@ op-monitor-buffer | socket-timeout-seconds    | 60            <
 op-monitor-buffer | size                      | 20000         <
 op-monitor-service| connection-timeout-seconds| 30            <
 op-monitor-service| socket-timeout-seconds    | 60            <
-NIIS							      |	EE.txt
+Monitoring-architecture NIIS				      |	EE.txt
 =============================================================================
 # X-Road: Environmental Monitoring Architecture		      <
 							      <
@@ -3033,7 +2664,7 @@ JMX API, in case port and network access is enabled, will pro <
 Request for monitor data can be set for limiting optional par <
 							      <
 If request parameters are used and flag is set for limiting,  <
-NIIS							      |	EE.txt
+Monitoring-messages NIIS				      |	EE.txt
 =============================================================================
 # X-Road: Environmental Monitoring Messages		      <
 							      <
