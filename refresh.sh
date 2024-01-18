@@ -26,14 +26,13 @@ do
     if cmp -s "md/${file_name}.md" "${DIR}/${file_name}.md"
     then
         echo "${file_name}.md didn't change"
-    else
-       diff "md/${file_name}.md" "${DIR}/${file_name}.md" >> diff_$1.md
+    else    
+        for PATTERN in $(cat "$INFILE")
+        do
+          pattern_name=${PATTERN##*/}
+          sed --debug -i "s@(.*$pattern_name.md)@($pattern_name.md)@g" ${DIR}/${file_name}.md
+        done
     fi
-    for PATTERN in $(cat "$INFILE")
-    do
-      pattern_name=${PATTERN##*/}
-      sed --debug -i "s@(.*$pattern_name.md)@($pattern_name.md)@g" ${DIR}/${file_name}.md
-    done
 done
 
 truncate -s 0 diff_$1.md
