@@ -23,6 +23,12 @@ echo "Link fixes"
 for LINE in $(cat "$INFILE")
 do
     file_name=${LINE##*/}
+    if cmp -s "md/${file_name}.md" "${DIR}/${file_name}.md"
+    then
+        echo "${file_name}.md didn't change"
+    else
+       diff "md/${file_name}.md" "${DIR}/${file_name}.md" >> diff_$1.md
+    fi
     for PATTERN in $(cat "$INFILE")
     do
       pattern_name=${PATTERN##*/}
@@ -34,6 +40,8 @@ for LINE in $(cat "$INFILE")
 do
     file_name=${LINE##*/}
     if cmp -s "md/${file_name}.md" "${DIR}/${file_name}.md"
+    then
+        echo "${file_name}.md didn't change"
     else
        diff "md/${file_name}.md" "${DIR}/${file_name}.md" >> diff_$1.md
     fi
