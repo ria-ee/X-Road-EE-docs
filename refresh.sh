@@ -36,6 +36,8 @@ do
     done
 done
 
+truncate -s 0 diff_$1.md
+
 for LINE in $(cat "$INFILE")
 do
     file_name=${LINE##*/}
