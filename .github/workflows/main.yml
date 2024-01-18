@@ -17,9 +17,6 @@ jobs:
           ./refresh.sh $PREV_VERSION $VERSION_TO_REFRESH
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add .
-          git commit -m "$VERSION_TO_REFRESH"
-          git push
 
       - run: |
           chmod +x test.sh 
