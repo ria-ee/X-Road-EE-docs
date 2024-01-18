@@ -145,6 +145,7 @@ apt upgrade xroad-securityserver			      <
 ug-syspar_x-road_v6_system_parameters: *NIIS*		      |	*EE*
 ========================================================================================
 5.  <a id="Ref_PR-SECTOKEN"></a>\[PR-SECTOKEN\] [Security Tok |	5.  <a id="Ref_PR-SECTOKEN"></a>\[PR-SECTOKEN\] [Security Tok
+ug-autologin_x-road_v6_autologin_user_guide: *NIIS*	      |	*EE*
 ig-xlb_x-road_external_load_balancer_installation_guide: *NII |	*EE*
 ========================================================================================
 | \[SS-CLUSTER\] | [Readme: Security server cluster setup wit |	| \[SS-CLUSTER\] | [Readme: Security server cluster setup wit
@@ -164,15 +165,24 @@ ug-ss_x-road_6_security_server_user_guide: *NIIS*	      |	*EE*
 16. <a id="Ref_ARC-ENVMON" class="anchor"></a>\[ARC-ENVMON\]  |	16. <a id="Ref_ARC-ENVMON" class="anchor"></a>\[ARC-ENVMON\] 
 17. <a id="Ref_PR-ENVMONMES" class="anchor"></a>\[PR-ENVMONME |	17. <a id="Ref_PR-ENVMONMES" class="anchor"></a>\[PR-ENVMONME
 18. <a id="Ref_MONITORING_XSD" class="anchor"></a>\[MONITORIN |	18. <a id="Ref_MONITORING_XSD" class="anchor"></a>\[MONITORIN
+ug-sc_x-road_signer-console_user_guide: *NIIS*		      |	*EE*
+ug-sigdoc_x-road_signed_document_download_and_verification_ma |	*EE*
 pr-meta_x-road_service_metadata_protocol: *NIIS*	      |	*EE*
 ========================================================================================
 [UG-SYSPAAR](ug-syspar_x-road_v6_system_parameters.md).	      |	[UG-SYSPAAR](ug-syspar_x-road_v7_system_parameters.md).
+pr-mrest_x-road_service_metadata_protocol_for_rest: *NIIS*    |	*EE*
 pr-mserv_x-road_protocol_for_management_services: *NIIS*      |	*EE*
 ========================================================================================
 - <a name="Ref_DM-CS"></a>[DM-CS] X-Road: Central Server Data |	- <a name="Ref_DM-CS"></a>[DM-CS] X-Road: Central Server Data
+pr-gconf_x-road_protocol_for_downloading_configuration: *NIIS |	*EE*
 pr-mess_x-road_message_protocol: *NIIS*			      |	*EE*
 ========================================================================================
 [PR-SECTOKEN](./SecurityTokenExtension/pr-sectoken_security_t |	[PR-SECTOKEN](https://github.com/nordic-institute/X-Road/blob
+pr-rest_x-road_message_protocol_for_rest: *NIIS*	      |	*EE*
+pr-messtransp_x-road_message_transport_protocol: *NIIS*	      |	*EE*
+pr-targetss_security_server_targeting_extension_for_the_x-roa |	*EE*
+pr-third_party_representation_extension_for_the_x-road_protoc |	*EE*
+pr-opmon_x-road_operational_monitoring_protocol_Y-1096-2: *NI |	*EE*
 pr-opmonjmx_x-road_operational_monitoring_jmx_protocol_Y-1096 |	*EE*
 ========================================================================================
 <a name="Ref_TERMS"></a>**TA-TERMS** -- X-Road Terms and Abbr |	<a name="Ref_TERMS" class="anchor"></a>**TA-TERMS** -- X-Road
@@ -185,3 +195,5 @@ Monitoring-architecture: *NIIS*				      |	*EE*
 ========================================================================================
 | UC-GCONF      | [Cybernetica AS. X-Road: Use Case Model for |	| UC-GCONF      | [Cybernetica AS. X-Road: Use Case Model for
 | PR-MESS | [Cybernetica AS.X-Road: Message Protocol v4.0](pr |	| PR-MESS | [Cybernetica AS. X-Road: Message Protocol v4.0](p
+Monitoring-messages: *NIIS*				      |	*EE*
+terms_x-road_docs: *NIIS*				      |	*EE*
