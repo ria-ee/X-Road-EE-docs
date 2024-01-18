@@ -1,7 +1,7 @@
 #!/bin/bash
 
 INFILE=pages.txt
-${DIR}=v_$1
+DIR=v_$1
 IFS=$'\n' # set the Internal Field Separator to newline
 for LINE in $(cat "$INFILE")
 do
