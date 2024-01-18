@@ -13,65 +13,65 @@ Doc. ID: IG-SS
 
 ## Version history <!-- omit in toc -->
 
- Date      | Version | Description                                                     | Author
- --------- | ------- | --------------------------------------------------------------- | --------------------
- 01.12.2014 | 1.0     | Initial version                                                 |
- 19.01.2015 | 1.1     | License information added                                       |
- 18.03.2015 | 1.2     | Meta-package for security server added. Legacy securelog module removed |
- 02.04.2015 | 1.3     | “sdsb” change to “xroad”                                        |
- 27.05.2015 | 1.4     | Some typos fixed                                                |
- 30.06.2015 | 1.5     | Minor corrections done                                          |
- 06.07.2015 | 1.6     | New repository address                                          |
- 18.09.2015 | 1.7     | Reference data in [3.2](#32-reference-data) updated                                   |
- 18.09.2015 | 2.0     | Editorial changes made                                          |
- 13.10.2015 | 2.1     | Editorial changes made                                          |
- 10.12.2015 | 2.2     | Updated the installing of the support for hardware tokens ([2.7](#27-installing-the-support-for-hardware-tokens)) |
- 17.12.2015 | 2.3     | Added *xroad-addon-wsdlvalidator* package                       |
- 19.05.2016 | 2.4     | Merged changes from xtee6-doc repo. Updated table [2.2](#22-reference-data) with p 1.12, added chapter [2.8](#28-installing-support-for-monitoring) and updated [3.2](#32-reference-data). |
- 30.09.2016 | 2.5     | Added chapter „[Different versions of xroad-\* package after successful upgrade](#45-different-versions-of-xroad--packages-after-successful-upgrade)“. |
- 07.12.2016 | 2.6     | Added operational data monitoring packages. 2 GB RAM -&gt; 3 GB RAM |
- 23.02.2017 | 2.7     | Converted to Github flavoured Markdown, added license text, adjusted tables for better output in PDF | Toomas Mölder
- 13.04.2017 | 2.8     | Added token ID formatting                                       | Cybernetica AS
- 22.01.2018 | 2.8.1   | Added NEE and NGO member classes                                | Jürgen Šuvalov
- 25.08.2017 | 2.9     | Update environmental monitoring installation information | Ilkka Seppälä
- 15.09.2017 | 2.10    | Added package with configuration specific to Estonia xroad-securityserver-ee | Cybernetica AS
- 05.03.2018 | 2.11    | Added terms and abbreviations reference and document links | Tatu Repo
- 10.04.2018 | 2.12    | Updated chapter "[Installing the Support for Hardware Tokens](#27-installing-the-support-for-hardware-tokens)" with configurable parameters described in the configuration file 'devices.ini' | Cybernetica AS
- 07.06.2018 | 2.12.1  | Updated repository information with x-tee.ee domain             | Jürgen Šuvalov
- 03.07.2018 | 2.12.2  | Added network diagram and reference data for monitoring servers | Jürgen Šuvalov
- 08.08.2018 | 2.12.3  | Editorial changes												| Jan Raik
- 13.08.2018 | 2.12.4  | Package name fix											    | Taavi Meinberg
- 14.10.2018 | 2.13    | Update package repository address | Petteri Kivimäki
- 25.10.2018 | 2.14    | Add RHEL7 as supported platform, update section 2.2 Reference data | Petteri Kivimäki
- 15.11.2018 | 2.15    | Add Ubuntu 18 installation instructions | Jarkko Hyöty
- 28.01.2018 | 2.16    | Update port 2080 documentation | Petteri Kivimäki
- 30.05.2019 | 2.17    | Added package installation instructions on chapter "[2.4 Preparing OS](#24-preparing-os)" | Raul Martinez
- 11.09.2019 | 2.18    | Remove Ubuntu 14.04 from supported platforms | Jarkko Hyöty
- 20.09.2019 | 2.19    | Add instructions for using remote databases | Ilkka Seppälä
- 12.04.2020 | 2.20    | Add note about the default value of the *connector-host* property in the EE-package | Petteri Kivimäki
- 29.04.2020 | 2.21    | Add instructions how to use remote database located in Microsoft Azure | Ilkka Seppälä
- 12.06.2020 | 2.22    | Update reference data regarding JMX listening ports | Petteri Kivimäki
- 24.06.2020 | 2.23    | Add repository sign key details in section [2.2 Reference data](#22-reference-data) | Petteri Kivimäki
- 24.06.2020 | 2.24    | Remove environmental and operational monitoring daemon JMX listening ports from section [2.2 Reference data](#22-reference-data) | Petteri Kivimäki
- 09.08.2020 | 2.25    | Update ports information in section [2.2 Reference data](#22-reference-data), add section [2.2.1 Network Diagram](#221-network-diagram) | Petteri Kivimäki
- 17.08.2020 | 2.26    | Update for RHEL 8. | Jarkko Hyöty
- 08.09.2020 | 2.27    | Fix minimum RAM requirement. | Ilkka Seppälä
- 16.09.2020 | 2.28    | Describe deployment options and database customization options. | Ilkka Seppälä
- 29.09.2020 | 2.29    | Add instructions for creating database structure and roles manually. | Ilkka Seppälä
- 19.01.2021 | 2.30    | Add instructions for using an alternative Java distribution. | Jarkko Hyöty
- 04.02.2021 | 2.31    | Minor updates. | Ilkka Seppälä
- 13.04.2021 | 2.32    | Update minimum requirements in section [2.2 Reference data](#22-reference-data) | Petteri Kivimäki
- 16.04.2021 | 2.33    | Update remote database installation instructions                | Jarkko Hyöty
- 18.05.2021 | 2.34    | Update error handling section | Ilkka Seppälä
- 02.06.2021 | 2.35    | Add backup encryption information | Andres Allkivi
- 01.07.2021 | 2.36    | Update 3rd party key server | Petteri Kivimäki
- 11.08.2021 | 2.37    | Minor updates | Petteri Kivimäki
- 18.08.2021 | 2.38    | Minor updates to Annex D | Ilkka Seppälä
- 25.08.2021 | 2.39    | Update X-Road references from version 6 to 7 | Caro Hautamäki
- 26.08.2021 | 2.40    | Add instructions how to disable the messagelog addon before installing, add section [2.7 Disable the Messagelog Addon before Installation (optional)](#27-disable-the-messagelog-addon-before-installation-optional) | Caro Hautamäki
- 03.08.2021 | 2.41    | Minor fixes | Ilkka Seppälä
- 06.09.2021 | 2.42    | Update list of running services | Jarkko Hyöty
- 26.09.2022 | 2.43    | Remove Ubuntu 18.04 support  
+| Date       | Version | Description                                                                                                                                                                                                          | Author           |
+|------------|---------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------|
+| 01.12.2014 | 1.0     | Initial version                                                                                                                                                                                                      |                  |
+| 19.01.2015 | 1.1     | License information added                                                                                                                                                                                            |                  |
+| 18.03.2015 | 1.2     | Meta-package for security server added. Legacy securelog module removed                                                                                                                                              |                  |
+| 02.04.2015 | 1.3     | “sdsb” change to “xroad”                                                                                                                                                                                             |                  |
+| 27.05.2015 | 1.4     | Some typos fixed                                                                                                                                                                                                     |                  |
+| 30.06.2015 | 1.5     | Minor corrections done                                                                                                                                                                                               |                  |
+| 06.07.2015 | 1.6     | New repository address                                                                                                                                                                                               |                  |
+| 18.09.2015 | 1.7     | Reference data in [3.2](#32-reference-data) updated                                                                                                                                                                  |                  |
+| 18.09.2015 | 2.0     | Editorial changes made                                                                                                                                                                                               |                  |
+| 13.10.2015 | 2.1     | Editorial changes made                                                                                                                                                                                               |                  |
+| 10.12.2015 | 2.2     | Updated the installing of the support for hardware tokens ([2.7](#27-installing-the-support-for-hardware-tokens))                                                                                                    |                  |
+| 17.12.2015 | 2.3     | Added *xroad-addon-wsdlvalidator* package                                                                                                                                                                            |                  |
+| 19.05.2016 | 2.4     | Merged changes from xtee6-doc repo. Updated table [2.2](#22-reference-data) with p 1.12, added chapter [2.8](#28-installing-support-for-monitoring) and updated [3.2](#32-reference-data).                           |                  |
+| 30.09.2016 | 2.5     | Added chapter „[Different versions of xroad-\* package after successful upgrade](#45-different-versions-of-xroad--packages-after-successful-upgrade)“.                                                               |                  |
+| 07.12.2016 | 2.6     | Added operational data monitoring packages. 2 GB RAM -&gt; 3 GB RAM                                                                                                                                                  |                  |
+| 23.02.2017 | 2.7     | Converted to Github flavoured Markdown, added license text, adjusted tables for better output in PDF                                                                                                                 | Toomas Mölder    |
+| 13.04.2017 | 2.8     | Added token ID formatting                                                                                                                                                                                            | Cybernetica AS   |
+|22.01.2018  | 2.8.1   | Added NEE and NGO member classes                                               | Jürgen Šuvalov|
+| 25.08.2017 | 2.9     | Update environmental monitoring installation information                                                                                                                                                             | Ilkka Seppälä    |
+| 15.09.2017 | 2.10    | Added package with configuration specific to Estonia xroad-securityserver-ee                                                                                                                                         | Cybernetica AS   |
+| 05.03.2018 | 2.11    | Added terms and abbreviations reference and document links                                                                                                                                                           | Tatu Repo        |
+| 10.04.2018 | 2.12    | Updated chapter "[Installing the Support for Hardware Tokens](#27-installing-the-support-for-hardware-tokens)" with configurable parameters described in the configuration file 'devices.ini'                        | Cybernetica AS   |
+| 07.06.2018 | 2.12.1  | Updated repository information with x-tee.ee domain             | Jürgen Šuvalov |
+| 03.07.2018 | 2.12.2  | Added network diagram and reference data for monitoring servers | Jürgen Šuvalov |
+| 08.08.2018 | 2.12.3  | Editorial changes												| Jan Raik |
+| 13.08.2018 | 2.12.4  | Package name fix											    | Taavi Meinberg |
+| 14.10.2018 | 2.13    | Update package repository address                                                                                                                                                                                    | Petteri Kivimäki |
+| 25.10.2018 | 2.14    | Add RHEL7 as supported platform, update section 2.2 Reference data                                                                                                                                                   | Petteri Kivimäki |
+| 15.11.2018 | 2.15    | Add Ubuntu 18 installation instructions                                                                                                                                                                              | Jarkko Hyöty     |
+| 28.01.2018 | 2.16    | Update port 2080 documentation                                                                                                                                                                                       | Petteri Kivimäki |
+| 30.05.2019 | 2.17    | Added package installation instructions on chapter "[2.4 Preparing OS](#24-preparing-os)"                                                                                                                            | Raul Martinez    |
+| 11.09.2019 | 2.18    | Remove Ubuntu 14.04 from supported platforms                                                                                                                                                                         | Jarkko Hyöty     |
+| 20.09.2019 | 2.19    | Add instructions for using remote databases                                                                                                                                                                          | Ilkka Seppälä    |
+| 12.04.2020 | 2.20    | Add note about the default value of the *connector-host* property in the EE-package                                                                                                                                  | Petteri Kivimäki |
+| 29.04.2020 | 2.21    | Add instructions how to use remote database located in Microsoft Azure                                                                                                                                               | Ilkka Seppälä    |
+| 12.06.2020 | 2.22    | Update reference data regarding JMX listening ports                                                                                                                                                                  | Petteri Kivimäki |
+| 24.06.2020 | 2.23    | Add repository sign key details in section [2.2 Reference data](#22-reference-data)                                                                                                                                  | Petteri Kivimäki |
+| 24.06.2020 | 2.24    | Remove environmental and operational monitoring daemon JMX listening ports from section [2.2 Reference data](#22-reference-data)                                                                                     | Petteri Kivimäki |
+| 09.08.2020 | 2.25    | Update ports information in section [2.2 Reference data](#22-reference-data), add section [2.2.1 Network Diagram](#221-network-diagram)                                                                              | Petteri Kivimäki |
+| 17.08.2020 | 2.26    | Update for RHEL 8.                                                                                                                                                                                                   | Jarkko Hyöty     |
+| 08.09.2020 | 2.27    | Fix minimum RAM requirement.                                                                                                                                                                                         | Ilkka Seppälä    |
+| 16.09.2020 | 2.28    | Describe deployment options and database customization options.                                                                                                                                                      | Ilkka Seppälä    |
+| 29.09.2020 | 2.29    | Add instructions for creating database structure and roles manually.                                                                                                                                                 | Ilkka Seppälä    |
+| 19.01.2021 | 2.30    | Add instructions for using an alternative Java distribution.                                                                                                                                                         | Jarkko Hyöty     |
+| 04.02.2021 | 2.31    | Minor updates.                                                                                                                                                                                                       | Ilkka Seppälä    |
+| 13.04.2021 | 2.32    | Update minimum requirements in section [2.2 Reference data](#22-reference-data)                                                                                                                                      | Petteri Kivimäki |
+| 16.04.2021 | 2.33    | Update remote database installation instructions                                                                                                                                                                     | Jarkko Hyöty     |
+| 18.05.2021 | 2.34    | Update error handling section                                                                                                                                                                                        | Ilkka Seppälä    |
+| 02.06.2021 | 2.35    | Add backup encryption information                                                                                                                                                                                    | Andres Allkivi   |
+| 01.07.2021 | 2.36    | Update 3rd party key server                                                                                                                                                                                          | Petteri Kivimäki |
+| 11.08.2021 | 2.37    | Minor updates                                                                                                                                                                                                        | Petteri Kivimäki |
+| 18.08.2021 | 2.38    | Minor updates to Annex D                                                                                                                                                                                             | Ilkka Seppälä    |
+| 25.08.2021 | 2.39    | Update X-Road references from version 6 to 7                                                                                                                                                                         | Caro Hautamäki   |
+| 26.08.2021 | 2.40    | Add instructions how to disable the messagelog addon before installing, add section [2.7 Disable the Messagelog Addon before Installation (optional)](#27-disable-the-messagelog-addon-before-installation-optional) | Caro Hautamäki   |
+| 03.08.2021 | 2.41    | Minor fixes                                                                                                                                                                                                          | Ilkka Seppälä    |
+| 06.09.2021 | 2.42    | Update list of running services                                                                                                                                                                                      | Jarkko Hyöty     |
+| 26.09.2022 | 2.43    | Remove Ubuntu 18.04 support                                                                                                                                                                                          | Andres Rosenthal |
 
 ## License
 
