@@ -29,3 +29,14 @@ do
       sed --debug -i "s@(.*$pattern_name.md)@($pattern_name.md)@g" ${DIR}/${file_name}.md
     done
 done
+
+for LINE in $(cat "$INFILE")
+do
+    file_name=${LINE##*/}
+    if cmp -s "md/${file_name}.md" "${DIR}/${file_name}.md"
+    else
+       diff "md/${file_name}.md" "${DIR}/${file_name}.md" >> diff_$1.md
+    fi
+done
+
+
