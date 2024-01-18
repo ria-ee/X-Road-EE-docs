@@ -43,7 +43,7 @@ do
     then
         echo "${file_name}.md didn't change"
     else
-       diff "md/${file_name}.md" "${DIR}/${file_name}.md" >> diff_$1.md
+       diff -u "md/${file_name}.md" "${DIR}/${file_name}.md" >> diff_$1.md
     fi
 done
 
