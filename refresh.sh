@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define the input file
-INFILE=pages_v1.txt
+INFILE=pages.txt
 
 # Dir for new docs
 DIR=v_$1
