@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: $VERSION_TO_REFRESH
+          ref: ${{ VERSION_TO_REFRESH }}
       - run: |
           chmod +x refresh.sh
           ./refresh.sh $PREV_VERSION $VERSION_TO_REFRESH
