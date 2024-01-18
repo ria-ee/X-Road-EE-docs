@@ -43,6 +43,7 @@ do
     if cmp -s "md/${file_name}.md" "${DIR}/${file_name}.md"
     then
         echo "${file_name}.md didn't change"
+        diff -a -y --suppress-common-lines <(echo ${file_name}: *NIIS*; cat ${DIR}/${file_name}.md) <(echo *EE*; cat md/${file_name}.md) | sed 2i======================================================================================== >> diff_$1.md
     else
         diff -a -y --suppress-common-lines <(echo ${file_name}: *NIIS*; cat ${DIR}/${file_name}.md) <(echo *EE*; cat md/${file_name}.md) | sed 2i======================================================================================== >> diff_$1.md
     fi
