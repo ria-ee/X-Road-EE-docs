@@ -1,9 +1,8 @@
 ug-syspar_x-road_v6_system_parameters: *NIIS*		      |	*EE*
-========================================================================================
+=============================================================
 5.  <a id="Ref_PR-SECTOKEN"></a>\[PR-SECTOKEN\] [Security Tok |	5.  <a id="Ref_PR-SECTOKEN"></a>\[PR-SECTOKEN\] [Security Tok
-ug-autologin_x-road_v6_autologin_user_guide: *NIIS*	      |	*EE*
 ig-xlb_x-road_external_load_balancer_installation_guide: *NII |	*EE*
-========================================================================================
+=============================================================
 | \[SS-CLUSTER\] | [Readme: Security server cluster setup wit |	| \[SS-CLUSTER\] | [Readme: Security server cluster setup wit
 | <a name="Ref_TERMS"></a>\[TA-TERMS\] | [X-Road Terms and Ab |	| <a name="Ref_TERMS"></a>\[TA-TERMS\] | [X-Road Terms and Ab
 							      >	   * `xroad-security-officer`
@@ -11,7 +10,7 @@ ig-xlb_x-road_external_load_balancer_installation_guide: *NII |	*EE*
 \[[UG-SS](#13-references)\] chapter on [System services](../u |	\[[UG-SS](#13-references)\] chapter on [System services](ug-s
    \[[UG-SS](#13-references)\] chapter on [System services](. |	   \[[UG-SS](#13-references)\] chapter on [System services](u
 ug-ss_x-road_6_security_server_user_guide: *NIIS*	      |	*EE*
-========================================================================================
+=============================================================
 							      >	22.01.2018 | 2.16.1  | Added NEE member class info [4.2](#42-
 7.  <a id="Ref_SPEC-AL" class="anchor"></a>\[SPEC-AL\] Cybern |	7.  <a id="Ref_SPEC-AL" class="anchor"></a>\[SPEC-AL\] Cybern
 8.  <a id="Ref_PR-OPMON" class="anchor"></a>\[PR-OPMON\] Cybe |	8.  <a id="Ref_PR-OPMON" class="anchor"></a>\[PR-OPMON\] Cybe
@@ -21,35 +20,24 @@ ug-ss_x-road_6_security_server_user_guide: *NIIS*	      |	*EE*
 16. <a id="Ref_ARC-ENVMON" class="anchor"></a>\[ARC-ENVMON\]  |	16. <a id="Ref_ARC-ENVMON" class="anchor"></a>\[ARC-ENVMON\] 
 17. <a id="Ref_PR-ENVMONMES" class="anchor"></a>\[PR-ENVMONME |	17. <a id="Ref_PR-ENVMONMES" class="anchor"></a>\[PR-ENVMONME
 18. <a id="Ref_MONITORING_XSD" class="anchor"></a>\[MONITORIN |	18. <a id="Ref_MONITORING_XSD" class="anchor"></a>\[MONITORIN
-ug-sc_x-road_signer-console_user_guide: *NIIS*		      |	*EE*
-ug-sigdoc_x-road_signed_document_download_and_verification_ma |	*EE*
 pr-meta_x-road_service_metadata_protocol: *NIIS*	      |	*EE*
-========================================================================================
+=============================================================
 [UG-SYSPAAR](ug-syspar_x-road_v6_system_parameters.md).	      |	[UG-SYSPAAR](ug-syspar_x-road_v7_system_parameters.md).
-pr-mrest_x-road_service_metadata_protocol_for_rest: *NIIS*    |	*EE*
 pr-mserv_x-road_protocol_for_management_services: *NIIS*      |	*EE*
-========================================================================================
+=============================================================
 - <a name="Ref_DM-CS"></a>[DM-CS] X-Road: Central Server Data |	- <a name="Ref_DM-CS"></a>[DM-CS] X-Road: Central Server Data
-pr-gconf_x-road_protocol_for_downloading_configuration: *NIIS |	*EE*
 pr-mess_x-road_message_protocol: *NIIS*			      |	*EE*
-========================================================================================
+=============================================================
 [PR-SECTOKEN](./SecurityTokenExtension/pr-sectoken_security_t |	[PR-SECTOKEN](https://github.com/nordic-institute/X-Road/blob
-pr-rest_x-road_message_protocol_for_rest: *NIIS*	      |	*EE*
-pr-messtransp_x-road_message_transport_protocol: *NIIS*	      |	*EE*
-pr-targetss_security_server_targeting_extension_for_the_x-roa |	*EE*
-pr-third_party_representation_extension_for_the_x-road_protoc |	*EE*
-pr-opmon_x-road_operational_monitoring_protocol_Y-1096-2: *NI |	*EE*
 pr-opmonjmx_x-road_operational_monitoring_jmx_protocol_Y-1096 |	*EE*
-========================================================================================
+=============================================================
 <a name="Ref_TERMS"></a>**TA-TERMS** -- X-Road Terms and Abbr |	<a name="Ref_TERMS" class="anchor"></a>**TA-TERMS** -- X-Road
 <a name="Ref_ARC-OPMOND"></a>**ARC-OPMOND** -- X-Road: Operat |	<a name="Ref_ARC-OPMOND"></a>**ARC-OPMOND** -- X-Road: Operat
 ug-opmonsyspar_x-road_operational_monitoring_system_parameter |	*EE*
-========================================================================================
+=============================================================
 <a name="UG-SYSPAR"></a>**UG-SYSPAR** -- Cybernetica AS. X-Ro |	<a name="UG-SYSPAR"></a>**UG-SYSPAR** -- Cybernetica AS. X-Ro
 <a name="UG-SS"></a>**UG-SS** -- Cybernetica AS. X-Road: Secu |	<a name="UG-SS"></a>**UG-SS** -- Cybernetica AS. X-Road: Secu
 Monitoring-architecture: *NIIS*				      |	*EE*
-========================================================================================
+=============================================================
 | UC-GCONF      | [Cybernetica AS. X-Road: Use Case Model for |	| UC-GCONF      | [Cybernetica AS. X-Road: Use Case Model for
 | PR-MESS | [Cybernetica AS.X-Road: Message Protocol v4.0](pr |	| PR-MESS | [Cybernetica AS. X-Road: Message Protocol v4.0](p
-Monitoring-messages: *NIIS*				      |	*EE*
-terms_x-road_docs: *NIIS*				      |	*EE*
