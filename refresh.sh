@@ -37,7 +37,7 @@ done
 
 truncate -s 0 diff_$1.md
 
-for LINE in $(cat "$INFILE")
+for LINE in $(tail +2 "$INFILE")
 do
     file_name=${LINE##*/}
     if cmp -s "md/${file_name}.md" "${DIR}/${file_name}.md"
