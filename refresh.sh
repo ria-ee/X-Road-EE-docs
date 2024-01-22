@@ -58,9 +58,9 @@ do
     file_name=${LINE##*/}
     if cmp -s "md/${file_name}.md" "${DIR}/${file_name}.md"
     then
-        echo -e "${GREEN} ${file_name}.md didn't change ${ENDCOLOR}"
+        echo -e "${GREEN} ${file_name}.md didn\'t change ${ENDCOLOR}"
     else
-        echo -e "${YELLOW} ${file_name}.md didn't change ${YELLOW}"
+        echo -e "${YELLOW} ${file_name}.md didn\'t change ${YELLOW}"
         diff -a -y --suppress-common-lines <(echo -e "\n${GREEN} ${file_name}: *NIIS* ${ENDCOLOR}"; cat ${DIR}/${file_name}.md) <(echo -e "${GREEN} *EE* ${ENDCOLOR}"; cat md/${file_name}.md) | sed 2i================================================ >> diff_$1.md
     fi
 done
