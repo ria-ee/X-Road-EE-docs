@@ -6,6 +6,9 @@ INFILE=pages.txt
 # Dir for new docs
 DIR=v_$1
 
+RED="\e[31m"
+GREEN="\e[32m"
+ENDCOLOR="\e[0m"
 # Download files from EE and NIIS repo
 echo "Downloading files from NIIS"
 
@@ -25,7 +28,7 @@ do
     file_name=${LINE##*/}
     if cmp -s "md/${file_name}.md" "${DIR}/${file_name}.md"
     then
-        echo "${file_name}.md didn't change"
+        echo -e "${GREEN} ${file_name}.md didn't change ${ENDCOLOR}"
     else    
         for PATTERN in $(cat "$INFILE")
         do
@@ -41,9 +44,9 @@ x=1
 while [ $x -le 2 ]
 do
   read -r line
-  echo " $line "
+  echo -e "${GREEN} ${line} ${ENDCOLOR}"
   x=$(( $x + 1 ))
-done
+done < "$INFILE"
 
 for LINE in $(tail +2 "$INFILE")
 do
