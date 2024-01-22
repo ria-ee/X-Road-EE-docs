@@ -1,4 +1,4 @@
-## terms_x-road_docs: *NIIS*				      |	*EE*
+## README: *NIIS*					      |	*EE*
 ## ug-syspar_x-road_v6_system_parameters: *NIIS*	      |	*EE*
 5.  <a id="Ref_PR-SECTOKEN"></a>\[PR-SECTOKEN\] [Security Tok |	5.  <a id="Ref_PR-SECTOKEN"></a>\[PR-SECTOKEN\] [Security Tok
 ## ig-xlb_x-road_external_load_balancer_installation_guide: * |	*EE*
@@ -23,7 +23,7 @@
 ## pr-mserv_x-road_protocol_for_management_services: *NIIS*   |	*EE*
 - <a name="Ref_DM-CS"></a>[DM-CS] X-Road: Central Server Data |	- <a name="Ref_DM-CS"></a>[DM-CS] X-Road: Central Server Data
 ## pr-mess_x-road_message_protocol: *NIIS*		      |	*EE*
-[PR-SECTOKEN](./SecurityTokenExtension/pr-sectoken_security_t |	[PR-SECTOKEN](https://github.com/nordic-institute/X-Road/blob
+[PR-SECTOKEN](pr-sectoken_security_token_extension_for_the_x- |	[PR-SECTOKEN](https://github.com/nordic-institute/X-Road/blob
 ## pr-opmonjmx_x-road_operational_monitoring_jmx_protocol_Y-1 |	*EE*
 <a name="Ref_TERMS"></a>**TA-TERMS** -- X-Road Terms and Abbr |	<a name="Ref_TERMS" class="anchor"></a>**TA-TERMS** -- X-Road
 <a name="Ref_ARC-OPMOND"></a>**ARC-OPMOND** -- X-Road: Operat |	<a name="Ref_ARC-OPMOND"></a>**ARC-OPMOND** -- X-Road: Operat
