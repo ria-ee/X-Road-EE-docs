@@ -21,3 +21,4 @@ OperationalMonitoring/Manuals/ug-opmonsyspar_x-road_operational_monitoring_syste
 EnvironmentalMonitoring/Monitoring-architecture
 EnvironmentalMonitoring/Monitoring-messages
 terms_x-road_docs
+../ansible/ss_cluster/README
