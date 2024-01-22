@@ -48,7 +48,7 @@ while [ $x -le 1 ]
 do
   read -r line
   echo -e "${YELLOW} ${line} ${ENDCOLOR}"
-  diff -a -y --suppress-common-lines <(echo -e "\n${GREEN} ${file_name}: *NIIS*" ${ENDCOLOR}"; cat ${DIR}/${file_name}.md) <(echo -e "${GREEN} *EE* ${ENDCOLOR}"; cat ${DIR}/${file_name}.md) | sed 2i========================================================= >> diff_$1.md
+  diff -a -y --suppress-common-lines <(echo -e "\n${GREEN} ${file_name}: *NIIS* ${ENDCOLOR}"; cat ${DIR}/${file_name}.md) <(echo -e "${GREEN} *EE* ${ENDCOLOR}"; cat ${DIR}/${file_name}.md) | sed 2i========================================================= >> diff_$1.md
   x=$(( $x + 1 ))
 done < "$INFILE"
 
