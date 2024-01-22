@@ -11,7 +11,7 @@ GREEN="\e[32m"
 YELLOW="\e[33m"
 ENDCOLOR="\e[0m"
 # Download files from EE and NIIS repo
-echo "Downloading files from NIIS"
+echo "********Downloading files from NIIS********"
 
 IFS=$'\n' # set the Internal Field Separator to newline
 for LINE in $(cat "$INFILE")
@@ -20,8 +20,8 @@ do
     wget -q -A md ${niis_url} -P ${DIR}
 done
 
-echo "Files downloaded from NIIS"
-echo "Link fixes"
+echo "********Files downloaded from NIIS********"
+echo "********Link fixes********"
 ## Fixs path's to be suitable for EE repo
 
 for LINE in $(cat "$INFILE")
@@ -42,18 +42,17 @@ do
 done
 
 truncate -s 0 diff_$1.md
-echo "Files that are not automatically refreshed"
+echo "********Files that are not automatically refreshed********"
 x=1
 while [ $x -le 1 ]
 do
   read -r line
   echo -e "${YELLOW} ${line} ${ENDCOLOR}"
-  diff -a -y --suppress-common-lines <(echo ${file_name}: *NIIS*; cat ${DIR}/${file_name}.md) <(echo *EE*; cat ${DIR}/${file_name}.md) | sed 2i========================================================= >> diff_$1.md
-  '/n' >> diff_$1.md
+  diff -a -y --suppress-common-lines <(echo -e "\n${GREEN} ${file_name}: *NIIS*" ${ENDCOLOR}"; cat ${DIR}/${file_name}.md) <(echo -e "${GREEN} *EE* ${ENDCOLOR}"; cat ${DIR}/${file_name}.md) | sed 2i========================================================= >> diff_$1.md
   x=$(( $x + 1 ))
 done < "$INFILE"
 
-echo "Files that will be automatically refreshed"
+echo "********Files that will be automatically refreshed********"
 for LINE in $(tail +2 "$INFILE")
 do
     file_name=${LINE##*/}
@@ -62,7 +61,7 @@ do
         echo -e "${GREEN} ${file_name}.md didn't change ${ENDCOLOR}"
     else
         echo -e "${YELLOW} ${file_name}.md didn't change ${YELLOW}"
-        diff -a -y --suppress-common-lines <(echo -e "${GREEN} ${file_name}: *NIIS*" ${ENDCOLOR}"; cat ${DIR}/${file_name}.md) <(echo -e "${GREEN} *EE* ${ENDCOLOR}"; cat md/${file_name}.md) | sed 2i================================================ >> diff_$1.md
+        diff -a -y --suppress-common-lines <(echo -e "\n${GREEN} ${file_name}: *NIIS*" ${ENDCOLOR}"; cat ${DIR}/${file_name}.md) <(echo -e "${GREEN} *EE* ${ENDCOLOR}"; cat md/${file_name}.md) | sed 2i================================================ >> diff_$1.md
     fi
 done
 
