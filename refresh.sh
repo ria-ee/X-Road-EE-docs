@@ -43,7 +43,7 @@ do
   read -r line
   echo " $line "
   x=$(( $x + 1 ))
-done < "$INFILE"
+done
 
 for LINE in $(tail +2 "$INFILE")
 do
