@@ -37,6 +37,18 @@ done
 
 truncate -s 0 diff_$1.md
 
+for LINE in $(head 1 "$INFILE")
+do
+    file_name=${LINE##*/}
+    if cmp -s "md/${file_name}.md" "${DIR}/${file_name}.md"
+    then
+        echo "${file_name}.md didn't change"
+        diff -a -y --suppress-common-lines <(echo ${file_name}: *NIIS*; cat ${DIR}/${file_name}.md) <(echo *EE*; cat md/${file_name}.md) | sed 2i======================================================================================== >> diff_$1.md
+    else
+        diff -a -y --suppress-common-lines <(echo ${file_name}: *NIIS*; cat ${DIR}/${file_name}.md) <(echo *EE*; cat ${DIR}/${file_name}.md) | sed 2i======================================================================================== >> diff_$1.md
+    fi
+done
+
 for LINE in $(tail +2 "$INFILE")
 do
     file_name=${LINE##*/}
