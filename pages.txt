@@ -5,6 +5,7 @@ Manuals/LoadBalancing/ig-xlb_x-road_external_load_balancer_installation_guide
 Manuals/ug-ss_x-road_6_security_server_user_guide
 Manuals/ug-sc_x-road_signer-console_user_guide
 Manuals/ug-sigdoc_x-road_signed_document_download_and_verification_manual
+UseCases/uc-gconf_x-road_use_case_model_for_global_configuration_distribution_1.4_Y-883-8
 Protocols/pr-meta_x-road_service_metadata_protocol
 Protocols/pr-mrest_x-road_service_metadata_protocol_for_rest
 Protocols/pr-mserv_x-road_protocol_for_management_services
