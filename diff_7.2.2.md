@@ -1,14 +1,3 @@
-==> pages.txt <==: *NIIS*				      |	*EE*
-ig-ss_x-road_v6_security_server_installation_guide: *NIIS*    |	*EE*
-ug-syspar_x-road_v6_system_parameters: *NIIS*		      |	*EE*
-ug-autologin_x-road_v6_autologin_user_guide: *NIIS*	      |	*EE*
-ig-xlb_x-road_external_load_balancer_installation_guide: *NII |	*EE*
-ug-ss_x-road_6_security_server_user_guide: *NIIS*	      |	*EE*
-ug-sc_x-road_signer-console_user_guide: *NIIS*		      |	*EE*
-ug-sigdoc_x-road_signed_document_download_and_verification_ma |	*EE*
-pr-meta_x-road_service_metadata_protocol: *NIIS*	      |	*EE*
-pr-mrest_x-road_service_metadata_protocol_for_rest: *NIIS*    |	*EE*
-pr-mserv_x-road_protocol_for_management_services: *NIIS*      |	*EE*
 ug-syspar_x-road_v6_system_parameters: *NIIS*		      |	*EE*
 ========================================================================================
 5.  <a id="Ref_PR-SECTOKEN"></a>\[PR-SECTOKEN\] [Security Tok |	5.  <a id="Ref_PR-SECTOKEN"></a>\[PR-SECTOKEN\] [Security Tok
