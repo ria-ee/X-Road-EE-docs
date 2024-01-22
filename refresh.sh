@@ -13,7 +13,7 @@ IFS=$'\n' # set the Internal Field Separator to newline
 for LINE in $(cat "$INFILE")
 do
     niis_url=https://raw.githubusercontent.com/nordic-institute/X-Road/${1}/doc/${LINE}.md
-    wget -A md ${niis_url} -P ${DIR}
+    wget -qA md ${niis_url} -P ${DIR}
 done
 
 echo "Files downloaded from NIIS"
@@ -38,9 +38,10 @@ done
 truncate -s 0 diff_$1.md
 
 x=1
-while [ $x -le 2 ] && [ IFS= read -r line ]
+while [ $x -le 2 ]
 do
-  echo " $x "
+  read -r line
+  echo " $line "
   x=$(( $x + 1 ))
 done < "$INFILE"
 
