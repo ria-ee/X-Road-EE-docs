@@ -1,3 +1,4 @@
+terms_x-road_docs: *NIIS*				      |	*EE*
 ug-syspar_x-road_v6_system_parameters: *NIIS*		      |	*EE*
 =========================================================
 5.  <a id="Ref_PR-SECTOKEN"></a>\[PR-SECTOKEN\] [Security Tok |	5.  <a id="Ref_PR-SECTOKEN"></a>\[PR-SECTOKEN\] [Security Tok
