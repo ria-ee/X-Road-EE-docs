@@ -17,7 +17,7 @@ IFS=$'\n' # set the Internal Field Separator to newline
 for LINE in $(cat "$INFILE")
 do
     niis_url=https://raw.githubusercontent.com/nordic-institute/X-Road/${1}/doc/${LINE}.md
-    wget -qA md ${niis_url} -P ${DIR}
+    wget -q -A md ${niis_url} -P ${DIR}
 done
 
 echo "Files downloaded from NIIS"
@@ -30,12 +30,13 @@ do
     if cmp -s "md/${file_name}.md" "${DIR}/${file_name}.md"
     then
         echo -e "${GREEN} ${file_name}.md didn't change ${ENDCOLOR}"
-    else    
+    else
+        echo -e "${YELLOW} ${file_name}.md changed ${YELLOW}"
         for PATTERN in $(cat "$INFILE")
         do
           pattern_name=${PATTERN##*/}
           sed -i "s@(.*$pattern_name.md)@($pattern_name.md)@g" ${DIR}/${file_name}.md
-          echo -e "${YELLOW} ${file_name}.md changed ${YELLOW}"
+          
         done
     fi
 done
@@ -50,6 +51,7 @@ do
   x=$(( $x + 1 ))
 done < "$INFILE"
 
+echo "Files that will be automatically refreshed"
 for LINE in $(tail +2 "$INFILE")
 do
     file_name=${LINE##*/}
