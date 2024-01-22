@@ -8,7 +8,7 @@ DIR=v_$1
 
 RED="\e[31m"
 GREEN="\e[32m"
-YELLOW="\e33m"
+YELLOW="\e[33m"
 ENDCOLOR="\e[0m"
 # Download files from EE and NIIS repo
 echo "Downloading files from NIIS"
@@ -44,10 +44,11 @@ done
 truncate -s 0 diff_$1.md
 echo "Files that are not automatically refreshed"
 x=1
-while [ $x -le 2 ]
+while [ $x -le 1 ]
 do
   read -r line
-  echo -e "${GREEN} ${line} ${ENDCOLOR}"
+  echo -e "${YELLOW} ${line} ${ENDCOLOR}"
+  diff -a -y --suppress-common-lines <(echo ${file_name}: *NIIS*; cat ${DIR}/${file_name}.md) <(echo *EE*; cat ${DIR}/${file_name}.md) | sed 2i========================================================= >> diff_$1.md
   x=$(( $x + 1 ))
 done < "$INFILE"
 
