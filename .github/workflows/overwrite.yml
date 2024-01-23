@@ -21,7 +21,9 @@ jobs:
       - run: |
           chmod +x test.sh 
           ./test.sh ${GITHUB_REF##*/}
-          echo "rm -rf v_${PREV_VERSION}" > clean.sh
+          echo "rm -rf v_${PREV_VERSION};" > clean.sh
+          echo "rm -rf md_prev;" >> clean.sh
+          echo "rm -rf diff_${PREV_VERSION}.md" >> clean.sh
           chmod +x clean.sh
           git add .
           git commit -m "test_${GITHUB_REF##*/}"
