@@ -1,4 +1,4 @@
-name: refresh documentation
+name: overwrite documentation
 
 on: workflow_dispatch
 
