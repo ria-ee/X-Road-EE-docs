@@ -3,8 +3,7 @@ name: refresh documentation
 on: workflow_dispatch
 
 env:
-  PREV_VERSION: 7.2.2
-  VERSION_TO_REFRESH: ${GITHUB_REF##*/}
+  PREV_VERSION: 7.3.2
 
 jobs:
   download-files:
@@ -12,9 +11,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: |
-          chmod +x refresh.sh
-          rm -rf v_${GITHUB_REF##*/}
-          ./refresh.sh $PREV_VERSION ${GITHUB_REF##*/}
+          mv md md_prev
+          mv v_${GITHUB_REF##*/} md
+          cp md_prev/ig-ss_x-road_v6_security_server_installation_guide.md md
           git config user.name github-actions
           git config user.email github-actions@github.com
 
