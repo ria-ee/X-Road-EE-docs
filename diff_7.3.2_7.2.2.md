@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-## Manuals/ig-ss_x-road_v6_security_server_installation_guide |	*EE*
 ## ug-syspar_x-road_v6_system_parameters: *NIIS*	      |	*EE*
 Version: 2.74						      |	Version: 2.67  
 							      |	| Date       | Version  | Description                        
@@ -1183,6 +1181,3 @@ Version: 0.9  						      |	Version: 0.8
 							      >
 							      >
 							      >	**Central service identifier** – identifier, that uniquely id
-=======
-## ig-ss_x-road_v6_security_server_installation_guide: *NIIS* |	*EE*
->>>>>>> 26cd59dd7ae51e2e102833e6120ad08ed3375703

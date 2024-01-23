@@ -1,11 +1,14 @@
+
+| ![European Union / European Regional Development Fund / Investing in your future](../img/eu_rdf_75_en.png "Documents that are tagged with EU/SF logos must keep the logos until 1.1.2022, if it has not stated otherwise in the documentation. If new documentation is created  using EU/SF resources the logos must be tagged appropriately so that the deadline for logos could be found.") |
+| -------------------------: |
+
 # X-Road: Operational Monitoring JMX Protocol <!-- omit in toc -->
 
 **Technical Specification**
 
-Version: 1.2  
+Version: 1.1  
 Doc. ID: PR-OPMONJMX
 
-<<<<<<< HEAD
 | Date       | Version     | Description                                                                  | Author             |
 |------------|-------------|------------------------------------------------------------------------------|--------------------|
 |  | 0.2       | Initial version               |          |
@@ -13,18 +16,7 @@ Doc. ID: PR-OPMONJMX
 | 05.03.2018 | 0.4       | Added terms and abbreviations reference and moved terms to term doc | Tatu Repo |
 | 12.12.2019 | 1.0       | Add description of serviceType gauges | Ilkka Seppälä |
 | 25.06.2020 | 1.1       | Add note about JMX being disabled by default | Petteri Kivimäki |
-| 01.06.2023 | 1.2     | Update references                                                   | Petteri Kivimäki |
-=======
-| Date       | Version | Description                                                         | Author           |
-|------------|---------|---------------------------------------------------------------------|------------------|
-|            | 0.2     | Initial version                                                     |                  |
-| 23.01.2017 | 0.3     | Added license text, table of contents and version history           | Sami Kallio      |
-| 05.03.2018 | 0.4     | Added terms and abbreviations reference and moved terms to term doc | Tatu Repo        |
-| 12.12.2019 | 1.0     | Add description of serviceType gauges                               | Ilkka Seppälä    |
-| 25.06.2020 | 1.1     | Add note about JMX being disabled by default                        | Petteri Kivimäki |
-| 01.06.2023 | 1.2     | Update references                                                   | Petteri Kivimäki |
 
->>>>>>> 26cd59dd7ae51e2e102833e6120ad08ed3375703
 ## Table of Contents <!-- omit in toc -->
 
 <!-- toc -->
@@ -67,13 +59,13 @@ See X-Road terms and abbreviations documentation \[[TA-TERMS](#Ref_TERMS)\].
 
 ## 1.2 References
 
-<a name="Ref_PR-MESS"></a>**PR-MESS** -- X-Road: Message Protocol v4.0. Document ID: [PR-MESS](pr-mess_x-road_message_protocol.md).  
+<a name="Ref_PR-MESS"></a>**PR-MESS** -- Cybernetica AS. X-Road: Message Protocol v4.0. Document ID: [PR-MESS](pr-mess_x-road_message_protocol.md).  
 <a name="Ref_JMX"></a>**JMX** -- Java Management Extensions (JMX) Specification, version 1.4, http://download.oracle.com/otn-pub/jcp/jmx_remote-1_4-mrel2-eval-spec/jsr160-jmx-1_4-mrel4-spec-FINAL-v1_0.pdf  
 <a name="Ref_JMXMP"></a>**JMXMP** -- Using JMX Connectors to Manage Resources Remotely, http://docs.oracle.com/javase/8/docs/technotes/guides/jmx/overview/connectors.html  
 <a name="Ref_METRICS"></a>**METRICS** -- GitHub - dropwizard/metrics: Capturing JVM- and application-level metrics. So you know what's going on, https://github.com/dropwizard/metrics  
 <a name="Ref_ZABBIX"></a>**ZABBIX** -- Zabbix Documentation 3.0 - JMX monitoring, https://www.zabbix.com/documentation/3.0/manual/config/items/itemtypes/jmx_monitoring  
-<a name="Ref_TERMS" class="anchor"></a>**TA-TERMS** -- X-Road Terms and Abbreviations. Document ID: [TA-TERMS](terms_x-road_docs.md).
-<a name="Ref_ARC-OPMOND"></a>**ARC-OPMOND** -- X-Road: Operational Monitoring Daemon Architecture. Document ID: [ARC-OPMOND](arc-opmond_x-road_operational_monitoring_daemon_architecture.md).
+<a name="Ref_TERMS"></a>**TA-TERMS** -- X-Road Terms and Abbreviations. Document ID: [TA-TERMS](terms_x-road_docs.md).<br />
+<a name="Ref_ARC-OPMOND"></a>**ARC-OPMOND** -- X-Road: Operational Monitoring Daemon Architecture. Document ID: [ARC-OPMOND](../Architecture/arc-opmond_x-road_operational_monitoring_daemon_architecture_Y-1096-1.md).
 
 <a name="section_2"></a>
 # 2 Encoding X-Road Service Identifiers in Object Names
