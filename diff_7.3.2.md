@@ -723,7 +723,6 @@ configuration part file.				      |	configuration part file. System uses a valid
 							      >
 							      >	---
 							      >
-Version: 2.13  						      |	Version: 2.11  
 | Date       | Version | Description                          |	 Date       | Version | Description                          
 |------------|---------|------------------------------------- |	 ---------- | ------- | -------------------------------------
 | 04.08.2015 | 0.8     | Initial version                      |	 04.08.2015 | 0.8     | Initial version                      
@@ -742,91 +741,11 @@ Version: 2.13  						      |	Version: 2.11
 | 09.10.2019 | 2.9     | Remove listCentralServices from the  |	 09.10.2019 | 2.9     | Remove listCentralServices from the O
 | 07.11.2019 | 2.10    | Update getWsdl metaservice descripti |	 07.11.2019 | 2.10    | Update getWsdl metaservice descriptio
 | 03.04.2020 | 2.11    | Remove getWsdl HTTP GET-request desc |	 03.04.2020 | 2.11    | Remove getWsdl HTTP GET-request descr
-| 17.04.2023 | 2.12    | Remove central services support      <
-| 01.06.2023 | 2.13    | Update references                    <
-- [3 Retrieving List of Services](#4-retrieving-list-of-servi |	- [3 Retrieving List of Central Services](#3-retrieving-list-
-- [4 Retrieving the WSDL of a Service](#5-retrieving-the-wsdl |	- [4 Retrieving List of Services](#4-retrieving-list-of-servi
-							      >	- [5 Retrieving the WSDL of a Service](#5-retrieving-the-wsdl
-  - [C.2 listMethods Request](#c3-listmethods-request)	      |	  - [C.2 listCentralServices Response](#c2-listcentralservice
-  - [C.3 listMethods Response](#c4-listmethods-response)      |	  - [C.3 listMethods Request](#c3-listmethods-request)
-  - [C.4 allowedMethods Request](#c5-allowedmethods-request)  |	  - [C.4 listMethods Response](#c4-listmethods-response)
-  - [C.5 allowedMethods Response](#c6-allowedmethods-response |	  - [C.5 allowedMethods Request](#c5-allowedmethods-request)
-  - [C.6 getWsdl Request](#c7-getwsdl-request)		      |	  - [C.6 allowedMethods Response](#c6-allowedmethods-response
-  - [C.7 getWsdl Response](#c8-getwsdl-response)	      |	  - [C.7 getWsdl Request](#c7-getwsdl-request)
-  - [C.8 getWsdl Response attachment](#c9-getwsdl-response-at |	  - [C.8 getWsdl Response](#c8-getwsdl-response)
-							      >	  - [C.9 getWsdl Response attachment](#c9-getwsdl-response-at
-1. Download a list of X-Road members and subsystems (see Sect |	1. Download a list of X-Road members and subsystems (see Sect
-This specification is based on the X-Road protocol \[[PR-MESS |	This specification is based on the X-Road protocol \[[PR-MESS
-Chapters [2](#2-retrieving-list-of-service-providers), [3](#4 |	Chapters [2](#2-retrieving-list-of-service-providers), [3](#3
-1. <a name="Ref_PR-MESS" class="anchor"></a>\[PR-MESS\] X-Roa |	1. <a name="Ref_PR-MESS" class="anchor"></a>\[PR-MESS\] Cyber
-## 3 Retrieving List of Services			      |	## 3 Retrieving List of Central Services
-							      >
-							      >	Security server clients can retrieve a list of all central se
-							      >	The request URL is `http://SECURITYSERVER/listCentralServices
-							      >	When making the request, the address `SECURITYSERVER` must be
-							      >
-							      >	In addition, it is possible to retrieve a list of central ser
-							      >
-							      >	* `xRoadInstance` – code that identifies the X-Road instance.
-							      >
-							      >	Thus, in order to retrieve a list of central services defined
-							      >	request URL is `http://SECURITYSERVER/listCentralServices?xRo
-							      >
-							      >	Security server MUST respond with content-type `text/xml` and
-							      >	`centralServiceList` XML element defined below
-							      >	(full XML schema appears in Annex [A](#annex-a-xml-schema-for
-							      >	Annex [C.2](#c2-listcentralservices-response) contains an exa
-							      >	```xml
-							      >	    <xs:element name="centralServiceList"
-							      >	        type="CentralServiceListType"/>
-							      >	    <xs:complexType name="CentralServiceListType">
-							      >	        <xs:sequence>
-							      >	            <xs:element maxOccurs="unbounded" minOccurs="0"
-							      >	                name="centralService"
-							      >	                type="id:XRoadCentralServiceIdentifierType"/>
-							      >	        </xs:sequence>
-							      >	    </xs:complexType>
-							      >	```
-							      >
-							      >	The `XRoadCentralServiceIdentifierType` represents a globally
-							      >
-							      >	## 4 Retrieving List of Services
-## 4 Retrieving the WSDL of a Service			      |	## 5 Retrieving the WSDL of a Service
-							      >	    <xs:complexType name="CentralServiceListType">
-							      >	        <xs:sequence>
-							      >	            <xs:element maxOccurs="unbounded" minOccurs="0"
-							      >	                    name="centralService"
-							      >	                    type="id:XRoadCentralServiceIdentifierTyp
-							      >	        </xs:sequence>
-							      >	    </xs:complexType>
-							      >	    <xs:element name="centralServiceList" type="CentralServic
-							      >	                - CENTRALSERVICE
-### C.2 listMethods Request				      |	### C.2 listCentralServices Response
-							      >
-							      >	```xml
-							      >	<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-							      >	<ns2:centralServiceList
-							      >	        xmlns:ns1="http://x-road.eu/xsd/identifiers"
-							      >	        xmlns:ns2="http://x-road.eu/xsd/xroad.xsd">
-							      >	    <ns2:centralService ns1:objectType="CENTRALSERVICE">
-							      >	        <ns1:xRoadInstance>AA</ns1:xRoadInstance>
-							      >	        <ns1:serviceCode>random</ns1:serviceCode>
-							      >	    </ns2:centralService>
-							      >	</ns2:centralServiceList>
-							      >	```
-							      >	### C.3 listMethods Request
-### C.3 listMethods Response				      |	### C.4 listMethods Response
-### C.4 allowedMethods Request				      |	### C.5 allowedMethods Request
-### C.5 allowedMethods Response				      |	### C.6 allowedMethods Response
-### C.6 getWsdl Request					      |	### C.7 getWsdl Request
-### C.7 getWsdl Response				      |	### C.8 getWsdl Response
-### C.8 getWsdl Response attachment			      |	### C.9 getWsdl Response attachment
 ## pr-mrest_x-road_service_metadata_protocol_for_rest: *NIIS* |	*EE*
 							      >	![](img/eu_regional_development_fund_horizontal_div_15.png "E
 							      >
 							      >	---
 							      >
-Version: 0.7  						      |	Version: 0.5  
 | Date       | Version | Description                          |	| Date       | Version | Description                         
 |------------|---------|------------------------------------- |	|------------|---------|-------------------------------------
 | 29.07.2019 | 0.1     | Initial version                      |	| 29.07.2019 | 0.1     | Initial version                     
@@ -834,27 +753,13 @@ Version: 0.7  						      |	Version: 0.5
 | 09.10.2019 | 0.3     | Clarify the listCentralServices resp |	| 09.10.2019 | 0.3     | Clarify the listCentralServices resp
 | 07.11.2019 | 0.4     | Clarify getOpenAPI description       |	| 07.11.2019 | 0.4     | Clarify getOpenAPI description      
 | 05.10.2021 | 0.5     | Update listMethods and allowedMethod |	| 05.10.2021 | 0.5     | Update listMethods and allowedMethod
-| 17.04.2023 | 0.6     | Remove central services support      <
-| 10.05.2023 | 0.7     | Security Categories removed.         <
-- [3 Retrieving List of Services](#4-retrieving-list-of-servi |	- [3 Retrieving List of Central Services](#3-retrieving-list-
-- [4 Retrieving the OpenAPI description of a Service](#5-retr |	- [4 Retrieving List of Services](#4-retrieving-list-of-servi
-							      >	- [5 Retrieving the OpenAPI description of a Service](#5-retr
+							      <
    ID: [TA-TERMS](terms_x-road_docs.md).		      |	   ID: [TA-TERMS](../terms_x-road_docs.md).
-							      >	## 3 Retrieving List of Central Services
-							      >
-							      >	For retrieving the list of central services listCentralServic
-							      >	GET to right URL. The details of listCentralServices are desc
-							      >	Note. The listCentralServices metaservice ignores the Accept 
-							      >	not support central services).
-							      >
-							      >	                - SECURITYCATEGORY
-							      >	                - CENTRALSERVICE
 ## pr-mserv_x-road_protocol_for_management_services: *NIIS*   |	*EE*
 							      >	![](img/eu_regional_development_fund_horizontal_div_15.png "E
 							      >
 							      >	---
 							      >
-Version: 1.15  						      |	Version: 1.14  
 | Date       | Version | Description                          |	|  Date      | Version |  Description                        
 |------------|---------|------------------------------------- |	|------------|---------|-------------------------------------
 | 19.08.2015 | 0.1     | Initial version                      |	| 19.08.2015 | 0.1     | Initial version                     
@@ -879,50 +784,13 @@ Version: 1.15  						      |	Version: 1.14
 | 06.02.2019 | 1.12    | Update *clientReg* message descripti |	| 06.02.2019 | 1.12    | Update *clientReg* message descripti
 | 03.06.2019 | 1.13    | Add ownerChange management service   |	| 03.06.2019 | 1.13    | Add ownerChange management service  
 | 29.06.2019 | 1.14    | Rename *newOwner* element to *client |	| 29.06.2019 | 1.14    | Rename *newOwner* element to *client
-| 10.05.2023 | 1.15    | Security Categories removed.         <
-							      >	                    <xs:element minOccurs="0" ref="securityCa
-							      >	                    <xs:enumeration value="SECURITYCATEGORY"/
-							      >	                    <xs:enumeration value="CENTRALSERVICE"/>
-							      >	            <xs:element name="securityCategoryCode" type="xs:
-							      >	                <xs:annotation>
-							      >	                    <xs:documentation>
-							      >	                        Code that uniquely identifies securit
-							      >	                        given X-Road instance.
-							      >	                    </xs:documentation>
-							      >	                </xs:annotation>
-							      >	            </xs:element>
-							      >	                    </xs:restriction>
-							      >	                </xs:complexContent>
-							      >	            </xs:complexType>
-							      >	            <xs:complexType name="XRoadSecurityCategoryIdenti
-							      >	                <xs:complexContent>
-							      >	                    <xs:restriction base="XRoadIdentifierType
-							      >	                        <xs:sequence>
-							      >	                            <xs:element ref="xRoadInstance"/>
-							      >	                            <xs:element ref="securityCategory
-							      >	                        </xs:sequence>
-							      >	                        <xs:attribute ref="objectType" use="r
-							      >	                                fixed="SECURITYCATEGORY"/>
-							      >	                    </xs:restriction>
-							      >	                </xs:complexContent>
-							      >	            </xs:complexType>
-							      >	            <xs:complexType name="XRoadCentralServiceIdentifi
-							      >	                <xs:complexContent>
-							      >	                    <xs:restriction base="XRoadIdentifierType
-							      >	                        <xs:sequence>
-							      >	                            <xs:element ref="xRoadInstance"/>
-							      >	                            <xs:element ref="serviceCode"/>
-							      >	                        </xs:sequence>
-							      >	                        <xs:attribute ref="objectType" use="r
-							      >	                                fixed="CENTRALSERVICE"/>
+- <a name="Ref_DM-CS"></a>[DM-CS] X-Road: Central Server Data |	- <a name="Ref_DM-CS"></a>[DM-CS] X-Road: Central Server Data
 ## pr-mess_x-road_message_protocol: *NIIS*		      |	*EE*
 							      >	![](img/eu_regional_development_fund_horizontal_div_15.png "E
 							      >
 							      >	---
 							      >
 							      >
-Version: 4.0.25  					      |	Version: 4.0.22  
-15.06.2023  						      |	19.05.2020  
 | Date       | Version | Description                          |	 Date       | Version | Description                          
 |------------|---------|------------------------------------- |	 ---------- | ------- | -------------------------------------
 | 04.09.2015 | 4.0.2   | Converted to ODT                     |	 04.09.2015 | 4.0.2   | Converted to ODT                     
@@ -946,107 +814,22 @@ Version: 4.0.25  					      |	Version: 4.0.22
 | 26.10.2017 | 4.0.20  | Added [Annex H](#annex-h-known-x-roa |	 26.10.2017 | 4.0.20  | Added [Annex H](#annex-h-known-x-road
 | 06.03.2018 | 4.0.21  | Moved terms to term doc, added terms |	 06.03.2018 | 4.0.21  | Moved terms to term doc, added terms 
 | 19.05.2020 | 4.0.22  | Added chapter [2.7 Identifier Charac |	 19.05.2020 | 4.0.22  | Added chapter [2.7 Identifier Charact
-| 17.04.2023 | 4.0.23  | Remove central services support      |	 
-| 10.05.2023 | 4.0.24  | Security Categories removed.         <
-| 15.06.2023 | 4.0.25  | Stricter identifier character restri <
+							      >	 
+| 15.06.2023 | 4.0.25  | Stricter identifier character restri |	| 15.06.2023 | 4.0.25  | Stricter identifier character restri
 							      <
-							      >	-   **Central service** – *CENTRALSERVICE:/\[X-Road instance\
-							      >	    Example: CENTRALSERVICE:EE/populationRegister\_personData
-							      >
-							      >	            <xs:enumeration value="CENTRALSERVICE"/>
-							      >	The `XRoadCentralServiceIdentifierType` can be used to repres
-							      >
-							      >	```xml
-							      >	    <xs:complexType name="XRoadCentralServiceIdentifierType">
-							      >	        <xs:complexContent>
-							      >	            <xs:restriction base="XRoadIdentifierType">
-							      >	                <xs:sequence>
-							      >	                    <xs:element ref="xRoadInstance"/>
-							      >	                    <xs:element ref="serviceCode"/>
-							      >	                </xs:sequence>
-							      >	            </xs:restriction>
-							      >	        </xs:complexContent>
-							      >	    </xs:complexType>
-							      >	```
-							      >
-							      >	 centralService  | XRoadCentralServiceIdentifierType         
-When a service client sends a request to the security server, |	When a service client sends a request to the security server,
-							      >	- Central service code
-X-Road Message Protocol for REST imposes some restrictions on |	X-Road Message Protocol imposes some restrictions on the char
-Only the following characters MUST be used in the identifier  |	- Colon `:`
-- Letters `A...Z` and `a...z`				      |	- Semicolon `;`
-- Numbers `0...9`					      |	- Slash `/`
-- Symbols `'()+,-.=?`					      |	- Backslash `\`
-							      >	- Percent `%`
-							      >	- Control characters and zero-width spaces
-							      >	  - U+0000—U+001F and U+007F—U+009F; includes chars like tab,
-							      >	  - U+200B and U+FEFF
-							      >	            <xs:element minOccurs="0" ref="securityCategoryCo
-							      >	            <xs:enumeration value="SECURITYCATEGORY"/>
-							      >	            <xs:enumeration value="CENTRALSERVICE"/>
-							      >	    <xs:element name="securityCategoryCode" type="xs:string">
-							      >	        <xs:annotation>
-							      >	            <xs:documentation>Code that uniquely identifies s
-							      >	                a given X-Road instance.</xs:documentation>
-							      >	        </xs:annotation>
-							      >	    </xs:element>
-							      >	    <xs:complexType name="XRoadSecurityCategoryIdentifierType
-							      >	        <xs:complexContent>
-							      >	            <xs:restriction base="XRoadIdentifierType">
-							      >	                <xs:sequence>
-							      >	                    <xs:element ref="xRoadInstance"/>
-							      >	                    <xs:element ref="securityCategoryCode"/>
-							      >	                </xs:sequence>
-							      >	                <xs:attribute ref="objectType" use="required"
-							      >	                        fixed="SECURITYCATEGORY"/>
-							      >	            </xs:restriction>
-							      >	        </xs:complexContent>
-							      >	    </xs:complexType>
-							      >	    <xs:complexType name="XRoadCentralServiceIdentifierType">
-							      >	        <xs:complexContent>
-							      >	            <xs:restriction base="XRoadIdentifierType">
-							      >	                <xs:sequence>
-							      >	                    <xs:element ref="xRoadInstance"/>
-							      >	                    <xs:element ref="serviceCode"/>
-							      >	                </xs:sequence>
-							      >	                <xs:attribute ref="objectType" use="required"
-							      >	                        fixed="CENTRALSERVICE"/>
-							      >	            </xs:restriction>
-							      >	        </xs:complexContent>
-							      >	    </xs:complexType>
-							      >	        </xs:annotation>
-							      >	    </xs:element>
-							      >	    <xs:element name="centralService"
-							      >	            type="id:XRoadCentralServiceIdentifierType">
-							      >	        <xs:annotation>
-							      >	            <xs:documentation>Identies the central service
-							      >	                that is invoked by the request.</xs:documenta
+## License						      <
 ## pr-rest_x-road_message_protocol_for_rest: *NIIS*	      |	*EE*
 							      >	![](img/eu_regional_development_fund_horizontal_div_15.png "E
 							      >
 							      >	---
 							      >
-Version: 1.0.3    					      |	Version: 1.0.2  
-| 15.06.2023 | 1.0.3   | Stricter identifier character restri <
+							      <
 							      >	- Central service code
-X-Road Message Protocol for REST imposes some restrictions on |	X-Road Message Protocol for REST imposes some restrictions on
-Only the following characters MUST be used in the identifier  |	following characters SHALL NOT be used in the identifier valu
-- Letters `A...Z` and `a...z`				      |
-- Numbers `0...9`					      |	- Colon `:`
-- Symbols `'()+,-.=?`					      |	- Semicolon `;`
-							      >	- Slash `/`
-							      >	- Backslash `\`
-							      >	- Percent `%`
-							      >	- Control characters and zero-width spaces
-							      >	    - U+0000—U+001F and U+007F—U+009F; includes chars like ta
-							      >	    - U+200B and U+FEFF
 ## pr-messtransp_x-road_message_transport_protocol: *NIIS*    |	*EE*
 							      >	![](img/eu_regional_development_fund_horizontal_div_15.png "E
 							      >
 							      >	---
 							      >
-Version: 2.6  						      |	Version: 2.5  
-01.06.2023  						      |	22.10.2020  
 Date       | Version | Description                            |	Date       | Version | Description                           
 -----------|---------|--------------------------------------- |	-----------|---------|---------------------------------------
 01.07.2015 | 0.6     | Translated to English	              |	01.07.2015 | 0.6	 | Translated to English	     
@@ -1063,15 +846,13 @@ Date       | Version | Description                            |	Date       | Ver
 01.03.2019 | 2.3     | X-Request-Id header	              |	01.03.2019 | 2.3	 | X-Request-Id header	             
 04.03.2019 | 2.4     | Converted into Markdown	              |	04.03.2019 | 2.4	 | Converted into Markdown	     
 22.10.2020 | 2.5     | Added REST message protocol            |	22.10.2020 | 2.5	 | Added REST message protocol       
-01.06.2023 | 2.6     | Update references                      |	 
-							      <
+							      >	 
 3. <a id="Ref_PR-MESS" class="anchor"></a>\[PR-MESS\] X-Road: |	3. <a id="Ref_PR-MESS" class="anchor"></a>\[PR-MESS\] Cyberne
 ## pr-opmon_x-road_operational_monitoring_protocol_Y-1096-2:  |	*EE*
 							      >
 							      >	| ![European Union / European Regional Development Fund / Inv
 							      >	| -------------------------: |
 							      >
-Version: 1.2  						      |	Version: 1.0  
 | Date       | Version | Description                          |	| Date | Version | Description | Author|
 |------------|---------|------------------------------------- |	|------|---------|-------------|-------|
 |            | 0.2     | Initial version                      |	|            | 0.2 | Initial version |   |
@@ -1084,46 +865,11 @@ Version: 1.2  						      |	Version: 1.0
 | 10.05.2023 | 1.1     | Security Categories removed.         <
 | 01.06.2023 | 1.2     | Update references                    <
 <a name="PR-MESS"></a>**PR-MESS** -- X-Road: Message Transpor |	<a name="PR-MESS"></a>**PR-MESS** -- Cybernetica AS. X-Road: 
-							      >	                    <xs:element minOccurs="0" ref="securityCa
-							      >	                    <xs:enumeration value="SECURITYCATEGORY"/
-							      >	                    <xs:enumeration value="CENTRALSERVICE"/>
-							      >	            <xs:element name="securityCategoryCode" type="xs:
-							      >	                <xs:annotation>
-							      >	                    <xs:documentation>Code that uniquely iden
-							      >	                        category in a given X-Road instance.
-							      >	                    </xs:documentation>
-							      >	                </xs:annotation>
-							      >	            </xs:element>
-							      >	                    </xs:restriction>
-							      >	                </xs:complexContent>
-							      >	            </xs:complexType>
-							      >	            <xs:complexType name="XRoadSecurityCategoryIdenti
-							      >	                <xs:complexContent>
-							      >	                    <xs:restriction base="XRoadIdentifierType
-							      >	                        <xs:sequence>
-							      >	                            <xs:element ref="xRoadInstance"/>
-							      >	                            <xs:element ref="securityCategory
-							      >	                        </xs:sequence>
-							      >	                        <xs:attribute ref="objectType" use="r
-							      >	                                fixed="SECURITYCATEGORY"/>
-							      >	                    </xs:restriction>
-							      >	                </xs:complexContent>
-							      >	            </xs:complexType>
-							      >	            <xs:complexType name="XRoadCentralServiceIdentifi
-							      >	                <xs:complexContent>
-							      >	                    <xs:restriction base="XRoadIdentifierType
-							      >	                        <xs:sequence>
-							      >	                            <xs:element ref="xRoadInstance"/>
-							      >	                            <xs:element ref="serviceCode"/>
-							      >	                        </xs:sequence>
-							      >	                        <xs:attribute ref="objectType" use="r
-							      >	                                fixed="CENTRALSERVICE"/>
 ## pr-opmonjmx_x-road_operational_monitoring_jmx_protocol_Y-1 |	*EE*
 							      >
 							      >	| ![European Union / European Regional Development Fund / Inv
 							      >	| -------------------------: |
 							      >
-Version: 1.2  						      |	Version: 1.1  
 | Date       | Version | Description                          |	| Date       | Version     | Description                     
 |------------|---------|------------------------------------- |	|------------|-------------|---------------------------------
 |            | 0.2     | Initial version                      |	|  | 0.2       | Initial version               |          |
@@ -1131,8 +877,10 @@ Version: 1.2  						      |	Version: 1.1
 | 05.03.2018 | 0.4     | Added terms and abbreviations refere |	| 05.03.2018 | 0.4       | Added terms and abbreviations refe
 | 12.12.2019 | 1.0     | Add description of serviceType gauge |	| 12.12.2019 | 1.0       | Add description of serviceType gau
 | 25.06.2020 | 1.1     | Add note about JMX being disabled by |	| 25.06.2020 | 1.1       | Add note about JMX being disabled 
-| 01.06.2023 | 1.2     | Update references                    <
+							      <
 <a name="Ref_PR-MESS"></a>**PR-MESS** -- X-Road: Message Prot |	<a name="Ref_PR-MESS"></a>**PR-MESS** -- Cybernetica AS. X-Ro
+<a name="Ref_TERMS"></a>**TA-TERMS** -- X-Road Terms and Abbr |	<a name="Ref_TERMS" class="anchor"></a>**TA-TERMS** -- X-Road
+<a name="Ref_ARC-OPMOND"></a>**ARC-OPMOND** -- X-Road: Operat |	<a name="Ref_ARC-OPMOND"></a>**ARC-OPMOND** -- X-Road: Operat
 ## ug-opmonsyspar_x-road_operational_monitoring_system_parame |	*EE*
 							      >
 							      >	| ![European Union / European Regional Development Fund / Inv
