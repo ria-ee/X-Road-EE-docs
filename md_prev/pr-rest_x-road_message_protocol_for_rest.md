@@ -1,3 +1,7 @@
+![](img/eu_regional_development_fund_horizontal_div_15.png "European Union | European Regional Development Fund | Investing in your future")
+
+---
+
 # X-Road: Message Protocol for REST
 
 **Technical Specification**
@@ -211,7 +215,6 @@ Protocol [PR-MESSTRANSP](pr-messtransp_x-road_message_transport_protocol.md)
 
 <a name="Ref_TERMS" class="anchor"></a>\[XROAD-TERMS\] X-Road Terms and
 Abbreviations [TA-TERMS](terms_x-road_docs.md)
-
 ## 3 Scope
 
 ### 3.1 Scope and Requirements
@@ -733,6 +736,7 @@ X-Road identifiers include, but are not restricted to:
 - Subsystem code
 - Service code
 - Service version
+- Central service code
 - Security server code
 
 X-Road Message Protocol for REST imposes some restrictions on the characters that can be used in X-Road identifiers. 

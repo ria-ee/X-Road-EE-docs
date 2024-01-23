@@ -1,3 +1,6 @@
+![](img/eu_regional_development_fund_horizontal_div_15.png "European Union | European Regional Development Fund | Investing in your future")
+
+---
 # Signed Document Download and Verification Manual
 **X-ROAD 7**
 

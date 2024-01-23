@@ -1,3 +1,7 @@
+![](img/eu_regional_development_fund_horizontal_div_15.png "European Union | European Regional Development Fund | Investing in your future")
+
+---
+
 # X-Road: Service Metadata Protocol for REST <!-- omit in toc -->
 
 **Technical Specification**
@@ -9,16 +13,15 @@ Doc. ID: PR-MREST
 
 ## Version history <!-- omit in toc -->
 
-| Date       | Version | Description                                   | Author           |
-|------------|---------|-----------------------------------------------|------------------|
-| 29.07.2019 | 0.1     | Initial version                               | Ilkka Seppälä    |
-| 06.08.2019 | 0.2     | Add getOpenAPI description                    | Ilkka Seppälä    |
-| 09.10.2019 | 0.3     | Clarify the listCentralServices response type | Jarkko Hyöty     |
-| 07.11.2019 | 0.4     | Clarify getOpenAPI description                | Ilkka Seppälä    |
-| 05.10.2021 | 0.5     | Update listMethods and allowedMethods         | Ilkka Seppälä    |
+| Date       | Version | Description                                   | Author        |
+|------------|---------|-----------------------------------------------|---------------|
+| 29.07.2019 | 0.1     | Initial version                               | Ilkka Seppälä |
+| 06.08.2019 | 0.2     | Add getOpenAPI description                    | Ilkka Seppälä |
+| 09.10.2019 | 0.3     | Clarify the listCentralServices response type | Jarkko Hyöty  |
+| 07.11.2019 | 0.4     | Clarify getOpenAPI description                | Ilkka Seppälä |
+| 05.10.2021 | 0.5     | Update listMethods and allowedMethods         | Ilkka Seppälä |
 | 17.04.2023 | 0.6     | Remove central services support               | Justas Samuolis  |
 | 10.05.2023 | 0.7     | Security Categories removed.                  | Justas Samuolis  |
-
 ## Table of Contents <!-- omit in toc -->
 
 - [License](#license)
@@ -61,7 +64,7 @@ See X-Road terms and abbreviations documentation \[[TA-TERMS](#Ref_TERMS)\].
    Internet Engineering Task Force, 1997,
    [https://www.ietf.org/rfc/rfc2119.txt](https://www.ietf.org/rfc/rfc2119.txt)
 3. <a id="Ref_TERMS" class="anchor"></a>\[TA-TERMS\] X-Road Terms and Abbreviations. Document
-   ID: [TA-TERMS](terms_x-road_docs.md).
+   ID: [TA-TERMS](../terms_x-road_docs.md).
 4. <a id="Ref_PR-REST" class="anchor"></a>\[PR-REST\] X-Road: Message Protocol for REST. Document ID:
    [PR-REST](pr-rest_x-road_message_protocol_for_rest.md).
 
