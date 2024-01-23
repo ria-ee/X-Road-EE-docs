@@ -17,6 +17,8 @@ jobs:
       - run: |
           chmod +x test.sh 
           ./test.sh ${GITHUB_REF##*/}
+          echo "diff_${GITHUB_REF##*/}" > clean.sh
+          chmod +x clean.sh 
           git add .
           git commit -m "test_${GITHUB_REF##*/}"
           git push
