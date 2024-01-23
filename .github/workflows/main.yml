@@ -1,4 +1,4 @@
-name: refresh documentation
+name: 1. refresh documentation
 
 on: workflow_dispatch
 
