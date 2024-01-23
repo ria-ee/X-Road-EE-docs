@@ -3,7 +3,7 @@ name: refresh documentation
 on: workflow_dispatch
 
 env:
-  PREV_VERSION: 7.2.2
+  PREV_VERSION: 7.3.2
   VERSION_TO_REFRESH: ${GITHUB_REF##*/}
 
 jobs:
