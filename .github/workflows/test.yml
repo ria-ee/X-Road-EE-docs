@@ -1,4 +1,4 @@
-name: test documentation
+name: 3. test documentation
 
 on: workflow_dispatch
 
