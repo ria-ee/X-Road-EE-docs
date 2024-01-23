@@ -49,7 +49,6 @@ Doc. ID: UG-SS
  04.01.2016 | 2.14   | Corrections in Chapter [15.2.5](#1525-configuring-an-external-operational-monitoring-daemon-and-the-corresponding-security-server)                                                                                                                                                                                                                                                                          
  20.02.2017 | 2.15   | Converted to Github flavoured Markdown, added license text, adjusted tables for better output in PDF                                                                                                                                                                                                                                                                                                        | Toomas Mölder
  16.03.2017 | 2.16   | Added observer role to Chapters [2.1](#21-user-roles) and [2.2](#22-managing-the-users)                                                                                                                                                                                                                                                                                                                     | Tatu Repo
-22.01.2018 | 2.16.1  | Added NEE member class info [4.2](#42-adding-a-security-server-client)| Jürgen Šuvalov
  15.06.2017 | 2.17   | Added [Chapter 17](#18-federation) on federation                                                                                                                                                                                                                                                                                                                                                            | Olli Lindgren
  25.09.2017 | 2.18   | Added chapter [16 Environmental Monitoring](#16-environmental-monitoring)                                                                                                                                                                                                                                                                                                                                   | Tomi Tolvanen
  17.10.2017 | 2.19   | Added section [16.3 Limiting environmental monitoring remote data set](#163-limiting-environmental-monitoring-remote-data-set)                                                                                                                                                                                                                                                                              | Joni Laurila
@@ -345,6 +344,7 @@ See X-Road terms and abbreviations documentation \[[TA-TERMS](#Ref_TERMS)\].
 24. <a id="Ref_GnuPG" class="anchor"></a>\[GnuPG\] The GNU Privacy Guard, <https://gnupg.org>.
 
 25. <a id="Ref_UG-SIGDOC" class="anchor"></a>\[UG-SIGDOC\] X-Road: Signed Document Download and Verification Manual. Document ID: [UG-SIGDOC](ug-sigdoc_x-road_signed_document_download_and_verification_manual.md).
+
 
 ## 2 User Management
 
