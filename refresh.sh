@@ -47,6 +47,7 @@ x=1
 while [ $x -le 1 ]
 do
   read -r line
+  file_name=${line##*/}
   echo -e "${YELLOW} ${line} ${ENDCOLOR}"
   diff -a -y --suppress-common-lines <(echo "## ${line}: *NIIS*"; cat ${DIR}/${line}.md) <(echo *EE*; cat v_$2/${line}.md)>> diff_$1.md
  # diff -a -y --suppress-common-lines < ${DIR}/${file_name}.md <${DIR}/${file_name}.md >> diff_$1.md
