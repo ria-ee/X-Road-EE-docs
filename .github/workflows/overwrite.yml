@@ -3,7 +3,7 @@ name: overwrite documentation
 on: workflow_dispatch
 
 env:
-  PREV_VERSION: 7.3.2
+  PREV_VERSION: 7.2.2
 
 jobs:
   download-files:
@@ -21,6 +21,8 @@ jobs:
       - run: |
           chmod +x test.sh 
           ./test.sh ${GITHUB_REF##*/}
+          echo "rm -rf v_${PREV_VERSION}" > clean.sh
+          chmod +x clean.sh
           git add .
           git commit -m "test_${GITHUB_REF##*/}"
           git push
