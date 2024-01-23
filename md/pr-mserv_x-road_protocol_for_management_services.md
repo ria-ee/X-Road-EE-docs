@@ -6,7 +6,7 @@
 
 **Technical Specification**
 
-Version: 1.14  
+Version: 1.15  
 Doc. ID: PR-MSERV
 
 |  Date      | Version |  Description                                                             | Author             |
@@ -33,6 +33,7 @@ Doc. ID: PR-MSERV
 | 06.02.2019 | 1.12    | Update *clientReg* message description                                   | Petteri Kivimäki   |
 | 03.06.2019 | 1.13    | Add ownerChange management service                                       | Ilkka Seppälä      |
 | 29.06.2019 | 1.14    | Rename *newOwner* element to *client* in ownerChange management service  | Petteri Kivimäki   |
+| 10.05.2023 | 1.15    | Security Categories removed.                                                | Justas Samuolis    |
 
 ## Table of Contents
 
@@ -89,7 +90,7 @@ See X-Road terms and abbreviations documentation \[[TA-TERMS](#Ref_TERMS)\].
 ### 1.2 References
 
 - <a name="Ref_REQ"></a>[REQUIREMENT] Key words for use in RFCs to Indicate Requirement Levels. Request for Comments 2119, Internet Engineering Task Force, March 1997.
-- <a name="Ref_DM-CS"></a>[DM-CS] X-Road: Central Server Data Model. Document ID: [DM-CS](../DataModels/dm-cs_x-road_central_server_configuration_data_model.md)
+- <a name="Ref_DM-CS"></a>[DM-CS] X-Road: Central Server Data Model. Document ID: [DM-CS](https://github.com/nordic-institute/X-Road/blob/6.20.0/doc/DataModels/dm-cs_x-road_central_server_configuration_data_model.md)
 - <a name="Ref_PR-MESS"></a>[PR-MESS] X-Road: Message Protocol v4.0. Document ID: [PR-MESS](pr-mess_x-road_message_protocol.md)
 - <a name="Ref_WSDL"></a>[WSDL] Web Services Description Language (WSDL) 1.1. World Wide Web Consortium. 15 March 2001.
 - <a name="Ref_DER"></a>[DER] DER encoding. ITU-T X.690. July 2002.
@@ -892,7 +893,6 @@ Response message
                     <xs:element minOccurs="0" ref="groupCode"/>
                     <xs:element minOccurs="0" ref="serviceCode"/>
                     <xs:element minOccurs="0" ref="serviceVersion"/>
-                    <xs:element minOccurs="0" ref="securityCategoryCode"/>
                     <xs:element minOccurs="0" ref="serverCode"/>
                 </xs:sequence>
                 <xs:attribute ref="objectType" use="required"/>
@@ -909,9 +909,7 @@ Response message
                     <xs:enumeration value="SERVER"/>
                     <xs:enumeration value="GLOBALGROUP"/>
                     <xs:enumeration value="LOCALGROUP"/>
-                    <xs:enumeration value="SECURITYCATEGORY"/>
                     <xs:enumeration value="SERVICE"/>
-                    <xs:enumeration value="CENTRALSERVICE"/>
                 </xs:restriction>
             </xs:simpleType>
             <xs:element name="xRoadInstance" type="xs:string">
@@ -967,14 +965,6 @@ Response message
                     <xs:documentation>Version of the service.</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element name="securityCategoryCode" type="xs:string">
-                <xs:annotation>
-                    <xs:documentation>
-                        Code that uniquely identifies security category in a
-                        given X-Road instance.
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:element>
             <xs:element name="serverCode" type="xs:string">
                 <xs:annotation>
                     <xs:documentation>
@@ -1010,30 +1000,6 @@ Response message
                         </xs:sequence>
                         <xs:attribute ref="objectType" use="required"
                               fixed="SERVICE"/>
-                    </xs:restriction>
-                </xs:complexContent>
-            </xs:complexType>
-            <xs:complexType name="XRoadSecurityCategoryIdentifierType">
-                <xs:complexContent>
-                    <xs:restriction base="XRoadIdentifierType">
-                        <xs:sequence>
-                            <xs:element ref="xRoadInstance"/>
-                            <xs:element ref="securityCategoryCode"/>
-                        </xs:sequence>
-                        <xs:attribute ref="objectType" use="required"
-                                fixed="SECURITYCATEGORY"/>
-                    </xs:restriction>
-                </xs:complexContent>
-            </xs:complexType>
-            <xs:complexType name="XRoadCentralServiceIdentifierType">
-                <xs:complexContent>
-                    <xs:restriction base="XRoadIdentifierType">
-                        <xs:sequence>
-                            <xs:element ref="xRoadInstance"/>
-                            <xs:element ref="serviceCode"/>
-                        </xs:sequence>
-                        <xs:attribute ref="objectType" use="required"
-                                fixed="CENTRALSERVICE"/>
                     </xs:restriction>
                 </xs:complexContent>
             </xs:complexType>

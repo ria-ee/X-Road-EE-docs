@@ -6,7 +6,7 @@
 
 **Technical Specification**
 
-Version: 1.0  
+Version: 1.2  
 Doc. ID: PR-OPMON
 
 | Date | Version | Description | Author|
@@ -320,7 +320,6 @@ The WSDL is located in the file *src/op-monitor-daemon/src/main/resources/op-mon
                     <xs:element minOccurs="0" ref="groupCode"/>
                     <xs:element minOccurs="0" ref="serviceCode"/>
                     <xs:element minOccurs="0" ref="serviceVersion"/>
-                    <xs:element minOccurs="0" ref="securityCategoryCode"/>
                     <xs:element minOccurs="0" ref="serverCode"/>
                 </xs:sequence>
                 <xs:attribute ref="objectType" use="required"/>
@@ -336,9 +335,7 @@ The WSDL is located in the file *src/op-monitor-daemon/src/main/resources/op-mon
                     <xs:enumeration value="SERVER"/>
                     <xs:enumeration value="GLOBALGROUP"/>
                     <xs:enumeration value="LOCALGROUP"/>
-                    <xs:enumeration value="SECURITYCATEGORY"/>
                     <xs:enumeration value="SERVICE"/>
-                    <xs:enumeration value="CENTRALSERVICE"/>
                 </xs:restriction>
             </xs:simpleType>
             <xs:element name="xRoadInstance" type="xs:string">
@@ -389,13 +386,6 @@ The WSDL is located in the file *src/op-monitor-daemon/src/main/resources/op-mon
                     <xs:documentation>Version of the service.</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element name="securityCategoryCode" type="xs:string">
-                <xs:annotation>
-                    <xs:documentation>Code that uniquely identifies security
-                        category in a given X-Road instance.
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:element>
             <xs:element name="serverCode" type="xs:string">
                 <xs:annotation>
                     <xs:documentation>Code that uniquely identifies security
@@ -430,30 +420,6 @@ The WSDL is located in the file *src/op-monitor-daemon/src/main/resources/op-mon
                         </xs:sequence>
                         <xs:attribute ref="objectType" use="required"
                                 fixed="SERVICE"/>
-                    </xs:restriction>
-                </xs:complexContent>
-            </xs:complexType>
-            <xs:complexType name="XRoadSecurityCategoryIdentifierType">
-                <xs:complexContent>
-                    <xs:restriction base="XRoadIdentifierType">
-                        <xs:sequence>
-                            <xs:element ref="xRoadInstance"/>
-                            <xs:element ref="securityCategoryCode"/>
-                        </xs:sequence>
-                        <xs:attribute ref="objectType" use="required"
-                                fixed="SECURITYCATEGORY"/>
-                    </xs:restriction>
-                </xs:complexContent>
-            </xs:complexType>
-            <xs:complexType name="XRoadCentralServiceIdentifierType">
-                <xs:complexContent>
-                    <xs:restriction base="XRoadIdentifierType">
-                        <xs:sequence>
-                            <xs:element ref="xRoadInstance"/>
-                            <xs:element ref="serviceCode"/>
-                        </xs:sequence>
-                        <xs:attribute ref="objectType" use="required"
-                                fixed="CENTRALSERVICE"/>
                     </xs:restriction>
                 </xs:complexContent>
             </xs:complexType>
