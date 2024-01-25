@@ -5,6 +5,32 @@
 Version: 1.15  
 Doc. ID: PR-MSERV
 
+<<<<<<< HEAD
+|  Date      | Version |  Description                                                             | Author             |
+|------------|---------|--------------------------------------------------------------------------|--------------------|
+| 19.08.2015 | 0.1     | Initial version                                                          | Martin Lind        |
+| 28.08.2015 | 0.2     | Added comments and made editorial changes                                | Margus Freudenthal |
+| 03.09.2015 | 0.3     | Re-structuring and accuracy improvements                                 | Martin Lind        |
+| 13.09.2015 | 0.4     | Made editorial changes                                                   | Margus Freudenthal |
+| 16.09.2015 | 0.5     | Correct example message for authentication certificate registration request | Martin Lind     |
+| 17.09.2015 | 0.6     | Improvements for example messages and referential improvements           | Martin Lind        |
+| 17.09.2015 | 0.7     | Improvements for Schema fragments                                        | Martin Lind        |
+| 18.09.2015 | 0.8     | Updating Schema in the WSDL                                              | Martin Lind        |
+| 21.09.2015 | 1.0     | Editorial changes made                                                   | Imbi Nõgisto       |
+| 21.09.2015 | 1.1     | Document renamed                                                         | Imbi Nõgisto       |
+| 01.10.2015 | 1.2     | Field *requestId* added and redundant elements removed                   | Martin Lind        |
+| 05.10.2015 | 1.3     | Updated example messages                                                 | Martin Lind        |
+| 06.10.2015 | 1.4     | Correct header fields for WSDL                                           | Martin Lind        |
+| 17.10.2015 | 1.6     | Editorial changes related to *requestId* field                           | Margus Freudenthal |
+| 28.10.2015 | 1.7     | Complete X-Road identifiers schema added                                 | Siim Annuk         |
+| 30.10.2015 | 1.8     | Header field *userId* removed from management services WSDL              | Kristo Heero       |
+| 11.12.2015 | 1.9     | Corrected documentation about registering only subsystems                | Siim Annuk         |
+| 07.06.2017 | 1.10    | Additional signature algorithms supported                                | Kristo Heero       |
+| 06.03.2018 | 1.11    | Added terms section, term doc reference and link, fixed references       | Tatu Repo          |
+| 06.02.2019 | 1.12    | Update *clientReg* message description                                   | Petteri Kivimäki   |
+| 03.06.2019 | 1.13    | Add ownerChange management service                                       | Ilkka Seppälä      |
+| 29.06.2019 | 1.14    | Rename *newOwner* element to *client* in ownerChange management service  | Petteri Kivimäki   |
+=======
 | Date       | Version | Description                                                                 | Author             |
 |------------|---------|-----------------------------------------------------------------------------|--------------------|
 | 19.08.2015 | 0.1     | Initial version                                                             | Martin Lind        |
@@ -29,6 +55,7 @@ Doc. ID: PR-MSERV
 | 06.02.2019 | 1.12    | Update *clientReg* message description                                      | Petteri Kivimäki   |
 | 03.06.2019 | 1.13    | Add ownerChange management service                                          | Ilkka Seppälä      |
 | 29.06.2019 | 1.14    | Rename *newOwner* element to *client* in ownerChange management service     | Petteri Kivimäki   |
+>>>>>>> 26cd59dd7ae51e2e102833e6120ad08ed3375703
 | 10.05.2023 | 1.15    | Security Categories removed.                                                | Justas Samuolis    |
 
 ## Table of Contents
@@ -86,7 +113,7 @@ See X-Road terms and abbreviations documentation \[[TA-TERMS](#Ref_TERMS)\].
 ### 1.2 References
 
 - <a name="Ref_REQ"></a>[REQUIREMENT] Key words for use in RFCs to Indicate Requirement Levels. Request for Comments 2119, Internet Engineering Task Force, March 1997.
-- <a name="Ref_DM-CS"></a>[DM-CS] X-Road: Central Server Data Model. Document ID: [DM-CS](../DataModels/dm-cs_x-road_central_server_configuration_data_model.md)
+- <a name="Ref_DM-CS"></a>[DM-CS] X-Road: Central Server Data Model. Document ID: [DM-CS](https://github.com/nordic-institute/X-Road/blob/6.20.0/doc/DataModels/dm-cs_x-road_central_server_configuration_data_model.md)
 - <a name="Ref_PR-MESS"></a>[PR-MESS] X-Road: Message Protocol v4.0. Document ID: [PR-MESS](pr-mess_x-road_message_protocol.md)
 - <a name="Ref_WSDL"></a>[WSDL] Web Services Description Language (WSDL) 1.1. World Wide Web Consortium. 15 March 2001.
 - <a name="Ref_DER"></a>[DER] DER encoding. ITU-T X.690. July 2002.

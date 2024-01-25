@@ -211,7 +211,6 @@ Protocol [PR-MESSTRANSP](pr-messtransp_x-road_message_transport_protocol.md)
 
 <a name="Ref_TERMS" class="anchor"></a>\[XROAD-TERMS\] X-Road Terms and
 Abbreviations [TA-TERMS](terms_x-road_docs.md)
-
 ## 3 Scope
 
 ### 3.1 Scope and Requirements
