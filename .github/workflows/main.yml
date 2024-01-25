@@ -11,6 +11,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: |
+          ./clean.sh
+          rm diff_diff_7.2.2.md
           chmod +x refresh.sh
           rm -rf v_${GITHUB_REF##*/}
           ./refresh.sh ${GITHUB_REF##*/} ${PREV_VERSION}
