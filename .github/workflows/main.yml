@@ -3,11 +3,7 @@ name: 1. refresh documentation
 on: workflow_dispatch
 
 env:
-<<<<<<< HEAD
-  PREV_VERSION: 7.3.2
-=======
   PREV_VERSION: 7.2.2
->>>>>>> 26cd59dd7ae51e2e102833e6120ad08ed3375703
 
 jobs:
   download-files:
