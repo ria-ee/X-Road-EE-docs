@@ -5,7 +5,7 @@
 Version: 1.2  
 Doc. ID: PR-OPMONJMX
 
-<<<<<<< HEAD
+
 | Date       | Version     | Description                                                                  | Author             |
 |------------|-------------|------------------------------------------------------------------------------|--------------------|
 |  | 0.2       | Initial version               |          |
@@ -14,17 +14,7 @@ Doc. ID: PR-OPMONJMX
 | 12.12.2019 | 1.0       | Add description of serviceType gauges | Ilkka Seppälä |
 | 25.06.2020 | 1.1       | Add note about JMX being disabled by default | Petteri Kivimäki |
 | 01.06.2023 | 1.2     | Update references                                                   | Petteri Kivimäki |
-=======
-| Date       | Version | Description                                                         | Author           |
-|------------|---------|---------------------------------------------------------------------|------------------|
-|            | 0.2     | Initial version                                                     |                  |
-| 23.01.2017 | 0.3     | Added license text, table of contents and version history           | Sami Kallio      |
-| 05.03.2018 | 0.4     | Added terms and abbreviations reference and moved terms to term doc | Tatu Repo        |
-| 12.12.2019 | 1.0     | Add description of serviceType gauges                               | Ilkka Seppälä    |
-| 25.06.2020 | 1.1     | Add note about JMX being disabled by default                        | Petteri Kivimäki |
-| 01.06.2023 | 1.2     | Update references                                                   | Petteri Kivimäki |
 
->>>>>>> 26cd59dd7ae51e2e102833e6120ad08ed3375703
 ## Table of Contents <!-- omit in toc -->
 
 <!-- toc -->
