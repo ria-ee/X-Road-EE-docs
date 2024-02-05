@@ -1,4 +1,4 @@
-name: 1. refresh documentation
+name: Auto refresh documentation
 
 on: workflow_dispatch
 
@@ -25,3 +25,31 @@ jobs:
           git add .
           git commit -m "test_${GITHUB_REF##*/}"
           git push
+
+  find-differences:
+    needs: download-files
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - run: |
+        mv md md_prev
+        mv v_${GITHUB_REF##*/} md
+        cp md_prev/ig-ss_x-road_v6_security_server_installation_guide.md md
+        chmod +x refresh.sh
+        rm -rf v_${GITHUB_REF##*/}
+        ./refresh.sh ${GITHUB_REF##*/} ${GITHUB_REF##*/}
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+
+    - run: |
+        chmod +x test.sh 
+        ./test.sh ${GITHUB_REF##*/}
+        echo "rm -rf v_${PREV_VERSION};" > clean.sh
+        echo "rm -rf md_prev;" >> clean.sh
+        echo "rm -rf diff_${PREV_VERSION}.md" >> clean.sh
+        chmod +x clean.sh
+
+        git add .
+        git commit -m "test_${GITHUB_REF##*/}"
+        git push
+      
