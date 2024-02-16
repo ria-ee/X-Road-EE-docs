@@ -8,11 +8,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: |
+          rm -rf automatics/md_prev
           mv md automatics/md_prev
           cd automatics
           mv version.txt prev_version.txt
           echo ${GITHUB_REF##*/} > version.txt
-          chmod +x refresh.sh
           ./refresh.sh ${GITHUB_REF##*/} ${cat "prev_version.txt"}
 
           git config user.name github-actions
