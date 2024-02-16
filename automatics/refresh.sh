@@ -50,31 +50,6 @@ do
     fi
 done
 
-truncate -s 0 diff_$1.md
-echo "********Files that are not automatically refreshed********"
-x=1
-while [ $x -le 1 ]
-do
-  read -r line
-  file_name=${line##*/}
-  echo -e "${YELLOW} ${file_name} ${ENDCOLOR}"
-  diff -a -y --suppress-common-lines <(echo "## ${file_name}: *NIIS*"; cat ${DIR}/${file_name}.md) <(echo *EE*; cat v_$2/${file_name}.md)>> diff_$1.md
- # diff -a -y --suppress-common-lines < ${DIR}/${file_name}.md <${DIR}/${file_name}.md >> diff_$1.md
-  x=$(( $x + 1 ))
-done < "$INFILE"
 
-echo "********Files that will be automatically refreshed********"
-for LINE in $(tail +2 "$INFILE")
-do
-    file_name=${LINE##*/}
-    if cmp -s "../md/${file_name}.md" "${DIR}/${file_name}.md"
-    then
-        echo -e "${GREEN} ${file_name}.md didn't change ${ENDCOLOR}"
-    else
-        echo -e "${YELLOW} ${file_name}.md changed ${YELLOW}"
-        diff -a -y --suppress-common-lines <(echo "## ${file_name}: *NIIS*"; cat ${DIR}/${file_name}.md) <(echo *EE*; cat ../md/${file_name}.md)  >> diff_$1_$2.md
-        #diff -a -y --suppress-common-lines (${DIR}/${file_name}.md) (md/${file_name}.md)  >> diff_$1.md
-    fi
-done
 
 
