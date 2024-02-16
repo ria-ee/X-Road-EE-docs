@@ -8,6 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: |
+          cd automatics
           chmod +x ./clean.sh
           ./clean.sh ${GITHUB_REF##*/} $(echo $(cat version.txt))
           # chmod +x ./refresh.sh
