@@ -1,7 +1,12 @@
 #!/bin/bash
 
+# This script downloads md files from NIIS github repo, and changes realtive paths 
+# to be suitable for Estonian version
+
 # Define the input file
 INFILE=pages.txt
+# $1 -> new version nr
+# $2 -> old version nr
 
 # Dir for new docs
 DIR=v_$1
