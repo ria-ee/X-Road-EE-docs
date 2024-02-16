@@ -13,6 +13,7 @@ jobs:
           cd automatics
           mv version.txt prev_version.txt
           echo ${GITHUB_REF##*/} > version.txt
+          chmod +x ./refresh.sh
           ./refresh.sh ${GITHUB_REF##*/} $(echo $(cat prev_version.txt))
 
           git config user.name github-actions
