@@ -26,7 +26,7 @@ IFS=$'\n' # set the Internal Field Separator to newline
 for LINE in $(cat "$INFILE")
 do
     niis_url=https://raw.githubusercontent.com/nordic-institute/X-Road/${1}/doc/${LINE}.md
-    wget -q -A md ${niis_url} -P ${DIR}
+    wget -q -A ${niis_url} -P ${DIR}
 done
 
 echo "********Files downloaded from NIIS********"
@@ -36,7 +36,7 @@ echo "********Link fixes********"
 for LINE in $(cat "$INFILE")
 do
     file_name=${LINE##*/}
-    if cmp -s "md/${file_name}.md" "${DIR}/${file_name}.md"
+    if cmp -s "md_prev/${file_name}.md" "${DIR}/${file_name}.md"
     then
         echo -e "${GREEN} ${file_name}.md didn't change ${ENDCOLOR}"
     else
