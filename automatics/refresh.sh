@@ -67,12 +67,12 @@ echo "********Files that will be automatically refreshed********"
 for LINE in $(tail +2 "$INFILE")
 do
     file_name=${LINE##*/}
-    if cmp -s "md/${file_name}.md" "${DIR}/${file_name}.md"
+    if cmp -s "../md/${file_name}.md" "${DIR}/${file_name}.md"
     then
         echo -e "${GREEN} ${file_name}.md didn't change ${ENDCOLOR}"
     else
         echo -e "${YELLOW} ${file_name}.md changed ${YELLOW}"
-        diff -a -y --suppress-common-lines <(echo "## ${file_name}: *NIIS*"; cat ${DIR}/${file_name}.md) <(echo *EE*; cat md/${file_name}.md)  >> diff_$1_$2.md
+        diff -a -y --suppress-common-lines <(echo "## ${file_name}: *NIIS*"; cat ${DIR}/${file_name}.md) <(echo *EE*; cat ../md/${file_name}.md)  >> diff_$1_$2.md
         #diff -a -y --suppress-common-lines (${DIR}/${file_name}.md) (md/${file_name}.md)  >> diff_$1.md
     fi
 done
