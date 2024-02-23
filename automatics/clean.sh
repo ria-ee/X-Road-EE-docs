@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ $1 != $2 && $1 != "main" ]
+if [[ $1 != $2 && $1 != "main" ]]
     then
         rm -rf md_prev
         mv ../md/*.md md_prev
