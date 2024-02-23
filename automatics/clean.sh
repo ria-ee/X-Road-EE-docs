@@ -1,9 +1,12 @@
-if [ $1 != $2 ]
+#!/bin/bash
+
+if [ $1 != $2 && $1 != "main" ]
     then
         rm -rf md_prev
-        mv -f ../md md_prev
-        rm -rf v_$2
+        mv ../md/*.md md_prev
+        rm -rf v_$(cat prev_version.txt)
         mv version.txt prev_version.txt
-        echo ${GITHUB_REF##*/} > version.txt
+        echo $1 > version.txt
+        cd ..
 fi
     
