@@ -25,8 +25,9 @@ echo "********Downloading files from NIIS********"
 IFS=$'\n' # set the Internal Field Separator to newline
 for LINE in $(cat "$INFILE")
 do
+    file_name=${LINE##*/}
     niis_url=https://raw.githubusercontent.com/nordic-institute/X-Road/${1}/doc/${LINE}.md
-    wget -q -A md ${niis_url} -P ${DIR}
+    wget -qAN md ${niis_url} -O ${DIR}/${file_name}.md
 done
 
 echo "********Files downloaded from NIIS********"
@@ -36,7 +37,7 @@ echo "********Link fixes********"
 for LINE in $(cat "$INFILE")
 do
     file_name=${LINE##*/}
-    if cmp -s "md_prev/${file_name}.md" "${DIR}/${file_name}.md"
+    if cmp -s "v_${2}/${file_name}.md" "${DIR}/${file_name}.md"
     then
         echo -e "${GREEN} ${file_name}.md didn't change ${ENDCOLOR}"
     else
@@ -50,6 +51,15 @@ do
     fi
 done
 
-
-
-
+echo "********Files to refresh********"
+for LINE in $(cat "$INFILE")
+do
+    file_name=${LINE##*/}
+    if cmp -s "v_${2}/${file_name}.md" "${DIR}/${file_name}.md"
+    then
+        echo -e "${GREEN} ${file_name}.md didn't change ${ENDCOLOR}"
+    else
+        echo -e "${YELLOW} ${file_name}.md changed ${YELLOW}"
+        echo ${file_name}.md >> changed_pages.txt
+    fi
+done
