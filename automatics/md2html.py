@@ -9,7 +9,7 @@ import sys
 
 HTML_START = """<!DOCTYPE html>
 <html lang="en">
-  <head>
+  <head>a
     <meta charset="utf-8">
     <link rel="stylesheet" href="github-markdown.css">
     <style>
@@ -62,11 +62,12 @@ def md2html(htmltitle, infile, outfile):
     outf.write(HTML_START.format(title=htmltitle))
     outf.write(html)
     outf.write(HTML_END)
-    outf.close()    
+    outf.close()
 
-with open('./auto_magic/pages.txt', encoding="utf8") as file:
+with open('./pages.txt', encoding="utf8") as file:
     titles = file.readlines()
     for line in titles:
       title = (line.strip().split('/'))[-1]
-      # print(re.search(r"##*/", title))
-      md2html("X-Road: 7.3.2", "md/"+title+".md", "docs/"+title+".html")
+      with open('./version.txt', encoding="utf8") as version_file:
+          version = version_file.readline() 
+      md2html("X-Road: " + version, "../md/"+title+".md", "../docs/"+title+".html")
