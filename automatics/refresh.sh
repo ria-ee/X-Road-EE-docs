@@ -53,7 +53,7 @@ do
 done
 
 echo "********Files to refresh********"
-truncate -s 0 changed_pages.txt
+cat /dev/null > changed_pages.txt
 for LINE in $(cat "$INFILE")
 do
     file_name=${LINE##*/}
