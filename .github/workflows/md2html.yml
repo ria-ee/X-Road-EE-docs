@@ -12,7 +12,7 @@ jobs:
         run: |
           cd automatics
           chmod +x md2html.py
-          ./md2html.py $(cat version.txt)
+          ./md2html.py
           
       - name: Push changes to the repo
         run: |
