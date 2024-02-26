@@ -54,7 +54,7 @@ done
 
 echo "********Files to refresh********"
 cat /dev/null > changed_pages.txt
-for LINE in $(cat "$INFILE")
+for LINE in $(tail +2 "$INFILE")
 do
     file_name=${LINE##*/}
     if cmp -s "v_${2}/${file_name}.md" "${DIR}/${file_name}.md"
@@ -62,6 +62,7 @@ do
         echo -e "${GREEN} ${file_name}.md didn't change ${ENDCOLOR}"
     else
         echo -e "${YELLOW} ${file_name}.md changed ${YELLOW}"
+        cp "${DIR}/${file_name}.md" "../md/"
         echo ${file_name}.md >> changed_pages.txt
     fi
 done
