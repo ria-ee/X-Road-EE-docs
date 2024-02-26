@@ -1,5 +1,5 @@
 #!/bin/bash
-echo $PATH
+which bash
 if [[ $1 != $2 && $1 != "main" ]]
     then
         rm -rf md_prev/*
