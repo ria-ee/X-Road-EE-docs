@@ -6,6 +6,7 @@ jobs:
   download-files:
     runs-on: ubuntu-latest
     steps:
+      - run: git config --global core.autocrlf false
       - uses: actions/checkout@v4
       - name: Download new files from NIIS
         run: |
