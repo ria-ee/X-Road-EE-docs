@@ -3,16 +3,16 @@ name: Generate html pages
 on: workflow_dispatch
 
 jobs:
-  download-files:
+  convert-files:
     runs-on: ubuntu-latest
     steps:
       - run: git config --global core.autocrlf false
       - uses: actions/checkout@v4
-      - name: Download new files from NIIS
+      - name: Convert md files to html pages
         run: |
           cd automatics
           chmod +x md2html.py
-          ./md2html.py $(cat version.txt)
+          ./md2html.py
           
       - name: Push changes to the repo
         run: |
