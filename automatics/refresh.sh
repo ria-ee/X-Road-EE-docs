@@ -10,6 +10,7 @@ INFILE=pages.txt
 
 # Dir for new docs
 DIR=v_$1
+mkdir ${DIR}
 if [ -z "$1" ]
   then
       "$2"="$1" 
