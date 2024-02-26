@@ -6,7 +6,7 @@ if [[ $1 != $2 && $1 != "main" ]]
         cp ../md/*.md md_prev
         echo v_"$(cat prev_version.txt)"
         ls -lad "v_$(cat prev_version.txt)"
-        rm -rfv "v_$(cat prev_version.txt | trim)"
+        rm -rfv "v_$(cat prev_version.txt | tr -d ' ')"
         echo v_"$(cat prev_version.txt)"
         mv version.txt prev_version.txt
         echo $1 > version.txt
