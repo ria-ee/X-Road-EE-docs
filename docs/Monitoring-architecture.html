@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+  <head>a
     <meta charset="utf-8">
     <link rel="stylesheet" href="github-markdown.css">
     <style>
@@ -12,12 +12,12 @@
         padding: 45px;
       }
     </style>
-    <title>X-Road: 7.3.2</title>
+    <title>X-Road: 7.4.0</title>
   </head>
   <body>
     <article class="markdown-body">
 <h1><a id="x-road-environmental-monitoring-architecture" class="anchor" aria-hidden="true" tabindex="-1" href="#x-road-environmental-monitoring-architecture"><span aria-hidden="true" class="octicon octicon-link"></span></a>X-Road: Environmental Monitoring Architecture</h1>
-<p>Version: 1.9<br>
+<p>Version: 1.10<br>
 Doc. ID: ARC-ENVMON</p>
 <table>
 <thead>
@@ -89,6 +89,12 @@ Doc. ID: ARC-ENVMON</p>
 <td>1.9</td>
 <td>Update references</td>
 <td>Petteri Kivimäki</td>
+</tr>
+<tr>
+<td>04.10.2023</td>
+<td>1.10</td>
+<td>Remove Akka references</td>
+<td>Ričardas Bučiūnas</td>
 </tr>
 </tbody>
 </table>
@@ -183,11 +189,11 @@ Doc. ID: ARC-ENVMON</p>
 <h2><a id="2-components" class="anchor" aria-hidden="true" tabindex="-1" href="#2-components"><span aria-hidden="true" class="octicon octicon-link"></span></a>2 Components</h2>
 <p><a target="_blank" rel="noopener noreferrer" href="img/monitoring.png"><img src="img/monitoring.png" alt="monitoring architecture" style="max-width: 100%;"></a></p>
 <h3><a id="21-monitoring-metaservice-proxymonitor-add-on" class="anchor" aria-hidden="true" tabindex="-1" href="#21-monitoring-metaservice-proxymonitor-add-on"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.1 Monitoring metaservice (proxymonitor add-on)</h3>
-<p>Monitoring metaservice responds to queries for monitoring data from security server's serverproxy interface. This metaservice requests the current monitoring data from local monitoring service, using <a href="http://akka.io/" rel="nofollow">Akka</a>. Monitoring metaservice translates the monitoring data to a SOAP XML response.</p>
+<p>Monitoring metaservice responds to queries for monitoring data from security server's serverproxy interface. This metaservice requests the current monitoring data from local monitoring service, using <a href="https://grpc.io/" rel="nofollow">gRPC</a>. Monitoring metaservice translates the monitoring data to a SOAP XML response.</p>
 <p>Monitoring service handles authorization of the requests, see <a href="#33-access-control">Access control</a>. It reads monitoring configuration from distributed global monitoring configuration (see <a href="#12-references">UC-GCONF, PR-GCONF</a>).</p>
 <p>Monitoring metaservice is installed as a proxy add-on, with name <code>xroad-addon-proxymonitor</code>.</p>
 <h3><a id="22-monitoring-service-xroad-monitor" class="anchor" aria-hidden="true" tabindex="-1" href="#22-monitoring-service-xroad-monitor"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.2 Monitoring service (xroad-monitor)</h3>
-<p>Monitoring service is responsible for collecting the monitoring data from one security server instance. It distributes the collected data to monitoring clients (normally the local monitoring metaservice) when requested through an Akka interface.</p>
+<p>Monitoring service is responsible for collecting the monitoring data from one security server instance. It distributes the collected data to monitoring clients (normally the local monitoring metaservice) when requested through an gRPC interface.</p>
 <p>Monitoring service uses several <em>sensors</em> to collect the data. Sensors and related functionalities are build on top of <a href="https://github.com/dropwizard/metrics">Dropwizard Metrics</a>.</p>
 <p>The following sensors produce monitoring data:</p>
 <ul>

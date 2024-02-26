@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+  <head>a
     <meta charset="utf-8">
     <link rel="stylesheet" href="github-markdown.css">
     <style>
@@ -12,12 +12,12 @@
         padding: 45px;
       }
     </style>
-    <title>X-Road: 7.3.2</title>
+    <title>X-Road: 7.4.0</title>
   </head>
   <body>
     <article class="markdown-body">
 <h1><a id="x-road-system-parameters-user-guide" class="anchor" aria-hidden="true" tabindex="-1" href="#x-road-system-parameters-user-guide"><span aria-hidden="true" class="octicon octicon-link"></span></a>X-Road: System Parameters User Guide</h1>
-<p>Version: 2.74
+<p>Version: 2.85
 Doc. ID: UG-SYSPAR</p>
 <table>
 <thead>
@@ -520,6 +520,72 @@ Doc. ID: UG-SYSPAR</p>
 <td>Add configurable max request size constrains for central server admin service.</td>
 <td>Andres Rosenthal</td>
 </tr>
+<tr>
+<td>13.06.2023</td>
+<td>2.75</td>
+<td>Added new <em>complementary-user-role-mappings</em> parameters</td>
+<td>Andres Rosenthal</td>
+</tr>
+<tr>
+<td>24.08.2023</td>
+<td>2.76</td>
+<td>Added new <em>server-min-supported-client-version</em> parameter</td>
+<td>Eneli Reimets</td>
+</tr>
+<tr>
+<td>02.10.2023</td>
+<td>2.77</td>
+<td>Remove the separate section about changing the global configuration interval on the Central Server.</td>
+<td>Petteri Kivimäki</td>
+</tr>
+<tr>
+<td>16.10.2023</td>
+<td>2.78</td>
+<td>Added new <em>allow-csr-for-key-with-certificate</em> parameter</td>
+<td>Justas Samuolis</td>
+</tr>
+<tr>
+<td>02.10.2023</td>
+<td>2.79</td>
+<td>Remove Akka references</td>
+<td>Ričardas Bučiūnas</td>
+</tr>
+<tr>
+<td>18.10.2023</td>
+<td>2.80</td>
+<td>Add gRPC properties</td>
+<td>Ričardas Bučiūnas</td>
+</tr>
+<tr>
+<td>23.10.2023</td>
+<td>2.81</td>
+<td>Update supported command line arguments</td>
+<td>Petteri Kivimäki</td>
+</tr>
+<tr>
+<td>09.11.2023</td>
+<td>2.82</td>
+<td>Added new <em>global_conf_tls_cert_verification</em>, <em>global_conf_hostname_verification</em> parameters</td>
+<td>Eneli Reimets</td>
+</tr>
+<tr>
+<td>20.11.2023</td>
+<td>2.83</td>
+<td>Update information regarding connector-host parameter</td>
+<td>Taavi Meinberg</td>
+</tr>
+<tr>
+<td>08.12.2023</td>
+<td>2.84</td>
+<td>Update the <em>complementary-user-role-mappings</em> parameter definition</td>
+<td>Petteri Kivimäki</td>
+</tr>
+<tr>
+<td>08.12.2023</td>
+<td>2.85</td>
+<td>Update security server proxy client http and https default ports</td>
+<td>Mikk-Erik Bachmann</td>
+</tr>
 </tbody>
 </table>
 <h2><a id="table-of-contents" class="anchor" aria-hidden="true" tabindex="-1" href="#table-of-contents"><span aria-hidden="true" class="octicon octicon-link"></span></a>Table of Contents</h2>
@@ -545,7 +611,6 @@ Doc. ID: UG-SYSPAR</p>
 <ul>
 <li><a href="#21-changing-the-system-parameter-values-in-configuration-files">2.1 Changing the System Parameter Values in Configuration Files</a></li>
 <li><a href="#22-changing-the-system-parameter-values-in-the-central-server-database">2.2 Changing the System Parameter Values in the Central Server Database</a></li>
-<li><a href="#23-changing-the-global-configuration-generation-interval-in-the-central-server">2.3 Changing the Global Configuration Generation Interval in the Central Server</a></li>
 </ul>
 </li>
 <li>
@@ -676,16 +741,6 @@ server-listen-port=20000
 <pre><code>DELETE FROM system_parameters WHERE key = 'parameter_name';
 </code></pre>
 <p><strong>NB! Modifying or deleting system parameters other than the ones listed in section</strong> <a href="#system-parameters-in-the-database">System Parameters in the Database</a> <strong>will cause the system to crash.</strong></p>
-<h3><a id="23-changing-the-global-configuration-generation-interval-in-the-central-server" class="anchor" aria-hidden="true" tabindex="-1" href="#23-changing-the-global-configuration-generation-interval-in-the-central-server"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3 Changing the Global Configuration Generation Interval in the Central Server</h3>
-<p>In order to override the default value of the global configuration generation interval, edit the cron expression [<a href="#Ref_CRON">CRON</a>] in the file</p>
-<pre><code>/etc/cron.d/xroad-center
-</code></pre>
-<p>The default contents of the file are the following:</p>
-<pre><code>#!/bin/sh
-* * * * * xroad curl http://127.0.0.1:8084/managementservice/gen_conf 2&gt;&amp;1 &gt; /dev/null;
-</code></pre>
-<p><strong>NB!</strong> Global configuration generation interval must be modified with extreme care. Misuse of the global configuration generation interval may hinder the operation of the whole X-Road instance.</p>
-<p>The configuration generation interval must be shorter than the value of global configuration expiration interval (<em>confExpireIntervalSeconds</em>, see section 4.2 ), or else the configuration downloaded by the configuration clients (security servers or configuration proxies) will always expire before valid configuration becomes available. It is highly recommended that the global configuration generation interval is multiple times smaller than the global configuration expiration interval.</p>
 <h2><a id="3-security-server-system-parameters" class="anchor" aria-hidden="true" tabindex="-1" href="#3-security-server-system-parameters"><span aria-hidden="true" class="octicon octicon-link"></span></a>3 Security Server System Parameters</h2>
 <p>This chapter describes the system parameters used by the components of the X-Road security server. For instructions on how to change the parameter values, see section <a href="#changing-the-system-parameter-values-in-configuration-files">Changing the System Parameter Values in Configuration Files</a>.</p>
 <h3><a id="31-common-parameters--common" class="anchor" aria-hidden="true" tabindex="-1" href="#31-common-parameters--common"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.1 Common parameters : <code>[common]</code>
@@ -710,9 +765,34 @@ server-listen-port=20000
 <td>Absolute path to the directory where temporary files are stored.</td>
 </tr>
 <tr>
-<td>akka-use-secure-remote-transport</td>
+<td>grpc-internal-host</td>
+<td>127.0.0.1</td>
+<td>Bind gRPC servers to a specific host.</td>
+</tr>
+<tr>
+<td>grpc-internal-tls-enabled</td>
 <td>true</td>
-<td>Should Akka remoting use TLS (true) or not (false). The keypair used is ephemeral and recreated after boot.</td>
+<td>Enables mTLS for gRPC services</td>
+</tr>
+<tr>
+<td>grpc-internal-keystore</td>
+<td>/var/run/xroad/xroad-grpc-internal-keystore.p12</td>
+<td>gRPC keystore for mTLS configuration.</td>
+</tr>
+<tr>
+<td>grpc-internal-keystore-password</td>
+<td></td>
+<td>gRPC keystore password.</td>
+</tr>
+<tr>
+<td>grpc-internal-truststore</td>
+<td>/var/run/xroad/xroad-grpc-internal-keystore.p12</td>
+<td>gRPC truststore for mTLS configuration.</td>
+</tr>
+<tr>
+<td>grpc-internal-truststore-password</td>
+<td></td>
+<td>gRPC truststore password.</td>
 </tr>
 </tbody>
 </table>
@@ -732,16 +812,16 @@ server-listen-port=20000
 <tbody>
 <tr>
 <td>client-http-port</td>
-<td>80 <br> 8080 (RHEL)</td>
+<td>8080</td>
 <td></td>
-<td></td>
+<td>80</td>
 <td>TCP port on which the service client's security server listens for HTTP requests from client applications.</td>
 </tr>
 <tr>
 <td>client-https-port</td>
-<td>443 <br> 8443 (RHEL)</td>
+<td>8443</td>
 <td></td>
-<td></td>
+<td>443</td>
 <td>TCP port on which the service client's security server listens for HTTPS requests from client applications.</td>
 </tr>
 <tr>
@@ -763,7 +843,7 @@ server-listen-port=20000
 <td>0.0.0.0</td>
 <td></td>
 <td>127.0.0.1</td>
-<td>IP address on which the service client's security server listens for connections from client applications. The value 0.0.0.0 allows listening on all IPv4 interfaces. The value 127.0.0.1 allows listening on localhost only.</td>
+<td>IP address on which the service client's security server listens for connections from client applications. The value 0.0.0.0 allows listening on all IPv4 interfaces. The value 127.0.0.1 allows listening on localhost only. <strong>NB!</strong> Changing this value could make your Security Server externally accessible and as such, a firewall rules should be implemented first to limit access to trusted hosts.</td>
 </tr>
 <tr>
 <td>database-properties</td>
@@ -1013,11 +1093,11 @@ server-listen-port=20000
 <td>The network interface where the health check service listens to requests. Default is all available interfaces.</td>
 </tr>
 <tr>
-<td>actorsystem-port</td>
+<td>grpc-port</td>
 <td>5567</td>
 <td></td>
 <td> </td>
-<td>The (localhost) port where the proxy actorsystem binds to. Used for communicating with xroad-signer and xroad-monitor.</td>
+<td>The (localhost) port where the proxy gRPC server binds to. Used for communicating with xroad-signer and xroad-monitor.</td>
 </tr>
 <tr>
 <td>server-conf-cache-period</td>
@@ -1067,6 +1147,13 @@ server-listen-port=20000
 <td></td>
 <td></td>
 <td>Comma-separated list of additional recipient OpenPGP key identifiers.</td>
+</tr>
+<tr>
+<td>server-min-supported-client-version</td>
+<td></td>
+<td></td>
+<td></td>
+<td>Minimum version of the client Security Server that is allowed to access a service. This property must be configured on the service provider Security Server.</td>
 </tr>
 </tbody>
 </table>
@@ -1145,6 +1232,14 @@ to use for example MySQL as a data store for REST API module.</p>
 <td></td>
 <td align="left"></td>
 <td>TCP port on which the signer process listens.</td>
+</tr>
+<tr>
+<td>grpc-port</td>
+<td>5560</td>
+<td></td>
+<td></td>
+<td align="left"></td>
+<td>TCP port on which the signer gRPC services listens.</td>
 </tr>
 <tr>
 <td>key-length</td>
@@ -1261,6 +1356,16 @@ to use for example MySQL as a data store for REST API module.</p>
 <td>proxy-configuration-backup-cron</td>
 <td>0 15 3 * * ?</td>
 <td>Cron expression for proxy configuration automatic backup job</td>
+</tr>
+<tr>
+<td>global_conf_tls_cert_verification</td>
+<td>true</td>
+<td>It is possible to disable the verification of the global configuration download TLS certificate. Should be <code>true</code> in production environment</td>
+</tr>
+<tr>
+<td>global_conf_hostname_verification</td>
+<td>true</td>
+<td>It is possible to disable the hostname verification. Does the hostname specified in the URL match the hostname specified in the Common Name (CN) of the Central Server’s TLS certificate. Should be <code>true</code> in production environment</td>
 </tr>
 </tbody>
 </table>
@@ -1647,6 +1752,17 @@ the message log.</p>
 <td>true*</td>
 <td>Configures identifier input validation (member code, subsystem code etc).<br>Values:<br><code>true</code>- identifiers must mach pattern <code>^[a-zA-Z0-9'()+,-.=?]*</code>.<br><code>false</code>- identfiers must not contain colon (<code>:</code>), semicolon (<code>;</code>), slashes (<code>/\</code>), percent (<code>%</code>) or control characters.</td>
 </tr>
+<tr>
+<td>complementary-user-role-mappings</td>
+<td></td>
+<td>Configures additional UNIX groups mapped to X-Road user roles. This property is defined using a separate subsection <code>[proxy-ui-api.complementary-user-role-mappings]</code>, for example:<br><br><em>[proxy-ui-api.complementary-user-role-mappings]<br>XROAD_SECURITY_OFFICER=group1,group2<br>XROAD_SERVICE_ADMINISTRATOR=group3,group4</em><br><br><strong>Note that following configurations are preconfigured and cannot be redefined:</strong><br><em>XROAD_SECURITY_OFFICER=xroad-security-officer</em><br><em>XROAD_REGISTRATION_OFFICER=xroad-registration-officer</em><br><em>XROAD_SERVICE_ADMINISTRATOR=xroad-service-administrator</em><br><em>XROAD_SYSTEM_ADMINISTRATOR=xroad-system-administrator</em><br><em>XROAD_SECURITYSERVER_OBSERVER=xroad-securityserver-observer</em>
+</td>
+</tr>
+<tr>
+<td>allow-csr-for-key-with-certificate</td>
+<td>false</td>
+<td>Controls if generating the new CSR is allowed for a key that has an existing certificate.</td>
+</tr>
 </tbody>
 </table>
 <blockquote>
@@ -1814,7 +1930,7 @@ with some additional limitations on configurability (see details in proxy chapte
 <tr>
 <td>global-configuration-generation-rate-in-seconds</td>
 <td>60</td>
-<td>Global Configuration generation rate in seconds</td>
+<td>Global Configuration generation interval in seconds. <br><br>Global configuration generation interval must be modified with extreme care. Misuse of the global configuration generation interval may hinder the operation of the whole X-Road instance. <br><br>The configuration generation interval must be shorter than the value of global configuration expiration interval (<code>confExpireIntervalSeconds</code>), or else the configuration downloaded by the configuration clients (Security Servers or Configuration Proxies) will always expire before valid configuration becomes available. It is highly recommended that the global configuration generation interval is multiple times smaller than the global configuration expiration interval.</td>
 </tr>
 <tr>
 <td>rate-limit-enabled</td>
@@ -1891,6 +2007,12 @@ with some additional limitations on configurability (see details in proxy chapte
 <td>request-size-limit-binary-upload</td>
 <td>10MB</td>
 <td>Maximum size of Management REST API requests for file uploads</td>
+</tr>
+<tr>
+<td>complementary-user-role-mappings</td>
+<td></td>
+<td>Configures additional UNIX groups mapped to X-Road user roles. This property is defined using a separate subsection <code>[admin-service.complementary-user-role-mappings]</code>, for example:<br><br><em>[admin-service.complementary-user-role-mappings]<br>XROAD_SECURITY_OFFICER=group1,group2<br>XROAD_SYSTEM_ADMINISTRATOR=group3,group4</em><br><br><strong>Note that following configurations are preconfigured and cannot be redefined:</strong><br><em>XROAD_SECURITY_OFFICER=xroad-security-officer</em><br><em>XROAD_REGISTRATION_OFFICER=xroad-registration-officer</em><br><em>XROAD_SYSTEM_ADMINISTRATOR=xroad-system-administrator</em>
+</td>
 </tr>
 </tbody>
 </table>
@@ -2235,6 +2357,10 @@ TLS_DHE_RSA_WITH_AES_256_CBC_SHA256</p>
 <tr>
 <td>XROAD_CONFPROXY_PARAMS</td>
 <td>Parameters for the Configuration Proxy</td>
+</tr>
+<tr>
+<td>XROAD_MESSAGELOG_ARCHIVER_PARAMS</td>
+<td>Parameters for the Message Log Archiver</td>
 </tr>
 <tr>
 <td>XROAD_MONITOR_PARAMS</td>

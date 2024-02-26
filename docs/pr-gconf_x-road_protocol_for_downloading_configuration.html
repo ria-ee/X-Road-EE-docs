@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+  <head>a
     <meta charset="utf-8">
     <link rel="stylesheet" href="github-markdown.css">
     <style>
@@ -12,13 +12,13 @@
         padding: 45px;
       }
     </style>
-    <title>X-Road: 7.3.2</title>
+    <title>X-Road: 7.4.0</title>
   </head>
   <body>
     <article class="markdown-body">
 <h1><a id="x-road-protocol-for-downloading-configuration" class="anchor" aria-hidden="true" tabindex="-1" href="#x-road-protocol-for-downloading-configuration"><span aria-hidden="true" class="octicon octicon-link"></span></a>X-Road: Protocol for Downloading Configuration</h1>
 <p><strong>Technical Specification</strong></p>
-<p>Version: 2.9<br>
+<p>Version: 2.10
 Doc. ID: PR-GCONF</p>
 <table>
 <thead>
@@ -95,6 +95,12 @@ Doc. ID: PR-GCONF</p>
 <td>2.9</td>
 <td>Deprecated global configuration V1</td>
 <td>Ilkka Seppälä</td>
+</tr>
+<tr>
+<td>08.11.2018</td>
+<td>2.10</td>
+<td>Introduction of V3</td>
+<td>Andres Rosenthal</td>
 </tr>
 </tbody>
 </table>
@@ -272,7 +278,7 @@ The certificate is only used as a container for the public key. The configuratio
 <li>For each configuration anchor in the private parameters file, download and verify the configuration using this set of rules.</li>
 </ol>
 <h3><a id="27-versioning" class="anchor" aria-hidden="true" tabindex="-1" href="#27-versioning"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.7 Versioning</h3>
-<p>The current version of the configuration is 2.</p>
+<p>The current version of the configuration is 3.</p>
 <p>Configuration source MAY support several versions of the configuration. The configuration client SHOULD signal the version it supports by appending a "version" query parameter in the download URI specified in the configuration anchor. The version number is an integer which is incremented when a backwards-incompatible change is made to the PRIVATE-PARAMETERS or SHARED-PARAMETERS configuration part.</p>
 <p>For backwards compatibility, the configuration source MAY return a default version of the configuration if the version query parameter is not present. The configuration source MUST respond with HTTP error code 404 (Not Found) if the client requests a version that is not available.</p>
 <h2><a id="3-deploying-the-protocol" class="anchor" aria-hidden="true" tabindex="-1" href="#3-deploying-the-protocol"><span aria-hidden="true" class="octicon octicon-link"></span></a>3 Deploying the Protocol</h2>
@@ -348,6 +354,444 @@ The certificate is only used as a container for the public key. The configuratio
 <span class="pl-ii">D1XfU3UXTFxS8s8iVW9+ePJhcuYTgpN4+Ze4oZgjbt...=</span>
 <span class="pl-ii">--envelopeboundary--</span></pre></div>
 <h2><a id="annex-b-shared-parametersxsd" class="anchor" aria-hidden="true" tabindex="-1" href="#annex-b-shared-parametersxsd"><span aria-hidden="true" class="octicon octicon-link"></span></a>Annex B. shared-parameters.xsd</h2>
+<h3><a id="version-3" class="anchor" aria-hidden="true" tabindex="-1" href="#version-3"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version 3</h3>
+<ul>
+<li>Changes in version 3:
+<ul>
+<li>
+<em>source</em> element of type <em>ConfigurationSourceType</em> was added into <em>SharedParametersType</em> as the basis to "automatic configuration signing keys' rotation" feature.</li>
+<li>
+<em>acmeServer</em> complex element was added into <em>ApprovedCaType</em> to introduce support for ACME specific certification services.</li>
+<li>
+<em>any</em> element was added into <em>SharedParametersType</em> to enable the ability to add new optional elements without breaking backwards compatibility (i.e. without breaking the schema validation on older Security Servers).</li>
+</ul>
+</li>
+</ul>
+<div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
+&lt;<span class="pl-ent">schema</span> <span class="pl-e">xmlns</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.w3.org/2001/XMLSchema<span class="pl-pds">"</span></span>
+    <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">tns</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>
+    <span class="pl-e">targetNamespace</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>
+    <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/identifiers<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">import</span> <span class="pl-e">namespace</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/identifiers<span class="pl-pds">"</span></span>
+        <span class="pl-e">schemaLocation</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/identifiers.xsd<span class="pl-pds">"</span></span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>/&gt;
+
+    &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>conf<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:SharedParametersType<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">annotation</span>&gt;
+            &lt;<span class="pl-ent">documentation</span>&gt; Set of configuration parameters that are
+                used by members of this X-Road instance and other
+                federated instances. &lt;/<span class="pl-ent">documentation</span>&gt;
+        &lt;/<span class="pl-ent">annotation</span>&gt;
+    &lt;/<span class="pl-ent">element</span>&gt;
+
+    &lt;<span class="pl-ent">complexType</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>SharedParametersType<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">sequence</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>instanceIdentifier<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>string<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; Code that uniquely identifies this
+                        instance of the X-Road system within a
+                        federation of systems. &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>source<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:ConfigurationSourceType<span class="pl-pds">"</span></span> <span class="pl-e">maxOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>unbounded<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; Describes one configuration source.
+                    &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>approvedCA<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:ApprovedCAType<span class="pl-pds">"</span></span>
+                <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">maxOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>unbounded<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; Certification authority approved
+                        by the Governing Authority of providing
+                        certification services for members of this
+                        X-Road instance. &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>approvedTSA<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:ApprovedTSAType<span class="pl-pds">"</span></span>
+                <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">maxOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>unbounded<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; Time-stamping authority approved
+                        by the Governing Authority of providing
+                        time-stamping services for members of this
+                        X-Road instance. &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>member<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:MemberType<span class="pl-pds">"</span></span> <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span>
+                <span class="pl-e">maxOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>unbounded<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; Registered member of this X-Road
+                        system. &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>securityServer<span class="pl-pds">"</span></span>
+                <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:SecurityServerType<span class="pl-pds">"</span></span> <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span>
+                <span class="pl-e">maxOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>unbounded<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; Security server registered in this
+                        X-Road system. &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>globalGroup<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:GlobalGroupType<span class="pl-pds">"</span></span>
+                <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">maxOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>unbounded<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; Group of access rights subjects,
+                        defined by the Governing Authority. An access
+                        rights subject can be either a member or a
+                        subsystem. &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>centralService<span class="pl-pds">"</span></span>
+                <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:CentralServiceType<span class="pl-pds">"</span></span> <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span>
+                <span class="pl-e">maxOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>unbounded<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; Central service, defined by the
+                        Governing Authority. &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>globalSettings<span class="pl-pds">"</span></span>
+                <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:GlobalSettingsType<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; Classifiers and security policy
+                        settings used in this X-Road instance.
+                    &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">any</span> <span class="pl-e">processContents</span>=<span class="pl-s"><span class="pl-pds">"</span>lax<span class="pl-pds">"</span></span> <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">maxOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>unbounded<span class="pl-pds">"</span></span>/&gt;
+        &lt;/<span class="pl-ent">sequence</span>&gt;
+    &lt;/<span class="pl-ent">complexType</span>&gt;
+
+    &lt;<span class="pl-ent">complexType</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>ConfigurationSourceType<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">sequence</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>address<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>string<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; The address of the central server which provides the signed configuration.&lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>internalVerificationCert<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>base64Binary<span class="pl-pds">"</span></span> <span class="pl-e">maxOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>unbounded<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; Public key that can be used to verify the signed configuration, presented as X.509 certificate.&lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>externalVerificationCert<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>base64Binary<span class="pl-pds">"</span></span> <span class="pl-e">maxOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>unbounded<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; Public key that can be used to verify the signed configuration, presented as X.509 certificate.&lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+        &lt;/<span class="pl-ent">sequence</span>&gt;
+    &lt;/<span class="pl-ent">complexType</span>&gt;
+
+    &lt;<span class="pl-ent">complexType</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>MemberType<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">sequence</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>memberClass<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:MemberClassType<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; Member class of the member.
+                    &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>memberCode<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>string<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; Code that uniquely identifies the
+                        member within the given member class.
+                    &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>string<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; Full, official name of the member,
+                        used in user interfaces. &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>subsystem<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:SubsystemType<span class="pl-pds">"</span></span>
+                <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">maxOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>unbounded<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; Represents information about a
+                        part of the member's information system that
+                        is acting as an independent service consumer
+                        or provider in the X-Road system.
+                    &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+        &lt;/<span class="pl-ent">sequence</span>&gt;
+        &lt;<span class="pl-ent">attribute</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>ID<span class="pl-pds">"</span></span>/&gt;
+    &lt;/<span class="pl-ent">complexType</span>&gt;
+
+    &lt;<span class="pl-ent">complexType</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>SecurityServerType<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">sequence</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>owner<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>IDREF<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; Identifier of the member who is
+                        responsible for the security server.
+                    &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>serverCode<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>string<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; Code that uniquely identifies this
+                        server within servers owned by the same
+                        member. &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>address<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>string<span class="pl-pds">"</span></span> <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; Externally visible address of the
+                        security server. &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>authCertHash<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>base64Binary<span class="pl-pds">"</span></span>
+                <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">maxOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>unbounded<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; Hash of the authentication
+                        certificate used by the security server.
+                    &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>client<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>IDREF<span class="pl-pds">"</span></span> <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span>
+                <span class="pl-e">maxOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>unbounded<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; Identifier a registered client of
+                        this security server. Client can be either a
+                        member or a subsystem. &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+        &lt;/<span class="pl-ent">sequence</span>&gt;
+    &lt;/<span class="pl-ent">complexType</span>&gt;
+
+    &lt;<span class="pl-ent">complexType</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>ApprovedCAType<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">sequence</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>string<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; Name of the CA, used in user
+                        interfaces. &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>authenticationOnly<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>boolean<span class="pl-pds">"</span></span>
+                <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; If present and true, indicates
+                        that certificates issued by this CA can only
+                        be used for TLS authentication and not for
+                        creating and verifying digital
+                        signatures/seals. &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>topCA<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:CaInfoType<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; Topmost (usually self-signed) CA
+                        that is used as trust anchor. &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>intermediateCA<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:CaInfoType<span class="pl-pds">"</span></span>
+                <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">maxOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>unbounded<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; Intermediate CA. This information
+                        can be used for certificate path building and
+                        finding OCSP responders. &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>certificateProfileInfo<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>string<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt;
+                    Fully qualified class name implementing the ee.ria.xroad.common.certificateprofile.CertificateProfileInfoProvider interface.
+                    &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>acmeServer<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:AcmeServer<span class="pl-pds">"</span></span> <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span>&gt;
+                 &lt;<span class="pl-ent">annotation</span>&gt;
+                     &lt;<span class="pl-ent">documentation</span>&gt;ACME specific certification services settings.&lt;/<span class="pl-ent">documentation</span>&gt;
+                 &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+        &lt;/<span class="pl-ent">sequence</span>&gt;
+    &lt;/<span class="pl-ent">complexType</span>&gt;
+
+    &lt;<span class="pl-ent">complexType</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>GlobalGroupType<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">sequence</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>groupCode<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>string<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; Code that uniquely identifies the
+                        group within an X-Road instance.
+                    &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>description<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>string<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; Description of the group.
+                    &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>groupMember<span class="pl-pds">"</span></span>
+                <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>id:XRoadClientIdentifierType<span class="pl-pds">"</span></span> <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span>
+                <span class="pl-e">maxOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>unbounded<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; Identifier of an X-Road member or
+                        a subsystem belonging to this group.
+                    &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+        &lt;/<span class="pl-ent">sequence</span>&gt;
+    &lt;/<span class="pl-ent">complexType</span>&gt;
+
+    &lt;<span class="pl-ent">complexType</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>OcspInfoType<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">annotation</span>&gt;
+            &lt;<span class="pl-ent">documentation</span>&gt; Information about an OCSP provider.
+            &lt;/<span class="pl-ent">documentation</span>&gt;
+        &lt;/<span class="pl-ent">annotation</span>&gt;
+        &lt;<span class="pl-ent">sequence</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>url<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>string<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; URL of the OSCP server.
+                    &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>cert<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>base64Binary<span class="pl-pds">"</span></span> <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; Certificate used by the OCSP
+                        server to sign OCSP responses.
+                    &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+        &lt;/<span class="pl-ent">sequence</span>&gt;
+    &lt;/<span class="pl-ent">complexType</span>&gt;
+
+    &lt;<span class="pl-ent">complexType</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>ApprovedTSAType<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">sequence</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>string<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; Name of the time-stamping
+                        authority, used in user interfaces.
+                    &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>url<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>string<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; URL of the time-stamping service.
+                    &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>cert<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>base64Binary<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; Certificate used by the
+                        time-stamping server to sign responses.
+                    &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+        &lt;/<span class="pl-ent">sequence</span>&gt;
+    &lt;/<span class="pl-ent">complexType</span>&gt;
+
+    &lt;<span class="pl-ent">complexType</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>CaInfoType<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">annotation</span>&gt;
+            &lt;<span class="pl-ent">documentation</span>&gt; This type encapsulates information about a
+                certification authority. &lt;/<span class="pl-ent">documentation</span>&gt;
+        &lt;/<span class="pl-ent">annotation</span>&gt;
+        &lt;<span class="pl-ent">sequence</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>cert<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>base64Binary<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; The CA certificate value.
+                    &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>ocsp<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:OcspInfoType<span class="pl-pds">"</span></span> <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span>
+                <span class="pl-e">maxOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>unbounded<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; List of OCSP responders that
+                        provide status of certificates issued by this
+                        CA. &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+        &lt;/<span class="pl-ent">sequence</span>&gt;
+    &lt;/<span class="pl-ent">complexType</span>&gt;
+
+    &lt;<span class="pl-ent">complexType</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>AcmeServer<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">sequence</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>directoryURL<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>string<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; ACME directory URL that is used as an entrypoint to communicate with the ACME server. The response of this
+                        endpoint will return all the other necessary API endpoints for making ACME operations.
+                        This is used by the Security Server's code internally to order and receive certificates from the CA
+                        automatically. &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>ipAddress<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>string<span class="pl-pds">"</span></span> <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; ACME server IP address or multiple addresses separated by comma, that Security Server admins can
+                        use to whitelist the ACME Server in their firewall rules, so that the ACME server's HTTP challenge
+                        wouldn't be blocked. &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+        &lt;/<span class="pl-ent">sequence</span>&gt;
+    &lt;/<span class="pl-ent">complexType</span>&gt;
+
+    &lt;<span class="pl-ent">complexType</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>SubsystemType<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">sequence</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>subsystemCode<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>string<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; Code that uniquely identifies this
+                        subsystem within the subsystems of its
+                        parent-member. &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+        &lt;/<span class="pl-ent">sequence</span>&gt;
+        &lt;<span class="pl-ent">attribute</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>ID<span class="pl-pds">"</span></span>/&gt;
+    &lt;/<span class="pl-ent">complexType</span>&gt;
+
+    &lt;<span class="pl-ent">complexType</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>MemberClassType<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">sequence</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>code<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>string<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; Code that uniquely identifies the
+                        member class in this X-Road instance.
+                    &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>description<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>string<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; Description of the member class.
+                    &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+        &lt;/<span class="pl-ent">sequence</span>&gt;
+    &lt;/<span class="pl-ent">complexType</span>&gt;
+
+    &lt;<span class="pl-ent">complexType</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>CentralServiceType<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">sequence</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>serviceCode<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>string<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; Code that uniquely identifies a
+                        central service in this X-Road instance.
+                    &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>implementingService<span class="pl-pds">"</span></span>
+                <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>id:XRoadServiceIdentifierType<span class="pl-pds">"</span></span> <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; Identifier of the service that
+                        implements the central service.
+                    &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+        &lt;/<span class="pl-ent">sequence</span>&gt;
+    &lt;/<span class="pl-ent">complexType</span>&gt;
+
+    &lt;<span class="pl-ent">complexType</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>GlobalSettingsType<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">sequence</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>memberClass<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:MemberClassType<span class="pl-pds">"</span></span>
+                <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">maxOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>unbounded<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; Lists the member classes used in
+                        this X-Road instance. &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>ocspFreshnessSeconds<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>integer<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; Maximum allowed validity time of
+                        OCSP responses. If producedAt field of an OCSP
+                        response is older than ocspFreshnessSeconds
+                        seconds, it is no longer valid.
+                    &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+        &lt;/<span class="pl-ent">sequence</span>&gt;
+    &lt;/<span class="pl-ent">complexType</span>&gt;
+&lt;/<span class="pl-ent">schema</span>&gt;</pre></div>
 <h3><a id="version-2" class="anchor" aria-hidden="true" tabindex="-1" href="#version-2"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version 2</h3>
 <div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
 &lt;<span class="pl-ent">schema</span> <span class="pl-e">xmlns</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.w3.org/2001/XMLSchema<span class="pl-pds">"</span></span>
@@ -723,6 +1167,148 @@ The certificate is only used as a container for the public key. The configuratio
     &lt;/<span class="pl-ent">complexType</span>&gt;
 &lt;/<span class="pl-ent">schema</span>&gt;</pre></div>
 <h2><a id="annex-c-private-parametersxsd" class="anchor" aria-hidden="true" tabindex="-1" href="#annex-c-private-parametersxsd"><span aria-hidden="true" class="octicon octicon-link"></span></a>Annex C. private-parameters.xsd</h2>
+<h3><a id="version-3-1" class="anchor" aria-hidden="true" tabindex="-1" href="#version-3-1"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version 3</h3>
+<p>Changes in version 3:</p>
+<ul>
+<li>
+<em>any</em> element was added into <em>SharedParametersType</em> to enable the ability to add new optional elements without breaking backwards compatibility (i.e. without breaking the schema validation on older Security Servers).</li>
+</ul>
+<div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
+&lt;<span class="pl-ent">schema</span> <span class="pl-e">xmlns</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.w3.org/2001/XMLSchema<span class="pl-pds">"</span></span>
+    <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">tns</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>
+    <span class="pl-e">targetNamespace</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>
+    <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/identifiers<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">import</span> <span class="pl-e">namespace</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/identifiers<span class="pl-pds">"</span></span>
+        <span class="pl-e">schemaLocation</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/identifiers.xsd<span class="pl-pds">"</span></span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>/&gt;
+    &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>conf<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:PrivateParametersType<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">annotation</span>&gt;
+            &lt;<span class="pl-ent">documentation</span>&gt; Set of configuration parameters that are
+                used only by members of this X-Road instance.
+            &lt;/<span class="pl-ent">documentation</span>&gt;
+        &lt;/<span class="pl-ent">annotation</span>&gt;
+    &lt;/<span class="pl-ent">element</span>&gt;
+    &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>configurationAnchor<span class="pl-pds">"</span></span>
+        <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:ConfigurationAnchorType<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">annotation</span>&gt;
+            &lt;<span class="pl-ent">documentation</span>&gt; Information about a source of
+                configuration. &lt;/<span class="pl-ent">documentation</span>&gt;
+        &lt;/<span class="pl-ent">annotation</span>&gt;
+    &lt;/<span class="pl-ent">element</span>&gt;
+
+    &lt;<span class="pl-ent">complexType</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>PrivateParametersType<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">sequence</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>instanceIdentifier<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>string<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; Code that uniquely identifies this
+                        instance of the X-Road system within a
+                        federation of systems. &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>configurationAnchor<span class="pl-pds">"</span></span>
+                <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:ConfigurationAnchorType<span class="pl-pds">"</span></span> <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span>
+                <span class="pl-e">maxOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>unbounded<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; Information about a source of
+                        configuration. &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>managementService<span class="pl-pds">"</span></span>
+                <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:ManagementServiceType<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; Parameters of management services
+                        called by the security servers.
+                    &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>timeStampingIntervalSeconds<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>integer<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; Time interval (in seconds) after
+                        which a logged signature should be
+                        time-stamped. This ensures that the
+                        time-stamped signature can be used as evidence
+                        at some later date. &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+        &lt;/<span class="pl-ent">sequence</span>&gt;
+    &lt;/<span class="pl-ent">complexType</span>&gt;
+
+    &lt;<span class="pl-ent">complexType</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>ManagementServiceType<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">sequence</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>authCertRegServiceAddress<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>string<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; Address of the authentication
+                        certificate registration service that can be
+                        called by the security servers.
+                    &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>authCertRegServiceCert<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>base64Binary<span class="pl-pds">"</span></span>
+                <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; Server certificate that is used to
+                        authenticate TLS connection to the
+                        authentication certificate registration
+                        service. &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>managementRequestServiceProviderId<span class="pl-pds">"</span></span>
+                <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>id:XRoadClientIdentifierType<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; Identifier of the X-Road member or
+                        subsystem providing the management request
+                        services. &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+        &lt;/<span class="pl-ent">sequence</span>&gt;
+    &lt;/<span class="pl-ent">complexType</span>&gt;
+
+    &lt;<span class="pl-ent">complexType</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>ConfigurationAnchorType<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">sequence</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>generatedAt<span class="pl-pds">"</span></span> <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>dateTime<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt;Date when this anchor was produced
+                    &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>instanceIdentifier<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>string<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; Code of the X-Road instance that
+                        provides configuration to this configuration
+                        source. &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>source<span class="pl-pds">"</span></span>
+                <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:ConfigurationSourceType<span class="pl-pds">"</span></span>
+                <span class="pl-e">maxOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>unbounded<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt;                         
+                        Describes one configuration source.
+                    &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+        &lt;/<span class="pl-ent">sequence</span>&gt;
+    &lt;/<span class="pl-ent">complexType</span>&gt;
+
+    &lt;<span class="pl-ent">complexType</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>ConfigurationSourceType<span class="pl-pds">"</span></span>&gt;
+		&lt;<span class="pl-ent">sequence</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>downloadURL<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>string<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; HTTP URL that can be used to
+                        download signed configuration.
+                    &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>verificationCert<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>base64Binary<span class="pl-pds">"</span></span>
+                <span class="pl-e">maxOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>unbounded<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">annotation</span>&gt;
+                    &lt;<span class="pl-ent">documentation</span>&gt; Public key that can be used to
+                        verify the signed configuration, presented as
+                        X.509 certificate. &lt;/<span class="pl-ent">documentation</span>&gt;
+                &lt;/<span class="pl-ent">annotation</span>&gt;
+            &lt;/<span class="pl-ent">element</span>&gt;
+        &lt;/<span class="pl-ent">sequence</span>&gt;
+	&lt;/<span class="pl-ent">complexType</span>&gt;
+&lt;/<span class="pl-ent">schema</span>&gt;</pre></div>
 <h3><a id="version-2-1" class="anchor" aria-hidden="true" tabindex="-1" href="#version-2-1"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version 2</h3>
 <div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
 &lt;<span class="pl-ent">schema</span> <span class="pl-e">xmlns</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.w3.org/2001/XMLSchema<span class="pl-pds">"</span></span>
