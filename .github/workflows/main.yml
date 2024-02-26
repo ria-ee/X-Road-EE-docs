@@ -7,16 +7,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Download new files from NIIS
+        run: |
+          cd automatics
+          chmod +x refresh.sh
+          ./refresh.sh ${GITHUB_REF##*/} $(cat version.txt)
       - name: Clean old files
         run: |
           cd automatics
           chmod +x clean.sh
           ./clean.sh ${GITHUB_REF##*/} $(cat version.txt)
-      - name: Download new files from NIIS
-        run: |
-          cd automatics
-          chmod +x refresh.sh
-          ./refresh.sh $(cat version.txt) $(cat prev_version.txt)
       - name: Push changes to the repo
         run: |
           git config user.name github-actions
