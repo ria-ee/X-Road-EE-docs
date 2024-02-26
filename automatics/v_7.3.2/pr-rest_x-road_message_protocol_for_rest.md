@@ -207,10 +207,10 @@ HTTP/1.1 https://tools.ietf.org/html/rfc2616.html
 fields https://en.wikipedia.org/wiki/List_of_HTTP_header_fields
 
 <a name="Ref_XMESSTP" class="anchor"></a>\[PR-MESSTRANSP\] X-Road: Message Transport
-Protocol [PR-MESSTRANSP](pr-messtransp_x-road_message_transport_protocol.md)
+Protocol [PR-MESSTRANSP](https://github.com/nordic-institute/X-Road/blob/develop/doc/Protocols/pr-messtransp_x-road_message_transport_protocol.md)
 
 <a name="Ref_TERMS" class="anchor"></a>\[XROAD-TERMS\] X-Road Terms and
-Abbreviations [TA-TERMS](terms_x-road_docs.md)
+Abbreviations [TA-TERMS](https://github.com/nordic-institute/X-Road/blob/develop/doc/terms_x-road_docs.md)
 
 ## 3 Scope
 
