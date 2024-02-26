@@ -8,7 +8,11 @@ jobs:
     steps:
       - run: git config --global core.autocrlf false
       - uses: actions/checkout@v4
-      - name: Download new files from NIIS
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.12"
+      - name: Convert md files to html pages
         run: |
           cd automatics
           chmod +x md2html.py
