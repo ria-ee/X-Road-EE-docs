@@ -70,4 +70,4 @@ with open('./version.txt', encoding="utf8") as version_file:
 with open('./changed_pages.txt', encoding="utf8") as file:
   titles = file.readlines()
   for title in titles:
-    md2html("X-Road: " + version, "../md/"+title, "../docs/"+title.replace(".md",".html"))
+    md2html("X-Road: " + version, "../md/"+title, "../docs/"+title.replace(".md",".html").trim())
