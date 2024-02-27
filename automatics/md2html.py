@@ -67,8 +67,8 @@ def md2html(htmltitle, infile, outfile):
 with open('./version.txt', encoding="utf8") as version_file:
   version = version_file.readline().strip()
 
-with open('./changed_pages.txt', encoding="utf8") as file:
-  titles = file.readlines()
-  for title in titles:
-    title = title.strip()
-    md2html("X-Road: " + version, "../md/"+title, "../docs/"+title.replace(".md",".html"))
+with open('./pages.txt', encoding="utf8") as file:
+    titles = file.readlines()
+    for line in titles:
+      title = (line.strip().split('/'))[-1]
+      md2html("X-Road: " + version, "../md/"+title+".md", "../docs/"+title+".html")
