@@ -1,5 +1,0 @@
-ug-syspar_x-road_v6_system_parameters.md
-ug-ss_x-road_6_security_server_user_guide.md
-pr-mserv_x-road_protocol_for_management_services.md
-pr-gconf_x-road_protocol_for_downloading_configuration.md
-Monitoring-architecture.md
