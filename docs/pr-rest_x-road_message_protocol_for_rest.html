@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+  <head>a
     <meta charset="utf-8">
     <link rel="stylesheet" href="github-markdown.css">
     <style>
@@ -12,16 +12,16 @@
         padding: 45px;
       }
     </style>
-    <title>X-Road: 7.3.2</title>
+    <title>X-Road: 7.4.0</title>
   </head>
   <body>
     <article class="markdown-body">
-<h1><a id="x-road-message-protocol-for-rest" class="anchor" aria-hidden="true" tabindex="-1" href="#x-road-message-protocol-for-rest"><span aria-hidden="true" class="octicon octicon-link"></span></a>X-Road: Message Protocol for REST</h1>
+<div class="markdown-heading"><h1 class="heading-element">X-Road: Message Protocol for REST</h1><a id="x-road-message-protocol-for-rest" class="anchor-element" aria-label="Permalink: X-Road: Message Protocol for REST" href="#x-road-message-protocol-for-rest"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>Technical Specification</strong></p>
 <p>Version: 1.0.3<br>
 Doc. ID: PR-REST</p>
 <hr>
-<h2><a id="version-history" class="anchor" aria-hidden="true" tabindex="-1" href="#version-history"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version history</h2>
+<div class="markdown-heading"><h2 class="heading-element">Version history</h2><a id="version-history" class="anchor-element" aria-label="Permalink: Version history" href="#version-history"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <table>
 <thead>
 <tr>
@@ -140,10 +140,10 @@ Doc. ID: PR-REST</p>
 </tr>
 </tbody>
 </table>
-<h2><a id="license" class="anchor" aria-hidden="true" tabindex="-1" href="#license"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
+<div class="markdown-heading"><h2 class="heading-element">License</h2><a id="license" class="anchor-element" aria-label="Permalink: License" href="#license"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This document is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this
 license, visit <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="nofollow">http://creativecommons.org/licenses/by-sa/3.0/</a></p>
-<h2><a id="table-of-contents" class="anchor" aria-hidden="true" tabindex="-1" href="#table-of-contents"><span aria-hidden="true" class="octicon octicon-link"></span></a>Table of Contents</h2>
+<div class="markdown-heading"><h2 class="heading-element">Table of Contents</h2><a id="table-of-contents" class="anchor-element" aria-label="Permalink: Table of Contents" href="#table-of-contents"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 
 
 <ul>
@@ -212,8 +212,8 @@ license, visit <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="nof
 <li><a href="#appendix-1-example-service-definition">Appendix 1 Example Service Definition</a></li>
 </ul>
 
-<h2><a id="1-introduction" class="anchor" aria-hidden="true" tabindex="-1" href="#1-introduction"><span aria-hidden="true" class="octicon octicon-link"></span></a>1 Introduction</h2>
-<h3><a id="11-overview" class="anchor" aria-hidden="true" tabindex="-1" href="#11-overview"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.1 Overview</h3>
+<div class="markdown-heading"><h2 class="heading-element">1 Introduction</h2><a id="1-introduction" class="anchor-element" aria-label="Permalink: 1 Introduction" href="#1-introduction"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h3 class="heading-element">1.1 Overview</h3><a id="11-overview" class="anchor-element" aria-label="Permalink: 1.1 Overview" href="#11-overview"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Representational State Transfer [<a href="#Ref_RFC2119">REST</a>] is an architectural style that
 defines a set of constraints to be used for creating web services. Web
 services that conform to the [<a href="#Ref_RFC2119">REST</a>] architectural style, or RESTful web
@@ -229,7 +229,7 @@ infrastructure between information systems and X-Road Security Servers to consum
 services. Between the Security Servers there is another protocol called X-Road Message Transport
 Protocol which is described in its own document [<a href="#Ref_XMESSTP">PR-MESSTRANSP</a>].</p>
 <p><a target="_blank" rel="noopener noreferrer" href="img/message-protocol-for-rest.png"><img src="img/message-protocol-for-rest.png" alt="" style="max-width: 100%;"></a></p>
-<h3><a id="12-rest" class="anchor" aria-hidden="true" tabindex="-1" href="#12-rest"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.2 REST</h3>
+<div class="markdown-heading"><h3 class="heading-element">1.2 REST</h3><a id="12-rest" class="anchor-element" aria-label="Permalink: 1.2 REST" href="#12-rest"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>In the REST architecture, clients send requests to retrieve, modify or delete resources. Servers send responses to these
 requests. In general a request consists of</p>
 <ul>
@@ -269,14 +269,14 @@ below.</p>
 <li>404 NOT FOUND</li>
 <li>500 INTERNAL SERVER ERROR</li>
 </ul>
-<h2><a id="2-definitions" class="anchor" aria-hidden="true" tabindex="-1" href="#2-definitions"><span aria-hidden="true" class="octicon octicon-link"></span></a>2 Definitions</h2>
-<h3><a id="21-key-words" class="anchor" aria-hidden="true" tabindex="-1" href="#21-key-words"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.1 Key Words</h3>
+<div class="markdown-heading"><h2 class="heading-element">2 Definitions</h2><a id="2-definitions" class="anchor-element" aria-label="Permalink: 2 Definitions" href="#2-definitions"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h3 class="heading-element">2.1 Key Words</h3><a id="21-key-words" class="anchor-element" aria-label="Permalink: 2.1 Key Words" href="#21-key-words"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "
 OPTIONAL" in this document (in uppercase, as shown) are to be interpreted as described in [<a href="#Ref_RFC2119">RFC2119</a>].</p>
-<h3><a id="22-x-road-terminology" class="anchor" aria-hidden="true" tabindex="-1" href="#22-x-road-terminology"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.2 X-Road Terminology</h3>
+<div class="markdown-heading"><h3 class="heading-element">2.2 X-Road Terminology</h3><a id="22-x-road-terminology" class="anchor-element" aria-label="Permalink: 2.2 X-Road Terminology" href="#22-x-road-terminology"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>The X-Road specific terminology such as instance, member class, member and subsystem are described in the document
 [<a href="#Ref_TERMS">XROAD-TERMS</a>].</p>
-<h3><a id="23-versioning" class="anchor" aria-hidden="true" tabindex="-1" href="#23-versioning"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3 Versioning</h3>
+<div class="markdown-heading"><h3 class="heading-element">2.3 Versioning</h3><a id="23-versioning" class="anchor-element" aria-label="Permalink: 2.3 Versioning" href="#23-versioning"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>The X-Road Message Protocol for REST uses [<a href="#Ref_SEMVER">SEMANTIC-VERSIONING</a>] rules. After the initial development
 phase (0.x) there MUST be a strongly justified reason for amending or updating the protocol. Especially new major
 versions of the protocol SHOULD be extremely rare.</p>
@@ -289,7 +289,7 @@ same. Depending on the scope of the change, the minor or patch version is increm
 <p><strong>B)</strong> If the change requires breaking the backwards compatibility the major protocol version and the
 protocol version identifier are incremented e.g. 1.2.3 → 2.0.0. The old protocol will be supported
 for at least a year after releasing the new version.</p>
-<h3><a id="24-references" class="anchor" aria-hidden="true" tabindex="-1" href="#24-references"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.4 References</h3>
+<div class="markdown-heading"><h3 class="heading-element">2.4 References</h3><a id="24-references" class="anchor-element" aria-label="Permalink: 2.4 References" href="#24-references"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><a name="Ref_REST"></a>[REST] Representational state
 transfer <a href="https://en.wikipedia.org/wiki/Representational_state_transfer" rel="nofollow">https://en.wikipedia.org/wiki/Representational_state_transfer</a></p>
 <p><a name="Ref_RFC2119"></a>[RFC2119] Key words to Indicate Requirement
@@ -319,8 +319,8 @@ fields <a href="https://en.wikipedia.org/wiki/List_of_HTTP_header_fields" rel="n
 Protocol <a href="pr-messtransp_x-road_message_transport_protocol.html">PR-MESSTRANSP</a></p>
 <p><a name="Ref_TERMS"></a>[XROAD-TERMS] X-Road Terms and
 Abbreviations <a href="terms_x-road_docs.html">TA-TERMS</a></p>
-<h2><a id="3-scope" class="anchor" aria-hidden="true" tabindex="-1" href="#3-scope"><span aria-hidden="true" class="octicon octicon-link"></span></a>3 Scope</h2>
-<h3><a id="31-scope-and-requirements" class="anchor" aria-hidden="true" tabindex="-1" href="#31-scope-and-requirements"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.1 Scope and Requirements</h3>
+<div class="markdown-heading"><h2 class="heading-element">3 Scope</h2><a id="3-scope" class="anchor-element" aria-label="Permalink: 3 Scope" href="#3-scope"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h3 class="heading-element">3.1 Scope and Requirements</h3><a id="31-scope-and-requirements" class="anchor-element" aria-label="Permalink: 3.1 Scope and Requirements" href="#31-scope-and-requirements"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <ul>
 <li>X-Road SHALL support both SOAP and REST protocols side by side. This document describes only the X-Road Message
 Protocol for REST. The X-Road Message Protocol for SOAP and the X-Road Message Transport Protocol are described in
@@ -333,7 +333,7 @@ and disk sizes. For security reasons it is RECOMMENDED to introduce a configurab
 the Security Server implementation.</li>
 <li>HTTP/1.1 SHALL be supported.</li>
 </ul>
-<h3><a id="32-objectives" class="anchor" aria-hidden="true" tabindex="-1" href="#32-objectives"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.2 Objectives</h3>
+<div class="markdown-heading"><h3 class="heading-element">3.2 Objectives</h3><a id="32-objectives" class="anchor-element" aria-label="Permalink: 3.2 Objectives" href="#32-objectives"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <ul>
 <li>The objective of the draft versions (0.x) of the protocol is to develop it openly and utilize a process to receive and
 integrate feedback from the community.</li>
@@ -342,8 +342,8 @@ for X-Road version 7.</li>
 <li>The protocol must have a versioning mechanism, so that new protocol versions can be published when necessary and
 multiple versions can work in parallel.</li>
 </ul>
-<h2><a id="4-message-format" class="anchor" aria-hidden="true" tabindex="-1" href="#4-message-format"><span aria-hidden="true" class="octicon octicon-link"></span></a>4 Message Format</h2>
-<h3><a id="41-rest-interface" class="anchor" aria-hidden="true" tabindex="-1" href="#41-rest-interface"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.1 REST Interface</h3>
+<div class="markdown-heading"><h2 class="heading-element">4 Message Format</h2><a id="4-message-format" class="anchor-element" aria-label="Permalink: 4 Message Format" href="#4-message-format"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h3 class="heading-element">4.1 REST Interface</h3><a id="41-rest-interface" class="anchor-element" aria-label="Permalink: 4.1 REST Interface" href="#41-rest-interface"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>HTTP version 1.1 is used by the protocol as described in [<a href="#Ref_RFC2616">RFC2616</a>]. The consumer member/subsystem is
 specified using HTTP headers. The service to be called is encoded as part of the HTTP/HTTPS request URL. Here is the
 generic form of the REST service call.</p>
@@ -408,7 +408,7 @@ request <code>GET https://barservice.example.org/v1/bar/zyggy?quu=1</code>. The 
 path is that the same provider could have a fooservice as well (<a href="https://fooservice.example.org/" rel="nofollow">https://fooservice.example.org/</a>), in which case it would
 be difficult to tell the services apart if the path was the service Id (both services could have paths like "/v1/...")
 unless the fooservice was attached to a separate subsystem.</p>
-<h3><a id="42-uri-sanitation" class="anchor" aria-hidden="true" tabindex="-1" href="#42-uri-sanitation"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.2 URI Sanitation</h3>
+<div class="markdown-heading"><h3 class="heading-element">4.2 URI Sanitation</h3><a id="42-uri-sanitation" class="anchor-element" aria-label="Permalink: 4.2 URI Sanitation" href="#42-uri-sanitation"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>The REST URIs are composed of different parts (e.g. INSTANCE/CLASS/MEMBER/SUBSYSTEM) and some of them may contain
 characters that can not be used in URIs directly. The URI syntax is described in [<a href="#Ref_RFC3986">RFC3986</a>]. Because of
 this the consumer information system needs to represent the parts using UTF-8 and encode the parts separately using
@@ -429,7 +429,7 @@ manner, and especially data that is larger than this 2000 character limit, shoul
 request.</p>
 <p>The REST URI parsing scenario is particularly vulnerable to [<a href="#Ref_HPPP">HPPP</a>] (HTTP Parameter Pollution) and
 [<a href="#Ref_SSRF">SSRF</a>] (Server-Side Request Forgery) attacks. The Security Server SHOULD explicitly be prepared for them.</p>
-<h3><a id="43-use-of-http-headers" class="anchor" aria-hidden="true" tabindex="-1" href="#43-use-of-http-headers"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.3 Use of HTTP Headers</h3>
+<div class="markdown-heading"><h3 class="heading-element">4.3 Use of HTTP Headers</h3><a id="43-use-of-http-headers" class="anchor-element" aria-label="Permalink: 4.3 Use of HTTP Headers" href="#43-use-of-http-headers"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>There is only one mandatory HTTP header in the protocol that needs to be set by the client. Otherwise the use of headers
 in X-Road REST service calls is OPTIONAL. The mandatory header and the most common optional header types and their
 operation are described next.</p>
@@ -632,17 +632,17 @@ necessary.</li>
 </ul>
 </li>
 </ul>
-<h3><a id="44-http-redirects" class="anchor" aria-hidden="true" tabindex="-1" href="#44-http-redirects"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.4 HTTP Redirects</h3>
+<div class="markdown-heading"><h3 class="heading-element">4.4 HTTP Redirects</h3><a id="44-http-redirects" class="anchor-element" aria-label="Permalink: 4.4 HTTP Redirects" href="#44-http-redirects"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>The service provider may respond with HTTP redirection. HTTP redirects are responses with a status code of 3xx. There
 are several types of redirects and they fall into three categories: permanent, temporary and special redirections.
 X-Road does not follow redirects and passes the redirection unmodified to the service consumer. The service consumer may
 decide what to do with this response. Generally speaking, the redirects pose a security threat and should not be blindly
 followed. The default setting for following redirects is recommended to be off.</p>
-<h3><a id="45-use-of-query-parameters" class="anchor" aria-hidden="true" tabindex="-1" href="#45-use-of-query-parameters"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.5 Use of Query Parameters</h3>
+<div class="markdown-heading"><h3 class="heading-element">4.5 Use of Query Parameters</h3><a id="45-use-of-query-parameters" class="anchor-element" aria-label="Permalink: 4.5 Use of Query Parameters" href="#45-use-of-query-parameters"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>The use of query parameters in the X-Road REST service calls is supported. The query parameters need be encoded
 [<a href="#Ref_PERCENTENC">PERCENT-ENCODING</a>] by the consumer information system as described in [<a href="#Ref_RFC3986">RFC3986</a>].
 The query parameters MUST be passed unmodified through the X-Road Security Servers to the provider service.</p>
-<h3><a id="46-error-handling" class="anchor" aria-hidden="true" tabindex="-1" href="#46-error-handling"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.6 Error handling</h3>
+<div class="markdown-heading"><h3 class="heading-element">4.6 Error handling</h3><a id="46-error-handling" class="anchor-element" aria-label="Permalink: 4.6 Error handling" href="#46-error-handling"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>In a normal situation the request reaches the provider service and it returns the response back to the consumer
 information system. However, the Security Server may encounter technical errors and in these cases it must respond in a
 predictable manner. When a technical error occurs, the Security Server MUST use HTTP status codes as defined in
@@ -675,7 +675,7 @@ The <code>X-Road-Error</code> header is specified in chapter <a href="#43-use-of
 specified by the consumer information system and return the X-Road error response using the suggested content type,
 defaulting to <code>application/json</code>. Additionally, the Security Server MUST include <code>Content-Type</code> header in the response
 to indicate the media type of the response.</p>
-<h4><a id="example-1-category-1" class="anchor" aria-hidden="true" tabindex="-1" href="#example-1-category-1"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example 1 (Category 1)</h4>
+<div class="markdown-heading"><h4 class="heading-element">Example 1 (Category 1)</h4><a id="example-1-category-1" class="anchor-element" aria-label="Permalink: Example 1 (Category 1)" href="#example-1-category-1"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Everything worked in the Security Server's perspective, but the service returned an error. Status code, response body
 and HTTP headers are generated by the provider information system and they are returned as-is.</p>
 <p>HTTP status code:</p>
@@ -698,7 +698,7 @@ and HTTP headers are generated by the provider information system and they are r
 <span class="pl-s"><span class="pl-v">x-road-request-id:</span> f92591a3-6bf0-49b1-987b-0dd78c034cc3</span>
 <span class="pl-s"><span class="pl-v">x-road-request-hash:</span> yFOLGuJ0zmLhZSgwp3ooSBQbR9ejSvTc6p6FvBmcSEB2tDD6bxpjiv8sHORxqz4MMgEADH7IcARNprLfEwudNw==</span>
 <span class="pl-s"><span class="pl-v">Content-Length:</span> 159</span></pre></div>
-<h4><a id="example-2-category-2" class="anchor" aria-hidden="true" tabindex="-1" href="#example-2-category-2"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example 2 (Category 2)</h4>
+<div class="markdown-heading"><h4 class="heading-element">Example 2 (Category 2)</h4><a id="example-2-category-2" class="anchor-element" aria-label="Permalink: Example 2 (Category 2)" href="#example-2-category-2"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Everything worked in the Security Server's perspective, but the service timed out. The status code, response body and
 HTTP headers are returned by the Security Server.</p>
 <p>HTTP status code:</p>
@@ -715,7 +715,7 @@ HTTP headers are returned by the Security Server.</p>
 <span class="pl-s"><span class="pl-v">Content-Type:</span> application/json;charset=utf-8</span>
 <span class="pl-s"><span class="pl-v">X-Road-Error:</span> Server.ServerProxy.NetworkError</span>
 <span class="pl-s"><span class="pl-v">Content-Length:</span> 199</span></pre></div>
-<h4><a id="example-3-category-3" class="anchor" aria-hidden="true" tabindex="-1" href="#example-3-category-3"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example 3 (Category 3)</h4>
+<div class="markdown-heading"><h4 class="heading-element">Example 3 (Category 3)</h4><a id="example-3-category-3" class="anchor-element" aria-label="Permalink: Example 3 (Category 3)" href="#example-3-category-3"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>The consumer information system sends a request that doesn't conform to the X-Road Message Protocol for REST. The status
 code, response body and HTTP headers are returned by the Security Server.</p>
 <p>HTTP status code:</p>
@@ -732,7 +732,7 @@ code, response body and HTTP headers are returned by the Security Server.</p>
 <span class="pl-s"><span class="pl-v">Content-Type:</span> application/json;charset=utf-8</span>
 <span class="pl-s"><span class="pl-v">X-Road-Error:</span> Client.BadRequest</span>
 <span class="pl-s"><span class="pl-v">Content-Length:</span> 167</span></pre></div>
-<h4><a id="example-4-category-4" class="anchor" aria-hidden="true" tabindex="-1" href="#example-4-category-4"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example 4 (Category 4)</h4>
+<div class="markdown-heading"><h4 class="heading-element">Example 4 (Category 4)</h4><a id="example-4-category-4" class="anchor-element" aria-label="Permalink: Example 4 (Category 4)" href="#example-4-category-4"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Error occurred on the provider Security Server. The status code, response body and HTTP headers are returned by the
 Security Server.</p>
 <p>HTTP status code:</p>
@@ -749,7 +749,7 @@ Security Server.</p>
 <span class="pl-s"><span class="pl-v">Content-Type:</span> application/json;charset=utf-8</span>
 <span class="pl-s"><span class="pl-v">X-Road-Error:</span> Server.ServerProxy.DatabaseError</span>
 <span class="pl-s"><span class="pl-v">Content-Length:</span> 141</span></pre></div>
-<h4><a id="example-5-tracking-the-source-of-error" class="anchor" aria-hidden="true" tabindex="-1" href="#example-5-tracking-the-source-of-error"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example 5 (Tracking the source of error)</h4>
+<div class="markdown-heading"><h4 class="heading-element">Example 5 (Tracking the source of error)</h4><a id="example-5-tracking-the-source-of-error" class="anchor-element" aria-label="Permalink: Example 5 (Tracking the source of error)" href="#example-5-tracking-the-source-of-error"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>When an error occurs it is important to be able to track the component that is causing the error. One of the most
 confusing error responses can be HTTP 500 Internal Error.</p>
 <p>HTTP 500 can come from the service provider or from the Security Servers.</p>
@@ -760,7 +760,7 @@ component can be deduced from the <code>type</code> field in the response body. 
 means that the provider Security Server did not get answer from the provider service. <code>Server.ServerProxy.DatabaseError</code>
 means that provider Security Server encountered internal error. <code>Server.ClientProxy.OutdatedGlobalConf</code> points to
 consumer Security Server's problem.</p>
-<h3><a id="47-security" class="anchor" aria-hidden="true" tabindex="-1" href="#47-security"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.7 Security</h3>
+<div class="markdown-heading"><h3 class="heading-element">4.7 Security</h3><a id="47-security" class="anchor-element" aria-label="Permalink: 4.7 Security" href="#47-security"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Secure REST services should only provide HTTPS endpoints. This concerns both the consumer Security Server and the
 provider service. HTTPS protects authentication credentials in transit, for example passwords, API keys or JSON Web
 Tokens. It also allows clients to authenticate the service and guarantees integrity of the transmitted data.</p>
@@ -770,7 +770,7 @@ privileged web services. Security Server MUST support mutually authenticated cli
 and provider side. Use of JWT tokens as an authentication method between the Security Server and information system is
 not supported. Instead, sending JWT tokens in HTTP headers from the service consumer to the service provider is
 supported - X-Road passes the headers unmodified.</p>
-<h3><a id="48-identifier-character-restrictions" class="anchor" aria-hidden="true" tabindex="-1" href="#48-identifier-character-restrictions"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.8 Identifier Character Restrictions</h3>
+<div class="markdown-heading"><h3 class="heading-element">4.8 Identifier Character Restrictions</h3><a id="48-identifier-character-restrictions" class="anchor-element" aria-label="Permalink: 4.8 Identifier Character Restrictions" href="#48-identifier-character-restrictions"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>X-Road identifiers include, but are not restricted to:</p>
 <ul>
 <li>Instance id</li>
@@ -791,21 +791,21 @@ Only the following characters MUST be used in the identifier values:</p>
 <li>Symbols <code>'()+,-.=?</code>
 </li>
 </ul>
-<h2><a id="5-services" class="anchor" aria-hidden="true" tabindex="-1" href="#5-services"><span aria-hidden="true" class="octicon octicon-link"></span></a>5 Services</h2>
-<h3><a id="51-describing-services" class="anchor" aria-hidden="true" tabindex="-1" href="#51-describing-services"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.1 Describing Services</h3>
+<div class="markdown-heading"><h2 class="heading-element">5 Services</h2><a id="5-services" class="anchor-element" aria-label="Permalink: 5 Services" href="#5-services"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h3 class="heading-element">5.1 Describing Services</h3><a id="51-describing-services" class="anchor-element" aria-label="Permalink: 5.1 Describing Services" href="#51-describing-services"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>The REST services that are going to be connected to Security Server SHOULD be described with [<a href="#Ref_OPENAPI3">OPENAPI3</a>
 ]. It is a specification for machine-readable interface files for describing, producing, consuming, and visualizing
 RESTful web services. The OpenAPI Specification is a community-driven open specification within the
 [<a href="#Ref_OPENAPIINIT">OPENAPI-INITIATIVE</a>], a Linux Foundation Collaborative Project.</p>
 <p>An example [<a href="#Ref_OPENAPI3">OPENAPI3</a>] service definition file is listed
 in <a href="#appendix-1-example-service-definition">Appendix 1</a>. This service is used in the examples of the next chapter.</p>
-<h2><a id="6-examples" class="anchor" aria-hidden="true" tabindex="-1" href="#6-examples"><span aria-hidden="true" class="octicon octicon-link"></span></a>6 Examples</h2>
-<h3><a id="61-general" class="anchor" aria-hidden="true" tabindex="-1" href="#61-general"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.1 General</h3>
+<div class="markdown-heading"><h2 class="heading-element">6 Examples</h2><a id="6-examples" class="anchor-element" aria-label="Permalink: 6 Examples" href="#6-examples"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h3 class="heading-element">6.1 General</h3><a id="61-general" class="anchor-element" aria-label="Permalink: 6.1 General" href="#61-general"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>The pet store service used in the following examples has an [<a href="#Ref_OPENAPI3">OPENAPI3</a>] service description file
 available in <a href="#appendix-1-example-service-definition">Appendix 1</a>. The most important aspects of the service are
 described in the text but for more details please refer to the aforementioned service description file.</p>
 <p>The examples assume that the <code>serviceId</code> is mapped to <a href="https://petstore.niis.org/" rel="nofollow">https://petstore.niis.org/</a>.</p>
-<h3><a id="62-get-request-and-response" class="anchor" aria-hidden="true" tabindex="-1" href="#62-get-request-and-response"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.2 GET Request and Response</h3>
+<div class="markdown-heading"><h3 class="heading-element">6.2 GET Request and Response</h3><a id="62-get-request-and-response" class="anchor-element" aria-label="Permalink: 6.2 GET Request and Response" href="#62-get-request-and-response"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>REQUEST</p>
 <table>
 <thead>
@@ -850,7 +850,7 @@ x-road-request-id: f92591a3-6bf0-49b1-987b-0dd78c034cc3
 x-road-request-hash: Xvx9V2U5c5RhDUiXpVLtW7L8vTd5cM2IOBU2n9efEk7/m3ECKyGAp7yTpJpTWpo6HcmwSaGO+cinxMVKjxJTOQ==
 Content-Length: 1148
 </code></pre>
-<h3><a id="63-put-request-and-response" class="anchor" aria-hidden="true" tabindex="-1" href="#63-put-request-and-response"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.3 PUT Request and Response</h3>
+<div class="markdown-heading"><h3 class="heading-element">6.3 PUT Request and Response</h3><a id="63-put-request-and-response" class="anchor-element" aria-label="Permalink: 6.3 PUT Request and Response" href="#63-put-request-and-response"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>REQUEST</p>
 <table>
 <thead>
@@ -905,7 +905,7 @@ x-road-request-id: f92591a3-6bf0-49b1-987b-0dd78c034cc3
 x-road-request-hash: MOEfTqBjdqYiX3db9hxJ6JvHvCpYqfA6t0Uhdv6g2I29fMY8ld4CbN8tslj6mUQPXoRaUdPm7NdZeAYTg6zi+A==
 Content-Length: 0
 </code></pre>
-<h3><a id="64-post-request-and-response" class="anchor" aria-hidden="true" tabindex="-1" href="#64-post-request-and-response"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.4 POST Request and Response</h3>
+<div class="markdown-heading"><h3 class="heading-element">6.4 POST Request and Response</h3><a id="64-post-request-and-response" class="anchor-element" aria-label="Permalink: 6.4 POST Request and Response" href="#64-post-request-and-response"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>REQUEST</p>
 <table>
 <thead>
@@ -960,7 +960,7 @@ x-road-request-id: f92591a3-6bf0-49b1-987b-0dd78c034cc3
 x-road-request-hash: VCNZdwTxl7m3XC6Mpfw1H6qJUtBcm3Y6tfCvg5b3W/fb2RRXsLF9wftR3u6ElclE+RFaiAN/OkSz02fAYbNKaw==
 Content-Length: 0
 </code></pre>
-<h3><a id="65-delete-request-and-response" class="anchor" aria-hidden="true" tabindex="-1" href="#65-delete-request-and-response"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.5 DELETE Request and Response</h3>
+<div class="markdown-heading"><h3 class="heading-element">6.5 DELETE Request and Response</h3><a id="65-delete-request-and-response" class="anchor-element" aria-label="Permalink: 6.5 DELETE Request and Response" href="#65-delete-request-and-response"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>REQUEST</p>
 <table>
 <thead>
@@ -998,7 +998,7 @@ x-road-request-id: f92591a3-6bf0-49b1-987b-0dd78c034cc3
 x-road-request-hash: lQBoldcyuI3BerjHfkleRQ45AyYoFlF7zXSN6yH/RwvTNWEcsTQM18EfqMxYfdkyGGB26oxAjAWv/AcfmZF7og==
 Content-Length: 0
 </code></pre>
-<h3><a id="66-post-request-with-attachments-and-response" class="anchor" aria-hidden="true" tabindex="-1" href="#66-post-request-with-attachments-and-response"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.6 POST Request with Attachments and Response</h3>
+<div class="markdown-heading"><h3 class="heading-element">6.6 POST Request with Attachments and Response</h3><a id="66-post-request-with-attachments-and-response" class="anchor-element" aria-label="Permalink: 6.6 POST Request with Attachments and Response" href="#66-post-request-with-attachments-and-response"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>REQUEST</p>
 <table>
 <thead>
@@ -1041,7 +1041,7 @@ x-road-request-id: f92591a3-6bf0-49b1-987b-0dd78c034cc3
 x-road-request-hash: EycIkZAz4WMvbKgnBvd0wUcN4A4w0RZMvugD36ZJ2PpwwGZuMGfxCoO4C0ZC3c4LBGF0rh61vunL3ssZV6TB3Q==
 Content-Length: 100
 </code></pre>
-<h2><a id="appendix-1-example-service-definition" class="anchor" aria-hidden="true" tabindex="-1" href="#appendix-1-example-service-definition"><span aria-hidden="true" class="octicon octicon-link"></span></a>Appendix 1 Example Service Definition</h2>
+<div class="markdown-heading"><h2 class="heading-element">Appendix 1 Example Service Definition</h2><a id="appendix-1-example-service-definition" class="anchor-element" aria-label="Permalink: Appendix 1 Example Service Definition" href="#appendix-1-example-service-definition"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <div class="highlight highlight-source-yaml"><pre><span class="pl-ent">openapi</span>: <span class="pl-s">3.0.0</span>
 <span class="pl-ent">info</span>:
   <span class="pl-ent">description</span>: <span class="pl-s">&gt;-</span>
