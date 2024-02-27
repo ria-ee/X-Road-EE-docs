@@ -1,3 +1,6 @@
+name: Auto refresh documentation
+
+on: workflow_dispatch
 
 jobs:
   download-files:
