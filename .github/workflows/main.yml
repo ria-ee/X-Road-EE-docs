@@ -1,6 +1,3 @@
-name: Auto refresh documentation
-
-on: workflow_dispatch
 
 jobs:
   download-files:
@@ -26,7 +23,3 @@ jobs:
           git add .
           git commit -m "test_${GITHUB_REF##*/}"
           git push
-
-
-
-      
