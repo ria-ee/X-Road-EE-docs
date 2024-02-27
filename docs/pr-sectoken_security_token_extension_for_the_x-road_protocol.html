@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+  <head>a
     <meta charset="utf-8">
     <link rel="stylesheet" href="github-markdown.css">
     <style>
@@ -12,11 +12,11 @@
         padding: 45px;
       }
     </style>
-    <title>X-Road: 7.3.2</title>
+    <title>X-Road: 7.4.0</title>
   </head>
   <body>
     <article class="markdown-body">
-<h1><a id="security-token-extension-for-the-x-road-message-protocol" class="anchor" aria-hidden="true" tabindex="-1" href="#security-token-extension-for-the-x-road-message-protocol"><span aria-hidden="true" class="octicon octicon-link"></span></a>Security Token Extension for the X-Road Message Protocol</h1>
+<div class="markdown-heading"><h1 class="heading-element">Security Token Extension for the X-Road Message Protocol</h1><a id="security-token-extension-for-the-x-road-message-protocol" class="anchor-element" aria-label="Permalink: Security Token Extension for the X-Road Message Protocol" href="#security-token-extension-for-the-x-road-message-protocol"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Version: 1.2<br>
 Doc. ID: PR-SECTOKEN</p>
 <table>
@@ -49,7 +49,7 @@ Doc. ID: PR-SECTOKEN</p>
 </tr>
 </tbody>
 </table>
-<h2><a id="table-of-contents" class="anchor" aria-hidden="true" tabindex="-1" href="#table-of-contents"><span aria-hidden="true" class="octicon octicon-link"></span></a>Table of Contents</h2>
+<div class="markdown-heading"><h2 class="heading-element">Table of Contents</h2><a id="table-of-contents" class="anchor-element" aria-label="Permalink: Table of Contents" href="#table-of-contents"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 
 <ul>
 <li><a href="#license">License</a></li>
@@ -79,17 +79,17 @@ Doc. ID: PR-SECTOKEN</p>
 </li>
 </ul>
 
-<h2><a id="license" class="anchor" aria-hidden="true" tabindex="-1" href="#license"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
+<div class="markdown-heading"><h2 class="heading-element">License</h2><a id="license" class="anchor-element" aria-label="Permalink: License" href="#license"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This document is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="nofollow">http://creativecommons.org/licenses/by-sa/3.0/</a>.</p>
-<h2><a id="1-introduction" class="anchor" aria-hidden="true" tabindex="-1" href="#1-introduction"><span aria-hidden="true" class="octicon octicon-link"></span></a>1 Introduction</h2>
+<div class="markdown-heading"><h2 class="heading-element">1 Introduction</h2><a id="1-introduction" class="anchor-element" aria-label="Permalink: 1 Introduction" href="#1-introduction"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This specification describes an extension of the X-Road protocol for sending loosely defined security tokens as X-Road header data.
 The X-Road message protocol version 4.0 [<a href="#Ref_PR-MESS">PR-MESS</a>] already supports sending arbitrary SOAP headers end-to-end. This
 extension just provides a common, defined way to deliver security tokens with the X-Road protocol using the <code>securityToken</code> element.</p>
 <p>The motivation for the extension was the need to provide a common way to transfer JSON Web Tokens [<a href="#Ref_JWT-RFC">JWT-RFC</a>] over X-Road.
 Examples using JWT as payload in the security token can be found in the <a href="#examples">Examples</a> section.</p>
-<h3><a id="11-terms-and-abbreviations" class="anchor" aria-hidden="true" tabindex="-1" href="#11-terms-and-abbreviations"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.1 Terms and abbreviations</h3>
+<div class="markdown-heading"><h3 class="heading-element">1.1 Terms and abbreviations</h3><a id="11-terms-and-abbreviations" class="anchor-element" aria-label="Permalink: 1.1 Terms and abbreviations" href="#11-terms-and-abbreviations"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>See X-Road terms and abbreviations documentation [<a href="#Ref_TERMS">TA-TERMS</a>].</p>
-<h3><a id="12-references" class="anchor" aria-hidden="true" tabindex="-1" href="#12-references"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.2 References</h3>
+<div class="markdown-heading"><h3 class="heading-element">1.2 References</h3><a id="12-references" class="anchor-element" aria-label="Permalink: 1.2 References" href="#12-references"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <table>
 <thead>
 <tr>
@@ -125,14 +125,14 @@ Examples using JWT as payload in the security token can be found in the <a href=
 </tr>
 </tbody>
 </table>
-<h2><a id="2-format-of-messages" class="anchor" aria-hidden="true" tabindex="-1" href="#2-format-of-messages"><span aria-hidden="true" class="octicon octicon-link"></span></a>2 Format of messages</h2>
+<div class="markdown-heading"><h2 class="heading-element">2 Format of messages</h2><a id="2-format-of-messages" class="anchor-element" aria-label="Permalink: 2 Format of messages" href="#2-format-of-messages"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This section describes the XML format for expressing the security token. The data
 structures and elements defined in this section are in the namespace <code>http://x-road.eu/xsd/security-token.xsd</code>. The
 schema file can be found at <a href="http://x-road.eu/xsd/security-token.xsd" rel="nofollow"><code>http://x-road.eu/xsd/security-token.xsd</code></a>.
 The XML Schema for this extension is also listed in the section <a href="#xml-schema-for-the-extension">XML Schema for the extension</a>.</p>
 <p>Note that at the moment, there is no unifying schema that would combine the message protocol and this extension under
 the same namespace. That means there is no single schema that would validate an X-Road message with this extension in use.</p>
-<h3><a id="21-schema-header" class="anchor" aria-hidden="true" tabindex="-1" href="#21-schema-header"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.1 Schema header</h3>
+<div class="markdown-heading"><h3 class="heading-element">2.1 Schema header</h3><a id="21-schema-header" class="anchor-element" aria-label="Permalink: 2.1 Schema header" href="#21-schema-header"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>The following listing shows the header of the schema definition</p>
 <div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
 &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">schema</span>
@@ -143,7 +143,7 @@ the same namespace. That means there is no single schema that would validate an 
 
 &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">schema</span>&gt;
 </pre></div>
-<h3><a id="22-added-securitytoken-element" class="anchor" aria-hidden="true" tabindex="-1" href="#22-added-securitytoken-element"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.2 Added <code>securityToken</code> element</h3>
+<div class="markdown-heading"><h3 class="heading-element">2.2 Added <code>securityToken</code> element</h3><a id="22-added-securitytoken-element" class="anchor-element" aria-label="Permalink: 2.2 Added securityToken element" href="#22-added-securitytoken-element"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>A new <code>securityToken</code> element was added to deliver the security token information.</p>
 <div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>securityToken<span class="pl-pds">"</span></span>&gt;
   &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
@@ -158,13 +158,13 @@ the same namespace. That means there is no single schema that would validate an 
   &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">annotation</span>&gt;
 &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span>&gt;
 </pre></div>
-<h3><a id="23-json-web-tokens-and-the-securitytoken-attribute-tokentype" class="anchor" aria-hidden="true" tabindex="-1" href="#23-json-web-tokens-and-the-securitytoken-attribute-tokentype"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3 JSON Web Tokens and the <code>securityToken</code> attribute <code>tokenType</code>
-</h3>
+<div class="markdown-heading"><h3 class="heading-element">2.3 JSON Web Tokens and the <code>securityToken</code> attribute <code>tokenType</code>
+</h3><a id="23-json-web-tokens-and-the-securitytoken-attribute-tokentype" class="anchor-element" aria-label="Permalink: 2.3 JSON Web Tokens and the securityToken attribute tokenType" href="#23-json-web-tokens-and-the-securitytoken-attribute-tokentype"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>When transferring JSON Web Tokens, the URI attribute <code>tokenType</code> should have the value <code>urn:ietf:params:oauth:token-type:jwt</code>
 which is the URI content type for JWT content specified by <a href="https://tools.ietf.org/html/rfc7519#section-10.2.1" rel="nofollow">section 10.2.1.</a>
 of the JSON Web Token RFC [<a href="#Ref_JWT-RFC">JWT-RFC</a>]. However, using this value for the <code>tokenType</code> is not enforced in any way. The JWT content is not
 currently validated or verified by the security server.</p>
-<h3><a id="24-message-headers" class="anchor" aria-hidden="true" tabindex="-1" href="#24-message-headers"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.4 Message headers</h3>
+<div class="markdown-heading"><h3 class="heading-element">2.4 Message headers</h3><a id="24-message-headers" class="anchor-element" aria-label="Permalink: 2.4 Message headers" href="#24-message-headers"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This section describes the additional SOAP headers that are added by this extension.</p>
 <table>
 <thead>
@@ -182,14 +182,14 @@ currently validated or verified by the security server.</p>
 </tr>
 </tbody>
 </table>
-<h2><a id="3-x-road-message-logging-and-the-security-token" class="anchor" aria-hidden="true" tabindex="-1" href="#3-x-road-message-logging-and-the-security-token"><span aria-hidden="true" class="octicon octicon-link"></span></a>3 X-Road message logging and the security token</h2>
+<div class="markdown-heading"><h2 class="heading-element">3 X-Road message logging and the security token</h2><a id="3-x-road-message-logging-and-the-security-token" class="anchor-element" aria-label="Permalink: 3 X-Road message logging and the security token" href="#3-x-road-message-logging-and-the-security-token"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>By default, if the message logging add-on (package <code>xroad-addon-messagelog</code>) is installed on a security server, all X-Road SOAP messages are logged
 with all their SOAP headers, including the security token. You can read more about the message logging in <a href="../../Manuals/ug-ss_x-road_6_security_server_user_guide.html#11-message-log">Chapter 11</a>
 of the  the Security Server User Guide [<a href="#Ref_UG-SS">UG-SS</a>].</p>
 <p>In case the security token contains sensitive data that should not be logged, the message logging can be configured to not log the SOAP body, which also drops the <code>securityToken</code> SOAP header. You can
 read more about the SOAP body logging options in the <a href="../../Manuals/ug-syspar_x-road_v6_system_parameters.html#message-log-add-on-parameters-message-log">Message log add-on parameters section</a> of the X-Road System Parameters User
 Guide [<a href="#Ref_UG-SYSPAR">UG-SYSPAR</a>].</p>
-<h2><a id="4-xml-schema-for-the-extension" class="anchor" aria-hidden="true" tabindex="-1" href="#4-xml-schema-for-the-extension"><span aria-hidden="true" class="octicon octicon-link"></span></a>4 XML Schema for the extension</h2>
+<div class="markdown-heading"><h2 class="heading-element">4 XML Schema for the extension</h2><a id="4-xml-schema-for-the-extension" class="anchor-element" aria-label="Permalink: 4 XML Schema for the extension" href="#4-xml-schema-for-the-extension"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>The XML Schema for the extension is below. It can also be found at <a href="http://x-road.eu/xsd/security-token.xsd" rel="nofollow"><code>http://x-road.eu/xsd/security-token.xsd</code></a> and locally <a href="./security-token.xsd">here</a>.</p>
 <div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
 &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">schema</span> <span class="pl-e">elementFormDefault</span>=<span class="pl-s"><span class="pl-pds">"</span>qualified<span class="pl-pds">"</span></span>
@@ -212,9 +212,9 @@ Guide [<a href="#Ref_UG-SYSPAR">UG-SYSPAR</a>].</p>
 &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span>&gt;
 &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">schema</span>&gt;
 </pre></div>
-<h2><a id="5-examples" class="anchor" aria-hidden="true" tabindex="-1" href="#5-examples"><span aria-hidden="true" class="octicon octicon-link"></span></a>5 Examples</h2>
+<div class="markdown-heading"><h2 class="heading-element">5 Examples</h2><a id="5-examples" class="anchor-element" aria-label="Permalink: 5 Examples" href="#5-examples"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Below is an example request using a JSON Web Token as the security token.</p>
-<h3><a id="51-request" class="anchor" aria-hidden="true" tabindex="-1" href="#51-request"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.1 Request</h3>
+<div class="markdown-heading"><h3 class="heading-element">5.1 Request</h3><a id="51-request" class="anchor-element" aria-label="Permalink: 5.1 Request" href="#51-request"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">soapenv</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>
     <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">soapenv</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.xmlsoap.org/soap/envelope/<span class="pl-pds">"</span></span>
     <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">xro</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>

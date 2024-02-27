@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+  <head>a
     <meta charset="utf-8">
     <link rel="stylesheet" href="github-markdown.css">
     <style>
@@ -12,11 +12,11 @@
         padding: 45px;
       }
     </style>
-    <title>X-Road: 7.3.2</title>
+    <title>X-Road: 7.4.0</title>
   </head>
   <body>
     <article class="markdown-body">
-<h1><a id="x-road-environmental-monitoring-messages" class="anchor" aria-hidden="true" tabindex="-1" href="#x-road-environmental-monitoring-messages"><span aria-hidden="true" class="octicon octicon-link"></span></a>X-Road: Environmental Monitoring Messages</h1>
+<div class="markdown-heading"><h1 class="heading-element">X-Road: Environmental Monitoring Messages</h1><a id="x-road-environmental-monitoring-messages" class="anchor-element" aria-label="Permalink: X-Road: Environmental Monitoring Messages" href="#x-road-environmental-monitoring-messages"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Version: 1.5<br>
 Doc. ID: PR-ENVMONMES</p>
 <table>
@@ -67,7 +67,7 @@ Doc. ID: PR-ENVMONMES</p>
 </tr>
 </tbody>
 </table>
-<h2><a id="table-of-contents" class="anchor" aria-hidden="true" tabindex="-1" href="#table-of-contents"><span aria-hidden="true" class="octicon octicon-link"></span></a>Table of Contents</h2>
+<div class="markdown-heading"><h2 class="heading-element">Table of Contents</h2><a id="table-of-contents" class="anchor-element" aria-label="Permalink: Table of Contents" href="#table-of-contents"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 
 <ul>
 <li><a href="#license">License</a></li>
@@ -88,13 +88,13 @@ Doc. ID: PR-ENVMONMES</p>
 </li>
 </ul>
 
-<h2><a id="license" class="anchor" aria-hidden="true" tabindex="-1" href="#license"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
+<div class="markdown-heading"><h2 class="heading-element">License</h2><a id="license" class="anchor-element" aria-label="Permalink: License" href="#license"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This document is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="nofollow">http://creativecommons.org/licenses/by-sa/3.0/</a>.</p>
-<h2><a id="1-introduction" class="anchor" aria-hidden="true" tabindex="-1" href="#1-introduction"><span aria-hidden="true" class="octicon octicon-link"></span></a>1 Introduction</h2>
+<div class="markdown-heading"><h2 class="heading-element">1 Introduction</h2><a id="1-introduction" class="anchor-element" aria-label="Permalink: 1 Introduction" href="#1-introduction"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This document describes the request and response messages for environmental monitoring.</p>
-<h3><a id="11-terms-and-abbreviations" class="anchor" aria-hidden="true" tabindex="-1" href="#11-terms-and-abbreviations"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.1 Terms and abbreviations</h3>
+<div class="markdown-heading"><h3 class="heading-element">1.1 Terms and abbreviations</h3><a id="11-terms-and-abbreviations" class="anchor-element" aria-label="Permalink: 1.1 Terms and abbreviations" href="#11-terms-and-abbreviations"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>See X-Road terms and abbreviations documentation [<a href="#Ref_TERMS">TA-TERMS</a>].</p>
-<h3><a id="12-references" class="anchor" aria-hidden="true" tabindex="-1" href="#12-references"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.2 References</h3>
+<div class="markdown-heading"><h3 class="heading-element">1.2 References</h3><a id="12-references" class="anchor-element" aria-label="Permalink: 1.2 References" href="#12-references"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <table>
 <thead>
 <tr>
@@ -115,8 +115,8 @@ Doc. ID: PR-ENVMONMES</p>
 </tr>
 </tbody>
 </table>
-<h2><a id="2-fetching-security-server-metrics" class="anchor" aria-hidden="true" tabindex="-1" href="#2-fetching-security-server-metrics"><span aria-hidden="true" class="octicon octicon-link"></span></a>2 Fetching security server metrics</h2>
-<h3><a id="21-request" class="anchor" aria-hidden="true" tabindex="-1" href="#21-request"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.1 Request</h3>
+<div class="markdown-heading"><h2 class="heading-element">2 Fetching security server metrics</h2><a id="2-fetching-security-server-metrics" class="anchor-element" aria-label="Permalink: 2 Fetching security server metrics" href="#2-fetching-security-server-metrics"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h3 class="heading-element">2.1 Request</h3><a id="21-request" class="anchor-element" aria-label="Permalink: 2.1 Request" href="#21-request"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Fetching security server metrics uses the X-Road protocol. The <code>getSecurityServerMetrics</code> request requires a <code>securityServer</code> header element as specified by the security server targeting extension for the X-Road message protocol [<a href="#Ref_PR-TARGETSS">PR-TARGETSS</a>] so that the request can be routed to a specific security server.</p>
 <p><code>Body</code> element must contain the <code>getSecurityServerMetrics</code> element.</p>
 <p>An optional <code>outputSpec</code> child element can be used to request a subset of the metrics. The <code>outputSpec</code> consists of zero or more <code>outputField</code> elements referring to the <code>name</code> element of a metric in the <code>metricSet</code> named <em>systemMetrics</em>. Empty or missing <code>outputSpec</code> requests all available metrics.</p>
@@ -161,7 +161,7 @@ Doc. ID: PR-ENVMONMES</p>
     &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
 
 &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>&gt;</pre></div>
-<h3><a id="22-response" class="anchor" aria-hidden="true" tabindex="-1" href="#22-response"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.2 Response</h3>
+<div class="markdown-heading"><h3 class="heading-element">2.2 Response</h3><a id="22-response" class="anchor-element" aria-label="Permalink: 2.2 Response" href="#22-response"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>The response <code>Body</code> contains one <code>getSecurityServerMetricsResponse</code> element which contains one <code>metricSet</code> as direct child. The name of the top level set is the security server identifier. The set contains a <em>proxyVersion</em> <code>stringMetric</code> and a <em>systemMetrics</em> <code>metricSet</code>. The <em>systemMetrics</em> set contains the requested metrics.</p>
 <div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>
     <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">SOAP-ENV</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.xmlsoap.org/soap/envelope/<span class="pl-pds">"</span></span>
@@ -214,7 +214,7 @@ Doc. ID: PR-ENVMONMES</p>
       &lt;/<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">getSecurityServerMetricsResponse</span>&gt;
    &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
 &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>&gt;</pre></div>
-<h3><a id="23-response-schema" class="anchor" aria-hidden="true" tabindex="-1" href="#23-response-schema"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3 Response Schema</h3>
+<div class="markdown-heading"><h3 class="heading-element">2.3 Response Schema</h3><a id="23-response-schema" class="anchor-element" aria-label="Permalink: 2.3 Response Schema" href="#23-response-schema"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
 &lt;<span class="pl-ent">schema</span> <span class="pl-e">xmlns</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.w3.org/2001/XMLSchema<span class="pl-pds">"</span></span>
         <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">tns</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/monitoring<span class="pl-pds">"</span></span> <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">xs</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.w3.org/2001/XMLSchema<span class="pl-pds">"</span></span>

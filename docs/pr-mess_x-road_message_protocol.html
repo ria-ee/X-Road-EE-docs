@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+  <head>a
     <meta charset="utf-8">
     <link rel="stylesheet" href="github-markdown.css">
     <style>
@@ -12,17 +12,17 @@
         padding: 45px;
       }
     </style>
-    <title>X-Road: 7.3.2</title>
+    <title>X-Road: 7.4.0</title>
   </head>
   <body>
     <article class="markdown-body">
-<h1><a id="x-road-message-protocol-v40" class="anchor" aria-hidden="true" tabindex="-1" href="#x-road-message-protocol-v40"><span aria-hidden="true" class="octicon octicon-link"></span></a>X-Road: Message Protocol v4.0</h1>
+<div class="markdown-heading"><h1 class="heading-element">X-Road: Message Protocol v4.0</h1><a id="x-road-message-protocol-v40" class="anchor-element" aria-label="Permalink: X-Road: Message Protocol v4.0" href="#x-road-message-protocol-v40"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>Technical Specification</strong></p>
 <p>Version: 4.0.25<br>
 15.06.2023<br>
 Doc. ID: PR-MESS</p>
 <hr>
-<h2><a id="version-history" class="anchor" aria-hidden="true" tabindex="-1" href="#version-history"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version history</h2>
+<div class="markdown-heading"><h2 class="heading-element">Version history</h2><a id="version-history" class="anchor-element" aria-label="Permalink: Version history" href="#version-history"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <table>
 <thead>
 <tr>
@@ -180,9 +180,9 @@ Doc. ID: PR-MESS</p>
 </tr>
 </tbody>
 </table>
-<h2><a id="license" class="anchor" aria-hidden="true" tabindex="-1" href="#license"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
+<div class="markdown-heading"><h2 class="heading-element">License</h2><a id="license" class="anchor-element" aria-label="Permalink: License" href="#license"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This document is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="nofollow">http://creativecommons.org/licenses/by-sa/3.0/</a></p>
-<h2><a id="table-of-contents" class="anchor" aria-hidden="true" tabindex="-1" href="#table-of-contents"><span aria-hidden="true" class="octicon octicon-link"></span></a>Table of Contents</h2>
+<div class="markdown-heading"><h2 class="heading-element">Table of Contents</h2><a id="table-of-contents" class="anchor-element" aria-label="Permalink: Table of Contents" href="#table-of-contents"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 
 
 <ul>
@@ -236,14 +236,14 @@ Doc. ID: PR-MESS</p>
 </ul>
 
 
-<h2><a id="1-introduction" class="anchor" aria-hidden="true" tabindex="-1" href="#1-introduction"><span aria-hidden="true" class="octicon octicon-link"></span></a>1 Introduction</h2>
+<div class="markdown-heading"><h2 class="heading-element">1 Introduction</h2><a id="1-introduction" class="anchor-element" aria-label="Permalink: 1 Introduction" href="#1-introduction"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This specification describes the X-Road message protocol version 4.0. This protocol is used between information systems and security servers in the X-Road system. The protocol is implemented as a profile of the SOAP 1.1 protocol [<a href="#Ref_SOAP">SOAP</a>]. Because this protocol inherits the general model, the transport mechanism, and the error handling mechanism of the base SOAP protocol, these issues are not discussed separately in this specification.</p>
 <p>Chapters <a href="#2-format-of-messages">2</a> and <a href="#3-describing-services">3</a>, as well as <a href="#annex-a-xml-schema-for-identifiers">Annex A</a>, <a href="#annex-a-xml-schema-for-identifiers">Annex B</a> of this specification contain normative information. All the other chapters are informative in nature. All the references are normative.</p>
 <p>This specification does not include option for partially implementing the protocol – the conformant implementation must implement the entire specification.</p>
 <p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document (in uppercase, as shown) are to be interpreted as described in [<a href="#Ref_RFC2119">RFC2119</a>].</p>
-<h3><a id="11-terms-and-abbreviations" class="anchor" aria-hidden="true" tabindex="-1" href="#11-terms-and-abbreviations"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.1 Terms and Abbreviations</h3>
+<div class="markdown-heading"><h3 class="heading-element">1.1 Terms and Abbreviations</h3><a id="11-terms-and-abbreviations" class="anchor-element" aria-label="Permalink: 1.1 Terms and Abbreviations" href="#11-terms-and-abbreviations"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>See X-Road terms and abbreviations documentation [<a href="#Ref_TERMS">TA-TERMS</a>].</p>
-<h3><a id="12-references" class="anchor" aria-hidden="true" tabindex="-1" href="#12-references"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.2 References</h3>
+<div class="markdown-heading"><h3 class="heading-element">1.2 References</h3><a id="12-references" class="anchor-element" aria-label="Permalink: 1.2 References" href="#12-references"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <ol>
 <li>
 <p><a name="Ref_SOAP"></a>[SOAP] Simple Object Access Protocol (SOAP) 1.1, 2000.</p>
@@ -289,7 +289,7 @@ Internet Engineering Task Force, 1997.</p>
 <p><a id="Ref_TERMS"></a>[TA-TERMS] X-Road Terms and Abbreviations. Document ID: <a href="terms_x-road_docs.html">TA-TERMS</a>.</p>
 </li>
 </ol>
-<h3><a id="13-identifying-entities" class="anchor" aria-hidden="true" tabindex="-1" href="#13-identifying-entities"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.3 Identifying Entities</h3>
+<div class="markdown-heading"><h3 class="heading-element">1.3 Identifying Entities</h3><a id="13-identifying-entities" class="anchor-element" aria-label="Permalink: 1.3 Identifying Entities" href="#13-identifying-entities"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Significant entities in the X-Road system have globally unique identifiers. Identifiers consist of an object type and a sequence of hierarchical codes.</p>
 <p>All the identifiers start with the code identifying the instance of the X-Road system. Typically, this should be the ISO code of the country running the X-Road instance, optionally amended with a suffix corresponding to the environment. For example, for Estonia, the production environment is designated as “EE”, whereas the test environment is “EE-test”. The codes for X-Road instances are the only ones that need to be globally unique. All other parts of the identifiers are managed by X-Road instances.</p>
 <p>Next, we will describe how globally unique identifiers are constructed for various types of entities. When representing entities as strings the format <em>T:C1/C2/...</em> is used, where <em>T</em> is type of the entity and <em>C1, C2, ...</em> are the component codes. Note: the given format is only used in this document. In messages and configuration files, the identifiers are represented in XML format described in <a href="#21-identifiers">Section 2.1</a>.</p>
@@ -310,9 +310,9 @@ Example: SUBSYSTEM:EE/BUSINESS/123456789/highsecurity identifies a subsystem wit
 Example: SERVICE:EE/BUSINESS/123456789/highsecurity/getSecureData/v1 identifies version v1 of service getSecureData that is offered by subsystem SUBSYSTEM:EE/BUSINESS/123456789/highsecurity.</p>
 </li>
 </ul>
-<h2><a id="2-format-of-messages" class="anchor" aria-hidden="true" tabindex="-1" href="#2-format-of-messages"><span aria-hidden="true" class="octicon octicon-link"></span></a>2 Format of Messages</h2>
+<div class="markdown-heading"><h2 class="heading-element">2 Format of Messages</h2><a id="2-format-of-messages" class="anchor-element" aria-label="Permalink: 2 Format of Messages" href="#2-format-of-messages"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>The messages in this protocol are based on SOAP 1.1 format [<a href="#Ref_SOAP">SOAP</a>].</p>
-<h3><a id="21-identifiers" class="anchor" aria-hidden="true" tabindex="-1" href="#21-identifiers"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.1 Identifiers</h3>
+<div class="markdown-heading"><h3 class="heading-element">2.1 Identifiers</h3><a id="21-identifiers" class="anchor-element" aria-label="Permalink: 2.1 Identifiers" href="#21-identifiers"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This section describes XML-based data formats for expressing the identifiers described informally in <a href="#13-identifying-entities">Section 1.3</a>. The data structures and elements defined in this section will be located under namespace <code>http://x-road.eu/xsd/identifiers</code>. The complete XML Schema is shown in <a href="#annex-a-xml-schema-for-identifiers">Annex A</a>.</p>
 <p>The following listing shows the header of the schema definition.</p>
 <div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
@@ -376,7 +376,7 @@ Example: SERVICE:EE/BUSINESS/123456789/highsecurity/getSecureData/v1 identifies 
             &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">restriction</span>&gt;
         &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexContent</span>&gt;
     &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;</pre></div>
-<h3><a id="22-message-headers" class="anchor" aria-hidden="true" tabindex="-1" href="#22-message-headers"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.2 Message Headers</h3>
+<div class="markdown-heading"><h3 class="heading-element">2.2 Message Headers</h3><a id="22-message-headers" class="anchor-element" aria-label="Permalink: 2.2 Message Headers" href="#22-message-headers"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This section describes additional SOAP headers that are used by the X-Road system. It makes use of data types specified in <a href="#21-identifiers">Section 2.1</a>. The header fields are described in <a href="#Ref_Supported_header_fields">Table 1</a>.</p>
 <p><a name="Ref_Supported_header_fields"></a>
 Table 1. Supported header fields</p>
@@ -457,18 +457,18 @@ Table 1. Supported header fields</p>
 <p>Content-type and SOAPAction HTTP headers of the client request message are preserved in the security servers and forwarded to the service. All other HTTP headers of the client request message are not preserved by the security servers and are not forwarded to the service.</p>
 <p>Content-type HTTP header of the service response message is preserved in the security servers and is forwarded to the client. All other HTTP headers of the service response are not preserved by security servers and are not forwarded to the client.</p>
 <p>Starting with X-Road message protocol version 4.0 any protocols with the same major version number are compatible. Minor versions are used to describe backwards compatible changes, such as addition of optional headers.</p>
-<h3><a id="23-message-body" class="anchor" aria-hidden="true" tabindex="-1" href="#23-message-body"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3 Message Body</h3>
+<div class="markdown-heading"><h3 class="heading-element">2.3 Message Body</h3><a id="23-message-body" class="anchor-element" aria-label="Permalink: 2.3 Message Body" href="#23-message-body"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>The message body MUST use Document/Literal-Wrapped SOAP encoding convention. According to this convention, both the body of the request and the response must be wrapped in an element. The element names of the request and response are correlated – if the request element is named <code>foo</code> then the response element is named <code>fooResponse</code>. Additionally, the name of the wrapper element of the request must match the <code>serviceCode</code> element of the <code>service</code> header field.</p>
-<h3><a id="24-attachments" class="anchor" aria-hidden="true" tabindex="-1" href="#24-attachments"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.4 Attachments</h3>
+<div class="markdown-heading"><h3 class="heading-element">2.4 Attachments</h3><a id="24-attachments" class="anchor-element" aria-label="Permalink: 2.4 Attachments" href="#24-attachments"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>In case the message has attachments, it MUST be formatted as a multipart MIME message, with the SOAP request and its attachments being separate parts of the message. The SOAP request must be the first part. The resulting MIME message MUST be structured in accordance with the specification for SOAP messages with attachments [<a href="#Ref_SOAPATT">SOAPATT</a>] and the request SOAP part's <em>Content-Transfer-Encoding</em> MIME header value MUST be "8bit". MIME headers of each part of the message are preserved without modification in the security server. For an example request that contains attachments see <a href="#annex-f-example-request-with-attachment">Annex F</a>.</p>
 <p>Additionally, MTOM-encoded [<a href="#Ref_MTOM">MTOM</a>] messages are supported in the security server – the security server accepts MIME multipart messages where the content-type of the SOAP part is "application/xop+xml".</p>
-<h3><a id="25-fault-messages" class="anchor" aria-hidden="true" tabindex="-1" href="#25-fault-messages"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.5 Fault Messages</h3>
+<div class="markdown-heading"><h3 class="heading-element">2.5 Fault Messages</h3><a id="25-fault-messages" class="anchor-element" aria-label="Permalink: 2.5 Fault Messages" href="#25-fault-messages"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>For technical errors the security server must return a SOAP Fault message [<a href="#Ref_SOAP">SOAP</a>]. The SOAP Fault message contains the information about the error, such as error code, error message etc. The SOAP Fault MAY contain X-Road Headers and it MAY be described in the service WSDL.</p>
-<h3><a id="26-character-encoding" class="anchor" aria-hidden="true" tabindex="-1" href="#26-character-encoding"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.6 Character Encoding</h3>
+<div class="markdown-heading"><h3 class="heading-element">2.6 Character Encoding</h3><a id="26-character-encoding" class="anchor-element" aria-label="Permalink: 2.6 Character Encoding" href="#26-character-encoding"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>All parties SHOULD indicate the character encoding of XML messages. The preferred way of specifying the character encoding is by using the <em>charset</em> parameter the of <em>Content-Type</em> header.</p>
 <p>In case the <em>charset</em> parameter is not determined in the HTTP <em>Content-Type</em> header, the UTF-8 encoding is considered to use by the security server.</p>
 <p>With UTF-8 encoding BOM (Byte Order Mark) bytes MAY be used in the beginning of XML message. Security servers MAY remove the BOM bytes when processing the message.</p>
-<h3><a id="27-identifier-character-restrictions" class="anchor" aria-hidden="true" tabindex="-1" href="#27-identifier-character-restrictions"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.7 Identifier Character Restrictions</h3>
+<div class="markdown-heading"><h3 class="heading-element">2.7 Identifier Character Restrictions</h3><a id="27-identifier-character-restrictions" class="anchor-element" aria-label="Permalink: 2.7 Identifier Character Restrictions" href="#27-identifier-character-restrictions"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>X-Road identifiers include, but are not restricted to:</p>
 <ul>
 <li>Instance id</li>
@@ -489,12 +489,12 @@ Only the following characters MUST be used in the identifier values:</p>
 <li>Symbols <code>'()+,-.=?</code>
 </li>
 </ul>
-<h2><a id="3-describing-services" class="anchor" aria-hidden="true" tabindex="-1" href="#3-describing-services"><span aria-hidden="true" class="octicon octicon-link"></span></a>3 Describing Services</h2>
-<h3><a id="31-general" class="anchor" aria-hidden="true" tabindex="-1" href="#31-general"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.1 General</h3>
+<div class="markdown-heading"><h2 class="heading-element">3 Describing Services</h2><a id="3-describing-services" class="anchor-element" aria-label="Permalink: 3 Describing Services" href="#3-describing-services"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h3 class="heading-element">3.1 General</h3><a id="31-general" class="anchor-element" aria-label="Permalink: 3.1 General" href="#31-general"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Services are described using the Web Services Description Language (WSDL) 1.1 [<a href="#Ref_WSDL">WSDL</a>].</p>
 <p>X-Road supports versioned services. Different versions of the service represent minor technical changes in the service description. For example, a new version must be created when restructuring the service description (e.g., renaming or refactoring types in the XML Schema) or when changing types or names of fields. However, when the service semantics or data content of messages changes, a new service with a new code must be created.</p>
 <p>In the context of service provision contracts, services are considered without version, meaning that all versions of the same service are considered to be equivalent. This also applies to access control restrictions applied in security servers – i.e., access control restrictions are specified for a service code without version. In order for this to work, all versions of the same service must implement the same contract.</p>
-<h3><a id="32-describing-services-with-wsdl" class="anchor" aria-hidden="true" tabindex="-1" href="#32-describing-services-with-wsdl"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.2 Describing Services with WSDL</h3>
+<div class="markdown-heading"><h3 class="heading-element">3.2 Describing Services with WSDL</h3><a id="32-describing-services-with-wsdl" class="anchor-element" aria-label="Permalink: 3.2 Describing Services with WSDL" href="#32-describing-services-with-wsdl"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Service descriptions are written in the WSDL language, subject to the following restrictions and extensions.</p>
 <p>The combination of WSDL binding style/use MUST be document/literal wrapped (binding <em>style="document"; use="literal"</em>). The WSDL must conform to the following rules [<a href="#Ref_WRAPPED">WRAPPED</a>]:</p>
 <blockquote>
@@ -563,7 +563,7 @@ Table 2. WSDL elements for X-Road services</p>
 </tr>
 </tbody>
 </table>
-<h2><a id="annex-a-xml-schema-for-identifiers" class="anchor" aria-hidden="true" tabindex="-1" href="#annex-a-xml-schema-for-identifiers"><span aria-hidden="true" class="octicon octicon-link"></span></a>Annex A XML Schema for Identifiers</h2>
+<div class="markdown-heading"><h2 class="heading-element">Annex A XML Schema for Identifiers</h2><a id="annex-a-xml-schema-for-identifiers" class="anchor-element" aria-label="Permalink: Annex A XML Schema for Identifiers" href="#annex-a-xml-schema-for-identifiers"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
 &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">schema</span> <span class="pl-e">elementFormDefault</span>=<span class="pl-s"><span class="pl-pds">"</span>qualified<span class="pl-pds">"</span></span>
         <span class="pl-e">targetNamespace</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/identifiers<span class="pl-pds">"</span></span>
@@ -716,7 +716,7 @@ Table 2. WSDL elements for X-Road services</p>
         &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexContent</span>&gt;
     &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
 &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">schema</span>&gt;</pre></div>
-<h2><a id="annex-b-xml-schema-for-messages" class="anchor" aria-hidden="true" tabindex="-1" href="#annex-b-xml-schema-for-messages"><span aria-hidden="true" class="octicon octicon-link"></span></a>Annex B XML Schema for Messages</h2>
+<div class="markdown-heading"><h2 class="heading-element">Annex B XML Schema for Messages</h2><a id="annex-b-xml-schema-for-messages" class="anchor-element" aria-label="Permalink: Annex B XML Schema for Messages" href="#annex-b-xml-schema-for-messages"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
 &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">schema</span> <span class="pl-e">elementFormDefault</span>=<span class="pl-s"><span class="pl-pds">"</span>qualified<span class="pl-pds">"</span></span>
         <span class="pl-e">targetNamespace</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>
@@ -826,7 +826,7 @@ Table 2. WSDL elements for X-Road services</p>
         &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
     &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span>&gt;
 &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">schema</span>&gt;</pre></div>
-<h2><a id="annex-c-example-wsdl" class="anchor" aria-hidden="true" tabindex="-1" href="#annex-c-example-wsdl"><span aria-hidden="true" class="octicon octicon-link"></span></a>Annex C Example WSDL</h2>
+<div class="markdown-heading"><h2 class="heading-element">Annex C Example WSDL</h2><a id="annex-c-example-wsdl" class="anchor-element" aria-label="Permalink: Annex C Example WSDL" href="#annex-c-example-wsdl"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
 &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">definitions</span> <span class="pl-e">targetNamespace</span>=<span class="pl-s"><span class="pl-pds">"</span>http://producer.x-road.eu<span class="pl-pds">"</span></span>
         <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">wsdl</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.xmlsoap.org/wsdl/<span class="pl-pds">"</span></span>
@@ -1179,9 +1179,9 @@ Table 2. WSDL elements for X-Road services</p>
         &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">port</span>&gt;
     &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">service</span>&gt;
 &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">definitions</span>&gt;</pre></div>
-<h2><a id="annex-d-example-fault-messages" class="anchor" aria-hidden="true" tabindex="-1" href="#annex-d-example-fault-messages"><span aria-hidden="true" class="octicon octicon-link"></span></a>Annex D Example Fault Messages</h2>
+<div class="markdown-heading"><h2 class="heading-element">Annex D Example Fault Messages</h2><a id="annex-d-example-fault-messages" class="anchor-element" aria-label="Permalink: Annex D Example Fault Messages" href="#annex-d-example-fault-messages"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This section contains example SOAP Fault messages.</p>
-<h3><a id="d1-technical" class="anchor" aria-hidden="true" tabindex="-1" href="#d1-technical"><span aria-hidden="true" class="octicon octicon-link"></span></a>D.1 Technical</h3>
+<div class="markdown-heading"><h3 class="heading-element">D.1 Technical</h3><a id="d1-technical" class="anchor-element" aria-label="Permalink: D.1 Technical" href="#d1-technical"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
 &lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span> <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">SOAP-ENV</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.xmlsoap.org/soap/envelope/<span class="pl-pds">"</span></span>&gt;
     &lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
@@ -1195,7 +1195,7 @@ Table 2. WSDL elements for X-Road services</p>
         &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Fault</span>&gt;
     &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
 &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>&gt;</pre></div>
-<h3><a id="d2-non-technical" class="anchor" aria-hidden="true" tabindex="-1" href="#d2-non-technical"><span aria-hidden="true" class="octicon octicon-link"></span></a>D.2 Non-technical</h3>
+<div class="markdown-heading"><h3 class="heading-element">D.2 Non-technical</h3><a id="d2-non-technical" class="anchor-element" aria-label="Permalink: D.2 Non-technical" href="#d2-non-technical"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
 &lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>
         <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">SOAP-ENV</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.xmlsoap.org/soap/envelope/<span class="pl-pds">"</span></span>
@@ -1237,9 +1237,9 @@ Table 2. WSDL elements for X-Road services</p>
         &lt;/<span class="pl-ent">ns1</span><span class="pl-ent">:</span><span class="pl-ent">exampleServiceResponse</span> &gt;
     &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
 &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>&gt;</pre></div>
-<h2><a id="annex-e-example-messages" class="anchor" aria-hidden="true" tabindex="-1" href="#annex-e-example-messages"><span aria-hidden="true" class="octicon octicon-link"></span></a>Annex E Example Messages</h2>
+<div class="markdown-heading"><h2 class="heading-element">Annex E Example Messages</h2><a id="annex-e-example-messages" class="anchor-element" aria-label="Permalink: Annex E Example Messages" href="#annex-e-example-messages"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This section contains example request and example response messages for an example service.</p>
-<h3><a id="e1-request" class="anchor" aria-hidden="true" tabindex="-1" href="#e1-request"><span aria-hidden="true" class="octicon octicon-link"></span></a>E.1 Request</h3>
+<div class="markdown-heading"><h3 class="heading-element">E.1 Request</h3><a id="e1-request" class="anchor-element" aria-label="Permalink: E.1 Request" href="#e1-request"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
 &lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>
         <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">SOAP-ENV</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.xmlsoap.org/soap/envelope/<span class="pl-pds">"</span></span>
@@ -1272,7 +1272,7 @@ Table 2. WSDL elements for X-Road services</p>
         &lt;/<span class="pl-ent">ns1</span><span class="pl-ent">:</span><span class="pl-ent">exampleService</span>&gt;
     &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
 &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>&gt;</pre></div>
-<h3><a id="e2-response" class="anchor" aria-hidden="true" tabindex="-1" href="#e2-response"><span aria-hidden="true" class="octicon octicon-link"></span></a>E.2 Response</h3>
+<div class="markdown-heading"><h3 class="heading-element">E.2 Response</h3><a id="e2-response" class="anchor-element" aria-label="Permalink: E.2 Response" href="#e2-response"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
 &lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>
         <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">SOAP-ENV</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.xmlsoap.org/soap/envelope/<span class="pl-pds">"</span></span>
@@ -1310,7 +1310,7 @@ Table 2. WSDL elements for X-Road services</p>
         &lt;/<span class="pl-ent">ns1</span><span class="pl-ent">:</span><span class="pl-ent">exampleServiceResponse</span>&gt;
     &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
 &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>&gt;</pre></div>
-<h2><a id="annex-f-example-request-with-attachment" class="anchor" aria-hidden="true" tabindex="-1" href="#annex-f-example-request-with-attachment"><span aria-hidden="true" class="octicon octicon-link"></span></a>Annex F Example Request with Attachment</h2>
+<div class="markdown-heading"><h2 class="heading-element">Annex F Example Request with Attachment</h2><a id="annex-f-example-request-with-attachment" class="anchor-element" aria-label="Permalink: Annex F Example Request with Attachment" href="#annex-f-example-request-with-attachment"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <div class="highlight highlight-text-xml"><pre>.. other transport headers ...
 Content-Type: multipart/related; type="text/xml"; start="&lt;<span class="pl-ent">rootpart</span>&gt;"; boundary="MIME_boundary"
 MIME-Version: 1.0
@@ -1362,7 +1362,7 @@ Content-Disposition: attachment; name="data.bin"; filename="data.bin"
 
 VGhpcyBpcyBhdHRhY2htZW50Lg0K
 --MIME_boundary--</pre></div>
-<h2><a id="annex-g-example-request-with-mtom-attachment" class="anchor" aria-hidden="true" tabindex="-1" href="#annex-g-example-request-with-mtom-attachment"><span aria-hidden="true" class="octicon octicon-link"></span></a>Annex G Example Request with MTOM Attachment</h2>
+<div class="markdown-heading"><h2 class="heading-element">Annex G Example Request with MTOM Attachment</h2><a id="annex-g-example-request-with-mtom-attachment" class="anchor-element" aria-label="Permalink: Annex G Example Request with MTOM Attachment" href="#annex-g-example-request-with-mtom-attachment"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <div class="highlight highlight-text-xml"><pre>... other transport headers ... The following HTTP header is wrapped for readability:
 Content-Type: multipart/related; type="application/xop+xml"; start="&lt;<span class="pl-ent">rootpart</span>&gt;";
     start-info="text/xml"; boundary="MIME_boundary"
@@ -1418,7 +1418,7 @@ Content-Disposition: attachment; name="data.bin"; filename="data.bin"
 
 VGhpcyBpcyBhdHRhY2htZW50Lg0K
 --MIME_boundary--</pre></div>
-<h2><a id="annex-h-known-x-road-message-protocol-extensions" class="anchor" aria-hidden="true" tabindex="-1" href="#annex-h-known-x-road-message-protocol-extensions"><span aria-hidden="true" class="octicon octicon-link"></span></a>Annex H Known X-Road Message Protocol Extensions</h2>
+<div class="markdown-heading"><h2 class="heading-element">Annex H Known X-Road Message Protocol Extensions</h2><a id="annex-h-known-x-road-message-protocol-extensions" class="anchor-element" aria-label="Permalink: Annex H Known X-Road Message Protocol Extensions" href="#annex-h-known-x-road-message-protocol-extensions"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>The Security server targeting extension for the X-Road message protocol [<a href="#Ref_PR-TARGETSS">PR-TARGETSS</a>]
 allows the message to be targeted to a specific security server in a clustered environment where one service can be served
 from multiple security servers.</p>
