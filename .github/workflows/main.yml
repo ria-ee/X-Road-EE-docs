@@ -25,7 +25,6 @@ jobs:
           echo "$(date +'%Y-%m-%dT%H:%M:%S')" >> audit.txt
           git add .
           git commit -m "${GITHUB_REF##*/}"
-          git merge main
           git push
 
 
