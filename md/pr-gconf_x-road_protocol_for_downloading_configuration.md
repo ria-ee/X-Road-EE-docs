@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # X-Road: Protocol for Downloading Configuration
 
 **Technical Specification**
@@ -1568,3 +1569,5 @@ Changes in version 3:
   </complexType>
 </schema>
 ```
+=======
+>>>>>>> main

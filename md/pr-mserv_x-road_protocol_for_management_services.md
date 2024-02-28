@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # X-Road: Protocol for Management Services <!-- omit in toc -->
 
 **Technical Specification**
@@ -1687,3 +1688,5 @@ Response message
     </wsdl:service>
 </wsdl:definitions>
 ```
+=======
+>>>>>>> main

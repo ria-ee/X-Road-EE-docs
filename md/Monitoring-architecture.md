@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # X-Road: Environmental Monitoring Architecture
 
 Version: 1.10  
@@ -413,3 +414,5 @@ JMX API, in case port and network access is enabled, will provide monitoring dat
 Request for monitor data can be set for limiting optional parts by changing env-monitor.limit-remote-data-set parameter. By limiting data set environmental monitoring will return only proxyVersion, OperatingSystem and Certificate information. 
 
 If request parameters are used and flag is set for limiting, response will include proxyVersion, name and OperatingSystem and/or Certificate information if they are in parameter list and nothing else.
+=======
+>>>>>>> main
