@@ -24,7 +24,8 @@ jobs:
           git config user.email github-actions@github.com
           echo "$(date +'%Y-%m-%dT%H:%M:%S')" >> audit.txt
           git add .
-          git commit -m "test_${GITHUB_REF##*/}"
+          git commit -m "${GITHUB_REF##*/}"
+          git merge main
           git push
 
 
