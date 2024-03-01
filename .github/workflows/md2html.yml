@@ -8,16 +8,31 @@ jobs:
     steps:
       - run: git config --global core.autocrlf false
       - uses: actions/checkout@v4
-      - name: Download new files from NIIS
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.12"
+      - name: Convert md files to html pages
         run: |
           cd automatics
           chmod +x md2html.py
-          ./md2html.py $(cat version.txt)
+          ./md2html.py
+
+      - name: Change version number in docs index file
+        run: |
+          cd docs
+          sed -i "s@$(cat prev_version.txt)@$(cat version.txt)@g" index.html
+          
+      - name: Change version number in general index file
+        run: |
+          cd automatics
+          sed -i "s@$(cat prev_version.txt)@$(cat version.txt)@g" index.html
           
       - name: Push changes to the repo
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
+          echo "$(date +'%Y-%m-%dT%H:%M:%S')" >> audit.txt
           git add .
           git commit -m "test_${GITHUB_REF##*/}"
           git push
