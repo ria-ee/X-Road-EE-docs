@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # X-Road: Protocol for Downloading Configuration
 
 **Technical Specification**
@@ -91,7 +90,7 @@ See X-Road terms and abbreviations documentation \[[TA-TERMS](#Ref_TERMS)\].
 - [MPREL] The MIME Multipart/Related Content-type, Internet Engineering Task Force, 1998.
 - [XMLDSIG] XML Signature Syntax and Processing Version 2.0, 2013.
 - [ISO8601] Data Elements and Interchange Formats – Information Interchange – Representation of Dates and Times, International Organization for Standardization, 2004.
-- <a id="Ref_TERMS" class="anchor"></a>\[TA-TERMS\] X-Road Terms and Abbreviations. Document ID: [TA-TERMS](terms_x-road_docs.md).
+- <a id="Ref_TERMS" class="anchor"></a>\[TA-TERMS\] X-Road Terms and Abbreviations. Document ID: [TA-TERMS](../terms_x-road_docs.md).
 
 ## 2 Protocol for Downloading Configuration
 
@@ -1569,5 +1568,3 @@ Changes in version 3:
   </complexType>
 </schema>
 ```
-=======
->>>>>>> main
