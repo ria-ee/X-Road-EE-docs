@@ -16,10 +16,10 @@
   </head>
   <body>
     <article class="markdown-body">
-<h1><a id="third-party-representation-extension-for-the-x-road-message-protocol" class="anchor" aria-hidden="true" tabindex="-1" href="#third-party-representation-extension-for-the-x-road-message-protocol"><span aria-hidden="true" class="octicon octicon-link"></span></a>Third Party Representation Extension for the X-Road Message Protocol</h1>
+<div class="markdown-heading"><h1 class="heading-element">Third Party Representation Extension for the X-Road Message Protocol</h1><a id="third-party-representation-extension-for-the-x-road-message-protocol" class="anchor-element" aria-label="Permalink: Third Party Representation Extension for the X-Road Message Protocol" href="#third-party-representation-extension-for-the-x-road-message-protocol"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Version: 1.1<br>
 Doc. ID: PR-THIRDPARTY</p>
-<h2><a id="version-history" class="anchor" aria-hidden="true" tabindex="-1" href="#version-history"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version history</h2>
+<div class="markdown-heading"><h2 class="heading-element">Version history</h2><a id="version-history" class="anchor-element" aria-label="Permalink: Version history" href="#version-history"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <table>
 <thead>
 <tr>
@@ -50,7 +50,7 @@ Doc. ID: PR-THIRDPARTY</p>
 </tr>
 </tbody>
 </table>
-<h2><a id="table-of-contents" class="anchor" aria-hidden="true" tabindex="-1" href="#table-of-contents"><span aria-hidden="true" class="octicon octicon-link"></span></a>Table of Contents</h2>
+<div class="markdown-heading"><h2 class="heading-element">Table of Contents</h2><a id="table-of-contents" class="anchor-element" aria-label="Permalink: Table of Contents" href="#table-of-contents"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 
 <ul>
 <li>
@@ -87,15 +87,15 @@ Doc. ID: PR-THIRDPARTY</p>
 </li>
 </ul>
 
-<h2><a id="license" class="anchor" aria-hidden="true" tabindex="-1" href="#license"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
+<div class="markdown-heading"><h2 class="heading-element">License</h2><a id="license" class="anchor-element" aria-label="Permalink: License" href="#license"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="nofollow">http://creativecommons.org/licenses/by-sa/3.0/</a>.</p>
-<h2><a id="1-introduction" class="anchor" aria-hidden="true" tabindex="-1" href="#1-introduction"><span aria-hidden="true" class="octicon octicon-link"></span></a>1 Introduction</h2>
+<div class="markdown-heading"><h2 class="heading-element">1 Introduction</h2><a id="1-introduction" class="anchor-element" aria-label="Permalink: 1 Introduction" href="#1-introduction"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This specification describes an extension to the X-Road Message Protocol 4.0 [<a href="#Ref_PR-MESS">PR-MESS</a>].</p>
 <p>The purpose of this extension is to allow sending of additional information to the X-Road service providers in case when service client represents third party while issuing a query. The query is initiated by a third party and the results are also forwarded to that third party, but the request itself is signed by service client.</p>
 <p>The described scenario can be used by MISP and other portals that offer X-Road services to various types of institutions. These institutions may not be X-Road members and even may not be eligible for becoming ones, but the service agreements between service providers and service clients may allow service clients to forward data received from X-Road services to these institutions.</p>
-<h3><a id="11-terms-and-abbreviations" class="anchor" aria-hidden="true" tabindex="-1" href="#11-terms-and-abbreviations"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.1 Terms and abbreviations</h3>
+<div class="markdown-heading"><h3 class="heading-element">1.1 Terms and abbreviations</h3><a id="11-terms-and-abbreviations" class="anchor-element" aria-label="Permalink: 1.1 Terms and abbreviations" href="#11-terms-and-abbreviations"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>See X-Road terms and abbreviations documentation [<a href="#Ref_TERMS">TA-TERMS</a>]</p>
-<h3><a id="12-references" class="anchor" aria-hidden="true" tabindex="-1" href="#12-references"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.2 References</h3>
+<div class="markdown-heading"><h3 class="heading-element">1.2 References</h3><a id="12-references" class="anchor-element" aria-label="Permalink: 1.2 References" href="#12-references"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <table>
 <thead>
 <tr>
@@ -116,9 +116,9 @@ Doc. ID: PR-THIRDPARTY</p>
 </tr>
 </tbody>
 </table>
-<h2><a id="2-format-of-messages" class="anchor" aria-hidden="true" tabindex="-1" href="#2-format-of-messages"><span aria-hidden="true" class="octicon octicon-link"></span></a>2 Format of Messages</h2>
+<div class="markdown-heading"><h2 class="heading-element">2 Format of Messages</h2><a id="2-format-of-messages" class="anchor-element" aria-label="Permalink: 2 Format of Messages" href="#2-format-of-messages"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This section describes XML-based data formats for expressing the represented parties. The data structures and elements defined in this section are in the namespace <code>http://x-road.eu/xsd/representation.xsd</code>. The schema file can be found at <a href="http://x-road.eu/xsd/representation.xsd" rel="nofollow"><code>http://x-road.eu/xsd/representation.xsd</code></a>. The XML Schema for this extension is also listed in the section <a href="#annex-a-xml-schema-for-representation">Annex A XML Schema for Representation</a>.</p>
-<h3><a id="21-schema-header" class="anchor" aria-hidden="true" tabindex="-1" href="#21-schema-header"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.1 Schema Header</h3>
+<div class="markdown-heading"><h3 class="heading-element">2.1 Schema Header</h3><a id="21-schema-header" class="anchor-element" aria-label="Permalink: 2.1 Schema Header" href="#21-schema-header"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>The following listing shows the header of the schema definition.</p>
 <div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
 &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">schema</span> <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">xs</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.w3.org/2001/XMLSchema<span class="pl-pds">"</span></span>
@@ -127,7 +127,7 @@ Doc. ID: PR-THIRDPARTY</p>
     <span class="pl-e">xmlns</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/representation.xsd<span class="pl-pds">"</span></span>&gt;
 
 &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">schema</span>&gt;</pre></div>
-<h3><a id="22-represented-parties" class="anchor" aria-hidden="true" tabindex="-1" href="#22-represented-parties"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.2 Represented Parties</h3>
+<div class="markdown-heading"><h3 class="heading-element">2.2 Represented Parties</h3><a id="22-represented-parties" class="anchor-element" aria-label="Permalink: 2.2 Represented Parties" href="#22-represented-parties"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>The <code>XRoadRepresentedPartyType</code> complex type is used to describe represented parties. It consists of two elements: <code>partyClass</code> and <code>partyCode</code>. The <code>partyCode</code> element is mandatory and the <code>partyClass</code> element is optional.</p>
 <div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>XRoadRepresentedPartyType<span class="pl-pds">"</span></span>&gt;
     &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
@@ -141,7 +141,7 @@ Doc. ID: PR-THIRDPARTY</p>
 &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>partyCode<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>xs:string<span class="pl-pds">"</span></span>/&gt;</pre></div>
 <p>Finally, the <code>representedParty</code> element is defined.</p>
 <div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>representedParty<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>XRoadRepresentedPartyType<span class="pl-pds">"</span></span>/&gt;</pre></div>
-<h3><a id="23-message-headers" class="anchor" aria-hidden="true" tabindex="-1" href="#23-message-headers"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3 Message Headers</h3>
+<div class="markdown-heading"><h3 class="heading-element">2.3 Message Headers</h3><a id="23-message-headers" class="anchor-element" aria-label="Permalink: 2.3 Message Headers" href="#23-message-headers"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This section describes the additional SOAP headers that are added by this extension. The header fields are described in <a href="#Ref_Supported_header_fields">Table 1</a>.</p>
 <p><a name="Ref_Supported_header_fields"></a>
 Table 1. Supported header fields</p>
@@ -163,7 +163,7 @@ Table 1. Supported header fields</p>
 </tr>
 </tbody>
 </table>
-<h2><a id="annex-a-xml-schema-for-representation" class="anchor" aria-hidden="true" tabindex="-1" href="#annex-a-xml-schema-for-representation"><span aria-hidden="true" class="octicon octicon-link"></span></a>Annex A XML Schema for Representation</h2>
+<div class="markdown-heading"><h2 class="heading-element">Annex A XML Schema for Representation</h2><a id="annex-a-xml-schema-for-representation" class="anchor-element" aria-label="Permalink: Annex A XML Schema for Representation" href="#annex-a-xml-schema-for-representation"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
 &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">schema</span> <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">xs</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.w3.org/2001/XMLSchema<span class="pl-pds">"</span></span> <span class="pl-e">elementFormDefault</span>=<span class="pl-s"><span class="pl-pds">"</span>qualified<span class="pl-pds">"</span></span> <span class="pl-e">targetNamespace</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/representation.xsd<span class="pl-pds">"</span></span> 
     <span class="pl-e">xmlns</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/representation.xsd<span class="pl-pds">"</span></span>&gt;
@@ -190,7 +190,7 @@ represented in a service request.&lt;/<span class="pl-ent">xs</span><span class=
         &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">annotation</span>&gt;
     &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span>&gt;
 &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">schema</span>&gt;</pre></div>
-<h2><a id="annex-b-example-wsdl" class="anchor" aria-hidden="true" tabindex="-1" href="#annex-b-example-wsdl"><span aria-hidden="true" class="octicon octicon-link"></span></a>Annex B Example WSDL</h2>
+<div class="markdown-heading"><h2 class="heading-element">Annex B Example WSDL</h2><a id="annex-b-example-wsdl" class="anchor-element" aria-label="Permalink: Annex B Example WSDL" href="#annex-b-example-wsdl"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
 &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">definitions</span> <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">soap</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.xmlsoap.org/wsdl/soap/<span class="pl-pds">"</span></span> 
     <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">xrd</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span> 
@@ -306,8 +306,8 @@ only up to 1000 random numbers.&lt;/<span class="pl-ent">xrd</span><span class="
 &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">port</span>&gt;
     &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">service</span>&gt;
 &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">definitions</span>&gt;</pre></div>
-<h2><a id="annex-c-example-messages" class="anchor" aria-hidden="true" tabindex="-1" href="#annex-c-example-messages"><span aria-hidden="true" class="octicon octicon-link"></span></a>Annex C Example Messages</h2>
-<h3><a id="c1-example-request" class="anchor" aria-hidden="true" tabindex="-1" href="#c1-example-request"><span aria-hidden="true" class="octicon octicon-link"></span></a>C.1 Example Request</h3>
+<div class="markdown-heading"><h2 class="heading-element">Annex C Example Messages</h2><a id="annex-c-example-messages" class="anchor-element" aria-label="Permalink: Annex C Example Messages" href="#annex-c-example-messages"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h3 class="heading-element">C.1 Example Request</h3><a id="c1-example-request" class="anchor-element" aria-label="Permalink: C.1 Example Request" href="#c1-example-request"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
 &lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span> <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">SOAP-ENV</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.xmlsoap.org/soap/envelope/<span class="pl-pds">"</span></span> 
     <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">xrd</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span> 
@@ -342,7 +342,7 @@ only up to 1000 random numbers.&lt;/<span class="pl-ent">xrd</span><span class="
         &lt;/<span class="pl-ent">ns1</span><span class="pl-ent">:</span><span class="pl-ent">getRandom</span>&gt;
     &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
 &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>&gt;</pre></div>
-<h3><a id="c1-example-response" class="anchor" aria-hidden="true" tabindex="-1" href="#c1-example-response"><span aria-hidden="true" class="octicon octicon-link"></span></a>C.1 Example Response</h3>
+<div class="markdown-heading"><h3 class="heading-element">C.1 Example Response</h3><a id="c1-example-response" class="anchor-element" aria-label="Permalink: C.1 Example Response" href="#c1-example-response"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
 &lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span> <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">SOAP-ENV</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.xmlsoap.org/soap/envelope/<span class="pl-pds">"</span></span> 
     <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">xrd</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span> 

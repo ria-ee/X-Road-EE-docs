@@ -16,10 +16,10 @@
   </head>
   <body>
     <article class="markdown-body">
-<h1><a id="security-server-cluster-setup" class="anchor" aria-hidden="true" tabindex="-1" href="#security-server-cluster-setup"><span aria-hidden="true" class="octicon octicon-link"></span></a>Security server cluster setup</h1>
+<div class="markdown-heading"><h1 class="heading-element">Security server cluster setup</h1><a id="security-server-cluster-setup" class="anchor-element" aria-label="Permalink: Security server cluster setup" href="#security-server-cluster-setup"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This ansible playbook configures a master (1) - replica (n) security server cluster. In addition, setting up a load balancer (out of scope) is needed.</p>
 <p>The playbook has been tested in AWS EC2 using stock RHEL 7, Ubuntu 20.04 and Ubuntu 22.04 AMIs running default X-Road security server installation. Other environments might require modifications to the playbook.</p>
-<h2><a id="prerequisites" class="anchor" aria-hidden="true" tabindex="-1" href="#prerequisites"><span aria-hidden="true" class="octicon octicon-link"></span></a>Prerequisites</h2>
+<div class="markdown-heading"><h2 class="heading-element">Prerequisites</h2><a id="prerequisites" class="anchor-element" aria-label="Permalink: Prerequisites" href="#prerequisites"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <ul>
 <li>One security server that acts as primary</li>
 <li>One or more replica security servers.</li>
@@ -50,7 +50,7 @@
 </li>
 </ul>
 <p>All the servers in a cluster should have the same operating system (Ubuntu 20.04, Ubuntu 22.04 or RHEL 7). The setup also assumes that the servers are in the same subnet. If that is not the case, one needs to modify primary's pg_hba.nconf so that it accepts replication configurations from the correct network(s).</p>
-<h2><a id="set-up-ssl-keys-certificates-for-postgresql-replication-connections" class="anchor" aria-hidden="true" tabindex="-1" href="#set-up-ssl-keys-certificates-for-postgresql-replication-connections"><span aria-hidden="true" class="octicon octicon-link"></span></a>Set up SSL keys certificates for PostgreSQL replication connections</h2>
+<div class="markdown-heading"><h2 class="heading-element">Set up SSL keys certificates for PostgreSQL replication connections</h2><a id="set-up-ssl-keys-certificates-for-postgresql-replication-connections" class="anchor-element" aria-label="Permalink: Set up SSL keys certificates for PostgreSQL replication connections" href="#set-up-ssl-keys-certificates-for-postgresql-replication-connections"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Create a CA certificate and store it in PEM format as ca.crt in the "ca" folder. Create TLS key and certificate (PEM) signed by the CA for each node and store those as ca/"nodename"/server.key and ca/"nodename"/server.crt. The server keys must not have a passphrase, but one can and should use ansible-vault to protect
 the keys.</p>
 <p>Note that the common name (CN) part of the certificate subject's DN must be the <em>nodename</em> defined in the host inventory file.</p>
@@ -59,7 +59,7 @@ the keys.</p>
 <li>init.sh creates a CA key and self-signed certificate.</li>
 <li>add-node.sh creates a key and a certificate signed by the CA.</li>
 </ul>
-<h2><a id="running-the-playbook" class="anchor" aria-hidden="true" tabindex="-1" href="#running-the-playbook"><span aria-hidden="true" class="octicon octicon-link"></span></a>Running the playbook</h2>
+<div class="markdown-heading"><h2 class="heading-element">Running the playbook</h2><a id="running-the-playbook" class="anchor-element" aria-label="Permalink: Running the playbook" href="#running-the-playbook"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Remember to back up the servers before proceeding.</p>
 <pre><code>ansible-playbook --ask-vault-pass -i hosts/example.txt xroad_ss_cluster.yml
 </code></pre>

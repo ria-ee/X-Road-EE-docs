@@ -16,7 +16,7 @@
   </head>
   <body>
     <article class="markdown-body">
-<h1><a id="x-road-protocol-for-downloading-configuration" class="anchor" aria-hidden="true" tabindex="-1" href="#x-road-protocol-for-downloading-configuration"><span aria-hidden="true" class="octicon octicon-link"></span></a>X-Road: Protocol for Downloading Configuration</h1>
+<div class="markdown-heading"><h1 class="heading-element">X-Road: Protocol for Downloading Configuration</h1><a id="x-road-protocol-for-downloading-configuration" class="anchor-element" aria-label="Permalink: X-Road: Protocol for Downloading Configuration" href="#x-road-protocol-for-downloading-configuration"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>Technical Specification</strong></p>
 <p>Version: 2.9<br>
 Doc. ID: PR-GCONF</p>
@@ -98,7 +98,7 @@ Doc. ID: PR-GCONF</p>
 </tr>
 </tbody>
 </table>
-<h2><a id="table-of-contents" class="anchor" aria-hidden="true" tabindex="-1" href="#table-of-contents"><span aria-hidden="true" class="octicon octicon-link"></span></a>Table of Contents</h2>
+<div class="markdown-heading"><h2 class="heading-element">Table of Contents</h2><a id="table-of-contents" class="anchor-element" aria-label="Permalink: Table of Contents" href="#table-of-contents"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 
 <ul>
 <li><a href="#license">License</a></li>
@@ -156,20 +156,20 @@ Doc. ID: PR-GCONF</p>
 <li><a href="#annex-g-ocsp-fetchinterval-confxsd">Annex G. ocsp-fetchinterval-conf.xsd</a></li>
 </ul>
 
-<h2><a id="license" class="anchor" aria-hidden="true" tabindex="-1" href="#license"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
+<div class="markdown-heading"><h2 class="heading-element">License</h2><a id="license" class="anchor-element" aria-label="Permalink: License" href="#license"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This document is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="nofollow">http://creativecommons.org/licenses/by-sa/3.0/</a>.</p>
-<h2><a id="1-introduction" class="anchor" aria-hidden="true" tabindex="-1" href="#1-introduction"><span aria-hidden="true" class="octicon octicon-link"></span></a>1 Introduction</h2>
+<div class="markdown-heading"><h2 class="heading-element">1 Introduction</h2><a id="1-introduction" class="anchor-element" aria-label="Permalink: 1 Introduction" href="#1-introduction"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This specification describes protocol that is used to distribute configuration to security servers of an X-Road installation. Additionally, the same protocol is used to distribute configuration between two federated X-Road instances.</p>
 <p>This protocol is based on HTTP and MIME protocols and supports refreshing the configuration meta-info without having to download the actual configuration files. The configuration parameters are distributed in XML format and described using XML Schema [XMLSCM1], [XMLSCM2].</p>
 <p>This protocol builds on existing transport and message encoding mechanisms. Therefore, this specification does not cover the technical details and error conditions related to downloading information over HTTP and decoding MIME messages. These concerns are discussed in detail in their respective standards.</p>
 <p>The chapter <a href="#2-protocol-for-downloading-configuration">2 Protocol for Downloading Configuration</a> as well as appendices <a href="#annex-b-shared-parametersxsd">Annex B</a>, <a href="#annex-c-private-parametersxsd">Annex C</a> and <a href="#annex-e-configuration-anchorxsd">Annex E</a> of this specification contain normative information. All the other sections are informative in nature. All the references are normative.</p>
 <p>This specification does not include option for partially implementing the protocol – the conformant implementation must implement the entire specification.</p>
 <p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document (in uppercase, as shown) are to be interpreted as described in [RFC2119].</p>
-<h3><a id="11-terms-and-abbreviations" class="anchor" aria-hidden="true" tabindex="-1" href="#11-terms-and-abbreviations"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.1 Terms and Abbreviations</h3>
+<div class="markdown-heading"><h3 class="heading-element">1.1 Terms and Abbreviations</h3><a id="11-terms-and-abbreviations" class="anchor-element" aria-label="Permalink: 1.1 Terms and Abbreviations" href="#11-terms-and-abbreviations"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>The following figure contains a class diagram that illustrates important concepts used in this specification.</p>
 <p><a target="_blank" rel="noopener noreferrer" href="img/pr-gconf-concepts.png"><img src="img/pr-gconf-concepts.png" alt="" style="max-width: 100%;"></a></p>
 <p>See X-Road terms and abbreviations documentation [<a href="#Ref_TERMS">TA-TERMS</a>].</p>
-<h3><a id="12-references" class="anchor" aria-hidden="true" tabindex="-1" href="#12-references"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.2 References</h3>
+<div class="markdown-heading"><h3 class="heading-element">1.2 References</h3><a id="12-references" class="anchor-element" aria-label="Permalink: 1.2 References" href="#12-references"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <ul>
 <li>[XMLSCM1] XML Schema Part 1: Structures Second Edition, 2004.</li>
 <li>[XMLSCM2] XML Schema Part 2: Datatypes Second Edition, 2004.</li>
@@ -181,11 +181,11 @@ Doc. ID: PR-GCONF</p>
 <li>
 <a id="Ref_TERMS"></a>[TA-TERMS] X-Road Terms and Abbreviations. Document ID: <a href="terms_x-road_docs.html">TA-TERMS</a>.</li>
 </ul>
-<h2><a id="2-protocol-for-downloading-configuration" class="anchor" aria-hidden="true" tabindex="-1" href="#2-protocol-for-downloading-configuration"><span aria-hidden="true" class="octicon octicon-link"></span></a>2 Protocol for Downloading Configuration</h2>
-<h3><a id="21-general" class="anchor" aria-hidden="true" tabindex="-1" href="#21-general"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.1 General</h3>
+<div class="markdown-heading"><h2 class="heading-element">2 Protocol for Downloading Configuration</h2><a id="2-protocol-for-downloading-configuration" class="anchor-element" aria-label="Permalink: 2 Protocol for Downloading Configuration" href="#2-protocol-for-downloading-configuration"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h3 class="heading-element">2.1 General</h3><a id="21-general" class="anchor-element" aria-label="Permalink: 2.1 General" href="#21-general"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Configuration clients download configuration using HTTP protocol (HTTP GET). Configuration source signs the configuration to protect it against modification. The configuration clients receive (via out of band means) configuration anchor containing information needed to successfully download and verify the configuration.</p>
 <p>The configuration consists of a signed directory that references individual configuration parts. The signature has expiry date and thus the signed directory must be continuously refreshed by the configuration client. The clients can use the hash values contained in the directory to download the referenced configuration parts only when they are changed.</p>
-<h3><a id="22-format-of-configuration-anchor" class="anchor" aria-hidden="true" tabindex="-1" href="#22-format-of-configuration-anchor"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.2 Format of Configuration Anchor</h3>
+<div class="markdown-heading"><h3 class="heading-element">2.2 Format of Configuration Anchor</h3><a id="22-format-of-configuration-anchor" class="anchor-element" aria-label="Permalink: 2.2 Format of Configuration Anchor" href="#22-format-of-configuration-anchor"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Configuration anchor is used to distribute information about configuration sources to configuration clients. Because configuration anchor is used to verify authenticity of the downloaded configuration, it must be protected against modification. Example means are digitally signing the file or distributing the fingerprint of the file to the client in person.</p>
 <p>The configuration anchor is stored in an XML file containing a <em>configurationAnchor</em> element defined in Annex E . It contains the following fields:</p>
 <ul>
@@ -205,7 +205,7 @@ The certificate is only used as a container for the public key. The configuratio
 </li>
 </ul>
 <p>Annex  A.2 contains an example configuration anchor file.</p>
-<h3><a id="23-format-of-signed-configuration" class="anchor" aria-hidden="true" tabindex="-1" href="#23-format-of-signed-configuration"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3 Format of Signed Configuration</h3>
+<div class="markdown-heading"><h3 class="heading-element">2.3 Format of Signed Configuration</h3><a id="23-format-of-signed-configuration" class="anchor-element" aria-label="Permalink: 2.3 Format of Signed Configuration" href="#23-format-of-signed-configuration"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Configuration client can download the configuration by making HTTP GET request to the configuration source. The content type of the response is <em>multipart/related</em> [MPREL]. The response is a MIME multipart that MUST consist of two parts:</p>
 <ol>
 <li>Directory of configuration files. The directory is a nested MIME multipart. The format of this directory is specified in <a href="#2-4-format-of-directory">2.4</a>
@@ -224,7 +224,7 @@ The certificate is only used as a container for the public key. The configuratio
 <em>Verification-certificate-hash</em> – the hash of the certificate that was used to sign this configuration. The value of the header MUST also include parameter <em>hash-algorithm-id</em> whose value is the hash algorithm identifier used to calculate the verification certificate hash.</li>
 </ul>
 <p>The body of the signature part MUST be the value of the signature calculated using the signature algorithm identified in the <em>Signature-algorithm-id</em> header.</p>
-<h3><a id="24-format-of-directory" class="anchor" aria-hidden="true" tabindex="-1" href="#24-format-of-directory"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.4 Format of Directory</h3>
+<div class="markdown-heading"><h3 class="heading-element">2.4 Format of Directory</h3><a id="24-format-of-directory" class="anchor-element" aria-label="Permalink: 2.4 Format of Directory" href="#24-format-of-directory"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>The first entry in the directory MUST be a header-only entry with the header <em>Expire-date</em> that contains date and UTC time in ISO 8601 format [ISO8601]. This header specifies the end of validity time of the directory – after the validity time has passed, the configuration client MUST consider the configuration as invalid and should attempt to download fresh configuration. In addition, the header-only entry SHOULD include the header <em>Version</em> which identifies the version of the configuration (section <a href="#27-versioning">2.7</a>).</p>
 <p>The directory contains references to the individual configuration files. In addition to download URI, each directory item contains hash of the file that can be used to verify integrity of the downloaded file.</p>
 <p>The directory is a MIME multipart (content type is <em>multipart/mixed</em>) where each part represents one configuration file. Each part MUST have the following MIME headers:</p>
@@ -247,7 +247,7 @@ The certificate is only used as a container for the public key. The configuratio
 </ul>
 <p>The content of a directory part MUST be digest of the configuration part. The digest algorithm is specified in the <em>Hash-algorithm-id</em> MIME header. The input to the digest calculation is body of the file that can be downloaded from the URL specified in the <em>Content-location</em> MIME header.</p>
 <p>Annex A.2 contains an example of a signed directory.</p>
-<h3><a id="25-list-of-content-identifiers" class="anchor" aria-hidden="true" tabindex="-1" href="#25-list-of-content-identifiers"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.5 List of Content Identifiers</h3>
+<div class="markdown-heading"><h3 class="heading-element">2.5 List of Content Identifiers</h3><a id="25-list-of-content-identifiers" class="anchor-element" aria-label="Permalink: 2.5 List of Content Identifiers" href="#25-list-of-content-identifiers"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This specification defines the following content identifiers. The X-Road implementations are free to define additional types of configuration parts that are distributed to configuration clients.</p>
 <ul>
 <li>
@@ -257,7 +257,7 @@ The certificate is only used as a container for the public key. The configuratio
 </ul>
 <p>In both of these cases, the implementation MUST include parameter <em>instance</em> whose value is the identifier for X-Road instance described by the configuration part. For example:</p>
 <p>Content-Identifier: SHARED-PARAMETERS; instance="EE"</p>
-<h3><a id="26-downloading-and-verifying-the-configuration" class="anchor" aria-hidden="true" tabindex="-1" href="#26-downloading-and-verifying-the-configuration"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.6 Downloading and Verifying the Configuration</h3>
+<div class="markdown-heading"><h3 class="heading-element">2.6 Downloading and Verifying the Configuration</h3><a id="26-downloading-and-verifying-the-configuration" class="anchor-element" aria-label="Permalink: 2.6 Downloading and Verifying the Configuration" href="#26-downloading-and-verifying-the-configuration"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>A configuration client can download the configuration by making HTTP GET requests to the configuration source. To download and verify the entire configuration, the client can follow these steps.</p>
 <ol>
 <li>Parse the configuration anchor and read the download URI (pointing to the configuration directory) and the verification certificate.</li>
@@ -271,13 +271,13 @@ The certificate is only used as a container for the public key. The configuratio
 </li>
 <li>For each configuration anchor in the private parameters file, download and verify the configuration using this set of rules.</li>
 </ol>
-<h3><a id="27-versioning" class="anchor" aria-hidden="true" tabindex="-1" href="#27-versioning"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.7 Versioning</h3>
+<div class="markdown-heading"><h3 class="heading-element">2.7 Versioning</h3><a id="27-versioning" class="anchor-element" aria-label="Permalink: 2.7 Versioning" href="#27-versioning"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>The current version of the configuration is 2.</p>
 <p>Configuration source MAY support several versions of the configuration. The configuration client SHOULD signal the version it supports by appending a "version" query parameter in the download URI specified in the configuration anchor. The version number is an integer which is incremented when a backwards-incompatible change is made to the PRIVATE-PARAMETERS or SHARED-PARAMETERS configuration part.</p>
 <p>For backwards compatibility, the configuration source MAY return a default version of the configuration if the version query parameter is not present. The configuration source MUST respond with HTTP error code 404 (Not Found) if the client requests a version that is not available.</p>
-<h2><a id="3-deploying-the-protocol" class="anchor" aria-hidden="true" tabindex="-1" href="#3-deploying-the-protocol"><span aria-hidden="true" class="octicon octicon-link"></span></a>3 Deploying the Protocol</h2>
+<div class="markdown-heading"><h2 class="heading-element">3 Deploying the Protocol</h2><a id="3-deploying-the-protocol" class="anchor-element" aria-label="Permalink: 3 Deploying the Protocol" href="#3-deploying-the-protocol"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>The protocol described in the previous section can be deployed in various ways. In particular, the difference is how the Governing Authority distributes several configuration parts between configuration sources and how the configuration from the federated X-Road instances is distributed to the members.</p>
-<h3><a id="31-the-simplest-case" class="anchor" aria-hidden="true" tabindex="-1" href="#31-the-simplest-case"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.1 The Simplest Case</h3>
+<div class="markdown-heading"><h3 class="heading-element">3.1 The Simplest Case</h3><a id="31-the-simplest-case" class="anchor-element" aria-label="Permalink: 3.1 The Simplest Case" href="#31-the-simplest-case"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This scenario involves a standalone X-Road instance that is not federated with any other X‑Road instances. In this case, the simplest configuration involves one configuration source that distributes all the necessary configuration.</p>
 <ul>
 <li>private parameters (content identifier <em>PRIVATE-PARAMETERS</em>)</li>
@@ -286,22 +286,22 @@ The certificate is only used as a container for the public key. The configuratio
 </ul>
 <p>Because the shared parameters are distributed in the main configuration, the private parameters part does not contain any additional configuration sources.</p>
 <p><a target="_blank" rel="noopener noreferrer" href="img/pr-gconf-single-configuration-source.png"><img src="img/pr-gconf-single-configuration-source.png" alt="X-Road installation with single configuration source" style="max-width: 100%;"></a></p>
-<h3><a id="32-detached-shared-parameters" class="anchor" aria-hidden="true" tabindex="-1" href="#32-detached-shared-parameters"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.2 Detached Shared Parameters</h3>
+<div class="markdown-heading"><h3 class="heading-element">3.2 Detached Shared Parameters</h3><a id="32-detached-shared-parameters" class="anchor-element" aria-label="Permalink: 3.2 Detached Shared Parameters" href="#32-detached-shared-parameters"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This scenario involves a standalone X-Road instance that uses different configuration sources for private and shared parameters.</p>
 <p>In this case the X-Road governing authority manages two configuration sources. The first source contains the private parameters and, optionally, other configuration parts that are specific to this X-Road instance. The second source contains shared parameters. The private parameters part contains anchor for the second configuration source. Figure below illustrates this situation.</p>
 <p><a target="_blank" rel="noopener noreferrer" href="img/pr-gconf-detached-shared-parameters.png"><img src="img/pr-gconf-detached-shared-parameters.png" alt="X-Road installation with detached shared parameters" style="max-width: 100%;"></a></p>
 <p>Compared to the simplest case, the configuration authority must maintain two separate configuration sources. Additionally, the configuration clients must make additional HTTP requests to download the directory from <em>Source 2</em>. For a non-federated installation, this solution does not offer significant benefits, but it is a good starting point for building a federated X-Road infrastructure.</p>
-<h3><a id="33-simple-federated-installation" class="anchor" aria-hidden="true" tabindex="-1" href="#33-simple-federated-installation"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.3 Simple Federated Installation</h3>
+<div class="markdown-heading"><h3 class="heading-element">3.3 Simple Federated Installation</h3><a id="33-simple-federated-installation" class="anchor-element" aria-label="Permalink: 3.3 Simple Federated Installation" href="#33-simple-federated-installation"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This scenario involves two federated X-Road installations. Both installations are set up according to "Detached Shared Parameters". Figure below describes the setup. Both X-Road installations maintain two configuration sources, one for private parameters, the other one for shared parameters. For both installations, the private parameters part contains configuration anchors for both of the sources that distribute shared parameters.</p>
 <p><a target="_blank" rel="noopener noreferrer" href="img/pr-gconf-simple-federated-installation.png"><img src="img/pr-gconf-simple-federated-installation.png" alt="Two federated X-Road installations" style="max-width: 100%;"></a></p>
 <p>Members of the X-Road installations are initialized with configuration anchor pointing to private configuration source of their governing installation. This source is then used to download private parameters that contains configuration anchors for the sources that distribute shared parameters.</p>
-<h3><a id="34-federated-installation-with-proxies" class="anchor" aria-hidden="true" tabindex="-1" href="#34-federated-installation-with-proxies"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.4 Federated Installation with Proxies</h3>
+<div class="markdown-heading"><h3 class="heading-element">3.4 Federated Installation with Proxies</h3><a id="34-federated-installation-with-proxies" class="anchor-element" aria-label="Permalink: 3.4 Federated Installation with Proxies" href="#34-federated-installation-with-proxies"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Scenario from the simple federated installation can be further developed by using configuration proxies. The figure below shows a setup where one X-Road installation uses proxies to cache both the incoming and outgoing shared parameters. Proxy is configured with a configuration anchor and it downloads and caches configuration from the source described by the anchor. Additionally, proxy acts as a configuration source and allows clients to download the cached configuration.</p>
 <p><a target="_blank" rel="noopener noreferrer" href="img/pr-gconf-federated-installation-with-proxies.png"><img src="img/pr-gconf-federated-installation-with-proxies.png" alt="Two federated X-Road installations with configuration proxies" style="max-width: 100%;"></a></p>
 <p>Instead of direct references from private parameters of one installation to shared configuration source of the other installation, the X-Road installation 2 sets up two proxies. Proxy 1 downloads shared parameters of X-Road installation 2 and redistributes them to other X-Road installations. Proxy 2 downloads shared parameters of another X-Road installation (1 in this example) and distributes them to members of X-Road installation 2.</p>
 <p>In this setup, the X-Road 2 has complete control over configuration that is exchanged with other X-Road installations – both incoming and outgoing. Using a proxy can improve availability of the shared parameters and reduce load on shared configuration sources of both X-Road installations. In addition, the proxies can transform the configuration, e.g. by filtering out some member classes. However, the filtering should be declared in the federation agreement to avoid any confusion among the members of the federated X-Road installations.</p>
-<h2><a id="annex-a-examples" class="anchor" aria-hidden="true" tabindex="-1" href="#annex-a-examples"><span aria-hidden="true" class="octicon octicon-link"></span></a>Annex A. Examples</h2>
-<h3><a id="a1-example-of-configuration-anchor" class="anchor" aria-hidden="true" tabindex="-1" href="#a1-example-of-configuration-anchor"><span aria-hidden="true" class="octicon octicon-link"></span></a>A.1 Example of Configuration Anchor</h3>
+<div class="markdown-heading"><h2 class="heading-element">Annex A. Examples</h2><a id="annex-a-examples" class="anchor-element" aria-label="Permalink: Annex A. Examples" href="#annex-a-examples"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h3 class="heading-element">A.1 Example of Configuration Anchor</h3><a id="a1-example-of-configuration-anchor" class="anchor-element" aria-label="Permalink: A.1 Example of Configuration Anchor" href="#a1-example-of-configuration-anchor"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
 &lt;<span class="pl-ent">tns</span><span class="pl-ent">:</span><span class="pl-ent">configurationAnchor</span> <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">tns</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>&gt;
     &lt;<span class="pl-ent">generatedAt</span>&gt;2014-05-20T16:42:55Z&lt;<span class="pl-ent">generatedAt</span>&gt;
@@ -311,7 +311,7 @@ The certificate is only used as a container for the public key. The configuratio
         &lt;<span class="pl-ent">verificationCert</span>&gt;ZGVmYXVsdA==&lt;/<span class="pl-ent">verificationCert</span>&gt;
     &lt;/<span class="pl-ent">source</span>&gt;
 &lt;/<span class="pl-ent">tns</span><span class="pl-ent">:</span><span class="pl-ent">configurationAnchor</span>&gt;</pre></div>
-<h3><a id="a2-example-of-signed-directory" class="anchor" aria-hidden="true" tabindex="-1" href="#a2-example-of-signed-directory"><span aria-hidden="true" class="octicon octicon-link"></span></a>A.2 Example of Signed Directory</h3>
+<div class="markdown-heading"><h3 class="heading-element">A.2 Example of Signed Directory</h3><a id="a2-example-of-signed-directory" class="anchor-element" aria-label="Permalink: A.2 Example of Signed Directory" href="#a2-example-of-signed-directory"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This example directory contains two parts. The first part contains private parameters and the second part contains shared parameters.</p>
 <div class="highlight highlight-source-httpspec"><pre><span class="pl-s"><span class="pl-v">Content-Type:</span> multipart/related; charset=UTF-8; boundary=envelopeboundary</span>
 
@@ -347,8 +347,8 @@ The certificate is only used as a container for the public key. The configuratio
 
 <span class="pl-ii">D1XfU3UXTFxS8s8iVW9+ePJhcuYTgpN4+Ze4oZgjbt...=</span>
 <span class="pl-ii">--envelopeboundary--</span></pre></div>
-<h2><a id="annex-b-shared-parametersxsd" class="anchor" aria-hidden="true" tabindex="-1" href="#annex-b-shared-parametersxsd"><span aria-hidden="true" class="octicon octicon-link"></span></a>Annex B. shared-parameters.xsd</h2>
-<h3><a id="version-2" class="anchor" aria-hidden="true" tabindex="-1" href="#version-2"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version 2</h3>
+<div class="markdown-heading"><h2 class="heading-element">Annex B. shared-parameters.xsd</h2><a id="annex-b-shared-parametersxsd" class="anchor-element" aria-label="Permalink: Annex B. shared-parameters.xsd" href="#annex-b-shared-parametersxsd"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h3 class="heading-element">Version 2</h3><a id="version-2" class="anchor-element" aria-label="Permalink: Version 2" href="#version-2"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
 &lt;<span class="pl-ent">schema</span> <span class="pl-e">xmlns</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.w3.org/2001/XMLSchema<span class="pl-pds">"</span></span>
     <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">tns</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>
@@ -722,8 +722,8 @@ The certificate is only used as a container for the public key. The configuratio
         &lt;/<span class="pl-ent">sequence</span>&gt;
     &lt;/<span class="pl-ent">complexType</span>&gt;
 &lt;/<span class="pl-ent">schema</span>&gt;</pre></div>
-<h2><a id="annex-c-private-parametersxsd" class="anchor" aria-hidden="true" tabindex="-1" href="#annex-c-private-parametersxsd"><span aria-hidden="true" class="octicon octicon-link"></span></a>Annex C. private-parameters.xsd</h2>
-<h3><a id="version-2-1" class="anchor" aria-hidden="true" tabindex="-1" href="#version-2-1"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version 2</h3>
+<div class="markdown-heading"><h2 class="heading-element">Annex C. private-parameters.xsd</h2><a id="annex-c-private-parametersxsd" class="anchor-element" aria-label="Permalink: Annex C. private-parameters.xsd" href="#annex-c-private-parametersxsd"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h3 class="heading-element">Version 2</h3><a id="version-2-1" class="anchor-element" aria-label="Permalink: Version 2" href="#version-2-1"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
 &lt;<span class="pl-ent">schema</span> <span class="pl-e">xmlns</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.w3.org/2001/XMLSchema<span class="pl-pds">"</span></span>
     <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">tns</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>
@@ -860,7 +860,7 @@ The certificate is only used as a container for the public key. The configuratio
         &lt;/<span class="pl-ent">sequence</span>&gt;
 	&lt;/<span class="pl-ent">complexType</span>&gt;
 &lt;/<span class="pl-ent">schema</span>&gt;</pre></div>
-<h2><a id="annex-d-monitoring-confxsd" class="anchor" aria-hidden="true" tabindex="-1" href="#annex-d-monitoring-confxsd"><span aria-hidden="true" class="octicon octicon-link"></span></a>Annex D. monitoring-conf.xsd</h2>
+<div class="markdown-heading"><h2 class="heading-element">Annex D. monitoring-conf.xsd</h2><a id="annex-d-monitoring-confxsd" class="anchor-element" aria-label="Permalink: Annex D. monitoring-conf.xsd" href="#annex-d-monitoring-confxsd"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
 &lt;<span class="pl-ent">schema</span> <span class="pl-e">xmlns</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.w3.org/2001/XMLSchema<span class="pl-pds">"</span></span>
         <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">tns</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>
@@ -904,7 +904,7 @@ The certificate is only used as a container for the public key. The configuratio
         &lt;/<span class="pl-ent">sequence</span>&gt;
     &lt;/<span class="pl-ent">complexType</span>&gt;
 &lt;/<span class="pl-ent">schema</span>&gt;</pre></div>
-<h2><a id="annex-e-configuration-anchorxsd" class="anchor" aria-hidden="true" tabindex="-1" href="#annex-e-configuration-anchorxsd"><span aria-hidden="true" class="octicon octicon-link"></span></a>Annex E. configuration-anchor.xsd</h2>
+<div class="markdown-heading"><h2 class="heading-element">Annex E. configuration-anchor.xsd</h2><a id="annex-e-configuration-anchorxsd" class="anchor-element" aria-label="Permalink: Annex E. configuration-anchor.xsd" href="#annex-e-configuration-anchorxsd"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
 &lt;<span class="pl-ent">schema</span> <span class="pl-e">xmlns</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.w3.org/2001/XMLSchema<span class="pl-pds">"</span></span>
     <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">tns</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>
@@ -962,7 +962,7 @@ The certificate is only used as a container for the public key. The configuratio
         &lt;/<span class="pl-ent">sequence</span>&gt;
 	&lt;/<span class="pl-ent">complexType</span>&gt;
 &lt;/<span class="pl-ent">schema</span>&gt;</pre></div>
-<h2><a id="annex-f-ocsp-nextupdate-confxsd" class="anchor" aria-hidden="true" tabindex="-1" href="#annex-f-ocsp-nextupdate-confxsd"><span aria-hidden="true" class="octicon octicon-link"></span></a>Annex F. ocsp-nextupdate-conf.xsd</h2>
+<div class="markdown-heading"><h2 class="heading-element">Annex F. ocsp-nextupdate-conf.xsd</h2><a id="annex-f-ocsp-nextupdate-confxsd" class="anchor-element" aria-label="Permalink: Annex F. ocsp-nextupdate-conf.xsd" href="#annex-f-ocsp-nextupdate-confxsd"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
 &lt;<span class="pl-ent">schema</span> <span class="pl-e">xmlns</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.w3.org/2001/XMLSchema<span class="pl-pds">"</span></span>
         <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">tns</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>
@@ -994,7 +994,7 @@ The certificate is only used as a container for the public key. The configuratio
     &lt;/<span class="pl-ent">sequence</span>&gt;
   &lt;/<span class="pl-ent">complexType</span>&gt;
 &lt;/<span class="pl-ent">schema</span>&gt;</pre></div>
-<h2><a id="annex-g-ocsp-fetchinterval-confxsd" class="anchor" aria-hidden="true" tabindex="-1" href="#annex-g-ocsp-fetchinterval-confxsd"><span aria-hidden="true" class="octicon octicon-link"></span></a>Annex G. ocsp-fetchinterval-conf.xsd</h2>
+<div class="markdown-heading"><h2 class="heading-element">Annex G. ocsp-fetchinterval-conf.xsd</h2><a id="annex-g-ocsp-fetchinterval-confxsd" class="anchor-element" aria-label="Permalink: Annex G. ocsp-fetchinterval-conf.xsd" href="#annex-g-ocsp-fetchinterval-confxsd"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
 &lt;<span class="pl-ent">schema</span> <span class="pl-e">xmlns</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.w3.org/2001/XMLSchema<span class="pl-pds">"</span></span>
         <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">tns</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>

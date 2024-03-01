@@ -16,12 +16,12 @@
   </head>
   <body>
     <article class="markdown-body">
-<h1><a id="signed-document-download-and-verification-manual" class="anchor" aria-hidden="true" tabindex="-1" href="#signed-document-download-and-verification-manual"><span aria-hidden="true" class="octicon octicon-link"></span></a>Signed Document Download and Verification Manual</h1>
+<div class="markdown-heading"><h1 class="heading-element">Signed Document Download and Verification Manual</h1><a id="signed-document-download-and-verification-manual" class="anchor-element" aria-label="Permalink: Signed Document Download and Verification Manual" href="#signed-document-download-and-verification-manual"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>X-ROAD 7</strong></p>
 <p>Version: 1.10<br>
 Doc. ID: UG-SIGDOC</p>
 <hr>
-<h2><a id="version-history" class="anchor" aria-hidden="true" tabindex="-1" href="#version-history"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version history</h2>
+<div class="markdown-heading"><h2 class="heading-element">Version history</h2><a id="version-history" class="anchor-element" aria-label="Permalink: Version history" href="#version-history"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <table>
 <thead>
 <tr>
@@ -118,7 +118,7 @@ Doc. ID: UG-SIGDOC</p>
 </tr>
 </tbody>
 </table>
-<h2><a id="table-of-contents" class="anchor" aria-hidden="true" tabindex="-1" href="#table-of-contents"><span aria-hidden="true" class="octicon octicon-link"></span></a>Table of Contents</h2>
+<div class="markdown-heading"><h2 class="heading-element">Table of Contents</h2><a id="table-of-contents" class="anchor-element" aria-label="Permalink: Table of Contents" href="#table-of-contents"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 
 
 <ul>
@@ -149,25 +149,25 @@ Doc. ID: UG-SIGDOC</p>
 </ul>
 
 
-<h2><a id="license" class="anchor" aria-hidden="true" tabindex="-1" href="#license"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
+<div class="markdown-heading"><h2 class="heading-element">License</h2><a id="license" class="anchor-element" aria-label="Permalink: License" href="#license"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This document is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="nofollow">http://creativecommons.org/licenses/by-sa/3.0/</a></p>
-<h2><a id="1-introduction" class="anchor" aria-hidden="true" tabindex="-1" href="#1-introduction"><span aria-hidden="true" class="octicon octicon-link"></span></a>1 Introduction</h2>
+<div class="markdown-heading"><h2 class="heading-element">1 Introduction</h2><a id="1-introduction" class="anchor-element" aria-label="Permalink: 1 Introduction" href="#1-introduction"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Messages exchanged between the X-Road security servers are signed and encrypted. For every regular request and response, the security server produces a signed document. The signatures are time-stamped either synchronously, immediately after the message has been processed by the security server, or asynchronously in periodic batches for a better performance.</p>
 <p>This document describes the retrieving and verification process of the signed and time-stamped document [PR-SIGDOC].</p>
-<h3><a id="11-references" class="anchor" aria-hidden="true" tabindex="-1" href="#11-references"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.1 References</h3>
+<div class="markdown-heading"><h3 class="heading-element">1.1 References</h3><a id="11-references" class="anchor-element" aria-label="Permalink: 1.1 References" href="#11-references"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <ol>
 <li>[PR-SIGDOC]	Freudenthal, M. Profile for High-Perfomance Digital Signature. T-4-23, 2015. <a href="https://cyber.ee/research/reports/" rel="nofollow">https://cyber.ee/research/reports/</a>
 </li>
 <li>[UG-SS] Security Server User Guide. Document ID: <a href="ug-ss_x-road_6_security_server_user_guide.html">UG-SS</a>
 </li>
 </ol>
-<h2><a id="2-signed-document-download-service" class="anchor" aria-hidden="true" tabindex="-1" href="#2-signed-document-download-service"><span aria-hidden="true" class="octicon octicon-link"></span></a>2 Signed Document Download Service</h2>
+<div class="markdown-heading"><h2 class="heading-element">2 Signed Document Download Service</h2><a id="2-signed-document-download-service" class="anchor-element" aria-label="Permalink: 2 Signed Document Download Service" href="#2-signed-document-download-service"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>The security server offers the asic web service for downloading its signed documents. The service is used via HTTP GET requests to the service URL:</p>
 <pre><code>http://SECURITYSERVER/asic
 </code></pre>
 <p>where <code>SECURITYSERVER</code> is the actual address of the security server.</p>
 <p>Signed documents are available via the service until they are archived and removed from the message log database (by default 30 days). This time period is configurable in the security server (messagelog parameter <code>keep-records-for</code>). If messagelog parameter <code>archive-encryption-enabled</code> is true, the messages are returned in encrypted format (OpenPGP/GnuPG, see [UG-SS] for archive encryption details).</p>
-<h3><a id="21-retrieving-signed-documents-of-the-entire-transaction" class="anchor" aria-hidden="true" tabindex="-1" href="#21-retrieving-signed-documents-of-the-entire-transaction"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.1 Retrieving Signed Documents of the Entire Transaction</h3>
+<div class="markdown-heading"><h3 class="heading-element">2.1 Retrieving Signed Documents of the Entire Transaction</h3><a id="21-retrieving-signed-documents-of-the-entire-transaction" class="anchor-element" aria-label="Permalink: 2.1 Retrieving Signed Documents of the Entire Transaction" href="#21-retrieving-signed-documents-of-the-entire-transaction"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>The service requires the identifier of the corresponding message and the X-Road client identifier to determine which signed documents to return. These can be provided with the following mandatory parameters:</p>
 <ul>
 <li>
@@ -186,7 +186,7 @@ Doc. ID: UG-SIGDOC</p>
 </code></pre>
 <p>If a message with the given identifier was indeed exchanged by the security server and by the specified client, the server would respond with a ZIP archive (content-type <code>application/zip</code>, filename <code>queryId.zip</code>), which contains signed documents for all requests and responses that match the specified parameters.</p>
 <p>The signed documents provided by the asic service are named <code>queryId-request-Z.asice[.gpg]</code> and <code>queryId-response-Z.asice.[gpg]</code> for requests and responses, respectively, where <code>queryId</code> is the identifier (URL encoded) of the message and <code>Z</code> is a up to 13-character alphanumeric string. The <code>.gpg</code> suffix is added if the file is encrypted.</p>
-<h3><a id="22-retrieving-a-single-signed-document" class="anchor" aria-hidden="true" tabindex="-1" href="#22-retrieving-a-single-signed-document"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.2 Retrieving a Single Signed Document</h3>
+<div class="markdown-heading"><h3 class="heading-element">2.2 Retrieving a Single Signed Document</h3><a id="22-retrieving-a-single-signed-document" class="anchor-element" aria-label="Permalink: 2.2 Retrieving a Single Signed Document" href="#22-retrieving-a-single-signed-document"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Should the user only desire the request or response then additional mutually exclusive parameters are available:</p>
 <ul>
 <li>
@@ -200,7 +200,7 @@ Doc. ID: UG-SIGDOC</p>
 <code>unique</code> – specifies that the only a single signed document is expected in the response, must be used in combination with either <code>requestOnly</code> or <code>responseOnly</code> parameter.</li>
 </ul>
 <p>If this parameter is used and, indeed, the query identifier is unique, then the security server responds with a single signed document (content-type <code>application/vnd.etsi.asic-e+zip</code>, or <code>application/octet-stream</code> if the archive is encrypted) which represents the corresponding message.</p>
-<h3><a id="23-forcing-missing-timestamps-to-be-created" class="anchor" aria-hidden="true" tabindex="-1" href="#23-forcing-missing-timestamps-to-be-created"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3 Forcing Missing Timestamps To Be Created</h3>
+<div class="markdown-heading"><h3 class="heading-element">2.3 Forcing Missing Timestamps To Be Created</h3><a id="23-forcing-missing-timestamps-to-be-created" class="anchor-element" aria-label="Permalink: 2.3 Forcing Missing Timestamps To Be Created" href="#23-forcing-missing-timestamps-to-be-created"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>If the security server was configured to timestamp messages asynchronously it may be possible that there is no timestamp associated with one or more signatures of the requested documents. In this case the request will fail with an internal error and return an appropriate error message string - "Some message signatures have not been timestamped yet!" (or "Message signature has not been timestamped yet!" if requesting a single document only).</p>
 <p>If this behavior is not desired the following parameter can be used:</p>
 <ul>
@@ -211,10 +211,10 @@ Doc. ID: UG-SIGDOC</p>
 <pre><code>http://sec1.gov/asic?queryId=abc12345&amp;xRoadInstance=EE&amp;memberClass=ENT&amp;memberCode=CLIENT1&amp;subsystemCode=SUB&amp;force
 </code></pre>
 <p>Should there be no working time-stamping provider available to the security server, the signed document retrieval service will respond with the error message "Failed to get timestamp from any time-stamping providers".</p>
-<h3><a id="24-authentication" class="anchor" aria-hidden="true" tabindex="-1" href="#24-authentication"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.4 Authentication</h3>
+<div class="markdown-heading"><h3 class="heading-element">2.4 Authentication</h3><a id="24-authentication" class="anchor-element" aria-label="Permalink: 2.4 Authentication" href="#24-authentication"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>In case the security server administrator has configured the connection between the service client and the security server to require authentication, requests to the <em>asic</em> service would need to be made via HTTPS.</p>
 <p>The security server would need the certificate of the service client to be provided as part of the session, when the user makes the request to download a signed document for a message associated with this service client.</p>
-<h3><a id="25-error-conditions" class="anchor" aria-hidden="true" tabindex="-1" href="#25-error-conditions"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.5 Error Conditions</h3>
+<div class="markdown-heading"><h3 class="heading-element">2.5 Error Conditions</h3><a id="25-error-conditions" class="anchor-element" aria-label="Permalink: 2.5 Error Conditions" href="#25-error-conditions"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>The <em>asic</em> service responds with the HTTP error code and plain text error message if error occurs. The possible error codes are:</p>
 <ol>
 <li>
@@ -226,12 +226,12 @@ Doc. ID: UG-SIGDOC</p>
 <li>
 <em>500 Internal Server Error</em> – an unexpected internal error occurred (e.g., the provided service client identifier does not match any registered client on the security server).</li>
 </ol>
-<h2><a id="3-signed-document-verification-tool" class="anchor" aria-hidden="true" tabindex="-1" href="#3-signed-document-verification-tool"><span aria-hidden="true" class="octicon octicon-link"></span></a>3 Signed Document Verification Tool</h2>
+<div class="markdown-heading"><h2 class="heading-element">3 Signed Document Verification Tool</h2><a id="3-signed-document-verification-tool" class="anchor-element" aria-label="Permalink: 3 Signed Document Verification Tool" href="#3-signed-document-verification-tool"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Verification of signed documents is done by the asicverifier utility tool. The tool is written in the Java programming language and therefore requires Java 8 Runtime Environment (JRE) to be installed on the user's workstation. On Unix-like operating systems the JRE can be installed using package management software or downloaded from the Oracle website.</p>
 <p>The asicverifier utility is shipped with security server and it is located in the following directory:</p>
 <pre><code>/usr/share/xroad/jlib/asicverifier.jar
 </code></pre>
-<h3><a id="31-usage" class="anchor" aria-hidden="true" tabindex="-1" href="#31-usage"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.1 Usage</h3>
+<div class="markdown-heading"><h3 class="heading-element">3.1 Usage</h3><a id="31-usage" class="anchor-element" aria-label="Permalink: 3.1 Usage" href="#31-usage"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>The asicverifier utility is run as follows:</p>
 <pre><code>java -jar asicverifier.jar ( --version | &lt;configuration path&gt; &lt;signed document&gt; )
 </code></pre>
@@ -284,7 +284,7 @@ Files successfully extracted.
 <p>Notice that when <code>messagelog.message-body-logging</code> property is set to <code>false</code>, the verification always fails with the error message:</p>
 <pre><code>Verification failed: Signature is not valid
 </code></pre>
-<h3><a id="32-verification-configuration" class="anchor" aria-hidden="true" tabindex="-1" href="#32-verification-configuration"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.2 Verification Configuration</h3>
+<div class="markdown-heading"><h3 class="heading-element">3.2 Verification Configuration</h3><a id="32-verification-configuration" class="anchor-element" aria-label="Permalink: 3.2 Verification Configuration" href="#32-verification-configuration"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>The asicverifier tool requires the proper verification configuration containing certificates needed by the verification process. The verification configuration can be downloaded from the same security server by making a HTTP GET request to the URL:</p>
 <pre><code>http://SECURITYSERVER/verificationconf
 </code></pre>
