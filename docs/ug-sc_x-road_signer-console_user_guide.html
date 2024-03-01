@@ -12,18 +12,19 @@
         padding: 45px;
       }
     </style>
-    <title>X-Road: 7.3.2</title>
+    <title>X-Road: 7.4.0
+</title>
   </head>
   <body>
     <article class="markdown-body">
-<h1><a id="signer-console-user-guide-" class="anchor" aria-hidden="true" tabindex="-1" href="#signer-console-user-guide-"><span aria-hidden="true" class="octicon octicon-link"></span></a>SIGNER CONSOLE USER GUIDE 
-</h1>
+<div class="markdown-heading"><h1 class="heading-element">SIGNER CONSOLE USER GUIDE 
+</h1><a id="signer-console-user-guide-" class="anchor-element" aria-label="Permalink: SIGNER CONSOLE USER GUIDE " href="#signer-console-user-guide-"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>X-ROAD 7</strong></p>
 <p>Version: 2.9<br>
 Doc. ID: UG-SC</p>
 <hr>
-<h2><a id="version-history-" class="anchor" aria-hidden="true" tabindex="-1" href="#version-history-"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version history 
-</h2>
+<div class="markdown-heading"><h2 class="heading-element">Version history 
+</h2><a id="version-history-" class="anchor-element" aria-label="Permalink: Version history " href="#version-history-"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <table>
 <thead>
 <tr>
@@ -133,8 +134,8 @@ Doc. ID: UG-SC</p>
 </tr>
 </tbody>
 </table>
-<h2><a id="table-of-contents-" class="anchor" aria-hidden="true" tabindex="-1" href="#table-of-contents-"><span aria-hidden="true" class="octicon octicon-link"></span></a>Table of Contents 
-</h2>
+<div class="markdown-heading"><h2 class="heading-element">Table of Contents 
+</h2><a id="table-of-contents-" class="anchor-element" aria-label="Permalink: Table of Contents " href="#table-of-contents-"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 
 
 <ul>
@@ -182,13 +183,13 @@ Doc. ID: UG-SC</p>
 </ul>
 
 
-<h2><a id="license" class="anchor" aria-hidden="true" tabindex="-1" href="#license"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
+<div class="markdown-heading"><h2 class="heading-element">License</h2><a id="license" class="anchor-element" aria-label="Permalink: License" href="#license"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This document is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="nofollow">http://creativecommons.org/licenses/by-sa/3.0/</a></p>
-<h2><a id="1-introduction" class="anchor" aria-hidden="true" tabindex="-1" href="#1-introduction"><span aria-hidden="true" class="octicon octicon-link"></span></a>1 Introduction</h2>
+<div class="markdown-heading"><h2 class="heading-element">1 Introduction</h2><a id="1-introduction" class="anchor-element" aria-label="Permalink: 1 Introduction" href="#1-introduction"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>The purpose of this document is to explain how to manage keys and certificates in signer from the command line using the signer console utility.</p>
 <p><em>Signer</em> is an X-Road component whose primary purpose is to process signing requests and produce signatures. Signer manages software and hardware (smart cards, HSMs) tokens and their keys and handles certificates associated with the keys.</p>
 <p><em>Signer console</em> is a command line utility for interacting with Signer. The utility provides commands for various operations and can execute a single command or be started as an interactive text-based shell.</p>
-<h3><a id="11-references" class="anchor" aria-hidden="true" tabindex="-1" href="#11-references"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.1 References</h3>
+<div class="markdown-heading"><h3 class="heading-element">1.1 References</h3><a id="11-references" class="anchor-element" aria-label="Permalink: 1.1 References" href="#11-references"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <ol>
 <li>
 <p><a id="Ref_SPEC-AL"></a>[SPEC-AL] X-Road: Audit log events. Document ID: <a href="../Architecture/spec-al_x-road_audit_log_events.html">SPEC-AL</a></p>
@@ -197,8 +198,8 @@ Doc. ID: UG-SC</p>
 <p><a id="Ref_JSON"></a>[JSON] Introducing JSON, <a href="http://json.org/" rel="nofollow">http://json.org/</a></p>
 </li>
 </ol>
-<h2><a id="2-using-the-signer-console" class="anchor" aria-hidden="true" tabindex="-1" href="#2-using-the-signer-console"><span aria-hidden="true" class="octicon octicon-link"></span></a>2 Using the Signer console</h2>
-<h3><a id="21-signer-console-options" class="anchor" aria-hidden="true" tabindex="-1" href="#21-signer-console-options"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.1 Signer console options</h3>
+<div class="markdown-heading"><h2 class="heading-element">2 Using the Signer console</h2><a id="2-using-the-signer-console" class="anchor-element" aria-label="Permalink: 2 Using the Signer console" href="#2-using-the-signer-console"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h3 class="heading-element">2.1 Signer console options</h3><a id="21-signer-console-options" class="anchor-element" aria-label="Permalink: 2.1 Signer console options" href="#21-signer-console-options"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Signer console accepts the following options:</p>
 <ul>
 <li>
@@ -206,34 +207,34 @@ Doc. ID: UG-SC</p>
 <li>
 <code>-v</code> or <code>-verbose</code> displays more detailed execution output</li>
 </ul>
-<h3><a id="22-starting-as-interactive-shell" class="anchor" aria-hidden="true" tabindex="-1" href="#22-starting-as-interactive-shell"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.2 Starting as interactive shell</h3>
+<div class="markdown-heading"><h3 class="heading-element">2.2 Starting as interactive shell</h3><a id="22-starting-as-interactive-shell" class="anchor-element" aria-label="Permalink: 2.2 Starting as interactive shell" href="#22-starting-as-interactive-shell"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>To start the signer console as an interactive shell, type</p>
 <div class="highlight highlight-source-shell"><pre>sudo -u xroad -i signer-console [<span class="pl-k">&lt;</span>options<span class="pl-k">&gt;</span>]</pre></div>
-<h3><a id="23-executing-single-commands" class="anchor" aria-hidden="true" tabindex="-1" href="#23-executing-single-commands"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3 Executing single commands</h3>
+<div class="markdown-heading"><h3 class="heading-element">2.3 Executing single commands</h3><a id="23-executing-single-commands" class="anchor-element" aria-label="Permalink: 2.3 Executing single commands" href="#23-executing-single-commands"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>To execute a single command, type</p>
 <div class="highlight highlight-source-shell"><pre>sudo -u xroad -i signer-console [<span class="pl-k">&lt;</span>options<span class="pl-k">&gt;</span>] <span class="pl-k">&lt;</span>command<span class="pl-k">&gt;</span> [<span class="pl-k">&lt;</span>command arguments<span class="pl-k">&gt;</span>]</pre></div>
-<h3><a id="24-available-commands" class="anchor" aria-hidden="true" tabindex="-1" href="#24-available-commands"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.4 Available commands</h3>
+<div class="markdown-heading"><h3 class="heading-element">2.4 Available commands</h3><a id="24-available-commands" class="anchor-element" aria-label="Permalink: 2.4 Available commands" href="#24-available-commands"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This section gives an overview of all available commands in signer console.</p>
 <p>A command may have one or more arguments, and may or may not produce any output. If command has arguments, they are always mandatory.</p>
-<h4><a id="241-list-tokens" class="anchor" aria-hidden="true" tabindex="-1" href="#241-list-tokens"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.4.1 list-tokens</h4>
+<div class="markdown-heading"><h4 class="heading-element">2.4.1 list-tokens</h4><a id="241-list-tokens" class="anchor-element" aria-label="Permalink: 2.4.1 list-tokens" href="#241-list-tokens"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>Description:</strong> Lists all tokens.</p>
 <p><strong>Arguments:</strong> (none)</p>
 <p><strong>Output:</strong> List of all tokens, each line representing the following token information:</p>
 <pre><code>&lt;id&gt; (&lt;status&gt;, &lt;read only|writable&gt;, &lt;available|unavailable&gt;, &lt;active|inactive&gt;)
 </code></pre>
-<h4><a id="242-list-keys" class="anchor" aria-hidden="true" tabindex="-1" href="#242-list-keys"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.4.2 list-keys</h4>
+<div class="markdown-heading"><h4 class="heading-element">2.4.2 list-keys</h4><a id="242-list-keys" class="anchor-element" aria-label="Permalink: 2.4.2 list-keys" href="#242-list-keys"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>Description:</strong> Lists all keys on all tokens.</p>
 <p><strong>Arguments:</strong> (none)</p>
 <p><strong>Output:</strong> List of keys on all tokens, each line representing the following key information:</p>
 <pre><code>&lt;id&gt; (&lt;usage&gt;, &lt;available|unavailable&gt;)
 </code></pre>
-<h4><a id="243-list-certs" class="anchor" aria-hidden="true" tabindex="-1" href="#243-list-certs"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.4.3 list-certs</h4>
+<div class="markdown-heading"><h4 class="heading-element">2.4.3 list-certs</h4><a id="243-list-certs" class="anchor-element" aria-label="Permalink: 2.4.3 list-certs" href="#243-list-certs"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>Description:</strong> Lists all certificates and certificate requests on all keys.</p>
 <p><strong>Arguments:</strong> (none)</p>
 <p><strong>Output:</strong> List of certificates and certificate requests on all keys, each line representing the following</p>
 <pre><code>&lt;id&gt; (&lt;status&gt;, &lt;client id&gt;)
 </code></pre>
-<h4><a id="244-set-token-friendly-name" class="anchor" aria-hidden="true" tabindex="-1" href="#244-set-token-friendly-name"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.4.4 set-token-friendly-name</h4>
+<div class="markdown-heading"><h4 class="heading-element">2.4.4 set-token-friendly-name</h4><a id="244-set-token-friendly-name" class="anchor-element" aria-label="Permalink: 2.4.4 set-token-friendly-name" href="#244-set-token-friendly-name"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>Description:</strong> Sets friendly name to the specified token.</p>
 <p><strong>Arguments:</strong></p>
 <ul>
@@ -243,7 +244,7 @@ Doc. ID: UG-SC</p>
 <em><strong>friendly name</strong></em>: the name to set.</li>
 </ul>
 <p><strong>Output:</strong> (none)</p>
-<h4><a id="245-set-key-friendly-name" class="anchor" aria-hidden="true" tabindex="-1" href="#245-set-key-friendly-name"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.4.5 set-key-friendly-name</h4>
+<div class="markdown-heading"><h4 class="heading-element">2.4.5 set-key-friendly-name</h4><a id="245-set-key-friendly-name" class="anchor-element" aria-label="Permalink: 2.4.5 set-key-friendly-name" href="#245-set-key-friendly-name"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>Description:</strong> Sets friendly name to the specified key.</p>
 <p><strong>Arguments:</strong></p>
 <ul>
@@ -253,7 +254,7 @@ Doc. ID: UG-SC</p>
 <em><strong>friendly name</strong></em>: the name to set.</li>
 </ul>
 <p><strong>Output:</strong> (none)</p>
-<h4><a id="246-get-member-certs" class="anchor" aria-hidden="true" tabindex="-1" href="#246-get-member-certs"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.4.6 get-member-certs</h4>
+<div class="markdown-heading"><h4 class="heading-element">2.4.6 get-member-certs</h4><a id="246-get-member-certs" class="anchor-element" aria-label="Permalink: 2.4.6 get-member-certs" href="#246-get-member-certs"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>Description:</strong> Returns certificates of a member.</p>
 <p><strong>Arguments:</strong></p>
 <ul>
@@ -262,7 +263,7 @@ Doc. ID: UG-SC</p>
 </li>
 </ul>
 <p><strong>Output:</strong> List of certificates of the specified member.</p>
-<h4><a id="247-activate-certificate" class="anchor" aria-hidden="true" tabindex="-1" href="#247-activate-certificate"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.4.7 activate-certificate</h4>
+<div class="markdown-heading"><h4 class="heading-element">2.4.7 activate-certificate</h4><a id="247-activate-certificate" class="anchor-element" aria-label="Permalink: 2.4.7 activate-certificate" href="#247-activate-certificate"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>Description:</strong> Activates the specified certificate.</p>
 <p><strong>Arguments:</strong></p>
 <ul>
@@ -270,7 +271,7 @@ Doc. ID: UG-SC</p>
 <em><strong>certificate id</strong></em>: the identifier of the certificate. Use <em><a href="#243-list-certs">list-certs</a></em> to look up certificate identifiers.</li>
 </ul>
 <p><strong>Output:</strong> (none)</p>
-<h4><a id="248-deactivate-certificate" class="anchor" aria-hidden="true" tabindex="-1" href="#248-deactivate-certificate"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.4.8 deactivate-certificate</h4>
+<div class="markdown-heading"><h4 class="heading-element">2.4.8 deactivate-certificate</h4><a id="248-deactivate-certificate" class="anchor-element" aria-label="Permalink: 2.4.8 deactivate-certificate" href="#248-deactivate-certificate"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>Description:</strong> Deactivates the specified certificate.</p>
 <p><strong>Arguments:</strong></p>
 <ul>
@@ -278,7 +279,7 @@ Doc. ID: UG-SC</p>
 <em><strong>certificate id</strong></em>: the identifier of the certificate. Use <em><a href="#243-list-certs">list-certs</a></em> to look up certificate identifiers.</li>
 </ul>
 <p><strong>Output:</strong> (none)</p>
-<h4><a id="249-delete-key" class="anchor" aria-hidden="true" tabindex="-1" href="#249-delete-key"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.4.9 delete-key</h4>
+<div class="markdown-heading"><h4 class="heading-element">2.4.9 delete-key</h4><a id="249-delete-key" class="anchor-element" aria-label="Permalink: 2.4.9 delete-key" href="#249-delete-key"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>Description:</strong> Deletes the specified key and all associated certificates and certificate requests.</p>
 <p><strong>Arguments:</strong></p>
 <ul>
@@ -286,7 +287,7 @@ Doc. ID: UG-SC</p>
 <em><strong>key id</strong></em>: the identifier of the key. Use <em><a href="#242-list-keys">list-keys</a></em> to look up key id-s.</li>
 </ul>
 <p><strong>Output:</strong> (none)</p>
-<h4><a id="2410-delete-certificate" class="anchor" aria-hidden="true" tabindex="-1" href="#2410-delete-certificate"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.4.10 delete-certificate</h4>
+<div class="markdown-heading"><h4 class="heading-element">2.4.10 delete-certificate</h4><a id="2410-delete-certificate" class="anchor-element" aria-label="Permalink: 2.4.10 delete-certificate" href="#2410-delete-certificate"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>Description:</strong> Deletes the specified certificate from Signer.</p>
 <p><strong>Arguments:</strong></p>
 <ul>
@@ -294,7 +295,7 @@ Doc. ID: UG-SC</p>
 <em><strong>certificate id</strong></em>: the identifier of the certificate. Use <em><a href="#243-list-certs">list-certs</a></em> to look up certificate identifiers.</li>
 </ul>
 <p><strong>Output:</strong> (none)</p>
-<h4><a id="2411-delete-certificate-request" class="anchor" aria-hidden="true" tabindex="-1" href="#2411-delete-certificate-request"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.4.11 delete-certificate-request</h4>
+<div class="markdown-heading"><h4 class="heading-element">2.4.11 delete-certificate-request</h4><a id="2411-delete-certificate-request" class="anchor-element" aria-label="Permalink: 2.4.11 delete-certificate-request" href="#2411-delete-certificate-request"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>Description:</strong> Lists all tokens.</p>
 <p><strong>Arguments:</strong></p>
 <ul>
@@ -302,7 +303,7 @@ Doc. ID: UG-SC</p>
 <em><strong>certificate request id</strong></em>: the identifier of the certificate request. Use <em><a href="#243-list-certs">list-certs</a></em> to look up certificate request identifiers.</li>
 </ul>
 <p><strong>Output:</strong> (none)</p>
-<h4><a id="2412-import-certificate" class="anchor" aria-hidden="true" tabindex="-1" href="#2412-import-certificate"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.4.12 import-certificate</h4>
+<div class="markdown-heading"><h4 class="heading-element">2.4.12 import-certificate</h4><a id="2412-import-certificate" class="anchor-element" aria-label="Permalink: 2.4.12 import-certificate" href="#2412-import-certificate"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>Description:</strong> Imports a certificate from the specified file to a key. The certificate is imported to the key pair whose public key matches that of the certificate.</p>
 <p><strong>Arguments:</strong></p>
 <ul>
@@ -313,7 +314,7 @@ Doc. ID: UG-SC</p>
 </li>
 </ul>
 <p><strong>Output:</strong> Identifier of the key to which the certificate was imported.</p>
-<h4><a id="2413-login-token" class="anchor" aria-hidden="true" tabindex="-1" href="#2413-login-token"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.4.13 login-token</h4>
+<div class="markdown-heading"><h4 class="heading-element">2.4.13 login-token</h4><a id="2413-login-token" class="anchor-element" aria-label="Permalink: 2.4.13 login-token" href="#2413-login-token"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>Description:</strong> Log in to the specified token.</p>
 <p><strong>Arguments:</strong></p>
 <ul>
@@ -321,7 +322,7 @@ Doc. ID: UG-SC</p>
 <em><strong>token id</strong></em>: the identifier of the token. Use <em><a href="#241-list-tokens">list-tokens</a></em> to look up token identifiers.</li>
 </ul>
 <p><strong>Output:</strong> (none)</p>
-<h4><a id="2414-logout-token" class="anchor" aria-hidden="true" tabindex="-1" href="#2414-logout-token"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.4.14 logout-token</h4>
+<div class="markdown-heading"><h4 class="heading-element">2.4.14 logout-token</h4><a id="2414-logout-token" class="anchor-element" aria-label="Permalink: 2.4.14 logout-token" href="#2414-logout-token"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>Description:</strong> Log out of the specified token</p>
 <p><strong>Arguments:</strong></p>
 <ul>
@@ -329,11 +330,11 @@ Doc. ID: UG-SC</p>
 <em><strong>token id</strong></em>: the identifier of the token. Use <em><a href="#241-list-tokens">list-tokens</a></em> to look up token identifiers.</li>
 </ul>
 <p><strong>Output:</strong> (none)</p>
-<h4><a id="2415-init-software-token" class="anchor" aria-hidden="true" tabindex="-1" href="#2415-init-software-token"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.4.15 init-software-token</h4>
+<div class="markdown-heading"><h4 class="heading-element">2.4.15 init-software-token</h4><a id="2415-init-software-token" class="anchor-element" aria-label="Permalink: 2.4.15 init-software-token" href="#2415-init-software-token"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>Description:</strong> Initialize the software token. A PIN is prompted that is used to log in to this token.</p>
 <p><strong>Arguments:</strong> (none)</p>
 <p><strong>Output:</strong> (none)</p>
-<h4><a id="2416-sign" class="anchor" aria-hidden="true" tabindex="-1" href="#2416-sign"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.4.16 sign</h4>
+<div class="markdown-heading"><h4 class="heading-element">2.4.16 sign</h4><a id="2416-sign" class="anchor-element" aria-label="Permalink: 2.4.16 sign" href="#2416-sign"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>Description:</strong> Sign the specified character data using the specified key.</p>
 <p><strong>Arguments:</strong></p>
 <ul>
@@ -343,7 +344,7 @@ Doc. ID: UG-SC</p>
 <em><strong>data</strong></em>: character data to be signed as string</li>
 </ul>
 <p><strong>Output:</strong> signature byte array</p>
-<h4><a id="2417-generate-key" class="anchor" aria-hidden="true" tabindex="-1" href="#2417-generate-key"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.4.17 generate-key</h4>
+<div class="markdown-heading"><h4 class="heading-element">2.4.17 generate-key</h4><a id="2417-generate-key" class="anchor-element" aria-label="Permalink: 2.4.17 generate-key" href="#2417-generate-key"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>Description:</strong> Generates a key on the specified token.</p>
 <p><strong>Arguments:</strong></p>
 <ul>
@@ -353,7 +354,7 @@ Doc. ID: UG-SC</p>
 <em><strong>label</strong></em>: the label of the key is set for SSCD devices.</li>
 </ul>
 <p><strong>Output:</strong> The id of the generated key.</p>
-<h4><a id="2418-generate-cert-request" class="anchor" aria-hidden="true" tabindex="-1" href="#2418-generate-cert-request"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.4.18 generate-cert-request</h4>
+<div class="markdown-heading"><h4 class="heading-element">2.4.18 generate-cert-request</h4><a id="2418-generate-cert-request" class="anchor-element" aria-label="Permalink: 2.4.18 generate-cert-request" href="#2418-generate-cert-request"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>Description:</strong> Generates a certificate request under the specified key in Signer and saves it to a CSR file in current directory.</p>
 <p><strong>Arguments:</strong></p>
 <ul>
@@ -372,11 +373,11 @@ Doc. ID: UG-SC</p>
 </li>
 </ul>
 <p><strong>Output:</strong> Name of the file where the certificate request was saved.</p>
-<h4><a id="2419-update-software-token-pin" class="anchor" aria-hidden="true" tabindex="-1" href="#2419-update-software-token-pin"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.4.19 update-software-token-pin</h4>
+<div class="markdown-heading"><h4 class="heading-element">2.4.19 update-software-token-pin</h4><a id="2419-update-software-token-pin" class="anchor-element" aria-label="Permalink: 2.4.19 update-software-token-pin" href="#2419-update-software-token-pin"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>Description:</strong> Updates the software token's PIN code. First, the current PIN is prompted and after that the new PIN is prompted twice.</p>
 <p><strong>Arguments:</strong> (none)</p>
 <p><strong>Output:</strong> (none)</p>
-<h2><a id="3-example-certificate-import" class="anchor" aria-hidden="true" tabindex="-1" href="#3-example-certificate-import"><span aria-hidden="true" class="octicon octicon-link"></span></a>3 Example: Certificate Import</h2>
+<div class="markdown-heading"><h2 class="heading-element">3 Example: Certificate Import</h2><a id="3-example-certificate-import" class="anchor-element" aria-label="Permalink: 3 Example: Certificate Import" href="#3-example-certificate-import"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>The following usage example shows how to initialize a software token and import a certificate to signer.</p>
 <ol>
 <li>
@@ -409,7 +410,7 @@ Doc. ID: UG-SC</p>
 <div class="highlight highlight-source-shell"><pre>signer-console import-certificate <span class="pl-k">&lt;</span>PEM file<span class="pl-k">&gt;</span> <span class="pl-s"><span class="pl-pds">"</span>SAVED<span class="pl-pds">"</span></span> <span class="pl-cce">\"</span>FOO BAR BAZ<span class="pl-cce">\"</span></pre></div>
 </li>
 </ol>
-<h2><a id="4-audit-log" class="anchor" aria-hidden="true" tabindex="-1" href="#4-audit-log"><span aria-hidden="true" class="octicon octicon-link"></span></a>4 Audit log</h2>
+<div class="markdown-heading"><h2 class="heading-element">4 Audit log</h2><a id="4-audit-log" class="anchor-element" aria-label="Permalink: 4 Audit log" href="#4-audit-log"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>User actions events that are made by the signer-console utility and that change the system state or configuration are logged to the audit log. The actions are logged regardless of whether the outcome was a success or a failure. The complete list of the audit log events is described in [<a href="#Ref_SPEC-AL">SPEC-AL</a>].</p>
 <p>An audit log record contains</p>
 <ul>
