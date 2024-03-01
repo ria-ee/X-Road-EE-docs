@@ -17,6 +17,283 @@
   </head>
   <body>
     <article class="markdown-body">
+<div class="markdown-heading"><h1 class="heading-element">Security Server Targeting Extension for the X-Road Message Protocol</h1><a id="security-server-targeting-extension-for-the-x-road-message-protocol" class="anchor-element" aria-label="Permalink: Security Server Targeting Extension for the X-Road Message Protocol" href="#security-server-targeting-extension-for-the-x-road-message-protocol"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>Version: 1.2<br>
+Doc. ID: PR-TARGETSS</p>
+<table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Version</th>
+<th>Description</th>
+<th>Author</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>02.03.2017</td>
+<td>1.0</td>
+<td>Initial version</td>
+<td>Olli Lindgren</td>
+</tr>
+<tr>
+<td>06.03.2018</td>
+<td>1.1</td>
+<td>Added terms doc reference and link</td>
+<td>Tatu Repo</td>
+</tr>
+<tr>
+<td>17.06.2022</td>
+<td>1.2</td>
+<td>Update document title</td>
+<td>Petteri Kivimäki</td>
+</tr>
+</tbody>
+</table>
+<div class="markdown-heading"><h2 class="heading-element">Table of Contents</h2><a id="table-of-contents" class="anchor-element" aria-label="Permalink: Table of Contents" href="#table-of-contents"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+
+<ul>
+<li><a href="#license">License</a></li>
+<li>
+<a href="#1-introduction">1 Introduction</a>
+<ul>
+<li><a href="#11-terms-and-abbreviations">1.1 Terms and abbreviations</a></li>
+<li><a href="#12-references">1.2 References</a></li>
+</ul>
+</li>
+<li>
+<a href="#2-format-of-messages">2 Format of messages</a>
+<ul>
+<li><a href="#21-schema-header">2.1 Schema header</a></li>
+<li><a href="#22-added-securityserver-element">2.2 Added <code>securityServer</code> element</a></li>
+<li><a href="#23-message-headers">2.3 Message headers</a></li>
+</ul>
+</li>
+<li><a href="#3-xml-schema-for-the-extension">3 XML Schema for the extension</a></li>
+<li>
+<a href="#4-examples">4 Examples</a>
+<ul>
+<li><a href="#41-request">4.1 Request</a></li>
+<li><a href="#42-response">4.2 Response</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="markdown-heading"><h2 class="heading-element">License</h2><a id="license" class="anchor-element" aria-label="Permalink: License" href="#license"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>This document is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="nofollow">http://creativecommons.org/licenses/by-sa/3.0/</a>.</p>
+<div class="markdown-heading"><h2 class="heading-element">1 Introduction</h2><a id="1-introduction" class="anchor-element" aria-label="Permalink: 1 Introduction" href="#1-introduction"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>This specification describes an extension of the X-Road protocol for targeting a message to a specific security server.</p>
+<p>The original X-Road message protocol version 4.0 [<a href="#Ref_PR-MESS">PR-MESS</a>] has the SOAP header element <code>service</code> to define the recipient of a message.
+In a clustered security server configuration, one service can be served from multiple security servers. When X-Road routes the message to such a service,
+it picks the target security server based on which server establishes a connection the quickest.
+There is no guarantee about the actual target server — it can be any of the clustered servers. There are use cases,
+like environmental monitoring [<a href="#Ref_ARC-ENVMON">ARC-ENVMON</a>], where targeting messages to a specific security server is needed.
+Using the <code>securityServer</code> element makes this possible.</p>
+<div class="markdown-heading"><h3 class="heading-element">1.1 Terms and abbreviations</h3><a id="11-terms-and-abbreviations" class="anchor-element" aria-label="Permalink: 1.1 Terms and abbreviations" href="#11-terms-and-abbreviations"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>See X-Road terms and abbreviations documentation [<a href="#Ref_TERMS">TA-TERMS</a>]</p>
+<div class="markdown-heading"><h3 class="heading-element">1.2 References</h3><a id="12-references" class="anchor-element" aria-label="Permalink: 1.2 References" href="#12-references"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<table>
+<thead>
+<tr>
+<th>Document ID</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a name="Ref_PR-MESS"></a>[PR-MESS]</td>
+<td><a href="../pr-mess_x-road_message_protocol.html">X-Road: Message Protocol v4.0</a></td>
+</tr>
+<tr>
+<td>
+<a name="Ref_ARC-ENVMON"></a>[ARC-ENVMON]</td>
+<td><a href="../../EnvironmentalMonitoring/Monitoring-architecture.html">X-Road: Environmental Monitoring Architecture</a></td>
+</tr>
+<tr>
+<td>
+<a name="Ref_TERMS"></a>[TA-TERMS]</td>
+<td><a href="../../terms_x-road_docs.html">X-Road Terms and Abbreviations</a></td>
+</tr>
+</tbody>
+</table>
+<div class="markdown-heading"><h2 class="heading-element">2 Format of messages</h2><a id="2-format-of-messages" class="anchor-element" aria-label="Permalink: 2 Format of messages" href="#2-format-of-messages"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>This section describes the XML format for expressing the target security server. The data
+structures and elements defined in this section are in the namespace <code>http://x-road.eu/xsd/xroad.xsd</code>. This is the same
+namespace as defined by the X-Road Message Protocol 4.0 [<a href="#Ref_PR-MESS">PR-MESS</a>] Annex B, XML Schema for Messages. The
+schema file can be found at <a href="http://x-road.eu/xsd/xroad-securityserver.xsd" rel="nofollow"><code>http://x-road.eu/xsd/xroad-securityserver.xsd</code></a>.</p>
+<p>Note that at the moment, there is no unifying schema that would combine the message protocol and this extension under
+the same namespace. That means there is no single schema that would validate an X-Road message with this extension in use.
+It should be possible to validate the messages using a validator that accepts multiple schemas from the same namespace.</p>
+<p>In addition, this extension is a candidate for inclusion in the next version of the X-Road message protocol and would then
+be part of the actual <a href="http://x-road.eu/xsd/xroad.xsd" rel="nofollow"><code>http://x-road.eu/xsd/xroad.xsd</code></a> schema as well as the namespace.</p>
+<p>The XML Schema for this extension is listed in the section <a href="#xml-schema-for-the-extension">XML Schema for the extension</a>.</p>
+<div class="markdown-heading"><h3 class="heading-element">2.1 Schema header</h3><a id="21-schema-header" class="anchor-element" aria-label="Permalink: 2.1 Schema header" href="#21-schema-header"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>The following listing shows the header of the schema definition</p>
+<div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
+&lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">schema</span> <span class="pl-e">elementFormDefault</span>=<span class="pl-s"><span class="pl-pds">"</span>qualified<span class="pl-pds">"</span></span>
+        <span class="pl-e">targetNamespace</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>
+        <span class="pl-e">xmlns</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>
+        <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/identifiers<span class="pl-pds">"</span></span>
+        <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">xs</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.w3.org/2001/XMLSchema<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">import</span> <span class="pl-e">namespace</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.w3.org/XML/1998/namespace<span class="pl-pds">"</span></span>
+            <span class="pl-e">schemaLocation</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.w3.org/2009/01/xml.xsd<span class="pl-pds">"</span></span>/&gt;
+    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">import</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span> <span class="pl-e">namespace</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/identifiers<span class="pl-pds">"</span></span>
+            <span class="pl-e">schemaLocation</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/identifiers.xsd<span class="pl-pds">"</span></span>/&gt;
+&lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">schema</span>&gt;
+</pre></div>
+<div class="markdown-heading"><h3 class="heading-element">2.2 Added <code>securityServer</code> element</h3><a id="22-added-securityserver-element" class="anchor-element" aria-label="Permalink: 2.2 Added securityServer element" href="#22-added-securityserver-element"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>A new <code>securityServer</code> element was added to identify the specific target security server.</p>
+<div class="highlight highlight-text-xml"><pre> &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>securityServer<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>id:XRoadSecurityServerIdentifierType<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">annotation</span>&gt;
+            &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">documentation</span>&gt;Identifies a specific security server&lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">documentation</span>&gt;
+        &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">annotation</span>&gt;
+    &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span>&gt;</pre></div>
+<p>The element is of the type <code>XRoadSecurityServerIdentifierType</code>, which is one of the identifiers already defined
+in the X-Road Message Protocol v 4.0 [<a href="#Ref_PR-MESS">PR-MESS</a>] section 2.1. The whole XML schema for the identifier types is defined in
+Annex A of the same document. The relevant part is listed below for convenience.</p>
+<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>XRoadSecurityServerIdentifierType<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexContent</span>&gt;
+        &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">restriction</span> <span class="pl-e">base</span>=<span class="pl-s"><span class="pl-pds">"</span>XRoadIdentifierType<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">x</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+                &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">ref</span>=<span class="pl-s"><span class="pl-pds">"</span>xRoadInstance<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">ref</span>=<span class="pl-s"><span class="pl-pds">"</span>memberClass<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">ref</span>=<span class="pl-s"><span class="pl-pds">"</span>memberCode<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">ref</span>=<span class="pl-s"><span class="pl-pds">"</span>serverCode<span class="pl-pds">"</span></span>/&gt;
+            &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+            &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">attribute</span> <span class="pl-e">ref</span>=<span class="pl-s"><span class="pl-pds">"</span>objectType<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>required<span class="pl-pds">"</span></span> <span class="pl-e">fixed</span>=<span class="pl-s"><span class="pl-pds">"</span>SERVER<span class="pl-pds">"</span></span>/&gt;
+        &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">restriction</span>&gt;
+    &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexContent</span>&gt;
+&lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;</pre></div>
+<div class="markdown-heading"><h3 class="heading-element">2.3 Message headers</h3><a id="23-message-headers" class="anchor-element" aria-label="Permalink: 2.3 Message headers" href="#23-message-headers"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>This section describes the additional SOAP headers that are added by this extension.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Mandatory/Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>securityServer</td>
+<td>XRoadSecurityServerIdentifierType</td>
+<td>Optional</td>
+<td>The security server this message is for</td>
+</tr>
+</tbody>
+</table>
+<div class="markdown-heading"><h2 class="heading-element">3 XML Schema for the extension</h2><a id="3-xml-schema-for-the-extension" class="anchor-element" aria-label="Permalink: 3 XML Schema for the extension" href="#3-xml-schema-for-the-extension"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
+&lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">schema</span> <span class="pl-e">elementFormDefault</span>=<span class="pl-s"><span class="pl-pds">"</span>qualified<span class="pl-pds">"</span></span>
+       <span class="pl-e">targetNamespace</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>
+       <span class="pl-e">xmlns</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>
+       <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/identifiers<span class="pl-pds">"</span></span>
+       <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">xs</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.w3.org/2001/XMLSchema<span class="pl-pds">"</span></span>&gt;
+   &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">import</span> <span class="pl-e">namespace</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.w3.org/XML/1998/namespace<span class="pl-pds">"</span></span>
+           <span class="pl-e">schemaLocation</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.w3.org/2009/01/xml.xsd<span class="pl-pds">"</span></span>/&gt;
+   &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">import</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span> <span class="pl-e">namespace</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/identifiers<span class="pl-pds">"</span></span>
+           <span class="pl-e">schemaLocation</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/identifiers.xsd<span class="pl-pds">"</span></span>/&gt;
+
+   <span class="pl-c"><span class="pl-c">&lt;!--</span> Header elements <span class="pl-c">--&gt;</span></span>
+   &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>securityServer<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>id:XRoadSecurityServerIdentifierType<span class="pl-pds">"</span></span>&gt;
+       &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">annotation</span>&gt;
+           &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">documentation</span>&gt;Identifies security server&lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">documentation</span>&gt;
+       &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">annotation</span>&gt;
+   &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span>&gt;
+&lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">schema</span>&gt;</pre></div>
+<div class="markdown-heading"><h2 class="heading-element">4 Examples</h2><a id="4-examples" class="anchor-element" aria-label="Permalink: 4 Examples" href="#4-examples"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>Below are examples from a request and response related to the Environmental Monitoring
+[<a href="#Ref_ARC-ENVMON">ARC-ENVMON</a>] service <code>getSecurityServerMetrics</code> which uses the <code>securityServer</code> element protocol extension.</p>
+<div class="markdown-heading"><h3 class="heading-element">4.1 Request</h3><a id="41-request" class="anchor-element" aria-label="Permalink: 4.1 Request" href="#41-request"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>
+    <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">SOAP-ENV</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.xmlsoap.org/soap/envelope/<span class="pl-pds">"</span></span>
+    <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/identifiers<span class="pl-pds">"</span></span>
+    <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">xrd</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>
+    <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">m</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/monitoring<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Header</span>&gt;
+        &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">client</span> <span class="pl-e">id</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>MEMBER<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;fdev&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;GOV&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;1710128-9&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
+        &lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">client</span>&gt;
+        &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">service</span> <span class="pl-e">id</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>SERVICE<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;fdev&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;GOV&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;1710128-9&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serviceCode</span>&gt;getSecurityServerMetrics&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serviceCode</span>&gt;
+        &lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">service</span>&gt;
+        &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">securityServer</span> <span class="pl-e">id</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>SERVER<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;fdev&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;GOV&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;1710128-9&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serverCode</span>&gt;fdev-ss1.i.palveluvayla.com&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serverCode</span>&gt;
+        &lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">securityServer</span>&gt;
+        &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">id</span>&gt;ID11234&lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">id</span>&gt;
+        &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">protocolVersion</span>&gt;4.0&lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">protocolVersion</span>&gt;
+    &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Header</span>&gt;
+    &lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
+        &lt;<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">getSecurityServerMetrics</span>/&gt;
+    &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
+&lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>&gt;</pre></div>
+<div class="markdown-heading"><h3 class="heading-element">4.2 Response</h3><a id="42-response" class="anchor-element" aria-label="Permalink: 4.2 Response" href="#42-response"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>
+    <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">SOAP-ENV</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.xmlsoap.org/soap/envelope/<span class="pl-pds">"</span></span>
+    <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/identifiers<span class="pl-pds">"</span></span>
+    <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">m</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/monitoring<span class="pl-pds">"</span></span>
+    <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">xrd</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>&gt;
+   &lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Header</span>&gt;
+      &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">client</span> <span class="pl-e">id</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>MEMBER<span class="pl-pds">"</span></span>&gt;
+         &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;fdev&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
+         &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;GOV&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
+         &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;1710128-9&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
+      &lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">client</span>&gt;
+      &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">service</span> <span class="pl-e">id</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>SERVICE<span class="pl-pds">"</span></span>&gt;
+         &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;fdev&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
+         &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;GOV&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
+         &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;1710128-9&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
+         &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serviceCode</span>&gt;getSecurityServerMetrics&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serviceCode</span>&gt;
+      &lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">service</span>&gt;
+      &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">securityServer</span> <span class="pl-e">id</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>SERVER<span class="pl-pds">"</span></span>&gt;
+         &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;fdev&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
+         &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;GOV&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
+         &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;1710128-9&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
+         &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serverCode</span>&gt;fdev-ss1.i.palveluvayla.com&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serverCode</span>&gt;
+      &lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">securityServer</span>&gt;
+      &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">id</span>&gt;ID11234&lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">id</span>&gt;
+      &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">protocolVersion</span>&gt;4.0&lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">protocolVersion</span>&gt;
+      &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">requestHash</span> <span class="pl-e">algorithmId</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.w3.org/2001/04/xmlenc#sha512<span class="pl-pds">"</span></span>&gt;mChpBRMvFlBBSNKeOxAJQBw4r6XdHZFuH8BOzhjsxjjOdaqXXyPXwnDEdq/NkYfEqbLUTi1h/OHEnX9F5YQ5kQ==&lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">requestHash</span>&gt;
+   &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Header</span>&gt;
+   &lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
+      &lt;<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">getSecurityServerMetricsResponse</span>&gt;
+         &lt;<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">metricSet</span>&gt;
+            &lt;<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">name</span>&gt;SERVER:fdev/GOV/1710128-9/fdev-ss1.i.palveluvayla.com&lt;/<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">name</span>&gt;
+            &lt;<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">stringMetric</span>&gt;
+               &lt;<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">name</span>&gt;proxyVersion&lt;/<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">name</span>&gt;
+               &lt;<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">value</span>&gt;6.7.7-1.20151201075839gitb72b28e&lt;/<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">value</span>&gt;
+            &lt;/<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">stringMetric</span>&gt;
+            &lt;<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">metricSet</span>&gt;
+               &lt;<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">name</span>&gt;systemMetrics&lt;/<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">name</span>&gt;
+               &lt;<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">stringMetric</span>&gt;
+                  &lt;<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">name</span>&gt;OperatingSystem&lt;/<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">name</span>&gt;
+                  &lt;<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">value</span>&gt;Linux version 3.13.0-70-generic&lt;/<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">value</span>&gt;
+               &lt;/<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">stringMetric</span>&gt;
+               &lt;<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">numericMetric</span>&gt;
+                  &lt;<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">name</span>&gt;TotalPhysicalMemory&lt;/<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">name</span>&gt;
+                  &lt;<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">value</span>&gt;2097684480&lt;/<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">value</span>&gt;
+               &lt;/<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">numericMetric</span>&gt;
+               &lt;<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">numericMetric</span>&gt;
+                  &lt;<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">name</span>&gt;TotalSwapSpace&lt;/<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">name</span>&gt;
+                  &lt;<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">value</span>&gt;2097684480&lt;/<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">value</span>&gt;
+               &lt;/<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">numericMetric</span>&gt;
+            &lt;/<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">metricSet</span>&gt;
+            ...
+         &lt;/<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">metricSet</span>&gt;
+      &lt;/<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">getSecurityServerMetricsResponse</span>&gt;
+   &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
+&lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>&gt;</pre></div>
     </article>
   </body>
 </html>

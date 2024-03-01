@@ -17,6 +17,1035 @@
   </head>
   <body>
     <article class="markdown-body">
+<div class="markdown-heading"><h1 class="heading-element">X-Road: Service Metadata Protocol 
+</h1><a id="x-road-service-metadata-protocol-" class="anchor-element" aria-label="Permalink: X-Road: Service Metadata Protocol " href="#x-road-service-metadata-protocol-"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p><strong>Technical Specification</strong></p>
+<p>Version: 2.13<br>
+Doc. ID: PR-META</p>
+<hr>
+<div class="markdown-heading"><h2 class="heading-element">Version history 
+</h2><a id="version-history-" class="anchor-element" aria-label="Permalink: Version history " href="#version-history-"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Version</th>
+<th>Description</th>
+<th>Author</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>04.08.2015</td>
+<td>0.8</td>
+<td>Initial version</td>
+<td>Siim Annuk</td>
+</tr>
+<tr>
+<td>09.09.2015</td>
+<td>1.0</td>
+<td>Editorial changes made</td>
+<td>Imbi Nõgisto</td>
+</tr>
+<tr>
+<td>15.09.2015</td>
+<td>1.1</td>
+<td>Made minor fixes to schemas</td>
+<td>Margus Freudenthal</td>
+</tr>
+<tr>
+<td>16.09.2015</td>
+<td>2.0</td>
+<td>Final version</td>
+<td>Imbi Nõgisto</td>
+</tr>
+<tr>
+<td>12.10.2015</td>
+<td>2.1</td>
+<td>Updated identifier names and WSDL examples</td>
+<td>Ilja Kromonov</td>
+</tr>
+<tr>
+<td>23.08.2017</td>
+<td>2.1.6</td>
+<td>Converted to Markdown and added endpoint address replacement</td>
+<td>Janne Mattila</td>
+</tr>
+<tr>
+<td>02.01.2018</td>
+<td>2.2</td>
+<td>Update getWsdl metaservice description</td>
+<td>Ilkka Seppälä</td>
+</tr>
+<tr>
+<td>04.01.2018</td>
+<td>2.3</td>
+<td>Updated descriptions and subsystem requirements for meta-services</td>
+<td>Tatu Repo</td>
+</tr>
+<tr>
+<td>30.01.2018</td>
+<td>2.4</td>
+<td>Updated metaservices wsdl</td>
+<td>Jarkko Hyöty</td>
+</tr>
+<tr>
+<td>06.03.2018</td>
+<td>2.5</td>
+<td>Added terms section, terms doc reference and link</td>
+<td>Tatu Repo</td>
+</tr>
+<tr>
+<td>15.10.2018</td>
+<td>2.6</td>
+<td>Update Annex B</td>
+<td>Petteri Kivimäki</td>
+</tr>
+<tr>
+<td>05.06.2019</td>
+<td>2.7</td>
+<td>Add JSON response for listClients metadata API</td>
+<td>Jarkko Hyöty</td>
+</tr>
+<tr>
+<td>30.07.2019</td>
+<td>2.8</td>
+<td>Update listMethods and allowedMethods descriptions</td>
+<td>Ilkka Seppälä</td>
+</tr>
+<tr>
+<td>09.10.2019</td>
+<td>2.9</td>
+<td>Remove listCentralServices from the OpenAPI definition</td>
+<td>Jarkko Hyöty</td>
+</tr>
+<tr>
+<td>07.11.2019</td>
+<td>2.10</td>
+<td>Update getWsdl metaservice description</td>
+<td>Ilkka Seppälä</td>
+</tr>
+<tr>
+<td>03.04.2020</td>
+<td>2.11</td>
+<td>Remove getWsdl HTTP GET-request description</td>
+<td>Petteri Kivimäki</td>
+</tr>
+<tr>
+<td>17.04.2023</td>
+<td>2.12</td>
+<td>Remove central services support</td>
+<td>Justas Samuolis</td>
+</tr>
+<tr>
+<td>01.06.2023</td>
+<td>2.13</td>
+<td>Update references</td>
+<td>Petteri Kivimäki</td>
+</tr>
+</tbody>
+</table>
+<div class="markdown-heading"><h2 class="heading-element">Table of Contents 
+</h2><a id="table-of-contents-" class="anchor-element" aria-label="Permalink: Table of Contents " href="#table-of-contents-"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+
+
+<ul>
+<li><a href="#license">License</a></li>
+<li>
+<a href="#1-introduction">1 Introduction</a>
+<ul>
+<li><a href="#11-terms-and-abbreviations">1.1 Terms and abbreviations</a></li>
+<li><a href="#12-references">1.2 References</a></li>
+</ul>
+</li>
+<li><a href="#2-retrieving-list-of-service-providers">2 Retrieving List of Service Providers</a></li>
+<li><a href="#4-retrieving-list-of-services">3 Retrieving List of Services</a></li>
+<li>
+<a href="#5-retrieving-the-wsdl-of-a-service">4 Retrieving the WSDL of a Service</a>
+<ul>
+<li><a href="#wsdl-information-modifications">WSDL-information modifications</a></li>
+</ul>
+</li>
+<li><a href="#annex-a-xml-schema-for-messages">Annex A XML Schema for Messages</a></li>
+<li>
+<a href="#annex-b-listmethods-allowedmethods-and-getwsdl-service-descriptions">Annex B listMethods, allowedMethods, and getWsdl service descriptions</a>
+<ul>
+<li><a href="#wsdl">WSDL</a></li>
+<li><a href="#openapi-definition">OpenAPI definition</a></li>
+</ul>
+</li>
+<li>
+<a href="#annex-c-example-messages">Annex C Example Messages</a>
+<ul>
+<li>
+<a href="#c1-listclients-response">C.1 listClients Response</a>
+<ul>
+<li><a href="#xml-response">XML Response</a></li>
+<li><a href="#json-response">JSON Response</a></li>
+</ul>
+</li>
+<li><a href="#c3-listmethods-request">C.2 listMethods Request</a></li>
+<li><a href="#c4-listmethods-response">C.3 listMethods Response</a></li>
+<li><a href="#c5-allowedmethods-request">C.4 allowedMethods Request</a></li>
+<li><a href="#c6-allowedmethods-response">C.5 allowedMethods Response</a></li>
+<li><a href="#c7-getwsdl-request">C.6 getWsdl Request</a></li>
+<li><a href="#c8-getwsdl-response">C.7 getWsdl Response</a></li>
+<li><a href="#c9-getwsdl-response-attachment">C.8 getWsdl Response attachment</a></li>
+</ul>
+</li>
+</ul>
+
+
+<div class="markdown-heading"><h2 class="heading-element">License</h2><a id="license" class="anchor-element" aria-label="Permalink: License" href="#license"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>This document is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="nofollow">http://creativecommons.org/licenses/by-sa/3.0/</a></p>
+<div class="markdown-heading"><h2 class="heading-element">1 Introduction</h2><a id="1-introduction" class="anchor-element" aria-label="Permalink: 1 Introduction" href="#1-introduction"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>This specification describes methods that can be used by X-Road participants to discover what services are available to them and download the WSDL files describing these services. The X-Road service metadata protocol is intended to support portals and other software that can discover the available services and then automatically generate user interfaces based on their descriptions. In order to accomplish this, the portal can use the following steps.</p>
+<ol>
+<li>
+<p>Download a list of X-Road members and subsystems (see Section <a href="#2-retrieving-list-of-service-providers">2</a>). This results in a list of (potential) service provides who can be further be queried.</p>
+</li>
+<li>
+<p>Connect to the service provider and acquire a list of services offered by this provider (see Section <a href="#4-retrieving-list-of-services">4</a>). This service has two forms: <code>listMethods</code> returns a list of services provided by a given service provider, <code>allowedMethods</code> constrains the returned list by only including services that are allowed for the client.</p>
+</li>
+<li>
+<p>Download the description of the service in WSDL format (see Section <a href="#5-retrieving-the-wsdl-of-a-service">5</a>).</p>
+</li>
+</ol>
+<p>This specification is based on the X-Road protocol [<a href="#Ref_PR-MESS">PR-MESS</a>]. The X-Road protocol specification also defines important concepts used in this text (for example X-Road identifier). Because this protocol uses HTTP and X-Road protocol as transport mechanisms, the details of message transport and error conditions are not described in this specification.</p>
+<p>Chapters <a href="#2-retrieving-list-of-service-providers">2</a>, <a href="#4-retrieving-list-of-services">3</a> and <a href="#5-retrieving-the-wsdl-of-a-service">4</a> together with annexes <a href="#annex-a-xml-schema-for-messages">A</a> and <a href="#annex-b-listmethods-allowedmethods-and-getwsdl-service-descriptions">B</a> contain normative information. All the other sections are informative in nature. All the references are normative.</p>
+<p>This specification does not include option for partially implementing the protocol – the conformant implementation must implement the entire specification.</p>
+<p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document (in uppercase, as shown) are to be interpreted as described in [<a href="#Ref_RFC2119">RFC2119</a>].</p>
+<div class="markdown-heading"><h3 class="heading-element">1.1 Terms and abbreviations</h3><a id="11-terms-and-abbreviations" class="anchor-element" aria-label="Permalink: 1.1 Terms and abbreviations" href="#11-terms-and-abbreviations"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>See X-Road terms and abbreviations documentation [<a href="#Ref_TERMS">TA-TERMS</a>].</p>
+<div class="markdown-heading"><h3 class="heading-element">1.2 References</h3><a id="12-references" class="anchor-element" aria-label="Permalink: 1.2 References" href="#12-references"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<ol>
+<li>
+<a name="Ref_PR-MESS"></a>[PR-MESS] X-Road: Message Protocol v4.0. Document ID:
+<a href="pr-mess_x-road_message_protocol.html">PR-MESS</a>.</li>
+<li>
+<a name="Ref_RFC2119"></a>[RFC2119] Key words for use in RFCs to Indicate Requirement Levels, Internet Engineering Task Force, 1997,
+<a href="https://www.ietf.org/rfc/rfc2119.txt" rel="nofollow">https://www.ietf.org/rfc/rfc2119.txt</a>
+</li>
+<li>
+<a name="Ref_UG-SYSPAR"></a>[UG-SYSPAR] X-Road: System Parameters User Guide. Document ID:
+<a href="../Manuals/ug-syspar_x-road_v6_system_parameters.html">UG-SYSPAAR</a>.</li>
+<li>
+<a id="Ref_TERMS"></a>[TA-TERMS] X-Road Terms and Abbreviations. Document ID: <a href="../terms_x-road_docs.html">TA-TERMS</a>.</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">2 Retrieving List of Service Providers</h2><a id="2-retrieving-list-of-service-providers" class="anchor-element" aria-label="Permalink: 2 Retrieving List of Service Providers" href="#2-retrieving-list-of-service-providers"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>Security server clients can retrieve a list of all the potential service providers (i.e., members and subsystems) of an X-Road instance. This can be accomplished by making a HTTP GET request to the security server. The request URL is <code>http://SECURITYSERVER/listClients</code> or <code>https://SECURITYSERVER/listClients</code> depending on whether the HTTPS protocol is configured for interaction between the security server and the information system. When making the request, the address <code>SECURITYSERVER</code> must be replaced with the actual address of the security server.
+In addition, it is possible to retrieve a list of clients in other, federated X-Road instances by adding the following HTTP parameter:</p>
+<ul>
+<li>
+<code>xRoadInstance</code> – code that identifies the X-Road instance.</li>
+</ul>
+<p>Thus, in order to retrieve a list of clients defined in the X-Road instance <code>AA</code>, the request URL is <code>http://SECURITYSERVER/listClients?xRoadInstance=AA</code>.</p>
+<p>It is possible to control the response content type using HTTP <code>Accept</code> header. If the header value is <code>application/json</code>, the security server must produce an application/json response, as defined in Annex B, <a href="#openapi-definition">OpenAPI definition</a>. Otherwise, security server MUST respond with content-type <code>text/xml</code> and the response MUST contain the <code>clientList</code> XML element defined in Annex <a href="#annex-a-xml-schema-for-messages">A</a>).</p>
+<p>Annex <a href="#c1-listclients-response">C.1</a> contains an example XML and JSON response messages</p>
+<p>The X-Road client identifier has a hierarchical structure consisting of X-Road instance, member class, member and (optionally) subsystem codes. See specification [<a href="#Ref_PR-MESS">PR-MESS</a>] for explanation and specification of identifiers.</p>
+<div class="markdown-heading"><h2 class="heading-element">3 Retrieving List of Services</h2><a id="3-retrieving-list-of-services" class="anchor-element" aria-label="Permalink: 3 Retrieving List of Services" href="#3-retrieving-list-of-services"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>X-Road provides two methods for getting the list of SOAP services offered by an X-Road client:</p>
+<ul>
+<li>
+<p><code>listMethods</code> lists all SOAP services offered by a service provider; and</p>
+</li>
+<li>
+<p><code>allowedMethods</code> lists all SOAP services offered by a service provider that the caller has permission to invoke.</p>
+</li>
+</ul>
+<p>Both methods are invoked as regular X-Road SOAP services (see specification [<a href="#Ref_PR-MESS">PR-MESS</a>] for details on the X-Road SOAP protocol). The connection type settings of the client subsystem is used when the methods are invoked.</p>
+<p>The service SOAP header MUST contain the identifier of the target service provider and the value of the serviceCode element MUST be either <code>listMethods</code> or <code>allowedMethods</code>.
+The body of the request MUST contain an appropriately named empty XML element (either <code>listMethods</code> or <code>allowedMethods</code>).
+Annexes <a href="#c3-listmethods-request">C.3</a> and <a href="#c5-allowedmethods-request">C.5</a> contain example request messages for services, respectively.</p>
+<p>The body of the response message MUST contain a list of services provided by the service provider (in case of listMethods) or open to the given client (in case of allowedMethods). The response SHALL NOT contain names of the metainfo services. The following snippet contains XML schema of the response body.
+Annexes <a href="#c4-listmethods-response">C.4</a> and <a href="#c6-allowedmethods-response">C.6</a> contain example response messages for listMethods and allowedMethods services, respectively.</p>
+<div class="highlight highlight-text-xml"><pre>    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>listMethodsResponse<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>MethodListType<span class="pl-pds">"</span></span>/&gt;
+    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>allowedMethodsResponse<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>MethodListType<span class="pl-pds">"</span></span>/&gt;
+
+    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>MethodListType<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+            &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">maxOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>unbounded<span class="pl-pds">"</span></span> <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span>
+                <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>service<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>id:XRoadServiceIdentifierType<span class="pl-pds">"</span></span>/&gt;
+        &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+    &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;</pre></div>
+<div class="markdown-heading"><h2 class="heading-element">4 Retrieving the WSDL of a Service</h2><a id="4-retrieving-the-wsdl-of-a-service" class="anchor-element" aria-label="Permalink: 4 Retrieving the WSDL of a Service" href="#4-retrieving-the-wsdl-of-a-service"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>Service clients are able to download WSDL-files that contain the definition of a given service by using the <code>getWsdl</code> method. The method is invoked as regular X-Road SOAP service (see specification [<a href="#Ref_PR-MESS">PR-MESS</a>] for details on the X-Road SOAP protocol). The connection type settings of the client subsystem is used when the method is invoked. In addition, the following aspects should be noted:</p>
+<ul>
+<li>WSDL is retrieved as a SOAP-attachment</li>
+<li>fetching the WSDL obeys the service's "Verify TLS Certificate" setting.</li>
+</ul>
+<p>The service SOAP header MUST contain the identifier of the target service provider and the value of the serviceCode element MUST be <code>getWsdl</code>.
+The body of the request MUST contain an appropriately named XML element (<code>getWsdl</code>) which contains one or two child elements (<code>serviceCode</code>, <code>serviceVersion</code>) that define the service which service description is returned. The <code>serviceCode</code> element is mandatory and the <code>serviceVersion</code> element is optional.</p>
+<p>An example of a <code>getWsdl</code> request to the client security server is documented in annex <a href="#c7-getwsdl-request">C.7</a> and the corresponding response in annexes <a href="#c8-getwsdl-response">C.8</a> and <a href="#c9-getwsdl-response-attachment">C.9</a>.</p>
+<div class="markdown-heading"><h4 class="heading-element">WSDL-information modifications</h4><a id="wsdl-information-modifications" class="anchor-element" aria-label="Permalink: WSDL-information modifications" href="#wsdl-information-modifications"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>Security server MUST replace endpoint location with value <code>http://example.org/xroad-endpoint</code>.
+This is done for security reasons, to hide the endpoint addresses which often point
+to information systems which should be hidden from the clients, and be accessed only through
+the provider security server.</p>
+<p>For example service definition</p>
+<div class="highlight highlight-text-xml"><pre>    &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">service</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>testService<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">port</span> <span class="pl-e">binding</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:testServiceBinding<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>testServicePort<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">address</span> <span class="pl-e">location</span>=<span class="pl-s"><span class="pl-pds">"</span>http://some-server.company.com:8080/testService/Endpoint<span class="pl-pds">"</span></span>/&gt;
+        &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">port</span>&gt;
+    &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">service</span>&gt;</pre></div>
+<p>becomes</p>
+<div class="highlight highlight-text-xml"><pre>    &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">service</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>testService<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">port</span> <span class="pl-e">binding</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:testServiceBinding<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>testServicePort<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">address</span> <span class="pl-e">location</span>=<span class="pl-s"><span class="pl-pds">"</span>http://example.org/xroad-endpoint<span class="pl-pds">"</span></span>/&gt;
+        &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">port</span>&gt;
+    &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">service</span>&gt;</pre></div>
+<p>when retrieved through the meta-service.</p>
+<div class="markdown-heading"><h2 class="heading-element">Annex A XML Schema for Messages</h2><a id="annex-a-xml-schema-for-messages" class="anchor-element" aria-label="Permalink: Annex A XML Schema for Messages" href="#annex-a-xml-schema-for-messages"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
+&lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">schema</span> <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">xs</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.w3.org/2001/XMLSchema<span class="pl-pds">"</span></span>
+        <span class="pl-e">elementFormDefault</span>=<span class="pl-s"><span class="pl-pds">"</span>qualified<span class="pl-pds">"</span></span>
+        <span class="pl-e">targetNamespace</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>
+        <span class="pl-e">xmlns</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>
+        <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/identifiers<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">import</span> <span class="pl-e">schemaLocation</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/identifiers.xsd<span class="pl-pds">"</span></span>
+            <span class="pl-e">namespace</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/identifiers<span class="pl-pds">"</span></span>/&gt;
+    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>ClientListType<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+            &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">maxOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>unbounded<span class="pl-pds">"</span></span> <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span>
+                    <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>member<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>ClientType<span class="pl-pds">"</span></span>/&gt;
+        &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+    &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
+    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>ClientType<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+            &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>id:XRoadClientIdentifierType<span class="pl-pds">"</span></span>/&gt;
+            &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>xs:string<span class="pl-pds">"</span></span> <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span>/&gt;
+        &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+    &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
+    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>clientList<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>ClientListType<span class="pl-pds">"</span></span>/&gt;
+&lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">schema</span>&gt;</pre></div>
+<div class="markdown-heading"><h2 class="heading-element">Annex B listMethods, allowedMethods, and getWsdl service descriptions</h2><a id="annex-b-listmethods-allowedmethods-and-getwsdl-service-descriptions" class="anchor-element" aria-label="Permalink: Annex B listMethods, allowedMethods, and getWsdl service descriptions" href="#annex-b-listmethods-allowedmethods-and-getwsdl-service-descriptions"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h3 class="heading-element">WSDL</h3><a id="wsdl" class="anchor-element" aria-label="Permalink: WSDL" href="#wsdl"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
+&lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">definitions</span> <span class="pl-e">targetNamespace</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>
+    <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">wsdl</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.xmlsoap.org/wsdl/<span class="pl-pds">"</span></span>
+    <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">xrd</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>
+    <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/identifiers<span class="pl-pds">"</span></span>
+    <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">xs</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.w3.org/2001/XMLSchema<span class="pl-pds">"</span></span>
+    <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">soap</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.xmlsoap.org/wsdl/soap/<span class="pl-pds">"</span></span>
+    <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">mime</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.xmlsoap.org/wsdl/mime/<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">types</span>&gt;
+        &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">schema</span> <span class="pl-e">targetNamespace</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span> <span class="pl-e">elementFormDefault</span>=<span class="pl-s"><span class="pl-pds">"</span>qualified<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">include</span> <span class="pl-e">schemaLocation</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span> /&gt;
+            &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">import</span> <span class="pl-e">namespace</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/identifiers<span class="pl-pds">"</span></span>
+                <span class="pl-e">schemaLocation</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/identifiers.xsd<span class="pl-pds">"</span></span>/&gt;
+
+            &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>listMethods<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
+                    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span> /&gt;
+                &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
+            &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>allowedMethods<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
+                    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span> /&gt;
+                &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
+            &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>listMethodsResponse<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
+                    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+                        &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">maxOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>unbounded<span class="pl-pds">"</span></span> <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>service<span class="pl-pds">"</span></span>
+                            <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>id:XRoadServiceIdentifierType<span class="pl-pds">"</span></span> /&gt;
+                    &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+                &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
+            &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>allowedMethodsResponse<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
+                    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+                        &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">maxOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>unbounded<span class="pl-pds">"</span></span> <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>service<span class="pl-pds">"</span></span>
+                            <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>id:XRoadServiceIdentifierType<span class="pl-pds">"</span></span> /&gt;
+                    &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+                &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
+            &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>getWsdl<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
+                    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+                        &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>serviceCode<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>xs:string<span class="pl-pds">"</span></span>/&gt;
+                        &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>serviceVersion<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>xs:string<span class="pl-pds">"</span></span> <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span>/&gt;
+                    &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+                &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
+            &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>getWsdlResponse<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
+                    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+                        &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>serviceCode<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>xs:string<span class="pl-pds">"</span></span>/&gt;
+                        &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>serviceVersion<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>xs:string<span class="pl-pds">"</span></span> <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span>/&gt;
+                    &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+                &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
+            &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span>&gt;
+        &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">schema</span>&gt;
+    &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">types</span>&gt;
+
+    &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">message</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>listMethods<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>listMethods<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:listMethods<span class="pl-pds">"</span></span>/&gt;
+
+            &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>client<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:client<span class="pl-pds">"</span></span>/&gt;
+            &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>service<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:service<span class="pl-pds">"</span></span>/&gt;
+            &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>userId<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:userId<span class="pl-pds">"</span></span>/&gt;
+            &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:id<span class="pl-pds">"</span></span>/&gt;
+            &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>protocolVersion<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:protocolVersion<span class="pl-pds">"</span></span>/&gt;
+     &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">message</span>&gt;
+
+    &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">message</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>listMethodsResponse<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>listMethodsResponse<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:listMethodsResponse<span class="pl-pds">"</span></span>/&gt;
+
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>client<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:client<span class="pl-pds">"</span></span>/&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>service<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:service<span class="pl-pds">"</span></span>/&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>userId<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:userId<span class="pl-pds">"</span></span>/&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:id<span class="pl-pds">"</span></span>/&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>protocolVersion<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:protocolVersion<span class="pl-pds">"</span></span>/&gt;
+    &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">message</span>&gt;
+
+    &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">message</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>allowedMethods<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>allowedMethods<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:allowedMethods<span class="pl-pds">"</span></span>/&gt;
+
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>client<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:client<span class="pl-pds">"</span></span>/&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>service<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:service<span class="pl-pds">"</span></span>/&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>userId<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:userId<span class="pl-pds">"</span></span>/&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:id<span class="pl-pds">"</span></span>/&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>protocolVersion<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:protocolVersion<span class="pl-pds">"</span></span>/&gt;
+    &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">message</span>&gt;
+
+    &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">message</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>allowedMethodsResponse<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>allowedMethodsResponse<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:allowedMethodsResponse<span class="pl-pds">"</span></span>/&gt;
+
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>client<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:client<span class="pl-pds">"</span></span>/&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>service<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:service<span class="pl-pds">"</span></span>/&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>userId<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:userId<span class="pl-pds">"</span></span>/&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:id<span class="pl-pds">"</span></span>/&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>protocolVersion<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:protocolVersion<span class="pl-pds">"</span></span>/&gt;
+    &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">message</span>&gt;
+
+    &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">message</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>getWsdl<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>getWsdl<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:getWsdl<span class="pl-pds">"</span></span>/&gt;
+
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>client<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:client<span class="pl-pds">"</span></span>/&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>service<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:service<span class="pl-pds">"</span></span>/&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>userId<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:userId<span class="pl-pds">"</span></span>/&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:id<span class="pl-pds">"</span></span>/&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>protocolVersion<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:protocolVersion<span class="pl-pds">"</span></span>/&gt;
+    &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">message</span>&gt;
+
+    &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">message</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>getWsdlResponse<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>getWsdlResponse<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:getWsdlResponse<span class="pl-pds">"</span></span>/&gt;
+        <span class="pl-c"><span class="pl-c">&lt;!--</span> the wsdl is returned as an attachment <span class="pl-c">--&gt;</span></span>
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>wsdl<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>xs:base64Binary<span class="pl-pds">"</span></span>/&gt;
+
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>client<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:client<span class="pl-pds">"</span></span>/&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>service<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:service<span class="pl-pds">"</span></span>/&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>userId<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:userId<span class="pl-pds">"</span></span>/&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:id<span class="pl-pds">"</span></span>/&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>protocolVersion<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:protocolVersion<span class="pl-pds">"</span></span>/&gt;
+    &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">message</span>&gt;
+
+    &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">portType</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>metaServicesPort<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">operation</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>allowedMethods<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">documentation</span>&gt;
+                &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">title</span>&gt;allowedMethods&lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">title</span>&gt;
+            &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">documentation</span>&gt;
+            &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">input</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>allowedMethods<span class="pl-pds">"</span></span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:allowedMethods<span class="pl-pds">"</span></span>/&gt;
+            &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">output</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>allowedMethodsResponse<span class="pl-pds">"</span></span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:allowedMethodsResponse<span class="pl-pds">"</span></span>/&gt;
+        &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">operation</span>&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">operation</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>listMethods<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">documentation</span>&gt;
+                &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">title</span>&gt;listMethods&lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">title</span>&gt;
+            &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">documentation</span>&gt;
+            &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">input</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>listMethods<span class="pl-pds">"</span></span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:listMethods<span class="pl-pds">"</span></span>/&gt;
+            &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">output</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>listMethodsResponse<span class="pl-pds">"</span></span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:listMethodsResponse<span class="pl-pds">"</span></span>/&gt;
+        &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">operation</span>&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">operation</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>getWsdl<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">input</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:getWsdl<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>getWsdl<span class="pl-pds">"</span></span>/&gt;
+            &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">output</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:getWsdlResponse<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>getWsdlResponse<span class="pl-pds">"</span></span>/&gt;
+        &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">operation</span>&gt;
+    &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">portType</span>&gt;
+
+    &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">binding</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>metaServicesPortSoap11<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:metaServicesPort<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">binding</span> <span class="pl-e">style</span>=<span class="pl-s"><span class="pl-pds">"</span>document<span class="pl-pds">"</span></span>
+                      <span class="pl-e">transport</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.xmlsoap.org/soap/http<span class="pl-pds">"</span></span>/&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">operation</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>allowedMethods<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">operation</span> <span class="pl-e">soapAction</span>=<span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>/&gt;
+            &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">input</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>allowedMethods<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">body</span> <span class="pl-e">parts</span>=<span class="pl-s"><span class="pl-pds">"</span>allowedMethods<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:allowedMethods<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>client<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:allowedMethods<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>service<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:allowedMethods<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>userId<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:allowedMethods<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:allowedMethods<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>protocolVersion<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+            &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">input</span>&gt;
+            &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">output</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>allowedMethodsResponse<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">body</span> <span class="pl-e">parts</span>=<span class="pl-s"><span class="pl-pds">"</span>allowedMethodsResponse<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:allowedMethodsResponse<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>client<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:allowedMethodsResponse<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>service<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:allowedMethodsResponse<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>userId<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:allowedMethodsResponse<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:allowedMethodsResponse<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>protocolVersion<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+            &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">output</span>&gt;
+        &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">operation</span>&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">operation</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>listMethods<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">operation</span> <span class="pl-e">soapAction</span>=<span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>/&gt;
+            &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">input</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>listMethods<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">body</span> <span class="pl-e">parts</span>=<span class="pl-s"><span class="pl-pds">"</span>listMethods<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:listMethods<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>client<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:listMethods<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>service<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:listMethods<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>userId<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:listMethods<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:listMethods<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>protocolVersion<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+            &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">input</span>&gt;
+            &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">output</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>listMethodsResponse<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">body</span> <span class="pl-e">parts</span>=<span class="pl-s"><span class="pl-pds">"</span>listMethodsResponse<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:listMethodsResponse<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>client<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:listMethodsResponse<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>service<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:listMethodsResponse<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>userId<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:listMethodsResponse<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:listMethodsResponse<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>protocolVersion<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+            &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">output</span>&gt;
+        &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">operation</span>&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">operation</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>getWsdl<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">operation</span> <span class="pl-e">soapAction</span>=<span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>/&gt;
+            &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">input</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>getWsdl<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">body</span> <span class="pl-e">parts</span>=<span class="pl-s"><span class="pl-pds">"</span>getWsdl<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:getWsdl<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>client<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:getWsdl<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>service<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:getWsdl<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>userId<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:getWsdl<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:getWsdl<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>protocolVersion<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+            &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">input</span>&gt;
+            &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">output</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>getWsdlResponse<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">mime</span><span class="pl-ent">:</span><span class="pl-ent">multipartRelated</span>&gt;
+                    &lt;<span class="pl-ent">mime</span><span class="pl-ent">:</span><span class="pl-ent">part</span>&gt;
+                        &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">body</span> <span class="pl-e">parts</span>=<span class="pl-s"><span class="pl-pds">"</span>getWsdlResponse<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                        &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:getWsdlResponse<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>client<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                        &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:getWsdlResponse<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>service<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                        &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:getWsdlResponse<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>userId<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                        &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:getWsdlResponse<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                        &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:getWsdlResponse<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>protocolVersion<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                    &lt;/<span class="pl-ent">mime</span><span class="pl-ent">:</span><span class="pl-ent">part</span>&gt;
+                    &lt;<span class="pl-ent">mime</span><span class="pl-ent">:</span><span class="pl-ent">part</span>&gt;
+                        &lt;<span class="pl-ent">mime</span><span class="pl-ent">:</span><span class="pl-ent">content</span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>wsdl<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/xml<span class="pl-pds">"</span></span>/&gt;
+                    &lt;/<span class="pl-ent">mime</span><span class="pl-ent">:</span><span class="pl-ent">part</span>&gt;
+                &lt;/<span class="pl-ent">mime</span><span class="pl-ent">:</span><span class="pl-ent">multipartRelated</span>&gt;
+            &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">output</span>&gt;
+        &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">operation</span>&gt;
+    &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">binding</span>&gt;
+
+    &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">service</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>producerPortService<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">port</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>metaServicesPortSoap11<span class="pl-pds">"</span></span>
+            <span class="pl-e">binding</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:metaServicesPortSoap11<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">address</span> <span class="pl-e">location</span>=<span class="pl-s"><span class="pl-pds">"</span>https://SECURITYSERVER/<span class="pl-pds">"</span></span> /&gt;
+        &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">port</span>&gt;
+    &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">service</span>&gt;
+&lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">definitions</span>&gt;</pre></div>
+<div class="markdown-heading"><h3 class="heading-element">OpenAPI definition</h3><a id="openapi-definition" class="anchor-element" aria-label="Permalink: OpenAPI definition" href="#openapi-definition"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="highlight highlight-source-yaml"><pre><span class="pl-ent">openapi</span>: <span class="pl-s">3.0.0</span>
+<span class="pl-ent">info</span>:
+  <span class="pl-ent">title</span>: <span class="pl-s">X-Road Service Metadata API</span>
+  <span class="pl-ent">version</span>: <span class="pl-s"><span class="pl-pds">'</span>2.7<span class="pl-pds">'</span></span>
+<span class="pl-ent">servers</span>:
+  - <span class="pl-ent">url</span>: <span class="pl-s"><span class="pl-pds">'</span>https://{securityserver}/<span class="pl-pds">'</span></span>
+<span class="pl-ent">paths</span>:
+  <span class="pl-ent">/listClients</span>:
+    <span class="pl-ent">get</span>:
+      <span class="pl-ent">tags</span>:
+        - <span class="pl-s">metaservices</span>
+      <span class="pl-ent">summary</span>: <span class="pl-s">List clients defined in the X-Road instance</span>
+      <span class="pl-ent">operationId</span>: <span class="pl-s">listClients</span>
+      <span class="pl-ent">parameters</span>:
+        - <span class="pl-ent">name</span>: <span class="pl-s">xRoadInstance</span>
+          <span class="pl-ent">in</span>: <span class="pl-s">query</span>
+          <span class="pl-ent">schema</span>:
+            <span class="pl-ent">type</span>: <span class="pl-s">string</span>
+      <span class="pl-ent">responses</span>:
+        <span class="pl-s"><span class="pl-pds">'</span><span class="pl-ent">200</span><span class="pl-pds">'</span></span>:
+          <span class="pl-ent">description</span>: <span class="pl-s">List of clients</span>
+          <span class="pl-ent">content</span>:
+            <span class="pl-ent">application/json</span>:
+              <span class="pl-ent">schema</span>:
+                <span class="pl-ent">$ref</span>: <span class="pl-s"><span class="pl-pds">'</span>#/components/schemas/clientList<span class="pl-pds">'</span></span>
+<span class="pl-ent">components</span>:
+  <span class="pl-ent">schemas</span>:
+    <span class="pl-ent">clientList</span>:
+      <span class="pl-ent">type</span>: <span class="pl-s">object</span>
+      <span class="pl-ent">properties</span>:
+        <span class="pl-ent">member</span>:
+          <span class="pl-ent">type</span>: <span class="pl-s">array</span>
+          <span class="pl-ent">items</span>:
+            <span class="pl-ent">$ref</span>: <span class="pl-s"><span class="pl-pds">'</span>#/components/schemas/xroadIdentifier<span class="pl-pds">'</span></span>
+    <span class="pl-ent">xroadIdentifier</span>:
+      <span class="pl-ent">type</span>: <span class="pl-s">object</span>
+      <span class="pl-ent">properties</span>:
+        <span class="pl-ent">name</span>:
+          <span class="pl-ent">type</span>: <span class="pl-s">string</span>
+        <span class="pl-ent">id</span>:
+          <span class="pl-ent">type</span>: <span class="pl-s">object</span>
+          <span class="pl-ent">properties</span>:
+            <span class="pl-ent">object_type</span>:
+              <span class="pl-ent">type</span>: <span class="pl-s">string</span>
+              <span class="pl-ent">enum</span>:
+                - <span class="pl-s">MEMBER</span>
+                - <span class="pl-s">SUBSYSTEM</span>
+                - <span class="pl-s">SERVER</span>
+                - <span class="pl-s">GLOBALGROUP</span>
+                - <span class="pl-s">LOCALGROUP</span>
+                - <span class="pl-s">SERVICE</span>
+            <span class="pl-ent">xroad_instance</span>:
+              <span class="pl-ent">type</span>: <span class="pl-s">string</span>
+            <span class="pl-ent">member_class</span>:
+              <span class="pl-ent">type</span>: <span class="pl-s">string</span>
+            <span class="pl-ent">member_code</span>:
+              <span class="pl-ent">type</span>: <span class="pl-s">string</span>
+            <span class="pl-ent">subsystem_code</span>:
+              <span class="pl-ent">type</span>: <span class="pl-s">string</span></pre></div>
+<div class="markdown-heading"><h2 class="heading-element">Annex C Example Messages</h2><a id="annex-c-example-messages" class="anchor-element" aria-label="Permalink: Annex C Example Messages" href="#annex-c-example-messages"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h3 class="heading-element">C.1 listClients Response</h3><a id="c1-listclients-response" class="anchor-element" aria-label="Permalink: C.1 listClients Response" href="#c1-listclients-response"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h4 class="heading-element">XML Response</h4><a id="xml-response" class="anchor-element" aria-label="Permalink: XML Response" href="#xml-response"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p><code>curl http://SECURITYSERVER/listClients</code></p>
+<div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span><span class="pl-e"> standalone</span>=<span class="pl-s"><span class="pl-pds">"</span>yes<span class="pl-pds">"</span></span>?&gt;
+&lt;<span class="pl-ent">ns2</span><span class="pl-ent">:</span><span class="pl-ent">clientList</span>
+        <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">ns1</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/identifiers<span class="pl-pds">"</span></span>
+        <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">ns2</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">ns2</span><span class="pl-ent">:</span><span class="pl-ent">member</span>&gt;
+        &lt;<span class="pl-ent">ns2</span><span class="pl-ent">:</span><span class="pl-ent">id</span> <span class="pl-e">ns1</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>MEMBER<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">ns1</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;AA&lt;/<span class="pl-ent">ns1</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
+            &lt;<span class="pl-ent">ns1</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;GOV&lt;/<span class="pl-ent">ns1</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
+            &lt;<span class="pl-ent">ns1</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;TS1OWNER&lt;/<span class="pl-ent">ns1</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
+        &lt;/<span class="pl-ent">ns2</span><span class="pl-ent">:</span><span class="pl-ent">id</span>&gt;
+        &lt;<span class="pl-ent">ns2</span><span class="pl-ent">:</span><span class="pl-ent">name</span>&gt;TS1 Owner&lt;/<span class="pl-ent">ns2</span><span class="pl-ent">:</span><span class="pl-ent">name</span>&gt;
+    &lt;/<span class="pl-ent">ns2</span><span class="pl-ent">:</span><span class="pl-ent">member</span>&gt;
+    &lt;<span class="pl-ent">ns2</span><span class="pl-ent">:</span><span class="pl-ent">member</span>&gt;
+        &lt;<span class="pl-ent">ns2</span><span class="pl-ent">:</span><span class="pl-ent">id</span> <span class="pl-e">ns1</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>MEMBER<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">ns1</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;AA&lt;/<span class="pl-ent">ns1</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
+            &lt;<span class="pl-ent">ns1</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;GOV&lt;/<span class="pl-ent">ns1</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
+            &lt;<span class="pl-ent">ns1</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;TS2OWNER&lt;/<span class="pl-ent">ns1</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
+        &lt;/<span class="pl-ent">ns2</span><span class="pl-ent">:</span><span class="pl-ent">id</span>&gt;
+        &lt;<span class="pl-ent">ns2</span><span class="pl-ent">:</span><span class="pl-ent">name</span>&gt;TS2 Owner&lt;/<span class="pl-ent">ns2</span><span class="pl-ent">:</span><span class="pl-ent">name</span>&gt;
+    &lt;/<span class="pl-ent">ns2</span><span class="pl-ent">:</span><span class="pl-ent">member</span>&gt;
+    &lt;<span class="pl-ent">ns2</span><span class="pl-ent">:</span><span class="pl-ent">member</span>&gt;
+        &lt;<span class="pl-ent">ns2</span><span class="pl-ent">:</span><span class="pl-ent">id</span> <span class="pl-e">ns1</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>MEMBER<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">ns1</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;AA&lt;/<span class="pl-ent">ns1</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
+            &lt;<span class="pl-ent">ns1</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;ENT&lt;/<span class="pl-ent">ns1</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
+            &lt;<span class="pl-ent">ns1</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;CLIENT1&lt;/<span class="pl-ent">ns1</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
+        &lt;/<span class="pl-ent">ns2</span><span class="pl-ent">:</span><span class="pl-ent">id</span>&gt;
+        &lt;<span class="pl-ent">ns2</span><span class="pl-ent">:</span><span class="pl-ent">name</span>&gt;Client One&lt;/<span class="pl-ent">ns2</span><span class="pl-ent">:</span><span class="pl-ent">name</span>&gt;
+    &lt;/<span class="pl-ent">ns2</span><span class="pl-ent">:</span><span class="pl-ent">member</span>&gt;
+    &lt;<span class="pl-ent">ns2</span><span class="pl-ent">:</span><span class="pl-ent">member</span>&gt;
+        &lt;<span class="pl-ent">ns2</span><span class="pl-ent">:</span><span class="pl-ent">id</span> <span class="pl-e">ns1</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>SUBSYSTEM<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">ns1</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;AA&lt;/<span class="pl-ent">ns1</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
+            &lt;<span class="pl-ent">ns1</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;ENT&lt;/<span class="pl-ent">ns1</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
+            &lt;<span class="pl-ent">ns1</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;CLIENT1&lt;/<span class="pl-ent">ns1</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
+            &lt;<span class="pl-ent">ns1</span><span class="pl-ent">:</span><span class="pl-ent">subsystemCode</span>&gt;sub&lt;/<span class="pl-ent">ns1</span><span class="pl-ent">:</span><span class="pl-ent">subsystemCode</span>&gt;
+        &lt;/<span class="pl-ent">ns2</span><span class="pl-ent">:</span><span class="pl-ent">id</span>&gt;
+        &lt;<span class="pl-ent">ns2</span><span class="pl-ent">:</span><span class="pl-ent">name</span>&gt;Client One&lt;/<span class="pl-ent">ns2</span><span class="pl-ent">:</span><span class="pl-ent">name</span>&gt;
+    &lt;/<span class="pl-ent">ns2</span><span class="pl-ent">:</span><span class="pl-ent">member</span>&gt;
+&lt;/<span class="pl-ent">ns2</span><span class="pl-ent">:</span><span class="pl-ent">clientList</span>&gt;</pre></div>
+<div class="markdown-heading"><h4 class="heading-element">JSON Response</h4><a id="json-response" class="anchor-element" aria-label="Permalink: JSON Response" href="#json-response"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p><code>curl -H "Accept: application/json" http://SECURITYSERVER/listClients</code></p>
+<div class="highlight highlight-source-json"><pre>{
+  <span class="pl-ent">"member"</span>: [
+    {
+      <span class="pl-ent">"id"</span>: {
+        <span class="pl-ent">"member_class"</span>: <span class="pl-s"><span class="pl-pds">"</span>GOV<span class="pl-pds">"</span></span>,
+        <span class="pl-ent">"member_code"</span>: <span class="pl-s"><span class="pl-pds">"</span>TS1OWNER<span class="pl-pds">"</span></span>,
+        <span class="pl-ent">"object_type"</span>: <span class="pl-s"><span class="pl-pds">"</span>MEMBER<span class="pl-pds">"</span></span>,
+        <span class="pl-ent">"xroad_instance"</span>: <span class="pl-s"><span class="pl-pds">"</span>AA<span class="pl-pds">"</span></span>
+      },
+      <span class="pl-ent">"name"</span>: <span class="pl-s"><span class="pl-pds">"</span>TS1 Owner<span class="pl-pds">"</span></span>
+    },
+    {
+      <span class="pl-ent">"id"</span>: {
+        <span class="pl-ent">"member_class"</span>: <span class="pl-s"><span class="pl-pds">"</span>GOV<span class="pl-pds">"</span></span>,
+        <span class="pl-ent">"member_code"</span>: <span class="pl-s"><span class="pl-pds">"</span>TS2OWNER<span class="pl-pds">"</span></span>,
+        <span class="pl-ent">"object_type"</span>: <span class="pl-s"><span class="pl-pds">"</span>MEMBER<span class="pl-pds">"</span></span>,
+        <span class="pl-ent">"xroad_instance"</span>: <span class="pl-s"><span class="pl-pds">"</span>AA<span class="pl-pds">"</span></span>
+      },
+      <span class="pl-ent">"name"</span>: <span class="pl-s"><span class="pl-pds">"</span>TS2 Owner<span class="pl-pds">"</span></span>
+    },
+    {
+      <span class="pl-ent">"id"</span>: {
+        <span class="pl-ent">"member_class"</span>: <span class="pl-s"><span class="pl-pds">"</span>ENT<span class="pl-pds">"</span></span>,
+        <span class="pl-ent">"member_code"</span>: <span class="pl-s"><span class="pl-pds">"</span>CLIENT1<span class="pl-pds">"</span></span>,
+        <span class="pl-ent">"object_type"</span>: <span class="pl-s"><span class="pl-pds">"</span>MEMBER<span class="pl-pds">"</span></span>,
+        <span class="pl-ent">"xroad_instance"</span>: <span class="pl-s"><span class="pl-pds">"</span>AA<span class="pl-pds">"</span></span>
+      },
+      <span class="pl-ent">"name"</span>: <span class="pl-s"><span class="pl-pds">"</span>Client One<span class="pl-pds">"</span></span>
+    },
+    {
+      <span class="pl-ent">"id"</span>: {
+        <span class="pl-ent">"member_class"</span>: <span class="pl-s"><span class="pl-pds">"</span>ENT<span class="pl-pds">"</span></span>,
+        <span class="pl-ent">"member_code"</span>: <span class="pl-s"><span class="pl-pds">"</span>CLIENT1<span class="pl-pds">"</span></span>,
+        <span class="pl-ent">"subsystem_code"</span>: <span class="pl-s"><span class="pl-pds">"</span>sub<span class="pl-pds">"</span></span>,
+        <span class="pl-ent">"object_type"</span>: <span class="pl-s"><span class="pl-pds">"</span>SUBSYSTEM<span class="pl-pds">"</span></span>,
+        <span class="pl-ent">"xroad_instance"</span>: <span class="pl-s"><span class="pl-pds">"</span>AA<span class="pl-pds">"</span></span>
+      },
+      <span class="pl-ent">"name"</span>: <span class="pl-s"><span class="pl-pds">"</span>Client One<span class="pl-pds">"</span></span>
+    }
+  ]
+}</pre></div>
+<div class="markdown-heading"><h3 class="heading-element">C.2 listMethods Request</h3><a id="c2-listmethods-request" class="anchor-element" aria-label="Permalink: C.2 listMethods Request" href="#c2-listmethods-request"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>utf-8<span class="pl-pds">"</span></span>?&gt;
+&lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>
+        <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">SOAP-ENV</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.xmlsoap.org/soap/envelope/<span class="pl-pds">"</span></span>
+        <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">xroad</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>
+        <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/identifiers<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Header</span>&gt;
+        &lt;<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">client</span> <span class="pl-e">id</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>MEMBER<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;Inst1&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;MemberClass1&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;ClientId&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
+        &lt;/<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">client</span>&gt;
+        &lt;<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">service</span> <span class="pl-e">id</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>SERVICE<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;Inst1&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;MemberClass1&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;ProviderId&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">subsystemCode</span>&gt;Subsystem1&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">subsystemCode</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serviceCode</span>&gt;listMethods&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serviceCode</span>&gt;
+        &lt;/<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">service</span>&gt;
+        &lt;<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">id</span>&gt;411d6755661409fed365ad8135f8210be07613da&lt;/<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">id</span>&gt;
+        &lt;<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">protocolVersion</span>&gt;4.0&lt;/<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">protocolVersion</span>&gt;
+    &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Header</span>&gt;
+    &lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
+        &lt;<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">listMethods</span>/&gt;
+    &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
+&lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>&gt;</pre></div>
+<div class="markdown-heading"><h3 class="heading-element">C.3 listMethods Response</h3><a id="c3-listmethods-response" class="anchor-element" aria-label="Permalink: C.3 listMethods Response" href="#c3-listmethods-response"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>utf-8<span class="pl-pds">"</span></span>?&gt;
+&lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>
+        <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">SOAP-ENV</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.xmlsoap.org/soap/envelope/<span class="pl-pds">"</span></span>
+        <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">xroad</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>
+        <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/identifiers<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Header</span>&gt;
+        &lt;<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">client</span> <span class="pl-e">id</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>MEMBER<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;Inst1&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;MemberClass1&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;ClientId&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
+        &lt;/<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">client</span>&gt;
+        &lt;<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">service</span> <span class="pl-e">id</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>SERVICE<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;Inst1&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;MemberClass1&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;ProviderId&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">subsystemCode</span>&gt;Subsystem1&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">subsystemCode</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serviceCode</span>&gt;listMethods&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serviceCode</span>&gt;
+        &lt;/<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">service</span>&gt;
+        &lt;<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">id</span>&gt;411d6755661409fed365ad8135f8210be07613da&lt;/<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">id</span>&gt;
+        &lt;<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">protocolVersion</span>&gt;4.0&lt;/<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">protocolVersion</span>&gt;
+        &lt;<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">requestHash</span> <span class="pl-e">algorithmId</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.w3.org/2001/04/xmlenc#sha512<span class="pl-pds">"</span></span>&gt;
+            Zvs1uF2GW3zdma1r9K9keOGhNPOjCr3TEZNpxfpRCtsq
+            qy3ljiLorMZ3e5iNZtX6Ek60xtV12Gue8Mme1ryZmQ==
+        &lt;/<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">requestHash</span>&gt;
+    &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Header</span>&gt;
+    &lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
+        &lt;<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">listMethodsResponse</span>&gt;
+            &lt;<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">service</span> <span class="pl-e">id</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>SERVICE<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;Inst1&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
+                &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;MemberClass1&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
+                &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;ProviderId&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
+                &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">subsystemCode</span>&gt;Subsystem1&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">subsystemCode</span>&gt;
+                &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serviceCode</span>&gt;allowedService&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serviceCode</span>&gt;
+                &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serviceVersion</span>&gt;v1&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serviceVersion</span>&gt;
+            &lt;/<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">service</span>&gt;
+            &lt;<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">service</span> <span class="pl-e">id</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>SERVICE<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;Inst1&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
+                &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;MemberClass1&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
+                &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;ProviderId&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
+                &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">subsystemCode</span>&gt;Subsystem1&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">subsystemCode</span>&gt;
+                &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serviceCode</span>&gt;disallowedService&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serviceCode</span>&gt;
+                &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serviceVersion</span>&gt;v1&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serviceVersion</span>&gt;
+            &lt;/<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">service</span>&gt;
+        &lt;/<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">listMethodsResponse</span>&gt;
+    &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
+&lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>&gt;</pre></div>
+<div class="markdown-heading"><h3 class="heading-element">C.4 allowedMethods Request</h3><a id="c4-allowedmethods-request" class="anchor-element" aria-label="Permalink: C.4 allowedMethods Request" href="#c4-allowedmethods-request"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>utf-8<span class="pl-pds">"</span></span>?&gt;
+&lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>
+        <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">SOAP-ENV</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.xmlsoap.org/soap/envelope/<span class="pl-pds">"</span></span>
+        <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">xroad</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>
+        <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/identifiers<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Header</span>&gt;
+        &lt;<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">client</span> <span class="pl-e">id</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>MEMBER<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;Inst1&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;MemberClass1&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;ClientId&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
+        &lt;/<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">client</span>&gt;
+        &lt;<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">service</span> <span class="pl-e">id</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>SERVICE<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;Inst1&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;MemberClass1&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;ProviderId&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">subsystemCode</span>&gt;Subsystem1&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">subsystemCode</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serviceCode</span>&gt;allowedMethods&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serviceCode</span>&gt;
+        &lt;/<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">service</span>&gt;
+        &lt;<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">id</span>&gt;411d6755661409fed365ad8135f8210be07613da&lt;/<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">id</span>&gt;
+        &lt;<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">protocolVersion</span>&gt;4.0&lt;/<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">protocolVersion</span>&gt;
+    &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Header</span>&gt;
+    &lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
+        &lt;<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">allowedMethods</span>/&gt;
+    &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
+&lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>&gt;</pre></div>
+<div class="markdown-heading"><h3 class="heading-element">C.5 allowedMethods Response</h3><a id="c5-allowedmethods-response" class="anchor-element" aria-label="Permalink: C.5 allowedMethods Response" href="#c5-allowedmethods-response"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>utf-8<span class="pl-pds">"</span></span>?&gt;
+&lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>
+        <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">SOAP-ENV</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.xmlsoap.org/soap/envelope/<span class="pl-pds">"</span></span>
+        <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">xroad</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>
+        <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/identifiers<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Header</span>&gt;
+        &lt;<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">client</span> <span class="pl-e">id</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>MEMBER<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;Inst1&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;MemberClass1&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;ClientId&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
+        &lt;/<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">client</span>&gt;
+        &lt;<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">service</span> <span class="pl-e">id</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>SERVICE<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;Inst1&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;MemberClass1&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;ProviderId&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">subsystemCode</span>&gt;Subsystem1&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">subsystemCode</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serviceCode</span>&gt;allowedMethods&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serviceCode</span>&gt;
+        &lt;/<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">service</span>&gt;
+        &lt;<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">id</span>&gt;411d6755661409fed365ad8135f8210be07613da&lt;/<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">id</span>&gt;
+        &lt;<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">protocolVersion</span>&gt;4.0&lt;/<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">protocolVersion</span>&gt;
+        &lt;<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">requestHash</span> <span class="pl-e">algorithmId</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.w3.org/2001/04/xmlenc#sha512<span class="pl-pds">"</span></span>&gt;
+            TpY0dNunEru79Sp4mhqOirAiEWOhPXLOY5jDUib5HmF/
+            3c5ayq2q44+0XJd49LsthLUq+2kI/Kp4/1ESuwr6Nw==
+        &lt;/<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">requestHash</span>&gt;
+    &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Header</span>&gt;
+    &lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
+        &lt;<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">allowedMethodsResponse</span>&gt;
+            &lt;<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">service</span> <span class="pl-e">id</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>SERVICE<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;Inst1&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
+                &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;MemberClass1&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
+                &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;ProviderId&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
+                &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">subsystemCode</span>&gt;Subsystem1&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">subsystemCode</span>&gt;
+                &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serviceCode</span>&gt;allowedService&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serviceCode</span>&gt;
+                &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serviceVersion</span>&gt;v1&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serviceVersion</span>&gt;
+            &lt;/<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">service</span>&gt;
+        &lt;/<span class="pl-ent">xroad</span><span class="pl-ent">:</span><span class="pl-ent">allowedMethodsResponse</span>&gt;
+    &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
+&lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>&gt;</pre></div>
+<div class="markdown-heading"><h3 class="heading-element">C.6 getWsdl Request</h3><a id="c6-getwsdl-request" class="anchor-element" aria-label="Permalink: C.6 getWsdl Request" href="#c6-getwsdl-request"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">soapenv</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span> <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">soapenv</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.xmlsoap.org/soap/envelope/<span class="pl-pds">"</span></span> <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">xro</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>
+                  <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">iden</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/identifiers<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">soapenv</span><span class="pl-ent">:</span><span class="pl-ent">Header</span>&gt;
+        &lt;<span class="pl-ent">xro</span><span class="pl-ent">:</span><span class="pl-ent">protocolVersion</span>&gt;4.x&lt;/<span class="pl-ent">xro</span><span class="pl-ent">:</span><span class="pl-ent">protocolVersion</span>&gt;
+        &lt;<span class="pl-ent">xro</span><span class="pl-ent">:</span><span class="pl-ent">issue</span>&gt;123&lt;/<span class="pl-ent">xro</span><span class="pl-ent">:</span><span class="pl-ent">issue</span>&gt;
+        &lt;<span class="pl-ent">xro</span><span class="pl-ent">:</span><span class="pl-ent">id</span>&gt;123&lt;/<span class="pl-ent">xro</span><span class="pl-ent">:</span><span class="pl-ent">id</span>&gt;
+        &lt;<span class="pl-ent">xro</span><span class="pl-ent">:</span><span class="pl-ent">userId</span>&gt;123&lt;/<span class="pl-ent">xro</span><span class="pl-ent">:</span><span class="pl-ent">userId</span>&gt;
+        &lt;<span class="pl-ent">xro</span><span class="pl-ent">:</span><span class="pl-ent">service</span> <span class="pl-e">iden</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>SERVICE<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">iden</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;FI&lt;/<span class="pl-ent">iden</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
+            &lt;<span class="pl-ent">iden</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;COM&lt;/<span class="pl-ent">iden</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
+            &lt;<span class="pl-ent">iden</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;111&lt;/<span class="pl-ent">iden</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
+            &lt;<span class="pl-ent">iden</span><span class="pl-ent">:</span><span class="pl-ent">subsystemCode</span>&gt;SUB&lt;/<span class="pl-ent">iden</span><span class="pl-ent">:</span><span class="pl-ent">subsystemCode</span>&gt;
+            &lt;<span class="pl-ent">iden</span><span class="pl-ent">:</span><span class="pl-ent">serviceCode</span>&gt;getWsdl&lt;/<span class="pl-ent">iden</span><span class="pl-ent">:</span><span class="pl-ent">serviceCode</span>&gt;
+            &lt;<span class="pl-ent">iden</span><span class="pl-ent">:</span><span class="pl-ent">serviceVersion</span>&gt;v1&lt;/<span class="pl-ent">iden</span><span class="pl-ent">:</span><span class="pl-ent">serviceVersion</span>&gt;
+        &lt;/<span class="pl-ent">xro</span><span class="pl-ent">:</span><span class="pl-ent">service</span>&gt;
+        &lt;<span class="pl-ent">xro</span><span class="pl-ent">:</span><span class="pl-ent">client</span> <span class="pl-e">iden</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>SUBSYSTEM<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">iden</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;FI&lt;/<span class="pl-ent">iden</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
+            &lt;<span class="pl-ent">iden</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;COM&lt;/<span class="pl-ent">iden</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
+            &lt;<span class="pl-ent">iden</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;111&lt;/<span class="pl-ent">iden</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
+            &lt;<span class="pl-ent">iden</span><span class="pl-ent">:</span><span class="pl-ent">subsystemCode</span>&gt;SUB&lt;/<span class="pl-ent">iden</span><span class="pl-ent">:</span><span class="pl-ent">subsystemCode</span>&gt;
+        &lt;/<span class="pl-ent">xro</span><span class="pl-ent">:</span><span class="pl-ent">client</span>&gt;
+    &lt;/<span class="pl-ent">soapenv</span><span class="pl-ent">:</span><span class="pl-ent">Header</span>&gt;
+    &lt;<span class="pl-ent">soapenv</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
+        &lt;<span class="pl-ent">xro</span><span class="pl-ent">:</span><span class="pl-ent">getWsdl</span>&gt;
+            &lt;<span class="pl-ent">xro</span><span class="pl-ent">:</span><span class="pl-ent">serviceCode</span>&gt;getRandom&lt;/<span class="pl-ent">xro</span><span class="pl-ent">:</span><span class="pl-ent">serviceCode</span>&gt;
+            &lt;<span class="pl-ent">xro</span><span class="pl-ent">:</span><span class="pl-ent">serviceVersion</span>&gt;v1&lt;/<span class="pl-ent">xro</span><span class="pl-ent">:</span><span class="pl-ent">serviceVersion</span>&gt;
+        &lt;/<span class="pl-ent">xro</span><span class="pl-ent">:</span><span class="pl-ent">getWsdl</span>&gt;
+    &lt;/<span class="pl-ent">soapenv</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
+&lt;/<span class="pl-ent">soapenv</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>&gt;</pre></div>
+<div class="markdown-heading"><h3 class="heading-element">C.7 getWsdl Response</h3><a id="c7-getwsdl-response" class="anchor-element" aria-label="Permalink: C.7 getWsdl Response" href="#c7-getwsdl-response"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">soapenv</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span> <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">soapenv</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.xmlsoap.org/soap/envelope/<span class="pl-pds">"</span></span>
+                  <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">iden</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/identifiers<span class="pl-pds">"</span></span>
+                  <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">xro</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">soapenv</span><span class="pl-ent">:</span><span class="pl-ent">Header</span>&gt;
+        &lt;<span class="pl-ent">xro</span><span class="pl-ent">:</span><span class="pl-ent">protocolVersion</span>&gt;4.x&lt;/<span class="pl-ent">xro</span><span class="pl-ent">:</span><span class="pl-ent">protocolVersion</span>&gt;
+        &lt;<span class="pl-ent">xro</span><span class="pl-ent">:</span><span class="pl-ent">issue</span>&gt;123&lt;/<span class="pl-ent">xro</span><span class="pl-ent">:</span><span class="pl-ent">issue</span>&gt;
+        &lt;<span class="pl-ent">xro</span><span class="pl-ent">:</span><span class="pl-ent">id</span>&gt;123&lt;/<span class="pl-ent">xro</span><span class="pl-ent">:</span><span class="pl-ent">id</span>&gt;
+        &lt;<span class="pl-ent">xro</span><span class="pl-ent">:</span><span class="pl-ent">requestHash</span> <span class="pl-e">algorithmId</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.w3.org/2001/04/xmlenc#sha512<span class="pl-pds">"</span></span>&gt;
+            BPiSSkxGzJC4piyVjkTRfNRROHI/hQJc1rALJsPAvghMUM0keBXV6QKVIUJPUjDydw2+wadRUkM6MS8vO3Y88w==
+        &lt;/<span class="pl-ent">xro</span><span class="pl-ent">:</span><span class="pl-ent">requestHash</span>&gt;
+        &lt;<span class="pl-ent">xro</span><span class="pl-ent">:</span><span class="pl-ent">userId</span>&gt;123&lt;/<span class="pl-ent">xro</span><span class="pl-ent">:</span><span class="pl-ent">userId</span>&gt;
+        &lt;<span class="pl-ent">xro</span><span class="pl-ent">:</span><span class="pl-ent">service</span> <span class="pl-e">iden</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>SERVICE<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">iden</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;FI&lt;/<span class="pl-ent">iden</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
+            &lt;<span class="pl-ent">iden</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;COM&lt;/<span class="pl-ent">iden</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
+            &lt;<span class="pl-ent">iden</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;111&lt;/<span class="pl-ent">iden</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
+            &lt;<span class="pl-ent">iden</span><span class="pl-ent">:</span><span class="pl-ent">subsystemCode</span>&gt;SUB&lt;/<span class="pl-ent">iden</span><span class="pl-ent">:</span><span class="pl-ent">subsystemCode</span>&gt;
+            &lt;<span class="pl-ent">iden</span><span class="pl-ent">:</span><span class="pl-ent">serviceCode</span>&gt;getWsdl&lt;/<span class="pl-ent">iden</span><span class="pl-ent">:</span><span class="pl-ent">serviceCode</span>&gt;
+            &lt;<span class="pl-ent">iden</span><span class="pl-ent">:</span><span class="pl-ent">serviceVersion</span>&gt;v1&lt;/<span class="pl-ent">iden</span><span class="pl-ent">:</span><span class="pl-ent">serviceVersion</span>&gt;
+        &lt;/<span class="pl-ent">xro</span><span class="pl-ent">:</span><span class="pl-ent">service</span>&gt;
+        &lt;<span class="pl-ent">xro</span><span class="pl-ent">:</span><span class="pl-ent">client</span> <span class="pl-e">iden</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>SUBSYSTEM<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">iden</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;FI&lt;/<span class="pl-ent">iden</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
+            &lt;<span class="pl-ent">iden</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;COM&lt;/<span class="pl-ent">iden</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
+            &lt;<span class="pl-ent">iden</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;111&lt;/<span class="pl-ent">iden</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
+            &lt;<span class="pl-ent">iden</span><span class="pl-ent">:</span><span class="pl-ent">subsystemCode</span>&gt;SUB&lt;/<span class="pl-ent">iden</span><span class="pl-ent">:</span><span class="pl-ent">subsystemCode</span>&gt;
+        &lt;/<span class="pl-ent">xro</span><span class="pl-ent">:</span><span class="pl-ent">client</span>&gt;
+    &lt;/<span class="pl-ent">soapenv</span><span class="pl-ent">:</span><span class="pl-ent">Header</span>&gt;
+    &lt;<span class="pl-ent">soapenv</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
+        &lt;<span class="pl-ent">xro</span><span class="pl-ent">:</span><span class="pl-ent">getWsdlResponse</span>&gt;
+            &lt;<span class="pl-ent">xro</span><span class="pl-ent">:</span><span class="pl-ent">serviceCode</span>&gt;getRandom&lt;/<span class="pl-ent">xro</span><span class="pl-ent">:</span><span class="pl-ent">serviceCode</span>&gt;
+            &lt;<span class="pl-ent">xro</span><span class="pl-ent">:</span><span class="pl-ent">serviceVersion</span>&gt;v1&lt;/<span class="pl-ent">xro</span><span class="pl-ent">:</span><span class="pl-ent">serviceVersion</span>&gt;
+        &lt;/<span class="pl-ent">xro</span><span class="pl-ent">:</span><span class="pl-ent">getWsdlResponse</span>&gt;
+    &lt;/<span class="pl-ent">soapenv</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
+&lt;/<span class="pl-ent">soapenv</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>&gt;</pre></div>
+<div class="markdown-heading"><h3 class="heading-element">C.8 getWsdl Response attachment</h3><a id="c8-getwsdl-response-attachment" class="anchor-element" aria-label="Permalink: C.8 getWsdl Response attachment" href="#c8-getwsdl-response-attachment"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">definitions</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>testService<span class="pl-pds">"</span></span> <span class="pl-e">targetNamespace</span>=<span class="pl-s"><span class="pl-pds">"</span>http://test.x-road.fi/producer<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">types</span>&gt;
+        &lt;<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">schema</span> <span class="pl-e">elementFormDefault</span>=<span class="pl-s"><span class="pl-pds">"</span>qualified<span class="pl-pds">"</span></span>
+                    <span class="pl-e">targetNamespace</span>=<span class="pl-s"><span class="pl-pds">"</span>http://test.x-road.fi/producer<span class="pl-pds">"</span></span>&gt;<span class="pl-c"><span class="pl-c">&lt;!--</span> Import X-Road schema <span class="pl-c">--&gt;</span></span>
+            &lt;<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">import</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd<span class="pl-pds">"</span></span> <span class="pl-e">namespace</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>
+                        <span class="pl-e">schemaLocation</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>/&gt;
+            &lt;<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>getRandom<span class="pl-pds">"</span></span> <span class="pl-e">nillable</span>=<span class="pl-s"><span class="pl-pds">"</span>true<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>/&gt;
+            &lt;/<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>getRandomResponse<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
+                    &lt;<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+                        &lt;<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>request<span class="pl-pds">"</span></span>&gt;
+                        &lt;/<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">element</span>&gt;
+                        &lt;<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>response<span class="pl-pds">"</span></span>&gt;
+                            &lt;<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
+                                &lt;<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+                                    &lt;<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>data<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>xsd:string<span class="pl-pds">"</span></span>&gt;
+                                        &lt;<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">annotation</span>&gt;
+                                            &lt;<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">documentation</span>&gt;
+                                                Service response
+                                            &lt;/<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">documentation</span>&gt;
+                                        &lt;/<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">annotation</span>&gt;
+                                    &lt;/<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">element</span>&gt;
+                                &lt;/<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+                            &lt;/<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
+                        &lt;/<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">element</span>&gt;
+                    &lt;/<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+                &lt;/<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
+            &lt;/<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>helloService<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
+                    &lt;<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+                        &lt;<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>request<span class="pl-pds">"</span></span>&gt;
+                            &lt;<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
+                                &lt;<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+                                    &lt;<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>xsd:string<span class="pl-pds">"</span></span>&gt;
+                                        &lt;<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">annotation</span>&gt;
+                                            &lt;<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">documentation</span>&gt;
+                                                Name
+                                            &lt;/<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">documentation</span>&gt;
+                                        &lt;/<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">annotation</span>&gt;
+                                    &lt;/<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">element</span>&gt;
+                                &lt;/<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+                            &lt;/<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
+                        &lt;/<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">element</span>&gt;
+                    &lt;/<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;systemCode&gt;
+                &lt;/<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
+            &lt;/<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">element</span>&gt;
+            &lt;<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>helloServiceResponse<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
+                    &lt;<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+                        &lt;<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>request<span class="pl-pds">"</span></span>&gt;
+                            &lt;<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
+                                &lt;<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+                                    &lt;<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span> <span class="pl-e">nillable</span>=<span class="pl-s"><span class="pl-pds">"</span>true<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>xsd:string<span class="pl-pds">"</span></span>/&gt;
+                                &lt;/<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+                            &lt;/<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
+                        &lt;/<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">element</span>&gt;
+                        &lt;<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>response<span class="pl-pds">"</span></span>&gt;
+                            &lt;<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
+                                &lt;<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+                                    &lt;<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>message<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>xsd:string<span class="pl-pds">"</span></span>&gt;
+                                        &lt;<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">annotation</span>&gt;
+                                            &lt;<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">documentation</span>&gt;
+                                                Service response
+                                            &lt;/<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">documentation</span>&gt;
+                                        &lt;/<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">annotation</span>&gt;
+                                    &lt;/<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">element</span>&gt;
+                                &lt;/<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+                            &lt;/<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
+                        &lt;/<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">element</span>&gt;
+                    &lt;/<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+                &lt;/<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
+            &lt;/<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">element</span>&gt;
+        &lt;/<span class="pl-ent">xsd</span><span class="pl-ent">:</span><span class="pl-ent">schema</span>&gt;
+    &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">types</span>&gt;
+    &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">message</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>requestheader<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>client<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:client<span class="pl-pds">"</span></span>/&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>service<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:service<span class="pl-pds">"</span></span>/&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>userId<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:userId<span class="pl-pds">"</span></span>/&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:id<span class="pl-pds">"</span></span>/&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>issue<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:issue<span class="pl-pds">"</span></span>/&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>protocolVersion<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>xrd:protocolVersion<span class="pl-pds">"</span></span>/&gt;
+    &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">message</span>&gt;
+    &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">message</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>getRandom<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>body<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:getRandom<span class="pl-pds">"</span></span>/&gt;
+    &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">message</span>&gt;
+    &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">message</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>getRandomResponse<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>body<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:getRandomResponse<span class="pl-pds">"</span></span>/&gt;
+    &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">message</span>&gt;
+    &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">message</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>helloService<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>body<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:helloService<span class="pl-pds">"</span></span>/&gt;
+    &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">message</span>&gt;
+    &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">message</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>helloServiceResponse<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">part</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>body<span class="pl-pds">"</span></span> <span class="pl-e">element</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:helloServiceResponse<span class="pl-pds">"</span></span>/&gt;
+    &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">message</span>&gt;
+    &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">portType</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>testServicePortType<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">operation</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>getRandom<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">input</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:getRandom<span class="pl-pds">"</span></span>/&gt;
+            &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">output</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:getRandomResponse<span class="pl-pds">"</span></span>/&gt;
+        &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">operation</span>&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">operation</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>helloService<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">input</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:helloService<span class="pl-pds">"</span></span>/&gt;
+            &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">output</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:helloServiceResponse<span class="pl-pds">"</span></span>/&gt;
+        &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">operation</span>&gt;
+    &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">portType</span>&gt;
+    &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">binding</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>testServiceBinding<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:testServicePortType<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">binding</span> <span class="pl-e">style</span>=<span class="pl-s"><span class="pl-pds">"</span>document<span class="pl-pds">"</span></span> <span class="pl-e">transport</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.xmlsoap.org/soap/http<span class="pl-pds">"</span></span>/&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">operation</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>getRandom<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">operation</span> <span class="pl-e">soapAction</span>=<span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span> <span class="pl-e">style</span>=<span class="pl-s"><span class="pl-pds">"</span>document<span class="pl-pds">"</span></span>/&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">version</span>&gt;v1&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">version</span>&gt;
+            &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">input</span>&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">body</span> <span class="pl-e">parts</span>=<span class="pl-s"><span class="pl-pds">"</span>body<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestheader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>client<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestheader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>service<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestheader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>userId<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestheader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestheader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>issue<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestheader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>protocolVersion<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+            &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">input</span>&gt;
+            &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">output</span>&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">body</span> <span class="pl-e">parts</span>=<span class="pl-s"><span class="pl-pds">"</span>body<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestheader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>client<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestheader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>service<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestheader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>userId<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestheader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestheader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>issue<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestheader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>protocolVersion<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+            &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">output</span>&gt;
+        &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">operation</span>&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">operation</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>helloService<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">operation</span> <span class="pl-e">soapAction</span>=<span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span> <span class="pl-e">style</span>=<span class="pl-s"><span class="pl-pds">"</span>document<span class="pl-pds">"</span></span>/&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">version</span>&gt;v1&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">version</span>&gt;
+            &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">input</span>&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">body</span> <span class="pl-e">parts</span>=<span class="pl-s"><span class="pl-pds">"</span>body<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestheader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>client<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestheader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>service<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestheader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>userId<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestheader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestheader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>issue<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestheader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>protocolVersion<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+            &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">input</span>&gt;
+            &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">output</span>&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">body</span> <span class="pl-e">parts</span>=<span class="pl-s"><span class="pl-pds">"</span>body<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestheader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>client<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestheader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>service<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestheader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>userId<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestheader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestheader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>issue<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+                &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">header</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:requestheader<span class="pl-pds">"</span></span> <span class="pl-e">part</span>=<span class="pl-s"><span class="pl-pds">"</span>protocolVersion<span class="pl-pds">"</span></span> <span class="pl-e">use</span>=<span class="pl-s"><span class="pl-pds">"</span>literal<span class="pl-pds">"</span></span>/&gt;
+            &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">output</span>&gt;
+        &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">operation</span>&gt;
+    &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">binding</span>&gt;
+    &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">service</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>testService<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">port</span> <span class="pl-e">binding</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:testServiceBinding<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>testServicePort<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">soap</span><span class="pl-ent">:</span><span class="pl-ent">address</span> <span class="pl-e">location</span>=<span class="pl-s"><span class="pl-pds">"</span>http://example.org/xroad-endpoint<span class="pl-pds">"</span></span>/&gt;
+        &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">port</span>&gt;
+    &lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">service</span>&gt;
+&lt;/<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">definitions</span>&gt;</pre></div>
     </article>
   </body>
 </html>
