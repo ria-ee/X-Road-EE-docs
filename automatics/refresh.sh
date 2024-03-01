@@ -60,6 +60,7 @@ do
     if cmp -s "v_${2}/${file_name}.md" "${DIR}/${file_name}.md"
     then
         echo -e "${GREEN} ${file_name}.md didn't change ${ENDCOLOR}"
+        cp "${DIR}/${file_name}.md" "../md/"
     else
         echo -e "${YELLOW} ${file_name}.md changed ${YELLOW}"
         cp "${DIR}/${file_name}.md" "../md/"
