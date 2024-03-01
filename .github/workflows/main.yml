@@ -1,4 +1,4 @@
-name: Auto refresh documentation
+name: Download docs for new version from NIIS Github
 
 on: workflow_dispatch
 
