@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>a
+  <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="github-markdown.css">
     <style>
@@ -18,7 +18,7 @@
   <body>
     <article class="markdown-body">
 <div class="markdown-heading"><h1 class="heading-element">X-Road: Operational Monitoring JMX Protocol 
-</h1><a id="x-road-operational-monitoring-jmx-protocol-" class="anchor-element" aria-label="Permalink: X-Road: Operational Monitoring JMX Protocol " href="#x-road-operational-monitoring-jmx-protocol-"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+</h1><a id="x-road-operational-monitoring-jmx-protocol-" class="anchor" aria-label="Permalink: X-Road: Operational Monitoring JMX Protocol " href="#x-road-operational-monitoring-jmx-protocol-"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>Technical Specification</strong></p>
 <p>Version: 1.2<br>
 Doc. ID: PR-OPMONJMX</p>
@@ -71,7 +71,7 @@ Doc. ID: PR-OPMONJMX</p>
 </tbody>
 </table>
 <div class="markdown-heading"><h2 class="heading-element">Table of Contents 
-</h2><a id="table-of-contents-" class="anchor-element" aria-label="Permalink: Table of Contents " href="#table-of-contents-"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+</h2><a id="table-of-contents-" class="anchor" aria-label="Permalink: Table of Contents " href="#table-of-contents-"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 
 <ul>
 <li><a href="#license">License</a></li>
@@ -93,9 +93,9 @@ Doc. ID: PR-OPMONJMX</p>
 </li>
 </ul>
 
-<div class="markdown-heading"><h1 class="heading-element">License</h1><a id="license" class="anchor-element" aria-label="Permalink: License" href="#license"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h1 class="heading-element">License</h1><a id="license" class="anchor" aria-label="Permalink: License" href="#license"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This document is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="nofollow">http://creativecommons.org/licenses/by-sa/3.0/</a>.</p>
-<div class="markdown-heading"><h1 class="heading-element">1 Introduction</h1><a id="1-introduction" class="anchor-element" aria-label="Permalink: 1 Introduction" href="#1-introduction"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h1 class="heading-element">1 Introduction</h1><a id="1-introduction" class="anchor" aria-label="Permalink: 1 Introduction" href="#1-introduction"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This document specifies the format and protocol for exchanging health data of X-Road security servers that the X-Road operational monitoring daemon makes available for applications implementing the Java Management Extensions (JMX) using the JMX Messaging Protocol (JMXMP).</p>
 <p>The Java Management Extensions define and architecture, the design patterns, the APIs, and the services for application and network management and monitoring in the Java programming language [<a href="#Ref_JMX">JMX</a>].</p>
 <p>The JMX Messaging Protocol (JMXMP) connector is a configuration of the generic connector where the transport protocol is based on TCP and the object wrapping is native Java serialization [<a href="#Ref_JMXMP">JMXMP</a>].</p>
@@ -103,9 +103,9 @@ Doc. ID: PR-OPMONJMX</p>
 <p>All the sections of this specification contain normative information. All the references are normative.</p>
 <p>This specification does not include option for partially implementing the protocol – the conformant implementation must implement the entire specification.</p>
 <p><strong>By default, operational monitoring JMX interface is disabled. Enabling the JMX interface is explained in [<a href="#Ref_ARC-OPMOND">ARC-OPMOND</a>].</strong></p>
-<div class="markdown-heading"><h2 class="heading-element">1.1 Terms and Abbreviations</h2><a id="11-terms-and-abbreviations" class="anchor-element" aria-label="Permalink: 1.1 Terms and Abbreviations" href="#11-terms-and-abbreviations"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h2 class="heading-element">1.1 Terms and Abbreviations</h2><a id="11-terms-and-abbreviations" class="anchor" aria-label="Permalink: 1.1 Terms and Abbreviations" href="#11-terms-and-abbreviations"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>See X-Road terms and abbreviations documentation [<a href="#Ref_TERMS">TA-TERMS</a>].</p>
-<div class="markdown-heading"><h2 class="heading-element">1.2 References</h2><a id="12-references" class="anchor-element" aria-label="Permalink: 1.2 References" href="#12-references"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h2 class="heading-element">1.2 References</h2><a id="12-references" class="anchor" aria-label="Permalink: 1.2 References" href="#12-references"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><a name="Ref_PR-MESS"></a><strong>PR-MESS</strong> -- X-Road: Message Protocol v4.0. Document ID: <a href="pr-mess_x-road_message_protocol.html">PR-MESS</a>.<br>
 <a name="Ref_JMX"></a><strong>JMX</strong> -- Java Management Extensions (JMX) Specification, version 1.4, <a href="http://download.oracle.com/otn-pub/jcp/jmx_remote-1_4-mrel2-eval-spec/jsr160-jmx-1_4-mrel4-spec-FINAL-v1_0.pdf" rel="nofollow">http://download.oracle.com/otn-pub/jcp/jmx_remote-1_4-mrel2-eval-spec/jsr160-jmx-1_4-mrel4-spec-FINAL-v1_0.pdf</a><br>
 <a name="Ref_JMXMP"></a><strong>JMXMP</strong> -- Using JMX Connectors to Manage Resources Remotely, <a href="http://docs.oracle.com/javase/8/docs/technotes/guides/jmx/overview/connectors.html" rel="nofollow">http://docs.oracle.com/javase/8/docs/technotes/guides/jmx/overview/connectors.html</a><br>
@@ -114,7 +114,7 @@ Doc. ID: PR-OPMONJMX</p>
 <a name="Ref_TERMS"></a><strong>TA-TERMS</strong> -- X-Road Terms and Abbreviations. Document ID: <a href="terms_x-road_docs.html">TA-TERMS</a>.<br>
 <a name="Ref_ARC-OPMOND"></a><strong>ARC-OPMOND</strong> -- X-Road: Operational Monitoring Daemon Architecture. Document ID: <a href="../Architecture/arc-opmond_x-road_operational_monitoring_daemon_architecture_Y-1096-1.html">ARC-OPMOND</a>.</p>
 <p><a name="section_2"></a></p>
-<div class="markdown-heading"><h1 class="heading-element">2 Encoding X-Road Service Identifiers in Object Names</h1><a id="2-encoding-x-road-service-identifiers-in-object-names" class="anchor-element" aria-label="Permalink: 2 Encoding X-Road Service Identifiers in Object Names" href="#2-encoding-x-road-service-identifiers-in-object-names"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h1 class="heading-element">2 Encoding X-Road Service Identifiers in Object Names</h1><a id="2-encoding-x-road-service-identifiers-in-object-names" class="anchor" aria-label="Permalink: 2 Encoding X-Road Service Identifiers in Object Names" href="#2-encoding-x-road-service-identifiers-in-object-names"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>In the object names of exposed MBeans, X-Road service identifiers are encoded according to the following rules:</p>
 <ul>
 <li>The full string form of the identifier of the service is used, as defined in [<a href="#Ref_PR-MESS">PR-MESS</a>].</li>
@@ -123,7 +123,7 @@ Doc. ID: PR-OPMONJMX</p>
 <li>Because the JMXMP protocol imposes the XML character set on the names of objects, the following characters are escaped using XML escape sequences: <code>"</code> (<code>&amp;quot;</code>), <code>'</code> (<code>&amp;apos;</code>), <code>&lt;</code> (<code>&amp;lt;</code>), <code>&gt;</code> (<code>&amp;gt;</code>), <code>&amp;</code> (<code>&amp;amp;</code>).</li>
 <li>In order to provide compatibility with the Zabbix monitoring system [<a href="#Ref_ZABBIX">ZABBIX</a>], the following characters are escaped in addition: <code>.</code> (<code>&amp;#46;</code>), <code>\</code> (<code>&amp;#92;</code>), the space (<code>&amp;#32;</code>), <code>,</code> (<code>&amp;#44;</code>), <code>[</code> (<code>&amp;#91;</code>), <code>]</code> (<code>&amp;#93;</code>).</li>
 </ul>
-<div class="markdown-heading"><h1 class="heading-element">3 Objects, Attributes and Operations Exposed over JMXMP</h1><a id="3-objects-attributes-and-operations-exposed-over-jmxmp" class="anchor-element" aria-label="Permalink: 3 Objects, Attributes and Operations Exposed over JMXMP" href="#3-objects-attributes-and-operations-exposed-over-jmxmp"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h1 class="heading-element">3 Objects, Attributes and Operations Exposed over JMXMP</h1><a id="3-objects-attributes-and-operations-exposed-over-jmxmp" class="anchor" aria-label="Permalink: 3 Objects, Attributes and Operations Exposed over JMXMP" href="#3-objects-attributes-and-operations-exposed-over-jmxmp"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>The <code>MBean</code> objects exposed by the operational monitoring daemon over JMXMP have been implemented using the types of metrics available in the <code>com.codahale.metrics</code> library [<a href="#Ref_METRICS">METRICS</a>], version 3.0. All the metric classes implement the <code>com.codahale.metrics.Metric</code> interface. More precisely, the following classes are used for making health data available:</p>
 <ul>
 <li><code>com.codahale.metrics.Gauge</code></li>
@@ -131,7 +131,7 @@ Doc. ID: PR-OPMONJMX</p>
 <li><code>com.codahale.metrics.Histogram</code></li>
 </ul>
 <p>For each <code>MBean</code> object there is an associated <code>MBeanInfo</code> object available that describes the management interface exposed by the object: the name of the class, the name of the object and its description for consumers of the data over JMXMP.</p>
-<div class="markdown-heading"><h2 class="heading-element">3.1 Gauge Metrics</h2><a id="31-gauge-metrics" class="anchor-element" aria-label="Permalink: 3.1 Gauge Metrics" href="#31-gauge-metrics"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h2 class="heading-element">3.1 Gauge Metrics</h2><a id="31-gauge-metrics" class="anchor" aria-label="Permalink: 3.1 Gauge Metrics" href="#31-gauge-metrics"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>The value of the <code>ClassName</code> attribute of the <code>MBeanInfo</code> object for gauges is <code>com.codahale.metrics.JmxReporter$JmxGauge</code>.</p>
 <p>All gauge metrics expose the <code>Value</code> attribute and the <code>objectName()</code>operation over JMXMP.</p>
 <p>The operational monitoring daemon provides the following general gauges:</p>
@@ -148,7 +148,7 @@ Doc. ID: PR-OPMONJMX</p>
 <li><code>metrics:name=serviceType(&lt;service ID&gt;)</code></li>
 </ul>
 <p>where <code>&lt;service ID&gt;</code> will be replaced by the full ID of the service encoded as described in [<a href="#section_2">Section 2</a>].</p>
-<div class="markdown-heading"><h2 class="heading-element">3.2 Counter Metrics</h2><a id="32-counter-metrics" class="anchor-element" aria-label="Permalink: 3.2 Counter Metrics" href="#32-counter-metrics"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h2 class="heading-element">3.2 Counter Metrics</h2><a id="32-counter-metrics" class="anchor" aria-label="Permalink: 3.2 Counter Metrics" href="#32-counter-metrics"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>The value of the <code>ClassName</code> attribute of the <code>MBeanInfo</code> object for counters is <code>com.codahale.metrics.JmxReporter$JmxCounter</code>.</p>
 <p>All counter metrics expose the <code>Count</code> attribute and the <code>objectName()</code>operation over JMXMP.</p>
 <p>For each service mediated during the configured statistics period, the following counters are provided:</p>
@@ -157,7 +157,7 @@ Doc. ID: PR-OPMONJMX</p>
 <li><code>metrics:name=unsuccessfulRequestCount(&lt;service ID&gt;)</code></li>
 </ul>
 <p>where <code>&lt;service ID&gt;</code> will be replaced by the full ID of the service encoded as described in [<a href="#section_2">Section 2</a>.</p>
-<div class="markdown-heading"><h2 class="heading-element">3.3 Histogram Metrics</h2><a id="33-histogram-metrics" class="anchor-element" aria-label="Permalink: 3.3 Histogram Metrics" href="#33-histogram-metrics"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h2 class="heading-element">3.3 Histogram Metrics</h2><a id="33-histogram-metrics" class="anchor" aria-label="Permalink: 3.3 Histogram Metrics" href="#33-histogram-metrics"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>The value of the <code>ClassName</code> attribute of the <code>MBeanInfo</code> object for histograms is <code>com.codahale.metrics.JmxReporter$JmxHistogram</code>.</p>
 <p>All the histogram metrics expose the following attributes:</p>
 <ul>

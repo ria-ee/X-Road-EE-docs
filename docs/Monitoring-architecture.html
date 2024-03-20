@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>a
+  <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="github-markdown.css">
     <style>
@@ -17,7 +17,7 @@
   </head>
   <body>
     <article class="markdown-body">
-<div class="markdown-heading"><h1 class="heading-element">X-Road: Environmental Monitoring Architecture</h1><a id="x-road-environmental-monitoring-architecture" class="anchor-element" aria-label="Permalink: X-Road: Environmental Monitoring Architecture" href="#x-road-environmental-monitoring-architecture"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h1 class="heading-element">X-Road: Environmental Monitoring Architecture</h1><a id="x-road-environmental-monitoring-architecture" class="anchor" aria-label="Permalink: X-Road: Environmental Monitoring Architecture" href="#x-road-environmental-monitoring-architecture"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Version: 1.10<br>
 Doc. ID: ARC-ENVMON</p>
 <table>
@@ -99,7 +99,7 @@ Doc. ID: ARC-ENVMON</p>
 </tr>
 </tbody>
 </table>
-<div class="markdown-heading"><h1 class="heading-element">Table of Contents</h1><a id="table-of-contents" class="anchor-element" aria-label="Permalink: Table of Contents" href="#table-of-contents"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h1 class="heading-element">Table of Contents</h1><a id="table-of-contents" class="anchor" aria-label="Permalink: Table of Contents" href="#table-of-contents"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 
 <ul>
 <li><a href="#license">License</a></li>
@@ -142,9 +142,9 @@ Doc. ID: ARC-ENVMON</p>
 </li>
 </ul>
 
-<div class="markdown-heading"><h2 class="heading-element">License</h2><a id="license" class="anchor-element" aria-label="Permalink: License" href="#license"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h2 class="heading-element">License</h2><a id="license" class="anchor" aria-label="Permalink: License" href="#license"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This document is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="nofollow">http://creativecommons.org/licenses/by-sa/3.0/</a>.</p>
-<div class="markdown-heading"><h2 class="heading-element">1 Overview</h2><a id="1-overview" class="anchor-element" aria-label="Permalink: 1 Overview" href="#1-overview"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h2 class="heading-element">1 Overview</h2><a id="1-overview" class="anchor" aria-label="Permalink: 1 Overview" href="#1-overview"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>X-Road monitoring is conceptually split into two parts: <em>environmental</em> and <em>operational</em> monitoring:</p>
 <ul>
 <li>
@@ -153,9 +153,9 @@ Doc. ID: ARC-ENVMON</p>
 <strong>Operational monitoring</strong> is the monitoring of operational statistics such as which services have been called, how many times, what is the average response time, etc.</li>
 </ul>
 <p>This document describes environmental monitoring architecture.</p>
-<div class="markdown-heading"><h3 class="heading-element">1.1 Terms and abbreviations</h3><a id="11-terms-and-abbreviations" class="anchor-element" aria-label="Permalink: 1.1 Terms and abbreviations" href="#11-terms-and-abbreviations"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h3 class="heading-element">1.1 Terms and abbreviations</h3><a id="11-terms-and-abbreviations" class="anchor" aria-label="Permalink: 1.1 Terms and abbreviations" href="#11-terms-and-abbreviations"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>See X-Road terms and abbreviations documentation [<a href="#Ref_TERMS">TA-TERMS</a>].</p>
-<div class="markdown-heading"><h3 class="heading-element">1.2 References</h3><a id="12-references" class="anchor-element" aria-label="Permalink: 1.2 References" href="#12-references"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h3 class="heading-element">1.2 References</h3><a id="12-references" class="anchor" aria-label="Permalink: 1.2 References" href="#12-references"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <table>
 <thead>
 <tr>
@@ -187,13 +187,13 @@ Doc. ID: ARC-ENVMON</p>
 </tr>
 </tbody>
 </table>
-<div class="markdown-heading"><h2 class="heading-element">2 Components</h2><a id="2-components" class="anchor-element" aria-label="Permalink: 2 Components" href="#2-components"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h2 class="heading-element">2 Components</h2><a id="2-components" class="anchor" aria-label="Permalink: 2 Components" href="#2-components"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><a target="_blank" rel="noopener noreferrer" href="img/monitoring.png"><img src="img/monitoring.png" alt="monitoring architecture" style="max-width: 100%;"></a></p>
-<div class="markdown-heading"><h3 class="heading-element">2.1 Monitoring metaservice (proxymonitor add-on)</h3><a id="21-monitoring-metaservice-proxymonitor-add-on" class="anchor-element" aria-label="Permalink: 2.1 Monitoring metaservice (proxymonitor add-on)" href="#21-monitoring-metaservice-proxymonitor-add-on"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h3 class="heading-element">2.1 Monitoring metaservice (proxymonitor add-on)</h3><a id="21-monitoring-metaservice-proxymonitor-add-on" class="anchor" aria-label="Permalink: 2.1 Monitoring metaservice (proxymonitor add-on)" href="#21-monitoring-metaservice-proxymonitor-add-on"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Monitoring metaservice responds to queries for monitoring data from security server's serverproxy interface. This metaservice requests the current monitoring data from local monitoring service, using <a href="https://grpc.io/" rel="nofollow">gRPC</a>. Monitoring metaservice translates the monitoring data to a SOAP XML response.</p>
 <p>Monitoring service handles authorization of the requests, see <a href="#33-access-control">Access control</a>. It reads monitoring configuration from distributed global monitoring configuration (see <a href="#12-references">UC-GCONF, PR-GCONF</a>).</p>
 <p>Monitoring metaservice is installed as a proxy add-on, with name <code>xroad-addon-proxymonitor</code>.</p>
-<div class="markdown-heading"><h3 class="heading-element">2.2 Monitoring service (xroad-monitor)</h3><a id="22-monitoring-service-xroad-monitor" class="anchor-element" aria-label="Permalink: 2.2 Monitoring service (xroad-monitor)" href="#22-monitoring-service-xroad-monitor"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h3 class="heading-element">2.2 Monitoring service (xroad-monitor)</h3><a id="22-monitoring-service-xroad-monitor" class="anchor" aria-label="Permalink: 2.2 Monitoring service (xroad-monitor)" href="#22-monitoring-service-xroad-monitor"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Monitoring service is responsible for collecting the monitoring data from one security server instance. It distributes the collected data to monitoring clients (normally the local monitoring metaservice) when requested through an gRPC interface.</p>
 <p>Monitoring service uses several <em>sensors</em> to collect the data. Sensors and related functionalities are build on top of <a href="https://github.com/dropwizard/metrics">Dropwizard Metrics</a>.</p>
 <p>The following sensors produce monitoring data:</p>
@@ -283,18 +283,18 @@ Doc. ID: ARC-ENVMON</p>
 </li>
 </ul>
 <p>Monitoring service is installed as a separate package, with name <code>xroad-monitor</code>. It runs in a separate process.</p>
-<div class="markdown-heading"><h4 class="heading-element">2.2.1 JMX interface</h4><a id="221-jmx-interface" class="anchor-element" aria-label="Permalink: 2.2.1 JMX interface" href="#221-jmx-interface"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h4 class="heading-element">2.2.1 JMX interface</h4><a id="221-jmx-interface" class="anchor" aria-label="Permalink: 2.2.1 JMX interface" href="#221-jmx-interface"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>The service also publishes the monitoring data via JMX. Local monitoring agents can use this as an alternative way to fetch monitoring data. With the default configuration, JMX is disabled.</p>
 <p><a target="_blank" rel="noopener noreferrer" href="img/monitoring-jmx.png"><img src="img/monitoring-jmx.png" alt="monitoring JMX agent" style="max-width: 100%;"></a></p>
 <p>JMX is enabled by adding the required configuration in <code>/etc/xroad/services/local.properties</code> file. The file is opened for editing and changes are made on the <code>XROAD_MONITOR_PARAMS</code> variable value. After the <code>XROAD_MONITOR_PARAMS</code> variable value has been updated, the <code>xroad-monitor</code> service must be restarted.</p>
 <p>The example configuration below enables JMX, binds it to port <code>9999</code> on any available interface with SSL and password authentication enabled:</p>
 <div class="highlight highlight-source-ini"><pre><span class="pl-k">XROAD_MONITOR_PARAMS</span>=-<span class="pl-k">Djava.rmi.server.hostname</span>=0.0.0.0 -<span class="pl-k">Dcom.sun.management.jmxremote.port</span>=9999 -<span class="pl-k">Dcom.sun.management.jmxremote.authenticate</span>=true -<span class="pl-k">Dcom.sun.management.jmxremote.ssl</span>=true</pre></div>
-<div class="markdown-heading"><h3 class="heading-element">2.3 Central monitoring client</h3><a id="23-central-monitoring-client" class="anchor-element" aria-label="Permalink: 2.3 Central monitoring client" href="#23-central-monitoring-client"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h3 class="heading-element">2.3 Central monitoring client</h3><a id="23-central-monitoring-client" class="anchor" aria-label="Permalink: 2.3 Central monitoring client" href="#23-central-monitoring-client"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Central monitoring client is a specific security server, which has been granted access to query monitoring data from other security servers. See <a href="#33-access-control">Access control</a>. The identity of this security server is configured using central server's admin user interface.</p>
-<div class="markdown-heading"><h3 class="heading-element">2.4 Central monitoring data collector</h3><a id="24-central-monitoring-data-collector" class="anchor-element" aria-label="Permalink: 2.4 Central monitoring data collector" href="#24-central-monitoring-data-collector"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h3 class="heading-element">2.4 Central monitoring data collector</h3><a id="24-central-monitoring-data-collector" class="anchor" aria-label="Permalink: 2.4 Central monitoring data collector" href="#24-central-monitoring-data-collector"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Central monitoring data collector is responsible for collecting monitoring data from all the security servers. It does this by executing monitoring requests through the central monitoring client to all known security server instances. Data collector stores the data in some permanent storage, where it can be analyzed.</p>
 <p>Data collector has not been implemented yet.</p>
-<div class="markdown-heading"><h3 class="heading-element">2.5 Central server admin user interface</h3><a id="25-central-server-admin-user-interface" class="anchor-element" aria-label="Permalink: 2.5 Central server admin user interface" href="#25-central-server-admin-user-interface"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h3 class="heading-element">2.5 Central server admin user interface</h3><a id="25-central-server-admin-user-interface" class="anchor" aria-label="Permalink: 2.5 Central server admin user interface" href="#25-central-server-admin-user-interface"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Identity of central monitoring client (if any) is configured using central server's admin user interface. Configuration is done by updating a specific optional configuration file (see <a href="#12-references">UC-GCONF</a>, "UC GCONF_05: Upload an Optional Configuration Part File") <code>monitoring-params.xml</code>. This configuration file is distributed to all security servers through the global configuration distribution process (see <a href="#12-references">UC-GCONF</a>, "UC GCONF_24: Download Configuration from a Configuration Source")</p>
 <div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">tns</span><span class="pl-ent">:</span><span class="pl-ent">conf</span> <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/identifiers<span class="pl-pds">"</span></span>
           <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">tns</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>
@@ -319,12 +319,12 @@ Doc. ID: ARC-ENVMON</p>
     &lt;<span class="pl-ent">monitoringClient</span>&gt;
     &lt;/<span class="pl-ent">monitoringClient</span>&gt;
 &lt;/<span class="pl-ent">tns</span><span class="pl-ent">:</span><span class="pl-ent">conf</span>&gt;</pre></div>
-<div class="markdown-heading"><h2 class="heading-element">3 Monitoring in action</h2><a id="3-monitoring-in-action" class="anchor-element" aria-label="Permalink: 3 Monitoring in action" href="#3-monitoring-in-action"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<div class="markdown-heading"><h3 class="heading-element">3.1 Pull messaging model</h3><a id="31-pull-messaging-model" class="anchor-element" aria-label="Permalink: 3.1 Pull messaging model" href="#31-pull-messaging-model"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h2 class="heading-element">3 Monitoring in action</h2><a id="3-monitoring-in-action" class="anchor" aria-label="Permalink: 3 Monitoring in action" href="#3-monitoring-in-action"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h3 class="heading-element">3.1 Pull messaging model</h3><a id="31-pull-messaging-model" class="anchor" aria-label="Permalink: 3.1 Pull messaging model" href="#31-pull-messaging-model"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Currently central monitoring data collection is done using <em>pull</em> messaging model. Here, pull means that the central monitoring client sends requests to the individual security servers.</p>
 <p>An alternative to this would be model where security servers periodically <em>push</em> (send) the monitoring data to central monitoring client.</p>
 <p>To support clustered configurations, monitoring queries use an extended X-Road message protocol.</p>
-<div class="markdown-heading"><h3 class="heading-element">3.2 Using an extension of the X-Road message protocol</h3><a id="32-using-an-extension-of-the-x-road-message-protocol" class="anchor-element" aria-label="Permalink: 3.2 Using an extension of the X-Road message protocol" href="#32-using-an-extension-of-the-x-road-message-protocol"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h3 class="heading-element">3.2 Using an extension of the X-Road message protocol</h3><a id="32-using-an-extension-of-the-x-road-message-protocol" class="anchor" aria-label="Permalink: 3.2 Using an extension of the X-Road message protocol" href="#32-using-an-extension-of-the-x-road-message-protocol"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Fetching security server metrics uses the X-Road protocol. The original X-Road message protocol version 4.0  (described in <a href="#12-references">PR-MESS</a>) had header element <code>service</code> to define the recipient of a message.</p>
 <div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>
 xmlns:SOAP-ENV=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.xmlsoap.org/soap/envelope/<span class="pl-pds">"</span></span>
@@ -504,7 +504,7 @@ xmlns:prod=<span class="pl-s"><span class="pl-pds">"</span>http://vrk-test.x-roa
         &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
     &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span>&gt;
 &lt;/<span class="pl-ent">schema</span>&gt;</pre></div>
-<div class="markdown-heading"><h3 class="heading-element">3.3 Access control</h3><a id="33-access-control" class="anchor-element" aria-label="Permalink: 3.3 Access control" href="#33-access-control"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h3 class="heading-element">3.3 Access control</h3><a id="33-access-control" class="anchor" aria-label="Permalink: 3.3 Access control" href="#33-access-control"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Monitoring queries are allowed from</p>
 <ul>
 <li>client that is the <em>owner</em> of the security server</li>
@@ -513,7 +513,7 @@ xmlns:prod=<span class="pl-s"><span class="pl-pds">"</span>http://vrk-test.x-roa
 <p>Central monitoring client is configured using central server admin user interface, see <a href="#25-central-server-admin-user-interface">Admin user interface</a>.</p>
 <p>Attempts to query monitoring data from other clients results in an <code>AccessDenied</code> -error.</p>
 <p>JMX API, in case port and network access is enabled, will provide monitoring data directly without access control checks by security server.</p>
-<div class="markdown-heading"><h4 class="heading-element">3.3.1 Limiting central monitoring client access for environmental monitor data</h4><a id="331-limiting-central-monitoring-client-access-for-environmental-monitor-data" class="anchor-element" aria-label="Permalink: 3.3.1 Limiting central monitoring client access for environmental monitor data" href="#331-limiting-central-monitoring-client-access-for-environmental-monitor-data"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h4 class="heading-element">3.3.1 Limiting central monitoring client access for environmental monitor data</h4><a id="331-limiting-central-monitoring-client-access-for-environmental-monitor-data" class="anchor" aria-label="Permalink: 3.3.1 Limiting central monitoring client access for environmental monitor data" href="#331-limiting-central-monitoring-client-access-for-environmental-monitor-data"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Request for monitor data can be set for limiting optional parts by changing env-monitor.limit-remote-data-set parameter. By limiting data set environmental monitoring will return only proxyVersion, OperatingSystem and Certificate information.</p>
 <p>If request parameters are used and flag is set for limiting, response will include proxyVersion, name and OperatingSystem and/or Certificate information if they are in parameter list and nothing else.</p>
     </article>
