@@ -9,7 +9,7 @@ import sys
 
 HTML_START = """<!DOCTYPE html>
 <html lang="en">
-  <head>a
+  <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="github-markdown.css">
     <style>
