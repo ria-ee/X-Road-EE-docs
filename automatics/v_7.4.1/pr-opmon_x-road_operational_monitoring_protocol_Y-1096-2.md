@@ -68,12 +68,12 @@ See X-Road terms and abbreviations documentation \[[TA-TERMS](#Ref_TERMS)\].
 
 ### 1.2 References
 
-<a name="PR-MESS"></a>**PR-MESS** -- X-Road: Message Transport Protocol v4.0. Document ID: [PR-MESS](../../Protocols/pr-mess_x-road_message_protocol.md).  
+<a name="PR-MESS"></a>**PR-MESS** -- X-Road: Message Transport Protocol v4.0. Document ID: [PR-MESS](pr-mess_x-road_message_protocol.md).  
 <a name="WSDL"></a>**WSDL** -- Web Services Description Language (WSDL) 1.1. World Wide Web Consortium. 15 March 2001, https://www.w3.org/TR/2001/NOTE-wsdl-20010315  
 <a name="SWAREF"></a>**SWAREF** -- Attachments Profile Version 1.0, http://www.ws-i.org/Profiles/AttachmentsProfile-1.0-2004-08-24.html  
 <a name="RFC1952"></a>**RFC1952** -- GZIP file format specification version 4.3, https://tools.ietf.org/html/rfc1952  
 <a name="RFC2119"></a>**RFC2119** -- Key words for use in RFCs to Indicate Requirement Levels. Request for Comments 2119, Internet Engineering Task Force, March 1997, https://www.ietf.org/rfc/rfc2119.txt  
-<a name="Ref_TERMS" class="anchor"></a>**TA-TERMS** -- X-Road Terms and Abbreviations. Document ID: [TA-TERMS](../../terms_x-road_docs.md).
+<a name="Ref_TERMS" class="anchor"></a>**TA-TERMS** -- X-Road Terms and Abbreviations. Document ID: [TA-TERMS](terms_x-road_docs.md).
 
 # 2 Retrieving Operational Data of Security Server
 

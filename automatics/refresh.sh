@@ -38,18 +38,11 @@ echo "********Link fixes********"
 for LINE in $(cat "$INFILE")
 do
     file_name=${LINE##*/}
-    if cmp -s "v_${2}/${file_name}.md" "${DIR}/${file_name}.md"
-    then
-        echo -e "${GREEN} ${file_name}.md didn't change ${ENDCOLOR}"
-    else
-        echo -e "${YELLOW} ${file_name}.md changed ${YELLOW}"
-        for PATTERN in $(cat "$INFILE")
+    for PATTERN in $(cat "$INFILE")
         do
           pattern_name=${PATTERN##*/}
           sed -i "s@(.*$pattern_name.md)@($pattern_name.md)@g" ${DIR}/${file_name}.md
-          
         done
-    fi
 done
 
 echo "********Files to refresh********"

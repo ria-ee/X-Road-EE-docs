@@ -51,9 +51,9 @@ See X-Road terms and abbreviations documentation \[[TA-TERMS](#Ref_TERMS)\]
 
 | Document ID||
 | ------------- |-------------|
-| <a name="Ref_PR-MESS"></a>\[PR-MESS\] | [X-Road: Message Protocol v4.0](../pr-mess_x-road_message_protocol.md)
-| <a name="Ref_ARC-ENVMON"></a>\[ARC-ENVMON\] | [X-Road: Environmental Monitoring Architecture](../../EnvironmentalMonitoring/Monitoring-architecture.md)
-| <a name="Ref_TERMS"></a>\[TA-TERMS\] | [X-Road Terms and Abbreviations](../../terms_x-road_docs.md)
+| <a name="Ref_PR-MESS"></a>\[PR-MESS\] | [X-Road: Message Protocol v4.0](pr-mess_x-road_message_protocol.md)
+| <a name="Ref_ARC-ENVMON"></a>\[ARC-ENVMON\] | [X-Road: Environmental Monitoring Architecture](Monitoring-architecture.md)
+| <a name="Ref_TERMS"></a>\[TA-TERMS\] | [X-Road Terms and Abbreviations](terms_x-road_docs.md)
 
 ## 2 Format of messages
 

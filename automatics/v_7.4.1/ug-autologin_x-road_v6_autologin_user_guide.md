@@ -35,7 +35,7 @@ See X-Road terms and abbreviations documentation \[[TA-TERMS](#Ref_TERMS)\].
 
 ### 1.2 References
 
-1. <a id="Ref_TERMS" class="anchor"></a>\[TA-TERMS\] X-Road Terms and Abbreviations. Document ID: [TA-TERMS](../../terms_x-road_docs.md).
+1. <a id="Ref_TERMS" class="anchor"></a>\[TA-TERMS\] X-Road Terms and Abbreviations. Document ID: [TA-TERMS](terms_x-road_docs.md).
 
 ## 2 Overview
 ### 2.1 Usage
