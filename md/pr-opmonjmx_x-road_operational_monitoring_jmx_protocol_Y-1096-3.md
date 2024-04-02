@@ -56,12 +56,12 @@ See X-Road terms and abbreviations documentation \[[TA-TERMS](#Ref_TERMS)\].
 
 ## 1.2 References
 
-<a name="Ref_PR-MESS"></a>**PR-MESS** -- X-Road: Message Protocol v4.0. Document ID: [PR-MESS](../../Protocols/pr-mess_x-road_message_protocol.md).  
+<a name="Ref_PR-MESS"></a>**PR-MESS** -- X-Road: Message Protocol v4.0. Document ID: [PR-MESS](pr-mess_x-road_message_protocol.md).  
 <a name="Ref_JMX"></a>**JMX** -- Java Management Extensions (JMX) Specification, version 1.4, http://download.oracle.com/otn-pub/jcp/jmx_remote-1_4-mrel2-eval-spec/jsr160-jmx-1_4-mrel4-spec-FINAL-v1_0.pdf  
 <a name="Ref_JMXMP"></a>**JMXMP** -- Using JMX Connectors to Manage Resources Remotely, http://docs.oracle.com/javase/8/docs/technotes/guides/jmx/overview/connectors.html  
 <a name="Ref_METRICS"></a>**METRICS** -- GitHub - dropwizard/metrics: Capturing JVM- and application-level metrics. So you know what's going on, https://github.com/dropwizard/metrics  
 <a name="Ref_ZABBIX"></a>**ZABBIX** -- Zabbix Documentation 3.0 - JMX monitoring, https://www.zabbix.com/documentation/3.0/manual/config/items/itemtypes/jmx_monitoring  
-<a name="Ref_TERMS"></a>**TA-TERMS** -- X-Road Terms and Abbreviations. Document ID: [TA-TERMS](../../terms_x-road_docs.md).<br />
+<a name="Ref_TERMS"></a>**TA-TERMS** -- X-Road Terms and Abbreviations. Document ID: [TA-TERMS](terms_x-road_docs.md).<br />
 <a name="Ref_ARC-OPMOND"></a>**ARC-OPMOND** -- X-Road: Operational Monitoring Daemon Architecture. Document ID: [ARC-OPMOND](../Architecture/arc-opmond_x-road_operational_monitoring_daemon_architecture_Y-1096-1.md).
 
 <a name="section_2"></a>
