@@ -43,8 +43,8 @@ See X-Road terms and abbreviations documentation \[[TA-TERMS](#Ref_TERMS)\].
 
 | Document ID||
 | ------------- |-------------|
-| <a name="Ref_PR-TARGETSS"></a>\[PR-TARGETSS\] | [Security server targeting extension for the X-Road message protocol](../Protocols/SecurityServerExtension/pr-targetss_security_server_targeting_extension_for_the_x-road_protocol.md)  |
-| <a name="Ref_TERMS"></a>\[TA-TERMS\] | [X-Road Terms and Abbreviations](../terms_x-road_docs.md)
+| <a name="Ref_PR-TARGETSS"></a>\[PR-TARGETSS\] | [Security server targeting extension for the X-Road message protocol](pr-targetss_security_server_targeting_extension_for_the_x-road_protocol.md)  |
+| <a name="Ref_TERMS"></a>\[TA-TERMS\] | [X-Road Terms and Abbreviations](terms_x-road_docs.md)
 
 
 ## 2 Fetching security server metrics
