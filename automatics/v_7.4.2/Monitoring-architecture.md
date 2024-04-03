@@ -62,11 +62,11 @@ See X-Road terms and abbreviations documentation \[[TA-TERMS](#Ref_TERMS)\].
 
 | Document ID||
 | ------------- |-------------|
-| PR-GCONF      | [X-Road: Protocol for Downloading Configuration](../Protocols/pr-gconf_x-road_protocol_for_downloading_configuration.md) |
-| UC-GCONF      | [X-Road: Use Case Model for Global Configuration Distribution](../UseCases/uc-gconf_x-road_use_case_model_for_global_configuration_distribution_1.4_Y-883-8.md)|
-| PR-MESS | [X-Road: Message Protocol v4.0](../Protocols/pr-mess_x-road_message_protocol.md)      |
-| PR-TARGETSS | [Security Server targeting extension for the X-Road message protocol](../Protocols/SecurityServerExtension/pr-targetss_security_server_targeting_extension_for_the_x-road_protocol.md) |
-| <a id="Ref_TERMS" class="anchor"></a> TA-TERMS | [X-Road Terms and Abbreviations](../terms_x-road_docs.md)| 
+| PR-GCONF      | [X-Road: Protocol for Downloading Configuration](pr-gconf_x-road_protocol_for_downloading_configuration.md) |
+| UC-GCONF      | [X-Road: Use Case Model for Global Configuration Distribution](uc-gconf_x-road_use_case_model_for_global_configuration_distribution_1.4_Y-883-8.md)|
+| PR-MESS | [X-Road: Message Protocol v4.0](pr-mess_x-road_message_protocol.md)      |
+| PR-TARGETSS | [Security Server targeting extension for the X-Road message protocol](pr-targetss_security_server_targeting_extension_for_the_x-road_protocol.md) |
+| <a id="Ref_TERMS" class="anchor"></a> TA-TERMS | [X-Road Terms and Abbreviations](terms_x-road_docs.md)| 
 
 ## 2 Components
 
