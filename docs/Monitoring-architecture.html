@@ -12,11 +12,517 @@
         padding: 45px;
       }
     </style>
-    <title>X-Road: 7.5.2
+    <title>X-Road: 7.5.1
 </title>
   </head>
   <body>
     <article class="markdown-body">
+<div class="markdown-heading"><h1 class="heading-element">X-Road: Environmental Monitoring Architecture</h1><a id="x-road-environmental-monitoring-architecture" class="anchor" aria-label="Permalink: X-Road: Environmental Monitoring Architecture" href="#x-road-environmental-monitoring-architecture"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>Version: 1.11<br>
+Doc. ID: ARC-ENVMON</p>
+<table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Version</th>
+<th>Description</th>
+<th>Author</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>15.12.2015</td>
+<td>1.0</td>
+<td>Initial version</td>
+<td>Ilkka Seppälä</td>
+</tr>
+<tr>
+<td>04.01.2017</td>
+<td>1.1</td>
+<td>Fix documentation links</td>
+<td>Ilkka Seppälä</td>
+</tr>
+<tr>
+<td>20.01.2017</td>
+<td>1.2</td>
+<td>Added license text, table of contents and version history</td>
+<td>Sami Kallio</td>
+</tr>
+<tr>
+<td>23.2.2017</td>
+<td>1.3</td>
+<td>Added reference to the Security Server targeting extension and moved the modified X-Road protocol details there</td>
+<td>Olli Lindgren</td>
+</tr>
+<tr>
+<td>18.8.2017</td>
+<td>1.4</td>
+<td>Added details about the security server certificates monitoring data</td>
+<td>Olli Lindgren</td>
+</tr>
+<tr>
+<td>18.10.2017</td>
+<td>1.5</td>
+<td></td>
+<td>Joni Laurila</td>
+</tr>
+<tr>
+<td>02.03.2018</td>
+<td>1.6</td>
+<td>Added numbering, terms document references, removed unnecessary anchors</td>
+<td>Tatu Repo</td>
+</tr>
+<tr>
+<td>20.01.2020</td>
+<td>1.7</td>
+<td>Update XroadProcessLister description</td>
+<td>Jarkko Hyöty</td>
+</tr>
+<tr>
+<td>25.06.2020</td>
+<td>1.8</td>
+<td>Add chapter <a href="#221-jmx-interface">2.2.1 JMX interface</a>
+</td>
+<td>Petteri Kivimäki</td>
+</tr>
+<tr>
+<td>01.06.2023</td>
+<td>1.9</td>
+<td>Update references</td>
+<td>Petteri Kivimäki</td>
+</tr>
+<tr>
+<td>04.10.2023</td>
+<td>1.10</td>
+<td>Remove Akka references</td>
+<td>Ričardas Bučiūnas</td>
+</tr>
+<tr>
+<td>16.02.2024</td>
+<td>1.11</td>
+<td>Add information about JMX and authentication</td>
+<td>Petteri Kivimäki</td>
+</tr>
+</tbody>
+</table>
+<div class="markdown-heading"><h1 class="heading-element">Table of Contents</h1><a id="table-of-contents" class="anchor" aria-label="Permalink: Table of Contents" href="#table-of-contents"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+
+<ul>
+<li><a href="#license">License</a></li>
+</ul>
+<ul>
+<li>
+<a href="#1-overview">1 Overview</a>
+<ul>
+<li><a href="#11-terms-and-abbreviations">1.1 Terms and abbreviations</a></li>
+<li><a href="#12-references">1.2 References</a></li>
+</ul>
+</li>
+<li>
+<a href="#2-components">2 Components</a>
+<ul>
+<li><a href="#21-monitoring-metaservice-proxymonitor-add-on">2.1 Monitoring metaservice (proxymonitor add-on)</a></li>
+<li>
+<a href="#22-monitoring-service-xroad-monitor">2.2 Monitoring service (xroad-monitor)</a>
+<ul>
+<li><a href="#221-jmx-interface">2.2.1 JMX interface</a></li>
+</ul>
+</li>
+<li><a href="#23-central-monitoring-client">2.3 Central monitoring client</a></li>
+<li><a href="#24-central-monitoring-data-collector">2.4 Central monitoring data collector</a></li>
+<li><a href="#25-central-server-admin-user-interface">2.5 Central server admin user interface</a></li>
+</ul>
+</li>
+<li>
+<a href="#3-monitoring-in-action">3 Monitoring in action</a>
+<ul>
+<li><a href="#31-pull-messaging-model">3.1 Pull messaging model</a></li>
+<li><a href="#32-modified-x-road-message-protocol">3.2 Modified X-Road message protocol</a></li>
+<li>
+<a href="#33-access-control">3.3 Access control</a>
+<ul>
+<li><a href="#331-limiting-central-monitoring-client-access-for-environmental-monitor-data">3.3.1 Limiting central monitoring client access for environmental monitor data</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="markdown-heading"><h2 class="heading-element">License</h2><a id="license" class="anchor" aria-label="Permalink: License" href="#license"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>This document is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="nofollow">http://creativecommons.org/licenses/by-sa/3.0/</a>.</p>
+<div class="markdown-heading"><h2 class="heading-element">1 Overview</h2><a id="1-overview" class="anchor" aria-label="Permalink: 1 Overview" href="#1-overview"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>X-Road monitoring is conceptually split into two parts: <em>environmental</em> and <em>operational</em> monitoring:</p>
+<ul>
+<li>
+<strong>Environmental monitoring</strong> is the monitoring of the X-Road environment: details of the security servers such as operating system, memory, disk space, CPU load, running processes and installed packages, etc.</li>
+<li>
+<strong>Operational monitoring</strong> is the monitoring of operational statistics such as which services have been called, how many times, what is the average response time, etc.</li>
+</ul>
+<p>This document describes environmental monitoring architecture.</p>
+<div class="markdown-heading"><h3 class="heading-element">1.1 Terms and abbreviations</h3><a id="11-terms-and-abbreviations" class="anchor" aria-label="Permalink: 1.1 Terms and abbreviations" href="#11-terms-and-abbreviations"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>See X-Road terms and abbreviations documentation [<a href="#Ref_TERMS">TA-TERMS</a>].</p>
+<div class="markdown-heading"><h3 class="heading-element">1.2 References</h3><a id="12-references" class="anchor" aria-label="Permalink: 1.2 References" href="#12-references"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<table>
+<thead>
+<tr>
+<th>Document ID</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PR-GCONF</td>
+<td><a href="pr-gconf_x-road_protocol_for_downloading_configuration.html">X-Road: Protocol for Downloading Configuration</a></td>
+</tr>
+<tr>
+<td>UC-GCONF</td>
+<td><a href="uc-gconf_x-road_use_case_model_for_global_configuration_distribution_1.4_Y-883-8.html">X-Road: Use Case Model for Global Configuration Distribution</a></td>
+</tr>
+<tr>
+<td>PR-MESS</td>
+<td><a href="pr-mess_x-road_message_protocol.html">X-Road: Message Protocol v4.0</a></td>
+</tr>
+<tr>
+<td>PR-TARGETSS</td>
+<td><a href="pr-targetss_security_server_targeting_extension_for_the_x-road_protocol.html">Security Server targeting extension for the X-Road message protocol</a></td>
+</tr>
+<tr>
+<td>
+<a id="Ref_TERMS"></a> TA-TERMS</td>
+<td><a href="terms_x-road_docs.html">X-Road Terms and Abbreviations</a></td>
+</tr>
+</tbody>
+</table>
+<div class="markdown-heading"><h2 class="heading-element">2 Components</h2><a id="2-components" class="anchor" aria-label="Permalink: 2 Components" href="#2-components"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p><a target="_blank" rel="noopener noreferrer" href="img/monitoring.png"><img src="img/monitoring.png" alt="monitoring architecture" style="max-width: 100%;"></a></p>
+<div class="markdown-heading"><h3 class="heading-element">2.1 Monitoring metaservice (proxymonitor add-on)</h3><a id="21-monitoring-metaservice-proxymonitor-add-on" class="anchor" aria-label="Permalink: 2.1 Monitoring metaservice (proxymonitor add-on)" href="#21-monitoring-metaservice-proxymonitor-add-on"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>Monitoring metaservice responds to queries for monitoring data from security server's serverproxy interface. This metaservice requests the current monitoring data from local monitoring service, using <a href="https://grpc.io/" rel="nofollow">gRPC</a>. Monitoring metaservice translates the monitoring data to a SOAP XML response.</p>
+<p>Monitoring service handles authorization of the requests, see <a href="#33-access-control">Access control</a>. It reads monitoring configuration from distributed global monitoring configuration (see <a href="#12-references">UC-GCONF, PR-GCONF</a>).</p>
+<p>Monitoring metaservice is installed as a proxy add-on, with name <code>xroad-addon-proxymonitor</code>.</p>
+<div class="markdown-heading"><h3 class="heading-element">2.2 Monitoring service (xroad-monitor)</h3><a id="22-monitoring-service-xroad-monitor" class="anchor" aria-label="Permalink: 2.2 Monitoring service (xroad-monitor)" href="#22-monitoring-service-xroad-monitor"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>Monitoring service is responsible for collecting the monitoring data from one security server instance. It distributes the collected data to monitoring clients (normally the local monitoring metaservice) when requested through an gRPC interface.</p>
+<p>Monitoring service uses several <em>sensors</em> to collect the data. Sensors and related functionalities are build on top of <a href="https://github.com/dropwizard/metrics">Dropwizard Metrics</a>.</p>
+<p>The following sensors produce monitoring data:</p>
+<ul>
+<li>
+<code>SystemMetricsSensor</code>
+<ul>
+<li>data:
+<ul>
+<li>system CPU load percentage (0-100)</li>
+<li>free memory</li>
+<li>total memory</li>
+<li>free swap space</li>
+<li>total swap space</li>
+<li>open file descriptor count</li>
+<li>maximum file descriptor count</li>
+<li>committed virtual memory</li>
+</ul>
+</li>
+<li>metrics are collected from <a href="https://docs.oracle.com/javase/8/docs/jre/api/management/extension/com/sun/management/UnixOperatingSystemMXBean.html" rel="nofollow">UnixOperatingSystemMXBean</a>
+</li>
+<li>data is refreshed every 5 seconds and analyzed in a 60s sliding window (for min/max/average/etc values)</li>
+</ul>
+</li>
+<li>
+<code>DiskSpaceSensor</code>
+<ul>
+<li>data: total and free disk space for all filesystem roots</li>
+<li>data is refreshed once per minute</li>
+</ul>
+</li>
+<li>
+<code>OsInfoLister</code>
+<ul>
+<li>data: operating system information from <code>/proc/version</code>
+</li>
+<li>for example <code>Linux version 3.13.0-70-generic (buildd@lgw01-34) (gcc version 4.8.2 (Ubuntu 4.8.2-19ubuntu1) ) #113-Ubuntu SMP Mon Nov 16 18:34:13 UTC 2015</code>
+</li>
+<li>data is refreshed once per minute</li>
+</ul>
+</li>
+<li>
+<code>ProcessLister</code>
+<ul>
+<li>data: list of running processes from command <code>ps -aew -o user,pcpu,start_time,pmem,pid,comm</code>
+</li>
+<li>data is refreshed once per minute</li>
+</ul>
+</li>
+<li>
+<code>XroadProcessLister</code>
+<ul>
+<li>data: like ProcessLister, but lists only java processes running as the <code>xroad</code> user and includes full command with arguments</li>
+<li>data is refreshed once per minute</li>
+</ul>
+</li>
+<li>
+<code>PackageLister</code>
+<ul>
+<li>data: list of installed packages and their versions</li>
+<li>data is refreshed once per minute</li>
+</ul>
+</li>
+<li>
+<code>CertificateInfoSensor</code>
+<ul>
+<li>data: information about certificates associated with this security server
+<ul>
+<li>certificate SHA-1 hash</li>
+<li>validity period: not before (ISO 8601 date)</li>
+<li>validity period: not after (ISO 8601 date)</li>
+<li>the type of the certificate:
+<ul>
+<li>
+<code>AUTH_OR_SIGN</code> for the Security Server member certificates (for signing) and the Security Server certificate (for authentication)</li>
+<li>
+<code>INTERNAL_IS_CLIENT_TLS</code> for the client Information system certificates</li>
+<li>
+<code>SECURITY_SERVER_TLS</code> for the TLS certificate of the Security server</li>
+</ul>
+</li>
+<li>is the certificate active (true/false)</li>
+</ul>
+</li>
+<li>data is refreshed once per day</li>
+</ul>
+</li>
+</ul>
+<p>Monitoring service is installed as a separate package, with name <code>xroad-monitor</code>. It runs in a separate process.</p>
+<div class="markdown-heading"><h4 class="heading-element">2.2.1 JMX interface</h4><a id="221-jmx-interface" class="anchor" aria-label="Permalink: 2.2.1 JMX interface" href="#221-jmx-interface"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>The service also publishes the monitoring data via JMX. Local monitoring agents can use this as an alternative way to fetch monitoring data. With the default configuration, JMX is disabled.</p>
+<p><a target="_blank" rel="noopener noreferrer" href="img/monitoring-jmx.png"><img src="img/monitoring-jmx.png" alt="monitoring JMX agent" style="max-width: 100%;"></a></p>
+<p>JMX is enabled by adding the required configuration in <code>/etc/xroad/services/local.properties</code> file. The file is opened for editing and changes are made on the <code>XROAD_MONITOR_PARAMS</code> variable value. After the <code>XROAD_MONITOR_PARAMS</code> variable value has been updated, the <code>xroad-monitor</code> service must be restarted.</p>
+<p>The example configuration below enables JMX, binds it to port <code>9999</code> on any available interface with SSL and password authentication enabled, and defines the password file location (<code>/path/to/password/file.txt</code>):</p>
+<div class="highlight highlight-source-ini"><pre><span class="pl-k">XROAD_MONITOR_PARAMS</span>=-<span class="pl-k">Djava.rmi.server.hostname</span>=0.0.0.0 -<span class="pl-k">Dcom.sun.management.jmxremote.port</span>=9999 -<span class="pl-k">Dcom.sun.management.jmxremote.authenticate</span>=true -<span class="pl-k">Dcom.sun.management.jmxremote.password.file</span>=/path/to/password/file.txt -<span class="pl-k">Dcom.sun.management.jmxremote.ssl</span>=true</pre></div>
+<p><strong>Note:</strong> The password file must be owned and readable by the <code>xroad</code> user only. More information about different authentication alternatives is available <a href="https://docs.oracle.com/en/java/javase/17/management/monitoring-and-management-using-jmx-technology.html#GUID-2F341A54-B0B0-4268-BDD7-5CFAB52A6C90" rel="nofollow">here</a>.</p>
+<div class="markdown-heading"><h3 class="heading-element">2.3 Central monitoring client</h3><a id="23-central-monitoring-client" class="anchor" aria-label="Permalink: 2.3 Central monitoring client" href="#23-central-monitoring-client"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>Central monitoring client is a specific security server, which has been granted access to query monitoring data from other security servers. See <a href="#33-access-control">Access control</a>. The identity of this security server is configured using central server's admin user interface.</p>
+<div class="markdown-heading"><h3 class="heading-element">2.4 Central monitoring data collector</h3><a id="24-central-monitoring-data-collector" class="anchor" aria-label="Permalink: 2.4 Central monitoring data collector" href="#24-central-monitoring-data-collector"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>Central monitoring data collector is responsible for collecting monitoring data from all the security servers. It does this by executing monitoring requests through the central monitoring client to all known security server instances. Data collector stores the data in some permanent storage, where it can be analyzed.</p>
+<p>Data collector has not been implemented yet.</p>
+<div class="markdown-heading"><h3 class="heading-element">2.5 Central server admin user interface</h3><a id="25-central-server-admin-user-interface" class="anchor" aria-label="Permalink: 2.5 Central server admin user interface" href="#25-central-server-admin-user-interface"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>Identity of central monitoring client (if any) is configured using central server's admin user interface. Configuration is done by updating a specific optional configuration file (see <a href="#12-references">UC-GCONF</a>, "UC GCONF_05: Upload an Optional Configuration Part File") <code>monitoring-params.xml</code>. This configuration file is distributed to all security servers through the global configuration distribution process (see <a href="#12-references">UC-GCONF</a>, "UC GCONF_24: Download Configuration from a Configuration Source")</p>
+<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">tns</span><span class="pl-ent">:</span><span class="pl-ent">conf</span> <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/identifiers<span class="pl-pds">"</span></span>
+          <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">tns</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>
+          <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">xsi</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.w3.org/2001/XMLSchema-instance<span class="pl-pds">"</span></span>
+          <span class="pl-e">xsi</span><span class="pl-e">:</span><span class="pl-e">schemaLocation</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">monitoringClient</span>&gt;
+        &lt;<span class="pl-ent">monitoringClientId</span> <span class="pl-e">id</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>SUBSYSTEM<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;fdev&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;GOV&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;1710128-9&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">subsystemCode</span>&gt;LIPPIS&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">subsystemCode</span>&gt;
+        &lt;/<span class="pl-ent">monitoringClientId</span>&gt;
+    &lt;/<span class="pl-ent">monitoringClient</span>&gt;
+&lt;/<span class="pl-ent">tns</span><span class="pl-ent">:</span><span class="pl-ent">conf</span>&gt;</pre></div>
+<p>One can configure either one member or a member's subsystem to be the central monitoring client. Permission to execute monitoring queries is strictly limited to that single member or subsystem - defining one subsystem to be a monitoring client does <strong>not</strong> grant the corresponding member access to querying monitoring data (and vice versa).</p>
+<p>The optional configuration for monitoring parameters is taken into use by installing package <code>xroad-centralserver-monitoring</code>. This package also includes the components that validate the updated xml monitoring configuration.</p>
+<p>To disable central monitoring client altogether, update configuration to one which has no client:</p>
+<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">tns</span><span class="pl-ent">:</span><span class="pl-ent">conf</span> <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/identifiers<span class="pl-pds">"</span></span>
+          <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">tns</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>
+          <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">xsi</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.w3.org/2001/XMLSchema-instance<span class="pl-pds">"</span></span>
+          <span class="pl-e">xsi</span><span class="pl-e">:</span><span class="pl-e">schemaLocation</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">monitoringClient</span>&gt;
+    &lt;/<span class="pl-ent">monitoringClient</span>&gt;
+&lt;/<span class="pl-ent">tns</span><span class="pl-ent">:</span><span class="pl-ent">conf</span>&gt;</pre></div>
+<div class="markdown-heading"><h2 class="heading-element">3 Monitoring in action</h2><a id="3-monitoring-in-action" class="anchor" aria-label="Permalink: 3 Monitoring in action" href="#3-monitoring-in-action"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h3 class="heading-element">3.1 Pull messaging model</h3><a id="31-pull-messaging-model" class="anchor" aria-label="Permalink: 3.1 Pull messaging model" href="#31-pull-messaging-model"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>Currently central monitoring data collection is done using <em>pull</em> messaging model. Here, pull means that the central monitoring client sends requests to the individual security servers.</p>
+<p>An alternative to this would be model where security servers periodically <em>push</em> (send) the monitoring data to central monitoring client.</p>
+<p>To support clustered configurations, monitoring queries use an extended X-Road message protocol.</p>
+<div class="markdown-heading"><h3 class="heading-element">3.2 Using an extension of the X-Road message protocol</h3><a id="32-using-an-extension-of-the-x-road-message-protocol" class="anchor" aria-label="Permalink: 3.2 Using an extension of the X-Road message protocol" href="#32-using-an-extension-of-the-x-road-message-protocol"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>Fetching security server metrics uses the X-Road protocol. The original X-Road message protocol version 4.0  (described in <a href="#12-references">PR-MESS</a>) had header element <code>service</code> to define the recipient of a message.</p>
+<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>
+xmlns:SOAP-ENV=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.xmlsoap.org/soap/envelope/<span class="pl-pds">"</span></span>
+xmlns:xrd=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>
+xmlns:id=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/identifiers<span class="pl-pds">"</span></span>
+xmlns:prod=<span class="pl-s"><span class="pl-pds">"</span>http://vrk-test.x-road.fi/producer<span class="pl-pds">"</span></span>&gt;
+   &lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Header</span>&gt;
+      &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">protocolVersion</span>&gt;4.0&lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">protocolVersion</span>&gt;
+      &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">id</span>&gt;1234&lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">id</span>&gt;
+      &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">userId</span>&gt;EE1234567890&lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">userId</span>&gt;
+      &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">client</span> <span class="pl-e">id</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>MEMBER<span class="pl-pds">"</span></span>&gt;
+         &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;fdev&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
+         &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;GOV&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
+         &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;1710128-9&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
+      &lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">client</span>&gt;
+      &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">service</span> <span class="pl-e">id</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>SERVICE<span class="pl-pds">"</span></span>&gt;
+         &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;fdev&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
+         &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;GOV&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
+         &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;1710128-9&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
+         &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serviceCode</span>&gt;getRandom&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serviceCode</span>&gt;
+         &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serviceVersion</span>&gt;v1&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serviceVersion</span>&gt;
+      &lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">service</span>&gt;
+   &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Header</span>&gt;
+   &lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
+      &lt;<span class="pl-ent">prod</span><span class="pl-ent">:</span><span class="pl-ent">getRandom</span>&gt;&lt;/<span class="pl-ent">prod</span><span class="pl-ent">:</span><span class="pl-ent">getRandom</span>&gt;
+   &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
+&lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>&gt;</pre></div>
+<p>For monitoring queries this is not enough. In a clustered security server configuration, one service can be served from multiple security servers. When X-Road routes the message, it picks one candidate based on which one answers the quickest. When executing monitoring queries, we need to be able to fetch monitoring data from a specific security server in a cluster. To make this possible the Security server targeting extension for the X-Road message protocol [<a href="#12-references">PR-TARGETSS</a>] is used, which adds a new SOAP header element <code>securityServer</code>. Using this element, the caller identifies which security server should respond with the monitoring data (<code>servercode</code> = <code>fdev-ss1.i.palveluvayla.com</code>). To execute a query, we call service <code>getSecurityServerMetrics</code>:</p>
+<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>
+	xmlns:SOAP-ENV=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.xmlsoap.org/soap/envelope/<span class="pl-pds">"</span></span>
+	xmlns:id=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/identifiers<span class="pl-pds">"</span></span>
+	xmlns:xrd=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>
+	xmlns:m=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/monitoring<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Header</span>&gt;
+        &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">client</span> <span class="pl-e">id</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>MEMBER<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;fdev&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;GOV&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;1710128-9&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
+        &lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">client</span>&gt;
+        &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">service</span> <span class="pl-e">id</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>SERVICE<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;fdev&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;GOV&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;1710128-9&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serviceCode</span>&gt;getSecurityServerMetrics&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serviceCode</span>&gt;
+        &lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">service</span>&gt;
+        &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">securityServer</span> <span class="pl-e">id</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>SERVER<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;fdev&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;GOV&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;1710128-9&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serverCode</span>&gt;fdev-ss1.i.palveluvayla.com&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serverCode</span>&gt;
+        &lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">securityServer</span>&gt;
+        &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">id</span>&gt;ID11234&lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">id</span>&gt;
+        &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">protocolVersion</span>&gt;4.0&lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">protocolVersion</span>&gt;
+    &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Header</span>&gt;
+    &lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
+        &lt;<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">getSecurityServerMetrics</span>/&gt;
+    &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
+&lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>&gt;</pre></div>
+<p>The response looks like:</p>
+<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>
+    <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">SOAP-ENV</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.xmlsoap.org/soap/envelope/<span class="pl-pds">"</span></span>
+    <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/identifiers<span class="pl-pds">"</span></span>
+    <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">m</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/monitoring<span class="pl-pds">"</span></span>
+    <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">xrd</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/xroad.xsd<span class="pl-pds">"</span></span>&gt;
+   &lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Header</span>&gt;
+      &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">client</span> <span class="pl-e">id</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>MEMBER<span class="pl-pds">"</span></span>&gt;
+         &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;fdev&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
+         &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;GOV&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
+         &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;1710128-9&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
+      &lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">client</span>&gt;
+      &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">service</span> <span class="pl-e">id</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>SERVICE<span class="pl-pds">"</span></span>&gt;
+         &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;fdev&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
+         &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;GOV&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
+         &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;1710128-9&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
+         &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serviceCode</span>&gt;getSecurityServerMetrics&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serviceCode</span>&gt;
+      &lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">service</span>&gt;
+      &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">securityServer</span> <span class="pl-e">id</span><span class="pl-e">:</span><span class="pl-e">objectType</span>=<span class="pl-s"><span class="pl-pds">"</span>SERVER<span class="pl-pds">"</span></span>&gt;
+         &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;fdev&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
+         &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;GOV&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
+         &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;1710128-9&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
+         &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serverCode</span>&gt;fdev-ss1.i.palveluvayla.com&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serverCode</span>&gt;
+      &lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">securityServer</span>&gt;
+      &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">id</span>&gt;ID11234&lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">id</span>&gt;
+      &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">protocolVersion</span>&gt;4.0&lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">protocolVersion</span>&gt;
+      &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">requestHash</span> <span class="pl-e">algorithmId</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.w3.org/2001/04/xmlenc#sha512<span class="pl-pds">"</span></span>&gt;mChpBRMvFlBBSNKeOxAJQBw4r6XdHZFuH8BOzhjsxjjOdaqXXyPXwnDEdq/NkYfEqbLUTi1h/OHEnX9F5YQ5kQ==&lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">requestHash</span>&gt;
+   &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Header</span>&gt;
+   &lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
+      &lt;<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">getSecurityServerMetricsResponse</span>&gt;
+         &lt;<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">metricSet</span>&gt;
+            &lt;<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">name</span>&gt;SERVER:fdev/GOV/1710128-9/fdev-ss1.i.palveluvayla.com&lt;/<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">name</span>&gt;
+            &lt;<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">stringMetric</span>&gt;
+               &lt;<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">name</span>&gt;proxyVersion&lt;/<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">name</span>&gt;
+               &lt;<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">value</span>&gt;6.7.7-1.20151201075839gitb72b28e&lt;/<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">value</span>&gt;
+            &lt;/<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">stringMetric</span>&gt;
+            &lt;<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">metricSet</span>&gt;
+               &lt;<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">name</span>&gt;systemMetrics&lt;/<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">name</span>&gt;
+               &lt;<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">stringMetric</span>&gt;
+                  &lt;<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">name</span>&gt;OperatingSystem&lt;/<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">name</span>&gt;
+                  &lt;<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">value</span>&gt;Linux version 3.13.0-70-generic&lt;/<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">value</span>&gt;
+               &lt;/<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">stringMetric</span>&gt;
+               &lt;<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">numericMetric</span>&gt;
+                  &lt;<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">name</span>&gt;TotalPhysicalMemory&lt;/<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">name</span>&gt;
+                  &lt;<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">value</span>&gt;2097684480&lt;/<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">value</span>&gt;
+               &lt;/<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">numericMetric</span>&gt;
+               &lt;<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">numericMetric</span>&gt;
+                  &lt;<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">name</span>&gt;TotalSwapSpace&lt;/<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">name</span>&gt;
+                  &lt;<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">value</span>&gt;2097684480&lt;/<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">value</span>&gt;
+               &lt;/<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">numericMetric</span>&gt;
+            &lt;/<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">metricSet</span>&gt;
+            ...          
+         &lt;/<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">metricSet</span>&gt;
+      &lt;/<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">getSecurityServerMetricsResponse</span>&gt;
+   &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
+&lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>&gt;</pre></div>
+<p>The schema for the monitoring response is defined in <code>monitoring.xsd</code>:</p>
+<div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
+&lt;<span class="pl-ent">schema</span> <span class="pl-e">xmlns</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.w3.org/2001/XMLSchema<span class="pl-pds">"</span></span>
+        <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">tns</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/monitoring<span class="pl-pds">"</span></span> <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">xs</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.w3.org/2001/XMLSchema<span class="pl-pds">"</span></span>
+        <span class="pl-e">targetNamespace</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/monitoring<span class="pl-pds">"</span></span>
+        <span class="pl-e">elementFormDefault</span>=<span class="pl-s"><span class="pl-pds">"</span>qualified<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>MetricType<span class="pl-pds">"</span></span> <span class="pl-e">abstract</span>=<span class="pl-s"><span class="pl-pds">"</span>true<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+            &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>xs:string<span class="pl-pds">"</span></span>/&gt;
+        &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+    &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
+    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>NumericMetricType<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexContent</span>&gt;
+            &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">extension</span> <span class="pl-e">base</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:MetricType<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+                    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>value<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>xs:decimal<span class="pl-pds">"</span></span>/&gt;
+                &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+            &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">extension</span>&gt;
+        &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexContent</span>&gt;
+    &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
+    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>StringMetricType<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexContent</span>&gt;
+            &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">extension</span> <span class="pl-e">base</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:MetricType<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+                    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>value<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>xs:string<span class="pl-pds">"</span></span>/&gt;
+                &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+            &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">extension</span>&gt;
+        &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexContent</span>&gt;
+    &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
+    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>HistogramMetricType<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexContent</span>&gt;
+            &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">extension</span> <span class="pl-e">base</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:MetricType<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+                    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>updated<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>xs:dateTime<span class="pl-pds">"</span></span>/&gt;
+                    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>min<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>xs:decimal<span class="pl-pds">"</span></span>/&gt;
+                    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>max<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>xs:decimal<span class="pl-pds">"</span></span>/&gt;
+                    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>mean<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>xs:decimal<span class="pl-pds">"</span></span>/&gt;
+                    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>median<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>xs:decimal<span class="pl-pds">"</span></span>/&gt;
+                    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>stddev<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>xs:decimal<span class="pl-pds">"</span></span>/&gt;
+                &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+            &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">extension</span>&gt;
+        &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexContent</span>&gt;
+    &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
+    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>MetricSetType<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexContent</span>&gt;
+            &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">extension</span> <span class="pl-e">base</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:MetricType<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+                    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">choice</span> <span class="pl-e">maxOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>unbounded<span class="pl-pds">"</span></span>&gt;
+                        &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>metricSet<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:MetricSetType<span class="pl-pds">"</span></span>/&gt;
+                        &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>numericMetric<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:NumericMetricType<span class="pl-pds">"</span></span>/&gt;
+                        &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>stringMetric<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:StringMetricType<span class="pl-pds">"</span></span>/&gt;
+                        &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>histogramMetric<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:HistogramMetricType<span class="pl-pds">"</span></span>/&gt;
+                    &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">choice</span>&gt;
+                &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+            &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">extension</span>&gt;
+        &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexContent</span>&gt;
+    &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
+    &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>getSecurityServerMetricsResponse<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
+            &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+                &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>metricSet<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:MetricSetType<span class="pl-pds">"</span></span>/&gt;
+            &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
+        &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
+    &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span>&gt;
+&lt;/<span class="pl-ent">schema</span>&gt;</pre></div>
+<div class="markdown-heading"><h3 class="heading-element">3.3 Access control</h3><a id="33-access-control" class="anchor" aria-label="Permalink: 3.3 Access control" href="#33-access-control"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>Monitoring queries are allowed from</p>
+<ul>
+<li>client that is the <em>owner</em> of the security server</li>
+<li>central monitoring client (if any have been configured)</li>
+</ul>
+<p>Central monitoring client is configured using central server admin user interface, see <a href="#25-central-server-admin-user-interface">Admin user interface</a>.</p>
+<p>Attempts to query monitoring data from other clients results in an <code>AccessDenied</code> -error.</p>
+<p>JMX API, in case port and network access is enabled, will provide monitoring data directly without access control checks by security server.</p>
+<div class="markdown-heading"><h4 class="heading-element">3.3.1 Limiting central monitoring client access for environmental monitor data</h4><a id="331-limiting-central-monitoring-client-access-for-environmental-monitor-data" class="anchor" aria-label="Permalink: 3.3.1 Limiting central monitoring client access for environmental monitor data" href="#331-limiting-central-monitoring-client-access-for-environmental-monitor-data"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>Request for monitor data can be set for limiting optional parts by changing env-monitor.limit-remote-data-set parameter. By limiting data set environmental monitoring will return only proxyVersion, OperatingSystem and Certificate information.</p>
+<p>If request parameters are used and flag is set for limiting, response will include proxyVersion, name and OperatingSystem and/or Certificate information if they are in parameter list and nothing else.</p>
     </article>
   </body>
 </html>
