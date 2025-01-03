@@ -12,7 +12,7 @@
         padding: 45px;
       }
     </style>
-    <title>X-Road: 7.5.1
+    <title>X-Road: 7.6.0
 </title>
   </head>
   <body>
@@ -131,6 +131,12 @@ Doc. ID: UG-SC</p>
 <td>2.9</td>
 <td>Update references</td>
 <td>Petteri Kivimäki</td>
+</tr>
+<tr>
+<td>06.11.2024</td>
+<td>2.10</td>
+<td>Added key algorithm argument</td>
+<td>Ovidijus Narkevicius</td>
 </tr>
 </tbody>
 </table>
@@ -352,6 +358,8 @@ Doc. ID: UG-SC</p>
 <em><strong>token id</strong></em>: the identifier of the token. Use <em><a href="#241-list-tokens">list-tokens</a></em> to look up token identifiers.</li>
 <li>
 <em><strong>label</strong></em>: the label of the key is set for SSCD devices.</li>
+<li>
+<em><strong>algorithm</strong></em>: the algorithm used by generated key, Possible values: RSA, EC. Prior to version 7.6.0 only RSA is supported.</li>
 </ul>
 <p><strong>Output:</strong> The id of the generated key.</p>
 <div class="markdown-heading"><h4 class="heading-element">2.4.18 generate-cert-request</h4><a id="2418-generate-cert-request" class="anchor" aria-label="Permalink: 2.4.18 generate-cert-request" href="#2418-generate-cert-request"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>

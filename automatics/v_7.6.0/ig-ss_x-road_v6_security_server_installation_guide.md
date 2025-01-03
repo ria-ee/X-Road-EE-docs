@@ -93,7 +93,6 @@ This document is licensed under the Creative Commons Attribution-ShareAlike 3.0 
   - [2.1 Prerequisites to Installation](#21-prerequisites-to-installation)
   - [2.2 Reference Data](#22-reference-data)
     - [2.2.1 Network Diagram](#221-network-diagram)
-    - [2.3.1 RIA IP's for Whitelisting](#231-ria-ips-for-whitelisting)
   - [2.3 Requirements for the Security Server](#23-requirements-for-the-security-server)
   - [2.4 Preparing OS](#24-preparing-os)
   - [2.5 Setup Package Repository](#25-setup-package-repository)
@@ -171,7 +170,6 @@ The Security Server is officially supported on the following platforms:
 
 * Ubuntu Server 20.04, 22.04 or 24.04 Long-Term Support (LTS) operating system on a x86-64 platform.
 * Red Hat Enterprise Linux (RHEL) 7, 8, 9 (x86-64). See [IG-SS-RHEL](ig-ss_x-road_v6_security_server_installation_guide_for_rhel.md) for more information.
-NB: RIA provides support only for Security Servers which are installed on the Ubuntu operating system.
 
 The software can be installed both on physical and virtualized hardware (of the latter, Xen and Oracle VirtualBox have been tested).
 
@@ -183,70 +181,72 @@ The software can be installed both on physical and virtualized hardware (of the 
 **Caution**: Data necessary for the functioning of the operating system is not included.
 
 
- **Ref** |                                        | **Explanation**
- ------ | --------------------------------------- | ----------------------------------------------------------
- 1.0    | Ubuntu 20.04, 22.04 or 24.04 (x86-64)<br>3 GB RAM, 3 GB free disk space | Minimum requirements without the `monitoring` and `op-monitoring` add-ons. With the add-ons minimum of 4 GB of RAM is required.
- 1.1    | http://x-tee.ee/packages/live/xroad                                                                                  | X-Road stable package repository
- &nbsp; | http://x-tee.ee/packages/test/xroad                                                                                  | X-Road test package repository
- 1.2    | https://x-tee.ee/packages/live/xroad/xroad.pub                                                                             | The repository key
- 1.3    |                                                                                                                      | Account name in the user interface
- 1.4    | **Inbound ports from external network** | Ports for inbound connections from the external network to the security server
- &nbsp; | TCP 5500                                                                                                             | Message exchange between security servers. Recommended to use IP filtering (**whitelisting only [RIA IP's](#231-ria-ips-for-whitelisting) and partners**).
- &nbsp; | TCP 5577                                                                                                             | Querying of OCSP responses between security servers. Recommended to use IP filtering (**whitelisting only [RIA IP's](#231-ria-ips-for-whitelisting) and partners**)
- 1.5    | **Outbound ports to external network**  | Ports for outbound connections from the security server to the external network
- &nbsp; | TCP 5500                                | Message exchange between security servers
- &nbsp; | TCP 5577                                | Querying of OCSP responses between security servers
- &nbsp; | TCP 4001                                | Communication with the central server
- &nbsp; | TCP 80                                  | Downloading global configuration from the central server
- &nbsp; | TCP 80,443                              | Most common OCSP and time-stamping services
- 1.6    | **Inbound ports from internal network** | Ports for inbound connections from the internal network to the security server
- &nbsp; | TCP 4000                                | User interface and management REST API (local network). **Must not be accessible from the internet!**
- &nbsp; | TCP 80, 443                             | Information system access points (in the local network). **Must not be accessible from the external network without strong authentication. If open to the external network, IP filtering is strongly recommended.**
- &nbsp; | TCP 9011                                                                                                             | Operational data monitoring daemon JMX listening port
- &nbsp; | TCP 9999                                                                                                             | Environmental monitoring daemon JMX listening port
- 1.7    | **Outbound ports to internal network**  | Ports for inbound connections from the internal network to the security server
- &nbsp; | TCP 80, 443, *other*                    | Producer information system endpoints
- &nbsp; | TCP 2080                                | Message exchange between security server and operational data monitoring daemon (by default on localhost)
- 1.8  |                                           | Security server internal IP address(es) and hostname(s)
- 1.9  |                                           | Security server public IP address, NAT address
- 1.10 | &lt;by default, the server’s IP addresses and names are added to the certificate’s Distinguished Name (DN) field&gt; | Information about the user interface TLS certificate
- 1.11 | &lt;by default, the server’s IP addresses and names are added to the certificate’s Distinguished Name (DN) field&gt; | Information about the services TLS certificate
+| **Ref** |                                                                                                                      | **Explanation**                                                                                                                                                                                                                                                                            |
+|---------|----------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 1.0     | Ubuntu 20.04, 22.04 or 24.04 (x86-64)<br>3 GB RAM, 3 GB free disk space                                              | Minimum requirements without the `monitoring` and `op-monitoring` add-ons. With the add-ons minimum of 4 GB of RAM is required.                                                                                                                                                            |
+| 1.1     | https://artifactory.niis.org/xroad-release-deb                                                                       | X-Road package repository                                                                                                                                                                                                                                                                  |
+| 1.2     | https://artifactory.niis.org/api/gpg/key/public                                                                      | The repository key.<br /><br />Hash: `935CC5E7FA5397B171749F80D6E3973B`<br  />Fingerprint: `A01B FE41 B9D8 EAF4 872F  A3F1 FB0D 532C 10F6 EC5B`<br  />3rd party key server: [Ubuntu key server](https://keyserver.ubuntu.com/pks/lookup?search=0xfb0d532c10f6ec5b&fingerprint=on&op=index) |
+| 1.3     |                                                                                                                      | Account name in the user interface                                                                                                                                                                                                                                                         |
+| 1.4     | **Inbound ports from external network**                                                                              | Ports for inbound connections from the external network to the Security Server                                                                                                                                                                                                             |
+| &nbsp;  | TCP 80                                                                                                               | Incoming ACME challenge requests from ACME Servers                                                                                                                                                                                                                                         |
+| &nbsp;  | TCP 5500                                                                                                             | Message exchange between Security Servers                                                                                                                                                                                                                                                  |
+| &nbsp;  | TCP 5577                                                                                                             | Querying of OCSP responses between Security Servers                                                                                                                                                                                                                                        |
+| 1.5     | **Outbound ports to external network**                                                                               | Ports for outbound connections from the Security Server to the external network                                                                                                                                                                                                            |
+| &nbsp;  | TCP 5500                                                                                                             | Message exchange between Security Servers                                                                                                                                                                                                                                                  |
+| &nbsp;  | TCP 5577                                                                                                             | Querying of OCSP responses between Security Servers                                                                                                                                                                                                                                        |
+| &nbsp;  | TCP 4001                                                                                                             | Communication with the Central Server                                                                                                                                                                                                                                                      |
+| &nbsp;  | TCP 80,443                                                                                                           | Downloading global configuration from the Central Server                                                                                                                                                                                                                                   |
+| &nbsp;  | TCP 80,443                                                                                                           | Most common OCSP and time-stamping services                                                                                                                                                                                                                                                |
+| &nbsp;  | TCP 80,443                                                                                                           | Communication with ACME servers                                                                                                                                                                                                                                                            |
+| 1.6     | **Inbound ports from internal network**                                                                              | Ports for inbound connections from the internal network to the Security Server                                                                                                                                                                                                             |
+| &nbsp;  | TCP 4000                                                                                                             | User interface and management REST API (local network). **Must not be accessible from the internet!**                                                                                                                                                                                      |
+| &nbsp;  | TCP 8080, 8443                                                                                                       | Information system access points (in the local network). **Must not be accessible from the external network without strong authentication. If open to the external network, IP filtering is strongly recommended.**                                                                        |
+| &nbsp;  | TCP 587                                                                                                              | Communication with the mail server                                                                                                                                                                                                                                                         |
+| 1.7     | **Outbound ports to internal network**                                                                               | Ports for inbound connections from the internal network to the Security Server                                                                                                                                                                                                             |
+| &nbsp;  | TCP 80, 443, *other*                                                                                                 | Producer information system endpoints                                                                                                                                                                                                                                                      |
+| &nbsp;  | TCP 2080                                                                                                             | Message exchange between Security Server and operational data monitoring daemon (by default on localhost)                                                                                                                                                                                  |
+| 1.8     |                                                                                                                      | Security server internal IP address(es) and hostname(s)                                                                                                                                                                                                                                    |
+| 1.9     |                                                                                                                      | Security server public IP address, NAT address                                                                                                                                                                                                                                             |
+| 1.10    | &lt;by default, the server’s IP addresses and names are added to the certificate’s Distinguished Name (DN) field&gt; | Information about the user interface TLS certificate                                                                                                                                                                                                                                       |
+| 1.11    | &lt;by default, the server’s IP addresses and names are added to the certificate’s Distinguished Name (DN) field&gt; | Information about the services TLS certificate                                                                                                                                                                                                                                             |
 
-It is strongly recommended to protect the security server from unwanted access using a firewall (hardware or software based). The firewall can be applied to both incoming and outgoing connections depending on the security requirements of the environment where the security server is deployed. It is recommended to allow incoming traffic to specific ports only from explicitly defined sources using IP filtering. **Special attention should be paid with the firewall configuration since incorrect configuration may leave the security server vulnerable to exploits and attacks.**
+#### 2.2.1 Network Diagram
+
+The network diagram below provides an example of a basic Security Server setup. Allowing incoming connections from the Monitoring Security Server on ports 5500/tcp and 5577/tcp is necessary for the X-Road Operator to be able to monitor the ecosystem and provide statistics and support for Members.
+
+![network diagram](img/ig-ss_network_diagram.svg)
 
 The table below lists the required connections between different components.
 
-**Connection Type** | **Source** | **Target** | **Target Ports** | **Protocol** | **Note** |
------------|------------|-----------|-----------|-----------|-----------|
-Out | Security Server | Central Server | 80, 4001 | tcp | |
-Out | Security Server | Management Security Server | 5500, 5577 | tcp | |
-Out | Security Server | OCSP Service | 80 / 443 | tcp | |
-Out | Security Server | Timestamping Service | 80 / 443 | tcp | |
-Out | Security Server | Data Exchange Partner Security Server (Service Producer) | 5500, 5577 | tcp | |
-Out | Security Server | Producer Information System | 80, 443, other | tcp | Target in the internal network |
-In  | Monitoring Security Server | Security Server | 5500, 5577 | tcp | |
-In  | Data Exchange Partner Security Server (Service Consumer) | Security Server | 5500, 5577 | tcp | |
-In | Consumer Information System | Security Server | 80, 443 | tcp | Source in the internal network |
-In | Admin | Security Server | 4000 | tcp | Source in the internal network |
+| **Connection Type** | **Source**                                               | **Target**                                               | **Target Ports** | **Protocol** | **Note**                       |
+|---------------------|----------------------------------------------------------|----------------------------------------------------------|------------------|--------------|--------------------------------|
+| Out                 | Security Server                                          | Central Server                                           | 80, 443, 4001    | tcp          |                                |
+| Out                 | Security Server                                          | Management Security Server                               | 5500, 5577       | tcp          |                                |
+| Out                 | Security Server                                          | OCSP Service                                             | 80 / 443         | tcp          |                                |
+| Out                 | Security Server                                          | Timestamping Service                                     | 80 / 443         | tcp          |                                |
+| Out                 | Security Server                                          | Data Exchange Partner Security Server (Service Producer) | 5500, 5577       | tcp          |                                |
+| Out                 | Security Server                                          | Producer Information System                              | 80, 443, other   | tcp          | Target in the internal network |
+| Out                 | Security Server                                          | ACME Server                                              | 80 / 443         | tcp          |                                |
+| Out                 | Security Server                                          | Mail server                                              | 587              | tcp          |                                |
+| In                  | Monitoring Security Server                               | Security Server                                          | 5500, 5577       | tcp          |                                |
+| In                  | Data Exchange Partner Security Server (Service Consumer) | Security Server                                          | 5500, 5577       | tcp          |                                |
+| In                  | ACME Server                                              | Security Server                                          | 80               | tcp          |                                | 
+| In                  | Consumer Information System                              | Security Server                                          | 8080, 8443       | tcp          | Source in the internal network |
+| In                  | Admin                                                    | Security Server                                          | 4000             | tcp          | Source in the internal network |
 
-It is strongly recommended to protect the security server from unwanted access using a firewall (hardware or software based). The firewall can be applied to both incoming and outgoing connections depending on the security requirements of the environment where the security server is deployed. It is recommended to allow incoming traffic to specific ports only from explicitly defined sources using IP filtering. **Special attention should be paid with the firewall configuration since incorrect configuration may leave the security server vulnerable to exploits and attacks.**
+The table below lists the open ports for Security Server components utilizing the _loopback_ interface. A loopback interface is a virtual network interface on a computer, facilitating self-communication for processes and applications. This enables local communication and the ports must be accessible locally.
 
- #### 2.2.1 Network Diagram
- The following network diagram is an example of a simple stand-alone Security Server setup. Attention should be paid when configuring the firewall of your Security Server, as misconfigurations (e.g. exposing port 80/tcp to the public internet) can leave your server vulnerable. **IP whitelisting should be used for all ports that are open to the external network.**
- 
- Allowing incoming connections from the Monitoring Security Server on ports 5500/tcp and 5577/tcp ([monitoring server IP's](#231-ria-ips-for-whitelisting)) is necessary for the X-Road Center to be able to monitor the ecosystem and provide statistics and support for Members.
-
-
- **Caution**: The enabling of auxiliary services which are necessary for the functioning and management of the operating system (such as DNS, NTP, and SSH) stay outside the scope of this guide.
-
- ![network diagram](img/ig-ss_network_diagram.png)
-
- #### 2.3.1 RIA IP's for Whitelisting
- Type | **EE - production** | **ee-test**	| **ee-dev**
--------------------------- | --------------------| -------------- | -------------
- Central Server 			| cs1.ee.x-tee.ee <br> cs2.ee.x-tee.ee <br> cs3.ee.x-tee.ee | cs1.test.x-tee.ee <br> cs2.test.x-tee.ee <br> cs3.test.x-tee.ee | cs1.dev.x-tee.ee <br> cs2.dev.x-tee.ee <br> cs3.dev.x-tee.ee
- Central Monitoring Server 	| mon.ee.x-tee.ee | mon.test.x-tee.ee | mon.dev.x-tee.ee
- Management Security Server 			| ht1.ee.x-tee.ee <br> ht2.ee.x-tee.ee <br> ht3.ee.x-tee.ee | ht1.test.x-tee.ee <br> ht2.test.x-tee.ee <br> ht3.test.x-tee.ee | ht1.dev.x-tee.ee <br> ht2.dev.x-tee.ee <br> ht3.dev.x-tee.ee
+| **Component**            | **Ports** | **Protocol** | **Note**                        |
+|--------------------------|-----------|--------------|---------------------------------|
+| PostgreSQL database      | 5432      | tcp          | Default PostgreSQL port         |
+| OP Monitoring daemon     | 2080      | tcp          |                                 |
+| Environmental monitoring | 2552      | tcp          |                                 |
+| Signer                   | 5559      | tcp          | Signer admin port               |
+| Signer                   | 5560      | tcp          | Signer gRPC port                |
+| Proxy                    | 5566      | tcp          | Proxy admin port                |
+| Proxy                    | 5567      | tcp          | Proxy gRPC server port          |
+| Configuration Client     | 5675      | tcp          | Configuration Client admin port |
+| Audit Log                | 514       | udp          |                                 |
 
 ### 2.3 Requirements for the Security Server
 
@@ -290,12 +290,12 @@ Requirements to software and settings:
 
 Add the X-Road repository’s signing key to the list of trusted keys (**reference data: 1.2**):
 ```bash
-curl https://x-tee.ee/packages/test/xroad/xroad.pub | sudo gpg --dearmor -o /etc/apt/keyrings/xroad.gpg
+curl https://artifactory.niis.org/api/gpg/key/public | sudo apt-key add -
 ```
 
-Add X-Road package repository (test or live)) (**reference data: 1.1**)
+Add X-Road package repository (**reference data: 1.1**)
 ```bash
-echo "deb [signed-by=/etc/apt/keyrings/xroad.gpg] https://x-tee.ee/packages/test/xroad $(lsb_release -sc)-current main" | sudo tee /etc/apt/sources.list.d/xroad.list
+sudo apt-add-repository -y "deb https://artifactory.niis.org/xroad-release-deb $(lsb_release -sc)-current main"
 ```
 
 Update package repository metadata:
@@ -363,7 +363,6 @@ sudo debconf-set-selections <<< 'xroad-addon-messagelog xroad-addon-messagelog/e
 Issue the following command to install the Security Server packages (use package `xroad-securityserver-ee` to include configuration specific to Estonia; use package `xroad-securityserver-fi` to include configuration specific to Finland; use package `xroad-securityserver-is` to include configuration specific to Iceland):
 
 ```bash
-sudo apt update
 sudo apt install xroad-securityserver
 ```
 
@@ -456,10 +455,6 @@ Depending on the hardware token there may be a need for more additional configur
 | *priv_key_attribute_sign*               | BOOLEAN     | *true*                                         | Indicates whether private key can be used for signing.                                                                                                                                                                                                                                                                             |
 | *priv_key_attribute_unwrap*             | BOOLEAN     |                                                | Indicates whether private key can be used for unwrapping wrapped keys.                                                                                                                                                                                                                                                             |
 | *priv_key_attribute_allowed_mechanisms* | STRING LIST |                                                | Specifies private key allowed mechanisms. Supported values: *CKM_RSA_PKCS*, *CKM_SHA256_RSA_PKCS*, *CKM_SHA384_RSA_PKCS*, *CKM_SHA512_RSA_PKCS*, and *CKM_RSA_PKCS_PSS*, *CKM_SHA256_RSA_PKCS_PSS*, *CKM_SHA384_RSA_PKCS_PSS*, *CKM_SHA512_RSA_PKCS_PSS*, *CKM_ECDSA*, *CKM_ECDSA_SHA256*, *CKM_ECDSA_SHA384*, *CKM_ECDSA_SHA512*. |
-| *priv_key_attribute_unwrap*             | BOOLEAN     |                                                | Indicates whether private key can be used for unwrapping wrapped keys.                                                                                                                                                                                                                                                             |
-| *priv_key_attribute_allowed_mechanisms* | STRING LIST |                                                | Specifies private key allowed mechanisms. Supported values: *CKM_RSA_PKCS*, *CKM_SHA256_RSA_PKCS*, *CKM_SHA384_RSA_PKCS*, *CKM_SHA512_RSA_PKCS*, and *CKM_RSA_PKCS_PSS*, *CKM_SHA256_RSA_PKCS_PSS*, *CKM_SHA384_RSA_PKCS_PSS*, *CKM_SHA512_RSA_PKCS_PSS*, *CKM_ECDSA*, *CKM_ECDSA_SHA256*, *CKM_ECDSA_SHA384*, *CKM_ECDSA_SHA512*. |
-| *priv_key_attribute_unwrap*             | BOOLEAN     |                                                | Indicates whether private key can be used for unwrapping wrapped keys.                                                                                                                                                                                                                                                             |
-| *priv_key_attribute_allowed_mechanisms* | STRING LIST |                                                | Specifies private key allowed mechanisms. Supported values: *CKM_RSA_PKCS*, *CKM_SHA256_RSA_PKCS*, *CKM_SHA384_RSA_PKCS*, *CKM_SHA512_RSA_PKCS*, and *CKM_RSA_PKCS_PSS*, *CKM_SHA256_RSA_PKCS_PSS*, *CKM_SHA384_RSA_PKCS_PSS*, *CKM_SHA512_RSA_PKCS_PSS*, *CKM_ECDSA*, *CKM_ECDSA_SHA256*, *CKM_ECDSA_SHA384*, *CKM_ECDSA_SHA512*. |
 
 **Note 1:** Only parameter *library* is mandatory, all the others are optional.
 **Note 2:** The item separator of the type STRING LIST is ",".
@@ -516,8 +511,8 @@ If the configuration is successfully downloaded, the system asks for the followi
 * Security server code (**reference data: 2.4**), which is chosen by the Security Server administrator and which has to be unique across all the Security Servers belonging to the same X-Road member.
 * Software token’s PIN (**reference data: 2.5**). The PIN will be used to protect the keys stored in the software token. The PIN must be stored in a secure place, because it will be no longer possible to use or recover the private keys in the token once the PIN has been lost.
 
-
 ### 3.4 Configuring Firewall
+
 It is strongly recommended to protect the Security Server from unwanted access using a firewall (hardware or software based). The firewall can be
 applied to both incoming and outgoing connections depending on the security requirements of the environment where the Security Server is deployed. 
 
@@ -572,7 +567,6 @@ The key can then be moved to an external host and imported to GPG keyring with t
 
 ### 3.6 Enabling ACME Support
 
-NB! ACME is not supported in the X-Road Estonian ecosystem
 Automated Certificate Management Environment (ACME) protocol enables automated certificate management of the authentication and sign
 certificates on the Security Server. More information about the required configuration is available in the [Security Server User Guide](ug-ss_x-road_6_security_server_user_guide.md#24-configuring-acme).
 
@@ -669,7 +663,7 @@ Sometimes, after using `sudo apt-get upgrade` command, some of the packages are 
     ii xroad-common 6.8.5.20160929134539gitfe60f90
     ii xroad-jetty9 6.8.5.20160929134539gitfe60f90
     ii xroad-proxy 6.8.5.20160929134539gitfe60f90
-    ii xroad-securityserver-ee 6.8.3-3-201605131138
+    ii xroad-securityserver 6.8.3-3-201605131138
 
 `apt-get upgrade` command doesn’t install new packages - in this particular case new packages `xroad-monitor` and `xroad-addon-proxymonitor` installation is needed for upgrade of `xroad-securityserver` package.
 
@@ -683,7 +677,54 @@ The following error message may come up during the Security Server upgrade.
 
 Upgrading the packages from the current version to the target version is not supported directly. The fix is to upgrade the Security Server to the target version step by step.
 
-A guide to upgrading from an older version of X-Road can be found [here](https://abi.ria.ee/xtee/en/turvaserveri-haldus/turvaserveri-uuendamine). Follow the chapter which contains your current X-Road version.
+For example, the following Security Server packages are currently installed.
+
+```bash
+root@test-ss:~# dpkg -l | grep xroad
+ii  xroad-addon-messagelog          7.1.2-1.ubuntu20.04 all          X-Road AddOn: messagelog
+ii  xroad-addon-metaservices        7.1.2-1.ubuntu20.04 all          X-Road AddOn: metaservices
+ii  xroad-addon-proxymonitor        7.1.2-1.ubuntu20.04 all          X-Road AddOn: proxy monitoring metaservice
+ii  xroad-addon-wsdlvalidator       7.1.2-1.ubuntu20.04 all          X-Road AddOn: wsdlvalidator
+ii  xroad-base                      7.1.2-1.ubuntu20.04 amd64        X-Road base components
+ii  xroad-confclient                7.1.2-1.ubuntu20.04 amd64        X-Road configuration client components
+ii  xroad-database-local            7.1.2-1.ubuntu20.04 all          Meta-package for X-Road local database dependencies
+ii  xroad-monitor                   7.1.2-1.ubuntu20.04 all          X-Road monitoring service
+ii  xroad-proxy                     7.1.2-1.ubuntu20.04 all          X-Road security server
+ii  xroad-proxy-ui-api              7.1.2-1.ubuntu20.04 all          X-Road proxy UI REST API
+ii  xroad-securityserver            7.1.2-1.ubuntu20.04 all          X-Road security server
+ii  xroad-signer                    7.1.2-1.ubuntu20.04 amd64        X-Road signer component
+```
+
+The following packages are available in the repository.
+
+```bash
+root@test-ss:~# apt-cache madison xroad-securityserver
+xroad-securityserver | 7.3.0-1.ubuntu20.04 | https://artifactory.niis.org/xroad-release-deb focal-current/main amd64 Packages
+xroad-securityserver | 7.1.2-1.ubuntu20.04 | https://artifactory.niis.org/xroad-release-deb focal-current/main amd64 Packages
+```
+
+Now trying to upgrade the Security Server packages directly will produce the following error.
+
+```bash
+root@test-ss:~# apt-get upgrade xroad-securityserver
+...
+Preparing to unpack .../0-xroad-securityserver_7.3.0-1.ubuntu20.04_all.deb ...
+ERROR: Upgrade supported from version 7.1.2 or newer.
+```
+
+The fix is to upgrade the Security Server in two separate steps. First, upgrade to 7.1.x with the following command.
+
+```bash
+apt install xroad-securityserver=7.1.2-1.ubuntu20.04 xroad-proxy=7.1.2-1.ubuntu20.04 xroad-monitor=7.1.2-1.ubuntu20.04 xroad-addon-metaservices=7.1.2-1.ubuntu20.04 xroad-addon-messagelog=7.1.2-1.ubuntu20.04 xroad-addon-proxymonitor=7.1.2-1.ubuntu20.04 xroad-addon-wsdlvalidator=7.1.2-1.ubuntu20.04 xroad-proxy-ui-api=7.1.2-1.ubuntu20.04 xroad-confclient=7.1.2-1.ubuntu20.04 xroad-signer=7.1.2-1.ubuntu20.04 xroad-database-local=7.1.2-1.ubuntu20.04 xroad-base=7.1.2-1.ubuntu20.04
+```
+
+An alternative approach to the previous command is to temporarily configure the server to use a repository that contains only the specific version of X-Road software we want to upgrade to. For example, configure the repository as `deb https://artifactory.niis.org/xroad-release-deb focal-7.1.2 main` and then use the `apt update` and `apt upgrade xroad-centralserver` commands.
+
+Finally, we can upgrade to our target version 7.3.x as follows.
+
+```bash
+apt upgrade xroad-securityserver
+```
 
 
 ## Annex A Security Server Default Database Properties

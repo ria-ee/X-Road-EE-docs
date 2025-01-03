@@ -12,13 +12,13 @@
         padding: 45px;
       }
     </style>
-    <title>X-Road: 7.5.1
+    <title>X-Road: 7.6.0
 </title>
   </head>
   <body>
     <article class="markdown-body">
 <div class="markdown-heading"><h1 class="heading-element">X-Road: External Load Balancer Installation Guide</h1><a id="x-road-external-load-balancer-installation-guide" class="anchor" aria-label="Permalink: X-Road: External Load Balancer Installation Guide" href="#x-road-external-load-balancer-installation-guide"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>Version: 1.22
+<p>Version: 1.25
 Doc. ID: IG-XLB</p>
 <table>
 <thead>
@@ -51,7 +51,7 @@ Doc. ID: IG-XLB</p>
 <tr>
 <td>21.6.2017</td>
 <td>1.3</td>
-<td>Added chapter 7 on <a href="#7-upgrading-a-clustered-x-road-security-server-installation">upgrading the security server cluster</a>
+<td>Added chapter 7 on <a href="#7-upgrading-a-clustered-x-road-security-server-installation">upgrading the Security Server cluster</a>
 </td>
 <td>Olli Lindgren</td>
 </tr>
@@ -169,6 +169,24 @@ Doc. ID: IG-XLB</p>
 <td>Added Ubuntu 24.04 support</td>
 <td>Madis Loitmaa</td>
 </tr>
+<tr>
+<td>16.08.2024</td>
+<td>1.23</td>
+<td>Added assumption that the load balancer supports TLS passthrough</td>
+<td>Petteri Kivimäki</td>
+</tr>
+<tr>
+<td>06.09.2024</td>
+<td>1.24</td>
+<td>Updated RHEL default configuration files location</td>
+<td>Eneli Reimets</td>
+</tr>
+<tr>
+<td>17.12.2024</td>
+<td>1.25</td>
+<td>When adding user xroad-slave, the home directory must be explicitly added for Ubuntu</td>
+<td>Eneli Reimets</td>
+</tr>
 </tbody>
 </table>
 <div class="markdown-heading"><h2 class="heading-element">Table of Contents</h2><a id="table-of-contents" class="anchor" aria-label="Permalink: Table of Contents" href="#table-of-contents"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
@@ -279,7 +297,7 @@ Doc. ID: IG-XLB</p>
 </ul>
 </li>
 <li>
-<a href="#7-upgrading-a-clustered-x-road-security-server-installation">7. Upgrading a clustered X-Road security server installation</a>
+<a href="#7-upgrading-a-clustered-x-road-security-server-installation">7. Upgrading a clustered X-Road Security Server installation</a>
 <ul>
 <li><a href="#71-offline-upgrade">7.1 Offline upgrade</a></li>
 <li>
@@ -302,8 +320,8 @@ Doc. ID: IG-XLB</p>
 license, visit <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="nofollow">http://creativecommons.org/licenses/by-sa/3.0/</a>.</p>
 <div class="markdown-heading"><h2 class="heading-element">1. Introduction</h2><a id="1-introduction" class="anchor" aria-label="Permalink: 1. Introduction" href="#1-introduction"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <div class="markdown-heading"><h3 class="heading-element">1.1 Target Audience</h3><a id="11-target-audience" class="anchor" aria-label="Permalink: 1.1 Target Audience" href="#11-target-audience"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>The intended audience of this installation guide are the X-Road security server administrators responsible for installing
-and configuring X-Road security servers to use external load balancing. The document is intended for readers with a good
+<p>The intended audience of this installation guide are the X-Road Security Server administrators responsible for installing
+and configuring X-Road Security Servers to use external load balancing. The document is intended for readers with a good
 knowledge of Linux server management, computer networks, database administration, clustered environments and the X-Road
 functioning principles.</p>
 <div class="markdown-heading"><h3 class="heading-element">1.2 Terms and abbreviations</h3><a id="12-terms-and-abbreviations" class="anchor" aria-label="Permalink: 1.2 Terms and abbreviations" href="#12-terms-and-abbreviations"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
@@ -338,19 +356,21 @@ functioning principles.</p>
 </table>
 <div class="markdown-heading"><h2 class="heading-element">2. Overview</h2><a id="2-overview" class="anchor" aria-label="Permalink: 2. Overview" href="#2-overview"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This document describes the external load balancing support features implemented by X-Road and the steps necessary to
-configure security servers to run as a cluster where each node has an identical configuration, including their keys and
-certificates. X-Road security server configuration changes are handled by a single primary server and one or more secondary
+configure Security Servers to run as a cluster where each node has an identical configuration, including their keys and
+certificates. X-Road Security Server configuration changes are handled by a single primary server and one or more secondary
 servers.</p>
 <p>Chapter <a href="#3-x-road-installation-and-configuration">3. X-Road Installation and configuration</a> describes the installation
 on a high level and as a whole. The later chapters cover the details of the different parts of the installation and configuration.
 The last chapter briefly describes how the configuration can be verified.</p>
 <div class="markdown-heading"><h3 class="heading-element">2.1 Goals and assumptions</h3><a id="21-goals-and-assumptions" class="anchor" aria-label="Permalink: 2.1 Goals and assumptions" href="#21-goals-and-assumptions"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>The primary goal of the load balancing support is, as the name suggests, load balancing, not fault tolerance.
-A clustered environment increases fault tolerance but some X-Road messages can still be lost if a security server node fails.</p>
+A clustered environment increases fault tolerance but some X-Road messages can still be lost if a Security Server node fails.</p>
 <p>The implementation does not include a load balancer component. It should be possible to use any external load balancer
-component that supports HTTP-based health checks for the nodes and load balancing at the TCP level (eg. haproxy, nginx,
-AWS ALB or Classic Load Balancer, or a hardware appliance). A health check service is provided for monitoring a node's
-status, this is described in more detail in section <a href="#34-health-check-service-configuration">3.4 Health check service configuration</a></p>
+component that supports HTTP-based health checks for the nodes, load balancing at the TCP level and TLS passthrough (e.g., haproxy, nginx,
+AWS NLB or Classic Load Balancer, or a hardware appliance). A health check service is provided for monitoring a node's
+status, this is described in more detail in section <a href="#34-health-check-service-configuration">3.4 Health check service configuration</a>.
+The load balancer must be configured to use TSL passthrough so that TLS termination is performed by the Security Server and
+not by the load balancer.</p>
 <p>The load balancing support is implemented with a few assumptions about the environment that users should be aware of.
 Carefully consider these assumptions before deciding if the supported features are suitable for your needs.</p>
 <div class="markdown-heading"><h4 class="heading-element">2.1.1 Basic assumptions about the load balanced environment</h4><a id="211-basic-assumptions-about-the-load-balanced-environment" class="anchor" aria-label="Permalink: 2.1.1 Basic assumptions about the load balanced environment" href="#211-basic-assumptions-about-the-load-balanced-environment"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
@@ -385,14 +405,14 @@ configuration, but the cluster state can be inconsistent (some members might hav
 have received all the changes).</li>
 </ul>
 <div class="markdown-heading"><h3 class="heading-element">2.2 Communication with external servers and services: The cluster from the point of view of a client or service</h3><a id="22-communication-with-external-servers-and-services-the-cluster-from-the-point-of-view-of-a-client-or-service" class="anchor" aria-label="Permalink: 2.2 Communication with external servers and services: The cluster from the point of view of a client or service" href="#22-communication-with-external-servers-and-services-the-cluster-from-the-point-of-view-of-a-client-or-service"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>When external security servers communicate with the cluster, they see only the public IP address of the cluster which is
-registered to the global configuration as the security server address. From the caller point of view, this case is analogous
-to making a request to a single security server.</p>
+<p>When external Security Servers communicate with the cluster, they see only the public IP address of the cluster which is
+registered to the global configuration as the Security Server address. From the caller point of view, this case is analogous
+to making a request to a single Security Server.</p>
 <p><a target="_blank" rel="noopener noreferrer" href="img/load_balancing_traffic.png"><img src="img/load_balancing_traffic.png" alt="inbound traffic" style="max-width: 100%;"></a></p>
-<p>When a security server makes a request to an external server (security server, OCSP, TSA or a central server), the
+<p>When a Security Server makes a request to an external server (Security Server, OCSP, TSA or a Central Server), the
 external server sees only the public IP address. Note that depending on the configuration, the public IP address
-might be different from the one used in the previous scenario. It should also be noted that the security servers will
-independently make requests to OCSP and TSA services as well as to the central server to fetch the global configuration
+might be different from the one used in the previous scenario. It should also be noted that the Security Servers will
+independently make requests to OCSP and TSA services as well as to the Central Server to fetch the global configuration
 as needed.</p>
 <p><a target="_blank" rel="noopener noreferrer" href="img/load_balancing_traffic-2.png"><img src="img/load_balancing_traffic-2.png" alt="outbound traffic" style="max-width: 100%;"></a></p>
 <div class="markdown-heading"><h3 class="heading-element">2.3 State replication from the primary to the secondaries</h3><a id="23-state-replication-from-the-primary-to-the-secondaries" class="anchor" aria-label="Permalink: 2.3 State replication from the primary to the secondaries" href="#23-state-replication-from-the-primary-to-the-secondaries"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
@@ -483,7 +503,7 @@ reload the configuration from disk periodically and apply the changes to their r
 <p>The messagelog database is not replicated. Each node has its own separate messagelog database. <strong>However</strong>, in order to
 support PostgreSQL streaming replication (hot standby mode) for the serverconf data, the serverconf and messagelog
 databases must be separated. This requires modifications to the installation (a separate PostgreSQL instance is needed
-for the messagelog database) and has some implications on the security server resource requirements as a separate
+for the messagelog database) and has some implications on the Security Server resource requirements as a separate
 instance uses some memory.</p>
 <div class="markdown-heading"><h5 class="heading-element">2.3.2.2 OCSP responses from <code>/var/cache/xroad/</code>
 </h5><a id="2322-ocsp-responses-from-varcachexroad" class="anchor" aria-label="Permalink: 2.3.2.2 OCSP responses from /var/cache/xroad/" href="#2322-ocsp-responses-from-varcachexroad"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
@@ -502,7 +522,7 @@ your purposes.</p>
 <div class="markdown-heading"><h3 class="heading-element">3.2 Primary installation</h3><a id="32-primary-installation" class="anchor" aria-label="Permalink: 3.2 Primary installation" href="#32-primary-installation"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <ol>
 <li>
-<p>Install the X-Road security server packages using the normal installation procedure or use an existing standalone node.</p>
+<p>Install the X-Road Security Server packages using the normal installation procedure or use an existing standalone node.</p>
 </li>
 <li>
 <p>Stop the xroad services.</p>
@@ -521,7 +541,7 @@ your purposes.</p>
 <li>
 <p>If you are using an already configured server as the primary, the existing configuration was replicated to the secondaries
 in step 3. Otherwise, proceed to configure the primary server: install the configuration anchor, set up basic information,
-create authentication and signing keys and so on. See the security server installation guide [<a href="#13-references">IG-SS</a>]
+create authentication and signing keys and so on. See the Security Server installation guide [<a href="#13-references">IG-SS</a>]
 for help with the basic setup.</p>
 </li>
 <li>
@@ -553,7 +573,7 @@ for help with the basic setup.</p>
 <div class="markdown-heading"><h3 class="heading-element">3.3 Secondary installation</h3><a id="33-secondary-installation" class="anchor" aria-label="Permalink: 3.3 Secondary installation" href="#33-secondary-installation"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <ol>
 <li>
-<p>Install security server packages using the normal installation procedure. Alternatively you can also install only the packages
+<p>Install Security Server packages using the normal installation procedure. Alternatively you can also install only the packages
 required for secondary nodes. <code>xroad-proxy-ui-api</code> package can be omitted, but the admin graphical user interface
 (which is provided by this package) can be handy for diagnostics. It should be noted that changing a secondary's
 configuration via the admin gui is not possible (except entering token PIN).</p>
@@ -584,7 +604,7 @@ defined in the primary database (the password is part of the data that is replic
 <blockquote>
 <p>On RHEL 8, 9: generate a new key which is compliant with FIPS-140-2, for example ECDSA with curve nistp256</p>
 </blockquote>
-<div class="highlight highlight-source-shell"><pre>ssh-keygen -t ecdsa</pre></div>
+<div class="highlight highlight-source-shell"><pre>sudo -u xroad ssh-keygen -t ecdsa</pre></div>
 </li>
 <li>
 <p>Set up state synchronization using rsync+ssh. See section
@@ -592,7 +612,7 @@ defined in the primary database (the password is part of the data that is replic
 <ul>
 <li>Make the initial synchronization between the primary and the secondary.</li>
 </ul>
-<div class="highlight highlight-source-shell"><pre>rsync -e ssh -avz --delete --exclude db.properties --exclude <span class="pl-s"><span class="pl-pds">"</span>/postgresql<span class="pl-pds">"</span></span> --exclude <span class="pl-s"><span class="pl-pds">"</span>/conf.d/node.ini<span class="pl-pds">"</span></span> --exclude <span class="pl-s"><span class="pl-pds">"</span>/gpghome<span class="pl-pds">"</span></span> xroad-slave@<span class="pl-k">&lt;</span>primary<span class="pl-k">&gt;</span>:/etc/xroad/ /etc/xroad/</pre></div>
+<div class="highlight highlight-source-shell"><pre>sudo -u xroad rsync -e ssh -avz --delete --exclude db.properties --exclude <span class="pl-s"><span class="pl-pds">"</span>/postgresql<span class="pl-pds">"</span></span> --exclude <span class="pl-s"><span class="pl-pds">"</span>/conf.d/node.ini<span class="pl-pds">"</span></span> --exclude <span class="pl-s"><span class="pl-pds">"</span>/gpghome<span class="pl-pds">"</span></span> xroad-slave@<span class="pl-k">&lt;</span>primary<span class="pl-k">&gt;</span>:/etc/xroad/ /etc/xroad/</pre></div>
 <p>Where <code>&lt;primary&gt;</code> is the primary server's DNS or IP address.</p>
 </li>
 <li>
@@ -605,16 +625,16 @@ type=slave</pre></div>
 <p>Start the X-Road services.</p>
 </li>
 <li>
-<p>If you wish to use the secondary security server's admin user interface, you need to implement additional user group restrictions. As noted in step 1, changes to the secondary node security server configuration must not be made through its admin user interface, as any such changes would be overwritten by the replication. To disable UI editing privileges for all users, remove the following user groups from the secondary security server:</p>
+<p>If you wish to use the secondary Security Server's admin user interface, you need to implement additional user group restrictions. As noted in step 1, changes to the secondary node Security Server configuration must not be made through its admin user interface, as any such changes would be overwritten by the replication. To disable UI editing privileges for all users, remove the following user groups from the secondary Security Server:</p>
 <ul>
 <li><code>xroad-registration-officer</code></li>
 <li><code>xroad-service-administrator</code></li>
 <li><code>xroad-system-administrator</code></li>
 </ul>
 <p>Note: <code>xroad-security-officer</code> should remain, otherwise you will not be able to enter token PIN codes.</p>
-<p>After removing these groups, the super user created during the security server installation is a member of two UI privilege groups: <code>xroad-securityserver-observer</code> and <code>xroad-security-officer</code>. These groups allow read-only access to the admin user interface and provide a safe way to use the UI for checking the configuration status of the secondary security server. In addition, the groups allow the user to enter the token PIN code. Since admin UI users are UNIX users that are members of specific privilege groups, more users can be added to the groups as necessary. Security server installation scripts detect the node type of existing installations and modify user group creation accordingly. Instead, version upgrades do not overwrite or modify this configuration during security server updates.</p>
-<p>For more information on user groups and their effect on admin user interface privileges in the security server, see the  Security Server User Guide [<a href="#13-references">UG-SS</a>].</p>
-<p>Also, the secondary security server's management REST API can be used to read the secondary's configuration. However, modifying the secondary's configuration using the management REST API is blocked. API keys are replicated from the primary to the secondaries, and the keys that are associated with the <code>xroad-securityserver-observer</code> role have read-only access to the secondary. In addition, the keys that are associated with the <code>xroad-securityserver-observer</code> and <code>xroad-security-officer</code> roles, are able to enter token PIN codes. The keys that are not associated with the <code>xroad-securityserver-observer</code> role, don't have any access to the secondary. See next item for more details.</p>
+<p>After removing these groups, the super user created during the Security Server installation is a member of two UI privilege groups: <code>xroad-securityserver-observer</code> and <code>xroad-security-officer</code>. These groups allow read-only access to the admin user interface and provide a safe way to use the UI for checking the configuration status of the secondary Security Server. In addition, the groups allow the user to enter the token PIN code. Since admin UI users are UNIX users that are members of specific privilege groups, more users can be added to the groups as necessary. Security server installation scripts detect the node type of existing installations and modify user group creation accordingly. Instead, version upgrades do not overwrite or modify this configuration during Security Server updates.</p>
+<p>For more information on user groups and their effect on admin user interface privileges in the Security Server, see the  Security Server User Guide [<a href="#13-references">UG-SS</a>].</p>
+<p>Also, the secondary Security Server's management REST API can be used to read the secondary's configuration. However, modifying the secondary's configuration using the management REST API is blocked. API keys are replicated from the primary to the secondaries, and the keys that are associated with the <code>xroad-securityserver-observer</code> role have read-only access to the secondary. In addition, the keys that are associated with the <code>xroad-securityserver-observer</code> and <code>xroad-security-officer</code> roles, are able to enter token PIN codes. The keys that are not associated with the <code>xroad-securityserver-observer</code> role, don't have any access to the secondary. See next item for more details.</p>
 <p>For more information on the management REST API, see the  Security Server User Guide [<a href="#13-references">UG-SS</a>].</p>
 </li>
 <li>
@@ -637,7 +657,7 @@ Improvements to API key handling in clustered setups will be included in later r
 <p>The configuration is now complete. If you do not want to set up the health check service, continue to <a href="#6-verifying-the-setup">chapter 6</a>
 to verify the setup.</p>
 <div class="markdown-heading"><h3 class="heading-element">3.4 Health check service configuration</h3><a id="34-health-check-service-configuration" class="anchor" aria-label="Permalink: 3.4 Health check service configuration" href="#34-health-check-service-configuration"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>The load balancing support includes a health check service that can be used to ping the security server using HTTP to see if
+<p>The load balancing support includes a health check service that can be used to ping the Security Server using HTTP to see if
 it is healthy and likely to be able to send and receive messages. The service is disabled by default but can be enabled
 via configuration options.</p>
 <table>
@@ -685,14 +705,14 @@ time, it will be considered a health check failure and will cause a <code>HTTP 5
 <p>In addition, each status check result will be cached for a short while to avoid excess resource usage. A successful status
 check result will be cached for 2 seconds before a new verification is triggered. This is to make sure the OK results are
 as fresh as possible while avoiding per-request verification. In contrast, verification failures will be cached for 30
-seconds before a new verification is triggered. This should allow for the security server to get up and running after a
+seconds before a new verification is triggered. This should allow for the Security Server to get up and running after a
 failure or possible reboot before the status is queried again.</p>
 <p>Security server's health check interface can also be manually switched to a maintenance mode in order to inform the load
-balancing solution that the security server will be undergoing maintenance and should be removed from active use.</p>
+balancing solution that the Security Server will be undergoing maintenance and should be removed from active use.</p>
 <p>When in maintenance mode the health check interface will only respond with <code>HTTP 503 Service unavailable</code> and the message
 <code>Health check interface is in maintenance mode</code> and no actual health check diagnostics will be run. Maintenance mode is disabled
 by default and will automatically reset to its default when the proxy service is restarted.</p>
-<p>Maintenance mode can be enabled or disabled by sending <code>HTTP GET</code>-request from the target security server to its proxy admin port <code>5566</code>.
+<p>Maintenance mode can be enabled or disabled by sending <code>HTTP GET</code>-request from the target Security Server to its proxy admin port <code>5566</code>.
 The intended new state can be defined using the <code>targetState</code> HTTP-parameter:</p>
 <table>
 <thead>
@@ -724,7 +744,7 @@ process for a short while. As long as the authentication key is still cached, th
 the necessary signing context values for sending a message might no longer be cached. This means messages might fail to be sent
 even if the health check returns OK. As the authentication key expires from the cache (after a maximum of 5 minutes), the
 health check will start returning failures. This is a feature of caching and not a bug per se. In addition, logging out
-of a security server's keys should not occur by accident so it should not be a surprise that the node cannot send messages
+of a Security Server's keys should not occur by accident so it should not be a surprise that the node cannot send messages
 after not having access to it's keys.</p>
 <div class="markdown-heading"><h4 class="heading-element">3.4.2 Health check examples</h4><a id="342-health-check-examples" class="anchor" aria-label="Permalink: 3.4.2 Health check examples" href="#342-health-check-examples"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Before testing with an actual load balancer, you can test the health check service with <code>curl</code>, for example.</p>
@@ -787,6 +807,10 @@ sudo chmod 400 /etc/xroad/postgresql/<span class="pl-k">*</span></pre></div>
 </ol>
 <div class="markdown-heading"><h3 class="heading-element">4.2 Creating a separate PostgreSQL instance for the <code>serverconf</code> database</h3><a id="42-creating-a-separate-postgresql-instance-for-the-serverconf-database" class="anchor" aria-label="Permalink: 4.2 Creating a separate PostgreSQL instance for the serverconf database" href="#42-creating-a-separate-postgresql-instance-for-the-serverconf-database"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <div class="markdown-heading"><h4 class="heading-element">4.2.1 on RHEL</h4><a id="421-on-rhel" class="anchor" aria-label="Permalink: 4.2.1 on RHEL" href="#421-on-rhel"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>On RHEL, we assume that the PostgreSQL default configuration files are located in the <code>PGDATA</code> directory <code>/var/lib/pgsql/serverconf</code>.</p>
+<blockquote>
+<p><strong>Note:</strong> If the location is different in your system (for example <code>/var/lib/pgsql/13/serverconf</code>), then directory <code>/var/lib/pgsql/serverconf</code> need to be replaced with your data directory (for example <code>/var/lib/pgsql/13/serverconf</code>) in the following scripts.</p>
+</blockquote>
 <div class="markdown-heading"><h5 class="heading-element">4.2.1.1 on RHEL 7</h5><a id="4211-on-rhel-7" class="anchor" aria-label="Permalink: 4.2.1.1 on RHEL 7" href="#4211-on-rhel-7"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Create a new <code>systemctl</code> service unit for the new database. As root, execute the following command:</p>
 <div class="highlight highlight-source-shell"><pre>cat <span class="pl-s"><span class="pl-k">&lt;&lt;</span><span class="pl-k">EOF</span> &gt;/etc/systemd/system/postgresql-serverconf.service</span>
@@ -801,20 +825,35 @@ semanage port -a -t postgresql_port_t -p tcp 5433
 systemctl <span class="pl-c1">enable</span> postgresql-serverconf</pre></div>
 <div class="markdown-heading"><h5 class="heading-element">4.2.1.2 on RHEL 8 and 9</h5><a id="4212-on-rhel-8-and-9" class="anchor" aria-label="Permalink: 4.2.1.2 on RHEL 8 and 9" href="#4212-on-rhel-8-and-9"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Create a new <code>systemctl</code> service unit for the new database. As root, make a copy for the new service</p>
-<div class="highlight highlight-source-shell"><pre>cp /lib/systemd/system/postgresql-<span class="pl-k">&lt;</span>postgresql major version<span class="pl-k">&gt;</span>.service /etc/systemd/system/postgresql-serverconf.service </pre></div>
+<blockquote>
+<p><strong>Note:</strong> We assume that the default PostgreSQL database service file is <code>/lib/systemd/system/postgresql.service</code>, but depending on the PostgreSQL installation, the service file name can be a little bit different, for example <code>/lib/systemd/system/postgresql-13.service</code>.</p>
+</blockquote>
+<div class="highlight highlight-source-shell"><pre>cp /lib/systemd/system/postgresql.service /etc/systemd/system/postgresql-serverconf.service </pre></div>
 <p>Edit <code>/etc/systemd/system/postgresql-serverconf.service</code> and override the following properties:</p>
 <div class="highlight highlight-source-ini"><pre><span class="pl-en">[Service]</span>
 ...
 <span class="pl-k">Environment</span>=<span class="pl-k">PGPORT</span>=5433
-<span class="pl-k">Environment</span>=<span class="pl-k">PGDATA</span>=/var/lib/pgsql/&lt;postgresql major version&gt;/serverconf</pre></div>
-<p>Create the database and configure SELinux:</p>
+<span class="pl-k">Environment</span>=<span class="pl-k">PGDATA</span>=/var/lib/pgsql/serverconf</pre></div>
+<p>Create the database:</p>
 <div class="highlight highlight-source-shell"><pre><span class="pl-c"><span class="pl-c">#</span> Init db</span>
 sudo su postgres
 <span class="pl-c1">cd</span> /tmp
-/usr/pgsql-<span class="pl-k">&lt;</span>postgresql major version<span class="pl-k">&gt;</span>/bin/initdb --auth-local=peer --auth-host=scram-sha-256 --locale=en_US.UTF-8 --encoding=UTF8 -D /var/lib/pgsql/<span class="pl-k">&lt;</span>postgresql major version<span class="pl-k">&gt;</span>/serverconf/
-<span class="pl-c1">exit</span>
-
-semanage port -a -t postgresql_port_t -p tcp 5433
+initdb --auth-local=peer --auth-host=scram-sha-256 --locale=en_US.UTF-8 --encoding=UTF8 -D /var/lib/pgsql/serverconf/
+<span class="pl-c1">exit</span></pre></div>
+<ul>
+<li>
+<blockquote>
+<p><strong>Note:</strong> if PostgreSQL is not installed with the default configuration, the database creation command may be different, for example:</p>
+</blockquote>
+<div class="highlight highlight-source-shell"><pre><span class="pl-c"><span class="pl-c">#</span> Init db</span>
+sudo su postgres
+<span class="pl-c1">cd</span> /tmp
+/usr/pgsql-13/bin/initdb --auth-local=peer --auth-host=scram-sha-256 --locale=en_US.UTF-8 --encoding=UTF8 -D /var/lib/pgsql/13/serverconf/
+<span class="pl-c1">exit</span></pre></div>
+</li>
+</ul>
+<p>Configure SELinux:</p>
+<div class="highlight highlight-source-shell"><pre>semanage port -a -t postgresql_port_t -p tcp 5433
 systemctl <span class="pl-c1">enable</span> postgresql-serverconf</pre></div>
 <div class="markdown-heading"><h4 class="heading-element">4.2.2 on Ubuntu</h4><a id="422-on-ubuntu" class="anchor" aria-label="Permalink: 4.2.2 on Ubuntu" href="#422-on-ubuntu"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <div class="highlight highlight-source-shell"><pre>sudo -u postgres pg_createcluster -p 5433 16 serverconf</pre></div>
@@ -822,9 +861,12 @@ systemctl <span class="pl-c1">enable</span> postgresql-serverconf</pre></div>
 <div class="markdown-heading"><h3 class="heading-element">4.3 Configuring the primary instance for replication</h3><a id="43-configuring-the-primary-instance-for-replication" class="anchor" aria-label="Permalink: 4.3 Configuring the primary instance for replication" href="#43-configuring-the-primary-instance-for-replication"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Edit <code>postgresql.conf</code> and set the following options:</p>
 <blockquote>
-<p>On RHEL, PostgreSQL &lt; 12 config files are located in the <code>PGDATA</code> directory <code>/var/lib/pgsql/serverconf</code>.
-On RHEL, PostgreSQL &gt;= 12 config files are located in the <code>PGDATA</code> directory <code>/var/lib/pgsql/&lt;postgresql major version&gt;/serverconf</code>, e.g. <code>/var/lib/pgsql/12/serverconf</code>.
-Ubuntu keeps the config in <code>/etc/postgresql/&lt;postgresql major version&gt;/&lt;cluster name&gt;</code>, e.g. <code>/etc/postgresql/10/serverconf</code>.</p>
+<ul>
+<li>On RHEL, we assume that default configuration files are located in the <code>PGDATA</code> directory <code>/var/lib/pgsql/serverconf</code>.</li>
+<li>
+<strong>Note:</strong> depending on the PostgreSQL installation, the configuration files can be located in different directory, for example <code>/var/lib/pgsql/13/serverconf</code>.</li>
+<li>Ubuntu keeps the config in <code>/etc/postgresql/&lt;postgresql major version&gt;/&lt;cluster name&gt;</code>, e.g. <code>/etc/postgresql/10/serverconf</code>.</li>
+</ul>
 </blockquote>
 <div class="highlight highlight-source-ini"><pre><span class="pl-k">ssl</span> = on
 <span class="pl-k">ssl_ca_file</span>   = <span class="pl-s"><span class="pl-pds">'</span>/etc/xroad/postgresql/ca.crt<span class="pl-pds">'</span></span>
@@ -880,9 +922,10 @@ sudo -u postgres psql -p 5433 -c <span class="pl-s"><span class="pl-pds">"</span
 </ul>
 <p>Go to the postgresql data directory:</p>
 <ul>
-<li>RHEL PostgreSQL &lt; 12: <code>/var/lib/pgsql/serverconf</code>
-</li>
-<li>RHEL PostgreSQL &gt;= 12: <code>/var/lib/pgsql/&lt;postgresql major version&gt;/serverconf</code>
+<li>RHEL: <code>/var/lib/pgsql/serverconf</code>
+<blockquote>
+<p><strong>Note:</strong> depending on the PostgreSQL installation, the configuration files can be located in different directory, for example <code>/var/lib/pgsql/13/serverconf</code>.</p>
+</blockquote>
 </li>
 <li>Ubuntu: <code>/var/lib/postgresql/&lt;postgresql major version&gt;/serverconf</code>
 </li>
@@ -903,9 +946,12 @@ sudo -u postgres psql -p 5433 -c <span class="pl-s"><span class="pl-pds">"</span
 <p>On <em>Ubuntu, RHEL (PostgreSQL &gt;=12)</em>, create an empty <code>standby.signal</code> file in the data directory. Set the owner of the file to <code>postgres:postgres</code>, mode <code>0600</code>.</p>
 <p>Next, modify <code>postgresql.conf</code>:</p>
 <blockquote>
-<p>On RHEL, PostgreSQL &lt; 12 config files are located in the <code>PGDATA</code> directory <code>/var/lib/pgql/serverconf</code>.
-On RHEL, PostgreSQL &gt;= 12 config files are located in the <code>PGDATA</code> directory <code>/var/lib/pgql/&lt;postgresql major version&gt;/serverconf</code>, e.g. <code>/var/lib/pgql/12/serverconf</code>.
-Ubuntu keeps the config in <code>/etc/postgresql/&lt;postgresql major version&gt;/&lt;cluster name&gt;</code>, e.g. <code>/etc/postgresql/12/serverconf</code>.</p>
+<ul>
+<li>On RHEL, we assume that default configuration files are located in the <code>PGDATA</code> directory <code>/var/lib/pgql/serverconf</code>.</li>
+<li>
+<strong>Note:</strong> depending on the PostgreSQL installation, the configuration files can be located in different directory, for example <code>/var/lib/pgsql/13/serverconf</code>.</li>
+<li>Ubuntu keeps the config in <code>/etc/postgresql/&lt;postgresql major version&gt;/&lt;cluster name&gt;</code>, e.g. <code>/etc/postgresql/12/serverconf</code>.</li>
+</ul>
 </blockquote>
 <div class="highlight highlight-source-ini"><pre><span class="pl-k">ssl</span> = on
 <span class="pl-k">ssl_ca_file</span>   = <span class="pl-s"><span class="pl-pds">'</span>/etc/xroad/postgresql/ca.crt<span class="pl-pds">'</span></span>
@@ -937,7 +983,7 @@ parameters should be disabled. Also check that <code>listen_addresses</code> is 
 <p>On the primary, set up a system user that can read <code>/etc/xroad</code>. A system user has their password disabled and can not log
 in normally.</p>
 <p><strong>Ubuntu:</strong></p>
-<div class="highlight highlight-source-shell"><pre>adduser --system --shell /bin/bash --ingroup xroad xroad-slave</pre></div>
+<div class="highlight highlight-source-shell"><pre>adduser --system --shell /bin/bash --ingroup xroad --home /home/xroad-slave xroad-slave</pre></div>
 <p><strong>RHEL:</strong></p>
 <div class="highlight highlight-source-shell"><pre>useradd -r -m -g xroad xroad-slave</pre></div>
 <p>Create an <code>.ssh</code> folder and the authorized keys file:</p>
@@ -1102,7 +1148,7 @@ that the secondary nodes are listed.</p>
 <p>For more information on the <code>pg_stat_replication</code> view, see the <a href="https://www.postgresql.org/docs/10/monitoring-stats.html#PG-STAT-REPLICATION-VIEW" rel="nofollow">PostgreSQL documentation</a>.</p>
 <div class="markdown-heading"><h3 class="heading-element">6.3 Verifying replication from the admin user interface</h3><a id="63-verifying-replication-from-the-admin-user-interface" class="anchor" aria-label="Permalink: 6.3 Verifying replication from the admin user interface" href="#63-verifying-replication-from-the-admin-user-interface"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Verifying the cluster setup via the admin interface requires the cluster to be part of an existing X-Road instance like
-<code>FI-DEV</code> or <code>FI-TEST</code> or using a custom, configured X-Road environment with at least a central server and the security
+<code>FI-DEV</code> or <code>FI-TEST</code> or using a custom, configured X-Road environment with at least a Central Server and the security
 server cluster behind a load balancer.</p>
 <p>To test the configuration file replication from the admin user interface, a key can be created in the admin interface of the
 primary node. In addition, a certificate signing request can be created for the key in the UI, downloaded, signed by an
@@ -1111,13 +1157,13 @@ external CA and then uploaded back to the admin UI. For help on these tasks, see
 <p>The keys and certificate changes should be propagated to the secondary nodes in a few minutes.</p>
 <p>The <code>serverconf</code> database replication can also be tested on the admin UI once the basic configuration, as mentioned in
 <a href="#3-x-road-installation-and-configuration">3. X-Road Installation and configuration</a> is done. A new subsystem can be added
-to the primary node. A registration request can be sent to the central server, but it is not required. The added subsystem
+to the primary node. A registration request can be sent to the Central Server, but it is not required. The added subsystem
 should appear on the secondary nodes immediately.</p>
-<div class="markdown-heading"><h2 class="heading-element">7. Upgrading a clustered X-Road security server installation</h2><a id="7-upgrading-a-clustered-x-road-security-server-installation" class="anchor" aria-label="Permalink: 7. Upgrading a clustered X-Road security server installation" href="#7-upgrading-a-clustered-x-road-security-server-installation"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h2 class="heading-element">7. Upgrading a clustered X-Road Security Server installation</h2><a id="7-upgrading-a-clustered-x-road-security-server-installation" class="anchor" aria-label="Permalink: 7. Upgrading a clustered X-Road Security Server installation" href="#7-upgrading-a-clustered-x-road-security-server-installation"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This chapter briefly discusses ways of upgrading the X-Road software in a clustered environment. The offline option will
 disrupt message delivery while the online option should allow upgrades with minimal disruption.</p>
 <div class="markdown-heading"><h3 class="heading-element">7.1 Offline upgrade</h3><a id="71-offline-upgrade" class="anchor" aria-label="Permalink: 7.1 Offline upgrade" href="#71-offline-upgrade"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>If the X-Road security server cluster can be shut down for an offline upgrade, the procedure remains fairly simple:</p>
+<p>If the X-Road Security Server cluster can be shut down for an offline upgrade, the procedure remains fairly simple:</p>
 <ol>
 <li>Stop the X-Road services (<code>xroad-proxy</code>, <code>xroad-signer</code>, <code>xroad-confclient</code>, <code>xroad-proxy-ui-api</code> and <code>xroad-monitor</code>) on all
 the nodes. You can read more about the services in the Security Server User Guide
@@ -1188,7 +1234,7 @@ no more requests are arriving or check that there are no connections to the port
 <li>
 <p><a name="primary-upgrade-step-5">a)</a> If the maintenance mode was enabled, the maintenance status from the health check
 port was cleared on startup of the <code>xroad-proxy</code> service. The health check should start returning a <code>200 OK</code> status
-as soon as security server can process messages.</p>
+as soon as Security Server can process messages.</p>
 <p>b) If the primary node was disabled manually from the external load balancer, verify that the primary node is working
 and enable it from the load balancer. To check if a node is healthy, you can use the health check service:</p>
 <div class="highlight highlight-source-shell"><pre>curl -i http://localhost:<span class="pl-k">&lt;</span>health-check-port<span class="pl-k">&gt;</span></pre></div>
