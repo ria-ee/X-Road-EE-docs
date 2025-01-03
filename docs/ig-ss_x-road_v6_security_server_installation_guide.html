@@ -20,7 +20,7 @@
 <div class="markdown-heading"><h1 class="heading-element">Security Server Installation Guide for Ubuntu 
 </h1><a id="security-server-installation-guide-for-ubuntu-" class="anchor" aria-label="Permalink: Security Server Installation Guide for Ubuntu " href="#security-server-installation-guide-for-ubuntu-"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>X-ROAD 7</strong></p>
-<p>Version: 2.47<br>
+<p>Version: 2.54<br>
 Doc. ID: IG-SS</p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">Version history 
@@ -138,12 +138,6 @@ Doc. ID: IG-SS</p>
 <td>Cybernetica AS</td>
 </tr>
 <tr>
-<td>22.01.2018</td>
-<td>2.8.1</td>
-<td>Added NEE and NGO member classes</td>
-<td>Jürgen Šuvalov</td>
-</tr>
-<tr>
 <td>25.08.2017</td>
 <td>2.9</td>
 <td>Update environmental monitoring installation information</td>
@@ -166,30 +160,6 @@ Doc. ID: IG-SS</p>
 <td>2.12</td>
 <td>Updated chapter "<a href="#27-installing-the-support-for-hardware-tokens">Installing the Support for Hardware Tokens</a>" with configurable parameters described in the configuration file 'devices.ini'</td>
 <td>Cybernetica AS</td>
-</tr>
-<tr>
-<td>07.06.2018</td>
-<td>2.12.1</td>
-<td>Updated repository information with x-tee.ee domain</td>
-<td>Jürgen Šuvalov</td>
-</tr>
-<tr>
-<td>03.07.2018</td>
-<td>2.12.2</td>
-<td>Added network diagram and reference data for monitoring servers</td>
-<td>Jürgen Šuvalov</td>
-</tr>
-<tr>
-<td>08.08.2018</td>
-<td>2.12.3</td>
-<td>Editorial changes</td>
-<td>Jan Raik</td>
-</tr>
-<tr>
-<td>13.08.2018</td>
-<td>2.12.4</td>
-<td>Package name fix</td>
-<td>Taavi Meinberg</td>
 </tr>
 <tr>
 <td>14.10.2018</td>
@@ -406,6 +376,48 @@ Doc. ID: IG-SS</p>
 <td>Updated default proxy client http(s) ports</td>
 <td>Mikk-Erik Bachmann</td>
 </tr>
+<tr>
+<td>19.12.2023</td>
+<td>2.48</td>
+<td>Add RHEL 9 as supported platform</td>
+<td>Justas Samuolis</td>
+</tr>
+<tr>
+<td>02.01.2024</td>
+<td>2.49</td>
+<td>Loopback ports added</td>
+<td>Justas Samuolis</td>
+</tr>
+<tr>
+<td>26.04.2024</td>
+<td>2.50</td>
+<td>Ubuntu 24.04 support</td>
+<td>Madis Loitmaa</td>
+</tr>
+<tr>
+<td>12.06.2024</td>
+<td>2.51</td>
+<td>Add ACME server to the network diagram, add a section about enabling ACME support</td>
+<td>Petteri Kivimäki</td>
+</tr>
+<tr>
+<td>25.06.2024</td>
+<td>2.52</td>
+<td>Add global configuration download port 443 to the network diagram</td>
+<td>Petteri Kivimäki</td>
+</tr>
+<tr>
+<td>24.09.2024</td>
+<td>2.53</td>
+<td>Add mail server to the network diagram</td>
+<td>Mikk-Erik Bachmann</td>
+</tr>
+<tr>
+<td>08.11.2024</td>
+<td>2.54</td>
+<td>Update for configurable parameters in the <code>/etc/xroad/devices.ini</code> after added support for ECDSA keys</td>
+<td>Ovidijus Narkevicius</td>
+</tr>
 </tbody>
 </table>
 <div class="markdown-heading"><h2 class="heading-element">License</h2><a id="license" class="anchor" aria-label="Permalink: License" href="#license"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
@@ -453,12 +465,14 @@ Doc. ID: IG-SS</p>
 <li><a href="#32-reference-data">3.2 Reference Data</a></li>
 <li><a href="#33-configuration">3.3 Configuration</a></li>
 <li>
-<a href="#34-configuring-firewall">3.4 Configuring firewall</a>
+<a href="#34-configuring-firewall">3.4 Configuring Firewall</a>
 <ul>
 <li><a href="#341-accepting-connections">3.4.1 Accepting Connections</a></li>
 </ul>
 </li>
-<li><a href="#35-configuring-configuration-backup-encryption">3.5 Configuring configuration backup encryption</a></li>
+<li><a href="#35-configuring-configuration-backup-encryption">3.5 Configuring Configuration Backup Encryption</a></li>
+<li><a href="#36-enabling-acme-support">3.6 Enabling ACME Support</a></li>
+<li><a href="#37-Enabling-EC-Keys-for-Authentication-and-Signing-Certificates">3.7 Enabling EC Keys for Authentication and Signing Certificates</a></li>
 </ul>
 </li>
 <li>
@@ -501,15 +515,15 @@ Doc. ID: IG-SS</p>
 <p><a id="Ref_UG-SS"></a>[UG-SS] X-Road 7. Security Server User Guide. Document ID: <a href="ug-ss_x-road_6_security_server_user_guide.html">UG-SS</a></p>
 </li>
 <li>
-<p><a id="Ref_TERMS"></a>[TA-TERMS] X-Road Terms and Abbreviations. Document ID: <a href="terms_x-road_docs.html">TA-TERMS</a>.</p>
+<p><a id="Ref_TERMS"></a>[TA-TERMS] X-Road Terms and Abbreviations. Document ID: <a href="terms_x-road_docs.html">TA-TERMS</a></p>
 </li>
 <li>
 <p><a name="Ref_UG-SYSPAR"></a>[UG-SYSPAR] X-Road: System Parameters User Guide. Document ID:
-<a href="ug-syspar_x-road_v6_system_parameters.html">UG-SYSPAR</a>.</p>
+<a href="ug-syspar_x-road_v6_system_parameters.html">UG-SYSPAR</a></p>
 </li>
 <li>
 <p><a name="Ref_IG-XLB"></a>[IG-XLB] X-Road: External Load Balancer Installation Guide. Document ID:
-<a href="ig-xlb_x-road_external_load_balancer_installation_guide.html">IG-XLB</a>.</p>
+<a href="ig-xlb_x-road_external_load_balancer_installation_guide.html">IG-XLB</a></p>
 </li>
 </ol>
 <div class="markdown-heading"><h2 class="heading-element">2 Installation</h2><a id="2-installation" class="anchor" aria-label="Permalink: 2 Installation" href="#2-installation"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
@@ -517,10 +531,10 @@ Doc. ID: IG-SS</p>
 <p>There are multiple alternatives how the Security Server can be deployed. The options are described in <a href="#annex-c-deployment-options">Annex C Deployment Options</a>.</p>
 <p>The Security Server is officially supported on the following platforms:</p>
 <ul>
-<li>Ubuntu Server 20.04 or 22.04 Long-Term Support (LTS) operating system on a x86-64 platform.</li>
-<li>Red Hat Enterprise Linux (RHEL) 7 and 8 (x86-64).</li>
+<li>Ubuntu Server 20.04, 22.04 or 24.04 Long-Term Support (LTS) operating system on a x86-64 platform.</li>
+<li>Red Hat Enterprise Linux (RHEL) 7, 8, 9 (x86-64). See <a href="ig-ss_x-road_v6_security_server_installation_guide_for_rhel.html">IG-SS-RHEL</a> for more information.
+NB: RIA provides support only for Security Servers which are installed on the Ubuntu operating system.</li>
 </ul>
-<p>NB: RIA provides support only for Security Servers which are installed on the Ubuntu operating system.</p>
 <p>The software can be installed both on physical and virtualized hardware (of the latter, Xen and Oracle VirtualBox have been tested).</p>
 <div class="markdown-heading"><h3 class="heading-element">2.2 Reference Data</h3><a id="22-reference-data" class="anchor" aria-label="Permalink: 2.2 Reference Data" href="#22-reference-data"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><em>Note</em>: The information in empty cells should be determined before the server’s installation, by the person performing the installation.</p>
@@ -536,7 +550,7 @@ Doc. ID: IG-SS</p>
 <tbody>
 <tr>
 <td>1.0</td>
-<td>Ubuntu 18.04, Ubuntu 20.04 (x86-64)<br>3 GB RAM, 3 GB free disk space</td>
+<td>Ubuntu 20.04, 22.04 or 24.04 (x86-64)<br>3 GB RAM, 3 GB free disk space</td>
 <td>Minimum requirements without the <code>monitoring</code> and <code>op-monitoring</code> add-ons. With the add-ons minimum of 4 GB of RAM is required.</td>
 </tr>
 <tr>
@@ -813,7 +827,7 @@ Doc. ID: IG-SS</p>
 </ul>
 <p>Requirements to software and settings:</p>
 <ul>
-<li>an installed and configured Ubuntu 20.04 LTS or 22.04 LTS x86-64 operating system;</li>
+<li>an installed and configured Ubuntu 20.04 LTS, 22.04 or 24.04 LTS x86-64 operating system;</li>
 <li>if the Security Server is separated from other networks by a firewall and/or NAT, the necessary connections to and from the Security Server are allowed (<strong>reference data: 1.4; 1.5; 1.6; 1.7</strong>). The enabling of auxiliary services which are necessary for the functioning and management of the operating system (such as DNS, NTP, and SSH) stay outside the scope of this guide;</li>
 <li>if the Security Server has a private IP address, a corresponding NAT record must be created in the firewall (<strong>reference data: 1.9</strong>).</li>
 </ul>
@@ -844,7 +858,7 @@ Doc. ID: IG-SS</p>
 <div class="markdown-heading"><h3 class="heading-element">2.5 Setup Package Repository</h3><a id="25-setup-package-repository" class="anchor" aria-label="Permalink: 2.5 Setup Package Repository" href="#25-setup-package-repository"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Add the X-Road repository’s signing key to the list of trusted keys (<strong>reference data: 1.2</strong>):</p>
 <div class="highlight highlight-source-shell"><pre>curl https://x-tee.ee/packages/test/xroad/xroad.pub <span class="pl-k">|</span> sudo gpg --dearmor -o /etc/apt/keyrings/xroad.gpg</pre></div>
-<p>Add X-Road package repository (<strong>reference data: 1.1</strong>)</p>
+<p>Add X-Road package repository (test or live)) (<strong>reference data: 1.1</strong>)</p>
 <div class="highlight highlight-source-shell"><pre><span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>deb [signed-by=/etc/apt/keyrings/xroad.gpg] https://x-tee.ee/packages/test/xroad <span class="pl-s"><span class="pl-pds">$(</span>lsb_release -sc<span class="pl-pds">)</span></span>-current main<span class="pl-pds">"</span></span> <span class="pl-k">|</span> sudo tee /etc/apt/sources.list.d/xroad.list</pre></div>
 <p>Update package repository metadata:</p>
 <div class="highlight highlight-source-shell"><pre>sudo apt update</pre></div>
@@ -956,7 +970,7 @@ xroad-signer.service           loaded active running X-Road signer</pre></div>
 </li>
 <li>
 <p>After installing and configuring the driver, the <code>xroad-signer</code> service must be restarted:</p>
-<pre><code>sudo service xroad-signer restart
+<pre><code>sudo systemctl restart xroad-signer
 </code></pre>
 </li>
 </ol>
@@ -1006,13 +1020,25 @@ xroad-signer.service           loaded active running X-Road signer</pre></div>
 <td><em>token_id_format</em></td>
 <td>STRING</td>
 <td><em>{moduleType}{slotIndex}{serialNumber}{label}</em></td>
-<td>Specifies the identifier format used to uniquely identify a token. In certain high availability setups may need be constrained to support replicated tokens (eg. by removing the slot index part which may be diffirent for the token replicas).</td>
+<td>Specifies the identifier format used to uniquely identify a token. In certain high availability setups may need be constrained to support replicated tokens (eg. by removing the slot index part which may be different for the token replicas).</td>
 </tr>
 <tr>
 <td><em>sign_mechanism</em></td>
 <td>STRING</td>
 <td><em>CKM_RSA_PKCS</em></td>
 <td>Specifies the signing mechanism. Supported values: <em>CKM_RSA_PKCS</em>, <em>CKM_RSA_PKCS_PSS</em>.</td>
+</tr>
+<tr>
+<td><em>rsa_sign_mechanism</em></td>
+<td>STRING</td>
+<td><em>CKM_RSA_PKCS</em></td>
+<td>Specifies the signing mechanism. Supported values: <em>CKM_RSA_PKCS</em>, <em>CKM_RSA_PKCS_PSS</em>. If value isn't provided then defaults to value of <em>sign_mechanism</em> if present.</td>
+</tr>
+<tr>
+<td><em>ec_sign_mechanism</em></td>
+<td>STRING</td>
+<td><em>CKM_ECDSA</em></td>
+<td>Specifies the signing mechanism for EC keys. Supported values: <em>CKM_ECDSA</em>.</td>
 </tr>
 <tr>
 <td><em>pub_key_attribute_encrypt</em></td>
@@ -1036,7 +1062,7 @@ xroad-signer.service           loaded active running X-Road signer</pre></div>
 <td><em>pub_key_attribute_allowed_mechanisms</em></td>
 <td>STRING LIST</td>
 <td></td>
-<td>Specifies public key allowed mechanisms. Supported values: <em>CKM_RSA_PKCS</em>, <em>CKM_SHA256_RSA_PKCS</em>, <em>CKM_SHA384_RSA_PKCS</em>, <em>CKM_SHA512_RSA_PKCS</em>, and <em>CKM_RSA_PKCS_PSS</em>, <em>CKM_SHA256_RSA_PKCS_PSS</em>, <em>CKM_SHA384_RSA_PKCS_PSS</em>, <em>CKM_SHA512_RSA_PKCS_PSS</em>.</td>
+<td>Specifies public key allowed mechanisms. Supported values: <em>CKM_RSA_PKCS</em>, <em>CKM_SHA256_RSA_PKCS</em>, <em>CKM_SHA384_RSA_PKCS</em>, <em>CKM_SHA512_RSA_PKCS</em>, and <em>CKM_RSA_PKCS_PSS</em>, <em>CKM_SHA256_RSA_PKCS_PSS</em>, <em>CKM_SHA384_RSA_PKCS_PSS</em>, <em>CKM_SHA512_RSA_PKCS_PSS</em>, <em>CKM_ECDSA</em>, <em>CKM_ECDSA_SHA256</em>, <em>CKM_ECDSA_SHA384</em>, <em>CKM_ECDSA_SHA512</em>.</td>
 </tr>
 <tr>
 <td><em>priv_key_attribute_sensitive</em></td>
@@ -1066,7 +1092,31 @@ xroad-signer.service           loaded active running X-Road signer</pre></div>
 <td><em>priv_key_attribute_allowed_mechanisms</em></td>
 <td>STRING LIST</td>
 <td></td>
-<td>Specifies private key allowed mechanisms. Supported values: <em>CKM_RSA_PKCS</em>, <em>CKM_SHA256_RSA_PKCS</em>, <em>CKM_SHA384_RSA_PKCS</em>, <em>CKM_SHA512_RSA_PKCS</em>, and <em>CKM_RSA_PKCS_PSS</em>, <em>CKM_SHA256_RSA_PKCS_PSS</em>, <em>CKM_SHA384_RSA_PKCS_PSS</em>, <em>CKM_SHA512_RSA_PKCS_PSS</em>.</td>
+<td>Specifies private key allowed mechanisms. Supported values: <em>CKM_RSA_PKCS</em>, <em>CKM_SHA256_RSA_PKCS</em>, <em>CKM_SHA384_RSA_PKCS</em>, <em>CKM_SHA512_RSA_PKCS</em>, and <em>CKM_RSA_PKCS_PSS</em>, <em>CKM_SHA256_RSA_PKCS_PSS</em>, <em>CKM_SHA384_RSA_PKCS_PSS</em>, <em>CKM_SHA512_RSA_PKCS_PSS</em>, <em>CKM_ECDSA</em>, <em>CKM_ECDSA_SHA256</em>, <em>CKM_ECDSA_SHA384</em>, <em>CKM_ECDSA_SHA512</em>.</td>
+</tr>
+<tr>
+<td><em>priv_key_attribute_unwrap</em></td>
+<td>BOOLEAN</td>
+<td></td>
+<td>Indicates whether private key can be used for unwrapping wrapped keys.</td>
+</tr>
+<tr>
+<td><em>priv_key_attribute_allowed_mechanisms</em></td>
+<td>STRING LIST</td>
+<td></td>
+<td>Specifies private key allowed mechanisms. Supported values: <em>CKM_RSA_PKCS</em>, <em>CKM_SHA256_RSA_PKCS</em>, <em>CKM_SHA384_RSA_PKCS</em>, <em>CKM_SHA512_RSA_PKCS</em>, and <em>CKM_RSA_PKCS_PSS</em>, <em>CKM_SHA256_RSA_PKCS_PSS</em>, <em>CKM_SHA384_RSA_PKCS_PSS</em>, <em>CKM_SHA512_RSA_PKCS_PSS</em>, <em>CKM_ECDSA</em>, <em>CKM_ECDSA_SHA256</em>, <em>CKM_ECDSA_SHA384</em>, <em>CKM_ECDSA_SHA512</em>.</td>
+</tr>
+<tr>
+<td><em>priv_key_attribute_unwrap</em></td>
+<td>BOOLEAN</td>
+<td></td>
+<td>Indicates whether private key can be used for unwrapping wrapped keys.</td>
+</tr>
+<tr>
+<td><em>priv_key_attribute_allowed_mechanisms</em></td>
+<td>STRING LIST</td>
+<td></td>
+<td>Specifies private key allowed mechanisms. Supported values: <em>CKM_RSA_PKCS</em>, <em>CKM_SHA256_RSA_PKCS</em>, <em>CKM_SHA384_RSA_PKCS</em>, <em>CKM_SHA512_RSA_PKCS</em>, and <em>CKM_RSA_PKCS_PSS</em>, <em>CKM_SHA256_RSA_PKCS_PSS</em>, <em>CKM_SHA384_RSA_PKCS_PSS</em>, <em>CKM_SHA512_RSA_PKCS_PSS</em>, <em>CKM_ECDSA</em>, <em>CKM_ECDSA_SHA256</em>, <em>CKM_ECDSA_SHA384</em>, <em>CKM_ECDSA_SHA512</em>.</td>
 </tr>
 </tbody>
 </table>
@@ -1092,23 +1142,22 @@ xroad-signer.service           loaded active running X-Road signer</pre></div>
 <tbody>
 <tr>
 <td>2.1</td>
-<td>
-<a href="https://x-tee.ee/anchors/" rel="nofollow">https://x-tee.ee/anchors/</a>&lt;anchor file&gt;<br> ee-dev - development environment<br> ee-test - test environment<br> EE - production environment</td>
+<td>&lt;global configuration anchor file&gt; or &lt;URL&gt;</td>
 <td>Global configuration anchor file</td>
 </tr>
 <tr>
 <td>2.2</td>
-<td>GOV - government<br> COM - commercial<br> NGO - non-profit<br> NEE - not Estonian</td>
-<td>Member class of the security server's owner</td>
+<td>E.g.<br>GOV - government<br> COM - commercial</td>
+<td>Member class of the Security Server's owner</td>
 </tr>
 <tr>
 <td>2.3</td>
-<td>&lt;security server owner register code&gt;</td>
-<td>Member code of the security server's owner</td>
+<td>&lt;Security Server owner register code&gt;</td>
+<td>Member code of the Security Server's owner</td>
 </tr>
 <tr>
 <td>2.4</td>
-<td>&lt;choose security server identificator name&gt;</td>
+<td>&lt;choose Security Server identificator name&gt;</td>
 <td>Security server's code</td>
 </tr>
 <tr>
@@ -1146,7 +1195,7 @@ xroad-signer.service           loaded active running X-Road signer</pre></div>
 <p>Software token’s PIN (<strong>reference data: 2.5</strong>). The PIN will be used to protect the keys stored in the software token. The PIN must be stored in a secure place, because it will be no longer possible to use or recover the private keys in the token once the PIN has been lost.</p>
 </li>
 </ul>
-<div class="markdown-heading"><h3 class="heading-element">3.4 Configuring firewall</h3><a id="34-configuring-firewall" class="anchor" aria-label="Permalink: 3.4 Configuring firewall" href="#34-configuring-firewall"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h3 class="heading-element">3.4 Configuring Firewall</h3><a id="34-configuring-firewall" class="anchor" aria-label="Permalink: 3.4 Configuring Firewall" href="#34-configuring-firewall"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>It is strongly recommended to protect the Security Server from unwanted access using a firewall (hardware or software based). The firewall can be
 applied to both incoming and outgoing connections depending on the security requirements of the environment where the Security Server is deployed.</p>
 <p><strong>Special attention should be paid with the firewall configuration since incorrect configuration may leave the Security Server vulnerable to exploits and attacks.</strong>
@@ -1160,7 +1209,7 @@ firewall access rules for specific hosts based on their descriptions.</p>
 the interfaces that the Security Server uses to listen for incoming connections. The default value for this parameter in the default X-Road packages is <code>0.0.0.0</code>,
 which makes the Security Server accept connections from any server. For country-specific defaults, please refer to the system parameters documentation.</p>
 <p>The parameter can be changed by following the <a href="ug-syspar_x-road_v6_system_parameters.html#21-changing-the-system-parameter-values-in-configuration-files">System Parameters guide</a>.</p>
-<div class="markdown-heading"><h3 class="heading-element">3.5 Configuring configuration backup encryption</h3><a id="35-configuring-configuration-backup-encryption" class="anchor" aria-label="Permalink: 3.5 Configuring configuration backup encryption" href="#35-configuring-configuration-backup-encryption"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h3 class="heading-element">3.5 Configuring Configuration Backup Encryption</h3><a id="35-configuring-configuration-backup-encryption" class="anchor" aria-label="Permalink: 3.5 Configuring Configuration Backup Encryption" href="#35-configuring-configuration-backup-encryption"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>It is possible to automatically encrypt Security Server configuration backups. Security server uses The GNU Privacy Guard (<a href="https://www.gnupg.org" rel="nofollow">https://www.gnupg.org</a>)
 for backup encryption and verification. Backups are always signed, but backup encryption is initially turned off.
 To turn encryption on, please override the default configuration in the file <code>/etc/xroad/conf.d/local.ini</code>, in the <code>[proxy]</code> section (add or edit this section).</p>
@@ -1183,6 +1232,13 @@ Security Server backup encryption key is generated during initialisation.</p>
 <p>The key can then be moved to an external host and imported to GPG keyring with the following command:</p>
 <pre><code>gpg --homedir /your_gpg_homedir_here --import server-public-key.gpg
 </code></pre>
+<div class="markdown-heading"><h3 class="heading-element">3.6 Enabling ACME Support</h3><a id="36-enabling-acme-support" class="anchor" aria-label="Permalink: 3.6 Enabling ACME Support" href="#36-enabling-acme-support"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>NB! ACME is not supported in the X-Road Estonian ecosystem
+Automated Certificate Management Environment (ACME) protocol enables automated certificate management of the authentication and sign
+certificates on the Security Server. More information about the required configuration is available in the <a href="ug-ss_x-road_6_security_server_user_guide.html#24-configuring-acme">Security Server User Guide</a>.</p>
+<div class="markdown-heading"><h3 class="heading-element">3.7 Enabling EC Keys for Authentication and Signing Certificates</h3><a id="37-enabling-ec-keys-for-authentication-and-signing-certificates" class="anchor" aria-label="Permalink: 3.7 Enabling EC Keys for Authentication and Signing Certificates" href="#37-enabling-ec-keys-for-authentication-and-signing-certificates"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>Security Server supports EC based authentication and signing certificates since version 7.6.0.
+More information about the required configuration is available in the <a href="ug-ss_x-road_6_security_server_user_guide.html#25-migrating-to-ec-based-authentication-and-signing-certificates">Security Server User Guide</a>.</p>
 <div class="markdown-heading"><h2 class="heading-element">4 Installation Error handling</h2><a id="4-installation-error-handling" class="anchor" aria-label="Permalink: 4 Installation Error handling" href="#4-installation-error-handling"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <div class="markdown-heading"><h3 class="heading-element">4.1 Cannot Set LC_ALL to Default Locale</h3><a id="41-cannot-set-lc_all-to-default-locale" class="anchor" aria-label="Permalink: 4.1 Cannot Set LC_ALL to Default Locale" href="#41-cannot-set-lc_all-to-default-locale"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>If running the locale command results in the error message</p>
