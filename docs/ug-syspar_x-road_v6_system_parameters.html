@@ -12,13 +12,13 @@
         padding: 45px;
       }
     </style>
-    <title>X-Road: 7.5.1
+    <title>X-Road: 7.6.0
 </title>
   </head>
   <body>
     <article class="markdown-body">
 <div class="markdown-heading"><h1 class="heading-element">X-Road: System Parameters User Guide</h1><a id="x-road-system-parameters-user-guide" class="anchor" aria-label="Permalink: X-Road: System Parameters User Guide" href="#x-road-system-parameters-user-guide"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>Version: 2.87
+<p>Version: 2.93
 Doc. ID: UG-SYSPAR</p>
 <table>
 <thead>
@@ -599,6 +599,45 @@ Doc. ID: UG-SYSPAR</p>
 <td>Added ACME related parameters</td>
 <td>Mikk-Erik Bachmann</td>
 </tr>
+<tr>
+<td>19.08.2024</td>
+<td>2.88</td>
+<td>Added parameters for management requests sender</td>
+<td>Justas Samuoslis</td>
+</tr>
+<tr>
+<td>20.09.2024</td>
+<td>2.89</td>
+<td>Acme automatic certificate renewal job related parameters</td>
+<td>Mikk-Erik Bachmann</td>
+</tr>
+<tr>
+<td>08.11.2024</td>
+<td>2.90</td>
+<td>Added new parameters <em>key-named-curve</em>, <em>soft-token-pin-keystore-algorithm</em>, <em>authentication-key-algorithm</em> and <em>signing-key-algorithm</em> to add ECDSA support for Authentication/Signing certificates</td>
+<td>Ovidijus Narkevicius</td>
+</tr>
+<tr>
+<td>09.12.2024</td>
+<td>2.91</td>
+<td>Rename parameters <em>global_conf_tls_cert_verification</em> -&gt; <em>global-conf-tls-cert-verification</em>, <em>global_conf_hostname_verification</em> -&gt; <em>global-conf-hostname-verification</em>
+</td>
+<td>Eneli Reimets</td>
+</tr>
+<tr>
+<td>12.12.2024</td>
+<td>2.92</td>
+<td>Added new parameter <em>server-conf-service-endpoints-cache-size</em>
+</td>
+<td>Eneli Reimets</td>
+</tr>
+<tr>
+<td>17.12.2024</td>
+<td>2.93</td>
+<td>Added <em>acme-keypair-renewal-time-before-expiration-date</em>, changed the default for <em>acme-renewal-interval</em>
+</td>
+<td>Mikk-Erik Bachmann</td>
+</tr>
 </tbody>
 </table>
 <div class="markdown-heading"><h2 class="heading-element">Table of Contents</h2><a id="table-of-contents" class="anchor" aria-label="Permalink: Table of Contents" href="#table-of-contents"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
@@ -817,8 +856,7 @@ server-listen-port=20000
 <th><strong>Parameter</strong></th>
 <th><strong>Default value</strong></th>
 <th><strong>FI-package value</strong></th>
-<th> <strong>EE-package value</strong>
-</th>
+<th><strong>EE-package value</strong></th>
 <th><strong>Description</strong></th>
 </tr>
 </thead>
@@ -1109,7 +1147,7 @@ server-listen-port=20000
 <td>grpc-port</td>
 <td>5567</td>
 <td></td>
-<td> </td>
+<td></td>
 <td>The (localhost) port where the proxy gRPC server binds to. Used for communicating with xroad-signer and xroad-monitor.</td>
 </tr>
 <tr>
@@ -1141,6 +1179,13 @@ server-listen-port=20000
 <td>Maximum number of access rights to keep cached in memory.</td>
 </tr>
 <tr>
+<td>server-conf-service-endpoints-cache-size</td>
+<td>100000</td>
+<td></td>
+<td></td>
+<td>Maximum number of service endpoints to keep cached in memory.</td>
+</tr>
+<tr>
 <td>enforce-client-is-cert-validity-period-check</td>
 <td>false</td>
 <td></td>
@@ -1167,6 +1212,13 @@ server-listen-port=20000
 <td></td>
 <td></td>
 <td>Minimum version of the client Security Server that is allowed to access a service. This property must be configured on the service provider Security Server.</td>
+</tr>
+<tr>
+<td>log-client-cert</td>
+<td>false</td>
+<td></td>
+<td></td>
+<td>Whether to log client certificate subject information.</td>
 </tr>
 </tbody>
 </table>
@@ -1263,6 +1315,14 @@ to use for example MySQL as a data store for REST API module.</p>
 <td>Key length for generating authentication and signing keys (since version 6.7)</td>
 </tr>
 <tr>
+<td>key-named-curve</td>
+<td>secp256r1</td>
+<td></td>
+<td></td>
+<td align="left"></td>
+<td>Named curve for generating authentication and signing keys in case EC algorithms are used (since version 7.6)</td>
+</tr>
+<tr>
 <td>csr-signature-digest-algorithm</td>
 <td>SHA-256</td>
 <td></td>
@@ -1293,6 +1353,14 @@ to use for example MySQL as a data store for REST API module.</p>
 <td></td>
 <td align="left"></td>
 <td>Pathname used for generating <a href="https://tldp.org/LDP/lpg/node24.html" rel="nofollow">IPC keys</a>. The purpose of the IPC keys is to share token passwords between <code>signer</code> &amp; its client over interprocess communication</td>
+</tr>
+<tr>
+<td>soft-token-pin-keystore-algorithm</td>
+<td>RSA</td>
+<td></td>
+<td></td>
+<td align="left"></td>
+<td>Key algorithm used for creating PIN keystore for software token. Possible values are RSA and EC. (since version 7.6)</td>
 </tr>
 </tbody>
 </table>
@@ -1348,7 +1416,7 @@ to use for example MySQL as a data store for REST API module.</p>
 <tr>
 <td>port</td>
 <td>5665</td>
-<td>TCP port on which the configuration client process listens.</td>
+<td>gRPC (TCP) port on which the configuration client process listens.</td>
 </tr>
 <tr>
 <td>update-interval</td>
@@ -1371,12 +1439,12 @@ to use for example MySQL as a data store for REST API module.</p>
 <td>Cron expression for proxy configuration automatic backup job</td>
 </tr>
 <tr>
-<td>global_conf_tls_cert_verification</td>
+<td>global-conf-tls-cert-verification</td>
 <td>true</td>
 <td>It is possible to disable the verification of the global configuration download TLS certificate. Should be <code>true</code> in production environment</td>
 </tr>
 <tr>
-<td>global_conf_hostname_verification</td>
+<td>global-conf-hostname-verification</td>
 <td>true</td>
 <td>It is possible to disable the hostname verification. Does the hostname specified in the URL match the hostname specified in the Common Name (CN) of the Central Server’s TLS certificate. Should be <code>true</code> in production environment</td>
 </tr>
@@ -1802,9 +1870,84 @@ the message log.</p>
 <td>Amount of days the ACME server account's self-signed certificate is valid</td>
 </tr>
 <tr>
+<td>acme-keypair-renewal-time-before-expiration-date</td>
+<td>14</td>
+<td>When to trigger automatic ACME account keypair renewal subtracted as days from the expiration date of the certificate</td>
+</tr>
+<tr>
 <td>acme-challenge-port-enabled</td>
 <td>false</td>
-<td>If enabled, the API will listen on port 80 for incoming acme challenge requests</td>
+<td>If enabled, the API will listen on port 80 for incoming ACME challenge requests</td>
+</tr>
+<tr>
+<td>acme-renewal-active</td>
+<td>true</td>
+<td>If enabled, the ACME automatic certificate renewal job will run periodically</td>
+</tr>
+<tr>
+<td>acme-renewal-interval</td>
+<td>3600</td>
+<td>Amount of seconds between automatic ACME certificate renewal job runs</td>
+</tr>
+<tr>
+<td>acme-renewal-retry-delay</td>
+<td>60</td>
+<td>Amount of seconds between automatic ACME certificate renewal runs, if the last run was a failure</td>
+</tr>
+<tr>
+<td>acme-renewal-time-before-expiration-date</td>
+<td>14</td>
+<td>When to trigger next automatic renewal. Subtracted as days from the expiration date of the certificate. Used when it's not possible to receive the ACME renewal information from the ACME server.</td>
+</tr>
+<tr>
+<td>acme-renewal-success-notification-enabled</td>
+<td>true</td>
+<td>If enabled, notification e-mail is sent to the member when automatic certificate renewal has successfully renewed a certificate</td>
+</tr>
+<tr>
+<td>acme-renewal-failure-notification-enabled</td>
+<td>true</td>
+<td>If enabled, notification e-mail is sent to the member when automatic certificate renewal has failed to renew a certificate</td>
+</tr>
+<tr>
+<td>security-server-url</td>
+<td><a href="https://localhost:%7Bproxy.client-https-port%7D" rel="nofollow">https://localhost:{proxy.client-https-port}</a></td>
+<td>Security Server url. Used to send management requests (except AuthCertRegRequest, it is send to directly to Central Server</td>
+</tr>
+<tr>
+<td>management-request-sender-client-keystore</td>
+<td></td>
+<td>Path to PKCS#12 keystore containing the key to be used for mTLS enabled connection to Proxy server for sending management requests. If provided, then <code>management-request-sender-client-truststore</code> must be provided either. If not set, then the internal key is used for connection.</td>
+</tr>
+<tr>
+<td>management-request-sender-client-keystore-password</td>
+<td></td>
+<td>Keystore password</td>
+</tr>
+<tr>
+<td>management-request-sender-client-truststore</td>
+<td></td>
+<td>Path to PKCS#12 truststore containing trusted server certificates. Used for mTLS connection with Proxy server for sending management requests. If provided, then <code>management-request-sender-client-keystore</code> must be provided either. If not set, then the internal key is used for connection.</td>
+</tr>
+<tr>
+<td>management-request-sender-client-truststore-password</td>
+<td></td>
+<td>Truststore password</td>
+</tr>
+<tr>
+<td>auth-cert-registered-notification-enabled</td>
+<td>true</td>
+<td>If enabled, notification e-mail is sent to the member when authentication certificate has been registered in global configuration</td>
+</tr>
+<tr>
+<td>signing-key-algorithm</td>
+<td>RSA</td>
+<td>Key algorithm used for creating signing certificate request. Possible values are RSA and EC. (since version 7.6)</td>
+</tr>
+<tr>
+<td>authentication-key-algorithm</td>
+<td>RSA</td>
+<td>Key algorithm used for creating authentication certificate request. Possible values are RSA and EC. (since version 7.6)</td>
 </tr>
 </tbody>
 </table>
@@ -2056,6 +2199,16 @@ with some additional limitations on configurability (see details in proxy chapte
 <td></td>
 <td>Configures additional UNIX groups mapped to X-Road user roles. This property is defined using a separate subsection <code>[admin-service.complementary-user-role-mappings]</code>, for example:<br><br><em>[admin-service.complementary-user-role-mappings]<br>XROAD_SECURITY_OFFICER=group1,group2<br>XROAD_SYSTEM_ADMINISTRATOR=group3,group4</em><br><br><strong>Note that following configurations are preconfigured and cannot be redefined:</strong><br><em>XROAD_SECURITY_OFFICER=xroad-security-officer</em><br><em>XROAD_REGISTRATION_OFFICER=xroad-registration-officer</em><br><em>XROAD_SYSTEM_ADMINISTRATOR=xroad-system-administrator</em>
 </td>
+</tr>
+<tr>
+<td>internal-key-algorithm</td>
+<td>RSA</td>
+<td>Key algorithm used for generating internal configuration signing keys. Possible values are RSA and EC. (since version 7.6)</td>
+</tr>
+<tr>
+<td>external-key-algorithm</td>
+<td>RSA</td>
+<td>Key algorithm used for generating external configuration signing keys. Possible values are RSA and EC. (since version 7.6)</td>
 </tr>
 </tbody>
 </table>
@@ -2355,10 +2508,11 @@ TLS_DHE_RSA_WITH_AES_256_GCM_SHA384</p>
 <p><a id="Ref_note2"></a>[2] Default value for proxy.xroad-tls-ciphers.</p>
 <blockquote>
 <p>TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384,
-TLS_DHE_RSA_WITH_AES_256_CBC_SHA256</p>
+TLS_DHE_RSA_WITH_AES_256_CBC_SHA256,
+TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384</p>
 </blockquote>
 <blockquote>
-<p>(see <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/security/SunProviders.html#SunJSSEProvider" rel="nofollow"><em>https://docs.oracle.com/javase/8/docs/technotes/guides/security/SunProviders.html#SunJSSEProvider</em></a> for possible values)</p>
+<p>(see <a href="https://docs.oracle.com/en/java/javase/21/docs/specs/security/standard-names.html#jsse-cipher-suite-names" rel="nofollow"><em>https://docs.oracle.com/en/java/javase/21/docs/specs/security/standard-names.html#jsse-cipher-suite-names</em></a> for possible values)</p>
 <p>Note. OpenJDK 8 on RHEL 7 supports ECDHE key agreement protocol starting from RHEL 7.3. In RHEL 7 versions prior to RHEL 7.3 only DHE cipher suites are supported.</p>
 </blockquote>
 <div class="markdown-heading"><h2 class="heading-element">6 Adding command line arguments</h2><a id="6-adding-command-line-arguments" class="anchor" aria-label="Permalink: 6 Adding command line arguments" href="#6-adding-command-line-arguments"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>

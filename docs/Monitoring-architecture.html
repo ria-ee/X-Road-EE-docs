@@ -12,7 +12,7 @@
         padding: 45px;
       }
     </style>
-    <title>X-Road: 7.5.1
+    <title>X-Road: 7.6.0
 </title>
   </head>
   <body>
@@ -359,7 +359,7 @@ xmlns:prod=<span class="pl-s"><span class="pl-pds">"</span>http://vrk-test.x-roa
       &lt;<span class="pl-ent">prod</span><span class="pl-ent">:</span><span class="pl-ent">getRandom</span>&gt;&lt;/<span class="pl-ent">prod</span><span class="pl-ent">:</span><span class="pl-ent">getRandom</span>&gt;
    &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
 &lt;/<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>&gt;</pre></div>
-<p>For monitoring queries this is not enough. In a clustered security server configuration, one service can be served from multiple security servers. When X-Road routes the message, it picks one candidate based on which one answers the quickest. When executing monitoring queries, we need to be able to fetch monitoring data from a specific security server in a cluster. To make this possible the Security server targeting extension for the X-Road message protocol [<a href="#12-references">PR-TARGETSS</a>] is used, which adds a new SOAP header element <code>securityServer</code>. Using this element, the caller identifies which security server should respond with the monitoring data (<code>servercode</code> = <code>fdev-ss1.i.palveluvayla.com</code>). To execute a query, we call service <code>getSecurityServerMetrics</code>:</p>
+<p>For monitoring queries this is not enough. In a clustered security server configuration, one service can be served from multiple security servers. When X-Road routes the message, it picks one candidate based on which one answers the quickest. When executing monitoring queries, we need to be able to fetch monitoring data from a specific security server in a cluster. To make this possible the Security server targeting extension for the X-Road message protocol [<a href="#12-references">PR-TARGETSS</a>] is used, which adds a new SOAP header element <code>securityServer</code>. Using this element, the caller identifies which security server should respond with the monitoring data (<code>servercode</code> = <code>fdev-ss1.i.x-road.global</code>). To execute a query, we call service <code>getSecurityServerMetrics</code>:</p>
 <div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Envelope</span>
 	xmlns:SOAP-ENV=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.xmlsoap.org/soap/envelope/<span class="pl-pds">"</span></span>
 	xmlns:id=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/identifiers<span class="pl-pds">"</span></span>
@@ -381,7 +381,7 @@ xmlns:prod=<span class="pl-s"><span class="pl-pds">"</span>http://vrk-test.x-roa
             &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;fdev&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
             &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;GOV&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
             &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;1710128-9&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
-            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serverCode</span>&gt;fdev-ss1.i.palveluvayla.com&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serverCode</span>&gt;
+            &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serverCode</span>&gt;fdev-ss1.i.x-road.global&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serverCode</span>&gt;
         &lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">securityServer</span>&gt;
         &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">id</span>&gt;ID11234&lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">id</span>&gt;
         &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">protocolVersion</span>&gt;4.0&lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">protocolVersion</span>&gt;
@@ -412,7 +412,7 @@ xmlns:prod=<span class="pl-s"><span class="pl-pds">"</span>http://vrk-test.x-roa
          &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;fdev&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">xRoadInstance</span>&gt;
          &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;GOV&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberClass</span>&gt;
          &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;1710128-9&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">memberCode</span>&gt;
-         &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serverCode</span>&gt;fdev-ss1.i.palveluvayla.com&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serverCode</span>&gt;
+         &lt;<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serverCode</span>&gt;fdev-ss1.i.x-road.global&lt;/<span class="pl-ent">id</span><span class="pl-ent">:</span><span class="pl-ent">serverCode</span>&gt;
       &lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">securityServer</span>&gt;
       &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">id</span>&gt;ID11234&lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">id</span>&gt;
       &lt;<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">protocolVersion</span>&gt;4.0&lt;/<span class="pl-ent">xrd</span><span class="pl-ent">:</span><span class="pl-ent">protocolVersion</span>&gt;
@@ -421,7 +421,7 @@ xmlns:prod=<span class="pl-s"><span class="pl-pds">"</span>http://vrk-test.x-roa
    &lt;<span class="pl-ent">SOAP-ENV</span><span class="pl-ent">:</span><span class="pl-ent">Body</span>&gt;
       &lt;<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">getSecurityServerMetricsResponse</span>&gt;
          &lt;<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">metricSet</span>&gt;
-            &lt;<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">name</span>&gt;SERVER:fdev/GOV/1710128-9/fdev-ss1.i.palveluvayla.com&lt;/<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">name</span>&gt;
+            &lt;<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">name</span>&gt;SERVER:fdev/GOV/1710128-9/fdev-ss1.i.x-road.global&lt;/<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">name</span>&gt;
             &lt;<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">stringMetric</span>&gt;
                &lt;<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">name</span>&gt;proxyVersion&lt;/<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">name</span>&gt;
                &lt;<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">value</span>&gt;6.7.7-1.20151201075839gitb72b28e&lt;/<span class="pl-ent">m</span><span class="pl-ent">:</span><span class="pl-ent">value</span>&gt;
