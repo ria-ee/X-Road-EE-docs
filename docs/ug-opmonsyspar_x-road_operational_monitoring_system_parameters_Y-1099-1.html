@@ -12,14 +12,14 @@
         padding: 45px;
       }
     </style>
-    <title>X-Road: 7.6.0
+    <title>X-Road: 7.7.0
 </title>
   </head>
   <body>
     <article class="markdown-body">
 <div class="markdown-heading"><h1 class="heading-element">X-Road: Operational Monitoring System Parameters</h1><a id="x-road-operational-monitoring-system-parameters" class="anchor" aria-label="Permalink: X-Road: Operational Monitoring System Parameters" href="#x-road-operational-monitoring-system-parameters"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <div class="markdown-heading"><h1 class="heading-element">User Guide</h1><a id="user-guide" class="anchor" aria-label="Permalink: User Guide" href="#user-guide"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>Version: 0.6<br>
+<p>Version: 0.7<br>
 Doc ID: UG-OPMONSYSPAR</p>
 <table>
 <thead>
@@ -62,6 +62,12 @@ Doc ID: UG-OPMONSYSPAR</p>
 <td>Update references</td>
 <td>Petteri Kivimäki</td>
 </tr>
+<tr>
+<td>10.07.2025</td>
+<td>0.7</td>
+<td>Added grpc related properties</td>
+<td>Mikk-Erik Bachmann</td>
+</tr>
 </tbody>
 </table>
 <div class="markdown-heading"><h2 class="heading-element">Table of Contents</h2><a id="table-of-contents" class="anchor" aria-label="Permalink: Table of Contents" href="#table-of-contents"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
@@ -87,7 +93,7 @@ Doc ID: UG-OPMONSYSPAR</p>
 <div class="markdown-heading"><h3 class="heading-element">1.2 References</h3><a id="12-references" class="anchor" aria-label="Permalink: 1.2 References" href="#12-references"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><a name="UG-SYSPAR"></a><strong>UG-SYSPAR</strong> -- X-Road: System Parameters. Document ID: <a href="ug-syspar_x-road_v6_system_parameters.html">UG-SYSPAR</a>.<br>
 <a name="UG-SS"></a><strong>UG-SS</strong> -- X-Road: Security Server User Guide. Document ID: <a href="ug-ss_x-road_6_security_server_user_guide.html">UG-SS</a>.<br>
-<a name="CRON"></a><strong>CRON</strong> -- Quartz Scheduler Cron Trigger Tutorial,  <a href="http://www.quartz-scheduler.org/documentation/quartz-2.2.x/tutorials/crontrigger.html" rel="nofollow">http://www.quartz-scheduler.org/documentation/quartz-2.2.x/tutorials/crontrigger.html</a><br>
+<a name="CRON"></a><strong>CRON</strong> -- Quartz Scheduler Cron Trigger Tutorial,  <a href="http://www.quartz-scheduler.org/documentation/quartz-2.2.2/tutorials/crontrigger.html" rel="nofollow">http://www.quartz-scheduler.org/documentation/quartz-2.2.2/tutorials/crontrigger.html</a><br>
 <a name="Ref_TERMS"></a><strong>TA-TERMS</strong> -- X-Road Terms and Abbreviations. Document ID: <a href="terms_x-road_docs.html">TA-TERMS</a>.</p>
 <div class="markdown-heading"><h2 class="heading-element">2 Operational Monitoring System Parameters</h2><a id="2-operational-monitoring-system-parameters" class="anchor" aria-label="Permalink: 2 Operational Monitoring System Parameters" href="#2-operational-monitoring-system-parameters"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This chapter describes the system parameters used by the X-Road operational monitoring system. Changing the parameter values in the configuration file requires restarting of the system services. Managing the system services is explained in [<a href="#UG-SS">UG-SS</a>].</p>
@@ -176,6 +182,18 @@ Doc ID: UG-OPMONSYSPAR</p>
 <td>tls-certificate</td>
 <td>/etc/xroad/ssl/opmonitor.crt</td>
 <td>Absolute filename of the operational monitoring daemon TLS certificate. Configured in security server in case an external monitoring daemon is used.</td>
+</tr>
+<tr>
+<td>op-monitor</td>
+<td>grpc-port</td>
+<td>2081</td>
+<td>The port where the op-monitor gRPC server binds to. Used for communicating with xroad-proxy-ui-api for the traffic visualization.</td>
+</tr>
+<tr>
+<td>op-monitor</td>
+<td>grpc-client-timeout</td>
+<td>60000</td>
+<td>The time op-monitor gRPC client waits for response in milliseconds</td>
 </tr>
 <tr>
 <td>op-monitor-buffer</td>

@@ -12,7 +12,7 @@
         padding: 45px;
       }
     </style>
-    <title>X-Road: 7.6.0
+    <title>X-Road: 7.7.0
 </title>
   </head>
   <body>
@@ -20,7 +20,7 @@
 <div class="markdown-heading"><h1 class="heading-element">X-Road: Service Metadata Protocol 
 </h1><a id="x-road-service-metadata-protocol-" class="anchor" aria-label="Permalink: X-Road: Service Metadata Protocol " href="#x-road-service-metadata-protocol-"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>Technical Specification</strong></p>
-<p>Version: 2.13<br>
+<p>Version: 2.15<br>
 Doc. ID: PR-META</p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">Version history 
@@ -142,6 +142,18 @@ Doc. ID: PR-META</p>
 <td>2.13</td>
 <td>Update references</td>
 <td>Petteri Kivimäki</td>
+</tr>
+<tr>
+<td>06.03.2025</td>
+<td>2.14</td>
+<td>Update XML Schema for Messages</td>
+<td>Ovidijus Narkevičius</td>
+</tr>
+<tr>
+<td>29.04.2025</td>
+<td>2.15</td>
+<td>Update JSON Schema for <em>listClients</em> and XML and JSON examples</td>
+<td>Ovidijus Narkevičius</td>
 </tr>
 </tbody>
 </table>
@@ -314,6 +326,7 @@ the provider security server.</p>
         &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
             &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>id:XRoadClientIdentifierType<span class="pl-pds">"</span></span>/&gt;
             &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>xs:string<span class="pl-pds">"</span></span> <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span>/&gt;
+            &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>subsystemName<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>xs:string<span class="pl-pds">"</span></span> <span class="pl-e">minOccurs</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span>/&gt;
         &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">sequence</span>&gt;
     &lt;/<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">complexType</span>&gt;
     &lt;<span class="pl-ent">xs</span><span class="pl-ent">:</span><span class="pl-ent">element</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>clientList<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>ClientListType<span class="pl-pds">"</span></span>/&gt;
@@ -578,6 +591,8 @@ the provider security server.</p>
       <span class="pl-ent">properties</span>:
         <span class="pl-ent">name</span>:
           <span class="pl-ent">type</span>: <span class="pl-s">string</span>
+        <span class="pl-ent">subsystem_name</span>:
+          <span class="pl-ent">type</span>: <span class="pl-s">string</span>
         <span class="pl-ent">id</span>:
           <span class="pl-ent">type</span>: <span class="pl-s">object</span>
           <span class="pl-ent">properties</span>:
@@ -638,6 +653,7 @@ the provider security server.</p>
             &lt;<span class="pl-ent">ns1</span><span class="pl-ent">:</span><span class="pl-ent">subsystemCode</span>&gt;sub&lt;/<span class="pl-ent">ns1</span><span class="pl-ent">:</span><span class="pl-ent">subsystemCode</span>&gt;
         &lt;/<span class="pl-ent">ns2</span><span class="pl-ent">:</span><span class="pl-ent">id</span>&gt;
         &lt;<span class="pl-ent">ns2</span><span class="pl-ent">:</span><span class="pl-ent">name</span>&gt;Client One&lt;/<span class="pl-ent">ns2</span><span class="pl-ent">:</span><span class="pl-ent">name</span>&gt;
+        &lt;<span class="pl-ent">ns2</span><span class="pl-ent">:</span><span class="pl-ent">subsystemName</span>&gt;Client One Sub&lt;/<span class="pl-ent">ns2</span><span class="pl-ent">:</span><span class="pl-ent">subsystemName</span>&gt;
     &lt;/<span class="pl-ent">ns2</span><span class="pl-ent">:</span><span class="pl-ent">member</span>&gt;
 &lt;/<span class="pl-ent">ns2</span><span class="pl-ent">:</span><span class="pl-ent">clientList</span>&gt;</pre></div>
 <div class="markdown-heading"><h4 class="heading-element">JSON Response</h4><a id="json-response" class="anchor" aria-label="Permalink: JSON Response" href="#json-response"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
@@ -679,7 +695,8 @@ the provider security server.</p>
         <span class="pl-ent">"object_type"</span>: <span class="pl-s"><span class="pl-pds">"</span>SUBSYSTEM<span class="pl-pds">"</span></span>,
         <span class="pl-ent">"xroad_instance"</span>: <span class="pl-s"><span class="pl-pds">"</span>AA<span class="pl-pds">"</span></span>
       },
-      <span class="pl-ent">"name"</span>: <span class="pl-s"><span class="pl-pds">"</span>Client One<span class="pl-pds">"</span></span>
+      <span class="pl-ent">"name"</span>: <span class="pl-s"><span class="pl-pds">"</span>Client One<span class="pl-pds">"</span></span>,
+      <span class="pl-ent">"subsystem_name"</span>: <span class="pl-s"><span class="pl-pds">"</span>Client One Sub<span class="pl-pds">"</span></span>
     }
   ]
 }</pre></div>

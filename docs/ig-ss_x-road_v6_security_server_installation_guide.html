@@ -12,7 +12,7 @@
         padding: 45px;
       }
     </style>
-    <title>X-Road: 7.6.0
+    <title>X-Road: 7.7.0
 </title>
   </head>
   <body>
@@ -20,7 +20,7 @@
 <div class="markdown-heading"><h1 class="heading-element">Security Server Installation Guide for Ubuntu 
 </h1><a id="security-server-installation-guide-for-ubuntu-" class="anchor" aria-label="Permalink: Security Server Installation Guide for Ubuntu " href="#security-server-installation-guide-for-ubuntu-"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>X-ROAD 7</strong></p>
-<p>Version: 2.54<br>
+<p>Version: 2.59<br>
 Doc. ID: IG-SS</p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">Version history 
@@ -418,6 +418,36 @@ Doc. ID: IG-SS</p>
 <td>Update for configurable parameters in the <code>/etc/xroad/devices.ini</code> after added support for ECDSA keys</td>
 <td>Ovidijus Narkevicius</td>
 </tr>
+<tr>
+<td>13.02.2025</td>
+<td>2.55</td>
+<td>Additional request for Proxy service memory allocation information while installing</td>
+<td>Ovidijus Narkevicius</td>
+</tr>
+<tr>
+<td>10.03.2025</td>
+<td>2.56</td>
+<td>Update required connections and other minor updates</td>
+<td>Petteri Kivimäki</td>
+</tr>
+<tr>
+<td>21.03.2025</td>
+<td>2.57</td>
+<td>Syntax and styling</td>
+<td>Pauline Dimmek</td>
+</tr>
+<tr>
+<td>03.06.2025</td>
+<td>2.58</td>
+<td>Setup database connection with SSL certificates</td>
+<td>Eneli Reimets</td>
+</tr>
+<tr>
+<td>30.06.2025</td>
+<td>2.59</td>
+<td>Update the method of adding X-Road apt repository</td>
+<td>Mikk-Erik Bachmann</td>
+</tr>
 </tbody>
 </table>
 <div class="markdown-heading"><h2 class="heading-element">License</h2><a id="license" class="anchor" aria-label="Permalink: License" href="#license"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
@@ -444,7 +474,7 @@ Doc. ID: IG-SS</p>
 <a href="#22-reference-data">2.2 Reference Data</a>
 <ul>
 <li><a href="#221-network-diagram">2.2.1 Network Diagram</a></li>
-<li><a href="#231-ria-ips-for-whitelisting">2.3.1 RIA IP's for Whitelisting</a></li>
+<li><a href="#231-ria-ips-for-whitelisting">2.2.2 RIA IP's for Whitelisting</a></li>
 </ul>
 </li>
 <li><a href="#23-requirements-for-the-security-server">2.3 Requirements for the Security Server</a></li>
@@ -531,8 +561,8 @@ Doc. ID: IG-SS</p>
 <p>There are multiple alternatives how the Security Server can be deployed. The options are described in <a href="#annex-c-deployment-options">Annex C Deployment Options</a>.</p>
 <p>The Security Server is officially supported on the following platforms:</p>
 <ul>
-<li>Ubuntu Server 20.04, 22.04 or 24.04 Long-Term Support (LTS) operating system on a x86-64 platform.</li>
-<li>Red Hat Enterprise Linux (RHEL) 7, 8, 9 (x86-64). See <a href="ig-ss_x-road_v6_security_server_installation_guide_for_rhel.html">IG-SS-RHEL</a> for more information.
+<li>Ubuntu Server 22.04 and 24.04 Long-Term Support (LTS) operating system on a x86-64 platform.</li>
+<li>Red Hat Enterprise Linux (RHEL) 8, 9 on a x86-64 platform. See <a href="ig-ss_x-road_v6_security_server_installation_guide_for_rhel.html">IG-SS-RHEL</a> for more information.
 NB: RIA provides support only for Security Servers which are installed on the Ubuntu operating system.</li>
 </ul>
 <p>The software can be installed both on physical and virtualized hardware (of the latter, Xen and Oracle VirtualBox have been tested).</p>
@@ -576,114 +606,35 @@ NB: RIA provides support only for Security Servers which are installed on the Ub
 <tr>
 <td>1.4</td>
 <td><strong>Inbound ports from external network</strong></td>
-<td>Ports for inbound connections from the external network to the security server</td>
-</tr>
-<tr>
-<td> </td>
-<td>TCP 5500</td>
-<td>Message exchange between security servers. Recommended to use IP filtering (<strong>whitelisting only <a href="#231-ria-ips-for-whitelisting">RIA IP's</a> and partners</strong>).</td>
-</tr>
-<tr>
-<td> </td>
-<td>TCP 5577</td>
-<td>Querying of OCSP responses between security servers. Recommended to use IP filtering (<strong>whitelisting only <a href="#231-ria-ips-for-whitelisting">RIA IP's</a> and partners</strong>)</td>
-</tr>
-<tr>
-<td>1.5</td>
-<td><strong>Outbound ports to external network</strong></td>
-<td>Ports for outbound connections from the security server to the external network</td>
-</tr>
-<tr>
-<td> </td>
-<td>TCP 5500</td>
-<td>Message exchange between security servers</td>
-</tr>
-<tr>
-<td> </td>
-<td>TCP 5577</td>
-<td>Querying of OCSP responses between security servers</td>
-</tr>
-<tr>
-<td> </td>
-<td>TCP 4001</td>
-<td>Communication with the central server</td>
-</tr>
-<tr>
-<td> </td>
-<td>TCP 80</td>
-<td>Downloading global configuration from the central server</td>
-</tr>
-<tr>
-<td> </td>
-<td>TCP 80,443</td>
-<td>Most common OCSP and time-stamping services</td>
-</tr>
-<tr>
-<td>1.6</td>
-<td><strong>Inbound ports from internal network</strong></td>
-<td>Ports for inbound connections from the internal network to the security server</td>
-</tr>
-<tr>
-<td> </td>
-<td>TCP 4000</td>
-<td>User interface and management REST API (local network). <strong>Must not be accessible from the internet!</strong>
-</td>
-</tr>
-<tr>
-<td> </td>
-<td>TCP 80, 443</td>
-<td>Information system access points (in the local network). <strong>Must not be accessible from the external network without strong authentication. If open to the external network, IP filtering is strongly recommended.</strong>
-</td>
-</tr>
-<tr>
-<td> </td>
-<td>TCP 9011</td>
-<td>Operational data monitoring daemon JMX listening port</td>
-</tr>
-<tr>
-<td> </td>
-<td>TCP 9999</td>
-<td>Environmental monitoring daemon JMX listening port</td>
-</tr>
-<tr>
-<td>1.7</td>
-<td><strong>Outbound ports to internal network</strong></td>
-<td>Ports for inbound connections from the internal network to the security server</td>
-</tr>
-<tr>
-<td> </td>
-<td>TCP 80, 443, <em>other</em>
-</td>
-<td>Producer information system endpoints</td>
-</tr>
-<tr>
-<td> </td>
-<td>TCP 2080</td>
-<td>Message exchange between security server and operational data monitoring daemon (by default on localhost)</td>
-</tr>
-<tr>
-<td>1.8</td>
-<td></td>
-<td>Security server internal IP address(es) and hostname(s)</td>
-</tr>
-<tr>
-<td>1.9</td>
-<td></td>
-<td>Security server public IP address, NAT address</td>
-</tr>
-<tr>
-<td>1.10</td>
-<td>&lt;by default, the server’s IP addresses and names are added to the certificate’s Distinguished Name (DN) field&gt;</td>
-<td>Information about the user interface TLS certificate</td>
-</tr>
-<tr>
-<td>1.11</td>
-<td>&lt;by default, the server’s IP addresses and names are added to the certificate’s Distinguished Name (DN) field&gt;</td>
-<td>Information about the services TLS certificate</td>
+<td>Ports for inbound connections from the external network to the Security Server</td>
 </tr>
 </tbody>
 </table>
-<p>It is strongly recommended to protect the security server from unwanted access using a firewall (hardware or software based). The firewall can be applied to both incoming and outgoing connections depending on the security requirements of the environment where the security server is deployed. It is recommended to allow incoming traffic to specific ports only from explicitly defined sources using IP filtering. <strong>Special attention should be paid with the firewall configuration since incorrect configuration may leave the security server vulnerable to exploits and attacks.</strong></p>
+<pre><code>                                                                                                                         |
+</code></pre>
+<p>|    | TCP 80                                                                                                               | Incoming ACME challenge requests from ACME servers<br>
+  | TCP 5500                                                                                                             | Message exchange between Security Servers. Recommended to use IP filtering (<strong>whitelisting only <a href="#231-ria-ips-for-whitelisting">RIA IP's</a> and partners</strong>).
+  | TCP 5577                                                                                                             | Querying of OCSP responses between Security Servers. Recommended to use IP filtering (<strong>whitelisting only <a href="#231-ria-ips-for-whitelisting">RIA IP's</a> and partners</strong>)
+1.5    | <strong>Outbound ports to external network</strong>  | Ports for outbound connections from the Security Server to the external network
+  | TCP 5500                                | Message exchange between Security Servers
+  | TCP 5577                                | Querying of OCSP responses between Security Servers
+  | TCP 4001                                | Communication with the Central Server
+  | TCP 80                                  | Downloading global configuration from the Central Server
+  | TCP 80,443                              | Most common OCSP and time-stamping services
+|
+|    | TCP 80,443                                                                                                           | Communication with ACME servers                                                                                                                                                                                                                                                           |
+|    | TCP 587                                                                                                              | Communication with mail servers. The mail server may be located in internal or external network<br>
+1.6    | <strong>Inbound ports from internal network</strong> | Ports for inbound connections from the internal network to the Security Server
+  | TCP 4000                                | User interface and management REST API (local network). <strong>Must not be accessible from the internet!</strong>
+  | TCP 80, 443                             | Information system access points (in the local network). <strong>Must not be accessible from the external network without strong authentication. If open to the external network, IP filtering is strongly recommended.</strong>
+1.7    | <strong>Outbound ports to internal network</strong>  | Ports for inbound connections from the internal network to the Security Server
+  | TCP 80, 443, <em>other</em>                    | Producer information system endpoints
+  | TCP 2080                                | Message exchange between Security Server and operational data monitoring daemon (by default on localhost)
+1.8  |                                           | Security server internal IP address(es) and hostname(s)
+1.9  |                                           | Security server public IP address, NAT address
+1.10 | &lt;by default, the server’s IP addresses and names are added to the certificate’s Distinguished Name (DN) field&gt; | Information about the user interface TLS certificate
+1.11 | &lt;by default, the server’s IP addresses and names are added to the certificate’s Distinguished Name (DN) field&gt; | Information about the services TLS certificate</p>
+<p>It is strongly recommended to protect the Security Server from unwanted access using a firewall (hardware or software based). The firewall can be applied to both incoming and outgoing connections depending on the security requirements of the environment where the Security Server is deployed. It is recommended to allow incoming traffic to specific ports only from explicitly defined sources using IP filtering. <strong>Special attention should be paid with the firewall configuration since incorrect configuration may leave the Security Server vulnerable to exploits and attacks.</strong></p>
 <p>The table below lists the required connections between different components.</p>
 <table>
 <thead>
@@ -701,7 +652,7 @@ NB: RIA provides support only for Security Servers which are installed on the Ub
 <td>Out</td>
 <td>Security Server</td>
 <td>Central Server</td>
-<td>80, 4001</td>
+<td>80, 443, 4001</td>
 <td>tcp</td>
 <td></td>
 </tr>
@@ -746,6 +697,22 @@ NB: RIA provides support only for Security Servers which are installed on the Ub
 <td>Target in the internal network</td>
 </tr>
 <tr>
+<td>Out</td>
+<td>Security Server</td>
+<td>ACME Server</td>
+<td>80 / 443</td>
+<td>tcp</td>
+<td></td>
+</tr>
+<tr>
+<td>Out</td>
+<td>Security Server</td>
+<td>Mail server</td>
+<td>587</td>
+<td>tcp</td>
+<td></td>
+</tr>
+<tr>
 <td>In</td>
 <td>Monitoring Security Server</td>
 <td>Security Server</td>
@@ -777,15 +744,90 @@ NB: RIA provides support only for Security Servers which are installed on the Ub
 <td>tcp</td>
 <td>Source in the internal network</td>
 </tr>
+<tr>
+<td>In</td>
+<td>Monitoring system</td>
+<td>Security Server</td>
+<td>other</td>
+<td>tcp</td>
+<td>Source in the internal network<br>The health check interface is disabled by default and the target port is defined by the Security Server administrator when the feature is enabled</td>
+</tr>
 </tbody>
 </table>
-<p>It is strongly recommended to protect the security server from unwanted access using a firewall (hardware or software based). The firewall can be applied to both incoming and outgoing connections depending on the security requirements of the environment where the security server is deployed. It is recommended to allow incoming traffic to specific ports only from explicitly defined sources using IP filtering. <strong>Special attention should be paid with the firewall configuration since incorrect configuration may leave the security server vulnerable to exploits and attacks.</strong></p>
+<p>The table below lists the open ports for Security Server components utilizing the <em>loopback</em> interface. A loopback interface is a virtual network interface on a computer, facilitating self-communication for processes and applications. This enables local communication and the ports must be accessible locally.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Component</strong></th>
+<th><strong>Ports</strong></th>
+<th><strong>Protocol</strong></th>
+<th><strong>Note</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PostgreSQL database</td>
+<td>5432</td>
+<td>tcp</td>
+<td>Default PostgreSQL port</td>
+</tr>
+<tr>
+<td>OP Monitoring daemon</td>
+<td>2080</td>
+<td>tcp</td>
+<td></td>
+</tr>
+<tr>
+<td>Environmental monitoring</td>
+<td>2552</td>
+<td>tcp</td>
+<td></td>
+</tr>
+<tr>
+<td>Signer</td>
+<td>5559</td>
+<td>tcp</td>
+<td>Signer admin port</td>
+</tr>
+<tr>
+<td>Signer</td>
+<td>5560</td>
+<td>tcp</td>
+<td>Signer gRPC port</td>
+</tr>
+<tr>
+<td>Proxy</td>
+<td>5566</td>
+<td>tcp</td>
+<td>Proxy admin port</td>
+</tr>
+<tr>
+<td>Proxy</td>
+<td>5567</td>
+<td>tcp</td>
+<td>Proxy gRPC server port</td>
+</tr>
+<tr>
+<td>Configuration Client</td>
+<td>5675</td>
+<td>tcp</td>
+<td>Configuration Client admin port</td>
+</tr>
+<tr>
+<td>Audit Log</td>
+<td>514</td>
+<td>udp</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>It is strongly recommended to protect the Security Server from unwanted access using a firewall (hardware or software based). The firewall can be applied to both incoming and outgoing connections depending on the security requirements of the environment where the Security Server is deployed. It is recommended to allow incoming traffic to specific ports only from explicitly defined sources using IP filtering. <strong>Special attention should be paid with the firewall configuration since incorrect configuration may leave the Security Server vulnerable to exploits and attacks.</strong></p>
 <div class="markdown-heading"><h4 class="heading-element">2.2.1 Network Diagram</h4><a id="221-network-diagram" class="anchor" aria-label="Permalink: 2.2.1 Network Diagram" href="#221-network-diagram"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>The following network diagram is an example of a simple stand-alone Security Server setup. Attention should be paid when configuring the firewall of your Security Server, as misconfigurations (e.g. exposing port 80/tcp to the public internet) can leave your server vulnerable. <strong>IP whitelisting should be used for all ports that are open to the external network.</strong></p>
 <p>Allowing incoming connections from the Monitoring Security Server on ports 5500/tcp and 5577/tcp (<a href="#231-ria-ips-for-whitelisting">monitoring server IP's</a>) is necessary for the X-Road Center to be able to monitor the ecosystem and provide statistics and support for Members.</p>
 <p><strong>Caution</strong>: The enabling of auxiliary services which are necessary for the functioning and management of the operating system (such as DNS, NTP, and SSH) stay outside the scope of this guide.</p>
 <p><a target="_blank" rel="noopener noreferrer" href="img/ig-ss_network_diagram.png"><img src="img/ig-ss_network_diagram.png" alt="network diagram" style="max-width: 100%;"></a></p>
-<div class="markdown-heading"><h4 class="heading-element">2.3.1 RIA IP's for Whitelisting</h4><a id="231-ria-ips-for-whitelisting" class="anchor" aria-label="Permalink: 2.3.1 RIA IP's for Whitelisting" href="#231-ria-ips-for-whitelisting"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h4 class="heading-element">2.2.2 RIA IP's for Whitelisting</h4><a id="222-ria-ips-for-whitelisting" class="anchor" aria-label="Permalink: 2.2.2 RIA IP's for Whitelisting" href="#222-ria-ips-for-whitelisting"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <table>
 <thead>
 <tr>
@@ -827,7 +869,7 @@ NB: RIA provides support only for Security Servers which are installed on the Ub
 </ul>
 <p>Requirements to software and settings:</p>
 <ul>
-<li>an installed and configured Ubuntu 20.04 LTS, 22.04 or 24.04 LTS x86-64 operating system;</li>
+<li>an installed and configured Ubuntu 22.04 LTS or 24.04 LTS x86-64 operating system;</li>
 <li>if the Security Server is separated from other networks by a firewall and/or NAT, the necessary connections to and from the Security Server are allowed (<strong>reference data: 1.4; 1.5; 1.6; 1.7</strong>). The enabling of auxiliary services which are necessary for the functioning and management of the operating system (such as DNS, NTP, and SSH) stay outside the scope of this guide;</li>
 <li>if the Security Server has a private IP address, a corresponding NAT record must be created in the firewall (<strong>reference data: 1.9</strong>).</li>
 </ul>
@@ -845,8 +887,8 @@ NB: RIA provides support only for Security Servers which are installed on the Ub
 </code></pre>
 </li>
 <li>
-<p>Ensure that the packages <code>locales</code> and <code>software-properties-common</code> are present</p>
-<pre><code>  sudo apt-get install locales software-properties-common
+<p>Ensure that the packages <code>locales</code> and <code>lsb-release</code> are present</p>
+<pre><code>  sudo apt-get install locales lsb-release
 </code></pre>
 </li>
 <li>
@@ -874,7 +916,9 @@ psql (PostgreSQL) 12.6 (Ubuntu 12.6-0ubuntu0.20.04.1)
 psql -h <span class="pl-k">&lt;</span>database host<span class="pl-k">&gt;</span> -U <span class="pl-k">&lt;</span>superuser<span class="pl-k">&gt;</span> -tAc <span class="pl-s"><span class="pl-pds">'</span>show server_version<span class="pl-pds">'</span></span>
 10.16 (Ubuntu 10.16-0ubuntu0.18.04.1)</pre></div>
 <p>The Security Server installer can create the database and users for you, but you need to create a configuration file containing the database administrator credentials.</p>
-<p>For advanced setup, e.g. when using separate servers for the databases, sharing a database with several Security Servers, or if storing the database administrator password on the Security Server is not an option, you can create the database users and structure manually as described in <a href="#annex-d-create-database-structure-manually">Annex D Create Database Structure Manually</a> and then continue to section 2.7. Otherwise, perform the following steps:</p>
+<p>For advanced setup, e.g. when using separate servers for the databases, sharing a database with several Security Servers, or if storing the database administrator password on the Security Server is not an option, you can create the database users and structure manually as described in <a href="#annex-d-create-database-structure-manually">Annex D Create Database Structure Manually</a> and then continue to section 2.7.</p>
+<p>For setting up a database connection with SSL certificates, you need to create an additional configuration file <code>db_libpq.env</code> in the <code>/etc/xroad/</code> folder. For more details see the section „Passing additional parameters to psql“ in <a href="#Ref_UG-SS">UG-SS</a>.</p>
+<p>When leaving the database and user creation to the installer, continue with the following steps:</p>
 <p>Create the property file:</p>
 <div class="highlight highlight-source-shell"><pre>sudo touch /etc/xroad.properties
 sudo chown root:root /etc/xroad.properties
@@ -933,6 +977,22 @@ The name and IP addresses detected from the system are suggested as default valu
 </code></pre>
 </li>
 </ul>
+</li>
+<li>
+<p>The memory allocation configuration for the Java Virtual Machine (JVM) used by the proxy service.
+Allowed values are:</p>
+<ul>
+<li>
+<p><em>d</em> - default, adds <code>-Xms100m -Xmx512m</code> config to the JVM options in <code>XROAD_PROXY_PARAMS</code> in <code>/etc/xroad/services/local.properties</code> file;</p>
+</li>
+<li>
+<p><em>r</em> - recommended, adds recommended Xms and Xmx values based on total memory in current server to the JVM options in <code>XROAD_PROXY_PARAMS</code> in <code>/etc/xroad/services/local.properties</code> file;</p>
+</li>
+<li>
+<p><code>&lt;initialSize&gt;[k|m|g] &lt;maxSize&gt;[k|m|g]</code> - custom values, which will be transformed to <code>-Xms&lt;initialSize&gt;[k|m|g] -Xmx&lt;maxSize&gt;[k|m|g]</code>.</p>
+</li>
+</ul>
+<p>Note that in all cases <code>/etc/xroad/services/local.properties</code> file is updated so that <code>XROAD_PROXY_PARAMS</code> property contains new memory configs in the end of any other already present options there.</p>
 </li>
 </ul>
 <p>The meta-package <code>xroad-securityserver</code> also installs metaservices module <code>xroad-addon-metaservices</code>, messagelog module <code>xroad-addon-messagelog</code> and WSDL validator module <code>xroad-addon-wsdlvalidator</code>. The meta-packages <code>xroad-securityserver-ee</code>, <code>xroad-securityserver-fi</code>, <code>xroad-securityserver-is</code>, and <code>xroad-securityserver-fo</code> install operational data monitoring module <code>xroad-addon-opmonitoring</code>.</p>
@@ -1094,30 +1154,6 @@ xroad-signer.service           loaded active running X-Road signer</pre></div>
 <td></td>
 <td>Specifies private key allowed mechanisms. Supported values: <em>CKM_RSA_PKCS</em>, <em>CKM_SHA256_RSA_PKCS</em>, <em>CKM_SHA384_RSA_PKCS</em>, <em>CKM_SHA512_RSA_PKCS</em>, and <em>CKM_RSA_PKCS_PSS</em>, <em>CKM_SHA256_RSA_PKCS_PSS</em>, <em>CKM_SHA384_RSA_PKCS_PSS</em>, <em>CKM_SHA512_RSA_PKCS_PSS</em>, <em>CKM_ECDSA</em>, <em>CKM_ECDSA_SHA256</em>, <em>CKM_ECDSA_SHA384</em>, <em>CKM_ECDSA_SHA512</em>.</td>
 </tr>
-<tr>
-<td><em>priv_key_attribute_unwrap</em></td>
-<td>BOOLEAN</td>
-<td></td>
-<td>Indicates whether private key can be used for unwrapping wrapped keys.</td>
-</tr>
-<tr>
-<td><em>priv_key_attribute_allowed_mechanisms</em></td>
-<td>STRING LIST</td>
-<td></td>
-<td>Specifies private key allowed mechanisms. Supported values: <em>CKM_RSA_PKCS</em>, <em>CKM_SHA256_RSA_PKCS</em>, <em>CKM_SHA384_RSA_PKCS</em>, <em>CKM_SHA512_RSA_PKCS</em>, and <em>CKM_RSA_PKCS_PSS</em>, <em>CKM_SHA256_RSA_PKCS_PSS</em>, <em>CKM_SHA384_RSA_PKCS_PSS</em>, <em>CKM_SHA512_RSA_PKCS_PSS</em>, <em>CKM_ECDSA</em>, <em>CKM_ECDSA_SHA256</em>, <em>CKM_ECDSA_SHA384</em>, <em>CKM_ECDSA_SHA512</em>.</td>
-</tr>
-<tr>
-<td><em>priv_key_attribute_unwrap</em></td>
-<td>BOOLEAN</td>
-<td></td>
-<td>Indicates whether private key can be used for unwrapping wrapped keys.</td>
-</tr>
-<tr>
-<td><em>priv_key_attribute_allowed_mechanisms</em></td>
-<td>STRING LIST</td>
-<td></td>
-<td>Specifies private key allowed mechanisms. Supported values: <em>CKM_RSA_PKCS</em>, <em>CKM_SHA256_RSA_PKCS</em>, <em>CKM_SHA384_RSA_PKCS</em>, <em>CKM_SHA512_RSA_PKCS</em>, and <em>CKM_RSA_PKCS_PSS</em>, <em>CKM_SHA256_RSA_PKCS_PSS</em>, <em>CKM_SHA384_RSA_PKCS_PSS</em>, <em>CKM_SHA512_RSA_PKCS_PSS</em>, <em>CKM_ECDSA</em>, <em>CKM_ECDSA_SHA256</em>, <em>CKM_ECDSA_SHA384</em>, <em>CKM_ECDSA_SHA512</em>.</td>
-</tr>
 </tbody>
 </table>
 <p><strong>Note 1:</strong> Only parameter <em>library</em> is mandatory, all the others are optional.
@@ -1158,7 +1194,7 @@ xroad-signer.service           loaded active running X-Road signer</pre></div>
 <tr>
 <td>2.4</td>
 <td>&lt;choose Security Server identificator name&gt;</td>
-<td>Security server's code</td>
+<td>Security Server's code</td>
 </tr>
 <tr>
 <td>2.5</td>
@@ -1189,7 +1225,7 @@ xroad-signer.service           loaded active running X-Road signer</pre></div>
 <p>If the member class and member code are correctly entered, the system displays the Security Server owner’s name as registered in the X-Road center.</p>
 </li>
 <li>
-<p>Security server code (<strong>reference data: 2.4</strong>), which is chosen by the Security Server administrator and which has to be unique across all the Security Servers belonging to the same X-Road member.</p>
+<p>Security Server code (<strong>reference data: 2.4</strong>), which is chosen by the Security Server administrator and which has to be unique across all the Security Servers belonging to the same X-Road member.</p>
 </li>
 <li>
 <p>Software token’s PIN (<strong>reference data: 2.5</strong>). The PIN will be used to protect the keys stored in the software token. The PIN must be stored in a secure place, because it will be no longer possible to use or recover the private keys in the token once the PIN has been lost.</p>
@@ -1200,7 +1236,7 @@ xroad-signer.service           loaded active running X-Road signer</pre></div>
 applied to both incoming and outgoing connections depending on the security requirements of the environment where the Security Server is deployed.</p>
 <p><strong>Special attention should be paid with the firewall configuration since incorrect configuration may leave the Security Server vulnerable to exploits and attacks.</strong>
 This type of abuse could result in compromised access to the Security Server and the data that is exchanged through it.</p>
-<p>It is recommended to allow incoming traffic to specific ports only from explicitly defined sources using IP filtering. Access for ports <code>8080</code>, <code>8443</code> and <code>4000</code>
+<p>It is recommended to allow incoming traffic to specific ports only from explicitly defined sources using IP filtering. Access for ports <code>80</code>, <code>443</code> (In vanilla package <code>8080</code>and <code>8443</code> are used) and <code>4000</code>
 should be especially defined, as these ports are used for making X-Road queries and accessing the user interface.</p>
 <p>When installing the Security Server, it is strongly recommended to look over the list of ports at <a href="#22-reference-data">2.2 Reference Data</a> and define
 firewall access rules for specific hosts based on their descriptions.</p>
@@ -1210,7 +1246,7 @@ the interfaces that the Security Server uses to listen for incoming connections.
 which makes the Security Server accept connections from any server. For country-specific defaults, please refer to the system parameters documentation.</p>
 <p>The parameter can be changed by following the <a href="ug-syspar_x-road_v6_system_parameters.html#21-changing-the-system-parameter-values-in-configuration-files">System Parameters guide</a>.</p>
 <div class="markdown-heading"><h3 class="heading-element">3.5 Configuring Configuration Backup Encryption</h3><a id="35-configuring-configuration-backup-encryption" class="anchor" aria-label="Permalink: 3.5 Configuring Configuration Backup Encryption" href="#35-configuring-configuration-backup-encryption"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>It is possible to automatically encrypt Security Server configuration backups. Security server uses The GNU Privacy Guard (<a href="https://www.gnupg.org" rel="nofollow">https://www.gnupg.org</a>)
+<p>It is possible to automatically encrypt Security Server configuration backups. Security Server uses The GNU Privacy Guard (<a href="https://www.gnupg.org" rel="nofollow">https://www.gnupg.org</a>)
 for backup encryption and verification. Backups are always signed, but backup encryption is initially turned off.
 To turn encryption on, please override the default configuration in the file <code>/etc/xroad/conf.d/local.ini</code>, in the <code>[proxy]</code> section (add or edit this section).</p>
 <pre><code>[proxy]
@@ -1399,17 +1435,17 @@ ii xroad-securityserver-ee 6.8.3-3-201605131138
 <p>X-Road Security Server has multiple deployment options. The simplest choice is to have a single Security Server with local database. This is usually fine for majority of the cases, but there are multiple reasons to tailor the deployment.</p>
 <div class="markdown-heading"><h3 class="heading-element">C.2 Local Database</h3><a id="c2-local-database" class="anchor" aria-label="Permalink: C.2 Local Database" href="#c2-local-database"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>The simplest deployment option is to use a single Security Server with local database. For development and testing purposes there is rarely need for anything else, but for production the requirements may be stricter.</p>
-<p><a target="_blank" rel="noopener noreferrer" href="img/ig-ss_local_db.svg"><img src="img/ig-ss_local_db.svg" alt="Security server with local database" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="img/ig-ss_local_db.svg"><img src="img/ig-ss_local_db.svg" alt="Security Server with local database" style="max-width: 100%;"></a></p>
 <div class="markdown-heading"><h3 class="heading-element">C.3 Remote Database</h3><a id="c3-remote-database" class="anchor" aria-label="Permalink: C.3 Remote Database" href="#c3-remote-database"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>It is possible to use a remote database with Security Server. This option is sometimes used in development and testing when there's need to externalize the database state.</p>
-<p>Security server supports a variety of cloud databases including AWS RDS and Azure Database for PostgreSQL. This deployment option is useful when doing development in cloud environment, where use of cloud native database is the first choice.</p>
-<p><a target="_blank" rel="noopener noreferrer" href="img/ig-ss_remote_db.svg"><img src="img/ig-ss_remote_db.svg" alt="Security server with remote database" style="max-width: 100%;"></a></p>
+<p>Security Server supports a variety of cloud databases including AWS RDS and Azure Database for PostgreSQL. This deployment option is useful when doing development in cloud environment, where use of cloud native database is the first choice.</p>
+<p><a target="_blank" rel="noopener noreferrer" href="img/ig-ss_remote_db.svg"><img src="img/ig-ss_remote_db.svg" alt="Security Server with remote database" style="max-width: 100%;"></a></p>
 <div class="markdown-heading"><h3 class="heading-element">C.4 High Availability Setup</h3><a id="c4-high-availability-setup" class="anchor" aria-label="Permalink: C.4 High Availability Setup" href="#c4-high-availability-setup"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>In production systems it's rarely acceptable to have a single point of failure. Security server supports provider side high availability setup via so called internal load balancing mechanism. The setup works so that the same member / member class / member code / subsystem / service code is configured on multiple Security Servers and X-Road will then route the request to the server that responds the fastest. Note that this deployment option does not provide performance benefits, just redundancy.</p>
-<p><a target="_blank" rel="noopener noreferrer" href="img/ig-ss_high_availability.svg"><img src="img/ig-ss_high_availability.svg" alt="Security server high-availability setup" style="max-width: 100%;"></a></p>
+<p>In production systems it's rarely acceptable to have a single point of failure. Security Server supports provider side high availability setup via so called internal load balancing mechanism. The setup works so that the same member / member class / member code / subsystem / service code is configured on multiple Security Servers and X-Road will then route the request to the server that responds the fastest. Note that this deployment option does not provide performance benefits, just redundancy.</p>
+<p><a target="_blank" rel="noopener noreferrer" href="img/ig-ss_high_availability.svg"><img src="img/ig-ss_high_availability.svg" alt="Security Server high-availability setup" style="max-width: 100%;"></a></p>
 <div class="markdown-heading"><h3 class="heading-element">C.5 Load Balancing Setup</h3><a id="c5-load-balancing-setup" class="anchor" aria-label="Permalink: C.5 Load Balancing Setup" href="#c5-load-balancing-setup"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Busy production systems may need scalable performance in addition to high availability. X-Road supports external load balancing mechanism to address both of these problems simultaneously. A load balancer is added in front of a Security Server cluster to route the requests based on selected algorithm. This deployment option is extensively documented in [<a href="#Ref_IG-XLB">IG-XLB</a>].</p>
-<p><a target="_blank" rel="noopener noreferrer" href="img/ig-ss_load_balancing.svg"><img src="img/ig-ss_load_balancing.svg" alt="Security server load balancing setup" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="img/ig-ss_load_balancing.svg"><img src="img/ig-ss_load_balancing.svg" alt="Security Server load balancing setup" style="max-width: 100%;"></a></p>
 <div class="markdown-heading"><h3 class="heading-element">C.6 Summary</h3><a id="c6-summary" class="anchor" aria-label="Permalink: C.6 Summary" href="#c6-summary"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>The following table lists a summary of the Security Server deployment options and indicates whether they are aimed for development or production use.</p>
 <table>

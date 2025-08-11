@@ -12,7 +12,7 @@
         padding: 45px;
       }
     </style>
-    <title>X-Road: 7.6.0
+    <title>X-Road: 7.7.0
 </title>
   </head>
   <body>
@@ -20,7 +20,7 @@
 <div class="markdown-heading"><h1 class="heading-element">SECURITY SERVER USER GUIDE 
 </h1><a id="security-server-user-guide-" class="anchor" aria-label="Permalink: SECURITY SERVER USER GUIDE " href="#security-server-user-guide-"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>X-ROAD 7</strong></p>
-<p>Version: 2.89<br>
+<p>Version: 2.101<br>
 Doc. ID: UG-SS</p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">Version history 
@@ -695,6 +695,78 @@ Doc. ID: UG-SS</p>
 <td>Acme related updates</td>
 <td>Mikk-Erik Bachmann</td>
 </tr>
+<tr>
+<td>07.01.2025</td>
+<td>2.90</td>
+<td>Updated references</td>
+<td>Petteri Kivimäki</td>
+</tr>
+<tr>
+<td>15.01.2025</td>
+<td>2.91</td>
+<td>Minor updates</td>
+<td>Petteri Kivimäki</td>
+</tr>
+<tr>
+<td>29.01.2025</td>
+<td>2.92</td>
+<td>Inactive token deletion</td>
+<td>Eneli Reimets</td>
+</tr>
+<tr>
+<td>07.02.2025</td>
+<td>2.93</td>
+<td>Automatic certificate activation related updates</td>
+<td>Mikk-Erik Bachmann</td>
+</tr>
+<tr>
+<td>13.02.2025</td>
+<td>2.94</td>
+<td>Add helper script for allocating memory for proxy service</td>
+<td>Ovidijus Narkevicius</td>
+</tr>
+<tr>
+<td>09.03.2025</td>
+<td>2.95</td>
+<td>Naming/Renaming subsystems</td>
+<td>Ovidijus Narkevicius</td>
+</tr>
+<tr>
+<td>26.03.2025</td>
+<td>2.96</td>
+<td>Syntax and styling</td>
+<td>Pauline Dimmek</td>
+</tr>
+<tr>
+<td>30.04.2025</td>
+<td>2.97</td>
+<td>Added ACME challenge port environment variable toggle</td>
+<td>Mikk-Erik Bachmann</td>
+</tr>
+<tr>
+<td>20.05.2025</td>
+<td>2.98</td>
+<td>Enabling/Disabling maintenance mode for the security server</td>
+<td>Ovidijus Narkevicius</td>
+</tr>
+<tr>
+<td>18.06.2025</td>
+<td>2.99</td>
+<td>ACME-related updates</td>
+<td>Petteri Kivimäki</td>
+</tr>
+<tr>
+<td>01.07.2025</td>
+<td>2.100</td>
+<td>Added configuration notes for external op-monitor's gRPC</td>
+<td>Mikk-Erik Bachmann</td>
+</tr>
+<tr>
+<td>07.07.2025</td>
+<td>2.101</td>
+<td>Added chapter on Security Server Traffic visualisation</td>
+<td>Madis Loitmaa</td>
+</tr>
 </tbody>
 </table>
 <div class="markdown-heading"><h2 class="heading-element">Table of Contents 
@@ -746,6 +818,7 @@ Doc. ID: UG-SS</p>
 <li><a href="#311-generating-a-signing-key-and-certificate-signing-request">3.1.1 Generating a Signing Key and Certificate Signing Request</a></li>
 <li><a href="#312-importing-a-certificate-from-the-local-file-system">3.1.2 Importing a Certificate from the Local File System</a></li>
 <li><a href="#313-importing-a-certificate-from-a-security-token">3.1.3 Importing a Certificate from a Security Token</a></li>
+<li><a href="#314-ordering-the-signing-certificate-from-the-acme-server">3.1.4 Ordering the Signing Certificate from the ACME server</a></li>
 </ul>
 </li>
 <li>
@@ -754,6 +827,7 @@ Doc. ID: UG-SS</p>
 <li><a href="#321-generating-an-authentication-key">3.2.1 Generating an Authentication Key</a></li>
 <li><a href="#322-generating-a-certificate-signing-request-for-an-authentication-key">3.2.2 Generating a Certificate Signing Request for an Authentication Key</a></li>
 <li><a href="#323-importing-an-authentication-certificate-from-the-local-file-system">3.2.3 Importing an Authentication Certificate from the Local File System</a></li>
+<li><a href="#324-ordering-the-authentication-certificate-from-the-acme-server">3.2.4 Ordering the Authentication Certificate from the ACME server</a></li>
 </ul>
 </li>
 <li>
@@ -792,6 +866,7 @@ Doc. ID: UG-SS</p>
 <li><a href="#472-enabling-client-subsystem">4.7.2 Enabling Client Subsystem</a></li>
 </ul>
 </li>
+<li><a href="#48-renaming-client-subsystem">4.8 Renaming Client Subsystem</a></li>
 </ul>
 </li>
 <li>
@@ -816,6 +891,7 @@ Doc. ID: UG-SS</p>
 </ul>
 </li>
 <li><a href="#57-deleting-a-key">5.7 Deleting a Key</a></li>
+<li><a href="#58-deleting-an-inactive-token">5.8 Deleting an inactive Token</a></li>
 </ul>
 </li>
 <li>
@@ -870,6 +946,7 @@ Doc. ID: UG-SS</p>
 <li><a href="#103-managing-the-timestamping-services">10.3 Managing the Timestamping Services</a></li>
 <li><a href="#104-changing-the-internal-tls-key-and-certificate">10.4 Changing the Internal TLS Key and Certificate</a></li>
 <li><a href="#105-approved-certificate-authorities">10.5 Approved Certificate Authorities</a></li>
+<li><a href="#106-enabledisable-maintenance-mode-for-the-security-server">10.6 Enable/Disable maintenance mode for the Security Server</a></li>
 </ul>
 </li>
 <li>
@@ -911,9 +988,16 @@ Doc. ID: UG-SS</p>
 <li>
 <a href="#14-diagnostics">14 Diagnostics</a>
 <ul>
-<li><a href="#141-examine-security-server-services-status-information">14.1 Examine Security Server services status information</a></li>
-<li><a href="#142-examine-security-server-java-version-information">14.2 Examine Security Server Java version information</a></li>
-<li><a href="#143-examine-security-server-encryption-status-information">14.3 Examine Security Server encryption status information</a></li>
+<li>
+<a href="#141-diagnostics-overview">14.1 Diagnostics Overview</a>
+<ul>
+<li><a href="#1411-examine-security-server-services-status-information">14.1.1 Examine Security Server services status information</a></li>
+<li><a href="#1412-examine-security-server-java-version-information">14.1.2 Examine Security Server Java version information</a></li>
+<li><a href="#1433-examine-security-server-encryption-status-information">14.3.3 Examine Security Server encryption status information</a></li>
+<li><a href="#1414-download-diagnostics-report">14.1.4 Download diagnostics report</a></li>
+</ul>
+</li>
+<li><a href="#142-security-server-traffic">14.2 Security Server Traffic</a></li>
 </ul>
 </li>
 <li>
@@ -975,15 +1059,20 @@ Doc. ID: UG-SS</p>
 </ul>
 </li>
 <li><a href="#20-migrating-to-remote-database-host">20 Migrating to Remote Database Host</a></li>
-<li><a href="#21-adding-command-line-arguments">21 Adding command line arguments</a></li>
+<li>
+<a href="#21-adding-command-line-arguments">21 Adding command line arguments</a>
+<ul>
+<li><a href="#211-updating-proxy-services-memory-allocation-command-line-arguments">21.1 Updating Proxy Service's memory allocation command line arguments</a></li>
+</ul>
+</li>
 <li><a href="#22-additional-security-hardening">22 Additional Security Hardening</a></li>
 <li><a href="#23-passing-additional-parameters-to-psql">23 Passing additional parameters to psql</a></li>
 <li><a href="#24-configuring-acme">24 Configuring ACME</a></li>
 <li>
 <a href="#25-migrating-to-ec-based-authentication-and-signing-certificates">25 Migrating to EC Based Authentication and Signing Certificates</a>
 <ul>
-<li><a href="#251-Steps-to-enable-EC-based-certificates">25.1 Steps to Enable EC Based Certificates</a></li>
-<li><a href="#252-Backwards-compatibility">25.2Backwards Compatibility</a></li>
+<li><a href="#251-steps-to-enable-ec-based-certificates">25.1 Steps to Enable EC Based Certificates</a></li>
+<li><a href="#252-backwards-compatibility">25.2 Backwards Compatibility</a></li>
 </ul>
 </li>
 </ul>
@@ -1035,7 +1124,7 @@ Doc. ID: UG-SS</p>
 </li>
 <li>
 <p><a id="Ref_JDBC"></a>[JDBC] Connecting to the Database,<br>
-<a href="https://jdbc.postgresql.org/documentation/93/connect.html" rel="nofollow">https://jdbc.postgresql.org/documentation/93/connect.html</a></p>
+<a href="https://jdbc.postgresql.org/documentation/use/#connecting-to-the-database" rel="nofollow">https://jdbc.postgresql.org/documentation/use/#connecting-to-the-database</a></p>
 </li>
 <li>
 <p><a id="Ref_JSON"></a>[JSON] Introducing JSON,<br>
@@ -1082,7 +1171,7 @@ Doc. ID: UG-SS</p>
 <p><a id="Ref_PR-ENVMONMES"></a>[PR-ENVMONMES] X-Road: Environmental Monitoring Messages. Document ID: <a href="Monitoring-messages.html">PR-ENVMONMES</a>.</p>
 </li>
 <li>
-<p><a id="Ref_MONITORING_XSD"></a>[MONITORING_XSD] X-Road XML schema for monitoring extension. <a href="../../src/addons/proxymonitor/common/src/main/resources/monitoring.xsd">monitoring.xsd</a>.</p>
+<p><a id="Ref_MONITORING_XSD"></a>[MONITORING_XSD] X-Road XML schema for monitoring extension. <a href="https://github.com/nordic-institute/X-Road/blob/develop/src/addons/proxymonitor/common/src/main/resources/monitoring.xsd">monitoring.xsd</a>.</p>
 </li>
 <li>
 <p><a id="Ref_TERMS"></a>[TA-TERMS] X-Road Terms and Abbreviations. Document ID: <a href="terms_x-road_docs.html">TA-TERMS</a>.</p>
@@ -1641,6 +1730,14 @@ sudo systemctl start sssd</pre></div>
 </ol>
 <p>On submitting the request, the message "Certificate registration request successful" is displayed, and the authentication certificate's state is set to "Registration in process".</p>
 <p>After the X-Road governing authority has accepted the registration, the registration state of the authentication certificate is set to "Registered" and the registration process is completed.</p>
+<p><strong>Note:</strong> If the registration request is rejected by the X-Road governing authority, no automatic notification is sent to the Security Server administrator and the authentication certificate remains in the "Registration in process" state on the Security Server. The X-Road governing authority must notify the Security Server administrator about the rejection of the request through an external channel, e.g., email.</p>
+<p>After a rejected authentication certificate registration request, complete the following steps to send a new authentication certificate registration request:</p>
+<ol>
+<li>Unregister the authentication certificate (see <a href="#561-unregistering-an-authentication-certificate">5.6.1</a>).</li>
+<li>Delete the authentication certificate (see <a href="#562-deleting-a-certificate-or-a-certificate-signing-request-notice">5.6.2</a>).</li>
+<li>Import an authentication certificate from the local file system (see <a href="#323-importing-an-authentication-certificate-from-the-local-file-system">3.2.3</a>).</li>
+<li>Register the authentication certificate (see <a href="#331-registering-an-authentication-certificate">3.3.1</a>).</li>
+</ol>
 <div class="markdown-heading"><h3 class="heading-element">3.4 Changing the Security Server Owner</h3><a id="34-changing-the-security-server-owner" class="anchor" aria-label="Permalink: 3.4 Changing the Security Server Owner" href="#34-changing-the-security-server-owner"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>Access rights:</strong> <a href="#xroad-registration-officer">Registration Officer</a></p>
 <p>To change the Security Server owner, two registered Owner members must be available. If a registered member is already available, jump directly to step 3.</p>
@@ -1766,7 +1863,7 @@ sudo systemctl start sssd</pre></div>
 <p>In the wizard that opens</p>
 <ol>
 <li>
-<p>Client details page: Select an existing client from the Global list by pressing <strong>SELECT CLIENT</strong> or specify the details of the Client to be added manually and click <strong>NEXT</strong></p>
+<p>Client details page: Select an existing client from the Global list by pressing <strong>SELECT CLIENT</strong> or specify the details of the Client to be added manually. Also renaming existing or adding name for new subsystem is possible by editing value in Subsystem name field. Click <strong>NEXT</strong></p>
 </li>
 <li>
 <p>Token page: Select the token where you want to add the SIGN key for the new Client. Click <strong>NEXT</strong></p>
@@ -1799,7 +1896,7 @@ sudo systemctl start sssd</pre></div>
 </li>
 <li>
 <p>In the wizard that opens</p>
-<p>2.1. Select an existing subsystem from the Global list by pressing <strong>SELECT SUBSYSTEM</strong> or specify the <strong>Subsystem Code</strong> manually</p>
+<p>2.1. Select an existing subsystem from the Global list by pressing <strong>SELECT SUBSYSTEM</strong> or specify the <strong>Subsystem Code</strong> manually. Also renaming existing or adding name for new subsystem is possible by editing value in Subsystem name field</p>
 <p>2.2. If you wish to register the new subsystem immediately, check the <strong>Register subsystem</strong> checkbox and then click <strong>ADD SUBSYSTEM</strong>.</p>
 <p>(2.3.) If you checked the <strong>Register subsystem</strong> checkbox, a popup will appear asking whether you wish to register the subsystem immediately. In the popup, click <strong>YES</strong>.</p>
 </li>
@@ -1842,6 +1939,14 @@ sudo systemctl start sssd</pre></div>
 </ol>
 <p>On submitting the request, the message "Request sent" is displayed, and the client's state is set to "Registration in process".</p>
 <p>After the X-Road governing authority has accepted the registration, the state of the client is set to "Registered" and the registration process is completed.</p>
+<p><strong>Note:</strong> If the registration request is rejected by the X-Road governing authority, no automatic notification is sent to the Security Server administrator and the client remains in the "Registration in process" state on the Security Server. The X-Road governing authority must notify the Security Server administrator about the rejection of the request through an external channel, e.g., email.</p>
+<p>After a rejected client registration request, complete the following steps to send a new client registration request:</p>
+<ol>
+<li>Unregister the client (see <a href="#461-unregistering-a-client">4.6.1</a>).</li>
+<li>Delete the client (see <a href="#462-deleting-a-client">4.6.2</a>).</li>
+<li>Add a client (see <a href="#42-adding-a-security-server-client">4.2</a>) or a subsystem (see <a href="#43-adding-a-security-server-member-subsystem">4.3</a>).</li>
+<li>Register the client (see <a href="#451-registering-a-security-server-client">4.5.1</a>).</li>
+</ol>
 <div class="markdown-heading"><h3 class="heading-element">4.6 Deleting a Client from the Security Server</h3><a id="46-deleting-a-client-from-the-security-server" class="anchor" aria-label="Permalink: 4.6 Deleting a Client from the Security Server" href="#46-deleting-a-client-from-the-security-server"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>If a client is deleted from the Security Server, all the information related to the client is deleted from the server as well – that is, the WSDLs, services, access rights, and, if necessary, the certificates.</p>
 <p>When one of the clients is deleted, it is not advisable to delete the signing certificate if the certificate is used by other clients registered to the Security Server, e.g., other subsystems belonging the same X-Road member as the deleted subsystem.</p>
@@ -1860,7 +1965,7 @@ sudo systemctl start sssd</pre></div>
 <p>Next, a notification is displayed about unregistering client. Now the client is moved to the "Deletion in progress" state, wherein the client cannot mediate messages and cannot be registered again in the X-Road governing authority.</p>
 </li>
 </ol>
-<p><em>Note:</em> It is possible to unregister a registered client from the Central Server without sending a deletion request through the Security Server. In this case, the Security Server's administrator responsible for the client must transmit a request containing information about the client to be unregistered to the Central Server's administrator. If the client has been deleted from the Central Server without a prior deletion request from the Security Server, the client is shown in the "Global error" state in the Security Server.</p>
+<p><strong>Note:</strong> It is possible to unregister a registered client from the Central Server without sending a deletion request through the Security Server. In this case, the Security Server's administrator responsible for the client must transmit a request containing information about the client to be unregistered to the Central Server's administrator. If the client has been deleted from the Central Server without a prior deletion request from the Security Server, the client is shown in the "Global error" state in the Security Server.</p>
 <div class="markdown-heading"><h4 class="heading-element">4.6.2 Deleting a Client</h4><a id="462-deleting-a-client" class="anchor" aria-label="Permalink: 4.6.2 Deleting a Client" href="#462-deleting-a-client"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>Access rights:</strong> <a href="#xroad-registration-officer">Registration Officer</a></p>
 <p>A Security Server client can be deleted if its state is "Saved", "Global error" or "Deletion in progress". Clients that are in states "Registered" or "Registration in progress" need to be unregistered before they can be deleted (see Section <a href="#461-unregistering-a-client">4.6.1</a>).</p>
@@ -1890,6 +1995,7 @@ sudo systemctl start sssd</pre></div>
 <p>In the window that opens, click <strong>DISABLE</strong> and then click <strong>YES</strong> in the confirmation dialog.</p>
 </li>
 </ol>
+<p>Notice that if the Client Subsystem is provider of management services, then <strong>DISABLE</strong> button is disabled.</p>
 <div class="markdown-heading"><h4 class="heading-element">4.7.2 Enabling Client Subsystem</h4><a id="472-enabling-client-subsystem" class="anchor" aria-label="Permalink: 4.7.2 Enabling Client Subsystem" href="#472-enabling-client-subsystem"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>Access rights:</strong> <a href="#xroad-registration-officer">Registration Officer</a></p>
 <p>Security Server client subsystem can be enabled only in "Disabled" state.</p>
@@ -1902,6 +2008,21 @@ sudo systemctl start sssd</pre></div>
 <p>In the window that opens, click <strong>ENABLE</strong> and then click <strong>YES</strong> in the confirmation dialog.</p>
 </li>
 </ol>
+<div class="markdown-heading"><h3 class="heading-element">4.8 Renaming Client Subsystem</h3><a id="48-renaming-client-subsystem" class="anchor" aria-label="Permalink: 4.8 Renaming Client Subsystem" href="#48-renaming-client-subsystem"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p><strong>Access rights:</strong> <a href="#xroad-registration-officer">Registration Officer</a></p>
+<p>To rename a client subsystem, follow these steps.</p>
+<ol>
+<li>
+<p>In the <strong>CLIENTS</strong> view click the name of subsystem that you wish to rename</p>
+</li>
+<li>
+<p>In the window that opens, click <strong>Edit</strong> and then enter name for subsystem and click <strong>Save</strong>. The Security Server automatically sends a client rename request to the X-Road Central Server.</p>
+</li>
+<li>
+<p>Next, a subsystem is put into "Name change is submitted" state, which doesn't affect the subsystem functionality. Once the name change is propagated through the global configuration, subsystem name is updated.</p>
+</li>
+</ol>
+<p><strong>Note:</strong> In case of "Registered" no additional renames are allowed for the subsystem while its rename isn't propagated through global configuration. Only exception is "Saved" subsystem in which case multiple renames are allowed, where the latest rename replaces the previous one and rename will be executed on client registration request using last provided name.</p>
 <div class="markdown-heading"><h2 class="heading-element">5 Security Tokens, Keys, and Certificates</h2><a id="5-security-tokens-keys-and-certificates" class="anchor" aria-label="Permalink: 5 Security Tokens, Keys, and Certificates" href="#5-security-tokens-keys-and-certificates"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <div class="markdown-heading"><h3 class="heading-element">5.1 Availability States of Security Tokens</h3><a id="51-availability-states-of-security-tokens" class="anchor" aria-label="Permalink: 5.1 Availability States of Security Tokens" href="#51-availability-states-of-security-tokens"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>Notice that the colors were introduced in version 6.25.0</strong></p>
@@ -2008,7 +2129,7 @@ sudo systemctl start sssd</pre></div>
 <p>For signing certificates: <a href="#xroad-security-officer">Security Officer</a>, <a href="#xroad-registration-officer">Registration Officer</a></p>
 </li>
 </ul>
-<p>Disabled certificates are not used for signing messages or for establishing secure channels between Security Servers (authentication). If a certificate is disabled, its status in the "OCSP" column in the "Keys and Certificates" table is "Disabled".</p>
+<p>Disabled certificates are not used for signing messages or for establishing secure channels between Security Servers (authentication). If a certificate is disabled, its status in the "OCSP" column in the "Keys and Certificates" table is "Disabled". Certificate can be activated only when OCSP responses are valid.</p>
 <p>To activate or disable a certificate, follow these steps.</p>
 <ol>
 <li>
@@ -2115,6 +2236,21 @@ sudo systemctl start sssd</pre></div>
 <li>
 <p>Click on the desired Key.</p>
 <p>3.1 In the opening <strong>Key</strong> dialog, click <strong>DELETE</strong>. Confirm the deletion of the key (and its associated certificates) by clicking <strong>YES</strong>.</p>
+</li>
+</ol>
+<div class="markdown-heading"><h3 class="heading-element">5.8 Deleting an inactive Token</h3><a id="58-deleting-an-inactive-token" class="anchor" aria-label="Permalink: 5.8 Deleting an inactive Token" href="#58-deleting-an-inactive-token"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p><strong>Warning:</strong> Deleting an inactive token from the server configuration also deletes all associated information of the token.</p>
+<p><strong>Access rights:</strong> <a href="#xroad-service-administrator">Service Administrator</a></p>
+<p>To delete a token, follow these steps.</p>
+<ol>
+<li>
+<p>In the <strong>Navigation tabs</strong>, select <strong>KEYS AND CERTIFICATES</strong>.</p>
+</li>
+<li>
+<p>Select the inactive token, then end of the token name click <strong>Edit</strong> icon.</p>
+</li>
+<li>
+<p>In the opening <strong>Edit</strong> dialog, click <strong>DELETE</strong>. Confirm the deletion of the token (and its associated information) by clicking <strong>YES</strong>.</p>
 </li>
 </ol>
 <div class="markdown-heading"><h2 class="heading-element">6 X-Road Services</h2><a id="6-x-road-services" class="anchor" aria-label="Permalink: 6 X-Road Services" href="#6-x-road-services"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
@@ -2513,7 +2649,7 @@ server-min-supported-client-version=7.0.0
 <p>HTTP – the service/adapter URL begins with "<strong>http:</strong>//...".</p>
 </li>
 <li>
-<p>HTTPS – the service/adapter URL begins with "<strong>https</strong>://".</p>
+<p>HTTPS – the service/adapter URL begins with "<strong>https:</strong>//...".</p>
 <ul>
 <li>If <strong>Verify TLS certificate</strong> checkbox is left unchecked it means that service provider information system's TLS certificate is not verified and trusted by default.</li>
 <li>If <strong>Verify TLS certificate</strong> checkbox is checked it means that service provider information system's TLS certificate is verified. In order to make the information system's TLS certificate trusted, it must be added into Security Server's <strong>Information System TLS certificate</strong> list (see section <a href="#93-managing-information-system-tls-certificates">9.3</a>).</li>
@@ -2770,6 +2906,18 @@ server-min-supported-client-version=7.0.0
 </li>
 <li>Certificate expiration date.</li>
 </ul>
+<div class="markdown-heading"><h3 class="heading-element">10.6 Enable/Disable maintenance mode for the Security Server</h3><a id="106-enabledisable-maintenance-mode-for-the-security-server" class="anchor" aria-label="Permalink: 10.6 Enable/Disable maintenance mode for the Security Server" href="#106-enabledisable-maintenance-mode-for-the-security-server"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p><strong>Access rights:</strong> <a href="#xroad-system-administrator">System Administrator</a></p>
+<p>To enable or disable maintenance mode for the Security Server, follow these steps.</p>
+<ol>
+<li>In the <strong>Navigation tabs</strong>, select <strong>SETTINGS</strong>.</li>
+<li>In the opening view select <strong>SYSTEM PARAMETERS</strong> tab.</li>
+<li>At the top of the <strong>SYSTEM PARAMETERS</strong> tab, click the switch for Maintenance mode to turn it on or off.</li>
+<li>The confirmation dialog will open with an optional field for message (only when enabling maintenance mode) which will be included in error messages returned to clients when they try to access services when the maintenance mode is enabled.</li>
+<li>Click <strong>Confirm</strong> to proceed.</li>
+<li>Next, the maintenance mode request is submitted to the Central Server. This does not affect the Security Server functionality until the change is propagated through the global configuration - the Security Server downloads a new version of the global configuration where the maintenance mode is enabled. Once propagated, the Security Server will have the maintenance mode set to "On" or "Off." Other Security Servers will recognize the change and start/stop sending requests to the Security Server depending on the maintenance mode status.</li>
+</ol>
+<p>Notice that if the Security Server is provider of management services, then the maintenance mode is disabled without possibility to enable it.</p>
 <div class="markdown-heading"><h2 class="heading-element">11 Message Log</h2><a id="11-message-log" class="anchor" aria-label="Permalink: 11 Message Log" href="#11-message-log"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>The purpose of the message log is to provide means to prove the reception of a regular request or response message to a third party. The Security Server supports three options for configuring message log:</p>
 <ul>
@@ -3252,7 +3400,7 @@ gpg [--homedir <span class="pl-k">&lt;</span>admin gpghome<span class="pl-k">&gt
 backup-encryption-enabled = <span class="pl-c1">true</span>
 backup-encryption-keyids = 96F20FF6578A5EF90DFBA18D8C003019508B5637</pre></div>
 <p>To decrypt the encrypted backups, use the following syntax:</p>
-<div class="highlight highlight-source-shell"><pre>gpg --homedir /etc/xroad/gpghome --decrypt <span class="pl-k">&lt;</span>backup name<span class="pl-k">&gt;</span> --output <span class="pl-k">&lt;</span>output file name<span class="pl-k">&gt;</span> </pre></div>
+<div class="highlight highlight-source-shell"><pre>gpg --homedir /etc/xroad/gpghome --decrypt <span class="pl-k">&lt;</span>backup name<span class="pl-k">&gt;</span> --output <span class="pl-k">&lt;</span>output file name<span class="pl-k">&gt;</span></pre></div>
 <div class="markdown-heading"><h3 class="heading-element">13.5 Verifying Backup Archive Consistency</h3><a id="135-verifying-backup-archive-consistency" class="anchor" aria-label="Permalink: 13.5 Verifying Backup Archive Consistency" href="#135-verifying-backup-archive-consistency"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>During restore Security Server verifies consistency of backup archives automatically, archives are not checked during upload.
 Also, it is possible to verify the consistency of the archives externally. For verifying the consistency externally,
@@ -3273,7 +3421,15 @@ for backup archive consistency verification.</p>
 <div class="markdown-heading"><h2 class="heading-element">14 Diagnostics</h2><a id="14-diagnostics" class="anchor" aria-label="Permalink: 14 Diagnostics" href="#14-diagnostics"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>Access rights:</strong> <a href="#xroad-system-administrator">System Administrator</a></p>
 <p>Click on <strong>DIAGNOSTICS</strong> in the <strong>Navigation tabs</strong>.</p>
-<p>On the Diagnostics page you can view the status information of:</p>
+<p>Diangostics view contains the following tabs:</p>
+<ul>
+<li>
+<strong>Overview</strong> – overview of the Security Server status information</li>
+<li>
+<strong>Traffic</strong> – visual overview of the Security Server traffic</li>
+</ul>
+<div class="markdown-heading"><h3 class="heading-element">14.1 Diagnostics Overview</h3><a id="141-diagnostics-overview" class="anchor" aria-label="Permalink: 14.1 Diagnostics Overview" href="#141-diagnostics-overview"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>On the Diagnostics Overview page you can view the status information of:</p>
 <ul>
 <li>Security Server services;
 <ul>
@@ -3291,7 +3447,7 @@ for backup archive consistency verification.</p>
 </ul>
 </li>
 </ul>
-<div class="markdown-heading"><h3 class="heading-element">14.1 Examine Security Server services status information</h3><a id="141-examine-security-server-services-status-information" class="anchor" aria-label="Permalink: 14.1 Examine Security Server services status information" href="#141-examine-security-server-services-status-information"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h4 class="heading-element">14.1.1 Examine Security Server services status information</h4><a id="1411-examine-security-server-services-status-information" class="anchor" aria-label="Permalink: 14.1.1 Examine Security Server services status information" href="#1411-examine-security-server-services-status-information"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Security server services status information covers the following services:</p>
 <table>
 <thead>
@@ -3339,7 +3495,7 @@ for backup archive consistency verification.</p>
 </ul>
 <p>The status message offers more detailed information on the current status.</p>
 <p>If a section of the diagnostics view appears empty, it means that there either is no configured service available or that checking the service status has failed. If sections are empty, try refreshing the diagnostics view or check the service configuration.</p>
-<div class="markdown-heading"><h3 class="heading-element">14.2 Examine Security Server Java version information</h3><a id="142-examine-security-server-java-version-information" class="anchor" aria-label="Permalink: 14.2 Examine Security Server Java version information" href="#142-examine-security-server-java-version-information"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h4 class="heading-element">14.1.2 Examine Security Server Java version information</h4><a id="1412-examine-security-server-java-version-information" class="anchor" aria-label="Permalink: 14.1.2 Examine Security Server Java version information" href="#1412-examine-security-server-java-version-information"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Security server Java version information provides the following details:</p>
 <table>
 <thead>
@@ -3383,7 +3539,7 @@ for backup archive consistency verification.</p>
 <li>
 <strong>Green indicator</strong> – Security Server's java version number is supported</li>
 </ul>
-<div class="markdown-heading"><h3 class="heading-element">14.3 Examine Security Server encryption status information</h3><a id="143-examine-security-server-encryption-status-information" class="anchor" aria-label="Permalink: 14.3 Examine Security Server encryption status information" href="#143-examine-security-server-encryption-status-information"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h4 class="heading-element">14.3.3 Examine Security Server encryption status information</h4><a id="1433-examine-security-server-encryption-status-information" class="anchor" aria-label="Permalink: 14.3.3 Examine Security Server encryption status information" href="#1433-examine-security-server-encryption-status-information"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>Backup encryption status</strong></p>
 <p>The status shows is the backup encryption <code>enabled</code> or <code>disabled</code>. The Configured key ID list contains all the additional encryption keys that are present in the configuration. If the list is empty, only the system generated default encryption key is used. When the backup encryption is <code>disabled</code>, the list is always empty.</p>
 <p>The status colors indicate the following:</p>
@@ -3407,8 +3563,7 @@ for backup archive consistency verification.</p>
 <strong>Yellow indicator</strong> – message log archive encryption is disabled</li>
 <li>
 <strong>Green indicator</strong> – message log archive encryption is enabled</li>
-<li>
-</li></ul>
+</ul>
 <p><strong>Message log database encryption status</strong></p>
 <p>The status shows is the message log database encryption <code>enabled</code> or <code>disabled</code>.</p>
 <p>The status colors indicate the following:</p>
@@ -3419,6 +3574,37 @@ for backup archive consistency verification.</p>
 <strong>Yellow indicator</strong> – message log database encryption is disabled</li>
 <li>
 <strong>Green indicator</strong> – message log database encryption is enabled</li>
+</ul>
+<div class="markdown-heading"><h4 class="heading-element">14.1.4 Download diagnostics report</h4><a id="1414-download-diagnostics-report" class="anchor" aria-label="Permalink: 14.1.4 Download diagnostics report" href="#1414-download-diagnostics-report"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>It is possible to download a diagnostics report file which can be included as additional information when registering issues for the Security Server.
+File includes following information:</p>
+<ul>
+<li>X-Road and Java version</li>
+<li>OS version</li>
+<li>Configuration overrides from local.ini (just property names)</li>
+<li>Authentication certificates (name, status, is it active)</li>
+<li>Global configuration status</li>
+<li>OCSP responders status</li>
+<li>Timestamping status</li>
+<li>Deployment mode (native / container)</li>
+<li>Installed X-Road packages</li>
+<li>Running Java processes</li>
+<li>Is maintenance mode enabled</li>
+</ul>
+<p>File is in JSON format and can be downloaded by clicking the <strong>Download diagnostics report</strong> button.</p>
+<div class="markdown-heading"><h3 class="heading-element">14.2 Security Server Traffic</h3><a id="142-security-server-traffic" class="anchor" aria-label="Permalink: 14.2 Security Server Traffic" href="#142-security-server-traffic"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>The "Traffic" tab in Diagnostics page displays a graph representation of number of requests passed through the Security Server.</p>
+<p><strong>NOTE:</strong> Security Server Traffic view depends on data collected by Operational Data Monitoring add-on (<code>xroad-addon-opmonitoring</code>), which must be installed to enable traffic view.</p>
+<p>By default, the page displays all the requests handled during the last 7 days. The displayed data can be filtered using controls on top of the page:</p>
+<ul>
+<li>
+<strong>Period</strong> - start and end date/time of the period to display.</li>
+<li>
+<strong>Party</strong> - member, subsystem, or service participating in the message exchange. The service dropdown displays only the services defined by the selected subsystem. If no subsystem is selected or subsystem has no defined services, the service dropdown is disabled.</li>
+<li>
+<strong>Exchange role</strong> - the role of this Security Server in the message exchange. The options are "Producer" and "Consumer".</li>
+<li>
+<strong>Status</strong> - the status of the message exchange. The options are "Success" and "Failure".</li>
 </ul>
 <div class="markdown-heading"><h2 class="heading-element">15 Operational Monitoring</h2><a id="15-operational-monitoring" class="anchor" aria-label="Permalink: 15 Operational Monitoring" href="#15-operational-monitoring"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>Operational monitoring data</strong> contains data about request exchange (such as the ID-s of the client and the service, various attributes of the message read from the message header, request and response timestamps, SOAP sizes etc.) of the X-Road Security Server(s).</p>
@@ -3496,6 +3682,32 @@ client-tls-certificate = &lt;path/to/security/server/internal/cert&gt;
 <pre><code>[op-monitor]
 tls-certificate = &lt;path/to/external/daemon/tls/cert&gt;
 </code></pre>
+<p>For the request traffic visualization on the Security Server UI Diagnostics page, gRPC keystore and truststore also need to be configured on both ends. Certificate that corresponds to the key in external Operational Monitoring gRPC keystore needs to be added to the gRPC truststore on the Security Server side and vice versa - Security Server's gRPC certificate needs to be added to the external monitoring daemon's truststore. The gRPC keystore and truststore system parameters are described in [<a href="#31-common-parameters--common">UGSYSPAR</a>].</p>
+<p>You can use java <code>keytool</code> and <code>openssl</code> when working with gRPC keystores and truststores:</p>
+<ul>
+<li>
+<p><strong>Example 1 - extracting certificate in pem format from existing p12 keystore in default location</strong>:</p>
+<div class="highlight highlight-source-shell"><pre>openssl pkcs12 -in /var/run/xroad/xroad-grpc-internal-keystore.p12 -nokeys -out <span class="pl-k">&lt;</span>path/to/cert<span class="pl-k">&gt;</span></pre></div>
+</li>
+<li>
+<p><strong>Example 2 - importing existing certificate in pem format to new or existing truststore in p12 format</strong>:</p>
+<div class="highlight highlight-source-shell"><pre>keytool -importcert \
+  -file <span class="pl-k">&lt;</span>path/to/cert<span class="pl-k">&gt;</span> <span class="pl-cce">\ </span>      
+  -alias <span class="pl-k">&lt;</span>suitable unique <span class="pl-c1">alias</span> <span class="pl-k">for</span> security server<span class="pl-k">&gt;</span> \
+  -keystore <span class="pl-k">&lt;</span>path/to/truststore<span class="pl-k">&gt;</span> \
+  -storetype PKCS12 <span class="pl-cce">\ </span>                                       
+  -storepass <span class="pl-k">&lt;</span>truststorepassword<span class="pl-k">&gt;</span></pre></div>
+<p>and then in <code>/etc/xroad/local.ini</code> add:</p>
+<div class="highlight highlight-source-ini"><pre>...
+<span class="pl-en">[common]</span>
+<span class="pl-k">grpc-internal-keystore</span>=&lt;path/to/keystore&gt;
+<span class="pl-k">grpc-internal-keystore-password</span>=&lt;keystorepassword&gt;
+<span class="pl-k">grpc-internal-truststore</span>=&lt;path/to/truststore&gt;
+<span class="pl-k">grpc-internal-truststore-password</span>=&lt;truststorepassword&gt;
+...</pre></div>
+<p><em>Note: By default Security Server gRPC keystore and truststore are one and the same with a single key and certificate that is shared by different applications which all sit on the same machine. But in case of multiple hosts and certificates it's recommended to have keystore and truststore be separate: the keystore has the local application's key and truststore has certificates of trusted external applications that communicate with it over the network.</em></p>
+</li>
+</ul>
 <p>For the external operational daemon to be used, the proxy service at the Security Server must be restarted:</p>
 <pre><code>service xroad-proxy restart
 </code></pre>
@@ -4005,6 +4217,43 @@ XROAD_PROXY_PARAMS
 XROAD_PROXY_UI_API_PARAMS
 XROAD_SIGNER_CONSOLE_PARAMS
 </code></pre>
+<div class="markdown-heading"><h3 class="heading-element">21.1 Updating Proxy Service's memory allocation command line arguments</h3><a id="211-updating-proxy-services-memory-allocation-command-line-arguments" class="anchor" aria-label="Permalink: 21.1 Updating Proxy Service's memory allocation command line arguments" href="#211-updating-proxy-services-memory-allocation-command-line-arguments"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>In case of proxy service, the memory allocation command line arguments can be updated by using  helper script <code>proxy_memory_helper.sh</code> located in <code>/usr/share/xroad/scripts/</code> directory. The script updates the <code>XROAD_PROXY_PARAMS</code> property in <code>/etc/xroad/services/local.properties</code> file.</p>
+<p>Usage examples:</p>
+<ul>
+<li>
+<p>Get information about total memory, used memory, current configuration and suggested configuration for proxy service:</p>
+<div class="highlight highlight-source-shell"><pre>proxy_memory_helper.sh
+<span class="pl-c"><span class="pl-c">#</span>alternatively</span>
+<span class="pl-c"><span class="pl-c">#</span>proxy_memory_helper.sh status</span></pre></div>
+</li>
+<li>
+<p>Get/Apply recommended memory allocation config based on total memory:</p>
+<div class="highlight highlight-source-shell"><pre><span class="pl-c"><span class="pl-c">#</span>Prints the recommended memory allocation configuration</span>
+proxy_memory_helper.sh get-recommended
+<span class="pl-c"><span class="pl-c">#</span>Applies the recommended memory allocation configuration</span>
+proxy_memory_helper.sh apply-recommended</pre></div>
+</li>
+<li>
+<p>Get/Apply default memory allocation config based on total memory:</p>
+<div class="highlight highlight-source-shell"><pre><span class="pl-c"><span class="pl-c">#</span>Prints the default memory allocation configuration</span>
+proxy_memory_helper.sh get-default
+<span class="pl-c"><span class="pl-c">#</span>Applies the default memory allocation configuration</span>
+proxy_memory_helper.sh apply-default</pre></div>
+</li>
+<li>
+<p>Apply custom memory allocation config based on total memory, first value is for initial heap size and second value is for maximum heap size:</p>
+<div class="highlight highlight-source-shell"><pre>proxy_memory_helper.sh apply 256m 4g</pre></div>
+</li>
+<li>
+<p>All available commands can be listed with:</p>
+<div class="highlight highlight-source-shell"><pre>proxy_memory_helper.sh <span class="pl-c1">help</span></pre></div>
+<p>Value format is the same as for Java's <code>-Xms</code> and <code>-Xmx</code> options. The script will update the <code>XROAD_PROXY_PARAMS</code> property in <code>/etc/xroad/services/local.properties</code> file.</p>
+<p>After running the script, the changes will take effect only after restarting the <code>xroad-proxy</code> service.</p>
+<div class="highlight highlight-source-shell"><pre>sudo systemctl restart xroad-proxy</pre></div>
+<p>Note that only -Xms, -Xmx, -XX:InitialHeapSize and -XX:MaxHeapSize options will be overwritten. Instead, any other options present in the XROAD_PROXY_PARAMS property will be preserved.</p>
+</li>
+</ul>
 <div class="markdown-heading"><h2 class="heading-element">22 Additional Security Hardening</h2><a id="22-additional-security-hardening" class="anchor" aria-label="Permalink: 22 Additional Security Hardening" href="#22-additional-security-hardening"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>For the guidelines on security hardening, please refer to <a href="ug-sec_x_road_security_hardening.html">UG-SEC</a>.</p>
 <div class="markdown-heading"><h2 class="heading-element">23 Passing additional parameters to psql</h2><a id="23-passing-additional-parameters-to-psql" class="anchor" aria-label="Permalink: 23 Passing additional parameters to psql" href="#23-passing-additional-parameters-to-psql"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
@@ -4020,7 +4269,7 @@ XROAD_SIGNER_CONSOLE_PARAMS
 <p>Some of the variables like <code>PGOPTIONS</code>, <code>PGDATABASE</code>, <code>PGUSER</code>, <code>PGPASSWORD</code> are already used by scripts(created and initialized with values from <code>/etc/xroad/db.properties</code> file) so adding same variables to <code>db_libpq.env</code> won't have any effect on script behaviour.</p>
 <p>In case it is needed to pass additional flags to internally initialized <code>PGOPTIONS</code> variable, then <code>PGOPTIONS_EXTRA</code> variable can be used. It will be appended to <code>PGOPTIONS</code> variable.</p>
 <div class="markdown-heading"><h2 class="heading-element">24 Configuring ACME</h2><a id="24-configuring-acme" class="anchor" aria-label="Permalink: 24 Configuring ACME" href="#24-configuring-acme"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>Automated Certificate Management Environment [<a href="#Ref_ACME">ACME</a>] protocol enables automated certificate management of the authentication and sign certificates on the Security Server. The Security Server supports automating the certificate request process, but the process has to be initiated manually when applying for a certificate for the first time. Also, activating the received certificates is a manual task.</p>
+<p>Automated Certificate Management Environment [<a href="#Ref_ACME">ACME</a>] protocol enables automated certificate management of the authentication and sign certificates on the Security Server. The Security Server supports automating the certificate request process, but the process has to be initiated manually when applying for a certificate for the first time.</p>
 <p>The ACME protocol can be used only if the Certificate Authority (CA) issuing the certificates supports it and the X-Road operator has enabled the use of the protocol on the Central Server. Therefore, also the communication between the CA's ACME server and the Security Server is disabled by default. In addition, some member-specific configuration is required on the Security Server.</p>
 <p><strong>Automatic certificate renewal</strong></p>
 <p>Authentication and sign certificates issued by a CA that supports ACME can be automatically renewed. Automatic renewal is enabled by default, but the Security Server administrator can turn it off.</p>
@@ -4036,9 +4285,18 @@ XROAD_SIGNER_CONSOLE_PARAMS
 <li>
 <strong>"Next planned renewal on"</strong> followed by a date - indicates when the next renewal should happen. Note that this date might change in the future when the information is received from the ACME Server.</li>
 </ul>
+<p>When an authentication certificate is automatically renewed using ACME, the authentication certificate registration request is automatically sent to the Central Server for approval. In all other situations, the authentication certificate registration request must be sent manually.</p>
+<p>The certificate renewal process can be fully automated by enabling automatic certificate activation. In that case, all the steps of the renewal process are automated and email notifications are sent to a defined email address to notify about the success or failure of different phases.</p>
+<p><strong>Automatic certificate activation</strong></p>
+<p>The Security Server supports automatic activation of new certificates that have been ordered using ACME. Sign certificates are automatically activated when they're imported to the Security Server while authentication certificates are activated once they've been registered on the Central Server. By default, automatic activation is disabled. This behaviour can be controlled by the <code>proxy-ui-api.automatic-activate-auth-certificate</code> and <code>proxy-ui-api.automatic-activate-acme-sign-certificate</code> system properties. The properties can be changed by following the <a href="ug-syspar_x-road_v6_system_parameters.html#39-management-rest-api-parameters-proxy-ui-api">System Parameters guide</a>.</p>
 <p><strong>E-mail notifications</strong></p>
-<p>The Security Server supports sending email notifications on ACME-related events. Notifications are sent in case of authentication and sign certificate renewal success and failure and authentication certificate registration success. The notifications can be turned on and off separately with <a href="ug-syspar_x-road_v6_system_parameters.html#39-management-rest-api-parameters-proxy-ui-api">system paramaters</a>.</p>
-<p>The member's e-mail address defined in the <code>mail.yml</code> configuration file is used as the recipient. The same email address is also used as a member-specific contact information when a certificate is ordered from the ACME Server.</p>
+<p>The Security Server supports sending email notifications on ACME-related events. Notifications are sent in the following cases and they can be turned on and off separately with <a href="ug-syspar_x-road_v6_system_parameters.html#39-management-rest-api-parameters-proxy-ui-api">system paramaters</a>:</p>
+<ul>
+<li>Authentication and sign certificate renewal success and failure.</li>
+<li>Authentication certificate registration success.</li>
+<li>Signing and authentication certificate automatic activation success and failure.</li>
+</ul>
+<p>A member-specific e-mail address defined in the <code>mail.yml</code> configuration file is used as the recipient. The same email address is also used as a member-specific contact information when a certificate is ordered from the ACME Server. Therefore, defining the email address is mandatory even if the email notifications are disabled. If the member-specific email address is missing from the <code>mail.yml</code> configuration file, ordering a certificate from the ACME Server will fail.</p>
 <p>For the e-mail notifications to work, an external mail server needs to be configured beforehand in the <code>/etc/xroad/conf.d/mail.yml</code> configuration file. The configuration include:</p>
 <ul>
 <li>
@@ -4052,17 +4310,36 @@ XROAD_SIGNER_CONSOLE_PARAMS
 <li>
 <strong>use-ssl-tls</strong> - if "true", then full <code>ssl/tls</code> protocol is used for connection. If "false" or missing, then <code>starttls</code> protocol is used instead.</li>
 </ul>
-<p>The <strong>host</strong>, <strong>port</strong>, <strong>username</strong> and <strong>password</strong> properties are mandatory. The mail server configuration status can be viewed in the Diagnostics page. If the Diagnostics page shows that the configuration is incomplete, it means that at least one of required configuration properties is missing. Instead, if all the required configuration are in-place, a test email can be sent from the Diagnostics page.</p>
+<p>The <strong>host</strong>, <strong>port</strong>, <strong>username</strong> and <strong>password</strong> properties are mandatory. The mail server configuration status can be viewed in the Diagnostics page. If the Diagnostics page shows that the configuration is incomplete, it means that at least one of required configuration properties is missing. Instead, if all the required configuration are in-place, a test email can be sent from the Diagnostics page. It's strongly recommended to use the test email feature to validate the mail server's configuration.</p>
+<p>Example of the <code>/etc/xroad/conf.d/mail.yml</code> file contents (can be found from <code>/etc/xroad/conf.d/mail.example.yml</code>):</p>
+<div class="highlight highlight-source-yaml"><pre><span class="pl-c"><span class="pl-c">#</span> host name and port number used to connect to the mail server</span>
+<span class="pl-ent">host</span>: <span class="pl-s">mail.example.org</span>
+<span class="pl-ent">port</span>: <span class="pl-c1">587</span>
+<span class="pl-c"><span class="pl-c">#</span> credentials used for authentication to the mail server</span>
+<span class="pl-ent">username</span>: <span class="pl-s">testuser</span>
+<span class="pl-ent">password</span>: <span class="pl-s">secret</span>
+<span class="pl-c"><span class="pl-c">#</span> if "true", then full `SSL/TLS` protocol is used for connection. If "false" or missing, then `STARTTLS` protocol is used instead.</span>
+<span class="pl-ent">use-ssl-tls</span>: <span class="pl-c1">true</span>
+
+<span class="pl-c"><span class="pl-c">#</span> Contact emails for each Member used for notifications and when ordering certificates from the ACME Servers.</span>
+<span class="pl-c"><span class="pl-c">#</span> The key is the Member ID in the form &lt;instance_id&gt;:&lt;member_class&gt;:&lt;member_code&gt; and</span>
+<span class="pl-c"><span class="pl-c">#</span> should also be surrounded by quotation marks to allow for ':' (both single and double work).</span>
+<span class="pl-c"><span class="pl-c">#</span> When ordering Authentication Certificates, Security Server owner's Member ID is used.</span>
+<span class="pl-ent">contacts</span>:
+  <span class="pl-s"><span class="pl-pds">'</span><span class="pl-ent">EU:COM:1234567-8</span><span class="pl-pds">'</span></span>: <span class="pl-s">member1@example.com</span>
+  <span class="pl-s"><span class="pl-pds">'</span><span class="pl-ent">EU:GOV:9090909-1</span><span class="pl-pds">'</span></span>: <span class="pl-s">member2@example.com</span></pre></div>
 <p><strong>Enable connections from the ACME server</strong></p>
-<p>The Security Server has a <code>[proxy-ui-api]</code> parameter <a href="ug-syspar_x-road_v6_system_parameters.md#39-management-rest-api-parameters-proxy-ui-api">acme-challenge-port-enabled</a> that defines whether the Security Server listens to incoming ACME challenge requests on port 80. The default value for this parameter is <code>false</code> which means that  the Security Server does not listen on port 80. The parameter can be changed by following the <a href="ug-syspar_x-road_v6_system_parameters.html#21-changing-the-system-parameter-values-in-configuration-files">System Parameters guide</a>.</p>
+<p>The Security Server has a <code>[proxy-ui-api]</code> parameter <a href="ug-syspar_x-road_v6_system_parameters.md#39-management-rest-api-parameters-proxy-ui-api">acme-challenge-port-enabled</a> that defines whether the Security Server listens to incoming ACME challenge requests on port 80. The default value for this parameter is <code>false</code> which means that  the Security Server does not listen on port 80. The parameter can be changed by following the <a href="ug-syspar_x-road_v6_system_parameters.html#21-changing-the-system-parameter-values-in-configuration-files">System Parameters guide</a>.
+This parameter can be overridden by an environment variable <code>XROAD_PROXY_UI_API_ACME_CHALLENGE_PORT_ENABLED</code> which takes precedence when both are set.</p>
 <p><strong>Member-specific configuration</strong></p>
-<p>Although the main ACME-related configuration is managed on the Central Server and distributed to the Security Servers over the Global Configuration, in order to use the ACME standard, some of the member-specific configurations have to be set on the Security Server side as well. These configurations go in the file <code>acme.yml</code>, that is in the configurations folder on the file system (default <code>/etc/xroad/conf.d</code>). An example file is added by the installer when installing or upgrading X-Road to version 7.5. The configurations to be added are:</p>
+<p>Although the main ACME-related configuration is managed on the Central Server and distributed to the Security Servers over the Global Configuration, in order to use the ACME standard, some of the member-specific configurations have to be set on the Security Server side as well. These configurations go in the file <code>acme.yml</code>, that is in the configurations folder on the file system (default <code>/etc/xroad/conf.d</code>). The configurations to be added are:</p>
 <ol>
 <li>Credentials (kid and hmac secret) for external account binding. Some CAs require these for added security. They tie the X-Road member to an external account on the Certificate Authority's side and so need to be acquired externally from the CA.</li>
 <li>
 <code>account-keystore-password</code> -  a password of the ACME Server account PKCS #12 keystore that is populated automatically by the Security Server, when communicating with the ACME Server.</li>
 </ol>
-<p>There are currently two ways to let the ACME server know which type of certificate to return (the chosen CA also needs to support them). The first one, which sends profile ids for authentication and signing certificates in http header, does not require any further configuration on the Security Server side. The second one uses certificate type specific external account credentials. For the authentication certificate add "<strong>auth-</strong>" prefix to the external account binding credentials property names in the <code>/etc/xroad/conf.d/acme.yml</code> file. For the signing certificate add the prefix "<strong>sign-</strong>".</p>
+<p><strong>Note:</strong> In addition, the member-specific e-mail address must be defined in the <code>/etc/xroad/conf.d/mail.yml</code> configuration file. See the E-mail notifications section for more detailed information.</p>
+<p>There are currently two ways to let the ACME server know which type of certificate (authentication or sign certificate) to return. The way that should be used depends on the ACME Server and the options it supports. The first one, which sends profile ids for authentication and signing certificates in http header, does not require any certificate type-specific configuration on the Security Server side. Instead, the second one uses certificate type-specific external account credentials. For the authentication certificate add "<strong>auth-</strong>" prefix to the external account binding credentials property names in the <code>/etc/xroad/conf.d/acme.yml</code> file. For the signing certificate add the prefix "<strong>sign-</strong>". If you are not sure which configuration option should be used, please contact your X-Road Operator or CA for assistance.</p>
 <p>Example of the <code>/etc/xroad/conf.d/acme.yml</code> file contents (can be found from <code>/etc/xroad/conf.d/acme.example.yml</code>):</p>
 <div class="highlight highlight-source-yaml"><pre><span class="pl-c"><span class="pl-c">#</span> Example acme.yml file that has properties related to Automatic Certificate Management Environment (ACME)</span>
 <span class="pl-c"><span class="pl-c">#</span> that is used to automate acquiring certificates from Certificate Authorities. To use this file</span>
@@ -4118,7 +4395,7 @@ XROAD_SIGNER_CONSOLE_PARAMS
 <div class="markdown-heading"><h3 class="heading-element">25.2 Backwards Compatibility</h3><a id="252-backwards-compatibility" class="anchor" aria-label="Permalink: 25.2 Backwards Compatibility" href="#252-backwards-compatibility"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>EC based keys are supported starting from X-Road version 7.6.0 (=&gt; 7.6.0). If an X-Road instance contains Security Servers prior to version 7.6.0 (&lt; 7.6.0), then:
 A Security Server prior to version 7.6.0 (&lt; 7.6.0) is able to verify requests signed with EC keys from a Security Server version 7.6.0 or later (=&gt; 7.6.0).
-If a Security Server prior to version 7.6.0 (ug-syspar_x-road_v6_system_parameters.html).</p>
+If a Security Server prior to version 7.6.0 (ug-syspar_x-road_v6_system_parameters.html) for details.</p>
     </article>
   </body>
 </html>

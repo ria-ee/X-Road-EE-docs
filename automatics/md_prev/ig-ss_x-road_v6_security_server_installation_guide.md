@@ -2,76 +2,78 @@
 
 **X-ROAD 7**
 
-Version: 2.47  
+Version: 2.54  
 Doc. ID: IG-SS
 
 ---
 
 ## Version history <!-- omit in toc -->
 
-| Date       | Version | Description                                                                                                                                                                                                          | Author             |
-|------------|---------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------|
-| 01.12.2014 | 1.0     | Initial version                                                                                                                                                                                                      |                    |
-| 19.01.2015 | 1.1     | License information added                                                                                                                                                                                            |                    |
-| 18.03.2015 | 1.2     | Meta-package for Security Server added. Legacy securelog module removed                                                                                                                                              |                    |
-| 02.04.2015 | 1.3     | “sdsb” change to “xroad”                                                                                                                                                                                             |                    |
-| 27.05.2015 | 1.4     | Some typos fixed                                                                                                                                                                                                     |                    |
-| 30.06.2015 | 1.5     | Minor corrections done                                                                                                                                                                                               |                    |
-| 06.07.2015 | 1.6     | New repository address                                                                                                                                                                                               |                    |
-| 18.09.2015 | 1.7     | Reference data in [3.2](#32-reference-data) updated                                                                                                                                                                  |                    |
-| 18.09.2015 | 2.0     | Editorial changes made                                                                                                                                                                                               |                    |
-| 13.10.2015 | 2.1     | Editorial changes made                                                                                                                                                                                               |                    |
-| 10.12.2015 | 2.2     | Updated the installing of the support for hardware tokens ([2.7](#27-installing-the-support-for-hardware-tokens))                                                                                                    |                    |
-| 17.12.2015 | 2.3     | Added *xroad-addon-wsdlvalidator* package                                                                                                                                                                            |                    |
-| 19.05.2016 | 2.4     | Merged changes from xtee6-doc repo. Updated table [2.2](#22-reference-data) with p 1.12, added chapter [2.8](#28-installing-support-for-monitoring) and updated [3.2](#32-reference-data).                           |                    |
-| 30.09.2016 | 2.5     | Added chapter „[Different versions of xroad-\* package after successful upgrade](#45-different-versions-of-xroad--packages-after-successful-upgrade)“.                                                               |                    |
-| 07.12.2016 | 2.6     | Added operational data monitoring packages. 2 GB RAM -&gt; 3 GB RAM                                                                                                                                                  |                    |
-| 23.02.2017 | 2.7     | Converted to Github flavoured Markdown, added license text, adjusted tables for better output in PDF                                                                                                                 | Toomas Mölder      |
-| 13.04.2017 | 2.8     | Added token ID formatting                                                                                                                                                                                            | Cybernetica AS     |
-|22.01.2018  | 2.8.1   | Added NEE and NGO member classes                                               | Jürgen Šuvalov|
-| 25.08.2017 | 2.9     | Update environmental monitoring installation information                                                                                                                                                             | Ilkka Seppälä      |
-| 15.09.2017 | 2.10    | Added package with configuration specific to Estonia xroad-securityserver-ee                                                                                                                                         | Cybernetica AS     |
-| 05.03.2018 | 2.11    | Added terms and abbreviations reference and document links                                                                                                                                                           | Tatu Repo          |
-| 10.04.2018 | 2.12    | Updated chapter "[Installing the Support for Hardware Tokens](#27-installing-the-support-for-hardware-tokens)" with configurable parameters described in the configuration file 'devices.ini'                        | Cybernetica AS     |
-| 07.06.2018 | 2.12.1  | Updated repository information with x-tee.ee domain             | Jürgen Šuvalov |
-| 03.07.2018 | 2.12.2  | Added network diagram and reference data for monitoring servers | Jürgen Šuvalov |
-| 08.08.2018 | 2.12.3  | Editorial changes												| Jan Raik |
-| 13.08.2018 | 2.12.4  | Package name fix											    | Taavi Meinberg |
-| 14.10.2018 | 2.13    | Update package repository address                                                                                                                                                                                    | Petteri Kivimäki   |
-| 25.10.2018 | 2.14    | Add RHEL7 as supported platform, update section 2.2 Reference data                                                                                                                                                   | Petteri Kivimäki   |
-| 15.11.2018 | 2.15    | Add Ubuntu 18 installation instructions                                                                                                                                                                              | Jarkko Hyöty       |
-| 28.01.2018 | 2.16    | Update port 2080 documentation                                                                                                                                                                                       | Petteri Kivimäki   |
-| 30.05.2019 | 2.17    | Added package installation instructions on chapter "[2.4 Preparing OS](#24-preparing-os)"                                                                                                                            | Raul Martinez      |
-| 11.09.2019 | 2.18    | Remove Ubuntu 14.04 from supported platforms                                                                                                                                                                         | Jarkko Hyöty       |
-| 20.09.2019 | 2.19    | Add instructions for using remote databases                                                                                                                                                                          | Ilkka Seppälä      |
-| 12.04.2020 | 2.20    | Add note about the default value of the *connector-host* property in the EE-package                                                                                                                                  | Petteri Kivimäki   |
-| 29.04.2020 | 2.21    | Add instructions how to use remote database located in Microsoft Azure                                                                                                                                               | Ilkka Seppälä      |
-| 12.06.2020 | 2.22    | Update reference data regarding JMX listening ports                                                                                                                                                                  | Petteri Kivimäki   |
-| 24.06.2020 | 2.23    | Add repository sign key details in section [2.2 Reference data](#22-reference-data)                                                                                                                                  | Petteri Kivimäki   |
-| 24.06.2020 | 2.24    | Remove environmental and operational monitoring daemon JMX listening ports from section [2.2 Reference data](#22-reference-data)                                                                                     | Petteri Kivimäki   |
-| 09.08.2020 | 2.25    | Update ports information in section [2.2 Reference data](#22-reference-data), add section [2.2.1 Network Diagram](#221-network-diagram)                                                                              | Petteri Kivimäki   |
-| 17.08.2020 | 2.26    | Update for RHEL 8.                                                                                                                                                                                                   | Jarkko Hyöty       |
-| 08.09.2020 | 2.27    | Fix minimum RAM requirement.                                                                                                                                                                                         | Ilkka Seppälä      |
-| 16.09.2020 | 2.28    | Describe deployment options and database customization options.                                                                                                                                                      | Ilkka Seppälä      |
-| 29.09.2020 | 2.29    | Add instructions for creating database structure and roles manually.                                                                                                                                                 | Ilkka Seppälä      |
-| 19.01.2021 | 2.30    | Add instructions for using an alternative Java distribution.                                                                                                                                                         | Jarkko Hyöty       |
-| 04.02.2021 | 2.31    | Minor updates.                                                                                                                                                                                                       | Ilkka Seppälä      |
-| 13.04.2021 | 2.32    | Update minimum requirements in section [2.2 Reference data](#22-reference-data)                                                                                                                                      | Petteri Kivimäki   |
-| 16.04.2021 | 2.33    | Update remote database installation instructions                                                                                                                                                                     | Jarkko Hyöty       |
-| 18.05.2021 | 2.34    | Update error handling section                                                                                                                                                                                        | Ilkka Seppälä      |
-| 02.06.2021 | 2.35    | Add backup encryption information                                                                                                                                                                                    | Andres Allkivi     |
-| 01.07.2021 | 2.36    | Update 3rd party key server                                                                                                                                                                                          | Petteri Kivimäki   |
-| 11.08.2021 | 2.37    | Minor updates                                                                                                                                                                                                        | Petteri Kivimäki   |
-| 18.08.2021 | 2.38    | Minor updates to Annex D                                                                                                                                                                                             | Ilkka Seppälä      |
-| 25.08.2021 | 2.39    | Update X-Road references from version 6 to 7                                                                                                                                                                         | Caro Hautamäki     |
-| 26.08.2021 | 2.40    | Add instructions how to disable the messagelog addon before installing, add section [2.7 Disable the Messagelog Addon before Installation (optional)](#27-disable-the-messagelog-addon-before-installation-optional) | Caro Hautamäki     |
-| 03.08.2021 | 2.41    | Minor fixes                                                                                                                                                                                                          | Ilkka Seppälä      |
-| 06.09.2021 | 2.42    | Update list of running services                                                                                                                                                                                      | Jarkko Hyöty       |
-| 26.09.2022 | 2.43    | Remove Ubuntu 18.04 support                                                                                                                                                                                          | Andres Rosenthal   |
-| 23.05.2023 | 2.44    | Minor backup encryption configuration fixes                                                                                                                                                                          | Eneli Reimets      |
-| 01.06.2023 | 2.45    | Update references                                                                                                                                                                                                    | Petteri Kivimäki   |
-| 20.11.2023 | 2.46    | Update firewall configuration documentation                                                                                                                                                                          | Taavi Meinberg     |
-| 27.11.2023 | 2.47    | Updated default proxy client http(s) ports                                                                                                                                                                           | Mikk-Erik Bachmann |
+| Date       | Version | Description                                                                                                                                                                                                          | Author               |
+|------------|---------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------|
+| 01.12.2014 | 1.0     | Initial version                                                                                                                                                                                                      |                      |
+| 19.01.2015 | 1.1     | License information added                                                                                                                                                                                            |                      |
+| 18.03.2015 | 1.2     | Meta-package for Security Server added. Legacy securelog module removed                                                                                                                                              |                      |
+| 02.04.2015 | 1.3     | “sdsb” change to “xroad”                                                                                                                                                                                             |                      |
+| 27.05.2015 | 1.4     | Some typos fixed                                                                                                                                                                                                     |                      |
+| 30.06.2015 | 1.5     | Minor corrections done                                                                                                                                                                                               |                      |
+| 06.07.2015 | 1.6     | New repository address                                                                                                                                                                                               |                      |
+| 18.09.2015 | 1.7     | Reference data in [3.2](#32-reference-data) updated                                                                                                                                                                  |                      |
+| 18.09.2015 | 2.0     | Editorial changes made                                                                                                                                                                                               |                      |
+| 13.10.2015 | 2.1     | Editorial changes made                                                                                                                                                                                               |                      |
+| 10.12.2015 | 2.2     | Updated the installing of the support for hardware tokens ([2.7](#27-installing-the-support-for-hardware-tokens))                                                                                                    |                      |
+| 17.12.2015 | 2.3     | Added *xroad-addon-wsdlvalidator* package                                                                                                                                                                            |                      |
+| 19.05.2016 | 2.4     | Merged changes from xtee6-doc repo. Updated table [2.2](#22-reference-data) with p 1.12, added chapter [2.8](#28-installing-support-for-monitoring) and updated [3.2](#32-reference-data).                           |                      |
+| 30.09.2016 | 2.5     | Added chapter „[Different versions of xroad-\* package after successful upgrade](#45-different-versions-of-xroad--packages-after-successful-upgrade)“.                                                               |                      |
+| 07.12.2016 | 2.6     | Added operational data monitoring packages. 2 GB RAM -&gt; 3 GB RAM                                                                                                                                                  |                      |
+| 23.02.2017 | 2.7     | Converted to Github flavoured Markdown, added license text, adjusted tables for better output in PDF                                                                                                                 | Toomas Mölder        |
+| 13.04.2017 | 2.8     | Added token ID formatting                                                                                                                                                                                            | Cybernetica AS       |
+| 25.08.2017 | 2.9     | Update environmental monitoring installation information                                                                                                                                                             | Ilkka Seppälä        |
+| 15.09.2017 | 2.10    | Added package with configuration specific to Estonia xroad-securityserver-ee                                                                                                                                         | Cybernetica AS       |
+| 05.03.2018 | 2.11    | Added terms and abbreviations reference and document links                                                                                                                                                           | Tatu Repo            |
+| 10.04.2018 | 2.12    | Updated chapter "[Installing the Support for Hardware Tokens](#27-installing-the-support-for-hardware-tokens)" with configurable parameters described in the configuration file 'devices.ini'                        | Cybernetica AS       |
+| 14.10.2018 | 2.13    | Update package repository address                                                                                                                                                                                    | Petteri Kivimäki     |
+| 25.10.2018 | 2.14    | Add RHEL7 as supported platform, update section 2.2 Reference data                                                                                                                                                   | Petteri Kivimäki     |
+| 15.11.2018 | 2.15    | Add Ubuntu 18 installation instructions                                                                                                                                                                              | Jarkko Hyöty         |
+| 28.01.2018 | 2.16    | Update port 2080 documentation                                                                                                                                                                                       | Petteri Kivimäki     |
+| 30.05.2019 | 2.17    | Added package installation instructions on chapter "[2.4 Preparing OS](#24-preparing-os)"                                                                                                                            | Raul Martinez        |
+| 11.09.2019 | 2.18    | Remove Ubuntu 14.04 from supported platforms                                                                                                                                                                         | Jarkko Hyöty         |
+| 20.09.2019 | 2.19    | Add instructions for using remote databases                                                                                                                                                                          | Ilkka Seppälä        |
+| 12.04.2020 | 2.20    | Add note about the default value of the *connector-host* property in the EE-package                                                                                                                                  | Petteri Kivimäki     |
+| 29.04.2020 | 2.21    | Add instructions how to use remote database located in Microsoft Azure                                                                                                                                               | Ilkka Seppälä        |
+| 12.06.2020 | 2.22    | Update reference data regarding JMX listening ports                                                                                                                                                                  | Petteri Kivimäki     |
+| 24.06.2020 | 2.23    | Add repository sign key details in section [2.2 Reference data](#22-reference-data)                                                                                                                                  | Petteri Kivimäki     |
+| 24.06.2020 | 2.24    | Remove environmental and operational monitoring daemon JMX listening ports from section [2.2 Reference data](#22-reference-data)                                                                                     | Petteri Kivimäki     |
+| 09.08.2020 | 2.25    | Update ports information in section [2.2 Reference data](#22-reference-data), add section [2.2.1 Network Diagram](#221-network-diagram)                                                                              | Petteri Kivimäki     |
+| 17.08.2020 | 2.26    | Update for RHEL 8.                                                                                                                                                                                                   | Jarkko Hyöty         |
+| 08.09.2020 | 2.27    | Fix minimum RAM requirement.                                                                                                                                                                                         | Ilkka Seppälä        |
+| 16.09.2020 | 2.28    | Describe deployment options and database customization options.                                                                                                                                                      | Ilkka Seppälä        |
+| 29.09.2020 | 2.29    | Add instructions for creating database structure and roles manually.                                                                                                                                                 | Ilkka Seppälä        |
+| 19.01.2021 | 2.30    | Add instructions for using an alternative Java distribution.                                                                                                                                                         | Jarkko Hyöty         |
+| 04.02.2021 | 2.31    | Minor updates.                                                                                                                                                                                                       | Ilkka Seppälä        |
+| 13.04.2021 | 2.32    | Update minimum requirements in section [2.2 Reference data](#22-reference-data)                                                                                                                                      | Petteri Kivimäki     |
+| 16.04.2021 | 2.33    | Update remote database installation instructions                                                                                                                                                                     | Jarkko Hyöty         |
+| 18.05.2021 | 2.34    | Update error handling section                                                                                                                                                                                        | Ilkka Seppälä        |
+| 02.06.2021 | 2.35    | Add backup encryption information                                                                                                                                                                                    | Andres Allkivi       |
+| 01.07.2021 | 2.36    | Update 3rd party key server                                                                                                                                                                                          | Petteri Kivimäki     |
+| 11.08.2021 | 2.37    | Minor updates                                                                                                                                                                                                        | Petteri Kivimäki     |
+| 18.08.2021 | 2.38    | Minor updates to Annex D                                                                                                                                                                                             | Ilkka Seppälä        |
+| 25.08.2021 | 2.39    | Update X-Road references from version 6 to 7                                                                                                                                                                         | Caro Hautamäki       |
+| 26.08.2021 | 2.40    | Add instructions how to disable the messagelog addon before installing, add section [2.7 Disable the Messagelog Addon before Installation (optional)](#27-disable-the-messagelog-addon-before-installation-optional) | Caro Hautamäki       |
+| 03.08.2021 | 2.41    | Minor fixes                                                                                                                                                                                                          | Ilkka Seppälä        |
+| 06.09.2021 | 2.42    | Update list of running services                                                                                                                                                                                      | Jarkko Hyöty         |
+| 26.09.2022 | 2.43    | Remove Ubuntu 18.04 support                                                                                                                                                                                          | Andres Rosenthal     |
+| 23.05.2023 | 2.44    | Minor backup encryption configuration fixes                                                                                                                                                                          | Eneli Reimets        |
+| 01.06.2023 | 2.45    | Update references                                                                                                                                                                                                    | Petteri Kivimäki     |
+| 20.11.2023 | 2.46    | Update firewall configuration documentation                                                                                                                                                                          | Taavi Meinberg       |
+| 27.11.2023 | 2.47    | Updated default proxy client http(s) ports                                                                                                                                                                           | Mikk-Erik Bachmann   |
+| 19.12.2023 | 2.48    | Add RHEL 9 as supported platform                                                                                                                                                                                     | Justas Samuolis      |
+| 02.01.2024 | 2.49    | Loopback ports added                                                                                                                                                                                                 | Justas Samuolis      |
+| 26.04.2024 | 2.50    | Ubuntu 24.04 support                                                                                                                                                                                                 | Madis Loitmaa        |
+| 12.06.2024 | 2.51    | Add ACME server to the network diagram, add a section about enabling ACME support                                                                                                                                    | Petteri Kivimäki     |
+| 25.06.2024 | 2.52    | Add global configuration download port 443 to the network diagram                                                                                                                                                    | Petteri Kivimäki     |
+| 24.09.2024 | 2.53    | Add mail server to the network diagram                                                                                                                                                                               | Mikk-Erik Bachmann   |
+| 08.11.2024 | 2.54    | Update for configurable parameters in the `/etc/xroad/devices.ini` after added support for ECDSA keys                                                                                                                | Ovidijus Narkevicius |
 
 ## License
 
@@ -105,9 +107,11 @@ This document is licensed under the Creative Commons Attribution-ShareAlike 3.0 
   - [3.1 Prerequisites](#31-prerequisites)
   - [3.2 Reference Data](#32-reference-data)
   - [3.3 Configuration](#33-configuration)
-  - [3.4 Configuring firewall](#34-configuring-firewall)
+  - [3.4 Configuring Firewall](#34-configuring-firewall)
     - [3.4.1 Accepting Connections](#341-accepting-connections)
-  - [3.5 Configuring configuration backup encryption](#35-configuring-configuration-backup-encryption)
+  - [3.5 Configuring Configuration Backup Encryption](#35-configuring-configuration-backup-encryption)
+  - [3.6 Enabling ACME Support](#36-enabling-acme-support)
+  - [3.7 Enabling EC Keys for Authentication and Signing Certificates](#37-Enabling-EC-Keys-for-Authentication-and-Signing-Certificates)
 - [4 Installation Error handling](#4-installation-error-handling)
   - [4.1 Cannot Set LC\_ALL to Default Locale](#41-cannot-set-lc_all-to-default-locale)
   - [4.2 PostgreSQL Is Not UTF8 Compatible](#42-postgresql-is-not-utf8-compatible)
@@ -146,16 +150,15 @@ See X-Road terms and abbreviations documentation \[[TA-TERMS](#Ref_TERMS)\].
 
 ### 1.3 References
 
-1.  <a id="Ref_UG-SS" class="anchor"></a>\[UG-SS\] X-Road 7. Security Server User Guide. Document ID: [UG-SS](ug-ss_x-road_6_security_server_user_guide.md)
+1. <a id="Ref_UG-SS" class="anchor"></a>\[UG-SS\] X-Road 7. Security Server User Guide. Document ID: [UG-SS](ug-ss_x-road_6_security_server_user_guide.md)
 
-2.  <a id="Ref_TERMS" class="anchor"></a>\[TA-TERMS\] X-Road Terms and Abbreviations. Document ID: [TA-TERMS](terms_x-road_docs.md).
+2. <a id="Ref_TERMS" class="anchor"></a>\[TA-TERMS\] X-Road Terms and Abbreviations. Document ID: [TA-TERMS](terms_x-road_docs.md)
 
 3. <a name="Ref_UG-SYSPAR" class="anchor"></a>\[UG-SYSPAR\] X-Road: System Parameters User Guide. Document ID:
-[UG-SYSPAR](ug-syspar_x-road_v6_system_parameters.md).
+[UG-SYSPAR](ug-syspar_x-road_v6_system_parameters.md)
 
 4. <a name="Ref_IG-XLB" class="anchor"></a>\[IG-XLB\] X-Road: External Load Balancer Installation Guide. Document ID:
-[IG-XLB](ig-xlb_x-road_external_load_balancer_installation_guide.md).
-
+[IG-XLB](ig-xlb_x-road_external_load_balancer_installation_guide.md)
 
 ## 2 Installation
 
@@ -166,9 +169,8 @@ There are multiple alternatives how the Security Server can be deployed. The opt
 
 The Security Server is officially supported on the following platforms:
 
-* Ubuntu Server 20.04 or 22.04 Long-Term Support (LTS) operating system on a x86-64 platform.
-* Red Hat Enterprise Linux (RHEL) 7 and 8 (x86-64).
-
+* Ubuntu Server 20.04, 22.04 or 24.04 Long-Term Support (LTS) operating system on a x86-64 platform.
+* Red Hat Enterprise Linux (RHEL) 7, 8, 9 (x86-64). See [IG-SS-RHEL](ig-ss_x-road_v6_security_server_installation_guide_for_rhel.md) for more information.
 NB: RIA provides support only for Security Servers which are installed on the Ubuntu operating system.
 
 The software can be installed both on physical and virtualized hardware (of the latter, Xen and Oracle VirtualBox have been tested).
@@ -183,7 +185,7 @@ The software can be installed both on physical and virtualized hardware (of the 
 
  **Ref** |                                        | **Explanation**
  ------ | --------------------------------------- | ----------------------------------------------------------
- 1.0    | Ubuntu 18.04, Ubuntu 20.04 (x86-64)<br>3 GB RAM, 3 GB free disk space | Minimum requirements without the `monitoring` and `op-monitoring` add-ons. With the add-ons minimum of 4 GB of RAM is required.
+ 1.0    | Ubuntu 20.04, 22.04 or 24.04 (x86-64)<br>3 GB RAM, 3 GB free disk space | Minimum requirements without the `monitoring` and `op-monitoring` add-ons. With the add-ons minimum of 4 GB of RAM is required.
  1.1    | http://x-tee.ee/packages/live/xroad                                                                                  | X-Road stable package repository
  &nbsp; | http://x-tee.ee/packages/test/xroad                                                                                  | X-Road test package repository
  1.2    | https://x-tee.ee/packages/live/xroad/xroad.pub                                                                             | The repository key
@@ -258,7 +260,7 @@ Minimum recommended hardware parameters:
 
 Requirements to software and settings:
 
-* an installed and configured Ubuntu 20.04 LTS or 22.04 LTS x86-64 operating system;
+* an installed and configured Ubuntu 20.04 LTS, 22.04 or 24.04 LTS x86-64 operating system;
 * if the Security Server is separated from other networks by a firewall and/or NAT, the necessary connections to and from the Security Server are allowed (**reference data: 1.4; 1.5; 1.6; 1.7**). The enabling of auxiliary services which are necessary for the functioning and management of the operating system (such as DNS, NTP, and SSH) stay outside the scope of this guide;
 * if the Security Server has a private IP address, a corresponding NAT record must be created in the firewall (**reference data: 1.9**).
 
@@ -291,7 +293,7 @@ Add the X-Road repository’s signing key to the list of trusted keys (**referen
 curl https://x-tee.ee/packages/test/xroad/xroad.pub | sudo gpg --dearmor -o /etc/apt/keyrings/xroad.gpg
 ```
 
-Add X-Road package repository (**reference data: 1.1**)
+Add X-Road package repository (test or live)) (**reference data: 1.1**)
 ```bash
 echo "deb [signed-by=/etc/apt/keyrings/xroad.gpg] https://x-tee.ee/packages/test/xroad $(lsb_release -sc)-current main" | sudo tee /etc/apt/sources.list.d/xroad.list
 ```
@@ -428,30 +430,36 @@ To configure support for hardware security tokens (smartcard, USB token, Hardwar
 
 4.  After installing and configuring the driver, the `xroad-signer` service must be restarted:
 
-        sudo service xroad-signer restart
+        sudo systemctl restart xroad-signer
 
 If you are running a high availability (HA) hardware token setup (such as a cluster with replicated tokens) then you may need to constrain the token identifier format such that the token replicas can be seen as the same token. The token identifier format can be changed in `/etc/xroad/devices.ini` via the `token_id_format` property (default value: `{moduleType}{slotIndex}{serialNumber}{label}`). Removing certain parts of the identifier will allow the HA setup to work correctly when one of the tokens goes down and is replaced by a replica. For example, if the token replicas are reported to be on different slots the `{slotIndex}` part should be removed from the identifier format.
 
 Depending on the hardware token there may be a need for more additional configuration. All possible configurable parameters in the `/etc/xroad/devices.ini` are described in the next table.
 
-Parameter   | Type    | Default Value | Explanation
------------ | ------- |-------------- | ---------------------------------------
-*enabled*     | BOOLEAN | *true* | Indicates whether this device is enabled.
-*library*     | STRING  |      | The path to the pkcs#11 library of the device driver.
-*library_cant_create_os_threads* | BOOLEAN | *false* | Indicates whether application threads, which are executing calls to the pkcs#11 library, may not use native operating system calls to spawn new threads (in other words, the library’s code may not create its own threads).
-*os_locking_ok* | BOOLEAN | *false* | Indicates whether the pkcs#11 library may use the native operation system threading model for locking.
-*sign_verify_pin* | BOOLEAN | *false* | Indicates whether the PIN should be entered per signing operation.
-*token_id_format* | STRING | *{moduleType}{slotIndex}{serialNumber}{label}* | Specifies the identifier format used to uniquely identify a token. In certain high availability setups may need be constrained to support replicated tokens (eg. by removing the slot index part which may be diffirent for the token replicas).
-*sign_mechanism*  | STRING | *CKM_RSA_PKCS* | Specifies the signing mechanism. Supported values: *CKM_RSA_PKCS*, *CKM_RSA_PKCS_PSS*.
-*pub_key_attribute_encrypt*  | BOOLEAN | *true* | Indicates whether public key can be used for encryption.
-*pub_key_attribute_verify* | BOOLEAN | *true* | Indicates whether public key can be used for verification.
-*pub_key_attribute_wrap* | BOOLEAN | | Indicates whether public key can be used for wrapping other keys.
-*pub_key_attribute_allowed_mechanisms* | STRING LIST | | Specifies public key allowed mechanisms. Supported values: *CKM_RSA_PKCS*, *CKM_SHA256_RSA_PKCS*, *CKM_SHA384_RSA_PKCS*, *CKM_SHA512_RSA_PKCS*, and *CKM_RSA_PKCS_PSS*, *CKM_SHA256_RSA_PKCS_PSS*, *CKM_SHA384_RSA_PKCS_PSS*, *CKM_SHA512_RSA_PKCS_PSS*.
-*priv_key_attribute_sensitive* | BOOLEAN | *true* | Indicates whether private key is sensitive.
-*priv_key_attribute_decrypt* | BOOLEAN | *true* | Indicates whether private key can be used for encryption.
-*priv_key_attribute_sign* | BOOLEAN | *true* | Indicates whether private key can be used for signing.
-*priv_key_attribute_unwrap* | BOOLEAN | | Indicates whether private key can be used for unwrapping wrapped keys.
-*priv_key_attribute_allowed_mechanisms* | STRING LIST | | Specifies private key allowed mechanisms. Supported values: *CKM_RSA_PKCS*, *CKM_SHA256_RSA_PKCS*, *CKM_SHA384_RSA_PKCS*, *CKM_SHA512_RSA_PKCS*, and *CKM_RSA_PKCS_PSS*, *CKM_SHA256_RSA_PKCS_PSS*, *CKM_SHA384_RSA_PKCS_PSS*, *CKM_SHA512_RSA_PKCS_PSS*.
+| Parameter                               | Type        | Default Value                                  | Explanation                                                                                                                                                                                                                                                                                                                        |
+|-----------------------------------------|-------------|------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| *enabled*                               | BOOLEAN     | *true*                                         | Indicates whether this device is enabled.                                                                                                                                                                                                                                                                                          |
+| *library*                               | STRING      |                                                | The path to the pkcs#11 library of the device driver.                                                                                                                                                                                                                                                                              |
+| *library_cant_create_os_threads*        | BOOLEAN     | *false*                                        | Indicates whether application threads, which are executing calls to the pkcs#11 library, may not use native operating system calls to spawn new threads (in other words, the library’s code may not create its own threads).                                                                                                       |
+| *os_locking_ok*                         | BOOLEAN     | *false*                                        | Indicates whether the pkcs#11 library may use the native operation system threading model for locking.                                                                                                                                                                                                                             |
+| *sign_verify_pin*                       | BOOLEAN     | *false*                                        | Indicates whether the PIN should be entered per signing operation.                                                                                                                                                                                                                                                                 |
+| *token_id_format*                       | STRING      | *{moduleType}{slotIndex}{serialNumber}{label}* | Specifies the identifier format used to uniquely identify a token. In certain high availability setups may need be constrained to support replicated tokens (eg. by removing the slot index part which may be different for the token replicas).                                                                                   |
+| *sign_mechanism*                        | STRING      | *CKM_RSA_PKCS*                                 | Specifies the signing mechanism. Supported values: *CKM_RSA_PKCS*, *CKM_RSA_PKCS_PSS*.                                                                                                                                                                                                                                             |
+| *rsa_sign_mechanism*                    | STRING      | *CKM_RSA_PKCS*                                 | Specifies the signing mechanism. Supported values: *CKM_RSA_PKCS*, *CKM_RSA_PKCS_PSS*. If value isn't provided then defaults to value of *sign_mechanism* if present.                                                                                                                                                              |
+| *ec_sign_mechanism*                     | STRING      | *CKM_ECDSA*                                    | Specifies the signing mechanism for EC keys. Supported values: *CKM_ECDSA*.                                                                                                                                                                                                                                                        |
+| *pub_key_attribute_encrypt*             | BOOLEAN     | *true*                                         | Indicates whether public key can be used for encryption.                                                                                                                                                                                                                                                                           |
+| *pub_key_attribute_verify*              | BOOLEAN     | *true*                                         | Indicates whether public key can be used for verification.                                                                                                                                                                                                                                                                         |
+| *pub_key_attribute_wrap*                | BOOLEAN     |                                                | Indicates whether public key can be used for wrapping other keys.                                                                                                                                                                                                                                                                  |
+| *pub_key_attribute_allowed_mechanisms*  | STRING LIST |                                                | Specifies public key allowed mechanisms. Supported values: *CKM_RSA_PKCS*, *CKM_SHA256_RSA_PKCS*, *CKM_SHA384_RSA_PKCS*, *CKM_SHA512_RSA_PKCS*, and *CKM_RSA_PKCS_PSS*, *CKM_SHA256_RSA_PKCS_PSS*, *CKM_SHA384_RSA_PKCS_PSS*, *CKM_SHA512_RSA_PKCS_PSS*, *CKM_ECDSA*, *CKM_ECDSA_SHA256*, *CKM_ECDSA_SHA384*, *CKM_ECDSA_SHA512*.  |
+| *priv_key_attribute_sensitive*          | BOOLEAN     | *true*                                         | Indicates whether private key is sensitive.                                                                                                                                                                                                                                                                                        |
+| *priv_key_attribute_decrypt*            | BOOLEAN     | *true*                                         | Indicates whether private key can be used for encryption.                                                                                                                                                                                                                                                                          |
+| *priv_key_attribute_sign*               | BOOLEAN     | *true*                                         | Indicates whether private key can be used for signing.                                                                                                                                                                                                                                                                             |
+| *priv_key_attribute_unwrap*             | BOOLEAN     |                                                | Indicates whether private key can be used for unwrapping wrapped keys.                                                                                                                                                                                                                                                             |
+| *priv_key_attribute_allowed_mechanisms* | STRING LIST |                                                | Specifies private key allowed mechanisms. Supported values: *CKM_RSA_PKCS*, *CKM_SHA256_RSA_PKCS*, *CKM_SHA384_RSA_PKCS*, *CKM_SHA512_RSA_PKCS*, and *CKM_RSA_PKCS_PSS*, *CKM_SHA256_RSA_PKCS_PSS*, *CKM_SHA384_RSA_PKCS_PSS*, *CKM_SHA512_RSA_PKCS_PSS*, *CKM_ECDSA*, *CKM_ECDSA_SHA256*, *CKM_ECDSA_SHA384*, *CKM_ECDSA_SHA512*. |
+| *priv_key_attribute_unwrap*             | BOOLEAN     |                                                | Indicates whether private key can be used for unwrapping wrapped keys.                                                                                                                                                                                                                                                             |
+| *priv_key_attribute_allowed_mechanisms* | STRING LIST |                                                | Specifies private key allowed mechanisms. Supported values: *CKM_RSA_PKCS*, *CKM_SHA256_RSA_PKCS*, *CKM_SHA384_RSA_PKCS*, *CKM_SHA512_RSA_PKCS*, and *CKM_RSA_PKCS_PSS*, *CKM_SHA256_RSA_PKCS_PSS*, *CKM_SHA384_RSA_PKCS_PSS*, *CKM_SHA512_RSA_PKCS_PSS*, *CKM_ECDSA*, *CKM_ECDSA_SHA256*, *CKM_ECDSA_SHA384*, *CKM_ECDSA_SHA512*. |
+| *priv_key_attribute_unwrap*             | BOOLEAN     |                                                | Indicates whether private key can be used for unwrapping wrapped keys.                                                                                                                                                                                                                                                             |
+| *priv_key_attribute_allowed_mechanisms* | STRING LIST |                                                | Specifies private key allowed mechanisms. Supported values: *CKM_RSA_PKCS*, *CKM_SHA256_RSA_PKCS*, *CKM_SHA384_RSA_PKCS*, *CKM_SHA512_RSA_PKCS*, and *CKM_RSA_PKCS_PSS*, *CKM_SHA256_RSA_PKCS_PSS*, *CKM_SHA384_RSA_PKCS_PSS*, *CKM_SHA512_RSA_PKCS_PSS*, *CKM_ECDSA*, *CKM_ECDSA_SHA256*, *CKM_ECDSA_SHA384*, *CKM_ECDSA_SHA512*. |
 
 **Note 1:** Only parameter *library* is mandatory, all the others are optional.
 **Note 2:** The item separator of the type STRING LIST is ",".
@@ -476,14 +484,13 @@ ATTENTION: Reference items 2.1 - 2.3 in the reference data are provided to the S
 
 The Security Server code and the software token’s PIN will be determined during the installation at the latest, by the person performing the installation.
 
- Ref  |                                                   | Explanation
- ---- | ------------------------------------------------- | --------------------------------------------------
- 2.1  | <https://x-tee.ee/anchors/>&lt;anchor file&gt;<br> ee-dev - development environment<br> ee-test - test environment<br> EE - production environment | Global configuration anchor file
- 2.2  | GOV - government<br> COM - commercial<br> NGO - non-profit<br> NEE - not Estonian | Member class of the security server's owner
- 2.3  | &lt;security server owner register code&gt;       | Member code of the security server's owner
- 2.4  | &lt;choose security server identificator name&gt; | Security server's code
- 2.5  | &lt;choose PIN for software token&gt;             | Software token’s PIN
-
+| Ref |                                                         | Explanation                                 |
+|-----|---------------------------------------------------------|---------------------------------------------|
+| 2.1 | &lt;global configuration anchor file&gt; or &lt;URL&gt; | Global configuration anchor file            |
+| 2.2 | E.g.<br>GOV - government<br> COM - commercial           | Member class of the Security Server's owner |
+| 2.3 | &lt;Security Server owner register code&gt;             | Member code of the Security Server's owner  |
+| 2.4 | &lt;choose Security Server identificator name&gt;       | Security server's code                      |
+| 2.5 | &lt;choose PIN for software token&gt;                   | Software token’s PIN                        |
 
 ### 3.3 Configuration
 
@@ -509,8 +516,8 @@ If the configuration is successfully downloaded, the system asks for the followi
 * Security server code (**reference data: 2.4**), which is chosen by the Security Server administrator and which has to be unique across all the Security Servers belonging to the same X-Road member.
 * Software token’s PIN (**reference data: 2.5**). The PIN will be used to protect the keys stored in the software token. The PIN must be stored in a secure place, because it will be no longer possible to use or recover the private keys in the token once the PIN has been lost.
 
-### 3.4 Configuring firewall
 
+### 3.4 Configuring Firewall
 It is strongly recommended to protect the Security Server from unwanted access using a firewall (hardware or software based). The firewall can be
 applied to both incoming and outgoing connections depending on the security requirements of the environment where the Security Server is deployed. 
 
@@ -531,7 +538,7 @@ which makes the Security Server accept connections from any server. For country-
 
 The parameter can be changed by following the [System Parameters guide](ug-syspar_x-road_v6_system_parameters.md#21-changing-the-system-parameter-values-in-configuration-files).
 
-### 3.5 Configuring configuration backup encryption
+### 3.5 Configuring Configuration Backup Encryption
 
 It is possible to automatically encrypt Security Server configuration backups. Security server uses The GNU Privacy Guard (https://www.gnupg.org)
 for backup encryption and verification. Backups are always signed, but backup encryption is initially turned off.
@@ -563,6 +570,16 @@ The key can then be moved to an external host and imported to GPG keyring with t
 
     gpg --homedir /your_gpg_homedir_here --import server-public-key.gpg
 
+### 3.6 Enabling ACME Support
+
+NB! ACME is not supported in the X-Road Estonian ecosystem
+Automated Certificate Management Environment (ACME) protocol enables automated certificate management of the authentication and sign
+certificates on the Security Server. More information about the required configuration is available in the [Security Server User Guide](ug-ss_x-road_6_security_server_user_guide.md#24-configuring-acme).
+
+### 3.7 Enabling EC Keys for Authentication and Signing Certificates
+
+Security Server supports EC based authentication and signing certificates since version 7.6.0.
+More information about the required configuration is available in the [Security Server User Guide](ug-ss_x-road_6_security_server_user_guide.md#25-migrating-to-ec-based-authentication-and-signing-certificates).
 
 ## 4 Installation Error handling
 
@@ -704,7 +721,7 @@ op-monitor.hibernate.jdbc.use_streams_for_binary = true
 ## Annex B Default Database Users
 
 | User             | Database   | Privileges               | Description                                                                              |
-| ---------------- | ---------- | ------------------------ | ---------------------------------------------------------------------------------------- |
+|------------------|------------|--------------------------|------------------------------------------------------------------------------------------|
 | serverconf       | serverconf | TEMPORARY,CONNECT        | The database user used to read/write the serverconf database during application runtime. |
 | serverconf_admin | serverconf | CREATE,TEMPORARY,CONNECT | The database user used to create/update the serverconf schema.                           |
 | messagelog       | messagelog | TEMPORARY,CONNECT        | The database user used to read/write the messagelog database during application runtime. |
@@ -756,12 +773,12 @@ Busy production systems may need scalable performance in addition to high availa
 
 The following table lists a summary of the Security Server deployment options and indicates whether they are aimed for development or production use.
 
-| Deployment               | Dev  | Prod  |
-|--------------------------|------|-------|
-| Local database           | x    |       |
-| Remote database          | x    |       |
-| High-availability Setup  |      | x     |
-| Load Balancing Setup     |      | x     |
+| Deployment              | Dev | Prod |
+| ----------------------- | --- | ---- |
+| Local database          | x   |      |
+| Remote database         | x   |      |
+| High-availability Setup |     | x    |
+| Load Balancing Setup    |     | x    |
 
 ## Annex D Create Database Structure Manually
 
