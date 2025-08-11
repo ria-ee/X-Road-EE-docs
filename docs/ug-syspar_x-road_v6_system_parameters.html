@@ -12,13 +12,13 @@
         padding: 45px;
       }
     </style>
-    <title>X-Road: 7.6.0
+    <title>X-Road: 7.7.0
 </title>
   </head>
   <body>
     <article class="markdown-body">
 <div class="markdown-heading"><h1 class="heading-element">X-Road: System Parameters User Guide</h1><a id="x-road-system-parameters-user-guide" class="anchor" aria-label="Permalink: X-Road: System Parameters User Guide" href="#x-road-system-parameters-user-guide"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>Version: 2.93
+<p>Version: 2.98
 Doc. ID: UG-SYSPAR</p>
 <table>
 <thead>
@@ -638,6 +638,37 @@ Doc. ID: UG-SYSPAR</p>
 </td>
 <td>Mikk-Erik Bachmann</td>
 </tr>
+<tr>
+<td>07.02.2024</td>
+<td>2.94</td>
+<td>Added automatic certificate activation related parameters</td>
+<td>Mikk-Erik Bachmann</td>
+</tr>
+<tr>
+<td>17.03.2025</td>
+<td>2.95</td>
+<td>Syntax and styling</td>
+<td>Pauline Dimmek</td>
+</tr>
+<tr>
+<td>02.04.2025</td>
+<td>2.96</td>
+<td>Added new parameter <em>memory-usage-threshold</em>
+</td>
+<td>Mikk-Erik Bachmann</td>
+</tr>
+<tr>
+<td>11.04.2025</td>
+<td>2.97</td>
+<td>Added <em>proxy-ui-api.reserved-service-codes</em> parameter regarding to reserved services codes validation</td>
+<td>Victor Figueroa</td>
+</tr>
+<tr>
+<td>20.06.2025</td>
+<td>2.98</td>
+<td>Include <em>TLSv1.3</em> in the default values of the <em>server.ssl.enabled-protocols</em> parameter</td>
+<td>Eneli Reimets</td>
+</tr>
 </tbody>
 </table>
 <div class="markdown-heading"><h2 class="heading-element">Table of Contents</h2><a id="table-of-contents" class="anchor" aria-label="Permalink: Table of Contents" href="#table-of-contents"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
@@ -833,7 +864,7 @@ server-listen-port=20000
 </tr>
 <tr>
 <td>grpc-internal-keystore-password</td>
-<td></td>
+<td>&lt;generated-value&gt;</td>
 <td>gRPC keystore password.</td>
 </tr>
 <tr>
@@ -843,7 +874,7 @@ server-listen-port=20000
 </tr>
 <tr>
 <td>grpc-internal-truststore-password</td>
-<td></td>
+<td>&lt;generated-value&gt;</td>
 <td>gRPC truststore password.</td>
 </tr>
 </tbody>
@@ -1219,6 +1250,13 @@ server-listen-port=20000
 <td></td>
 <td></td>
 <td>Whether to log client certificate subject information.</td>
+</tr>
+<tr>
+<td>memory-usage-threshold</td>
+<td></td>
+<td></td>
+<td></td>
+<td>Maximum allowed percentage (between 0-100) of the maximum Proxy memory being used before the health check starts failing.</td>
 </tr>
 </tbody>
 </table>
@@ -1915,6 +1953,11 @@ the message log.</p>
 <td>Security Server url. Used to send management requests (except AuthCertRegRequest, it is send to directly to Central Server</td>
 </tr>
 <tr>
+<td>reserved-service-codes</td>
+<td>listClients,<br>listMethods,<br>allowedMethods,<br>getWsdl,<br>getOpenAPI,<br>getSecurityServerMetrics,<br>getSecurityServerOperationalData,<br>getSecurityServerHealthData</td>
+<td>Comma-separated list of reserved service codes that cannot be used for registering custom services. These codes are reserved for internal metaservices and should not be assigned to user-defined services to avoid conflicts and preserve system integrity</td>
+</tr>
+<tr>
 <td>management-request-sender-client-keystore</td>
 <td></td>
 <td>Path to PKCS#12 keystore containing the key to be used for mTLS enabled connection to Proxy server for sending management requests. If provided, then <code>management-request-sender-client-truststore</code> must be provided either. If not set, then the internal key is used for connection.</td>
@@ -1948,6 +1991,26 @@ the message log.</p>
 <td>authentication-key-algorithm</td>
 <td>RSA</td>
 <td>Key algorithm used for creating authentication certificate request. Possible values are RSA and EC. (since version 7.6)</td>
+</tr>
+<tr>
+<td>automatic-activate-auth-certificate</td>
+<td>false</td>
+<td>If enabled, authentication certificates are activated automatically after they have been registered on the Central Server</td>
+</tr>
+<tr>
+<td>automatic-activate-acme-sign-certificate</td>
+<td>false</td>
+<td>If enabled, signing certificates are activated automatically when they have been ordered from via ACME (new or renew)</td>
+</tr>
+<tr>
+<td>cert-auto-activation-notification-enabled</td>
+<td>true</td>
+<td>If enabled, notification e-mail is sent to the member when automatic certificate activation was successful</td>
+</tr>
+<tr>
+<td>cert-auto-activation-failure-notification-enabled</td>
+<td>true</td>
+<td>If enabled, notification e-mail is sent to the member when automatic certificate activation has failed</td>
 </tr>
 </tbody>
 </table>
@@ -1997,7 +2060,7 @@ and overridden / new properties needs to be a functional combination.</p>
 </tr>
 <tr>
 <td>server.ssl.enabled-protocols</td>
-<td>TLSv1.2</td>
+<td>TLSv1.2,TLSv1.3</td>
 <td>Enabled SSL protocols</td>
 </tr>
 </tbody>
@@ -2299,7 +2362,7 @@ set to <code>false</code> in <code>local.ini</code> during upgrade process if ve
 </tr>
 <tr>
 <td>api-token</td>
-<td></td>
+<td>&lt;a token with MANAGEMENT_SERVICE role&gt;</td>
 <td>API token for the central server management API (required). The token needs to have the MANAGEMENT_SERVICE role (and for security, no other roles).</td>
 </tr>
 </tbody>
@@ -2358,13 +2421,13 @@ set to <code>false</code> in <code>local.ini</code> during upgrade process if ve
 </tr>
 <tr>
 <td>api-token</td>
-<td></td>
+<td>&lt;a token with MANAGEMENT_SERVICE role&gt;</td>
 <td>API token for the central server management API (required). The token needs to have the MANAGEMENT_SERVICE role (and for security, no other roles).</td>
 </tr>
 </tbody>
 </table>
 <div class="markdown-heading"><h3 class="heading-element">4.2 System Parameters in the Database</h3><a id="42-system-parameters-in-the-database" class="anchor" aria-label="Permalink: 4.2 System Parameters in the Database" href="#42-system-parameters-in-the-database"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>This section describes the system parameters used by the X-Road central server. For instructions on how to change the parameter values, see section <a href="#changing-the-system-parameter-values-in-the-central-server-database">Changing the System Parameter Values in the Central Server Database</a>.</p>
+<p>This section describes the system parameters used by the X-Road central server. For instructions on how to change the parameter values, see section <a href="#22-changing-the-system-parameter-values-in-the-central-server-database">Changing the System Parameter Values in the Central Server Database</a>.</p>
 <table>
 <thead>
 <tr>
