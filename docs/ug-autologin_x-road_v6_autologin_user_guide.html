@@ -12,13 +12,13 @@
         padding: 45px;
       }
     </style>
-    <title>X-Road: 7.7.0
+    <title>X-Road: 7.8.0
 </title>
   </head>
   <body>
     <article class="markdown-body">
 <div class="markdown-heading"><h1 class="heading-element">X-Road: Autologin User Guide</h1><a id="x-road-autologin-user-guide" class="anchor" aria-label="Permalink: X-Road: Autologin User Guide" href="#x-road-autologin-user-guide"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>Version: 1.4
+<p>Version: 1.6
 Doc. ID: UG-AUTOLOGIN</p>
 <table>
 <thead>
@@ -53,6 +53,16 @@ Doc. ID: UG-AUTOLOGIN</p>
 <td>26.09.2022</td>
 <td>1.4</td>
 <td>Remove Ubuntu 18.04 support</td>
+</tr>
+<tr>
+<td>14.10.2025</td>
+<td>1.5</td>
+<td>Add multiple token support documentation</td>
+</tr>
+<tr>
+<td>29.12.2025</td>
+<td>1.6</td>
+<td>Updated implementation details to reflect changes to autologin service and script.</td>
 </tr>
 </tbody>
 </table>
@@ -94,12 +104,21 @@ Doc. ID: UG-AUTOLOGIN</p>
 <li>RedHat: yum install xroad-autologin</li>
 </ul>
 <ol start="2">
-<li>If storing the PIN code on the server in plaintext is acceptable, create file <code>/etc/xroad/autologin</code> that contains the PIN code.</li>
+<li>If storing the PIN code on the server in plaintext is acceptable, create file <code>/etc/xroad/autologin</code> that contains the PIN code(s).</li>
 </ol>
 <ul>
 <li>File should be readable by user <code>xroad</code>
 </li>
 <li>If <code>/etc/xroad/autologin</code> does not exists, and you have not implemented <code>custom-fetch-pin.sh</code>, the service will not start</li>
+<li>For a single token (token ID 0), the file should contain just the PIN code:
+<pre><code>1234
+</code></pre>
+</li>
+<li>For multiple tokens, each line should be in the format <code>token-id:token-pin</code>:
+<pre><code>0:1234
+1:5678
+</code></pre>
+</li>
 </ul>
 <ol start="3">
 <li>If you do not want to store PIN code in plaintext, implement bash script
@@ -107,7 +126,7 @@ Doc. ID: UG-AUTOLOGIN</p>
 </li>
 </ol>
 <ul>
-<li>The script needs to output the PIN code to stdout</li>
+<li>The script needs to output the PIN code(s) to stdout</li>
 <li>Script should be readable and executable by user <code>xroad</code>
 </li>
 <li>Script should exit with exit code
@@ -117,10 +136,20 @@ Doc. ID: UG-AUTOLOGIN</p>
 <li>other exit codes in error situations that should cause the service to fail</li>
 </ul>
 </li>
+<li>Single token example:</li>
 </ul>
 <div class="highlight highlight-source-shell"><pre><span class="pl-c"><span class="pl-c">#!</span>/bin/bash</span>
-PIN_CODE=<span class="pl-s"><span class="pl-pds">$(</span>curl https://some-address<span class="pl-pds">)</span></span>
+PIN_CODE=<span class="pl-s"><span class="pl-pds">$(</span>curl https://some-address/token-pin<span class="pl-pds">)</span></span>
 <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span><span class="pl-smi">${PIN_CODE}</span><span class="pl-pds">"</span></span>
+<span class="pl-c1">exit</span> 0</pre></div>
+<ul>
+<li>Multiple tokens example (output one <code>token-id:token-pin</code> per line):</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre><span class="pl-c"><span class="pl-c">#!</span>/bin/bash</span>
+TOKEN_0_PIN=<span class="pl-s"><span class="pl-pds">$(</span>curl https://some-address/token-0-pin<span class="pl-pds">)</span></span>
+TOKEN_1_PIN=<span class="pl-s"><span class="pl-pds">$(</span>curl https://some-address/token-1-pin<span class="pl-pds">)</span></span>
+<span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>0:<span class="pl-smi">${TOKEN_0_PIN}</span><span class="pl-pds">"</span></span>
+<span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>1:<span class="pl-smi">${TOKEN_1_PIN}</span><span class="pl-pds">"</span></span>
 <span class="pl-c1">exit</span> 0</pre></div>
 <div class="markdown-heading"><h3 class="heading-element">2.2 Implementation details</h3><a id="22-implementation-details" class="anchor" aria-label="Permalink: 2.2 Implementation details" href="#22-implementation-details"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <ul>
@@ -129,13 +158,13 @@ PIN_CODE=<span class="pl-s"><span class="pl-pds">$(</span>curl https://some-addr
 <li>Service is started after <code>xroad-signer</code> has started</li>
 <li>On RHEL/Ubuntu 20.04, service calls wrapper script <code>/usr/share/xroad/autologin/xroad-autologin-retry.sh</code> which in turn calls <code>autologin.expect</code>
 <ul>
-<li>Wrapper script handles retries in error situations.</li>
+<li>Service handles retries in error situations.</li>
 </ul>
 </li>
 <li>Service tries to enter the PIN code using script <code>signer-console</code>
 <ul>
 <li>If the PIN was correct or incorrect, it exits</li>
-<li>If an error occurred (for example because <code>xroad-signer</code> has not yet fully started), it keeps retrying indefinitely</li>
+<li>If an error occurred (for example because <code>xroad-signer</code> has not yet fully started or been initialised), it keeps retrying indefinitely</li>
 </ul>
 </li>
 </ul>

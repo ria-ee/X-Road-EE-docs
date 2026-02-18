@@ -12,7 +12,7 @@
         padding: 45px;
       }
     </style>
-    <title>X-Road: 7.7.0
+    <title>X-Road: 7.8.0
 </title>
   </head>
   <body>
@@ -20,7 +20,7 @@
 <div class="markdown-heading"><h1 class="heading-element">X-Road: Service Metadata Protocol for REST 
 </h1><a id="x-road-service-metadata-protocol-for-rest-" class="anchor" aria-label="Permalink: X-Road: Service Metadata Protocol for REST " href="#x-road-service-metadata-protocol-for-rest-"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>Technical Specification</strong></p>
-<p>Version: 0.7<br>
+<p>Version: 0.8<br>
 Doc. ID: PR-MREST</p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">Version history 
@@ -74,8 +74,14 @@ Doc. ID: PR-MREST</p>
 <tr>
 <td>10.05.2023</td>
 <td>0.7</td>
-<td>Security Categories removed.</td>
+<td>Security Categories removed</td>
 <td>Justas Samuolis</td>
+</tr>
+<tr>
+<td>22.08.2025</td>
+<td>0.8</td>
+<td>Update Security Server default HTTPS port</td>
+<td>Petteri Kivimäki</td>
 </tr>
 </tbody>
 </table>
@@ -364,7 +370,7 @@ metadata services.</p>
           <span class="pl-ent">type</span>: <span class="pl-s">string</span></pre></div>
 <div class="markdown-heading"><h2 class="heading-element">Annex B Example Messages</h2><a id="annex-b-example-messages" class="anchor" aria-label="Permalink: Annex B Example Messages" href="#annex-b-example-messages"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <div class="markdown-heading"><h3 class="heading-element">B.1 listMethods Response</h3><a id="b1-listmethods-response" class="anchor" aria-label="Permalink: B.1 listMethods Response" href="#b1-listmethods-response"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><code>curl -H "accept: application/json" -H "X-Road-Client:INSTANCE/CLASS1/MEMBER1/SUBSYSTEM1" "https://SECURITYSERVER:443/r1/INSTANCE/CLASS2/MEMBER2/SUBSYSTEM2/listMethods"</code></p>
+<p><code>curl -H "accept: application/json" -H "X-Road-Client:INSTANCE/CLASS1/MEMBER1/SUBSYSTEM1" "https://SECURITYSERVER:8443/r1/INSTANCE/CLASS2/MEMBER2/SUBSYSTEM2/listMethods"</code></p>
 <div class="highlight highlight-source-json"><pre>{
   <span class="pl-ent">"service"</span>: [
     {
@@ -480,7 +486,7 @@ metadata services.</p>
   ]
 }</pre></div>
 <div class="markdown-heading"><h3 class="heading-element">B.2 allowedMethods Response</h3><a id="b2-allowedmethods-response" class="anchor" aria-label="Permalink: B.2 allowedMethods Response" href="#b2-allowedmethods-response"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><code>curl -H "accept: application/json" -H "X-Road-Client:INSTANCE/CLASS1/MEMBER1/SUBSYSTEM1" "https://SECURITYSERVER:443/r1/INSTANCE/CLASS2/MEMBER2/SUBSYSTEM2/allowedMethods"</code></p>
+<p><code>curl -H "accept: application/json" -H "X-Road-Client:INSTANCE/CLASS1/MEMBER1/SUBSYSTEM1" "https://SECURITYSERVER:8443/r1/INSTANCE/CLASS2/MEMBER2/SUBSYSTEM2/allowedMethods"</code></p>
 <div class="highlight highlight-source-json"><pre>{
   <span class="pl-ent">"service"</span>: [
     {
@@ -509,7 +515,7 @@ metadata services.</p>
   ]
 }</pre></div>
 <div class="markdown-heading"><h3 class="heading-element">B.3 getOpenAPI Response</h3><a id="b3-getopenapi-response" class="anchor" aria-label="Permalink: B.3 getOpenAPI Response" href="#b3-getopenapi-response"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><code>curl -H "accept: application/json" -H "X-Road-Client:INSTANCE/CLASS1/MEMBER1/SUBSYSTEM1" "https://SECURITYSERVER:443/r1/INSTANCE/CLASS2/MEMBER2/SUBSYSTEM2/getOpenAPI?serviceCode=listFirms"</code></p>
+<p><code>curl -H "accept: application/json" -H "X-Road-Client:INSTANCE/CLASS1/MEMBER1/SUBSYSTEM1" "https://SECURITYSERVER:8443/r1/INSTANCE/CLASS2/MEMBER2/SUBSYSTEM2/getOpenAPI?serviceCode=listFirms"</code></p>
 <div class="highlight highlight-source-yaml"><pre><span class="pl-ent">openapi</span>: <span class="pl-s"><span class="pl-pds">"</span>3.0.0<span class="pl-pds">"</span></span>
 <span class="pl-ent">info</span>:
   <span class="pl-ent">version</span>: <span class="pl-s">1.0.0</span>

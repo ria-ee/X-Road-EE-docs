@@ -12,7 +12,7 @@
         padding: 45px;
       }
     </style>
-    <title>X-Road: 7.7.0
+    <title>X-Road: 7.8.0
 </title>
   </head>
   <body>
@@ -20,7 +20,7 @@
 <div class="markdown-heading"><h1 class="heading-element">SECURITY SERVER USER GUIDE 
 </h1><a id="security-server-user-guide-" class="anchor" aria-label="Permalink: SECURITY SERVER USER GUIDE " href="#security-server-user-guide-"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>X-ROAD 7</strong></p>
-<p>Version: 2.101<br>
+<p>Version: 2.105<br>
 Doc. ID: UG-SS</p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">Version history 
@@ -746,7 +746,7 @@ Doc. ID: UG-SS</p>
 <tr>
 <td>20.05.2025</td>
 <td>2.98</td>
-<td>Enabling/Disabling maintenance mode for the security server</td>
+<td>Enabling/Disabling maintenance mode for the Security Server</td>
 <td>Ovidijus Narkevicius</td>
 </tr>
 <tr>
@@ -766,6 +766,30 @@ Doc. ID: UG-SS</p>
 <td>2.101</td>
 <td>Added chapter on Security Server Traffic visualisation</td>
 <td>Madis Loitmaa</td>
+</tr>
+<tr>
+<td>01.12.2025</td>
+<td>2.102</td>
+<td>Added chapter on Security Server Connection Testing</td>
+<td>Eneli Reimets</td>
+</tr>
+<tr>
+<td>07.12.2025</td>
+<td>2.103</td>
+<td>Added notes about CSR format preselection</td>
+<td>Madis Loitmaa</td>
+</tr>
+<tr>
+<td>15.12.2025</td>
+<td>2.104</td>
+<td>Added information about the handling of the ACME account keystore password</td>
+<td>Mikk-Erik Bachmann</td>
+</tr>
+<tr>
+<td>29.01.2026</td>
+<td>2.105</td>
+<td>Added information on how to delete a subsystem from the Security Server</td>
+<td>Raido Kaju</td>
 </tr>
 </tbody>
 </table>
@@ -867,6 +891,7 @@ Doc. ID: UG-SS</p>
 </ul>
 </li>
 <li><a href="#48-renaming-client-subsystem">4.8 Renaming Client Subsystem</a></li>
+<li><a href="#49-deleting-client-subsystem">4.9 Deleting Client Subsystem</a></li>
 </ul>
 </li>
 <li>
@@ -993,13 +1018,17 @@ Doc. ID: UG-SS</p>
 <ul>
 <li><a href="#1411-examine-security-server-services-status-information">14.1.1 Examine Security Server services status information</a></li>
 <li><a href="#1412-examine-security-server-java-version-information">14.1.2 Examine Security Server Java version information</a></li>
-<li><a href="#1433-examine-security-server-encryption-status-information">14.3.3 Examine Security Server encryption status information</a></li>
+<li><a href="#1413-examine-security-server-encryption-status-information">14.1.3 Examine Security Server encryption status information</a></li>
 <li><a href="#1414-download-diagnostics-report">14.1.4 Download diagnostics report</a></li>
 </ul>
 </li>
 <li><a href="#142-security-server-traffic">14.2 Security Server Traffic</a></li>
+<li><a href="#143-security-server-connection-testing">14.3 Security Server Connection Testing</a></li>
 </ul>
 </li>
+<li><a href="#1431-testing-the-connection-to-the-central-server">14.3.1 Testing the connection to the Central Server</a></li>
+<li><a href="#1432-testing-the-connection-to-other-security-servers">14.3.2 Testing the connection to other Security Servers</a></li>
+<li><a href="#1433-testing-the-connection-to-management-security-server">14.3.3 Testing the connection to Management Security Server</a></li>
 <li>
 <a href="#15-operational-monitoring">15 Operational Monitoring</a>
 <ul>
@@ -1229,22 +1258,18 @@ Doc. ID: UG-SS</p>
 <p>User management is carried out on the command line in root user permissions.</p>
 <div class="markdown-heading"><h4 class="heading-element">2.2.1 Adding and Removing Users</h4><a id="221-adding-and-removing-users" class="anchor" aria-label="Permalink: 2.2.1 Adding and Removing Users" href="#221-adding-and-removing-users"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>To add a new user, enter the command:</p>
-<pre><code>adduser username
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>adduser username</pre></div>
 <p>To grant permissions to the user you created, add it to the corresponding system groups, for example:</p>
-<pre><code>adduser username xroad-security-officer
+<div class="highlight highlight-source-shell"><pre>adduser username xroad-security-officer
 adduser username xroad-registration-officer
 adduser username xroad-service-administrator
 adduser username xroad-system-administrator
-adduser username xroad-securityserver-observer
-</code></pre>
+adduser username xroad-securityserver-observer</pre></div>
 <p>To remove user permission, remove the user from the corresponding system group, for example:</p>
-<pre><code>deluser username xroad-security-officer
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>deluser username xroad-security-officer</pre></div>
 <p>Modified user permissions are applied only after a user does a new login.</p>
 <p>To remove a user, enter:</p>
-<pre><code>deluser username
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>deluser username</pre></div>
 <div class="markdown-heading"><h3 class="heading-element">2.3 LDAP user authentication</h3><a id="23-ldap-user-authentication" class="anchor" aria-label="Permalink: 2.3 LDAP user authentication" href="#23-ldap-user-authentication"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>X-Road leverages PAM (Pluggable Authentication Modules) for user authentication, which facilitates LDAP integration.</p>
 <p><strong>Prerequisites:</strong></p>
@@ -1449,6 +1474,7 @@ sudo systemctl start sssd</pre></div>
 </li>
 <li>
 <p>Select the format of the certificate signing request (PEM or DER) from the <strong>CSR Format</strong> drop-down list, according to the certification service provider's requirements</p>
+<p>Note: If the global configuration specifies a preferred CSR format for the selected Certification Service, that format is preselected and the CSR Format field is read-only.</p>
 </li>
 <li>
 <p>Click <strong>CONTINUE</strong></p>
@@ -1588,6 +1614,7 @@ sudo systemctl start sssd</pre></div>
 </li>
 <li>
 <p>Select the format of the certificate signing request (PEM or DER) from the <strong>CSR Format</strong> drop-down list, according to the certification service provider's requirements</p>
+<p>Note: If the global configuration specifies a preferred CSR format for the selected Certification Service, that format is preselected and the CSR Format field is read-only.</p>
 </li>
 <li>
 <p>Click <strong>CONTINUE</strong></p>
@@ -1623,10 +1650,21 @@ sudo systemctl start sssd</pre></div>
 </li>
 <li>
 <p>On the row of the desired key, click <strong>Generate CSR</strong>. In the dialog that opens</p>
-<p>2.1  Select the certificate usage policy from the <strong>Usage</strong> drop down list (AUTH for authentication certificates);</p>
-<p>2.2  select the issuer of the certificate from the <strong>Certification Service</strong> drop-down list;</p>
-<p>2.3  select the format of the certificate signing request (PEM or DER), according to the certification service provider's requirements</p>
-<p>2.4  click <strong>CONTINUE</strong>;</p>
+<ol>
+<li>
+<p>Select the certificate usage policy from the <strong>Usage</strong> drop down list (AUTH for authentication certificates);</p>
+</li>
+<li>
+<p>select the issuer of the certificate from the <strong>Certification Service</strong> drop-down list;</p>
+</li>
+<li>
+<p>select the format of the certificate signing request (PEM or DER), according to the certification service provider's requirements</p>
+<p>Note: If the global configuration specifies a preferred CSR format for the selected Certification Service, that format is preselected and the CSR Format field is read-only.</p>
+</li>
+<li>
+<p>click <strong>CONTINUE</strong>;</p>
+</li>
+</ol>
 </li>
 <li>
 <p>In the form that opens, review the information that will be included in the CSR and fill in the empty fields, if needed.</p>
@@ -1873,6 +1911,7 @@ sudo systemctl start sssd</pre></div>
 </li>
 <li>
 <p>CSR details page: Select the Certification Authority (CA) that will issue the certificate in <strong>Certification Service</strong> field and format of the certificate signing request according to the CA's requirements in the <strong>CSR Format</strong> field. Click <strong>NEXT</strong>.</p>
+<p>Note: If the global configuration specifies a preferred CSR format for the selected Certification Service, that format is preselected and the CSR Format field is read-only.</p>
 </li>
 <li>
 <p>Generate CSR page: Fill in empty CSR fields as needed (like <strong>Organization Name (O)</strong> and <strong>Subject Alternative Name (SAN)</strong>) that are based on the certificate profile that the chosen CA uses, and click <strong>NEXT</strong></p>
@@ -2023,6 +2062,8 @@ sudo systemctl start sssd</pre></div>
 </li>
 </ol>
 <p><strong>Note:</strong> In case of "Registered" no additional renames are allowed for the subsystem while its rename isn't propagated through global configuration. Only exception is "Saved" subsystem in which case multiple renames are allowed, where the latest rename replaces the previous one and rename will be executed on client registration request using last provided name.</p>
+<div class="markdown-heading"><h3 class="heading-element">4.9 Deleting Client Subsystem</h3><a id="49-deleting-client-subsystem" class="anchor" aria-label="Permalink: 4.9 Deleting Client Subsystem" href="#49-deleting-client-subsystem"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>Deleting a client subsystem can be completed by following the steps described in section <a href="#46-deleting-a-client-from-the-security-server">4.6 Deleting a Client from the Security Server</a>. In this context, the subsystem is treated as a client (i.e., a client subsystem).</p>
 <div class="markdown-heading"><h2 class="heading-element">5 Security Tokens, Keys, and Certificates</h2><a id="5-security-tokens-keys-and-certificates" class="anchor" aria-label="Permalink: 5 Security Tokens, Keys, and Certificates" href="#5-security-tokens-keys-and-certificates"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <div class="markdown-heading"><h3 class="heading-element">5.1 Availability States of Security Tokens</h3><a id="51-availability-states-of-security-tokens" class="anchor" aria-label="Permalink: 5.1 Availability States of Security Tokens" href="#51-availability-states-of-security-tokens"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>Notice that the colors were introduced in version 6.25.0</strong></p>
@@ -2410,9 +2451,8 @@ sudo systemctl start sssd</pre></div>
 <div class="markdown-heading"><h3 class="heading-element">6.8 Configuring a Minimum Required Client Security Server Version</h3><a id="68-configuring-a-minimum-required-client-security-server-version" class="anchor" aria-label="Permalink: 6.8 Configuring a Minimum Required Client Security Server Version" href="#68-configuring-a-minimum-required-client-security-server-version"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Service providers can configure a minimum required X-Road software version for client Security Servers. It means that client Security Servers older than the configured version cannot access the services.</p>
 <p>Service providers can configure the required minimum version in the <code>/etc/xroad/conf.d/local.ini</code> configuration file using the <code>proxy.server-min-supported-client-version</code> system property. For example:</p>
-<pre><code>[proxy]
-server-min-supported-client-version=7.0.0
-</code></pre>
+<div class="highlight highlight-source-ini"><pre><span class="pl-en">[proxy]</span>
+<span class="pl-k">server-min-supported-client-version</span>=7.0.0</pre></div>
 <p>The property has no value by default, meaning a minimum version hasn't been set. Instead, when the value is set, all the minor and patch versions starting from the configured version are approved.</p>
 <div class="markdown-heading"><h2 class="heading-element">7 Access Rights</h2><a id="7-access-rights" class="anchor" aria-label="Permalink: 7 Access Rights" href="#7-access-rights"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Access rights can be granted to the following access right subjects.</p>
@@ -2952,10 +2992,9 @@ server-min-supported-client-version=7.0.0
 </code></pre>
 <p>Create the <code>[message-log]</code> section (if not present) in the file. Below the start of the section, list the values of the parameters, one per line.</p>
 <p>For example, to configure the parameters <code>archive-path</code> and <code>archive-max-filesize</code>, the following lines must be added to the configuration file:</p>
-<pre><code>[message-log]
-archive-path=/my/archive/path/
-archive-max-filesize=67108864
-</code></pre>
+<div class="highlight highlight-source-ini"><pre><span class="pl-en">[message-log]</span>
+<span class="pl-k">archive-path</span>=/my/archive/path/
+<span class="pl-k">archive-max-filesize</span>=67108864</pre></div>
 <div class="markdown-heading"><h4 class="heading-element">11.1.1 Common Parameters</h4><a id="1111-common-parameters" class="anchor" aria-label="Permalink: 11.1.1 Common Parameters" href="#1111-common-parameters"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <ol>
 <li>
@@ -3051,18 +3090,14 @@ archive-max-filesize=67108864
 <div class="markdown-heading"><h4 class="heading-element">11.1.6 Archive Files</h4><a id="1116-archive-files" class="anchor" aria-label="Permalink: 11.1.6 Archive Files" href="#1116-archive-files"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Archive files (ZIP containers) are located in the directory specified by the configuration parameter <code>archive-path</code>. File names are in the format <code>mlog[-grouping]-X-Y-Z.zip[.gpg]</code>, where X is the timestamp (UTC time in the format <code>YYYYMMDDHHmmss</code>) of the first message log record, Y is the timestamp of the last message log record (records are processed in chronological order) and Z is the first 16 characters of the last linking info digest entry. If grouping is enabled, [-grouping] is a (possibly truncated and filename safe) member identifier. If encryption is enabled, the <code>[.gpg]</code> suffix is added. Creating archive files is deterministic -- given the same input (grouping, message records, previous archive linking info digest), the output (file name and contents) is the same after possible encryption is removed.</p>
 <p>The most basic example of an archive file name when the encryption and grouping are switched off:</p>
-<pre><code>mlog-20210901100858-20210901100905-95b1f27097524105.zip
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>mlog-20210901100858-20210901100905-95b1f27097524105.zip</pre></div>
 <p>When the archive encryption switched on:</p>
-<pre><code>mlog-20210901101923-20210901101926-95b1f27097524105.zip.gpg
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>mlog-20210901101923-20210901101926-95b1f27097524105.zip.gpg</pre></div>
 <p>Switching on archive grouping by member produces the following:</p>
-<pre><code>mlog-INSTANCE_CLASS_CODE-20210901102251-20210901102254-95b1f27097524105.zip.gpg
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>mlog-INSTANCE_CLASS_CODE-20210901102251-20210901102254-95b1f27097524105.zip.gpg</pre></div>
 <p>Finally, switching to archive grouping by subsystem gives:</p>
-<pre><code>mlog-INSTANCE_CLASS_CODE_CONSUMERSUBSYSTEM-20210901102521-20210901102524-95b1f27097524105.zip.gpg
-mlog-INSTANCE_CLASS_CODE_PROVIDERSUBSYSTEM-20210901102521-20210901102524-b1f27097524105ac.zip.gpg
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>mlog-INSTANCE_CLASS_CODE_CONSUMERSUBSYSTEM-20210901102521-20210901102524-95b1f27097524105.zip.gpg
+mlog-INSTANCE_CLASS_CODE_PROVIDERSUBSYSTEM-20210901102521-20210901102524-b1f27097524105ac.zip.gpg</pre></div>
 <div class="markdown-heading"><h4 class="heading-element">11.1.7 Archive Encryption and Grouping</h4><a id="1117-archive-encryption-and-grouping" class="anchor" aria-label="Permalink: 11.1.7 Archive Encryption and Grouping" href="#1117-archive-encryption-and-grouping"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Archive files can be encrypted (when <code>archive-encryption-enabled = true</code>) using GnuPG ("gpg") which implements the OpenPGP (RFC 4880) specification. Please see e.g. <a href="https://www.ietf.org/rfc/rfc4880.txt" rel="nofollow">RFC 4880</a> and <a href="https://gnupg.org/" rel="nofollow">GnuPG</a> for more infomation. The encryption is enabled/disabled on a Security Server level - it's not possible to enable/disable it for specific subsystems only.</p>
 <p>By default, the produced archive files contain messages from all the Security Server's members, but it's possible to group the archives by member or by subsystem if needed. The grouping is controlled by the setting <code>archive-grouping</code>. The grouping is enabled/disabled on a Security Server level - it is either enabled or disabled for all the members and subsystems.</p>
@@ -3104,12 +3139,13 @@ gpg [--homedir <span class="pl-k">&lt;</span>member gpghome<span class="pl-k">&g
 <div class="highlight highlight-source-shell"><pre>gpg --homedir <span class="pl-k">&lt;</span>archive-gpg-home-directory<span class="pl-k">&gt;</span> --edit-key <span class="pl-k">&lt;</span>key id<span class="pl-k">&gt;</span></pre></div>
 <p>At the <code>gpg&gt;</code> prompt, type <code>trust</code>, then type <code>5</code> for ultimate trust, then <code>y</code> to confirm, then <code>quit</code>.</p>
 <p>Add the mapping to <code>archive-encryption-keys-config</code> file (mappings can be edited without restarting X-Road services), e.g.:</p>
-<div class="highlight highlight-source-shell"><pre>INSTANCE/memberClass/memberCode = 96F20FF6578A5EF90DFBA18D8C003019508B5637</pre></div>
+<pre><code>INSTANCE/memberClass/memberCode = 96F20FF6578A5EF90DFBA18D8C003019508B5637
+</code></pre>
 <p>Add the mapping file location (<code>archive-encryption-keys-config</code>) and grouping level (<code>archive-grouping</code>) to <code>/etc/xroad/conf.d/local.ini</code> file (editing the file requires restarting X-Road services), e.g.:</p>
-<div class="highlight highlight-source-shell"><pre>[message-log]
-archive-encryption-enabled = <span class="pl-c1">true</span>
-archive-grouping = member
-archive-encryption-keys-config = /etc/xroad/messagelog/archive-encryption-mapping.ini</pre></div>
+<div class="highlight highlight-source-ini"><pre><span class="pl-en">[message-log]</span>
+<span class="pl-k">archive-encryption-enabled</span> = true
+<span class="pl-k">archive-grouping</span> = member
+<span class="pl-k">archive-encryption-keys-config</span> = /etc/xroad/messagelog/archive-encryption-mapping.ini</pre></div>
 <p>To decrypt the encrypted archives, use the following syntax:</p>
 <div class="highlight highlight-source-shell"><pre>gpg [--homedir <span class="pl-k">&lt;</span>gpghome<span class="pl-k">&gt;</span>] --decrypt <span class="pl-k">&lt;</span>archive name<span class="pl-k">&gt;</span> --output <span class="pl-k">&lt;</span>output file name<span class="pl-k">&gt;</span></pre></div>
 <div class="markdown-heading"><h3 class="heading-element">11.2 Transferring the Archive Files from the Security Server</h3><a id="112-transferring-the-archive-files-from-the-security-server" class="anchor" aria-label="Permalink: 11.2 Transferring the Archive Files from the Security Server" href="#112-transferring-the-archive-files-from-the-security-server"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
@@ -3152,49 +3188,43 @@ archive-encryption-keys-config = /etc/xroad/messagelog/archive-encryption-mappin
 </table>
 <p>The archive file has been successfully transferred when the archiving server returns the HTTP status code <code>200</code>.</p>
 <p>Override the configuration parameter archive-transfer-command (create or edit the file <code>etc/xroad/conf.d/local.ini</code>) to set up a transferring script. For example:</p>
-<pre><code>[message-log]
-archive-transfer-command=/usr/share/xroad/scripts/archive-http-transporter.sh -r http://my-archiving-server/cgi-bin/upload
-</code></pre>
+<div class="highlight highlight-source-ini"><pre><span class="pl-en">[message-log]</span>
+<span class="pl-k">archive-transfer-command</span>=/usr/share/xroad/scripts/archive-http-transporter.sh -r http://my-archiving-server/cgi-bin/upload</pre></div>
 <p>The message log package contains the CGI script <code>/usr/share/doc/xroad-addon-messagelog/archive-server/demo-upload.pl</code> for a demo archiving server for the purpose of testing or development.</p>
 <div class="markdown-heading"><h3 class="heading-element">11.3 Using a Remote Database</h3><a id="113-using-a-remote-database" class="anchor" aria-label="Permalink: 11.3 Using a Remote Database" href="#113-using-a-remote-database"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>The message log database can be located outside of the Security Server. The following guide describes how to configure and populate a remote database schema for the message log. It is assumed that access to the database from the Security Server has been configured. For detailed information about the configuration of database connections, refer to [<a href="#Ref_JDBC">JDBC</a>].</p>
 <ol>
 <li>
 <p>Create a database user at remote database host:</p>
-<pre><code>postgres@db_host:~$ createuser -P messagelog_user
-Enter password for new role: &lt;messagelog_password&gt;
-Enter it again: &lt;messagelog_password&gt;
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>postgres@db_host:<span class="pl-k">~</span>$ createuser -P messagelog_user
+Enter password <span class="pl-k">for</span> new role: <span class="pl-k">&lt;</span>messagelog_password<span class="pl-k">&gt;</span>
+Enter it again: <span class="pl-k">&lt;</span>messagelog_password<span class="pl-k">&gt;</span></pre></div>
 </li>
 <li>
 <p>Create a database owned by the message log user at remote database host:</p>
-<pre><code>postgres@db_host:~$ createdb messagelog_dbname -O messagelog_user -E UTF-8
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>postgres@db_host:<span class="pl-k">~</span>$ createdb messagelog_dbname -O messagelog_user -E UTF-8</pre></div>
 </li>
 <li>
 <p>Verify connectivity from Security Server to the remote database:</p>
-<pre><code>user@security_server:~$ psql -h db_host -U messagelog_user messagelog_dbname
-Password for user messagelog_user: &lt;messagelog_password&gt;
+<div class="highlight highlight-source-shell"><pre>user@security_server:<span class="pl-k">~</span>$ psql -h db_host -U messagelog_user messagelog_dbname
+Password <span class="pl-k">for</span> user messagelog_user: <span class="pl-k">&lt;</span>messagelog_password<span class="pl-k">&gt;</span>
 psql (9.3.9)
 SSL connection (cipher: DHE-RSA-AES256-GCM-SHA384, bits: 256)
-Type "help" for help.
-messagelog_dbname=&gt;
-</code></pre>
+Type <span class="pl-s"><span class="pl-pds">"</span>help<span class="pl-pds">"</span></span> <span class="pl-k">for</span> help.
+messagelog_dbname=<span class="pl-k">&gt;</span></pre></div>
 </li>
 <li>
 <p>Stop xroad-proxy service for reconfiguration:</p>
-<pre><code>root@security_server:~# service xroad-proxy stop
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>root@security_server:<span class="pl-k">~</span><span class="pl-c"><span class="pl-c">#</span> service xroad-proxy stop</span></pre></div>
 </li>
 <li>
 <p>Configure the database connection parameters to achieve encrypted connections, in <code>/etc/xroad/db.properties</code>:</p>
-<pre><code>messagelog.hibernate.jdbc.use_streams_for_binary = true
-messagelog.hibernate.dialect = ee.ria.xroad.common.db.CustomPostgreSQLDialect
-messagelog.hibernate.connection.driver_class = org.postgresql.Driver
-messagelog.hibernate.connection.url = jdbc:postgresql://db_host:5432/messagelog_dbname?ssl=true&amp;sslfactory=org.postgresql.ssl.NonValidatingFactory
-messagelog.hibernate.connection.username = messagelog_user
-messagelog.hibernate.connection.password = messagelog_password
-</code></pre>
+<div class="highlight highlight-source-ini"><pre><span class="pl-k">messagelog.hibernate.jdbc.use_streams_for_binary</span> = true
+<span class="pl-k">messagelog.hibernate.dialect</span> = ee.ria.xroad.common.db.CustomPostgreSQLDialect
+<span class="pl-k">messagelog.hibernate.connection.driver_class</span> = org.postgresql.Driver
+<span class="pl-k">messagelog.hibernate.connection.url</span> = jdbc:postgresql://db_host:5432/messagelog_dbname?<span class="pl-k">ssl</span>=true&amp;<span class="pl-k">sslfactory</span>=org.postgresql.ssl.NonValidatingFactory
+<span class="pl-k">messagelog.hibernate.connection.username</span> = messagelog_user
+<span class="pl-k">messagelog.hibernate.connection.password</span> = messagelog_password</pre></div>
 </li>
 <li>
 <p>Populate database schema by reinstalling messagelog addon package and start xroad-proxy</p>
@@ -3258,8 +3288,7 @@ For example:</p>
 <pre><code>/etc/rsyslog.d/40-xroad.conf
 </code></pre>
 <p>Restart the <em>rsyslog</em> service to apply the changes made to the configuration file</p>
-<pre><code>service rsyslog restart
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>service rsyslog restart</pre></div>
 <p>The audit log is rotated monthly by <em>logrotate</em>. To configure the audit log rotation, edit the <em>logrotate</em> configuration file</p>
 <pre><code>/etc/logrotate.d/xroad-proxy
 </code></pre>
@@ -3332,30 +3361,25 @@ can be restored only from command line.</p>
 <li>The X-Road ID of the Security Server</li>
 </ul>
 <p>To find the X-Road ID of the Security Server, the following command can be used:</p>
-<pre><code>cat /etc/xroad/gpghome/openpgp-revocs.d/&lt;file-name&gt;.rev | grep uid
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>cat /etc/xroad/gpghome/openpgp-revocs.d/<span class="pl-k">&lt;</span>file-name<span class="pl-k">&gt;</span>.rev <span class="pl-k">|</span> grep uid</pre></div>
 <p>It is expected that the restore command is run by the xroad user.</p>
 <p>In order to restore configuration, the following command should be used:</p>
-<pre><code>/usr/share/xroad/scripts/restore_xroad_proxy_configuration.sh \
--s &lt;Security Server ID&gt; -f &lt;path + filename&gt; [-P -N]
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>/usr/share/xroad/scripts/restore_xroad_proxy_configuration.sh \
+-s <span class="pl-k">&lt;</span>Security Server ID<span class="pl-k">&gt;</span> -f <span class="pl-k">&lt;</span>path + filename<span class="pl-k">&gt;</span> [-P <span class="pl-k">-N</span>]</pre></div>
 <p>For example (all on one line):</p>
-<pre><code>/usr/share/xroad/scripts/restore_xroad_proxy_configuration.sh \
+<div class="highlight highlight-source-shell"><pre>/usr/share/xroad/scripts/restore_xroad_proxy_configuration.sh \
 -s AA/GOV/TS1OWNER/TS1 \
-–f /var/lib/xroad/backup/conf_backup_20140703-110438.gpg
-</code></pre>
+–f /var/lib/xroad/backup/conf_backup_20140703-110438.gpg</pre></div>
 <p>In case original backup encryption and signing key is lost additional parameters can be specified to skip decryption and/or
 signature verification. Use <code>-P</code> command line switch when backup archive is already decrypted externally and <code>-N</code> switch to
 skip checking archive signature.</p>
 <p>If a backup is restored on a new uninitialized (the initial configuration hasn't been completed) Security Server, the
 Security Server's gpg key must be manually created before restoring the backup:</p>
-<pre><code>/usr/share/xroad/scripts/generate_gpg_keypair.sh /etc/xroad/gpghome &lt;Security Server ID&gt;
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>/usr/share/xroad/scripts/generate_gpg_keypair.sh /etc/xroad/gpghome <span class="pl-k">&lt;</span>Security Server ID<span class="pl-k">&gt;</span></pre></div>
 <p>If it is absolutely necessary to restore the system from a backup made on a different Security Server, the forced mode
 of the restore command can be used with the –F option together with unencrypted backup archive flags. For example (all on one line):</p>
-<pre><code>/usr/share/xroad/scripts/restore_xroad_proxy_configuration.sh \
--F -P –f /var/lib/xroad/backup/conf_backup_20140703-110438.tar
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>/usr/share/xroad/scripts/restore_xroad_proxy_configuration.sh \
+-F -P –f /var/lib/xroad/backup/conf_backup_20140703-110438.tar</pre></div>
 <p>In case backup archives were encrypted they have to be first unencrypted in external safe environment and then securely
 transported to Security Server filesystem.</p>
 <div class="markdown-heading"><h3 class="heading-element">13.3 Automatic Backups</h3><a id="133-automatic-backups" class="anchor" aria-label="Permalink: 13.3 Automatic Backups" href="#133-automatic-backups"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
@@ -3381,8 +3405,7 @@ encryption keys can be imported in the <code>/etc/xroad/gpghome</code> keyring a
 <p>Additional keys for backup encryption should be generated and stored outside Security Server in a secure environment.
 After gpg keypair has been generated, public key can be exported to a file (<a href="mailto:backupadmin@example.org">backupadmin@example.org</a> is the name of the
 key being exported) using this command:</p>
-<pre><code>gpg --output backupadmin.publickey --armor --export backupadmin@example.org
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>gpg --output backupadmin.publickey --armor --export backupadmin@example.org</pre></div>
 <p>Resulting file <code>backupadmin.publickey</code> should be moved to Security Server and imported to backup gpg keyring. Administrator should make sure that the key has not been changed during transfer, for example by validating the key fingerprint.</p>
 <p>Private keys corresponding to additional backup encryption public keys must be handled safely and kept in secret. Any of
 them can be used to decrypt backups and thus mount attacks on the Security Servers.</p>
@@ -3412,8 +3435,7 @@ to export backup encryption public key and import it into separate secure enviro
 Security Server public key should be imported to keyrings holding additional encryption keys, so that backups can be
 decrypted and verified in these separate environments.</p>
 <p>To export Security Servers backup encryption public key use the following command:</p>
-<pre><code>gpg --homedir /etc/xroad/gpghome --armor --output server-public-key.gpg --export &lt;instanceIdentifier&gt;/&lt;memberClass&gt;/&lt;memberCode&gt;/&lt;serverCode&gt;
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>gpg --homedir /etc/xroad/gpghome --armor --output server-public-key.gpg --export <span class="pl-k">&lt;</span>instanceIdentifier<span class="pl-k">&gt;</span>/<span class="pl-k">&lt;</span>memberClass<span class="pl-k">&gt;</span>/<span class="pl-k">&lt;</span>memberCode<span class="pl-k">&gt;</span>/<span class="pl-k">&lt;</span>serverCode<span class="pl-k">&gt;</span></pre></div>
 <p>where <code>&lt;instanceIdentifier&gt;/&lt;memberClass&gt;/&lt;memberCode&gt;/&lt;serverCode&gt;</code> is the Security Server id,
 for example, <code>AA/GOV/TS1OWNER/TS1</code>.</p>
 <p>Resulting file (<code>server-public-key.gpg</code>) should then be exported from Security Server and imported to GPG keystore used
@@ -3427,6 +3449,8 @@ for backup archive consistency verification.</p>
 <strong>Overview</strong> – overview of the Security Server status information</li>
 <li>
 <strong>Traffic</strong> – visual overview of the Security Server traffic</li>
+<li>
+<strong>Connection Testing</strong> – test connectivity to the Central Server and other Security Servers</li>
 </ul>
 <div class="markdown-heading"><h3 class="heading-element">14.1 Diagnostics Overview</h3><a id="141-diagnostics-overview" class="anchor" aria-label="Permalink: 14.1 Diagnostics Overview" href="#141-diagnostics-overview"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>On the Diagnostics Overview page you can view the status information of:</p>
@@ -3539,7 +3563,7 @@ for backup archive consistency verification.</p>
 <li>
 <strong>Green indicator</strong> – Security Server's java version number is supported</li>
 </ul>
-<div class="markdown-heading"><h4 class="heading-element">14.3.3 Examine Security Server encryption status information</h4><a id="1433-examine-security-server-encryption-status-information" class="anchor" aria-label="Permalink: 14.3.3 Examine Security Server encryption status information" href="#1433-examine-security-server-encryption-status-information"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h4 class="heading-element">14.1.3 Examine Security Server encryption status information</h4><a id="1413-examine-security-server-encryption-status-information" class="anchor" aria-label="Permalink: 14.1.3 Examine Security Server encryption status information" href="#1413-examine-security-server-encryption-status-information"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>Backup encryption status</strong></p>
 <p>The status shows is the backup encryption <code>enabled</code> or <code>disabled</code>. The Configured key ID list contains all the additional encryption keys that are present in the configuration. If the list is empty, only the system generated default encryption key is used. When the backup encryption is <code>disabled</code>, the list is always empty.</p>
 <p>The status colors indicate the following:</p>
@@ -3606,6 +3630,75 @@ File includes following information:</p>
 <li>
 <strong>Status</strong> - the status of the message exchange. The options are "Success" and "Failure".</li>
 </ul>
+<div class="markdown-heading"><h3 class="heading-element">14.3 Security Server Connection Testing</h3><a id="143-security-server-connection-testing" class="anchor" aria-label="Permalink: 14.3 Security Server Connection Testing" href="#143-security-server-connection-testing"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>The "Connection Testing" tab in the Diagnostics page allows testing connectivity from the Security Server to the Central Server and other Security Servers.</p>
+<p>The page is divided into three logical blocks:</p>
+<ul>
+<li>Central Server</li>
+<li>Other Security Server</li>
+<li>Management Security Server</li>
+</ul>
+<p>Each block contains predefined tests that validate communication with the corresponding service. Test results include a status indicator ("Green" or "Red") and a detailed message to assist troubleshooting.</p>
+<p>A <strong>Test</strong> button next to each row allows re-running the specific connection test.</p>
+<div class="markdown-heading"><h2 class="heading-element">14.3.1 Testing the connection to the Central Server</h2><a id="1431-testing-the-connection-to-the-central-server" class="anchor" aria-label="Permalink: 14.3.1 Testing the connection to the Central Server" href="#1431-testing-the-connection-to-the-central-server"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>This block allows verifying that the Security Server can reach the Central Server and download the configuration necessary for normal operation.</p>
+<p><strong>Global Configuration Download</strong></p>
+<p>Tests ports <code>80</code> and <code>443</code> to verify that the Global Configuration can be downloaded from the Central Server. If the Central Server is clustered, then all clustered node addresses are included in the test. For federated instances, if the <code>configuration-client.allowed-federations</code> property is enabled, the configuration download URLs for the allowed federated instances are also included. Note that even if the global configuration contains multiple federated instances, not all of them may be enabled on the Security Server.</p>
+<p>✔ <code>Everything ok</code> — indicates that the Central Server global configuration access via <code>HTTP</code>/<code>HTTPS</code> on ports <code>80</code>/<code>443</code> is reachable.</p>
+<p>Examples of error messages:</p>
+<ul>
+<li>
+<code>Connection error, unknown host - cs: Name or service not known</code> — the Central Server hostname cannot be resolved. Check DNS configuration.</li>
+<li>
+<code>IO error - (certificate_unknown) PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException...</code> — the Security Server doesn't trust the CA that issued Central Server's TLS certificate. The root certificate of the CA that was used to issue Central Server's TLS certificate must be added to the Security Server's Java truststore. For the guidelines on Publish global configuration over HTTPS, please refer to <a href="ug-sec_x_road_security_hardening.html">UG-SEC</a>.</li>
+</ul>
+<p><strong>Authentication Certificate Registration Service</strong></p>
+<p>Tests connectivity to the Central Server on port <code>4001</code> (used by the registration service and must be accessible by every Security Server registered to the ecosystem).</p>
+<p>✔ <code>Everything ok</code> — indicates that the Authentication Certificate Registration Service is reachable and that the Security Server’s authentication certificate has been added. However, only the existence of the authentication certificate is checked, not its validity.</p>
+<p>Examples of error messages:</p>
+<ul>
+<li>
+<code>Connection error, unknown host - cs: Name or service not known | Certificate not found - No auth cert found</code> — the Central Server hostname cannot be resolved, and the Security Server has no authentication certificate added.</li>
+<li>
+<code>Certificate not found - No auth cert found</code> —  there are no connection issues, but the Security Server's authentication certificate has not been added.</li>
+</ul>
+<div class="markdown-heading"><h2 class="heading-element">14.3.2 Testing the connection to other Security Servers</h2><a id="1432-testing-the-connection-to-other-security-servers" class="anchor" aria-label="Permalink: 14.3.2 Testing the connection to other Security Servers" href="#1432-testing-the-connection-to-other-security-servers"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>This block enables testing communication with any other Security Server in the same X-Road instance (or federated instances). The functionality uses the <code>listMethods</code> meta service to test communication with other Security Servers. Passing the test requires that the target Security Server allows incoming connections to ports <code>5500</code> and <code>5577</code> from the source Security Server.</p>
+<p>Field descriptions:</p>
+<ul>
+<li>
+<strong>Source Client</strong> — a list of members and subsystems registered on the client Security Server that can be used as a Source Client.</li>
+<li>
+<strong>REST/SOAP</strong> - the protocol (<code>REST</code> or <code>SOAP</code>) that's used to complete the connection test.</li>
+<li>
+<strong>Target Instance</strong> - the X-Road instance where the Target Client is registered. This can be the same instance where the Source Client is registered or a federated instance.</li>
+<li>
+<strong>Target Client</strong> - a list of clients registered on other Security Servers. Also, clients registered on the same Security Server with the Source Client are included to allow local testing. If federation is enabled and federated instances exist in the configuration, registered clients of federated instances are included as well.</li>
+<li>
+<strong>Target Security Server</strong> — a list of Security Servers where the Target Client is registered. If the Target Client is registered on multiple Security Servers, all of them are listed for selection.</li>
+</ul>
+<p>✔ <code>Everything ok</code> — indicates that there are no network, configuration, or certificate issues preventing communication between the two Security Server client.</p>
+<p>Examples of error messages:</p>
+<ul>
+<li>
+<code>server.clientproxy.ssl_authentication_failed - Security server has no valid authentication certificate</code>.</li>
+</ul>
+<div class="markdown-heading"><h2 class="heading-element">14.3.3 Testing the connection to Management Security Server</h2><a id="1433-testing-the-connection-to-management-security-server" class="anchor" aria-label="Permalink: 14.3.3 Testing the connection to Management Security Server" href="#1433-testing-the-connection-to-management-security-server"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>This block tests communication with the Management Security Server, including capability to send management requests (such as client register, client disable, ...).</p>
+<p>Field descriptions:</p>
+<ul>
+<li>
+<strong>Source Client</strong> - the owner member of the client Security Server.</li>
+<li>
+<strong>REST/SOAP</strong> - <code>SOAP</code> since management services only support <code>SOAP</code>.</li>
+<li>
+<strong>Target Instance</strong> - the same instance where the Source Client is registered.</li>
+<li>
+<strong>Target Client</strong> - the subsystem providing the management services.</li>
+<li>
+<strong>Target Security Server</strong> - if management services are registered on multiple Security Servers, the user is able to select the desired target Security Server.</li>
+</ul>
+<p>✔ <code>Everything ok</code> - indicates that there are no network, configuration, or certificate issues preventing communication with the management Security Server.</p>
 <div class="markdown-heading"><h2 class="heading-element">15 Operational Monitoring</h2><a id="15-operational-monitoring" class="anchor" aria-label="Permalink: 15 Operational Monitoring" href="#15-operational-monitoring"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>Operational monitoring data</strong> contains data about request exchange (such as the ID-s of the client and the service, various attributes of the message read from the message header, request and response timestamps, SOAP sizes etc.) of the X-Road Security Server(s).</p>
 <p><strong>The operational monitoring daemon</strong> collects and shares operational monitoring data of the X-Road Security Server(s) as part of request exchange, shares this data, calculates and shares health statistics (the timestamps and number of successful/unsuccessful requests, various metrics of the duration and the SOAP message size of the requests, etc.). The data fields that are stored and shared are described in [<a href="#Ref_PR-OPMON">PR-OPMON</a>].</p>
@@ -3620,18 +3713,14 @@ File includes following information:</p>
 <p>All overrides to the default configuration values must be made in the file <code>/etc/xroad/conf.d/local.ini</code>, in the <code>[op-monitor-buffer]</code> section.</p>
 <div class="markdown-heading"><h4 class="heading-element">15.1.1 Stopping the Collecting of Operational Data</h4><a id="1511-stopping-the-collecting-of-operational-data" class="anchor" aria-label="Permalink: 15.1.1 Stopping the Collecting of Operational Data" href="#1511-stopping-the-collecting-of-operational-data"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>If, for any reason, operational data should not be collected and forwarded to the operational monitoring daemon, the parameter size can be set to 0:</p>
-<pre><code>[op-monitor-buffer]
-size = 0
-</code></pre>
+<div class="highlight highlight-source-ini"><pre><span class="pl-en">[op-monitor-buffer]</span>
+<span class="pl-k">size</span> = 0</pre></div>
 <p>After the configuration change, the xroad-proxy service must be restarted:</p>
-<pre><code>service xroad-proxy restart
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>service xroad-proxy restart</pre></div>
 <p>In addition, the operational monitoring daemon should be stopped:</p>
-<pre><code>service xroad-opmonitor stop
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>service xroad-opmonitor stop</pre></div>
 <p>For the service to stay stopped after reboot the following command should be run:</p>
-<pre><code>echo manual &gt; /etc/init/xroad-opmonitor.override
-</code></pre>
+<div class="highlight highlight-source-shell"><pre><span class="pl-c1">echo</span> manual <span class="pl-k">&gt;</span> /etc/init/xroad-opmonitor.override</pre></div>
 <div class="markdown-heading"><h3 class="heading-element">15.2 Operational Monitoring Daemon</h3><a id="152-operational-monitoring-daemon" class="anchor" aria-label="Permalink: 15.2 Operational Monitoring Daemon" href="#152-operational-monitoring-daemon"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>The configuration parameters available for configuring the operational monitoring daemon have been documented in [<a href="#Ref_UG-OPMONSYSPAR">UG-OPMONSYSPAR</a>].</p>
 <p>Similarly to the operational monitoring buffer, the default values of the parameters have been chosen to be sufficient under expected average load using the minimum recommended hardware.</p>
@@ -3651,19 +3740,17 @@ section of the file <code>/etc/xroad/conf.d/local.ini</code>.</p>
 <p><strong>port</strong> – listening port (by default the value is set to <em>2080</em>).</p>
 <p><strong>scheme</strong> – connection type (by default the value is set to <em>HTTP</em>).</p>
 <p>If any of these values are changed, both the proxy and the operational monitoring daemon services must be restarted:</p>
-<pre><code>service xroad-proxy restart
-service xroad-opmonitor restart
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>service xroad-proxy restart
+service xroad-opmonitor restart</pre></div>
 <div class="markdown-heading"><h4 class="heading-element">15.2.4 Installing an External Operational Monitoring Daemon</h4><a id="1524-installing-an-external-operational-monitoring-daemon" class="anchor" aria-label="Permalink: 15.2.4 Installing an External Operational Monitoring Daemon" href="#1524-installing-an-external-operational-monitoring-daemon"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Technically, the operational monitoring daemon can be installed on a separate host from the Security Server. It is possible to configure several Security Servers to use that external operational monitoring daemon, but this setup is correct <em>only</em> if the Security Servers are identical clones installed behind a load balancer.</p>
 <p><strong>NOTE:</strong> The setup of clustered Security Servers is not officially supported yet and has been implemented for future compatibility.</p>
 <p><strong>NOTE:</strong> It is <strong>strongly advised</strong> to use HTTPS for requests between a Security Server and the associated external operational monitoring daemon.</p>
 <p>For running a separate operational monitoring daemon, the xroad-opmonitor package must be installed. Please refer to [<a href="#Ref_IG-SS">IG-SS</a>] for general instructions on obtaining X-Road packages.</p>
 <p>As a result of installation, the following services will be running:</p>
-<pre><code>xroad-confclient
+<div class="highlight highlight-source-shell"><pre>xroad-confclient
 xroad-signer
-xroad-opmonitor
-</code></pre>
+xroad-opmonitor</pre></div>
 <div class="markdown-heading"><h4 class="heading-element">15.2.5 Configuring an External Operational Monitoring Daemon and the Corresponding Security Server</h4><a id="1525-configuring-an-external-operational-monitoring-daemon-and-the-corresponding-security-server" class="anchor" aria-label="Permalink: 15.2.5 Configuring an External Operational Monitoring Daemon and the Corresponding Security Server" href="#1525-configuring-an-external-operational-monitoring-daemon-and-the-corresponding-security-server"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>To make a Security Server communicate with an external operational monitoring daemon, it is necessary to configure both the daemon and the Security Server.</p>
 <p>By default, the operational monitoring daemon listens on localhost. To make the daemon available to Security Servers on other hosts, the listening address must be set to the IP address that is relevant in the particular network, as described in the previous section.</p>
@@ -3671,17 +3758,14 @@ xroad-opmonitor
 <p><strong>NOTE:</strong> If an external operational monitoring daemon is used, the host, scheme (and optionally, port) parameters must be changed at both hosts.</p>
 <p>The internal TLS certificate of the Security Server is used for authenticating the Security Server to the operational monitoring daemon. This certificate has been generated beforehand, during the installation process of the Security Server, and is available in PEM format in the file <code>/etc/xroad/ssl/internal.crt</code>. Please refer to Section <a href="#104-changing-the-internal-tls-key-and-certificate">10.4</a> for the instructions on exporting the internal TLS certificate from UI. The file must be copied to the host running the operational monitoring daemon. The system user xroad must have permissions to read this file.</p>
 <p>In the configuration of the external daemon, the corresponding path must be set in <code>/etc/xroad/conf.d/local.ini</code>:</p>
-<pre><code>[op-monitor]
-client-tls-certificate = &lt;path/to/security/server/internal/cert&gt;
-</code></pre>
+<div class="highlight highlight-source-ini"><pre><span class="pl-en">[op-monitor]</span>
+<span class="pl-k">client-tls-certificate</span> = &lt;path/to/security/server/internal/cert&gt;</pre></div>
 <p>Next, a TLS key and the corresponding certificate must be generated on the host of the external monitoring daemon as well, using the command</p>
-<pre><code>generate-opmonitor-certificate
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>generate-opmonitor-certificate</pre></div>
 <p>The script will prompt you for standard fields for input to TLS certificates and its output (key files and the certificate) will be generated to the directory <code>/etc/xroad/ssl</code>.</p>
 <p>The generated certificate, in the file <code>opmonitor.crt</code>, must be copied to the corresponding Security Server. The system user <code>xroad</code> must have permissions to read this file. Its path at the Security Server must be written to the configuration (note the name of the section, although it is the proxy service that will read the configuration):</p>
-<pre><code>[op-monitor]
-tls-certificate = &lt;path/to/external/daemon/tls/cert&gt;
-</code></pre>
+<div class="highlight highlight-source-ini"><pre><span class="pl-en">[op-monitor]</span>
+<span class="pl-k">tls-certificate</span> = &lt;path/to/external/daemon/tls/cert&gt;</pre></div>
 <p>For the request traffic visualization on the Security Server UI Diagnostics page, gRPC keystore and truststore also need to be configured on both ends. Certificate that corresponds to the key in external Operational Monitoring gRPC keystore needs to be added to the gRPC truststore on the Security Server side and vice versa - Security Server's gRPC certificate needs to be added to the external monitoring daemon's truststore. The gRPC keystore and truststore system parameters are described in [<a href="#31-common-parameters--common">UGSYSPAR</a>].</p>
 <p>You can use java <code>keytool</code> and <code>openssl</code> when working with gRPC keystores and truststores:</p>
 <ul>
@@ -3709,14 +3793,11 @@ tls-certificate = &lt;path/to/external/daemon/tls/cert&gt;
 </li>
 </ul>
 <p>For the external operational daemon to be used, the proxy service at the Security Server must be restarted:</p>
-<pre><code>service xroad-proxy restart
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>service xroad-proxy restart</pre></div>
 <p>In addition, on the host running the corresponding Security Server, the operational monitoring daemon must be stopped:</p>
-<pre><code>service xroad-opmonitor stop
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>service xroad-opmonitor stop</pre></div>
 <p>For the service to stay stopped after reboot the following command should be run:</p>
-<pre><code>echo manual &gt; /etc/init/xroad-opmonitor.override
-</code></pre>
+<div class="highlight highlight-source-shell"><pre><span class="pl-c1">echo</span> manual <span class="pl-k">&gt;</span> /etc/init/xroad-opmonitor.override</pre></div>
 <p>The configuration anchor (renamed as <code>configuration-anchor.xml</code>) file must be manually copied into the directory <code>/etc/xroad</code> of the external monitoring daemon in order for configuration client to be able to download the global configuration (by default configuration download interval is 60 seconds). The system user xroad must have permissions to read this file.</p>
 <div class="markdown-heading"><h4 class="heading-element">15.2.6 Monitoring Health Data over JMXMP</h4><a id="1526-monitoring-health-data-over-jmxmp" class="anchor" aria-label="Permalink: 15.2.6 Monitoring Health Data over JMXMP" href="#1526-monitoring-health-data-over-jmxmp"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>The operational monitoring daemon makes health data available over the JMXMP protocol. The Zabbix monitoring software can be configured to gather that data periodically, using its built in JMX interface type.</p>
@@ -3789,11 +3870,9 @@ tls-certificate = &lt;path/to/external/daemon/tls/cert&gt;
 </table>
 <p>System services are managed through the <em>systemd</em> facility.</p>
 <p><strong>To start a service</strong>, issue the following command as a <code>root</code> user:</p>
-<pre><code>service &lt;service&gt; start
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>service <span class="pl-k">&lt;</span>service<span class="pl-k">&gt;</span> start</pre></div>
 <p><strong>To stop a service</strong>, enter:</p>
-<pre><code>service &lt;service&gt; stop
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>service <span class="pl-k">&lt;</span>service<span class="pl-k">&gt;</span> stop</pre></div>
 <p>Services use the <a href="https://www.freedesktop.org/software/systemd/man/systemd-system.conf.html#DefaultStartLimitIntervalSec=" rel="nofollow">default unit start rate limits</a>.
 An exception to this is <code>xroad-proxy-ui-api</code>, which uses a longer start rate limit (<a href="https://github.com/nordic-institute/X-Road/blob/master/src/packages/src/xroad/ubuntu/generic/xroad-proxy-ui-api.service#L5-6">5 starts / 40 seconds</a>)
 to prevent infinite restart-loop in some specific error situations.</p>
@@ -3933,8 +4012,7 @@ associated with the key. Server responds with data that contains the key id and 
 <div class="markdown-heading"><h4 class="heading-element">19.1.4 Revoking API keys</h4><a id="1914-revoking-api-keys" class="anchor" aria-label="Permalink: 19.1.4 Revoking API keys" href="#1914-revoking-api-keys"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>An API key can be revoked with a <code>DELETE</code> request to <code>/api/v1/api-keys/{id}</code>. Server responds with <code>HTTP 200</code> if
 revocation was successful and <code>HTTP 404</code> if key did not exist.</p>
-<div class="highlight highlight-source-shell"><pre>curl -X DELETE -u <span class="pl-k">&lt;</span>user<span class="pl-k">&gt;</span>:<span class="pl-k">&lt;</span>password<span class="pl-k">&gt;</span> https://localhost:4000/api/v1/api-keys/60  -k
-</pre></div>
+<div class="highlight highlight-source-shell"><pre>curl -X DELETE -u <span class="pl-k">&lt;</span>user<span class="pl-k">&gt;</span>:<span class="pl-k">&lt;</span>password<span class="pl-k">&gt;</span> https://localhost:4000/api/v1/api-keys/60  -k</pre></div>
 <div class="markdown-heading"><h4 class="heading-element">19.1.5 API key caching</h4><a id="1915-api-key-caching" class="anchor" aria-label="Permalink: 19.1.5 API key caching" href="#1915-api-key-caching"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>API keys are cached in memory, which is typically not a problem in standard Security Server configurations.
 However, if you have multiple Security Servers configured to share the same <code>serverconf</code> database
@@ -4260,11 +4338,12 @@ proxy_memory_helper.sh apply-default</pre></div>
 <p>By default any scripts(for example backup/restore) that uses <code>psql</code> utility tries to parse <code>/etc/xroad/db.properties</code> file for database related configurations like: database name, user, password, host, port. If the file is not found, the script may use default values which will point to local database. When such behaviour doesn't cover the requirements, it is possible to pass additional configurations to <code>psql</code> utility using environment variables from file.</p>
 <p>First step to pass additional configurations is to create <code>db_libpq.env</code> file in <code>/etc/xroad/</code> folder if it isn't created yet. It may also require adjustments of access rights to file.</p>
 <p>Example of file contents:</p>
-<div class="highlight highlight-source-shell"><pre><span class="pl-k">export</span> PGSSLMODE=<span class="pl-s"><span class="pl-pds">"</span>verify-full<span class="pl-pds">"</span></span>
-<span class="pl-k">export</span> PGSSLCERT=<span class="pl-s"><span class="pl-pds">"</span>/etc/xroad/ssl/internal.crt<span class="pl-pds">"</span></span>
-<span class="pl-k">export</span> PGSSLKEY=<span class="pl-s"><span class="pl-pds">"</span>/etc/xroad/ssl/internal.key<span class="pl-pds">"</span></span>
-<span class="pl-k">export</span> PGSSLROOTCERT=<span class="pl-s"><span class="pl-pds">"</span>/etc/xroad/ssl/root.crt<span class="pl-pds">"</span></span>
-<span class="pl-c"><span class="pl-c">#</span>export PGTARGETSESSIONATTRS="read-write"</span></pre></div>
+<pre><code>export PGSSLMODE="verify-full"
+export PGSSLCERT="/etc/xroad/ssl/internal.crt"
+export PGSSLKEY="/etc/xroad/ssl/internal.key"
+export PGSSLROOTCERT="/etc/xroad/ssl/root.crt"
+#export PGTARGETSESSIONATTRS="read-write"
+</code></pre>
 <p>This example shows how SSL configurations for <em>psql</em> could look like. List of possible environment variables can be found in <a href="https://www.postgresql.org/docs/current/libpq-envars.html" rel="nofollow">Postgres documentation</a>.</p>
 <p>Some of the variables like <code>PGOPTIONS</code>, <code>PGDATABASE</code>, <code>PGUSER</code>, <code>PGPASSWORD</code> are already used by scripts(created and initialized with values from <code>/etc/xroad/db.properties</code> file) so adding same variables to <code>db_libpq.env</code> won't have any effect on script behaviour.</p>
 <p>In case it is needed to pass additional flags to internally initialized <code>PGOPTIONS</code> variable, then <code>PGOPTIONS_EXTRA</code> variable can be used. It will be appended to <code>PGOPTIONS</code> variable.</p>
@@ -4336,7 +4415,7 @@ This parameter can be overridden by an environment variable <code>XROAD_PROXY_UI
 <ol>
 <li>Credentials (kid and hmac secret) for external account binding. Some CAs require these for added security. They tie the X-Road member to an external account on the Certificate Authority's side and so need to be acquired externally from the CA.</li>
 <li>
-<code>account-keystore-password</code> -  a password of the ACME Server account PKCS #12 keystore that is populated automatically by the Security Server, when communicating with the ACME Server.</li>
+<code>account-keystore-password</code> -  the password for the ACME Server account PKCS #12 keystore. The password is populated automatically by the Security Server when communicating with the ACME Server. When ACME is used for the first time, the keystore is generated automatically using this password. If the value of this property is left empty, the Security Server generates a random password and stores it in the acme.yml file. If the value of this property is not empty, the provided value is used as the password for the generated keystore file.</li>
 </ol>
 <p><strong>Note:</strong> In addition, the member-specific e-mail address must be defined in the <code>/etc/xroad/conf.d/mail.yml</code> configuration file. See the E-mail notifications section for more detailed information.</p>
 <p>There are currently two ways to let the ACME server know which type of certificate (authentication or sign certificate) to return. The way that should be used depends on the ACME Server and the options it supports. The first one, which sends profile ids for authentication and signing certificates in http header, does not require any certificate type-specific configuration on the Security Server side. Instead, the second one uses certificate type-specific external account credentials. For the authentication certificate add "<strong>auth-</strong>" prefix to the external account binding credentials property names in the <code>/etc/xroad/conf.d/acme.yml</code> file. For the signing certificate add the prefix "<strong>sign-</strong>". If you are not sure which configuration option should be used, please contact your X-Road Operator or CA for assistance.</p>
@@ -4370,9 +4449,9 @@ This parameter can be overridden by an environment variable <code>XROAD_PROXY_UI
           <span class="pl-ent">kid</span>: <span class="pl-s">kid123</span>
           <span class="pl-ent">mac-key</span>: <span class="pl-s">goodlongsecretwordthatisnotshort</span>
 
-<span class="pl-c"><span class="pl-c">#</span> This is a password of the ACME Server account PKCS #12 keystore that is populated automatically by the Security Server.</span>
+<span class="pl-c"><span class="pl-c">#</span> This is the password for the PKCS #12 keystore of the ACME Server account. The password is populated automatically by the Security Server.</span>
 <span class="pl-c"><span class="pl-c">#</span> Keystore is at /etc/xroad/ssl/acme.p12</span>
-<span class="pl-ent">account-keystore-password</span>: <span class="pl-s">acmep12Password1234</span>
+<span class="pl-ent">account-keystore-password</span>:
 </pre></div>
 <div class="markdown-heading"><h2 class="heading-element">25 Migrating to EC Based Authentication and Signing Certificates</h2><a id="25-migrating-to-ec-based-authentication-and-signing-certificates" class="anchor" aria-label="Permalink: 25 Migrating to EC Based Authentication and Signing Certificates" href="#25-migrating-to-ec-based-authentication-and-signing-certificates"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <div class="markdown-heading"><h3 class="heading-element">25.1 Steps to Enable EC Based Certificates</h3><a id="251-steps-to-enable-ec-based-certificates" class="anchor" aria-label="Permalink: 25.1 Steps to Enable EC Based Certificates" href="#251-steps-to-enable-ec-based-certificates"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>

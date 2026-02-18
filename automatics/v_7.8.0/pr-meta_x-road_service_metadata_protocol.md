@@ -1,33 +1,36 @@
 # X-Road: Service Metadata Protocol <!-- omit in toc --> 
 **Technical Specification**
 
-Version: 2.13  
+Version: 2.16  
 Doc. ID: PR-META
 
 ---
 
 ## Version history <!-- omit in toc --> 
 
-| Date       | Version | Description                                                       | Author             |
-|------------|---------|-------------------------------------------------------------------|--------------------|
-| 04.08.2015 | 0.8     | Initial version                                                   | Siim Annuk         |
-| 09.09.2015 | 1.0     | Editorial changes made                                            | Imbi Nõgisto       |
-| 15.09.2015 | 1.1     | Made minor fixes to schemas                                       | Margus Freudenthal |
-| 16.09.2015 | 2.0     | Final version                                                     | Imbi Nõgisto       |
-| 12.10.2015 | 2.1     | Updated identifier names and WSDL examples                        | Ilja Kromonov      |
-| 23.08.2017 | 2.1.6   | Converted to Markdown and added endpoint address replacement      | Janne Mattila      |
-| 02.01.2018 | 2.2     | Update getWsdl metaservice description                            | Ilkka Seppälä      |
-| 04.01.2018 | 2.3     | Updated descriptions and subsystem requirements for meta-services | Tatu Repo          |
-| 30.01.2018 | 2.4     | Updated metaservices wsdl                                         | Jarkko Hyöty       |
-| 06.03.2018 | 2.5     | Added terms section, terms doc reference and link                 | Tatu Repo          |
-| 15.10.2018 | 2.6     | Update Annex B                                                    | Petteri Kivimäki   |
-| 05.06.2019 | 2.7     | Add JSON response for listClients metadata API                    | Jarkko Hyöty       |
-| 30.07.2019 | 2.8     | Update listMethods and allowedMethods descriptions                | Ilkka Seppälä      |
-| 09.10.2019 | 2.9     | Remove listCentralServices from the OpenAPI definition            | Jarkko Hyöty       |
-| 07.11.2019 | 2.10    | Update getWsdl metaservice description                            | Ilkka Seppälä      |
-| 03.04.2020 | 2.11    | Remove getWsdl HTTP GET-request description                       | Petteri Kivimäki   |
-| 17.04.2023 | 2.12    | Remove central services support                                   | Justas Samuolis    |
-| 01.06.2023 | 2.13    | Update references                                                 | Petteri Kivimäki   |
+| Date       | Version | Description                                                       | Author               |
+|------------|---------|-------------------------------------------------------------------|----------------------|
+| 04.08.2015 | 0.8     | Initial version                                                   | Siim Annuk           |
+| 09.09.2015 | 1.0     | Editorial changes made                                            | Imbi Nõgisto         |
+| 15.09.2015 | 1.1     | Made minor fixes to schemas                                       | Margus Freudenthal   |
+| 16.09.2015 | 2.0     | Final version                                                     | Imbi Nõgisto         |
+| 12.10.2015 | 2.1     | Updated identifier names and WSDL examples                        | Ilja Kromonov        |
+| 23.08.2017 | 2.1.6   | Converted to Markdown and added endpoint address replacement      | Janne Mattila        |
+| 02.01.2018 | 2.2     | Update getWsdl metaservice description                            | Ilkka Seppälä        |
+| 04.01.2018 | 2.3     | Updated descriptions and subsystem requirements for meta-services | Tatu Repo            |
+| 30.01.2018 | 2.4     | Updated metaservices wsdl                                         | Jarkko Hyöty         |
+| 06.03.2018 | 2.5     | Added terms section, terms doc reference and link                 | Tatu Repo            |
+| 15.10.2018 | 2.6     | Update Annex B                                                    | Petteri Kivimäki     |
+| 05.06.2019 | 2.7     | Add JSON response for listClients metadata API                    | Jarkko Hyöty         |
+| 30.07.2019 | 2.8     | Update listMethods and allowedMethods descriptions                | Ilkka Seppälä        |
+| 09.10.2019 | 2.9     | Remove listCentralServices from the OpenAPI definition            | Jarkko Hyöty         |
+| 07.11.2019 | 2.10    | Update getWsdl metaservice description                            | Ilkka Seppälä        |
+| 03.04.2020 | 2.11    | Remove getWsdl HTTP GET-request description                       | Petteri Kivimäki     |
+| 17.04.2023 | 2.12    | Remove central services support                                   | Justas Samuolis      |
+| 01.06.2023 | 2.13    | Update references                                                 | Petteri Kivimäki     |
+| 06.03.2025 | 2.14    | Update XML Schema for Messages                                    | Ovidijus Narkevičius |
+| 29.04.2025 | 2.15    | Update JSON Schema for *listClients* and XML and JSON examples    | Ovidijus Narkevičius |
+| 22.08.2025 | 2.16    | Update Security Server default HTTP and HTTPS ports               | Petteri Kivimäki     |
 
 ## Table of Contents <!-- omit in toc --> 
 
@@ -99,14 +102,14 @@ See X-Road terms and abbreviations documentation \[[TA-TERMS](#Ref_TERMS)\].
 
 ## 2 Retrieving List of Service Providers
 
-Security server clients can retrieve a list of all the potential service providers (i.e., members and subsystems) of an X-Road instance. This can be accomplished by making a HTTP GET request to the security server. The request URL is `http://SECURITYSERVER/listClients` or `https://SECURITYSERVER/listClients` depending on whether the HTTPS protocol is configured for interaction between the security server and the information system. When making the request, the address `SECURITYSERVER` must be replaced with the actual address of the security server.
+Security server clients can retrieve a list of all the potential service providers (i.e., members and subsystems) of an X-Road instance. This can be accomplished by making a HTTP GET request to the Security Server. The request URL is `http://SECURITYSERVER:8080/listClients` or `https://SECURITYSERVER:8443/listClients` depending on whether the HTTPS protocol is configured for interaction between the Security Server and the information system. When making the request, the address `SECURITYSERVER` must be replaced with the actual address of the Security Server. The default port for the HTTP protocol is 8080 and for the HTTPS protocol is 8443.
 In addition, it is possible to retrieve a list of clients in other, federated X-Road instances by adding the following HTTP parameter:
 
 * `xRoadInstance` – code that identifies the X-Road instance.
 
-Thus, in order to retrieve a list of clients defined in the X-Road instance `AA`, the request URL is `http://SECURITYSERVER/listClients?xRoadInstance=AA`.
+Thus, in order to retrieve a list of clients defined in the X-Road instance `AA`, the request URL is `http://SECURITYSERVER:8080/listClients?xRoadInstance=AA`.
 
-It is possible to control the response content type using HTTP `Accept` header. If the header value is `application/json`, the security server must produce an application/json response, as defined in Annex B, [OpenAPI definition](#openapi-definition). Otherwise, security server MUST respond with content-type `text/xml` and the response MUST contain the `clientList` XML element defined in Annex [A](#annex-a-xml-schema-for-messages)).
+It is possible to control the response content type using HTTP `Accept` header. If the header value is `application/json`, the Security Server must produce an application/json response, as defined in Annex B, [OpenAPI definition](#openapi-definition). Otherwise, Security Server MUST respond with content-type `text/xml` and the response MUST contain the `clientList` XML element defined in Annex [A](#annex-a-xml-schema-for-messages)).
 
 Annex [C.1](#c1-listclients-response) contains an example XML and JSON response messages
 
@@ -150,14 +153,14 @@ Service clients are able to download WSDL-files that contain the definition of a
 The service SOAP header MUST contain the identifier of the target service provider and the value of the serviceCode element MUST be `getWsdl`.
 The body of the request MUST contain an appropriately named XML element (`getWsdl`) which contains one or two child elements (`serviceCode`, `serviceVersion`) that define the service which service description is returned. The `serviceCode` element is mandatory and the `serviceVersion` element is optional.
 
-An example of a `getWsdl` request to the client security server is documented in annex [C.7](#c7-getwsdl-request) and the corresponding response in annexes [C.8](#c8-getwsdl-response) and [C.9](#c9-getwsdl-response-attachment).
+An example of a `getWsdl` request to the client Security Server is documented in annex [C.7](#c7-getwsdl-request) and the corresponding response in annexes [C.8](#c8-getwsdl-response) and [C.9](#c9-getwsdl-response-attachment).
 
 #### WSDL-information modifications
 
 Security server MUST replace endpoint location with value `http://example.org/xroad-endpoint`.
 This is done for security reasons, to hide the endpoint addresses which often point
 to information systems which should be hidden from the clients, and be accessed only through
-the provider security server.
+the provider Security Server.
 
 For example service definition
 
@@ -202,6 +205,7 @@ when retrieved through the meta-service.
         <xs:sequence>
             <xs:element name="id" type="id:XRoadClientIdentifierType"/>
             <xs:element name="name" type="xs:string" minOccurs="0"/>
+            <xs:element name="subsystemName" type="xs:string" minOccurs="0"/>
         </xs:sequence>
     </xs:complexType>
     <xs:element name="clientList" type="ClientListType"/>
@@ -474,6 +478,8 @@ components:
       properties:
         name:
           type: string
+        subsystem_name:
+          type: string
         id:
           type: object
           properties:
@@ -501,7 +507,7 @@ components:
 ### C.1 listClients Response
 
 #### XML Response
-`curl http://SECURITYSERVER/listClients`
+`curl http://SECURITYSERVER:8080/listClients`
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -540,12 +546,13 @@ components:
             <ns1:subsystemCode>sub</ns1:subsystemCode>
         </ns2:id>
         <ns2:name>Client One</ns2:name>
+        <ns2:subsystemName>Client One Sub</ns2:subsystemName>
     </ns2:member>
 </ns2:clientList>
 ```
 
 #### JSON Response
-`curl -H "Accept: application/json" http://SECURITYSERVER/listClients`
+`curl -H "Accept: application/json" http://SECURITYSERVER:8080/listClients`
 
 ```json
 {
@@ -585,7 +592,8 @@ components:
         "object_type": "SUBSYSTEM",
         "xroad_instance": "AA"
       },
-      "name": "Client One"
+      "name": "Client One",
+      "subsystem_name": "Client One Sub"
     }
   ]
 }

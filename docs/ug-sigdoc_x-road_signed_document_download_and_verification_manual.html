@@ -12,7 +12,7 @@
         padding: 45px;
       }
     </style>
-    <title>X-Road: 7.7.0
+    <title>X-Road: 7.8.0
 </title>
   </head>
   <body>
@@ -234,8 +234,7 @@ Doc. ID: UG-SIGDOC</p>
 </code></pre>
 <div class="markdown-heading"><h3 class="heading-element">3.1 Usage</h3><a id="31-usage" class="anchor" aria-label="Permalink: 3.1 Usage" href="#31-usage"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>The asicverifier utility is run as follows:</p>
-<pre><code>java -jar asicverifier.jar ( --version | &lt;configuration path&gt; &lt;signed document&gt; )
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>java -jar asicverifier.jar ( --version <span class="pl-k">|</span> <span class="pl-k">&lt;</span>configuration path<span class="pl-k">&gt;</span> <span class="pl-k">&lt;</span>signed document<span class="pl-k">&gt;</span> )</pre></div>
 <p>where <code>&lt;signed document&gt;</code> is the path to the signed document being verified and <code>&lt;configuration path&gt;</code> is the path to the verification configuration for this container (see Section 3.2 ). You can check the version of the asicverifier tool with the <code>--version</code> option.</p>
 <p>If verification is successful the output will be similar to:</p>
 <pre><code>Loading configuration from18 verificationconf/... 
@@ -292,8 +291,7 @@ Files successfully extracted.
 <p>where <code>SECURITYSERVER</code> is the actual address of the security server.</p>
 <p>The <em>verificationconf</em> service has no parameters and responds with a ZIP archive (content-type <code>application/zip</code>, filename <code>verificationconf.zip</code>). This archive needs to be extracted and the location of it's contents used as an argument to the asicverifier tool.</p>
 <p>A convenient way to download the verification configuration is with the web browser or use of the curl tool:</p>
-<pre><code>curl -J -O http://sec1.gov/verificationconf
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>curl -J -O http://sec1.gov/verificationconf</pre></div>
     </article>
   </body>
 </html>
