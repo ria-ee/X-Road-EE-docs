@@ -12,7 +12,7 @@
         padding: 45px;
       }
     </style>
-    <title>X-Road: 7.7.0
+    <title>X-Road: 7.8.0
 </title>
   </head>
   <body>
@@ -20,7 +20,7 @@
 <div class="markdown-heading"><h1 class="heading-element">X-Road: Protocol for Management Services 
 </h1><a id="x-road-protocol-for-management-services-" class="anchor" aria-label="Permalink: X-Road: Protocol for Management Services " href="#x-road-protocol-for-management-services-"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>Technical Specification</strong></p>
-<p>Version: 1.19<br>
+<p>Version: 1.20<br>
 Doc. ID: PR-MSERV</p>
 <table>
 <thead>
@@ -195,6 +195,12 @@ Doc. ID: PR-MSERV</p>
 <td>Add <em>maintenanceModeEnable</em> and <em>maintenanceModeDisable</em> management services</td>
 <td>Ovidijus Narkevičius</td>
 </tr>
+<tr>
+<td>29.04.2025</td>
+<td>1.20</td>
+<td>Update Introduction section</td>
+<td>Mohamed Elbeltagy</td>
+</tr>
 </tbody>
 </table>
 <div class="markdown-heading"><h2 class="heading-element">Table of Contents 
@@ -270,6 +276,15 @@ Doc. ID: PR-MSERV</p>
 </li>
 <li>
 <p><em>clientEnable</em> - enabling disabled Security Server's client subsystem.</p>
+</li>
+<li>
+<p><em>clientRename</em> - renaming Security Server's client subsystem.</p>
+</li>
+<li>
+<p><em>maintenanceModeEnable</em> - enabling Security Server's maintenance mode.</p>
+</li>
+<li>
+<p><em>maintenanceModeDisable</em> - disabling Security Server's maintenance mode.</p>
 </li>
 </ul>
 <p>The management services are implemented as standard X-Road services (see [<a href="#Ref_PR-MESS">PR-MESS</a>] for detailed description of the protocol) that are offered by the X-Road governing authority. The exception is the <em>authCertReg</em> service that, for technical reasons, is implemented as HTTPS POST (see below for details).</p>

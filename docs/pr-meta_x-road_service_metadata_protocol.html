@@ -12,7 +12,7 @@
         padding: 45px;
       }
     </style>
-    <title>X-Road: 7.7.0
+    <title>X-Road: 7.8.0
 </title>
   </head>
   <body>
@@ -20,7 +20,7 @@
 <div class="markdown-heading"><h1 class="heading-element">X-Road: Service Metadata Protocol 
 </h1><a id="x-road-service-metadata-protocol-" class="anchor" aria-label="Permalink: X-Road: Service Metadata Protocol " href="#x-road-service-metadata-protocol-"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>Technical Specification</strong></p>
-<p>Version: 2.15<br>
+<p>Version: 2.16<br>
 Doc. ID: PR-META</p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">Version history 
@@ -155,6 +155,12 @@ Doc. ID: PR-META</p>
 <td>Update JSON Schema for <em>listClients</em> and XML and JSON examples</td>
 <td>Ovidijus Narkevičius</td>
 </tr>
+<tr>
+<td>22.08.2025</td>
+<td>2.16</td>
+<td>Update Security Server default HTTP and HTTPS ports</td>
+<td>Petteri Kivimäki</td>
+</tr>
 </tbody>
 </table>
 <div class="markdown-heading"><h2 class="heading-element">Table of Contents 
@@ -245,14 +251,14 @@ Doc. ID: PR-META</p>
 <a id="Ref_TERMS"></a>[TA-TERMS] X-Road Terms and Abbreviations. Document ID: <a href="terms_x-road_docs.html">TA-TERMS</a>.</li>
 </ol>
 <div class="markdown-heading"><h2 class="heading-element">2 Retrieving List of Service Providers</h2><a id="2-retrieving-list-of-service-providers" class="anchor" aria-label="Permalink: 2 Retrieving List of Service Providers" href="#2-retrieving-list-of-service-providers"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>Security server clients can retrieve a list of all the potential service providers (i.e., members and subsystems) of an X-Road instance. This can be accomplished by making a HTTP GET request to the security server. The request URL is <code>http://SECURITYSERVER/listClients</code> or <code>https://SECURITYSERVER/listClients</code> depending on whether the HTTPS protocol is configured for interaction between the security server and the information system. When making the request, the address <code>SECURITYSERVER</code> must be replaced with the actual address of the security server.
+<p>Security server clients can retrieve a list of all the potential service providers (i.e., members and subsystems) of an X-Road instance. This can be accomplished by making a HTTP GET request to the Security Server. The request URL is <code>http://SECURITYSERVER:8080/listClients</code> or <code>https://SECURITYSERVER:8443/listClients</code> depending on whether the HTTPS protocol is configured for interaction between the Security Server and the information system. When making the request, the address <code>SECURITYSERVER</code> must be replaced with the actual address of the Security Server. The default port for the HTTP protocol is 8080 and for the HTTPS protocol is 8443.
 In addition, it is possible to retrieve a list of clients in other, federated X-Road instances by adding the following HTTP parameter:</p>
 <ul>
 <li>
 <code>xRoadInstance</code> – code that identifies the X-Road instance.</li>
 </ul>
-<p>Thus, in order to retrieve a list of clients defined in the X-Road instance <code>AA</code>, the request URL is <code>http://SECURITYSERVER/listClients?xRoadInstance=AA</code>.</p>
-<p>It is possible to control the response content type using HTTP <code>Accept</code> header. If the header value is <code>application/json</code>, the security server must produce an application/json response, as defined in Annex B, <a href="#openapi-definition">OpenAPI definition</a>. Otherwise, security server MUST respond with content-type <code>text/xml</code> and the response MUST contain the <code>clientList</code> XML element defined in Annex <a href="#annex-a-xml-schema-for-messages">A</a>).</p>
+<p>Thus, in order to retrieve a list of clients defined in the X-Road instance <code>AA</code>, the request URL is <code>http://SECURITYSERVER:8080/listClients?xRoadInstance=AA</code>.</p>
+<p>It is possible to control the response content type using HTTP <code>Accept</code> header. If the header value is <code>application/json</code>, the Security Server must produce an application/json response, as defined in Annex B, <a href="#openapi-definition">OpenAPI definition</a>. Otherwise, Security Server MUST respond with content-type <code>text/xml</code> and the response MUST contain the <code>clientList</code> XML element defined in Annex <a href="#annex-a-xml-schema-for-messages">A</a>).</p>
 <p>Annex <a href="#c1-listclients-response">C.1</a> contains an example XML and JSON response messages</p>
 <p>The X-Road client identifier has a hierarchical structure consisting of X-Road instance, member class, member and (optionally) subsystem codes. See specification [<a href="#Ref_PR-MESS">PR-MESS</a>] for explanation and specification of identifiers.</p>
 <div class="markdown-heading"><h2 class="heading-element">3 Retrieving List of Services</h2><a id="3-retrieving-list-of-services" class="anchor" aria-label="Permalink: 3 Retrieving List of Services" href="#3-retrieving-list-of-services"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
@@ -288,12 +294,12 @@ Annexes <a href="#c4-listmethods-response">C.4</a> and <a href="#c6-allowedmetho
 </ul>
 <p>The service SOAP header MUST contain the identifier of the target service provider and the value of the serviceCode element MUST be <code>getWsdl</code>.
 The body of the request MUST contain an appropriately named XML element (<code>getWsdl</code>) which contains one or two child elements (<code>serviceCode</code>, <code>serviceVersion</code>) that define the service which service description is returned. The <code>serviceCode</code> element is mandatory and the <code>serviceVersion</code> element is optional.</p>
-<p>An example of a <code>getWsdl</code> request to the client security server is documented in annex <a href="#c7-getwsdl-request">C.7</a> and the corresponding response in annexes <a href="#c8-getwsdl-response">C.8</a> and <a href="#c9-getwsdl-response-attachment">C.9</a>.</p>
+<p>An example of a <code>getWsdl</code> request to the client Security Server is documented in annex <a href="#c7-getwsdl-request">C.7</a> and the corresponding response in annexes <a href="#c8-getwsdl-response">C.8</a> and <a href="#c9-getwsdl-response-attachment">C.9</a>.</p>
 <div class="markdown-heading"><h4 class="heading-element">WSDL-information modifications</h4><a id="wsdl-information-modifications" class="anchor" aria-label="Permalink: WSDL-information modifications" href="#wsdl-information-modifications"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Security server MUST replace endpoint location with value <code>http://example.org/xroad-endpoint</code>.
 This is done for security reasons, to hide the endpoint addresses which often point
 to information systems which should be hidden from the clients, and be accessed only through
-the provider security server.</p>
+the provider Security Server.</p>
 <p>For example service definition</p>
 <div class="highlight highlight-text-xml"><pre>    &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">service</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>testService<span class="pl-pds">"</span></span>&gt;
         &lt;<span class="pl-ent">wsdl</span><span class="pl-ent">:</span><span class="pl-ent">port</span> <span class="pl-e">binding</span>=<span class="pl-s"><span class="pl-pds">"</span>tns:testServiceBinding<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>testServicePort<span class="pl-pds">"</span></span>&gt;
@@ -616,7 +622,7 @@ the provider security server.</p>
 <div class="markdown-heading"><h2 class="heading-element">Annex C Example Messages</h2><a id="annex-c-example-messages" class="anchor" aria-label="Permalink: Annex C Example Messages" href="#annex-c-example-messages"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <div class="markdown-heading"><h3 class="heading-element">C.1 listClients Response</h3><a id="c1-listclients-response" class="anchor" aria-label="Permalink: C.1 listClients Response" href="#c1-listclients-response"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <div class="markdown-heading"><h4 class="heading-element">XML Response</h4><a id="xml-response" class="anchor" aria-label="Permalink: XML Response" href="#xml-response"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><code>curl http://SECURITYSERVER/listClients</code></p>
+<p><code>curl http://SECURITYSERVER:8080/listClients</code></p>
 <div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span><span class="pl-e"> standalone</span>=<span class="pl-s"><span class="pl-pds">"</span>yes<span class="pl-pds">"</span></span>?&gt;
 &lt;<span class="pl-ent">ns2</span><span class="pl-ent">:</span><span class="pl-ent">clientList</span>
         <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">ns1</span>=<span class="pl-s"><span class="pl-pds">"</span>http://x-road.eu/xsd/identifiers<span class="pl-pds">"</span></span>
@@ -657,7 +663,7 @@ the provider security server.</p>
     &lt;/<span class="pl-ent">ns2</span><span class="pl-ent">:</span><span class="pl-ent">member</span>&gt;
 &lt;/<span class="pl-ent">ns2</span><span class="pl-ent">:</span><span class="pl-ent">clientList</span>&gt;</pre></div>
 <div class="markdown-heading"><h4 class="heading-element">JSON Response</h4><a id="json-response" class="anchor" aria-label="Permalink: JSON Response" href="#json-response"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><code>curl -H "Accept: application/json" http://SECURITYSERVER/listClients</code></p>
+<p><code>curl -H "Accept: application/json" http://SECURITYSERVER:8080/listClients</code></p>
 <div class="highlight highlight-source-json"><pre>{
   <span class="pl-ent">"member"</span>: [
     {
