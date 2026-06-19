@@ -196,8 +196,7 @@ The software can be installed both on physical and virtualized hardware (of the 
  1.2    | https://x-tee.ee/packages/live/xroad/xroad.pub                                                                             | The repository key
  1.3    |                                                                                                                      | Account name in the user interface
  1.4    | **Inbound ports from external network** | Ports for inbound connections from the external network to the Security Server
-                                                                                                                             |
-| &nbsp;  | TCP 80                                                                                                               | Incoming ACME challenge requests from ACME servers                                                                                                                                                                                     
+ &nbsp; | TCP 80                                                                                                               | Incoming ACME challenge requests from ACME servers 
  &nbsp; | TCP 5500                                                                                                             | Message exchange between Security Servers. Recommended to use IP filtering (**whitelisting only [RIA IP's](#231-ria-ips-for-whitelisting) and partners**).
  &nbsp; | TCP 5577                                                                                                             | Querying of OCSP responses between Security Servers. Recommended to use IP filtering (**whitelisting only [RIA IP's](#231-ria-ips-for-whitelisting) and partners**)
  1.5    | **Outbound ports to external network**  | Ports for outbound connections from the Security Server to the external network
@@ -206,9 +205,8 @@ The software can be installed both on physical and virtualized hardware (of the 
  &nbsp; | TCP 4001                                | Communication with the Central Server
  &nbsp; | TCP 80                                  | Downloading global configuration from the Central Server
  &nbsp; | TCP 80,443                              | Most common OCSP and time-stamping services
-                                                                                                                                               |
-| &nbsp;  | TCP 80,443                                                                                                           | Communication with ACME servers                                                                                                                                                                                                                                                           |
-| &nbsp;  | TCP 587                                                                                                              | Communication with mail servers. The mail server may be located in internal or external network                                                                                                                         
+ &nbsp; | TCP 80,443                                                                                                           | Communication with ACME servers 
+ &nbsp; | TCP 587                                                                                                              | Communication with mail servers. The mail server may be located in internal or external network   
  1.6    | **Inbound ports from internal network** | Ports for inbound connections from the internal network to the Security Server
  &nbsp; | TCP 4000                                | User interface and management REST API (local network). **Must not be accessible from the internet!**
  &nbsp; | TCP 80, 443                             | Information system access points (in the local network). **Must not be accessible from the external network without strong authentication. If open to the external network, IP filtering is strongly recommended.**
