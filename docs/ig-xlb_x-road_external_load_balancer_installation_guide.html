@@ -12,13 +12,13 @@
         padding: 45px;
       }
     </style>
-    <title>X-Road: 7.8.0
+    <title>X-Road: 7.8.3
 </title>
   </head>
   <body>
     <article class="markdown-body">
 <div class="markdown-heading"><h1 class="heading-element">X-Road: External Load Balancer Installation Guide</h1><a id="x-road-external-load-balancer-installation-guide" class="anchor" aria-label="Permalink: X-Road: External Load Balancer Installation Guide" href="#x-road-external-load-balancer-installation-guide"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>Version: 1.29
+<p>Version: 1.30
 Doc. ID: IG-XLB</p>
 <table>
 <thead>
@@ -210,6 +210,12 @@ Doc. ID: IG-XLB</p>
 <td>1.29</td>
 <td>Fix a broken link</td>
 <td>Petteri Kivimäki</td>
+</tr>
+<tr>
+<td>22.05.2026</td>
+<td>1.30</td>
+<td>Added ACME HTTP challenge port clarification for secondaries</td>
+<td>Mikk-Erik Bachmann</td>
 </tr>
 </tbody>
 </table>
@@ -675,6 +681,9 @@ To address this issue, you should restart secondary nodes' <code>xroad-proxy-ui-
 </li>
 <li>
 <p>It is possible to use the autologin-package with secondary nodes to enable automatic PIN-code insertion, however the autologin-package default implementation stores PIN-codes in plain text and should not be used in production environments. Instructions on how to configure the autologin-package to use a more secure custom PIN-code storing implementation can be found in <a href="ug-autologin_x-road_v6_autologin_user_guide.html">autologin documentation</a></p>
+</li>
+<li>
+<p>Note about ACME: using ACME to order or renew certificates is not possible on secondaries, so the ACME HTTP-01 challenge port (typically TCP 80) does not need to be reachable here. Only the primary node responds to ACME challenges.</p>
 </li>
 </ol>
 <p>The configuration is now complete. If you do not want to set up the health check service, continue to <a href="#6-verifying-the-setup">chapter 6</a>
