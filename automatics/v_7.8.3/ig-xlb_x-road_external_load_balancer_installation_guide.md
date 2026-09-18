@@ -1,6 +1,6 @@
 # X-Road: External Load Balancer Installation Guide
 
-Version: 1.28
+Version: 1.30
 Doc. ID: IG-XLB
 
 
@@ -35,6 +35,8 @@ Doc. ID: IG-XLB
 | 17.03.2025 | 1.26    | Syntax and styling                                                                                                       | Pauline Dimmek              |
 | 02.04.2025 | 1.27    | Added Proxy memory health check paragraph                                                                                | Mikk-Erik Bachmann          |
 | 06.05.2025 | 1.28    | Added more details about the soft token status check result caching                                                      | Petteri Kivimäki            |
+| 01.08.2025 | 1.29    | Fix a broken link                                                                                                        | Petteri Kivimäki            |
+| 22.05.2026 | 1.30    | Added ACME HTTP challenge port clarification for secondaries                                                             | Mikk-Erik Bachmann          |
 
 ## Table of Contents
 
@@ -360,6 +362,8 @@ In order to properly set up the data replication, the secondary nodes must be ab
 
 11. It is possible to use the autologin-package with secondary nodes to enable automatic PIN-code insertion, however the autologin-package default implementation stores PIN-codes in plain text and should not be used in production environments. Instructions on how to configure the autologin-package to use a more secure custom PIN-code storing implementation can be found in [autologin documentation](ug-autologin_x-road_v6_autologin_user_guide.md)
 
+12. Note about ACME: using ACME to order or renew certificates is not possible on secondaries, so the ACME HTTP-01 challenge port (typically TCP 80) does not need to be reachable here. Only the primary node responds to ACME challenges.
+
 The configuration is now complete. If you do not want to set up the health check service, continue to [chapter 6](#6-verifying-the-setup)
  to verify the setup.
 
@@ -463,7 +467,7 @@ Continue to [chapter 6](#6-verifying-the-setup) to verify the setup.
 
 #### 3.4.3 Proxy memory health check
 
-Besides the health checks mentioned above, Proxy can also be configured to check its own memory usage. To turn this memory check on `memory-usage-threshold` System Property needs to be set to a numerical value which represents a percentage of the maximum memory being used over which the health check starts failing. For example if this is set to 80, then the health check will fail if more than 80% of the maximum is being used by the Proxy. The maximum memory is configured by the java `-Xmx` flag. For more info about configuring the Security Server Proxy's memory allocation see [Security Server User Guide](../Manuals/ug-ss_x-road_6_security_server_user_guide.md#211-updating-proxy-services-memory-allocation-command-line-arguments).
+Besides the health checks mentioned above, Proxy can also be configured to check its own memory usage. To turn this memory check on `memory-usage-threshold` System Property needs to be set to a numerical value which represents a percentage of the maximum memory being used over which the health check starts failing. For example if this is set to 80, then the health check will fail if more than 80% of the maximum is being used by the Proxy. The maximum memory is configured by the java `-Xmx` flag. For more info about configuring the Security Server Proxy's memory allocation see [Security Server User Guide](../ug-ss_x-road_6_security_server_user_guide.md#211-updating-proxy-services-memory-allocation-command-line-arguments).
 
 ## 4. Database replication setup
 
