@@ -12,13 +12,13 @@
         padding: 45px;
       }
     </style>
-    <title>X-Road: 7.8.0
+    <title>X-Road: 7.8.3
 </title>
   </head>
   <body>
     <article class="markdown-body">
 <div class="markdown-heading"><h1 class="heading-element">X-Road: System Parameters User Guide</h1><a id="x-road-system-parameters-user-guide" class="anchor" aria-label="Permalink: X-Road: System Parameters User Guide" href="#x-road-system-parameters-user-guide"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>Version: 2.102
+<p>Version: 2.103
 Doc. ID: UG-SYSPAR</p>
 <table>
 <thead>
@@ -692,6 +692,12 @@ Doc. ID: UG-SYSPAR</p>
 <td>22.12.2025</td>
 <td>2.102</td>
 <td>Added timestamping and OCSP prioritization strategy parameters</td>
+<td>Mikk-Erik Bachmann</td>
+</tr>
+<tr>
+<td>24.03.2026</td>
+<td>2.103</td>
+<td>Added explanation of greedy refill for rate-limiting</td>
 <td>Mikk-Erik Bachmann</td>
 </tr>
 </tbody>
@@ -1878,14 +1884,19 @@ the message log.</p>
 <td>Maximum size of Management REST API requests for file uploads</td>
 </tr>
 <tr>
+<td>rate-limit-enabled</td>
+<td>true</td>
+<td>Controls whether the built-in rate limiting is enabled.</td>
+</tr>
+<tr>
 <td>rate-limit-requests-per-second</td>
 <td>20</td>
-<td>Management REST API request rate limit per second. Rate limits apply per each requesting IP.</td>
+<td>Management REST API request rate limit per second. Rate limits apply per each requesting IP. To disable this feature individually, set this value to -1. <br> Greedy refill strategy is used. (See description of <code>rate-limit-requests-per-minute</code> for more information.)</td>
 </tr>
 <tr>
 <td>rate-limit-requests-per-minute</td>
 <td>600</td>
-<td>Management REST API request rate limit per minute. Rate limits apply per each requesting IP.</td>
+<td>Management REST API request rate limit per minute. Rate limits apply per each requesting IP. To disable this feature individually, set this value to -1. <br> Greedy refill strategy is used. This means new requests become available continuously throughout the given timeperiod instead of once per period. This helps smooth out the traffic and avoid spikes after interval replenishment. <br> <strong>For example</strong>: <br> When rate-limit per minute is 600, then <br> <code>600 / 60 = 10</code> <br> new requests are made available each second. (It actually converts the rate to "per-millisecond" and therefore affects per-second rate-limits as well, but are less noticable there.) If we would make 20 requests per second for 90 seconds in a row, we would make <br> <code>20 * 90 = 1800</code> <br> requests in total. In 90 seconds <br> <code>10 * 90 = 900</code> <br> requests are added to the bucket of requests. Lets presume at the start of the test the bucket is full (meaning there were no requests in th past 1 minute). Then we would have <br> <code>600 + 900 = 1500</code> <br> requests available in total. And therefore, out of them <br> <code>1800 - 1500 = 300</code><br> requests will be rate limited. (The actual number might differ a few reuquest more or less, because of the way the tests are run, network latency etc.)</td>
 </tr>
 <tr>
 <td>rate-limit-cache-size</td>
@@ -2246,12 +2257,12 @@ with some additional limitations on configurability (see details in proxy chapte
 <tr>
 <td>rate-limit-requests-per-second</td>
 <td>20</td>
-<td>Controls how many requests from an IP address are allowed per second. To disable this feature, set this value to -1.</td>
+<td>Controls how many requests from an IP address are allowed per second. To disable this feature individually, set this value to -1. Greedy refill strategy is used. (See description of <code>rate-limit-requests-per-minute</code> for more information.)</td>
 </tr>
 <tr>
 <td>rate-limit-requests-per-minute</td>
 <td>600</td>
-<td>Controls how many requests from an IP address are allowed per minute. To disable this feature, set this value to -1.</td>
+<td>Controls how many requests from an IP address are allowed per minute. To disable this feature individually, set this value to -1. <br> Greedy refill strategy is used. This means new requests become available continuously throughout the given timeperiod instead of once per period. This helps smooth out the traffic and avoid spikes after interval replenishment. <br> <strong>For example</strong>: <br> When rate-limit per minute is 600, then <br> <code>600 / 60 = 10</code> <br> new requests are made available each second. (It actually converts the rate to "per-millisecond" and therefore affects per-second rate-limits as well, but are less noticable there.) If we would make 20 requests per second for 90 seconds in a row, we would make <br> <code>20 * 90 = 1800</code> <br> requests in total. In 90 seconds <br> <code>10 * 90 = 900</code> <br> requests are added to the bucket of requests. Lets presume at the start of the test the bucket is full (meaning there were no requests in th past 1 minute). Then we would have <br> <code>600 + 900 = 1500</code> <br> requests available in total. And therefore, out of them <br> <code>1800 - 1500 = 300</code><br> requests will be rate limited. (The actual number might differ a few reuquest more or less, because of the way the tests are run, network latency etc.)</td>
 </tr>
 <tr>
 <td>rate-limit-expire-after-access-minutes</td>
@@ -2384,12 +2395,12 @@ set to <code>false</code> in <code>local.ini</code> during upgrade process if ve
 <tr>
 <td>rate-limit-requests-per-second</td>
 <td>-1</td>
-<td>Controls how many requests from an IP address are allowed per second. To disable this feature, set this value to -1.</td>
+<td>Controls how many requests from an IP address are allowed per second. To disable this feature individually, set this value to -1. Greedy refill strategy is used. (See description of <code>rate-limit-requests-per-minute</code> for more information.)</td>
 </tr>
 <tr>
 <td>rate-limit-requests-per-minute</td>
 <td>10</td>
-<td>Controls how many requests from an IP address are allowed per minute. To disable this feature, set this value to -1.</td>
+<td>Controls how many requests from an IP address are allowed per minute. To disable this feature individually, set this value to -1. <br> Greedy refill strategy is used. This means new requests become available continuously throughout the given timeperiod instead of once per period. This helps smooth out the traffic and avoid spikes after interval replenishment. <br> <strong>For example</strong>: <br> When rate-limit per minute is 600, then <br> <code>600 / 60 = 10</code> <br> new requests are made available each second. (It actually converts the rate to "per-millisecond" and therefore affects per-second rate-limits as well, but are less noticable there.) If we would make 20 requests per second for 90 seconds in a row, we would make <br> <code>20 * 90 = 1800</code> <br> requests in total. In 90 seconds <br> <code>10 * 90 = 900</code> <br> requests are added to the bucket of requests. Lets presume at the start of the test the bucket is full (meaning there were no requests in th past 1 minute). Then we would have <br> <code>600 + 900 = 1500</code> <br> requests available in total. And therefore, out of them <br> <code>1800 - 1500 = 300</code><br> requests will be rate limited. (The actual number might differ a few reuquest more or less, because of the way the tests are run, network latency etc.)</td>
 </tr>
 <tr>
 <td>rate-limit-cache-size</td>
@@ -2443,12 +2454,12 @@ set to <code>false</code> in <code>local.ini</code> during upgrade process if ve
 <tr>
 <td>rate-limit-requests-per-second</td>
 <td>-1</td>
-<td>Controls how many requests from an IP address are allowed per second. To disable this feature, set this value to -1.</td>
+<td>Controls how many requests from an IP address are allowed per second. To disable this feature individually, set this value to -1. Greedy refill strategy is used. (See description of <code>rate-limit-requests-per-minute</code> for more information.)</td>
 </tr>
 <tr>
 <td>rate-limit-requests-per-minute</td>
 <td>10</td>
-<td>Controls how many requests from an IP address are allowed per minute. To disable this feature, set this value to -1.</td>
+<td>Controls how many requests from an IP address are allowed per minute. To disable this feature individually, set this value to -1. <br> Greedy refill strategy is used. This means new requests become available continuously throughout the given timeperiod instead of once per period. This helps smooth out the traffic and avoid spikes after interval replenishment. <br> <strong>For example</strong>: <br> When rate-limit per minute is 600, then <br> <code>600 / 60 = 10</code> <br> new requests are made available each second. (It actually converts the rate to "per-millisecond" and therefore affects per-second rate-limits as well, but are less noticable there.) If we would make 20 requests per second for 90 seconds in a row, we would make <br> <code>20 * 90 = 1800</code> <br> requests in total. In 90 seconds <br> <code>10 * 90 = 900</code> <br> requests are added to the bucket of requests. Lets presume at the start of the test the bucket is full (meaning there were no requests in th past 1 minute). Then we would have <br> <code>600 + 900 = 1500</code> <br> requests available in total. And therefore, out of them <br> <code>1800 - 1500 = 300</code><br> requests will be rate limited. (The actual number might differ a few reuquest more or less, because of the way the tests are run, network latency etc.)</td>
 </tr>
 <tr>
 <td>rate-limit-cache-size</td>

@@ -12,7 +12,7 @@
         padding: 45px;
       }
     </style>
-    <title>X-Road: 7.8.0
+    <title>X-Road: 7.8.3
 </title>
   </head>
   <body>
@@ -20,7 +20,7 @@
 <div class="markdown-heading"><h1 class="heading-element">SECURITY SERVER USER GUIDE 
 </h1><a id="security-server-user-guide-" class="anchor" aria-label="Permalink: SECURITY SERVER USER GUIDE " href="#security-server-user-guide-"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>X-ROAD 7</strong></p>
-<p>Version: 2.105<br>
+<p>Version: 2.106<br>
 Doc. ID: UG-SS</p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">Version history 
@@ -791,6 +791,12 @@ Doc. ID: UG-SS</p>
 <td>Added information on how to delete a subsystem from the Security Server</td>
 <td>Raido Kaju</td>
 </tr>
+<tr>
+<td>22.05.2026</td>
+<td>2.106</td>
+<td>Added ACME automatic certificate renewal clarification in a clustered setup</td>
+<td>Mikk-Erik Bachmann</td>
+</tr>
 </tbody>
 </table>
 <div class="markdown-heading"><h2 class="heading-element">Table of Contents 
@@ -1320,10 +1326,9 @@ adduser username xroad-securityserver-observer</pre></div>
 <p><strong>Modify NSS Configuration</strong>:</p>
 <ul>
 <li>Update the <code>/etc/nsswitch.conf</code> file to include SSSD as a source for user and group information:
-<pre lang="conf"><code>passwd:         sss files
+<div class="highlight highlight-source-ini"><pre>passwd:         sss files
 group:          sss files
-shadow:         sss files
-</code></pre>
+shadow:         sss files</pre></div>
 </li>
 </ul>
 <p>Note: This step is typically automated by the installation process.</p>
@@ -4353,6 +4358,7 @@ export PGSSLROOTCERT="/etc/xroad/ssl/root.crt"
 <p><strong>Automatic certificate renewal</strong></p>
 <p>Authentication and sign certificates issued by a CA that supports ACME can be automatically renewed. Automatic renewal is enabled by default, but the Security Server administrator can turn it off.</p>
 <p>The Security Server runs an automatic renewal job periodically and tries to renew certificates ready for renewal. If the server supports the ACME ARI extension ([<a href="#Ref_ACME-ARI">ACME-ARI</a>]), the time when a certificate is ready for renewal is determined by the ACME server. Otherwise, the time is defined by the <code>proxy-ui-api.acme-renewal-time-before-expiration-date</code> system property. The default value of the property is 14 days, which means that the Security Server starts trying to renew a certificate 14 days before it expires. The renewal job configuration can be managed by the <code>proxy-ui-api.acme-renewal-*</code> configuration properties.</p>
+<p>In a clustered Security Server setup, the automatic certificate renewal job runs only on the primary node. Secondary nodes skip the job to avoid parallel renewal attempts. Renewed certificates and keys reach the secondaries through the regular cluster state replication.</p>
 <p>The renewal status of ACME supported certificates can be seen on the Keys and certificates page:</p>
 <ul>
 <li>
